@@ -1,0 +1,28 @@
+@prefix : <https://example.org/library#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://example.org/library> a owl:Ontology ;
+    rdfs:label "图书馆示例本体"@zh ;
+    owl:versionInfo "1.0" .
+
+:Book a owl:Class ; rdfs:label "图书"@zh .
+:Person a owl:Class ; rdfs:label "人员"@zh .
+:Member a owl:Class ; rdfs:subClassOf :Person ; rdfs:label "读者"@zh .
+
+:borrowedBy a owl:ObjectProperty ;
+    rdfs:label "借阅者"@zh ;
+    rdfs:domain :Book ; rdfs:range :Person .
+
+:pageCount a owl:DatatypeProperty ;
+    rdfs:label "页数"@zh ;
+    rdfs:domain :Book ; rdfs:range xsd:integer .
+
+:displayName a owl:DatatypeProperty ;
+    rdfs:label "显示名称"@zh ;
+    rdfs:domain :Person ; rdfs:range rdf:langString .
+
+:reader a :Member ; :displayName "读者甲"@zh .
+:book a :Book ; :borrowedBy :reader ; :pageCount "120"^^xsd:int .

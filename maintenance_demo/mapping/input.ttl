@@ -1,0 +1,21 @@
+@prefix : <https://example.org/maintenance#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# 输入只描述任务条件和资源事实，不预填所需能力或候选关系。
+:inspectRecorded a :PumpTask ; rdfs:label "检测泵站并留档"@zh ;
+    :taskKind "inspect" ; :assetKind "pump" ; :requiresRecord true ; :maxWaitMinutes 5.0 .
+:inspectBasic a :PumpTask ; rdfs:label "快速检测泵站"@zh ;
+    :taskKind "inspect" ; :assetKind "pump" ; :requiresRecord false ; :maxWaitMinutes 1.0 .
+:repairPump a :PumpTask ; rdfs:label "维修泵站"@zh ;
+    :taskKind "repair" ; :assetKind "pump" ; :requiresRecord false ; :maxWaitMinutes 5.0 .
+
+:basicSensor a :Sensor ; rdfs:label "基础检测仪"@zh ;
+    :providesCapability :detect ; :available true ; :responseMinutes 0.5 .
+:recordingSensor a :Sensor ; rdfs:label "带记录功能的检测仪"@zh ;
+    :providesCapability :detect, :record ; :available true ; :responseMinutes 2.0 .
+:serviceTeam a :Resource ; rdfs:label "维修服务组"@zh ;
+    :providesCapability :repair ; :available true ; :responseMinutes 3.0 .
+:offlineSensor a :Sensor ; rdfs:label "停用检测仪"@zh ;
+    :providesCapability :detect, :record ; :available false ; :responseMinutes 0.1 .
+:slowSensor a :Sensor ; rdfs:label "响应较慢的检测仪"@zh ;
+    :providesCapability :detect, :record ; :available true ; :responseMinutes 9.0 .

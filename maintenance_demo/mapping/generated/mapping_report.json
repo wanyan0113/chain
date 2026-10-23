@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "scope": "维修两级映射；能力按同一 IRI 匹配，单资源全覆盖；未分配、排程或执行 OWL 一致性推理",
+  "rule_sha256": {
+    "task_rules.rq": "811bb4ae9eb57436e773be5b5e30c70b0771c3e1a0bec8cbe627d598e7ae9c34",
+    "resource_rules.rq": "f2a9adfcfa616ecccafa9fa1c0ce4ba6e40faba7ce79de943547c5728888b4db"
+  },
+  "summary": {
+    "tasks": 3,
+    "resources": 5,
+    "required_capability_relations": 4,
+    "candidate_relations": 3,
+    "unmatched_tasks": 0
+  },
+  "tasks": [
+    {
+      "task": "https://example.org/maintenance#inspectBasic",
+      "label": "快速检测泵站",
+      "status": "matched",
+      "task_conditions": {
+        "asset_kind": "pump",
+        "task_kind": "inspect",
+        "requires_record": false,
+        "max_wait_minutes": "1.0"
+      },
+      "matched_task_rules": [
+        "https://example.org/maintenance#InspectPumpRule"
+      ],
+      "required_capabilities": [
+        "https://example.org/maintenance#detect"
+      ],
+      "candidates": [
+        {
+          "resource": "https://example.org/maintenance#basicSensor",
+          "rule": "https://example.org/maintenance#AllCapabilitiesAvailableRule",
+          "covered_capabilities": [
+            "https://example.org/maintenance#detect"
+          ],
+          "response_minutes": "0.5"
+        }
+      ],
+      "rejected_resources": [
+        {
+          "resource": "https://example.org/maintenance#offlineSensor",
+          "reasons": [
+            "unavailable"
+          ],
+          "missing_capabilities": []
+        },
+        {
+          "resource": "https://example.org/maintenance#recordingSensor",
+          "reasons": [
+            "response_exceeds_limit"
+          ],
+          "missing_capabilities": []
+        },
+        {
+          "resource": "https://example.org/maintenance#serviceTeam",
+          "reasons": [
+            "missing_capabilities",
+            "response_exceeds_limit"
+          ],
+          "missing_capabilities": [
+            "https://example.org/maintenance#detect"
+          ]
+        },
+        {
+          "resource": "https://example.org/maintenance#slowSensor",
+          "reasons": [
+            "response_exceeds_limit"
+          ],
+          "missing_capabilities": []
+        }
+      ]
+    },
+    {
+      "task": "https://example.org/maintenance#inspectRecorded",
+      "label": "检测泵站并留档",
+      "status": "matched",
+      "task_conditions": {
+        "asset_kind": "pump",
+        "task_kind": "inspect",
+        "requires_record": true,
+        "max_wait_minutes": "5.0"
+      },
+      "matched_task_rules": [
+        "https://example.org/maintenance#InspectPumpRule",
+        "https://example.org/maintenance#RecordPumpRule"
+      ],
+      "required_capabilities": [
+        "https://example.org/maintenance#detect",
+        "https://example.org/maintenance#record"
+      ],
+      "candidates": [
+        {
+          "resource": "https://example.org/maintenance#recordingSensor",
+          "rule": "https://example.org/maintenance#AllCapabilitiesAvailableRule",
+          "covered_capabilities": [
+            "https://example.org/maintenance#detect",
+            "https://example.org/maintenance#record"
+          ],
+          "response_minutes": "2.0"
+        }
+      ],
+      "rejected_resources": [
+        {
+          "resource": "https://example.org/maintenance#basicSensor",
+          "reasons": [
+            "missing_capabilities"
+          ],
+          "missing_capabilities": [
+            "https://example.org/maintenance#record"
+          ]
+        },
+        {
+          "resource": "https://example.org/maintenance#offlineSensor",
+          "reasons": [
+            "unavailable"
+          ],
+          "missing_capabilities": []
+        },
+        {
+          "resource": "https://example.org/maintenance#serviceTeam",
+          "reasons": [
+            "missing_capabilities"
+          ],
+          "missing_capabilities": [
+            "https://example.org/maintenance#detect",
+            "https://example.org/maintenance#record"
+          ]
+        },
+        {
+          "resource": "https://example.org/maintenance#slowSensor",
+          "reasons": [
+            "response_exceeds_limit"
+          ],
+          "missing_capabilities": []
+        }
+      ]
+    },
+    {
+      "task": "https://example.org/maintenance#repairPump",
+      "label": "维修泵站",
+      "status": "matched",
+      "task_conditions": {
+        "asset_kind": "pump",
+        "task_kind": "repair",
+        "requires_record": false,
+        "max_wait_minutes": "5.0"
+      },
+      "matched_task_rules": [
+        "https://example.org/maintenance#RepairPumpRule"
+      ],
+      "required_capabilities": [
+        "https://example.org/maintenance#repair"
+      ],
+      "candidates": [
+        {
+          "resource": "https://example.org/maintenance#serviceTeam",
+          "rule": "https://example.org/maintenance#AllCapabilitiesAvailableRule",
+          "covered_capabilities": [
+            "https://example.org/maintenance#repair"
+          ],
+          "response_minutes": "3.0"
+        }
+      ],
+      "rejected_resources": [
+        {
+          "resource": "https://example.org/maintenance#basicSensor",
+          "reasons": [
+            "missing_capabilities"
+          ],
+          "missing_capabilities": [
+            "https://example.org/maintenance#repair"
+          ]
+        },
+        {
+          "resource": "https://example.org/maintenance#offlineSensor",
+          "reasons": [
+            "missing_capabilities",
+            "unavailable"
+          ],
+          "missing_capabilities": [
+            "https://example.org/maintenance#repair"
+          ]
+        },
+        {
+          "resource": "https://example.org/maintenance#recordingSensor",
+          "reasons": [
+            "missing_capabilities"
+          ],
+          "missing_capabilities": [
+            "https://example.org/maintenance#repair"
+          ]
+        },
+        {
+          "resource": "https://example.org/maintenance#slowSensor",
+          "reasons": [
+            "missing_capabilities",
+            "response_exceeds_limit"
+          ],
+          "missing_capabilities": [
+            "https://example.org/maintenance#repair"
+          ]
+        }
+      ]
+    }
+  ],
+  "input": "C:\\Users\\Lenovo\\Desktop\\杀伤链\\maintenance_demo\\mapping\\input.ttl"
+}

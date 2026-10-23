@@ -1,0 +1,7 @@
+@prefix ns1: <https://example.org/maintenance#> .
+
+ns1:inspectBasic ns1:candidateResource ns1:basicSensor .
+
+ns1:inspectRecorded ns1:candidateResource ns1:recordingSensor .
+
+ns1:repairPump ns1:candidateResource ns1:serviceTeam .

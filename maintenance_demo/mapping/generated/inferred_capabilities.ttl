@@ -1,0 +1,12 @@
+@prefix ns1: <https://example.org/maintenance#> .
+
+ns1:inspectBasic ns1:matchedTaskRule ns1:InspectPumpRule ;
+    ns1:requiresCapability ns1:detect .
+
+ns1:inspectRecorded ns1:matchedTaskRule ns1:InspectPumpRule,
+        ns1:RecordPumpRule ;
+    ns1:requiresCapability ns1:detect,
+        ns1:record .
+
+ns1:repairPump ns1:matchedTaskRule ns1:RepairPumpRule ;
+    ns1:requiresCapability ns1:repair .
