@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "scope": "已验证维修计划的描述性统计；时间单位为分钟；不比较或优化方案",
+  "time": {
+    "start_minutes": "0.0",
+    "end_minutes": "6.0",
+    "elapsed_minutes": "6.0",
+    "task_minutes": "8.0",
+    "occupied_minutes": "6.0",
+    "idle_minutes": "0.0",
+    "peak_concurrent_tasks": 2
+  },
+  "workflows": [
+    {
+      "workflow": "https://example.org/maintenance#generated/workflow/32a96e87f16b56fc",
+      "request": "https://example.org/maintenance#repairRequest",
+      "elapsed_minutes": "3.0",
+      "task_minutes": "3.0",
+      "idle_gap_minutes": "0.0"
+    },
+    {
+      "workflow": "https://example.org/maintenance#generated/workflow/4358a022bd404d7a",
+      "request": "https://example.org/maintenance#inspectionRequest",
+      "elapsed_minutes": "3.0",
+      "task_minutes": "3.0",
+      "idle_gap_minutes": "0.0"
+    },
+    {
+      "workflow": "https://example.org/maintenance#generated/workflow/86761c3bd331b62c",
+      "request": "https://example.org/maintenance#monitorRequest",
+      "elapsed_minutes": "2.0",
+      "task_minutes": "2.0",
+      "idle_gap_minutes": "0.0"
+    }
+  ],
+  "resources": [
+    {
+      "resource": "https://example.org/maintenance#basicSensor",
+      "capacity": 1,
+      "participations": 1,
+      "occupied_minutes": "1.0",
+      "task_minutes": "1.0",
+      "peak_concurrent": 1,
+      "capacity_utilization": "0.1666666666666666666666666667"
+    },
+    {
+      "resource": "https://example.org/maintenance#recordingSensor",
+      "capacity": 1,
+      "participations": 2,
+      "occupied_minutes": "4.0",
+      "task_minutes": "4.0",
+      "peak_concurrent": 1,
+      "capacity_utilization": "0.6666666666666666666666666667"
+    },
+    {
+      "resource": "https://example.org/maintenance#serviceTeam",
+      "capacity": 1,
+      "participations": 1,
+      "occupied_minutes": "3.0",
+      "task_minutes": "3.0",
+      "peak_concurrent": 1,
+      "capacity_utilization": "0.5"
+    }
+  ],
+  "supplies": [
+    {
+      "supply": "https://example.org/maintenance#diagnosticStrip",
+      "stock_units": 1,
+      "required_units": 1,
+      "reserved_units": 1,
+      "remaining_units": 0
+    }
+  ],
+  "unavailable_metrics": {
+    "cost": "缺少明确的币种、费用率和耗材单价，不把时长当作成本",
+    "quality": "缺少维修质量观测和合成口径，不由能力或可用标记推导精度"
+  },
+  "input": "C:\\Users\\Lenovo\\Desktop\\杀伤链\\maintenance_demo\\collaboration\\input.ttl"
+}

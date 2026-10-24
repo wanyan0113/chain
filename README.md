@@ -54,3 +54,11 @@ JSON 报告包含 `schema_version`、输入绝对路径、`exit_code`、按级�
 ```
 
 该入口复用两级映射，验证维修资源交接、任务顺序、流程依赖、固定窗口共享容量和耗材库存，生成 3 个流程及串联/并行/分支关系。它验证给定请求的可行性，选择首个可行资源组合，不作最优排程声明。详见 [2.1.2 与 2.1.3 阶段说明](docs/第二部分2.1.2与2.1.3流程协同验证.md)。
+
+## 维修流程统计
+
+```powershell
+.\.venv\Scripts\python.exe -m maintenance_demo.collaboration.summarize_workflows
+```
+
+先重新验证维修请求，再统计网络历时、任务工时、资源容量利用率、峰值并发和耗材计划余量。示例网络历时 6 分钟，任务工时合计 8 分钟；成本和质量缺少数据，报告会明确说明。结果写入 `maintenance_demo/collaboration/generated/maintenance_statistics.json`。详见[维修流程统计与指标口径](docs/维修流程统计与指标口径.md)。
