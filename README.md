@@ -1,72 +1,23 @@
-# RDF 与 OWL 本体静态检查
+# 文章本体整理
 
-现有检查器支持本地 Turtle 文件解析、模式声明检查、实例属性检查和 JSON 报告导出。本轮完善的是通用 RDF/OWL 工具部分。
+当前保留文章概念、属性和链网结构的本体声明，以及通用检查工具。自设游戏、维修、图书馆和预设链示例已撤下。
 
-## 安装与运行
+| 文件 | 作用 |
+| --- | --- |
+| `killweb_ontology.ttl` | 主本体及规则、公式的文字说明 |
+| `check_ontology.py` | 本体静态检查工具 |
+| `validate_data.py` | 通用实例校验工具，需要另行提供数据和 JSON 校验配置 |
+| `requirements.txt` | Python 依赖 |
+| `本体命名对照表.md` | 术语历史对照和来源说明 |
 
-建议使用 Python 3.10 及以上版本，在 PowerShell 中执行：
+本轮移除自设的魔力上限、耗魔点数、冷却回合、解锁状态和元素分类，并删除文章表格未单独定义的十个通用能力字段。文章属性与项目结构扩展的区别见 [本体对照与实施顺序](docs/本体对照与实施顺序.md)。
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe check_ontology.py examples/library.ttl --generic --json-output output/library-report.json
-```
+规则与式（1）至式（10）目前是文字目录，不是可执行规则。现有代码没有实现自动生成链网、SE 计算、α/β 拟合或级联仿真。
 
-`--generic` 仅运行通用检查，适用于任意领域的 Turtle 本体。省略该选项会保留原有的论文覆盖和项目结构检查。`--fail-on-warn` 可将警告也作为检查失败处理。
-
-## 检查范围
-
-- 本地 Turtle 语法、对象属性与数据属性声明、标签和本体元数据。
-- 定义域和值域的显式类型匹配，包含具名子类继承。
-- 多个定义域或值域按交集处理：需要同时满足，不能只匹配其中一个。
-- 整数数据类型的派生关系，例如 `xsd:int` 可匹配 `xsd:integer` 和 `xsd:decimal`，反方向不成立。
-- 非法已知数据类型字面量；语言标签字符串识别为 `rdf:langString`。
-- 原有的限制、互逆、函数属性和互斥检查。
-
-JSON 报告包含 `schema_version`、输入绝对路径、`exit_code`、按级别统计的 `counts`、问题列表 `issues` 和检查范围说明。输入读取或解析失败时也会导出报告；报告路径不能覆盖输入文件。
-
-退出码：`0` 为静态检查通过，`1` 为存在错误或启用严格选项后的警告，`2` 为输入读取、输出写入或命令参数错误。
-
-## 语义边界
-
-该程序不是完整 OWL 2 DL 推理器。缺少显式类型通常记为警告；检查通过不证明本体逻辑一致。程序不会自动下载或加载 `owl:imports`，匿名类表达式及复杂数据类型的检查也有限。需要完整一致性判定时，请在 Protégé 中运行 HermiT 等推理器。
-
-示例是图书馆领域的小型本体，可独立用于验证通用检查流程。
-
-## 实例校验与两级映射
-
-在项目根目录执行：
+本体检查命令：
 
 ```powershell
-.\.venv\Scripts\python.exe validate_data.py maintenance_demo/maintenance_ontology.ttl --profile examples/maintenance_data_profile.json
-.\.venv\Scripts\python.exe -m maintenance_demo.mapping.run_mapping
-.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+.\.venv\Scripts\python.exe check_ontology.py killweb_ontology.ttl --fail-on-warn
 ```
 
-两级映射示例由维修任务条件推导能力，再匹配满足全部能力、明确可用且响应不超限的单个资源。预期得到 4 条能力需求和 3 条候选资源关系；结果写入 `maintenance_demo/mapping/generated/`。这是候选匹配，不进行资源分配、排程或完整 OWL 推理。
-
-详见[数据校验使用说明](docs/数据校验使用说明.md)、[2.1.1 映射规则验证](docs/第二部分2.1.1映射规则验证.md)及[本体对照与实施顺序](docs/本体对照与实施顺序.md)。
-
-## 流程协同验证
-
-```powershell
-.\.venv\Scripts\python.exe -m maintenance_demo.collaboration.run_collaboration
-```
-
-该入口复用两级映射，验证维修资源交接、任务顺序、流程依赖、固定窗口共享容量和耗材库存，生成 3 个流程及串联/并行/分支关系。它验证给定请求的可行性，选择首个可行资源组合，不作最优排程声明。详见 [2.1.2 与 2.1.3 阶段说明](docs/第二部分2.1.2与2.1.3流程协同验证.md)。
-
-## 维修流程统计
-
-```powershell
-.\.venv\Scripts\python.exe -m maintenance_demo.collaboration.summarize_workflows
-```
-
-先重新验证维修请求，再统计网络历时、任务工时、资源容量利用率、峰值并发和耗材计划余量。示例网络历时 6 分钟，任务工时合计 8 分钟；成本和质量缺少数据，报告会明确说明。结果写入 `maintenance_demo/collaboration/generated/maintenance_statistics.json`。详见[维修流程统计与指标口径](docs/维修流程统计与指标口径.md)。
-
-## 维修完整案例与对照
-
-```powershell
-.\.venv\Scripts\python.exe -m maintenance_demo.collaboration.run_case
-```
-
-统一入口复用以上步骤，导出同次运行的维修网络、统计、来源指纹和可读解释，包含任务规则依据、实际交接、时间/容量/库存数值证据、失败诊断及网络关系图。见[文章、本体与程序逐项对照](docs/文章本体与程序逐项对照.md)及[维修完整案例](docs/维修完整案例.md)。此入口使用独立维修词表，未接入主本体。
+删除前的文件备份在 `tmp/remove-unrequested-examples-20261024.zip`，逐文件 SHA-256 校验通过。此前测试和生成文件备份在 `tmp/cleanup-20261024-01.zip`。备份目录不纳入 Git。

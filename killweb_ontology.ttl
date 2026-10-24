@@ -10,8 +10,8 @@
                               rdfs:comment "西幻魔法背景，中文显示名称采用奥术网、法术链、法器等术语。"@zh ;
                               rdfs:label "奥术网络设计本体"@zh ;
                               rdfs:seeAlso <https://doi.org/10.12382/bgxb.2022.1077> ;
-                              owl:versionInfo "0.7" ;
-                              rdfs:comment "0.7：补充截图章节溯源、OODA 阶段标注、单位与语义说明，以及规则和公式目录。目录仅用于知识表示，不是可执行规则；具体实例的时序须显式填写。"@zh .
+                              owl:versionInfo "0.8" ;
+                              rdfs:comment "0.8：撤下自设示例，删除未在本批文章表格中单独定义的十个通用能力字段；保留文章概念、分类、属性、结构与公式说明。未新增实例、游戏机制或执行规则。"@zh .
 
 #    Object Properties
 
@@ -383,86 +383,6 @@
                       rdfs:domain :ReconEquipment ;
                       rdfs:range xsd:decimal ;
                       rdfs:label "方位角感知误差（度）"@zh .
-
-
-###  http://example.org/killweb#capabilityDescription
-# 定义“capabilityDescription（法术说明）”数据属性，记录CombatCapability（法术能力）的法术说明，值类型为 xsd:string。
-:capabilityDescription rdf:type owl:DatatypeProperty ;
-                       rdfs:domain :CombatCapability ;
-                       rdfs:range xsd:string ;
-                       rdfs:label "法术说明"@zh .
-
-
-###  http://example.org/killweb#capabilityLevel
-# 定义“capabilityLevel（法术等级）”数据属性，记录CombatCapability（法术能力）的法术等级，值类型为 xsd:string。
-:capabilityLevel rdf:type owl:DatatypeProperty ;
-                 rdfs:domain :CombatCapability ;
-                 rdfs:range xsd:string ;
-                 rdfs:label "法术等级"@zh .
-
-
-###  http://example.org/killweb#capabilityMaxAltitudeFt
-# 定义“capabilityMaxAltitudeFt（法术最高作用高度）”数据属性，记录CombatCapability（法术能力）的法术最高作用高度，值类型为 xsd:decimal。
-:capabilityMaxAltitudeFt rdf:type owl:DatatypeProperty ;
-                         rdfs:domain :CombatCapability ;
-                         rdfs:range xsd:decimal ;
-                         rdfs:label "法术最高作用高度"@zh .
-
-
-###  http://example.org/killweb#capabilityMaxTargets
-# 定义“capabilityMaxTargets（法术最大目标数）”数据属性，记录CombatCapability（法术能力）的法术最大目标数，值类型为 xsd:integer。
-:capabilityMaxTargets rdf:type owl:DatatypeProperty ;
-                      rdfs:domain :CombatCapability ;
-                      rdfs:range xsd:integer ;
-                      rdfs:label "法术最大目标数"@zh .
-
-
-###  http://example.org/killweb#capabilityMinAltitudeFt
-# 定义“capabilityMinAltitudeFt（法术最低作用高度）”数据属性，记录CombatCapability（法术能力）的法术最低作用高度，值类型为 xsd:decimal。
-:capabilityMinAltitudeFt rdf:type owl:DatatypeProperty ;
-                         rdfs:domain :CombatCapability ;
-                         rdfs:range xsd:decimal ;
-                         rdfs:label "法术最低作用高度"@zh .
-
-
-###  http://example.org/killweb#capabilityPrecision
-# 定义“capabilityPrecision（法术精度（0-1））”数据属性，记录CombatCapability（法术能力）的法术精度（0-1），值类型为 xsd:decimal。
-:capabilityPrecision rdf:type owl:DatatypeProperty ;
-                     rdfs:domain :CombatCapability ;
-                     rdfs:range xsd:decimal ;
-                     rdfs:label "法术精度（0-1）"@zh .
-
-
-###  http://example.org/killweb#capabilityRangeNm
-# 定义“capabilityRangeNm（法术射程（海里））”数据属性，记录CombatCapability（法术能力）的法术射程（海里），值类型为 xsd:decimal。
-:capabilityRangeNm rdf:type owl:DatatypeProperty ;
-                   rdfs:domain :CombatCapability ;
-                   rdfs:range xsd:decimal ;
-                   rdfs:label "法术射程（海里）"@zh .
-
-
-###  http://example.org/killweb#capabilityResponseTimeS
-# 定义“capabilityResponseTimeS（法术响应时间（秒））”数据属性，记录CombatCapability（法术能力）的法术响应时间（秒），值类型为 xsd:decimal。
-:capabilityResponseTimeS rdf:type owl:DatatypeProperty ;
-                         rdfs:domain :CombatCapability ;
-                         rdfs:range xsd:decimal ;
-                         rdfs:label "法术响应时间（秒）"@zh .
-
-
-###  http://example.org/killweb#capabilityTargetType
-# 定义“capabilityTargetType（法术目标类型）”数据属性，记录CombatCapability（法术能力）的法术目标类型，值类型为 xsd:string。
-:capabilityTargetType rdf:type owl:DatatypeProperty ;
-                      rdfs:domain :CombatCapability ;
-                      rdfs:range xsd:string ;
-                      rdfs:label "法术目标类型"@zh .
-
-
-###  http://example.org/killweb#capabilityType
-# 定义“capabilityType（法术类型）”数据属性，记录CombatCapability（法术能力）的法术类型，值类型为 xsd:string。
-:capabilityType rdf:type owl:DatatypeProperty ;
-                rdfs:domain :CombatCapability ;
-                rdfs:range xsd:string ;
-                rdfs:label "法术类型"@zh .
 
 
 ###  http://example.org/killweb#chainId
@@ -1421,7 +1341,6 @@
 # 定义“AirReconCapability（空中侦测能力）”规范能力个体，属于“ReconTargetTypeCapability（侦测目标类型能力）”类。
 :AirReconCapability rdf:type owl:NamedIndividual ,
                              :ReconTargetTypeCapability ;
-                    :capabilityTargetType "aircraft" ;
                     rdfs:label "空中侦测能力"@zh .
 
 
@@ -1429,7 +1348,6 @@
 # 定义“AirStrikeCapability（对空攻击能力）”规范能力个体，属于“StrikeTargetTypeCapability（攻击目标类型能力）”类。
 :AirStrikeCapability rdf:type owl:NamedIndividual ,
                               :StrikeTargetTypeCapability ;
-                     :capabilityTargetType "aircraft" ;
                      rdfs:label "对空攻击能力"@zh .
 
 
@@ -1451,7 +1369,6 @@
 # 定义“GroundReconCapability（地面侦测能力）”规范能力个体，属于“ReconTargetTypeCapability（侦测目标类型能力）”类。
 :GroundReconCapability rdf:type owl:NamedIndividual ,
                                 :ReconTargetTypeCapability ;
-                       :capabilityTargetType "ground" ;
                        rdfs:label "地面侦测能力"@zh .
 
 
@@ -1459,7 +1376,6 @@
 # 定义“GroundStrikeCapability（对地攻击能力）”规范能力个体，属于“StrikeTargetTypeCapability（攻击目标类型能力）”类。
 :GroundStrikeCapability rdf:type owl:NamedIndividual ,
                                  :StrikeTargetTypeCapability ;
-                        :capabilityTargetType "ground" ;
                         rdfs:label "对地攻击能力"@zh .
 
 
@@ -1544,7 +1460,6 @@
 # 定义“ShipStrikeCapability（对巨兽攻击能力）”规范能力个体，属于“StrikeTargetTypeCapability（攻击目标类型能力）”类。
 :ShipStrikeCapability rdf:type owl:NamedIndividual ,
                                :StrikeTargetTypeCapability ;
-                      :capabilityTargetType "ship" ;
                       rdfs:label "对巨兽攻击能力"@zh .
 
 
@@ -1573,7 +1488,6 @@
 # 定义“SpaceReconCapability（星界侦测能力）”规范能力个体，属于“ReconTargetTypeCapability（侦测目标类型能力）”类。
 :SpaceReconCapability rdf:type owl:NamedIndividual ,
                                :ReconTargetTypeCapability ;
-                      :capabilityTargetType "space" ;
                       rdfs:label "星界侦测能力"@zh .
 
 
@@ -1588,7 +1502,6 @@
 # 定义“SubmarineStrikeCapability（对深潜怪物攻击能力）”规范能力个体，属于“StrikeTargetTypeCapability（攻击目标类型能力）”类。
 :SubmarineStrikeCapability rdf:type owl:NamedIndividual ,
                                     :StrikeTargetTypeCapability ;
-                           :capabilityTargetType "submarine" ;
                            rdfs:label "对深潜怪物攻击能力"@zh .
 
 
@@ -1596,7 +1509,6 @@
 # 定义“UnderwaterReconCapability（水下侦测能力）”规范能力个体，属于“ReconTargetTypeCapability（侦测目标类型能力）”类。
 :UnderwaterReconCapability rdf:type owl:NamedIndividual ,
                                     :ReconTargetTypeCapability ;
-                           :capabilityTargetType "underwater" ;
                            rdfs:label "水下侦测能力"@zh .
 
 
@@ -1721,10 +1633,6 @@
 :minTargetAltitudeFt :unitSymbol "ft" .
 :maxTargetAltitudeFt :unitSymbol "ft" .
 :maxCommDistanceNm :unitSymbol "nmi" .
-:capabilityRangeNm :unitSymbol "nmi" .
-:capabilityMinAltitudeFt :unitSymbol "ft" .
-:capabilityMaxAltitudeFt :unitSymbol "ft" .
-:capabilityResponseTimeS :unitSymbol "s" .
 :missionTargetAltitudeFt :unitSymbol "ft" .
 :missionTargetSpeedKn :unitSymbol "kn" .
 :missionTargetLatitudeDeg :unitSymbol "deg" .
@@ -1736,7 +1644,6 @@
 :targetDistanceNm :unitSymbol "nmi" .
 :detectionPrecision :unitSymbol "1" ;
     :semanticNote "项目扩展的 0—1 汇总指标；表 3 的距离/角度误差不能未经定义就直接转换为此指标。标注本身不约束数值范围。"@zh .
-:capabilityPrecision :unitSymbol "1" .
 :hitProbability :unitSymbol "1" ;
     :semanticNote "命中概率与式（5）的阶段精度不是已声明的同一指标。"@zh .
 :damageRate :unitSymbol "1" .
