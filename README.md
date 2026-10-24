@@ -62,3 +62,11 @@ JSON 报告包含 `schema_version`、输入绝对路径、`exit_code`、按级�
 ```
 
 先重新验证维修请求，再统计网络历时、任务工时、资源容量利用率、峰值并发和耗材计划余量。示例网络历时 6 分钟，任务工时合计 8 分钟；成本和质量缺少数据，报告会明确说明。结果写入 `maintenance_demo/collaboration/generated/maintenance_statistics.json`。详见[维修流程统计与指标口径](docs/维修流程统计与指标口径.md)。
+
+## 维修完整案例与对照
+
+```powershell
+.\.venv\Scripts\python.exe -m maintenance_demo.collaboration.run_case
+```
+
+统一入口复用以上步骤，导出同次运行的维修网络、统计、来源指纹和可读解释，包含任务规则依据、实际交接、时间/容量/库存数值证据、失败诊断及网络关系图。见[文章、本体与程序逐项对照](docs/文章本体与程序逐项对照.md)及[维修完整案例](docs/维修完整案例.md)。此入口使用独立维修词表，未接入主本体。
