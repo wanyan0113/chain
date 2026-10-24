@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "status": "feasible",
+  "scope": "非武器维修；验证输入的流程依赖与固定时间窗口；选择首个可行资源组合，不作最优性声明",
+  "summary": {
+    "requested_workflows": 3,
+    "tasks": 4,
+    "resource_combinations": 1,
+    "evaluated_combinations": 1,
+    "generated_workflows": 3,
+    "generated_relations": 4
+  },
+  "mapping_summary": {
+    "tasks": 4,
+    "resources": 3,
+    "required_capability_relations": 6,
+    "candidate_relations": 4,
+    "unmatched_tasks": 0
+  },
+  "unmatched_tasks": [],
+  "handoff_rule_sha256": "e40f7b44a08588203ba39c307f8dfea503b7b6f4c4405acde6c51f4a18cfb05b",
+  "inferred_handoffs": [
+    {
+      "from": "https://example.org/maintenance#basicSensor",
+      "to": "https://example.org/maintenance#recordingSensor"
+    },
+    {
+      "from": "https://example.org/maintenance#basicSensor",
+      "to": "https://example.org/maintenance#serviceTeam"
+    },
+    {
+      "from": "https://example.org/maintenance#recordingSensor",
+      "to": "https://example.org/maintenance#basicSensor"
+    }
+  ],
+  "rejected_combination_counts": {},
+  "rejection_examples": [],
+  "workflows": [
+    {
+      "request": "https://example.org/maintenance#inspectionRequest",
+      "workflow": "https://example.org/maintenance#generated/workflow/4358a022bd404d7a",
+      "label": "检测流程",
+      "tasks": [
+        {
+          "task": "https://example.org/maintenance#recordCheck",
+          "resource": "https://example.org/maintenance#recordingSensor",
+          "order": 1,
+          "start_minutes": "0.0",
+          "end_minutes": "2.0"
+        },
+        {
+          "task": "https://example.org/maintenance#confirmCheck",
+          "resource": "https://example.org/maintenance#basicSensor",
+          "order": 2,
+          "start_minutes": "2.0",
+          "end_minutes": "3.0"
+        }
+      ]
+    },
+    {
+      "request": "https://example.org/maintenance#monitorRequest",
+      "workflow": "https://example.org/maintenance#generated/workflow/86761c3bd331b62c",
+      "label": "监测流程",
+      "tasks": [
+        {
+          "task": "https://example.org/maintenance#monitorCheck",
+          "resource": "https://example.org/maintenance#recordingSensor",
+          "order": 1,
+          "start_minutes": "3.0",
+          "end_minutes": "5.0"
+        }
+      ]
+    },
+    {
+      "request": "https://example.org/maintenance#repairRequest",
+      "workflow": "https://example.org/maintenance#generated/workflow/32a96e87f16b56fc",
+      "label": "维修流程",
+      "tasks": [
+        {
+          "task": "https://example.org/maintenance#repairAction",
+          "resource": "https://example.org/maintenance#serviceTeam",
+          "order": 1,
+          "start_minutes": "3.0",
+          "end_minutes": "6.0"
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "type": "SequentialRelation",
+      "participants": [
+        "https://example.org/maintenance#inspectionRequest",
+        "https://example.org/maintenance#monitorRequest"
+      ],
+      "from": "https://example.org/maintenance#inspectionRequest",
+      "to": "https://example.org/maintenance#monitorRequest"
+    },
+    {
+      "type": "SequentialRelation",
+      "participants": [
+        "https://example.org/maintenance#inspectionRequest",
+        "https://example.org/maintenance#repairRequest"
+      ],
+      "from": "https://example.org/maintenance#inspectionRequest",
+      "to": "https://example.org/maintenance#repairRequest"
+    },
+    {
+      "type": "ParallelRelation",
+      "participants": [
+        "https://example.org/maintenance#monitorRequest",
+        "https://example.org/maintenance#repairRequest"
+      ],
+      "from": null,
+      "to": null
+    },
+    {
+      "type": "BranchRelation",
+      "participants": [
+        "https://example.org/maintenance#inspectionRequest",
+        "https://example.org/maintenance#monitorRequest",
+        "https://example.org/maintenance#repairRequest"
+      ],
+      "from": "https://example.org/maintenance#inspectionRequest",
+      "to": null
+    }
+  ],
+  "supplies": [
+    {
+      "supply": "https://example.org/maintenance#diagnosticStrip",
+      "stock_units": 1,
+      "required_units": 1,
+      "reserved_units": 1
+    }
+  ],
+  "input": "C:\\Users\\Lenovo\\Desktop\\杀伤链\\maintenance_demo\\collaboration\\input.ttl"
+}

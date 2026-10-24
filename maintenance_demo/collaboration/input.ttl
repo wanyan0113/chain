@@ -1,0 +1,34 @@
+@prefix : <https://example.org/maintenance#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# 任务条件继续交给 2.1.1 推导能力和候选资源。
+:recordCheck a :PumpTask ; rdfs:label "检测并留档"@zh ;
+    :assetKind "pump" ; :taskKind "inspect" ; :requiresRecord true ; :maxWaitMinutes 5.0 ;
+    :plannedStartMinutes 0.0 ; :durationMinutes 2.0 ; :usesSupply :diagnosticStrip .
+:confirmCheck a :PumpTask ; rdfs:label "确认检测结果"@zh ;
+    :assetKind "pump" ; :taskKind "inspect" ; :requiresRecord false ; :maxWaitMinutes 1.0 ;
+    :plannedStartMinutes 2.0 ; :durationMinutes 1.0 ; :dependsOn :recordCheck .
+:repairAction a :PumpTask ; rdfs:label "维修作业"@zh ;
+    :assetKind "pump" ; :taskKind "repair" ; :requiresRecord false ; :maxWaitMinutes 5.0 ;
+    :plannedStartMinutes 3.0 ; :durationMinutes 3.0 .
+:monitorCheck a :PumpTask ; rdfs:label "并行监测并留档"@zh ;
+    :assetKind "pump" ; :taskKind "inspect" ; :requiresRecord true ; :maxWaitMinutes 5.0 ;
+    :plannedStartMinutes 3.0 ; :durationMinutes 2.0 .
+
+:inspectionRequest a :WorkflowRequest ; rdfs:label "检测流程"@zh ; :hasTask :recordCheck, :confirmCheck .
+:repairRequest a :WorkflowRequest ; rdfs:label "维修流程"@zh ; :hasTask :repairAction ; :afterWorkflow :inspectionRequest .
+:monitorRequest a :WorkflowRequest ; rdfs:label "监测流程"@zh ; :hasTask :monitorCheck ; :afterWorkflow :inspectionRequest .
+
+:basicSensor a :Sensor ; rdfs:label "基础检测仪"@zh ; :providesCapability :detect ;
+    :available true ; :responseMinutes 0.5 ; :capacity "1"^^xsd:positiveInteger ;
+    :inputFormat "maintenance-json" ; :outputFormat "maintenance-json" ;
+    :handoffAuthorized :serviceTeam, :recordingSensor .
+:recordingSensor a :Sensor ; rdfs:label "带记录功能的检测仪"@zh ; :providesCapability :detect, :record ;
+    :available true ; :responseMinutes 2.0 ; :capacity "1"^^xsd:positiveInteger ;
+    :inputFormat "maintenance-json" ; :outputFormat "maintenance-json" ; :handoffAuthorized :basicSensor .
+:serviceTeam a :Resource ; rdfs:label "维修服务组"@zh ; :providesCapability :repair ;
+    :available true ; :responseMinutes 3.0 ; :capacity "1"^^xsd:positiveInteger ;
+    :inputFormat "maintenance-json" ; :outputFormat "maintenance-json" .
+
+:diagnosticStrip a :Supply ; rdfs:label "一次性检测试纸"@zh ; :stockCount "1"^^xsd:nonNegativeInteger .

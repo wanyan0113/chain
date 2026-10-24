@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "rules": [
+    {"target_class": "https://example.org/maintenance#MaintenanceTask", "fields": [
+      {"path": "https://example.org/maintenance#plannedStartMinutes", "min_count": 1, "max_count": 1, "datatype": "http://www.w3.org/2001/XMLSchema#decimal", "min_value": 0},
+      {"path": "https://example.org/maintenance#durationMinutes", "min_count": 1, "max_count": 1, "datatype": "http://www.w3.org/2001/XMLSchema#decimal", "min_value": 0},
+      {"path": "https://example.org/maintenance#dependsOn", "max_count": 1, "value_class": "https://example.org/maintenance#MaintenanceTask"},
+      {"path": "https://example.org/maintenance#usesSupply", "value_class": "https://example.org/maintenance#Supply"}
+    ]},
+    {"target_class": "https://example.org/maintenance#Resource", "fields": [
+      {"path": "https://example.org/maintenance#capacity", "min_count": 1, "max_count": 1, "datatype": "http://www.w3.org/2001/XMLSchema#positiveInteger", "min_value": 1},
+      {"path": "https://example.org/maintenance#inputFormat", "min_count": 1, "datatype": "http://www.w3.org/2001/XMLSchema#string"},
+      {"path": "https://example.org/maintenance#outputFormat", "min_count": 1, "datatype": "http://www.w3.org/2001/XMLSchema#string"},
+      {"path": "https://example.org/maintenance#handoffAuthorized", "value_class": "https://example.org/maintenance#Resource"}
+    ]},
+    {"target_class": "https://example.org/maintenance#Supply", "require_instances": false, "fields": [
+      {"path": "https://example.org/maintenance#stockCount", "min_count": 1, "max_count": 1, "datatype": "http://www.w3.org/2001/XMLSchema#nonNegativeInteger", "min_value": 0}
+    ]},
+    {"target_class": "https://example.org/maintenance#WorkflowRequest", "fields": [
+      {"path": "https://example.org/maintenance#hasTask", "min_count": 1, "value_class": "https://example.org/maintenance#MaintenanceTask"},
+      {"path": "https://example.org/maintenance#afterWorkflow", "value_class": "https://example.org/maintenance#WorkflowRequest"}
+    ]}
+  ],
+  "acyclic_properties": ["https://example.org/maintenance#dependsOn", "https://example.org/maintenance#afterWorkflow"]
+}
