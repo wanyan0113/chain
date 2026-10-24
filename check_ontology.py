@@ -523,13 +523,17 @@ def check_paper_coverage(graph: Graph, report: Report) -> None:
     else:
         report.info("PAPER", f"OODA 子类 {len(OODA_CLASSES)}/{len(OODA_CLASSES)}")
 
-    missing_table3 = [name for name in TABLE3_PROPERTIES if find_named(graph, name) is None]
+    # detectionPrecision is a project aggregate, not a separate field in table 3.
+    paper_table3 = [name for name in TABLE3_PROPERTIES if name != "detectionPrecision"]
+    missing_table3 = [name for name in paper_table3 if find_named(graph, name) is None]
     if missing_table3:
         for name in missing_table3:
             report.warn("PAPER", f"缺少表 3 属性：{name}")
-        report.info("PAPER", f"表 3 属性 {len(TABLE3_PROPERTIES) - len(missing_table3)}/{len(TABLE3_PROPERTIES)}")
+        report.info("PAPER", f"表 3 直接对应字段 {len(paper_table3) - len(missing_table3)}/{len(paper_table3)}（精度误差拆分为三项）")
     else:
-        report.info("PAPER", f"表 3 属性 {len(TABLE3_PROPERTIES)}/{len(TABLE3_PROPERTIES)}")
+        report.info("PAPER", f"表 3 直接对应字段 {len(paper_table3)}/{len(paper_table3)}（精度误差拆分为三项）")
+    if find_named(graph, "detectionPrecision") is not None:
+        report.info("PROJECT", "detectionPrecision 是项目汇总指标，不计为表 3 原始字段")
 
     missing_table5 = [name for name in TABLE5_PROPERTIES if find_named(graph, name) is None]
     if missing_table5:

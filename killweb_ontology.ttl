@@ -10,7 +10,7 @@
                               rdfs:comment "西幻魔法背景，中文显示名称采用奥术网、法术链、法器等术语。"@zh ;
                               rdfs:label "奥术网络设计本体"@zh ;
                               rdfs:seeAlso <https://doi.org/10.12382/bgxb.2022.1077> ;
-                              owl:versionInfo "0.8" ;
+                              owl:versionInfo "0.8.1" ;
                               rdfs:comment "0.8：撤下自设示例，删除未在本批文章表格中单独定义的十个通用能力字段；保留文章概念、分类、属性、结构与公式说明。未新增实例、游戏机制或执行规则。"@zh .
 
 #    Object Properties
@@ -1705,5 +1705,76 @@
     rdfs:label "式（10）加权评分"@zh ; :sourceSection "评估指标；式（10）" ;
     :formulaText "P = w_1 * T_prime + w_2 * A_prime + w_3 * C_prime" ;
     :semanticNote "来源要求每个权重属于 [0,1] 且权重和为 1；三个归一化值须使用同一比较集合。截图未规定 max=min 时的处理，本体不自行设定得分。"@zh .
+
+# 截图逐项来源补充（0.8.1）：仅添加注释，不增加规则或场景。
+:equipmentId :sourceSection "1.2 表 3；截图 20261023222313" .
+:equipmentCategory :sourceSection "1.2 表 3；截图 20261023222313" .
+:equipmentName :sourceSection "1.2 表 3；截图 20261023222313" .
+:equipmentShortName :sourceSection "1.2 表 3；截图 20261023222313" .
+:longitudeDeg :sourceSection "1.2 表 3；截图 20261023222313" .
+:latitudeDeg :sourceSection "1.2 表 3；截图 20261023222313" .
+:altitudeFt :sourceSection "1.2 表 3；截图 20261023222313" .
+:speedKn :sourceSection "1.2 表 3；截图 20261023222313" .
+:operationalStatus :sourceSection "1.2 表 3；截图 20261023222313" .
+:reconTargetType :sourceSection "1.2 表 3；截图 20261023222313" .
+:detectionRangeNm :sourceSection "1.2 表 3；截图 20261023222313" .
+:azimuthCoverageDeg :sourceSection "1.2 表 3；截图 20261023222313" .
+:elevationCoverageDeg :sourceSection "1.2 表 3；截图 20261023222313" .
+:maxSearchTargets :sourceSection "1.2 表 3；截图 20261023222313" .
+:distanceResolutionM :sourceSection "1.2 表 3；截图 20261023222313" .
+:azimuthResolutionDeg :sourceSection "1.2 表 3；截图 20261023222313" .
+:elevationResolutionDeg :sourceSection "1.2 表 3；截图 20261023222313" .
+:reconIntervalS :sourceSection "1.2 表 3；截图 20261023222313" .
+:evaluationTimeS :sourceSection "1.2 表 3；截图 20261023222313" .
+:maxEvaluationTargets :sourceSection "1.2 表 3；截图 20261023222313" .
+:evaluationAreaKm2 :sourceSection "1.2 表 3；截图 20261023222313" .
+:communicationBandwidthMbps :sourceSection "1.2 表 3；截图 20261023222313" .
+:communicationPowerW :sourceSection "1.2 表 3；截图 20261023222313" .
+:relayDelayMs :sourceSection "1.2 表 3；截图 20261023222313" .
+:strikeTargetType :sourceSection "1.2 表 3；截图 20261023222313" .
+:maxRangeNm :sourceSection "1.2 表 3；截图 20261023222313" .
+:minRangeNm :sourceSection "1.2 表 3；截图 20261023222313" .
+:damageValue :sourceSection "1.2 表 3；截图 20261023222313" .
+:damageRadiusM :sourceSection "1.2 表 3；截图 20261023222313" .
+:responseTimeS :sourceSection "1.2 表 3；截图 20261023222313" .
+:salvoSize :sourceSection "1.2 表 3；截图 20261023222313" .
+:reloadTimeS :sourceSection "1.2 表 3；截图 20261023222313" .
+:maxTargetSpeedKn :sourceSection "1.2 表 3；截图 20261023222313" .
+:flightSpeedKn :sourceSection "1.2 表 3；截图 20261023222313" .
+:climbSpeedKn :sourceSection "1.2 表 3；截图 20261023222313" .
+:minTargetAltitudeFt :sourceSection "1.2 表 3；截图 20261023222313" .
+:maxTargetAltitudeFt :sourceSection "1.2 表 3；截图 20261023222313" .
+:minLaunchAltitudeFt :sourceSection "1.2 表 3；截图 20261023222313" .
+:maxLaunchAltitudeFt :sourceSection "1.2 表 3；截图 20261023222313" .
+:flightAltitudeFt :sourceSection "1.2 表 3；截图 20261023222313" .
+:hitProbability :sourceSection "1.2 表 3；截图 20261023222313" .
+:damageRate :sourceSection "1.2 表 3；截图 20261023222313" .
+:cost :sourceSection "1.2 表 3；截图 20261023222313" .
+:missionName :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionShortName :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionCode :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionType :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionLocation :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionTime :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionMetrics :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionTargetType :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionTargetSpeedKn :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionTargetAltitudeFt :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionTargetLongitudeDeg :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionTargetLatitudeDeg :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionTargetSurvivability :sourceSection "1.4 表 5；截图 20261023222331" .
+:StrikeRangeCapability :sourceSection "1.3 表 4；截图 20261023222320" ; :semanticNote "表 4 分类维度：攻击距离。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。"@zh .
+:StrikeAltitudeCapability :sourceSection "1.3 表 4；截图 20261023222320" ; :semanticNote "表 4 分类维度：攻击高度。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。"@zh .
+:StrikeTargetTypeCapability :sourceSection "1.3 表 4；截图 20261023222320" ; :semanticNote "表 4 分类维度：目标类型。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。"@zh .
+:StrikeTargetQuantityCapability :sourceSection "1.3 表 4；截图 20261023222320" ; :semanticNote "表 4 分类维度：目标数量。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。"@zh .
+:CommunicationCapability :sourceSection "1.3 表 4；截图 20261023222320" ; :semanticNote "表 4 分类维度：传讯能力。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。"@zh .
+:CommandCapability :sourceSection "1.3 表 4；截图 20261023222320" ; :semanticNote "表 4 分类维度：统御能力。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。"@zh .
+:EvaluationCapability :sourceSection "1.3 表 4；截图 20261023222326" ; :semanticNote "表 4 分类维度：解析能力。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。"@zh .
+:ReconRangeCapability :sourceSection "1.3 表 4；截图 20261023222326" ; :semanticNote "表 4 分类维度：感知距离。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。"@zh .
+:ReconTargetTypeCapability :sourceSection "1.3 表 4；截图 20261023222326" ; :semanticNote "表 4 分类维度：目标类型。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。"@zh .
+:ReconEquipment rdfs:comment "表示侦测监视类单元平台，承担发现、搜集战斗空间信息参数并回传的任务。"@zh .
+:CommandControlEquipment rdfs:comment "表示各类指挥机构，是奥术网的核心，对魔法活动执行决断。"@zh .
+:StrikeEquipment rdfs:comment "表示可执行杀伤和击毁任务的功能单元，在指挥节点的指令和侦测节点的信息传输下，对敌方进行干扰或攻击。"@zh .
+:FormulaDescription :semanticNote "本批截图只提供式（1）至式（10），未定义 SE、α/β 或状态更新方程；这些不列入本批资料的实现范围。"@zh .
 
 ###  Initial serialization generated by the OWL API; subsequent edits maintained in this project.
