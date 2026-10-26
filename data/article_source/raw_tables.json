@@ -1,0 +1,465 @@
+{
+  "checked_on": "2026-10-26",
+  "scope": "用户现实原文截图表7、8、9、11的原值转录；不是已验收的推理输入；不静默修正原图疑点。",
+  "source_files": {
+    "table7": "联想截图_20261024172115.png",
+    "table8_table9": "联想截图_20261024172129.png",
+    "table11": "联想截图_20261024172151.png",
+    "case_text": "联想截图_20261024172101.png、联想截图_20261024172115.png",
+    "table10": "联想截图_20261024172142.png",
+    "resource_count_text": "联想截图_20261024172156.png"
+  },
+  "units": {
+    "coordinates": "原图度分秒字符串；保留N/E及原列名，未纠正方向疑点",
+    "altitude": "ft",
+    "distance": "n mile",
+    "speed": "kn",
+    "hit_probability": "%",
+    "recon_precision": "原表未标单位；后文表13按百分比使用",
+    "damage_value": "原表未给物理单位",
+    "survivability": "原表未给物理单位"
+  },
+  "identity_mapping": {
+    "R-AEW": "R-Golem",
+    "R-Airport": "R-Spire",
+    "R-SAM": "R-Rune",
+    "R-Fighter": "R-Gryphon",
+    "R-Fighter#1": "R-Gryphon#1",
+    "R-Fighter#2": "R-Gryphon#2",
+    "B-Satellite": "B-Mirror",
+    "B-Fighter": "B-Wyvern",
+    "B-Fighter#1": "B-Wyvern#1",
+    "B-Missile": "B-Orb",
+    "R-Radar-A": "R-Eye-A",
+    "R-Radar-B": "R-Eye-B",
+    "R-Radar-C": "R-Eye-C",
+    "R-Radar-D": "R-Eye-D",
+    "R-Missile-A": "R-Lance-A",
+    "R-Missile-B": "R-Lance-B",
+    "R-Missile-C": "R-Lance-C",
+    "R-Missile-D": "R-Lance-D",
+    "R-Missile-E": "R-Lance-E",
+    "R-Missile-F": "R-Lance-F"
+  },
+  "table7": [
+    {
+      "side": "蓝军",
+      "name": "侦察卫星",
+      "id": "B-Satellite",
+      "count": 1
+    },
+    {
+      "side": "蓝军",
+      "name": "多功能战斗机",
+      "id": "B-Fighter",
+      "count": 2
+    },
+    {
+      "side": "蓝军",
+      "name": "导弹",
+      "id": "B-Missile",
+      "count": 4
+    },
+    {
+      "side": "红军",
+      "name": "机场",
+      "id": "R-Airport",
+      "count": 2
+    },
+    {
+      "side": "红军",
+      "name": "防空反导系统",
+      "id": "R-SAM",
+      "count": 1
+    },
+    {
+      "side": "红军",
+      "name": "预警机",
+      "id": "R-AEW",
+      "count": 1
+    },
+    {
+      "side": "红军",
+      "name": "多功能战斗机",
+      "id": "R-Fighter",
+      "count": 2
+    }
+  ],
+  "table8": [
+    {
+      "platform": "R-AEW",
+      "longitude_column_raw": "N70°58′08″",
+      "latitude_column_raw": "E40°25′06″",
+      "altitude_ft": 36000,
+      "recon_equipment": "R-Radar-A",
+      "target_types": [
+        "空中",
+        "海面"
+      ],
+      "detection_range_nm": 350,
+      "precision_raw": 90
+    },
+    {
+      "platform": "R-Fighter#1",
+      "longitude_column_raw": "N72°47′54″",
+      "latitude_column_raw": "E45°39′48″",
+      "altitude_ft": 36000,
+      "recon_equipment": "R-Radar-B",
+      "target_types": [
+        "空中"
+      ],
+      "detection_range_nm": 160,
+      "precision_raw": 80
+    },
+    {
+      "platform": "R-Fighter#2",
+      "longitude_column_raw": "N73°35′32″",
+      "latitude_column_raw": "E51°18′20″",
+      "altitude_ft": 40000,
+      "recon_equipment": "R-Radar-C",
+      "target_types": [
+        "空中"
+      ],
+      "detection_range_nm": 160,
+      "precision_raw": 80
+    },
+    {
+      "platform": "R-SAM",
+      "longitude_column_raw": "N68°47′48″",
+      "latitude_column_raw": "E36°07′42″",
+      "altitude_ft": 0,
+      "recon_equipment": "R-Radar-D",
+      "target_types": [
+        "空中"
+      ],
+      "detection_range_nm": 220,
+      "precision_raw": 75
+    }
+  ],
+  "table9": [
+    {
+      "platform": "R-Fighter#1",
+      "strike_equipment": "R-Missile-A",
+      "target_types": [
+        "飞机",
+        "直升机",
+        "导弹"
+      ],
+      "max_range_nm": 10,
+      "min_range_nm": 0.2,
+      "damage_value": 2.62,
+      "max_target_speed_kn": 1350,
+      "min_target_altitude_ft": 30,
+      "max_target_altitude_ft": 65000,
+      "min_launch_altitude_ft": 200,
+      "max_launch_altitude_ft": 65000,
+      "hit_probability_percent": 95
+    },
+    {
+      "platform": "R-Fighter#1",
+      "strike_equipment": "R-Missile-B",
+      "target_types": [
+        "飞机",
+        "导弹"
+      ],
+      "max_range_nm": 160,
+      "min_range_nm": 4,
+      "damage_value": 21,
+      "max_target_speed_kn": 1950,
+      "min_target_altitude_ft": 30,
+      "max_target_altitude_ft": 80000,
+      "min_launch_altitude_ft": 200,
+      "max_launch_altitude_ft": 65000,
+      "hit_probability_percent": 85
+    },
+    {
+      "platform": "R-Fighter#2",
+      "strike_equipment": "R-Missile-C",
+      "target_types": [
+        "飞机",
+        "导弹"
+      ],
+      "max_range_nm": 90,
+      "min_range_nm": 4,
+      "damage_value": 14,
+      "max_target_speed_kn": 1950,
+      "min_target_altitude_ft": 150,
+      "max_target_altitude_ft": 90000,
+      "min_launch_altitude_ft": 200,
+      "max_launch_altitude_ft": 65000,
+      "hit_probability_percent": 85
+    },
+    {
+      "platform": "R-SAM",
+      "strike_equipment": "R-Missile-D",
+      "target_types": [
+        "飞机",
+        "直升机"
+      ],
+      "max_range_nm": 0.2,
+      "min_range_nm": 3,
+      "damage_value": 0.7,
+      "max_target_speed_kn": 700,
+      "min_target_altitude_ft": 30,
+      "max_target_altitude_ft": 12000,
+      "min_launch_altitude_ft": 0,
+      "max_launch_altitude_ft": 0,
+      "hit_probability_percent": 50
+    },
+    {
+      "platform": "R-SAM",
+      "strike_equipment": "R-Missile-E",
+      "target_types": [
+        "飞机",
+        "直升机",
+        "导弹"
+      ],
+      "max_range_nm": 2,
+      "min_range_nm": 215,
+      "damage_value": 123,
+      "max_target_speed_kn": 4500,
+      "min_target_altitude_ft": 30,
+      "max_target_altitude_ft": 150000,
+      "min_launch_altitude_ft": 0,
+      "max_launch_altitude_ft": 0,
+      "hit_probability_percent": 90
+    },
+    {
+      "platform": "R-SAM",
+      "strike_equipment": "R-Missile-F",
+      "target_types": [
+        "飞机",
+        "直升机",
+        "导弹"
+      ],
+      "max_range_nm": 2,
+      "min_range_nm": 80,
+      "damage_value": 52.5,
+      "max_target_speed_kn": 2300,
+      "min_target_altitude_ft": 80,
+      "max_target_altitude_ft": 82000,
+      "min_launch_altitude_ft": 0,
+      "max_launch_altitude_ft": 0,
+      "hit_probability_percent": 80
+    }
+  ],
+  "table11": {
+    "mission": "击毁 B-Fighter#1",
+    "target_type": "飞机",
+    "longitude_column_raw": "N73°29′30″",
+    "latitude_column_raw": "E37°28′17″",
+    "target_altitude_ft": 36000,
+    "target_speed_kn": 350,
+    "target_survivability": 10
+  },
+  "explicit_facts": [
+    {
+      "subject": "联合指挥中心",
+      "relation": "位于",
+      "object": "R-AEW",
+      "source": "3.2正文；172115"
+    },
+    {
+      "subject": "B-Fighter编队",
+      "relation": "发射",
+      "object": "4枚B-Missile",
+      "source": "3.1正文；172101"
+    }
+  ],
+  "missing_facts": [
+    "未提供图13—18的实际图形，无法逐边转录通信关系或指挥关系。",
+    "表9没有完整给出飞行速度、成本、具体弹药库存；表13的方案值不能反填为实测输入。",
+    "表7的数量不是每个实体的唯一标识；缺少编号时不自行编成原文给定事实。"
+  ],
+  "issues": [
+    {
+      "code": "COORDINATE_HEADER_DIRECTION",
+      "record": "R-AEW",
+      "detail": "经度列N、纬度列E；列名与方向符号不符，原样保留，未自动交换。",
+      "source_alignment": "matches_non_fantasy_source",
+      "status": "原文自身疑点；按原文保留，不作为西幻转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png"
+      ],
+      "field_paths": [
+        "table8[0].longitude_column_raw",
+        "table8[0].latitude_column_raw"
+      ]
+    },
+    {
+      "code": "COORDINATE_HEADER_DIRECTION",
+      "record": "R-Fighter#1",
+      "detail": "经度列N、纬度列E；列名与方向符号不符，原样保留，未自动交换。",
+      "source_alignment": "matches_non_fantasy_source",
+      "status": "原文自身疑点；按原文保留，不作为西幻转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png"
+      ],
+      "field_paths": [
+        "table8[1].longitude_column_raw",
+        "table8[1].latitude_column_raw"
+      ]
+    },
+    {
+      "code": "COORDINATE_HEADER_DIRECTION",
+      "record": "R-Fighter#2",
+      "detail": "经度列N、纬度列E；列名与方向符号不符，原样保留，未自动交换。",
+      "source_alignment": "matches_non_fantasy_source",
+      "status": "原文自身疑点；按原文保留，不作为西幻转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png"
+      ],
+      "field_paths": [
+        "table8[2].longitude_column_raw",
+        "table8[2].latitude_column_raw"
+      ]
+    },
+    {
+      "code": "COORDINATE_HEADER_DIRECTION",
+      "record": "R-SAM",
+      "detail": "经度列N、纬度列E；列名与方向符号不符，原样保留，未自动交换。",
+      "source_alignment": "matches_non_fantasy_source",
+      "status": "原文自身疑点；按原文保留，不作为西幻转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png"
+      ],
+      "field_paths": [
+        "table8[3].longitude_column_raw",
+        "table8[3].latitude_column_raw"
+      ]
+    },
+    {
+      "code": "COORDINATE_HEADER_DIRECTION",
+      "record": "击毁 B-Fighter#1",
+      "detail": "经度列N、纬度列E；列名与方向符号不符，原样保留，未自动交换。",
+      "source_alignment": "matches_non_fantasy_source",
+      "status": "原文自身疑点；按原文保留，不作为西幻转录错误",
+      "source_files": [
+        "联想截图_20261024172151.png"
+      ],
+      "field_paths": [
+        "table11.longitude_column_raw",
+        "table11.latitude_column_raw"
+      ]
+    },
+    {
+      "code": "RANGE_ORDER",
+      "record": "R-Missile-D",
+      "detail": "最小3大于最大0.2 n mile；原样保留。",
+      "source_alignment": "matches_non_fantasy_source",
+      "status": "原文自身疑点；按原文保留，不作为西幻转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png"
+      ],
+      "field_paths": [
+        "table9[3].min_range_nm",
+        "table9[3].max_range_nm"
+      ]
+    },
+    {
+      "code": "STRICT_LAUNCH_BOUNDARY",
+      "record": "R-Missile-D",
+      "detail": "表10要求最小释放高度<平台高度<最大发射高度；本行0/0且平台高度0，无解。待核实边界政策。",
+      "source_alignment": "matches_non_fantasy_source",
+      "status": "原文自身疑点；按原文保留，不作为西幻转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png",
+        "联想截图_20261024172142.png"
+      ],
+      "field_paths": [
+        "table9[3].min_launch_altitude_ft",
+        "table9[3].max_launch_altitude_ft",
+        "table8[3].altitude_ft"
+      ]
+    },
+    {
+      "code": "RANGE_ORDER",
+      "record": "R-Missile-E",
+      "detail": "最小215大于最大2 n mile；原样保留。",
+      "source_alignment": "matches_non_fantasy_source",
+      "status": "原文自身疑点；按原文保留，不作为西幻转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png"
+      ],
+      "field_paths": [
+        "table9[4].min_range_nm",
+        "table9[4].max_range_nm"
+      ]
+    },
+    {
+      "code": "STRICT_LAUNCH_BOUNDARY",
+      "record": "R-Missile-E",
+      "detail": "表10要求最小释放高度<平台高度<最大发射高度；本行0/0且平台高度0，无解。待核实边界政策。",
+      "source_alignment": "matches_non_fantasy_source",
+      "status": "原文自身疑点；按原文保留，不作为西幻转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png",
+        "联想截图_20261024172142.png"
+      ],
+      "field_paths": [
+        "table9[4].min_launch_altitude_ft",
+        "table9[4].max_launch_altitude_ft",
+        "table8[3].altitude_ft"
+      ]
+    },
+    {
+      "code": "RANGE_ORDER",
+      "record": "R-Missile-F",
+      "detail": "最小80大于最大2 n mile；原样保留。",
+      "source_alignment": "matches_non_fantasy_source",
+      "status": "原文自身疑点；按原文保留，不作为西幻转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png"
+      ],
+      "field_paths": [
+        "table9[5].min_range_nm",
+        "table9[5].max_range_nm"
+      ]
+    },
+    {
+      "code": "STRICT_LAUNCH_BOUNDARY",
+      "record": "R-Missile-F",
+      "detail": "表10要求最小释放高度<平台高度<最大发射高度；本行0/0且平台高度0，无解。待核实边界政策。",
+      "source_alignment": "matches_non_fantasy_source",
+      "status": "原文自身疑点；按原文保留，不作为西幻转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png",
+        "联想截图_20261024172142.png"
+      ],
+      "field_paths": [
+        "table9[5].min_launch_altitude_ft",
+        "table9[5].max_launch_altitude_ft",
+        "table8[3].altitude_ft"
+      ]
+    },
+    {
+      "code": "RESOURCE_INSTANCE_ALLOCATION",
+      "record": "表9六行编号与正文12个打击资源",
+      "field_paths": [
+        "table9",
+        "table7"
+      ],
+      "detail": "正文明确提到12个打击资源，表9只列6行编号；不能由此确定12个具体个体的身份及数量分配，不复制成12件。",
+      "source_files": [
+        "联想截图_20261024172129.png",
+        "联想截图_20261024172156.png"
+      ],
+      "status": "来源材料完整性缺口；未补造实例"
+    },
+    {
+      "code": "RELATION_FACTS_MISSING",
+      "record": "通信与指挥实际关系",
+      "field_paths": [
+        "explicit_facts",
+        "missing_facts"
+      ],
+      "detail": "表10列出关系要求，图形实际连边未包含在现有核对材料中；已知指挥中心位于R-AEW不能推出全部通信或指挥关系。",
+      "source_files": [
+        "联想截图_20261024172115.png",
+        "联想截图_20261024172142.png"
+      ],
+      "status": "来源材料完整性缺口；未补造关系"
+    }
+  ],
+  "source_alignment_policy": "以用户提供的非西幻原文截图为基准；仅改背景名称，不修改原始数值、单位、类别含义或关系。"
+}

@@ -1,0 +1,40 @@
+{
+  "reviewed_on": "2026-10-26",
+  "scope": "原始截图与现有来源层逐行核对；没有运行设计规则或生成规范化推理输入",
+  "source_files_viewed": [
+    "联想截图_20261024172101.png",
+    "联想截图_20261024172115.png",
+    "联想截图_20261024172129.png",
+    "联想截图_20261024172142.png",
+    "联想截图_20261024172151.png",
+    "联想截图_20261024172156.png"
+  ],
+  "table_rows": {
+    "table7": 7,
+    "table8": 4,
+    "table9": 6,
+    "table11": 1
+  },
+  "manual_transcription_review": "所核对的数值、单位、类别及平台归属未发现转录不一致；坐标引号和千位空格按既有约定规范化，不交换字段或数值。",
+  "structural_checks": [
+    "JSON解析通过",
+    "4个侦察装备编号不重复",
+    "6个打击装备编号不重复",
+    "表9承载平台均能在表8找到",
+    "所有表8和表9平台及装备均有既有代号映射",
+    "本轮未改变原始表值或身份映射"
+  ],
+  "issue_counts": {
+    "COORDINATE_HEADER_DIRECTION": 5,
+    "RANGE_ORDER": 3,
+    "RELATION_FACTS_MISSING": 1,
+    "RESOURCE_INSTANCE_ALLOCATION": 1,
+    "STRICT_LAUNCH_BOUNDARY": 3
+  },
+  "changes": [
+    "将坐标疑点定位到实际对应截图及字段",
+    "补充射程与高度疑点字段路径",
+    "资源身份分配、通信指挥关系缺口独立列项"
+  ],
+  "conclusion": "来源转录核对通过；原文疑点及资料缺口仍未解决，不等于完整案例输入已验收。"
+}
