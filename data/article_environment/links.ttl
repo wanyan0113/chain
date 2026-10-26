@@ -1,0 +1,4 @@
+@prefix link: <urn:environment-integration:> .
+
+# 原文未给出可填入环境模块的观测记录，故不补造 hasObservation 边。
+# 默认背景接入不要求此关联；只有严格观测模式才将缺失视为错误。

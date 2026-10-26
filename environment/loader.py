@@ -27,11 +27,12 @@ def timestamp(value: str) -> datetime:
     return result.astimezone(timezone.utc)
 
 
-def load_environment(paths, *, require_observations=True):
+def load_environment(paths, *, require_observations=True, require_parameters=None):
     """Load local Turtle inputs and return (graph, report), without inference.
 
     Set require_observations=False to validate a parameter catalogue before
     measurements exist. Any observations present are still fully validated.
+    require_parameters=False also permits area-only input for scene integration.
     """
     graph = Graph()
     graph.parse(data=(MODULE_DIR / "ontology.ttl").read_bytes(), format="turtle")
@@ -42,8 +43,8 @@ def load_environment(paths, *, require_observations=True):
     for rule in profile["rules"]:
         if rule["target_class"] == str(ENV.Observation):
             rule["require_instances"] = require_observations
-        elif rule["target_class"] == str(ENV.Parameter) and not require_observations:
-            rule["require_instances"] = True
+        elif rule["target_class"] == str(ENV.Parameter):
+            rule["require_instances"] = (not require_observations) if require_parameters is None else require_parameters
     report = validate(graph, profile)
     parameters = instances_of(graph, ENV.Parameter)
     observations = instances_of(graph, ENV.Observation)

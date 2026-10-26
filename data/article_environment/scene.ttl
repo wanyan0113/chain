@@ -1,0 +1,16 @@
+@prefix case: <urn:article-environment:> .
+@prefix kw: <http://example.org/killweb#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# 仅整理用户给定的文章场景上下文，不录入攻击参数或设计结果。
+# IRI 与分组节点由项目整理者命名，不是原文给出的标识符。
+case:Situation a kw:BattlefieldSituation ;
+    rdfs:label "苍穹防御战斗想定的场景态势"@zh ;
+    rdfs:comment "原文 3.1 描述场景位于迷雾之海，分圣光联军、暗影教团两方。此节点用于归集场景背景，不表示已获得环境观测。"@zh ;
+    kw:sourceSection "3.1；联想截图_20261024174433.png" .
+
+case:Mission a kw:CombatMission ;
+    rdfs:label "原文 B-Wyvern#1 对应任务"@zh ;
+    kw:hasSituation case:Situation ;
+    rdfs:comment "按 3.2.1 对同一想定下的任务引用进行上下文整理，显式填写 hasSituation。该关联是项目对文章上下文的编码，不是原文给出的 RDF 边，也不是规则推理结果。未录入完整表 5 任务属性，不能作为完整任务实例验收。"@zh ;
+    kw:sourceSection "3.2.1、表 11；联想截图_20261024174530.png；联想截图_20261024174536.png" .

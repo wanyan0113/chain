@@ -1,0 +1,112 @@
+{
+  "checked_on": "2026-10-26",
+  "inputs": [
+    "data/article_environment/scene.ttl",
+    "data/article_environment/environment.ttl",
+    "data/article_environment/links.ttl"
+  ],
+  "scope": "给定截图的环境相关材料提取及引用完整性检查；未执行设计规则、链网生成或评价",
+  "data_origin": "用户第三部分十张截图；区域名直接提取；态势节点及任务上下文关联由项目整理者显式编码",
+  "instance_counts": {
+    "missions": 1,
+    "situations": 1,
+    "areas": 1,
+    "parameters": 0,
+    "observations": 0,
+    "observation_links": 0
+  },
+  "result": "场景背景接入通过，独立环境观测未提供；严格观测模式未通过。不表示文章要求观测或环境作用已验证。",
+  "modes": {
+    "scene_background": {
+      "counts": {
+        "ERROR": 0,
+        "WARN": 2,
+        "INFO": 3
+      },
+      "exit_code": 0,
+      "connections": [
+        {
+          "mission": "urn:article-environment:Mission",
+          "situation": "urn:article-environment:Situation",
+          "path_properties": [
+            "http://example.org/killweb#hasSituation"
+          ],
+          "connection_status": "background_only",
+          "observation": null
+        }
+      ],
+      "issues": [
+        {
+          "level": "INFO",
+          "code": "DATA",
+          "message": "已检查 1 个实例；采用显式数据与具名子类继承，未执行 OWL 推理"
+        },
+        {
+          "level": "WARN",
+          "code": "NO_CONNECTION",
+          "message": "没有显式的态势—环境观测关联；不代表文章要求提供独立观测"
+        },
+        {
+          "level": "WARN",
+          "code": "LINK_GAP",
+          "message": "任务 urn:article-environment:Mission 的态势 urn:article-environment:Situation 只有场景背景，未关联环境观测"
+        },
+        {
+          "level": "INFO",
+          "code": "CONNECTION",
+          "message": "完整路径涉及 0 个任务、0 个态势；仅检查显式数据关联"
+        },
+        {
+          "level": "INFO",
+          "code": "CONTEXT",
+          "message": "场景背景涉及 1 个任务、1 个态势；未检查环境作用"
+        }
+      ]
+    },
+    "observations_required": {
+      "counts": {
+        "ERROR": 4,
+        "WARN": 0,
+        "INFO": 3
+      },
+      "exit_code": 1,
+      "issues": [
+        {
+          "level": "ERROR",
+          "code": "NO_TARGET",
+          "message": "没有找到 urn:environment:Observation 的显式实例或子类实例"
+        },
+        {
+          "level": "INFO",
+          "code": "DATA",
+          "message": "已检查 1 个实例；采用显式数据与具名子类继承，未执行 OWL 推理"
+        },
+        {
+          "level": "ERROR",
+          "code": "NO_CONNECTION",
+          "message": "没有显式的态势—环境观测关联；不代表文章要求提供独立观测"
+        },
+        {
+          "level": "ERROR",
+          "code": "LINK_GAP",
+          "message": "任务 urn:article-environment:Mission 的态势 urn:article-environment:Situation 只有场景背景，未关联环境观测"
+        },
+        {
+          "level": "ERROR",
+          "code": "NO_PATH",
+          "message": "没有完整的任务—态势—环境观测路径"
+        },
+        {
+          "level": "INFO",
+          "code": "CONNECTION",
+          "message": "完整路径涉及 0 个任务、0 个态势；仅检查显式数据关联"
+        },
+        {
+          "level": "INFO",
+          "code": "CONTEXT",
+          "message": "场景背景涉及 1 个任务、1 个态势；未检查环境作用"
+        }
+      ]
+    }
+  }
+}

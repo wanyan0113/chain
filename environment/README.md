@@ -59,6 +59,8 @@
 
 Python 接口：先调用 `load_environment(paths)` 获得图和报告，确认 `report.counts()['ERROR'] == 0` 后，再调用 `query_observations`。单独处理参数目录时使用 `load_environment(paths, require_observations=False)` 和 `query_parameters`。参数及区域过滤使用 RDFLib 的 URIRef，时间过滤使用带时区 datetime。
 
+连接模块的场景背景模式使用 `load_environment(paths, require_observations=False, require_parameters=False)`，允许只提供区域或无环境数据。独立环境命令行的默认验收和 `--definitions-only` 要求不变；无论哪种模式，已提供的参数和观测都不会跳过校验。
+
 ## 范围
 
 本模块复用根目录 `validate_data.py` 和 `check_ontology.py` 的通用校验函数，因此依赖仓库公共工具，但不依赖主本体文件。若需作为另一项目的独立包发布，仍需一并打包公共工具，目前未完成包发布。

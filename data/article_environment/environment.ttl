@@ -1,0 +1,13 @@
+@prefix case: <urn:article-environment:> .
+@prefix env: <urn:environment:> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# 名称来自用户截图；区域 IRI 是本项目的稳定标识。
+case:Area a env:Area ;
+    env:name "迷雾之海" ;
+    rdfs:comment "3.1 想定的场景地域名称。名称中的‘迷雾’不能据此转写为实测能见度或雾浓度；截图没有给出区域几何边界。"@zh ;
+    rdfs:seeAlso <urn:article-source:20261024174433> .
+
+# 这批截图没有明确的环境参数定义和带时标的环境观测。
+# 不把装备位置、目标速度、命中率、成本等转换为环境观测。
+# 因此不声明 env:Parameter 或 env:Observation 实例。
