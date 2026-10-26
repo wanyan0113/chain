@@ -1,0 +1,202 @@
+{
+  "format_version": "1.0",
+  "namespace": "urn:environment:",
+  "schema": {
+    "type": "object",
+    "required": [
+      "format_version",
+      "areas",
+      "parameters",
+      "observations"
+    ],
+    "properties": {
+      "format_version": {
+        "const": "1.0"
+      },
+      "areas": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "name",
+            "source_refs"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s<>\"{}|\\\\^`]+$"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_refs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s<>\"{}|\\\\^`]+$"
+              },
+              "uniqueItems": true
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "parameters": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "name",
+            "source_refs",
+            "definition",
+            "datatype",
+            "unit",
+            "sources",
+            "source_locations"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s<>\"{}|\\\\^`]+$"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "source_refs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s<>\"{}|\\\\^`]+$"
+              },
+              "uniqueItems": true
+            },
+            "definition": {
+              "type": "string",
+              "minLength": 1
+            },
+            "datatype": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s<>\"{}|\\\\^`]+$"
+            },
+            "unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "sources": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "source_locations": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "observations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "parameter",
+            "area",
+            "value",
+            "observed_at",
+            "sources",
+            "source_locations",
+            "source_refs",
+            "blocking_issue_ids"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s<>\"{}|\\\\^`]+$"
+            },
+            "parameter": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s<>\"{}|\\\\^`]+$"
+            },
+            "area": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s<>\"{}|\\\\^`]+$"
+            },
+            "value": {
+              "type": [
+                "string",
+                "number",
+                "integer",
+                "boolean"
+              ]
+            },
+            "observed_at": {
+              "type": "string",
+              "minLength": 1
+            },
+            "sources": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "source_locations": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "source_refs": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s<>\"{}|\\\\^`]+$"
+              },
+              "uniqueItems": true
+            },
+            "blocking_issue_ids": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "additionalProperties": false
+        }
+      }
+    },
+    "additionalProperties": false,
+    "$schema": "https://json-schema.org/draft/2020-12/schema"
+  },
+  "properties": {
+    "name": "name",
+    "definition": "definition",
+    "unit": "unit",
+    "datatype": "valueDatatype",
+    "parameter": "parameter",
+    "area": "area",
+    "value": "value",
+    "observed_at": "observedAt",
+    "sources": "source",
+    "source_locations": "sourceLocation"
+  }
+}

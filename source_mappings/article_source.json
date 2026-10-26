@@ -1,0 +1,226 @@
+{
+  "format_version": "1.0",
+  "namespace": "article-source-v1",
+  "materials_path": "source_files",
+  "checked_on_path": "checked_on",
+  "units_path": "units",
+  "tables": [
+    {
+      "path": "table7",
+      "mode": "array",
+      "source_keys": [
+        "table7"
+      ],
+      "name": null,
+      "identity_key": "id",
+      "fields": {
+        "side": {
+          "header": null,
+          "unit_key": null,
+          "unit_status": "unknown"
+        },
+        "name": {
+          "header": null,
+          "unit_key": null,
+          "unit_status": "unknown"
+        },
+        "id": {
+          "header": null,
+          "unit_key": null,
+          "unit_status": "unknown"
+        },
+        "count": {
+          "header": null,
+          "unit_key": null,
+          "unit_status": "unknown"
+        }
+      }
+    },
+    {
+      "path": "table8",
+      "mode": "array",
+      "source_keys": [
+        "table8_table9"
+      ],
+      "name": null,
+      "identity_key": "platform",
+      "fields": {
+        "platform": {
+          "header": null,
+          "unit_key": null,
+          "unit_status": "unknown"
+        },
+        "longitude_column_raw": {
+          "header": null,
+          "unit_key": "coordinates",
+          "unit_status": "unconfirmed"
+        },
+        "latitude_column_raw": {
+          "header": null,
+          "unit_key": "coordinates",
+          "unit_status": "unconfirmed"
+        },
+        "altitude_ft": {
+          "header": null,
+          "unit_key": "altitude",
+          "unit_status": "confirmed"
+        },
+        "recon_equipment": {
+          "header": null,
+          "unit_key": null,
+          "unit_status": "unknown"
+        },
+        "target_types": {
+          "header": null,
+          "unit_key": null,
+          "unit_status": "unknown"
+        },
+        "detection_range_nm": {
+          "header": null,
+          "unit_key": "distance",
+          "unit_status": "confirmed"
+        },
+        "precision_raw": {
+          "header": null,
+          "unit_key": "recon_precision",
+          "unit_status": "unconfirmed"
+        }
+      }
+    },
+    {
+      "path": "table9",
+      "mode": "array",
+      "source_keys": [
+        "table8_table9"
+      ],
+      "name": null,
+      "identity_key": "strike_equipment",
+      "fields": {
+        "platform": {
+          "header": null,
+          "unit_key": null,
+          "unit_status": "unknown"
+        },
+        "strike_equipment": {
+          "header": null,
+          "unit_key": null,
+          "unit_status": "unknown"
+        },
+        "target_types": {
+          "header": null,
+          "unit_key": null,
+          "unit_status": "unknown"
+        },
+        "max_range_nm": {
+          "header": null,
+          "unit_key": "distance",
+          "unit_status": "confirmed"
+        },
+        "min_range_nm": {
+          "header": null,
+          "unit_key": "distance",
+          "unit_status": "confirmed"
+        },
+        "damage_value": {
+          "header": null,
+          "unit_key": "damage_value",
+          "unit_status": "unknown"
+        },
+        "max_target_speed_kn": {
+          "header": null,
+          "unit_key": "speed",
+          "unit_status": "confirmed"
+        },
+        "min_target_altitude_ft": {
+          "header": null,
+          "unit_key": "altitude",
+          "unit_status": "confirmed"
+        },
+        "max_target_altitude_ft": {
+          "header": null,
+          "unit_key": "altitude",
+          "unit_status": "confirmed"
+        },
+        "min_launch_altitude_ft": {
+          "header": null,
+          "unit_key": "altitude",
+          "unit_status": "confirmed"
+        },
+        "max_launch_altitude_ft": {
+          "header": null,
+          "unit_key": "altitude",
+          "unit_status": "confirmed"
+        },
+        "hit_probability_percent": {
+          "header": null,
+          "unit_key": "hit_probability",
+          "unit_status": "confirmed"
+        }
+      }
+    },
+    {
+      "path": "table11",
+      "mode": "object",
+      "source_keys": [
+        "table11"
+      ],
+      "name": null,
+      "identity_key": "mission",
+      "fields": {
+        "mission": {
+          "header": null,
+          "unit_key": null,
+          "unit_status": "unknown"
+        },
+        "target_type": {
+          "header": null,
+          "unit_key": null,
+          "unit_status": "unknown"
+        },
+        "longitude_column_raw": {
+          "header": null,
+          "unit_key": "coordinates",
+          "unit_status": "unconfirmed"
+        },
+        "latitude_column_raw": {
+          "header": null,
+          "unit_key": "coordinates",
+          "unit_status": "unconfirmed"
+        },
+        "target_altitude_ft": {
+          "header": null,
+          "unit_key": "altitude",
+          "unit_status": "confirmed"
+        },
+        "target_speed_kn": {
+          "header": null,
+          "unit_key": "speed",
+          "unit_status": "confirmed"
+        },
+        "target_survivability": {
+          "header": null,
+          "unit_key": "survivability",
+          "unit_status": "unknown"
+        }
+      }
+    }
+  ],
+  "statements": [
+    {
+      "path": "identity_mapping",
+      "mode": "object",
+      "source_keys": [
+        "case_text"
+      ]
+    },
+    {
+      "path": "explicit_facts",
+      "mode": "array",
+      "source_keys": [
+        "case_text"
+      ]
+    }
+  ],
+  "issues_path": "issues",
+  "gaps_path": "missing_facts"
+}
