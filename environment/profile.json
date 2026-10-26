@@ -8,6 +8,7 @@
         {"path": "urn:environment:name", "min_count": 1, "max_count": 1, "datatype": "http://www.w3.org/2001/XMLSchema#string"},
         {"path": "urn:environment:definition", "min_count": 1, "max_count": 1, "datatype": "http://www.w3.org/2001/XMLSchema#string"},
         {"path": "urn:environment:source", "min_count": 1, "datatype": "http://www.w3.org/2001/XMLSchema#string"},
+        {"path": "urn:environment:sourceLocation", "datatype": "http://www.w3.org/2001/XMLSchema#string"},
         {"path": "urn:environment:unit", "max_count": 1, "datatype": "http://www.w3.org/2001/XMLSchema#string"},
         {"path": "urn:environment:valueDatatype", "min_count": 1, "max_count": 1}
       ]
@@ -19,7 +20,8 @@
         {"path": "urn:environment:value", "min_count": 1, "max_count": 1},
         {"path": "urn:environment:observedAt", "min_count": 1, "max_count": 1, "datatype": "http://www.w3.org/2001/XMLSchema#dateTime"},
         {"path": "urn:environment:area", "min_count": 1, "max_count": 1, "value_class": "urn:environment:Area"},
-        {"path": "urn:environment:source", "min_count": 1, "datatype": "http://www.w3.org/2001/XMLSchema#string"}
+        {"path": "urn:environment:source", "min_count": 1, "datatype": "http://www.w3.org/2001/XMLSchema#string"},
+        {"path": "urn:environment:sourceLocation", "datatype": "http://www.w3.org/2001/XMLSchema#string"}
       ]
     },
     {

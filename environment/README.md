@@ -1,8 +1,10 @@
-# 环境模块1.0
+# 环境模块1.1
 
 本模块负责环境参数定义、观测记录、读取、校验和查询。命名空间为 `urn:environment:`，不导入 `killweb_ontology.ttl`，也不引用任务、法器、能力或链网类型。
 
 文章截图第一部分表 1 只定义了态势概念，没有提供完整环境参数表。本目录的字段均为项目数据管理结构，不宣称是文章原始属性。未预设元素种类、环境数值、阈值、修正公式或场景实例。
+
+三部分共 24 张截图的覆盖情况见 [内容涵盖对照](内容涵盖对照.md)。第三部分增加了具体设计规则，但装备、目标、资源和评价数据不属于环境参数，未移入本模块。
 
 | 文件 | 内容 |
 | --- | --- |
@@ -14,6 +16,8 @@
 ## 数据约定
 
 参数 `env:Parameter` 需要稳定 IRI、名称 `env:name`、含义 `env:definition`、来源 `env:source` 和值类型 `env:valueDatatype`。数值参数另需 `env:unit`；无量纲用字符串 `1`。参数定义与观测可放在不同 TTL 文件中，一起加载。
+
+参数与观测均可使用 `env:sourceLocation` 记录章节、表号、页码或截图文件名。它是可选的非空字符串，可有多条；来源说明仍须填写，定位信息不能替代来源。
 
 值类型支持 XSD 的整数类型、decimal、float、double、string、boolean 和 dateTime，必须以完整 IRI 声明。观测值类型须与声明精确一致，数值须有限。参数表示固定计量口径；模块不转换单位。同一参数需要使用不同单位时应先统一口径或使用不同参数标识。
 
@@ -43,7 +47,17 @@
 
 标准输出是 JSON，包含 `count` 和 `observations`；校验信息写入标准错误。值保持字符串形式并附数据类型，避免隐式数值精度损失。退出码：0 为校验及查询成功，1 为数据校验失败，2 为读取或查询错误。没有观测数据会校验失败；查询未匹配任何记录会正常返回空列表。
 
-Python 接口：先调用 `load_environment(paths)` 获得图和报告，确认 `report.counts()['ERROR'] == 0` 后，再调用 `query_observations`。参数及区域过滤使用 RDFLib 的 URIRef，时间过滤使用带时区 datetime。
+观测结果新增 `area_name`、`source_locations` 和 `parameter_definition`。后者包含参数含义、类型、单位、定义来源及其定位；观测自身的 `sources` 单独表示观测值来源。原有 1.0 输出字段保留。
+
+尚无观测数据时，可独立检查和查询参数定义：
+
+```powershell
+.\.venv\Scripts\python.exe -m environment.loader <参数定义文件.ttl> --definitions-only
+```
+
+此模式至少需要一个有效参数定义，输出 `count` 和 `parameters`，只允许 `--parameter` 过滤。如果同时提供了观测数据，观测仍会校验。它不会把空输入当作成功，也不创建默认参数。
+
+Python 接口：先调用 `load_environment(paths)` 获得图和报告，确认 `report.counts()['ERROR'] == 0` 后，再调用 `query_observations`。单独处理参数目录时使用 `load_environment(paths, require_observations=False)` 和 `query_parameters`。参数及区域过滤使用 RDFLib 的 URIRef，时间过滤使用带时区 datetime。
 
 ## 范围
 

@@ -27,14 +27,23 @@ def timestamp(value: str) -> datetime:
     return result.astimezone(timezone.utc)
 
 
-def load_environment(paths):
-    """Load local Turtle inputs and return (graph, validation report)."""
+def load_environment(paths, *, require_observations=True):
+    """Load local Turtle inputs and return (graph, report), without inference.
+
+    Set require_observations=False to validate a parameter catalogue before
+    measurements exist. Any observations present are still fully validated.
+    """
     graph = Graph()
     graph.parse(data=(MODULE_DIR / "ontology.ttl").read_bytes(), format="turtle")
     for path in paths:
         path = Path(path)
         graph.parse(data=path.read_bytes(), publicID=path.resolve().as_uri(), format="turtle")
     profile = json.loads((MODULE_DIR / "profile.json").read_text(encoding="utf-8"))
+    for rule in profile["rules"]:
+        if rule["target_class"] == str(ENV.Observation):
+            rule["require_instances"] = require_observations
+        elif rule["target_class"] == str(ENV.Parameter) and not require_observations:
+            rule["require_instances"] = True
     report = validate(graph, profile)
     parameters = instances_of(graph, ENV.Parameter)
     observations = instances_of(graph, ENV.Observation)
@@ -46,6 +55,7 @@ def load_environment(paths):
         ENV.definition: parameters, ENV.unit: parameters,
         ENV.valueDatatype: parameters,
         ENV.name: parameters | areas, ENV.source: parameters | observations,
+        ENV.sourceLocation: parameters | observations,
     }
     for subject, prop, value in graph:
         if str(prop).startswith(str(ENV)) and prop not in expected_subjects:
@@ -57,7 +67,7 @@ def load_environment(paths):
     for subject in parameters | observations | areas:
         if not isinstance(subject, URIRef):
             report.error("ENV_ID", f"记录需要稳定 IRI，不能使用空白节点：{subject}")
-    for prop in (ENV.name, ENV.definition, ENV.source, ENV.unit, ENV.value):
+    for prop in (ENV.name, ENV.definition, ENV.source, ENV.sourceLocation, ENV.unit, ENV.value):
         for subject, value in graph.subject_objects(prop):
             if isinstance(value, Literal) and not str(value).strip():
                 report.error("ENV_EMPTY", f"{subject} 的 {prop} 不能为空")
@@ -90,6 +100,28 @@ def load_environment(paths):
     return graph, report
 
 
+def query_parameters(graph, *, parameter=None):
+    """List definitions from a validated graph; do not invent parameters."""
+    if parameter is not None:
+        if not isinstance(parameter, URIRef):
+            raise ValueError("参数过滤必须使用完整 IRI 的 URIRef")
+        iri(str(parameter))
+    rows = []
+    for item in sorted(instances_of(graph, ENV.Parameter), key=str):
+        if parameter is not None and item != parameter:
+            continue
+        unit = graph.value(item, ENV.unit)
+        rows.append({
+            "id": str(item), "name": str(graph.value(item, ENV.name)),
+            "definition": str(graph.value(item, ENV.definition)),
+            "datatype": str(graph.value(item, ENV.valueDatatype)),
+            "unit": str(unit) if unit is not None else None,
+            "sources": sorted(str(value) for value in graph.objects(item, ENV.source)),
+            "source_locations": sorted(str(value) for value in graph.objects(item, ENV.sourceLocation)),
+        })
+    return rows
+
+
 def query_observations(graph, *, parameter=None, area=None, start=None, end=None):
     """Query a validated graph; time boundaries inclusive, area matched by IRI."""
     for bound in (start, end):
@@ -104,6 +136,7 @@ def query_observations(graph, *, parameter=None, area=None, start=None, end=None
             iri(str(identifier))
     if start is not None and end is not None and start > end:
         raise ValueError("起始时间不能晚于结束时间")
+    definitions = {row["id"]: row for row in query_parameters(graph, parameter=parameter)}
     rows = []
     for observation in instances_of(graph, ENV.Observation):
         param = graph.value(observation, ENV.parameter)
@@ -124,7 +157,10 @@ def query_observations(graph, *, parameter=None, area=None, start=None, end=None
             "value": str(value), "datatype": str(value.datatype or XSD.string),
             "unit": str(unit) if unit is not None else None,
             "observed_at": str(observed_at), "area": str(region),
+            "area_name": str(graph.value(region, ENV.name)),
             "sources": sorted(str(item) for item in graph.objects(observation, ENV.source)),
+            "source_locations": sorted(str(item) for item in graph.objects(observation, ENV.sourceLocation)),
+            "parameter_definition": definitions[str(param)],
         })
     return sorted(rows, key=lambda row: (timestamp(row["observed_at"]), row["id"]))
 
@@ -136,19 +172,27 @@ def main(argv=None):
     parser.add_argument("--area", type=iri, help="区域完整 IRI")
     parser.add_argument("--from-time", type=timestamp)
     parser.add_argument("--to-time", type=timestamp)
+    parser.add_argument("--definitions-only", action="store_true", help="只查询参数定义，不要求观测数据")
     args = parser.parse_args(argv)
+    if args.definitions_only and any(value is not None for value in (args.area, args.from_time, args.to_time)):
+        parser.error("--definitions-only 只支持 --parameter，不接受区域或观测时间过滤")
     try:
-        graph, report = load_environment(args.data)
+        graph, report = load_environment(args.data, require_observations=not args.definitions_only)
         for level, code, message in report.items:
             print(f"[{level}] {code}: {message}", file=sys.stderr)
         if report.counts()["ERROR"]:
             return 1
-        rows = query_observations(graph, parameter=args.parameter, area=args.area,
-                                  start=args.from_time, end=args.to_time)
+        if args.definitions_only:
+            rows = query_parameters(graph, parameter=args.parameter)
+            result_key = "parameters"
+        else:
+            rows = query_observations(graph, parameter=args.parameter, area=args.area,
+                                      start=args.from_time, end=args.to_time)
+            result_key = "observations"
     except Exception as exc:
         print(f"读取或查询错误：{exc}", file=sys.stderr)
         return 2
-    print(json.dumps({"count": len(rows), "observations": rows}, ensure_ascii=False, indent=2))
+    print(json.dumps({"count": len(rows), result_key: rows}, ensure_ascii=False, indent=2))
     return 0
 
 

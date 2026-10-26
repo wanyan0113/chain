@@ -5,8 +5,8 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 <urn:environment> a owl:Ontology ;
-    owl:versionInfo "1.0" ;
-    rdfs:label "环境模块1.0"@zh ;
+    owl:versionInfo "1.1" ;
+    rdfs:label "环境模块"@zh ;
     rdfs:comment "项目数据管理结构，不是文章原始属性表。独立于主本体，不预设环境参数、元素类别、作用阈值或推理规则。"@zh .
 
 env:Parameter a owl:Class ; rdfs:label "参数定义"@zh .
@@ -36,3 +36,7 @@ env:area a owl:ObjectProperty ; rdfs:domain env:Observation ;
 env:source a owl:DatatypeProperty ; rdfs:range xsd:string ;
     rdfs:label "来源说明"@zh ;
     rdfs:comment "分别记录参数定义及观测值的出处，不自动验证来源真实性。"@zh .
+
+env:sourceLocation a owl:DatatypeProperty ; rdfs:range xsd:string ;
+    rdfs:label "来源定位"@zh ;
+    rdfs:comment "可选的数据管理字段，用于记录参数或观测来源的章节、表号、页码或截图文件名，不表示文章定义了该字段。"@zh .
