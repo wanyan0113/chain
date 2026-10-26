@@ -1,0 +1,38 @@
+@prefix env: <urn:environment:> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:environment> a owl:Ontology ;
+    owl:versionInfo "1.0" ;
+    rdfs:label "环境模块1.0"@zh ;
+    rdfs:comment "项目数据管理结构，不是文章原始属性表。独立于主本体，不预设环境参数、元素类别、作用阈值或推理规则。"@zh .
+
+env:Parameter a owl:Class ; rdfs:label "参数定义"@zh .
+env:Observation a owl:Class ; rdfs:label "环境观测记录"@zh ;
+    rdfs:comment "一条记录表达一个参数在一个观测时间和一个适用区域中的值；不是持续有效区间。"@zh .
+env:Area a owl:Class ; rdfs:label "适用区域"@zh ;
+    rdfs:comment "以稳定标识符引用区域；不规定坐标系、几何范围或空间包含关系。"@zh .
+
+env:name a owl:DatatypeProperty ; rdfs:range xsd:string ; rdfs:label "名称"@zh .
+env:definition a owl:DatatypeProperty ; rdfs:domain env:Parameter ;
+    rdfs:range xsd:string ; rdfs:label "参数含义"@zh .
+env:unit a owl:DatatypeProperty ; rdfs:domain env:Parameter ;
+    rdfs:range xsd:string ; rdfs:label "单位"@zh ;
+    rdfs:comment "数值参数须明确单位；无量纲使用 1。不自动换算单位。非数值参数可省略。"@zh .
+env:valueDatatype a rdf:Property ; rdfs:domain env:Parameter ;
+    rdfs:range rdfs:Datatype ; rdfs:label "值的数据类型"@zh ;
+    rdfs:comment "数据管理元信息，引用 XSD 数据类型 IRI，不作为领域对象关系。"@zh .
+env:parameter a owl:ObjectProperty ; rdfs:domain env:Observation ;
+    rdfs:range env:Parameter ; rdfs:label "记录的参数"@zh .
+env:value a owl:DatatypeProperty ; rdfs:domain env:Observation ;
+    rdfs:range rdfs:Literal ; rdfs:label "观测值"@zh .
+env:observedAt a owl:DatatypeProperty ; rdfs:domain env:Observation ;
+    rdfs:range xsd:dateTime ; rdfs:label "观测时间"@zh ;
+    rdfs:comment "本模块要求明确时区，不把无时区时间默认为本地时间。"@zh .
+env:area a owl:ObjectProperty ; rdfs:domain env:Observation ;
+    rdfs:range env:Area ; rdfs:label "适用区域"@zh .
+env:source a owl:DatatypeProperty ; rdfs:range xsd:string ;
+    rdfs:label "来源说明"@zh ;
+    rdfs:comment "分别记录参数定义及观测值的出处，不自动验证来源真实性。"@zh .
