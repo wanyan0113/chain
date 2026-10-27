@@ -64,9 +64,24 @@ def main(argv=None):
     audit.add_argument("--mapping", type=Path, default=ROOT / "source_mappings/case_fields.json")
     audit.add_argument("--output-dir", type=Path)
     audit.add_argument("--overwrite", action="store_true")
+    reference = sub.add_parser("reproduce-case", help="复算文章表13并导出正文明确给出的单条链")
+    reference.add_argument("--output-dir", type=Path, required=True)
+    reference.add_argument("--overwrite", action="store_true")
     args = parser.parse_args(argv)
     try:
-        if args.command == "audit-case":
+        if args.command == "reproduce-case":
+            from .reference import REFERENCE_PATH, reference_summary, reference_to_rdf, reproduce_reference
+            result = reproduce_reference()
+            graph = reference_to_rdf(result)
+            review = analyze_graph(Graph().parse(ROOT / "arcane_ontology.ttl", format="turtle") + graph)
+            if review.counts()["ERROR"] or review.counts()["WARN"]:
+                raise DesignError(f"文章方案结构检查失败：{review.items}")
+            result["validation"]["rdf_structure"] = review.counts()
+            write_outputs(args.output_dir, {
+                "reference_chain.ttl": graph.serialize(format="turtle"),
+                "reference_report.json": json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n",
+                "reference_chain.md": reference_summary(result)}, overwrite=args.overwrite, protected=[REFERENCE_PATH])
+        elif args.command == "audit-case":
             result = audit_case(args.input, args.mapping)
             if args.output_dir:
                 write_outputs(args.output_dir, {"case_readiness.json": json.dumps(result, ensure_ascii=False, indent=2) + "\n"},
@@ -92,7 +107,7 @@ def main(argv=None):
             outputs["design_summary.md"] = render_summary(result)
             write_outputs(args.output_dir, outputs, overwrite=args.overwrite, protected=[args.input])
         print(json.dumps(result, ensure_ascii=False, allow_nan=False))
-        return 0 if result["status"] == "complete" else 1
+        return 0 if result["status"] in {"complete", "reference_reproduced"} else 1
     except (ValueError, OSError) as exc:
         result = {"status": "search_limit" if isinstance(exc, SearchLimitError) else "invalid", "error": str(exc), "network": None}
         print(json.dumps(result, ensure_ascii=False))

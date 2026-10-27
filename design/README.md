@@ -63,3 +63,17 @@ Python入口为 `from design import design; result = design(document)`。不修�
 `audit-case` 复用来源导入与校验，输出当前13项疑点、3项缺口以及待补输入，退出1。目前案例缺少确认坐标、协调法器完整指标、协同边、资源库存等，不能自动产生可信完整网络。原始案例没有被修改，技术演示结果也不反填案例。
 
 当前未实现自动坐标纠错、环境作用计算、移动目标轨迹、随机过程、失败重试和动态重规划。现有时间区间及容量检查是确定性的静态执行计划检查；动态仿真还需要额外的状态转移和环境模型。
+
+## 单条文章案例链复现
+
+用户新增的第三部分截图提供了表10的具体规则及表13的4组方案评价值。可以先执行：
+
+```powershell
+.\.venv\Scripts\python.exe -B -m design reproduce-case --output-dir generated/article_reference_chain
+```
+
+输入存于 `data/article_design/reference_evaluation.json`，带截图文件名和未决问题。复用现有评分函数，按表13的4组数值及0.3／0.3／0.4权重复算，得到0.896154、0.300000、0.700000、0.092308，与原文三位小数结果吻合。胜出行对应正文明确标识的 `R-Eye-A（R-Golem）→联合统筹中枢（R-Golem）→R-Sigil-B（R-Gryphon#1）`。
+
+本命令输出 `reference_chain.md`、`reference_report.json` 和 `reference_chain.ttl`，成功退出0，状态专用 `reference_reproduced`。时间按表13距离／速度计算，沿用来源单位n mile和kn得到小时后换成秒；不把方案级速度回填成法器速度，不以零补造探知或协调阶段耗时。成本保留文章明确的评价代理口径，不冒充真实货币成本。
+
+这是文章给定候选数据的评分复现及方案结构导出。它没有运行完整的任务筛选与协同可行性验证；报告明确标注 `independent_feasibility=not_verified`。RDF使用现有链和节点类保存方案顺序，包含来源和未核验状态，不断言已验证的传讯、统筹关系。第3、4行80%精度与表12／表8的身份冲突继续保留，不给这两行强配法器。原有 `run` 的完整设计检查没有放宽。

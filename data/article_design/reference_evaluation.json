@@ -1,0 +1,31 @@
+{
+  "format_version": "1.0",
+  "scope": "用户提供的第三部分截图：复算表13并输出正文明确给出的最优链；不独立证明候选链可行性",
+  "mission": "魔力消解 B-Eidolon#1",
+  "target": "B-Eidolon#1",
+  "sources": ["联想截图_20261027151015.png：3.2.2评价口径、权重及最优链", "联想截图_20261027151026.png：表13及最优链"],
+  "weights": {"time": 0.3, "accuracy": 0.3, "cost": 0.4},
+  "equal_metric_score": 0.5,
+  "distance_unit": "n mile",
+  "speed_unit": "kn",
+  "cost_basis": "表13附魔造价列的评价代理值；与共鸣效值相同不构成二者业务含义等价",
+  "rows": [
+    {"id": "1", "distance": 190, "speed": 3450, "insight_percent": 90, "attunement_percent": 85, "cost_proxy": 21, "reported_score": 0.896},
+    {"id": "2", "distance": 145, "speed": 2375, "insight_percent": 90, "attunement_percent": 90, "cost_proxy": 123, "reported_score": 0.300},
+    {"id": "3", "distance": 190, "speed": 3450, "insight_percent": 80, "attunement_percent": 85, "cost_proxy": 21, "reported_score": 0.700},
+    {"id": "4", "distance": 145, "speed": 2375, "insight_percent": 80, "attunement_percent": 90, "cost_proxy": 123, "reported_score": 0.092}
+  ],
+  "explicit_best_chain": {
+    "evaluation_row": "1",
+    "insight": {"id": "R-Eye-A", "platform": "R-Golem"},
+    "coordination": {"id": "联合统筹中枢", "platform": "R-Golem"},
+    "manifestation": {"id": "R-Sigil-B", "platform": "R-Gryphon#1"}
+  },
+  "unresolved": [
+    "未提供全部候选间明确传讯边、传讯距离及最大传讯距离，不能独立验收协同可行性。",
+    "表8、表11坐标列名与N/E方向冲突；表13距离和速度仅作为方案级评价输入，不回填法器实测参数。",
+    "表9中R-Sigil-D/E/F射程上下界倒置，激发高度0/0与严格边界规则冲突，原值未更改。",
+    "表12列R-Eye-A/R-Eye-D，而表13第3、4行探知精度80%与R-Eye-D的75%不一致；不据此给第3、4行强配法器身份。",
+    "缺少其余任务完整数据，未执行多任务组网或动态仿真。"
+  ]
+}
