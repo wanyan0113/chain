@@ -105,7 +105,7 @@ def write_outputs(directory, outputs, *, overwrite=False, protected=()):
     # Only new, ignored generated directories inside a code tree are output locations.
     repo = MODULE.parent
     forbidden = [repo / part for part in ("source_data", "adapters", "source_mappings",
-                 "adapter_mappings", "environment", "integration", "data", "docs", ".git", ".venv")]
+                 "adapter_mappings", "environment", "integration", "design", "tests", "data", "docs", ".git", ".venv")]
     if any(directory == p or p in directory.parents for p in forbidden):
         raise InputError("输出目录不能位于来源、配置、模块或项目资料目录中")
     targets = []

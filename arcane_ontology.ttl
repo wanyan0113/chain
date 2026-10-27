@@ -1655,7 +1655,8 @@
 :DesignRuleDescription a owl:Class ; rdfs:label "设计规则说明"@zh .
 :TaskCapabilityRuleDescription a owl:NamedIndividual, :DesignRuleDescription ;
     rdfs:label "任务—能力映射规则说明"@zh ; :sourceSection "2.1.1；式（1）" ;
-    rdfs:comment "描述任务属性条件与所需能力之间的条件关系；条件阈值未在截图中完整给出。"@zh .
+    rdfs:comment "描述任务属性条件与所需能力之间的条件关系；条件阈值未在截图中完整给出。"@zh ;
+    :semanticNote "用户于2026-10-27更正2.1.1示例的笔误：目标距离近时，需要近程具现能力；不采用原文的远程表述。近程的数值阈值仍须显式配置。可执行规则由独立design模块加载，本条注释本身不执行推理。"@zh .
 :CapabilityArtifactRuleDescription a owl:NamedIndividual, :DesignRuleDescription ;
     rdfs:label "能力—法器映射规则说明"@zh ; :sourceSection "2.1.1；式（2）" ;
     rdfs:comment "描述能力需求与法器属性条件的映射；本目录不进行法器筛选。"@zh .
