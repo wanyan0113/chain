@@ -2,7 +2,7 @@
 
 来源 RDF 适配只输出来源本体通用类，不根据表号或字段名生成业务属性。`source_to_rdf(bundle)` 校验 `adapter_mappings/source_metadata.json` 与固定契约一致后返回图。命令行由 source_data.cli 提供。
 
-环境适配独立于来源导入。`raw_tables.json` 不符合环境输入契约，会被拒绝。当前已有区域 TTL 直接复用：
+环境适配独立于来源导入。`case_records.json` 不符合环境输入契约，会被拒绝。当前已有区域 TTL 直接复用：
 
 ```powershell
 .venv/Scripts/python.exe -m adapters.environment_to_rdf data/article_environment/environment.ttl --output-dir generated/article_environment

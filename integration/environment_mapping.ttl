@@ -1,6 +1,6 @@
 @prefix link: <urn:environment-integration:> .
 @prefix env: <urn:environment:> .
-@prefix kw: <http://example.org/killweb#> .
+@prefix kw: <http://example.org/arcaneweb#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
@@ -10,7 +10,7 @@
     rdfs:comment "项目连接结构，依据第一部分图 1、表 1 的态势概念设置；hasObservation 是项目新增关系，不是文章原始字段。不执行环境作用规则。依赖文件由加载器显式读取。"@zh .
 
 link:hasObservation a owl:ObjectProperty ;
-    rdfs:domain kw:BattlefieldSituation ;
+    rdfs:domain kw:ElementalFieldSituation ;
     rdfs:range env:Observation ;
     rdfs:label "态势关联环境观测"@zh ;
     rdfs:comment "显式引用一条观测。任务通过主本体已有 kw:hasSituation 访问态势；不依据名称、时间或区域自动建立关联，不表示观测在任务时刻仍有效。"@zh .

@@ -65,7 +65,7 @@
           "unit_key": "altitude",
           "unit_status": "confirmed"
         },
-        "recon_equipment": {
+        "insight_artifact": {
           "header": null,
           "unit_key": null,
           "unit_status": "unknown"
@@ -82,7 +82,7 @@
         },
         "precision_raw": {
           "header": null,
-          "unit_key": "recon_precision",
+          "unit_key": "insight_precision",
           "unit_status": "unconfirmed"
         }
       }
@@ -94,14 +94,14 @@
         "table8_table9"
       ],
       "name": null,
-      "identity_key": "strike_equipment",
+      "identity_key": "manifestation_artifact",
       "fields": {
         "platform": {
           "header": null,
           "unit_key": null,
           "unit_status": "unknown"
         },
-        "strike_equipment": {
+        "manifestation_artifact": {
           "header": null,
           "unit_key": null,
           "unit_status": "unknown"
@@ -121,9 +121,9 @@
           "unit_key": "distance",
           "unit_status": "confirmed"
         },
-        "damage_value": {
+        "resonance_value": {
           "header": null,
-          "unit_key": "damage_value",
+          "unit_key": "resonance_value",
           "unit_status": "unknown"
         },
         "max_target_speed_kn": {
@@ -141,19 +141,19 @@
           "unit_key": "altitude",
           "unit_status": "confirmed"
         },
-        "min_launch_altitude_ft": {
+        "min_activation_altitude_ft": {
           "header": null,
           "unit_key": "altitude",
           "unit_status": "confirmed"
         },
-        "max_launch_altitude_ft": {
+        "max_activation_altitude_ft": {
           "header": null,
           "unit_key": "altitude",
           "unit_status": "confirmed"
         },
-        "hit_probability_percent": {
+        "attunement_probability_percent": {
           "header": null,
-          "unit_key": "hit_probability",
+          "unit_key": "attunement_probability",
           "unit_status": "confirmed"
         }
       }
@@ -197,9 +197,9 @@
           "unit_key": "speed",
           "unit_status": "confirmed"
         },
-        "target_survivability": {
+        "target_impedance_threshold": {
           "header": null,
-          "unit_key": "survivability",
+          "unit_key": "impedance_threshold",
           "unit_status": "unknown"
         }
       }

@@ -14,8 +14,8 @@
 
 ```powershell
 .venv/Scripts/python.exe -m pip install -r source_data/requirements.txt
-.venv/Scripts/python.exe -m source_data.cli ingest data/article_source/raw_tables.json --mapping source_mappings/article_source.json --output-dir generated/article_source --rdf
-.venv/Scripts/python.exe -m source_data.cli validate generated/article_source/bundle.json --original data/article_source/raw_tables.json
+.venv/Scripts/python.exe -m source_data.cli ingest data/article_source/case_records.json --mapping source_mappings/case_fields.json --output-dir generated/article_source --rdf
+.venv/Scripts/python.exe -m source_data.cli validate generated/article_source/bundle.json --original data/article_source/case_records.json
 .venv/Scripts/python.exe -m source_data.cli query generated/article_source/provenance.ttl --kind materials
 .venv/Scripts/python.exe -m source_data.cli query generated/article_source/provenance.ttl --table article-source-v1/table/table9
 .venv/Scripts/python.exe -m source_data.cli query generated/article_source/provenance.ttl --record 'article-source-v1/record/table9[3]'
@@ -43,8 +43,8 @@ from source_data.validate import validate_bundle
 from source_data.load import load_source, bundle_from_graph
 from source_data.query import query_records, query_issues
 
-bundle = ingest('data/article_source/raw_tables.json', 'source_mappings/article_source.json')
-result = validate_bundle(bundle, original_path='data/article_source/raw_tables.json')
+bundle = ingest('data/article_source/case_records.json', 'source_mappings/case_fields.json')
+result = validate_bundle(bundle, original_path='data/article_source/case_records.json')
 assert result['counts']['ERROR'] == 0
 graph, result = load_source(['generated/article_source/provenance.ttl'])
 assert result['counts']['ERROR'] == 0

@@ -1,29 +1,26 @@
-# 文章本体整理
+# 奥术网模型与数据工具
 
-当前主要代码、模型配置、辅助工具和阅读顺序见 [主要代码清单](docs/主要代码清单.md)。来源模块使用见 [来源模块说明](source_data/README.md)，环境适配与背景接入见 [适配说明](adapters/README.md)。
+当前主本体为`arcane_ontology.ttl`，业务命名空间为`http://example.org/arcaneweb#`。主要入口：
 
-当前保留文章概念、属性和链网结构的本体声明，以及通用检查工具。自设游戏、维修、图书馆和预设链示例已撤下。
+| 模块 | 入口／配置 |
+|---|---|
+| 本体检查 | `check_ontology.py` |
+| 实例校验 | `validate_data.py` |
+| 环境 | `environment/loader.py`、`environment/ontology.ttl`、`environment/profile.json` |
+| 背景联合加载 | `integration/load_project.py`、`integration/environment_mapping.ttl` |
+| 来源整理 | `source_data/cli.py` |
+| 案例输入 | `data/article_source/case_records.json` |
+| 案例读档配置 | `source_mappings/case_fields.json` |
+| 案例核对记录 | `data/article_source/case_review.json` |
+| 适配与验收 | `adapters/`、`adapter_mappings/` |
 
-| 文件 | 作用 |
-| --- | --- |
-| `killweb_ontology.ttl` | 主本体及规则、公式的文字说明 |
-| `check_ontology.py` | 本体静态检查工具 |
-| `validate_data.py` | 通用实例校验工具，需要另行提供数据和 JSON 校验配置 |
-| `requirements.txt` | Python 依赖 |
-| `environment/` | 独立环境数据结构、读取、校验与查询，使用方式见目录 README |
-| `integration/` | 任务—态势—环境观测的显式连接、联合校验与查询，使用方式见目录 README |
-| `本体命名对照表.md` | 术语历史对照和来源说明 |
-
-本轮移除自设的魔力上限、耗魔点数、冷却回合、解锁状态和元素分类，并删除文章表格未单独定义的十个通用能力字段。文章属性与项目结构扩展的区别见 [本体对照与实施顺序](docs/本体对照与实施顺序.md)。
-
-规则与式（1）至式（10）目前是文字目录，不是可执行规则。现有代码没有实现自动生成链网、SE 计算、α/β 拟合或级联仿真。
-
-当前按用户提供的十四张截图整理，SE、α/β 和动态级联不列入范围。逐图落实情况及第二部分缺口见 [截图实现清单](docs/截图实现清单.md)；此前范围纠正见 [方法定义与实现范围核对](docs/方法定义与实现范围核对.md)。
-
-本体检查命令：
+案例输入现已采用温和西幻对象名称和字段名，不再是原文名称逐字快照；数字、单位、对象数量、关系及疑点保持。名称对应由项目外单独维护的《本体命名对照表》记录。来源包仍完整保留当前输入及摘要，但旧名称包须重新生成。
 
 ```powershell
-.\.venv\Scripts\python.exe check_ontology.py killweb_ontology.ttl --fail-on-warn
+.\.venv\Scripts\python.exe check_ontology.py arcane_ontology.ttl --fail-on-warn
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
 ```
 
-删除前的文件备份在 `tmp/remove-unrequested-examples-20261024.zip`，逐文件 SHA-256 校验通过。此前测试和生成文件备份在 `tmp/cleanup-20261024-01.zip`。备份目录不纳入 Git。
+来源、环境、适配的详细命令分别见`source_data/README.md`、`environment/README.md`、`integration/README.md`、`adapters/README.md`。`generated/`是按当前输入重建的输出，不是历史结果。
+
+当前支持本体声明、来源管理、环境读取、显式关联与校验；尚未实现自动成链、评分、成网及仿真。Git目录与版本历史不作清理。

@@ -1,0 +1,1783 @@
+@prefix : <http://example.org/arcaneweb#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://example.org/arcaneweb#> .
+
+<http://example.org/arcaneweb> rdf:type owl:Ontology ;
+                              rdfs:comment "西幻魔法背景，中文显示名称采用奥术网、法术链、法器等术语。"@zh ;
+                              rdfs:label "奥术网络设计本体"@zh ;
+                              owl:versionInfo "0.8.1" ;
+                              rdfs:comment "0.8：撤下自设示例，删除未在本批文章表格中单独定义的十个通用能力字段；保留文章概念、分类、属性、结构与公式说明。未新增实例、游戏机制或执行规则。"@zh .
+
+#    Object Properties
+
+###  http://example.org/arcaneweb#capabilitySupportsMission
+# 定义“capabilitySupportsMission（支撑行动任务）”关系，连接ArcaneCapability（法术能力）与ArcaneMission（行动任务）。
+:capabilitySupportsMission rdf:type owl:ObjectProperty ;
+                           owl:inverseOf :requiresCapability ;
+                           rdfs:domain :ArcaneCapability ;
+                           rdfs:range :ArcaneMission ;
+                           rdfs:label "支撑行动任务"@zh .
+
+
+###  http://example.org/arcaneweb#chainRelation
+# 定义“chainRelation（参与的法阵组合）”关系，连接SpellChain（法术链）与ChainRelation（法阵组合关系）。
+:chainRelation rdf:type owl:ObjectProperty ;
+               owl:inverseOf :relatedChain ;
+               rdfs:domain :SpellChain ;
+               rdfs:range :ChainRelation ;
+               rdfs:comment "法术链指向法阵组合关系实例的反向链接，与 relatedChain 互逆。"@zh ;
+               rdfs:label "参与的法阵组合"@zh .
+
+
+###  http://example.org/arcaneweb#chainTarget
+# 定义“chainTarget（锁定目标）”关系，连接SpellChain（法术链）与Target（交互目标）。
+:chainTarget rdf:type owl:ObjectProperty ;
+             rdfs:domain :SpellChain ;
+             rdfs:range :Target ;
+             rdfs:label "锁定目标"@zh .
+
+
+###  http://example.org/arcaneweb#coordinationToManifestationCommunication
+# 定义“coordinationToManifestationCommunication（协调-具现传讯）”关系，连接CoordinationArtifact（协调法器）与ManifestationArtifact（具现法器）。
+:coordinationToManifestationCommunication rdf:type owl:ObjectProperty ;
+                              rdfs:subPropertyOf :communicatesWith ;
+                              rdfs:domain :CoordinationArtifact ;
+                              rdfs:range :ManifestationArtifact ;
+                              rdfs:comment "对应论文图 3 中协调法器与具现法器之间的传讯关系。"@zh ;
+                              rdfs:label "协调-具现传讯"@zh .
+
+
+###  http://example.org/arcaneweb#orchestrates
+# 定义“orchestrates（统筹法器）”关系，连接CoordinationArtifact（协调法器）与Artifact（法器）。
+:orchestrates rdf:type owl:ObjectProperty ;
+          rdfs:domain :CoordinationArtifact ;
+          rdfs:range :Artifact ;
+          rdfs:label "统筹法器"@zh .
+
+
+###  http://example.org/arcaneweb#communicatesWith
+# 定义“communicatesWith（魔法共鸣）”关系，连接Artifact（法器）与Artifact（法器）。
+:communicatesWith rdf:type owl:ObjectProperty ,
+                           owl:SymmetricProperty ;
+                  rdfs:domain :Artifact ;
+                  rdfs:range :Artifact ;
+                  rdfs:label "魔法共鸣"@zh .
+
+
+###  http://example.org/arcaneweb#constrainedBy
+# 定义“constrainedBy（受元素态势约束）”关系，连接ArcaneCapability（法术能力）与ElementalFieldSituation（元素场域态势）。
+:constrainedBy rdf:type owl:ObjectProperty ;
+               owl:inverseOf :situationConstrainsCapability ;
+               rdfs:domain :ArcaneCapability ;
+               rdfs:range :ElementalFieldSituation ;
+               rdfs:comment "图 1 的态势→法术关系；法术能力受当前元素场域态势约束。"@zh ;
+               rdfs:label "受元素态势约束"@zh .
+
+
+###  http://example.org/arcaneweb#containsTarget
+# 定义“containsTarget（态势包含目标）”关系，连接ElementalFieldSituation（元素场域态势）与Target（交互目标）。
+:containsTarget rdf:type owl:ObjectProperty ;
+                rdfs:domain :ElementalFieldSituation ;
+                rdfs:range :Target ;
+                rdfs:label "态势包含目标"@zh .
+
+
+###  http://example.org/arcaneweb#detects
+# 定义“detects（感知目标）”关系，连接InsightArtifact（灵视探知法器）与Target（交互目标）。
+:detects rdf:type owl:ObjectProperty ;
+         rdfs:domain :InsightArtifact ;
+         rdfs:range :Target ;
+         rdfs:label "感知目标"@zh .
+
+
+###  http://example.org/arcaneweb#finishStartPrecedes
+# 定义“finishStartPrecedes（前置施法完毕）”关系，连接ArcaneMission（行动任务）与ArcaneMission（行动任务）。
+:finishStartPrecedes rdf:type owl:ObjectProperty ;
+                     owl:inverseOf :startsAfterCompletionOf ;
+                     rdf:type owl:IrreflexiveProperty ;
+                     rdfs:domain :ArcaneMission ;
+                     rdfs:range :ArcaneMission ;
+                     rdfs:comment "对应论文图 5：前一环节完成后，后一环节开始。该属性只表达直接时序，不自动计算持续时间。"@zh ;
+                     rdfs:label "前置施法完毕"@zh .
+
+
+###  http://example.org/arcaneweb#fromChain
+# 定义“fromChain（起始法术链）”关系，连接ChainRelation（法阵组合关系）与SpellChain（法术链）。
+:fromChain rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :relatedChain ;
+           rdfs:domain :ChainRelation ;
+           rdfs:range :SpellChain ;
+           rdfs:comment "用于串联法阵和分支法阵，表示有向关系的起点。"@zh ;
+           rdfs:label "起始法术链"@zh .
+
+
+###  http://example.org/arcaneweb#hasCapability
+# 定义“hasCapability（具备法术）”关系，连接Artifact（法器）与ArcaneCapability（法术能力）。
+:hasCapability rdf:type owl:ObjectProperty ;
+               owl:inverseOf :realizedBy ;
+               rdfs:domain :Artifact ;
+               rdfs:range :ArcaneCapability ;
+               rdfs:comment "定义域故意设为 Artifact：承载平台和挂载物都可以具备法术。若只想让功能单元具备法术，应另建 FunctionalArtifact 子类，而不是依赖注释。"@zh ;
+               rdfs:label "具备法术"@zh .
+
+
+###  http://example.org/arcaneweb#hasChain
+# 定义“hasChain（奥术网包含法术链）”关系，连接ArcaneWeb（奥术网）与SpellChain（法术链）。
+:hasChain rdf:type owl:ObjectProperty ;
+          rdfs:domain :ArcaneWeb ;
+          rdfs:range :SpellChain ;
+          rdfs:label "奥术网包含法术链"@zh .
+
+
+###  http://example.org/arcaneweb#hasChainNode
+# 定义“hasChainNode（包含有序法阵节点）”关系，连接SpellChain（法术链）与ChainNode（法术链节点）。
+:hasChainNode rdf:type owl:ObjectProperty ;
+              rdfs:domain :SpellChain ;
+              rdfs:range :ChainNode ;
+              rdfs:comment "法术链成员关系的唯一入口；节点顺序由 nodeOrder 和 nextNode 表达。"@zh ;
+              rdfs:label "包含有序法阵节点"@zh .
+
+
+###  http://example.org/arcaneweb#hasPayload
+# 定义“hasPayload（挂载魔晶 / 搭载物）”关系，连接ArtifactPlatform（承载平台）与Artifact（法器）。
+:hasPayload rdf:type owl:ObjectProperty ;
+            owl:inverseOf :mountedOn ;
+            rdfs:domain :ArtifactPlatform ;
+            rdfs:range :Artifact ;
+            rdfs:comment "扩展关系：mountedOn 的逆关系，仅用于可分离的物理挂载物；常驻协调节点使用 hosts。"@zh ;
+            rdfs:label "挂载魔晶 / 搭载物"@zh .
+
+
+###  http://example.org/arcaneweb#hasRelation
+# 定义“hasRelation（包含法阵组合）”关系，连接ArcaneWeb（奥术网）与ChainRelation（法阵组合关系）。
+:hasRelation rdf:type owl:ObjectProperty ;
+             owl:inverseOf :relationInWeb ;
+             rdfs:domain :ArcaneWeb ;
+             rdfs:range :ChainRelation ;
+             rdfs:label "包含法阵组合"@zh .
+
+
+###  http://example.org/arcaneweb#hasSituation
+# 定义“hasSituation（任务所处环境）”关系，连接ArcaneMission（行动任务）与ElementalFieldSituation（元素场域态势）。
+:hasSituation rdf:type owl:ObjectProperty ;
+              rdfs:domain :ArcaneMission ;
+              rdfs:range :ElementalFieldSituation ;
+              rdfs:comment "图 1 中行动任务与元素场域态势共同决定所需法术的任务侧入口。"@zh ;
+              rdfs:label "任务所处环境"@zh .
+
+
+###  http://example.org/arcaneweb#hasSubMission
+# 定义“hasSubMission（包含子任务）”关系，连接ArcaneMission（行动任务）与ArcaneMission（行动任务）。
+:hasSubMission rdf:type owl:ObjectProperty ;
+               rdfs:domain :ArcaneMission ;
+               rdfs:range :ArcaneMission ;
+               rdfs:comment "扩展：行动任务分解关系。"@zh ;
+               rdfs:label "包含子任务"@zh .
+
+
+###  http://example.org/arcaneweb#hasTarget
+# 定义“hasTarget（任务目标）”关系，连接ArcaneMission（行动任务）与Target（交互目标）。
+:hasTarget rdf:type owl:ObjectProperty ;
+           rdfs:domain :ArcaneMission ;
+           rdfs:range :Target ;
+           rdfs:label "任务目标"@zh .
+
+
+###  http://example.org/arcaneweb#hosts
+# 定义“hosts（承载节点）”关系，连接ArtifactPlatform（承载平台）与Artifact（法器）。
+:hosts rdf:type owl:ObjectProperty ;
+       rdfs:domain :ArtifactPlatform ;
+       rdfs:range :Artifact ;
+       rdfs:comment "扩展关系：承载平台提供常驻或集成节点（如灵视探知魔像上的联合统筹中枢）；不等同于可分离的物理挂载物。"@zh ;
+       rdfs:label "承载节点"@zh .
+
+
+###  http://example.org/arcaneweb#judgmentToDecisionCommunication
+# 定义“judgmentToDecisionCommunication（占卜-决断传讯）”关系，连接JudgmentArtifact（占卜法器）与DecisionArtifact（决断法器）。
+:judgmentToDecisionCommunication rdf:type owl:ObjectProperty ;
+                                 rdfs:subPropertyOf :communicatesWith ;
+                                 rdfs:domain :JudgmentArtifact ;
+                                 rdfs:range :DecisionArtifact ;
+                                 rdfs:comment "对应论文图 3 中占卜法器与决断法器之间的传讯关系。"@zh ;
+                                 rdfs:label "占卜-决断传讯"@zh .
+
+
+###  http://example.org/arcaneweb#mountedOn
+# 定义“mountedOn（附魔于 / 挂载于）”关系，连接Artifact（法器）与ArtifactPlatform（承载平台）。
+:mountedOn rdf:type owl:ObjectProperty ;
+           rdfs:domain :Artifact ;
+           rdfs:range :ArtifactPlatform ;
+           rdfs:comment "扩展关系：表示可分离的物理挂载关系，例如探知挂件、魔晶载体支架。标签中的“附魔于”仅为该物理挂载关系的背景化称呼，不另行表示赋予魔法效果的过程。"@zh ;
+           rdfs:label "附魔于 / 挂载于"@zh .
+
+
+###  http://example.org/arcaneweb#nextNode
+# 定义“nextNode（下一节点）”关系，连接ChainNode（法术链节点）与ChainNode（法术链节点）。
+:nextNode rdf:type owl:ObjectProperty ;
+          owl:inverseOf :previousNode ;
+          rdf:type owl:FunctionalProperty ,
+                   owl:IrreflexiveProperty ;
+          rdfs:domain :ChainNode ;
+          rdfs:range :ChainNode ;
+          rdfs:comment "单后继关系。OWL 不能保证后继属于同一条法术链、无环或与 nodeOrder 一致，这些需由 SHACL 或程序校验。"@zh ;
+          rdfs:label "下一节点"@zh .
+
+
+###  http://example.org/arcaneweb#nodeArtifact
+# 定义“nodeArtifact（节点法器）”关系，连接ChainNode（法术链节点）与Artifact（法器）。
+:nodeArtifact rdf:type owl:ObjectProperty ;
+               rdfs:domain :ChainNode ;
+               rdfs:range :Artifact ;
+               rdfs:label "节点法器"@zh .
+
+
+###  http://example.org/arcaneweb#previousNode
+# 定义“previousNode（上一节点）”关系，连接ChainNode（法术链节点）与ChainNode（法术链节点）。
+:previousNode rdf:type owl:ObjectProperty ;
+              rdfs:domain :ChainNode ;
+              rdfs:range :ChainNode ;
+              rdfs:label "上一节点"@zh .
+
+
+###  http://example.org/arcaneweb#realizedBy
+# 定义“realizedBy（由法器释放）”关系，连接ArcaneCapability（法术能力）与Artifact（法器）。
+:realizedBy rdf:type owl:ObjectProperty ;
+            rdfs:domain :ArcaneCapability ;
+            rdfs:range :Artifact ;
+            rdfs:label "由法器释放"@zh .
+
+
+###  http://example.org/arcaneweb#insightToCoordinationCommunication
+# 定义“insightToCoordinationCommunication（灵视探知-协调传讯）”关系，连接InsightArtifact（灵视探知法器）与CoordinationArtifact（协调法器）。
+:insightToCoordinationCommunication rdf:type owl:ObjectProperty ;
+                             rdfs:subPropertyOf :communicatesWith ;
+                             rdfs:domain :InsightArtifact ;
+                             rdfs:range :CoordinationArtifact ;
+                             rdfs:comment "对应论文图 3 中灵视探知法器与协调法器之间的传讯关系。"@zh ;
+                             rdfs:label "灵视探知-协调传讯"@zh .
+
+
+###  http://example.org/arcaneweb#relatedChain
+# 定义“relatedChain（关联法术链）”关系，连接ChainRelation（法阵组合关系）与SpellChain（法术链）。
+:relatedChain rdf:type owl:ObjectProperty ;
+              rdfs:domain :ChainRelation ;
+              rdfs:range :SpellChain ;
+              rdfs:comment "法阵组合关系实例的参与法术链集合。并列法阵用它列出全部参与者。"@zh ;
+              rdfs:label "关联法术链"@zh .
+
+
+###  http://example.org/arcaneweb#relationInWeb
+# 定义“relationInWeb（所属奥术网）”关系，连接ChainRelation（法阵组合关系）与ArcaneWeb（奥术网）。
+:relationInWeb rdf:type owl:ObjectProperty ;
+               rdfs:domain :ChainRelation ;
+               rdfs:range :ArcaneWeb ;
+               rdfs:label "所属奥术网"@zh .
+
+
+###  http://example.org/arcaneweb#requirementConstrainsCapability
+# 定义“requirementConstrainsCapability（需求约束法术）”关系，连接InvocationRequirement（施法需求）与ArcaneCapability（法术能力）。
+:requirementConstrainsCapability rdf:type owl:ObjectProperty ;
+                                 rdfs:domain :InvocationRequirement ;
+                                 rdfs:range :ArcaneCapability ;
+                                 rdfs:comment "图 1 中施法需求参与决定所需法术。"@zh ;
+                                 rdfs:label "需求约束法术"@zh .
+
+
+###  http://example.org/arcaneweb#requirementConstrainsArtifact
+# 定义“requirementConstrainsArtifact（需求约束法器）”关系，连接InvocationRequirement（施法需求）与Artifact（法器）。
+:requirementConstrainsArtifact rdf:type owl:ObjectProperty ;
+                                rdfs:domain :InvocationRequirement ;
+                                rdfs:range :Artifact ;
+                                rdfs:comment "图 1 中施法需求参与决定所需法器；协同关系仍由第二章规则处理。"@zh ;
+                                rdfs:label "需求约束法器"@zh .
+
+
+###  http://example.org/arcaneweb#requirementForMission
+# 定义“requirementForMission（面向行动任务）”关系，连接InvocationRequirement（施法需求）与ArcaneMission（行动任务）。
+:requirementForMission rdf:type owl:ObjectProperty ;
+                       rdfs:domain :InvocationRequirement ;
+                       rdfs:range :ArcaneMission ;
+                       rdfs:comment "表 1 将施法需求定义为完成可能担负任务的基本要求；该属性把需求挂到行动任务上。"@zh ;
+                       rdfs:label "面向行动任务"@zh .
+
+
+###  http://example.org/arcaneweb#requiresCapability
+# 定义“requiresCapability（需要法术）”关系，连接ArcaneMission（行动任务）与ArcaneCapability（法术能力）。
+:requiresCapability rdf:type owl:ObjectProperty ;
+                    rdfs:domain :ArcaneMission ;
+                    rdfs:range :ArcaneCapability ;
+                    rdfs:label "需要法术"@zh .
+
+
+###  http://example.org/arcaneweb#satisfiesRequirement
+# 定义“satisfiesRequirement（满足施法需求）”关系，连接ArcaneWeb（奥术网）与InvocationRequirement（施法需求）。
+:satisfiesRequirement rdf:type owl:ObjectProperty ;
+                      rdfs:domain :ArcaneWeb ;
+                      rdfs:range :InvocationRequirement ;
+                      rdfs:comment "扩展：只表达设计结果与施法需求的关联，不是自动判定满足。"@zh ;
+                      rdfs:label "满足施法需求"@zh .
+
+
+###  http://example.org/arcaneweb#situationConstrainsCapability
+# 定义“situationConstrainsCapability（态势约束法术）”关系，连接ElementalFieldSituation（元素场域态势）与ArcaneCapability（法术能力）。
+:situationConstrainsCapability rdf:type owl:ObjectProperty ;
+                               rdfs:domain :ElementalFieldSituation ;
+                               rdfs:range :ArcaneCapability ;
+                               rdfs:comment "图 1 的反向读法；与 constrainedBy 互逆。"@zh ;
+                               rdfs:label "态势约束法术"@zh .
+
+
+###  http://example.org/arcaneweb#startsAfterCompletionOf
+# 定义“startsAfterCompletionOf（在上一环节结束后启动）”关系，连接ArcaneMission（行动任务）与ArcaneMission（行动任务）。
+:startsAfterCompletionOf rdf:type owl:ObjectProperty ;
+                         rdfs:domain :ArcaneMission ;
+                         rdfs:range :ArcaneMission ;
+                         rdfs:label "在上一环节结束后启动"@zh .
+
+
+###  http://example.org/arcaneweb#supportsMission
+# 定义“supportsMission（支撑行动任务）”关系，连接ArcaneWeb（奥术网）与ArcaneMission（行动任务）。
+:supportsMission rdf:type owl:ObjectProperty ;
+                 rdfs:domain :ArcaneWeb ;
+                 rdfs:range :ArcaneMission ;
+                 rdfs:label "支撑行动任务"@zh .
+
+
+###  http://example.org/arcaneweb#toChain
+# 定义“toChain（目标法术链）”关系，连接ChainRelation（法阵组合关系）与SpellChain（法术链）。
+:toChain rdf:type owl:ObjectProperty ;
+         rdfs:subPropertyOf :relatedChain ;
+         rdfs:domain :ChainRelation ;
+         rdfs:range :SpellChain ;
+         rdfs:comment "用于串联法阵和分支法阵，表示有向关系的终点。"@zh ;
+         rdfs:label "目标法术链"@zh .
+
+
+#    Data properties
+
+###  http://example.org/arcaneweb#altitudeFt
+# 定义“altitudeFt（浮空势位（尺））”数据属性，记录Artifact（法器）的浮空势位（尺），值类型为 xsd:decimal。
+:altitudeFt rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Artifact ;
+            rdfs:range xsd:decimal ;
+            rdfs:comment "沿用原版法器海拔的参照面和英尺单位；“浮空势位”为背景化显示名称，不改为相对地面的离地高度，也不限定法器必须处于悬浮状态。"@zh ;
+            rdfs:label "浮空势位（尺）"@zh .
+
+
+###  http://example.org/arcaneweb#azimuthCoverageDeg
+# 定义“azimuthCoverageDeg（方位感知区（度））”数据属性，记录InsightArtifact（灵视探知法器）的方位感知区（度），值类型为 xsd:decimal。
+:azimuthCoverageDeg rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :InsightArtifact ;
+                    rdfs:range xsd:decimal ;
+                    rdfs:label "方位感知区（度）"@zh .
+
+
+###  http://example.org/arcaneweb#azimuthResolutionDeg
+# 定义“azimuthResolutionDeg（方位角感知误差（度））”数据属性，记录InsightArtifact（灵视探知法器）的方位角感知误差（度），值类型为 xsd:decimal。
+:azimuthResolutionDeg rdf:type owl:DatatypeProperty ;
+                      rdfs:domain :InsightArtifact ;
+                      rdfs:range xsd:decimal ;
+                      rdfs:label "方位角感知误差（度）"@zh .
+
+
+###  http://example.org/arcaneweb#chainId
+# 定义“chainId（法术链编号）”数据属性，记录SpellChain（法术链）的法术链编号，值类型为 xsd:string。
+:chainId rdf:type owl:DatatypeProperty ,
+                  owl:FunctionalProperty ;
+         rdfs:domain :SpellChain ;
+         rdfs:range xsd:string ;
+         rdfs:label "法术链编号"@zh .
+
+
+###  http://example.org/arcaneweb#climbSpeedKn
+# 定义“climbSpeedKn（升空速度（迅捷度））”数据属性，记录ManifestationArtifact（具现法器）的升空速度（迅捷度），值类型为 xsd:decimal。
+:climbSpeedKn rdf:type owl:DatatypeProperty ;
+              rdfs:domain :ManifestationArtifact ;
+              rdfs:range xsd:decimal ;
+              rdfs:label "升空速度（迅捷度）"@zh .
+
+
+###  http://example.org/arcaneweb#communicationBandwidthMbps
+# 定义“communicationBandwidthMbps（传音频段（Mbps））”数据属性，记录CoordinationArtifact（协调法器）的传音频段（Mbps），值类型为 xsd:decimal。
+:communicationBandwidthMbps rdf:type owl:DatatypeProperty ;
+                            rdfs:domain :CoordinationArtifact ;
+                            rdfs:range xsd:decimal ;
+                            rdfs:label "传音频段（Mbps）"@zh .
+
+
+###  http://example.org/arcaneweb#communicationPowerW
+# 定义“communicationPowerW（传讯功率（瓦））”数据属性，记录CoordinationArtifact（协调法器）的传讯功率（瓦），值类型为 xsd:decimal。
+:communicationPowerW rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :CoordinationArtifact ;
+                     rdfs:range xsd:decimal ;
+                     rdfs:label "传讯功率（瓦）"@zh .
+
+
+###  http://example.org/arcaneweb#cost
+# 定义“cost（附魔造价（使用成本））”数据属性，记录Artifact（法器）的附魔造价（使用成本），值类型为 xsd:decimal。
+:cost rdf:type owl:DatatypeProperty ;
+      rdfs:domain :Artifact ;
+      rdfs:range xsd:decimal ;
+      rdfs:label "附魔造价（使用成本）"@zh .
+
+
+###  http://example.org/arcaneweb#disturbanceRadiusM
+# 定义“disturbanceRadiusM（扰动半径（米））”数据属性，记录ManifestationArtifact（具现法器）的扰动半径（米），值类型为 xsd:decimal。
+:disturbanceRadiusM rdf:type owl:DatatypeProperty ;
+               rdfs:domain :ManifestationArtifact ;
+               rdfs:range xsd:decimal ;
+               rdfs:label "扰动半径（米）"@zh .
+
+
+###  http://example.org/arcaneweb#disturbanceRate
+# 定义“disturbanceRate（扰动率（0-1））”数据属性，记录ManifestationArtifact（具现法器）的扰动率（0-1），值类型为 xsd:decimal。
+:disturbanceRate rdf:type owl:DatatypeProperty ;
+            rdfs:domain :ManifestationArtifact ;
+            rdfs:range xsd:decimal ;
+            rdfs:label "扰动率（0-1）"@zh .
+
+
+###  http://example.org/arcaneweb#manifestationPotency
+# 定义“manifestationPotency（共鸣效值）”数据属性，记录ManifestationArtifact（具现法器）的共鸣效值，值类型为 xsd:decimal。
+:manifestationPotency rdf:type owl:DatatypeProperty ;
+             rdfs:domain :ManifestationArtifact ;
+             rdfs:range xsd:decimal ;
+             rdfs:label "共鸣效值"@zh .
+
+
+###  http://example.org/arcaneweb#detectionPrecision
+# 定义“detectionPrecision（灵视探知精度（0-1））”数据属性，记录InsightArtifact（灵视探知法器）的灵视探知精度（0-1），值类型为 xsd:decimal。
+:detectionPrecision rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :InsightArtifact ;
+                    rdfs:range xsd:decimal ;
+                    rdfs:comment "论文表 3 的灵视探知精度由距离/方位/俯仰感知误差表示；本属性是便于比较的汇总值（扩展）。"@zh ;
+                    rdfs:label "灵视探知精度（0-1）"@zh .
+
+
+###  http://example.org/arcaneweb#detectionRangeNm
+# 定义“detectionRangeNm（灵视探知距离（里））”数据属性，记录InsightArtifact（灵视探知法器）的灵视探知距离（里），值类型为 xsd:decimal。
+:detectionRangeNm rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :InsightArtifact ;
+                  rdfs:range xsd:decimal ;
+                  rdfs:label "灵视探知距离（里）"@zh .
+
+
+###  http://example.org/arcaneweb#distanceResolutionM
+# 定义“distanceResolutionM（距离感知误差（米））”数据属性，记录InsightArtifact（灵视探知法器）的距离感知误差（米），值类型为 xsd:decimal。
+:distanceResolutionM rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :InsightArtifact ;
+                     rdfs:range xsd:decimal ;
+                     rdfs:label "距离感知误差（米）"@zh .
+
+
+###  http://example.org/arcaneweb#elevationCoverageDeg
+# 定义“elevationCoverageDeg（俯仰感知区（度））”数据属性，记录InsightArtifact（灵视探知法器）的俯仰感知区（度），值类型为 xsd:decimal。
+:elevationCoverageDeg rdf:type owl:DatatypeProperty ;
+                      rdfs:domain :InsightArtifact ;
+                      rdfs:range xsd:decimal ;
+                      rdfs:label "俯仰感知区（度）"@zh .
+
+
+###  http://example.org/arcaneweb#elevationResolutionDeg
+# 定义“elevationResolutionDeg（俯仰角感知误差（度））”数据属性，记录InsightArtifact（灵视探知法器）的俯仰角感知误差（度），值类型为 xsd:decimal。
+:elevationResolutionDeg rdf:type owl:DatatypeProperty ;
+                        rdfs:domain :InsightArtifact ;
+                        rdfs:range xsd:decimal ;
+                        rdfs:label "俯仰角感知误差（度）"@zh .
+
+
+###  http://example.org/arcaneweb#artifactCategory
+# 定义“artifactCategory（法器分类）”数据属性，记录Artifact（法器）的法器分类，值类型为 xsd:string。
+:artifactCategory rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :Artifact ;
+                   rdfs:range xsd:string ;
+                   rdfs:label "法器分类"@zh .
+
+
+###  http://example.org/arcaneweb#artifactId
+# 定义“artifactId（法器标识）”数据属性，记录Artifact（法器）的法器标识，值类型为 xsd:string。
+:artifactId rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Artifact ;
+             rdfs:range xsd:string ;
+             rdfs:label "法器标识"@zh .
+
+
+###  http://example.org/arcaneweb#artifactName
+# 定义“artifactName（法器名称）”数据属性，记录Artifact（法器）的法器名称，值类型为 xsd:string。
+:artifactName rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Artifact ;
+               rdfs:range xsd:string ;
+               rdfs:label "法器名称"@zh .
+
+
+###  http://example.org/arcaneweb#artifactShortName
+# 定义“artifactShortName（法器简称）”数据属性，记录Artifact（法器）的法器简称，值类型为 xsd:string。
+:artifactShortName rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Artifact ;
+                    rdfs:range xsd:string ;
+                    rdfs:label "法器简称"@zh .
+
+
+###  http://example.org/arcaneweb#evaluationAreaKm2
+# 定义“evaluationAreaKm2（解析区域（平方千米））”数据属性，记录CoordinationArtifact（协调法器）的解析区域（平方千米），值类型为 xsd:decimal。
+:evaluationAreaKm2 rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :CoordinationArtifact ;
+                   rdfs:range xsd:decimal ;
+                   rdfs:label "解析区域（平方千米）"@zh .
+
+
+###  http://example.org/arcaneweb#evaluationTimeS
+# 定义“evaluationTimeS（解析耗时（秒））”数据属性，记录CoordinationArtifact（协调法器）的解析耗时（秒），值类型为 xsd:decimal。
+:evaluationTimeS rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :CoordinationArtifact ;
+                 rdfs:range xsd:decimal ;
+                 rdfs:label "解析耗时（秒）"@zh .
+
+
+###  http://example.org/arcaneweb#flightAltitudeFt
+# 定义“flightAltitudeFt（飞行高度（尺））”数据属性，记录ManifestationArtifact（具现法器）的飞行高度（尺），值类型为 xsd:decimal。
+:flightAltitudeFt rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :ManifestationArtifact ;
+                  rdfs:range xsd:decimal ;
+                  rdfs:label "飞行高度（尺）"@zh .
+
+
+###  http://example.org/arcaneweb#flightSpeedKn
+# 定义“flightSpeedKn（飞行极速（迅捷度））”数据属性，记录ManifestationArtifact（具现法器）的飞行极速（迅捷度），值类型为 xsd:decimal。
+:flightSpeedKn rdf:type owl:DatatypeProperty ;
+               rdfs:domain :ManifestationArtifact ;
+               rdfs:range xsd:decimal ;
+               rdfs:label "飞行极速（迅捷度）"@zh .
+
+
+###  http://example.org/arcaneweb#attunementProbability
+# 定义“attunementProbability（灵性锁定率（0-1））”数据属性，记录ManifestationArtifact（具现法器）的灵性锁定率（0-1），值类型为 xsd:decimal。
+:attunementProbability rdf:type owl:DatatypeProperty ;
+                rdfs:domain :ManifestationArtifact ;
+                rdfs:range xsd:decimal ;
+                rdfs:label "灵性锁定率（0-1）"@zh .
+
+
+###  http://example.org/arcaneweb#latitudeDeg
+# 定义“latitudeDeg（星象坐标（纬））”数据属性，记录Artifact（法器）的星象坐标（纬），值类型为 xsd:decimal。
+:latitudeDeg rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Artifact ;
+             rdfs:range xsd:decimal ;
+             rdfs:label "星象坐标（纬）"@zh .
+
+
+###  http://example.org/arcaneweb#longitudeDeg
+# 定义“longitudeDeg（星象坐标（经））”数据属性，记录Artifact（法器）的星象坐标（经），值类型为 xsd:decimal。
+:longitudeDeg rdf:type owl:DatatypeProperty ;
+              rdfs:domain :Artifact ;
+              rdfs:range xsd:decimal ;
+              rdfs:label "星象坐标（经）"@zh .
+
+
+###  http://example.org/arcaneweb#maxCommDistanceNm
+# 定义“maxCommDistanceNm（最大传讯距离（里））”数据属性，记录Artifact（法器）的最大传讯距离（里），值类型为 xsd:decimal。
+:maxCommDistanceNm rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :Artifact ;
+                   rdfs:range xsd:decimal ;
+                   rdfs:comment "论文 2.1.2 法器协同规则所需的扩展属性。"@zh ;
+                   rdfs:label "最大传讯距离（里）"@zh .
+
+
+###  http://example.org/arcaneweb#maxEvaluationTargets
+# 定义“maxEvaluationTargets（单次解析目标数）”数据属性，记录CoordinationArtifact（协调法器）的单次解析目标数，值类型为 xsd:integer。
+:maxEvaluationTargets rdf:type owl:DatatypeProperty ;
+                      rdfs:domain :CoordinationArtifact ;
+                      rdfs:range xsd:integer ;
+                      rdfs:label "单次解析目标数"@zh .
+
+
+###  http://example.org/arcaneweb#maxActivationAltitudeFt
+# 定义“maxActivationAltitudeFt（最大激发基准）”数据属性，记录ManifestationArtifact（具现法器）的最大激发基准，值类型为 xsd:decimal。
+:maxActivationAltitudeFt rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :ManifestationArtifact ;
+                     rdfs:range xsd:decimal ;
+                     rdfs:label "最大激发基准"@zh .
+
+
+###  http://example.org/arcaneweb#maxRangeNm
+# 定义“maxRangeNm（最大魔力触及距离（里））”数据属性，记录ManifestationArtifact（具现法器）的最大魔力触及距离（里），值类型为 xsd:decimal。
+:maxRangeNm rdf:type owl:DatatypeProperty ;
+            rdfs:domain :ManifestationArtifact ;
+            rdfs:range xsd:decimal ;
+            rdfs:label "最大魔力触及距离（里）"@zh .
+
+
+###  http://example.org/arcaneweb#maxInsightMarks
+# 定义“maxInsightMarks（最大神识标记数）”数据属性，记录InsightArtifact（灵视探知法器）的最大神识标记数，值类型为 xsd:integer。
+:maxInsightMarks rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :InsightArtifact ;
+                  rdfs:range xsd:integer ;
+                  rdfs:label "最大神识标记数"@zh .
+
+
+###  http://example.org/arcaneweb#maxTargetAltitudeFt
+# 定义“maxTargetAltitudeFt（目标高位弦长）”数据属性，记录ManifestationArtifact（具现法器）的目标高位弦长，值类型为 xsd:decimal。
+:maxTargetAltitudeFt rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :ManifestationArtifact ;
+                     rdfs:range xsd:decimal ;
+                     rdfs:label "目标高位弦长"@zh .
+
+
+###  http://example.org/arcaneweb#maxTargetSpeedKn
+# 定义“maxTargetSpeedKn（目标飞行极速）”数据属性，记录ManifestationArtifact（具现法器）可处理目标的速度上限，值类型为 xsd:decimal；仍沿用节口径。
+:maxTargetSpeedKn rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :ManifestationArtifact ;
+                  rdfs:range xsd:decimal ;
+                  rdfs:label "目标飞行极速"@zh .
+
+
+###  http://example.org/arcaneweb#minActivationAltitudeFt
+# 定义“minActivationAltitudeFt（最小激发基准）”数据属性，记录ManifestationArtifact（具现法器）的最小激发基准，值类型为 xsd:decimal。
+:minActivationAltitudeFt rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :ManifestationArtifact ;
+                     rdfs:range xsd:decimal ;
+                     rdfs:label "最小激发基准"@zh .
+
+
+###  http://example.org/arcaneweb#minRangeNm
+# 定义“minRangeNm（最小魔力触及距离（里））”数据属性，记录ManifestationArtifact（具现法器）的最小魔力触及距离（里），值类型为 xsd:decimal。
+:minRangeNm rdf:type owl:DatatypeProperty ;
+            rdfs:domain :ManifestationArtifact ;
+            rdfs:range xsd:decimal ;
+            rdfs:label "最小魔力触及距离（里）"@zh .
+
+
+###  http://example.org/arcaneweb#minTargetAltitudeFt
+# 定义“minTargetAltitudeFt（目标低位弦长）”数据属性，记录ManifestationArtifact（具现法器）的目标低位弦长，值类型为 xsd:decimal。
+:minTargetAltitudeFt rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :ManifestationArtifact ;
+                     rdfs:range xsd:decimal ;
+                     rdfs:label "目标低位弦长"@zh .
+
+
+###  http://example.org/arcaneweb#missionCode
+# 定义“missionCode（任务代号）”数据属性，记录ArcaneMission（行动任务）的任务代号，值类型为 xsd:string。
+:missionCode rdf:type owl:DatatypeProperty ;
+             rdfs:domain :ArcaneMission ;
+             rdfs:range xsd:string ;
+             rdfs:label "任务代号"@zh .
+
+
+###  http://example.org/arcaneweb#missionLocation
+# 定义“missionLocation（任务地点）”数据属性，记录ArcaneMission（行动任务）的任务地点，值类型为 xsd:string。
+:missionLocation rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :ArcaneMission ;
+                 rdfs:range xsd:string ;
+                 rdfs:label "任务地点"@zh .
+
+
+###  http://example.org/arcaneweb#missionMetrics
+# 定义“missionMetrics（任务指标）”数据属性，记录ArcaneMission（行动任务）的任务指标，值类型为 xsd:string。
+:missionMetrics rdf:type owl:DatatypeProperty ;
+                rdfs:domain :ArcaneMission ;
+                rdfs:range xsd:string ;
+                rdfs:label "任务指标"@zh .
+
+
+###  http://example.org/arcaneweb#missionName
+# 定义“missionName（任务名称）”数据属性，记录ArcaneMission（行动任务）的任务名称，值类型为 xsd:string。
+:missionName rdf:type owl:DatatypeProperty ;
+             rdfs:domain :ArcaneMission ;
+             rdfs:range xsd:string ;
+             rdfs:label "任务名称"@zh .
+
+
+###  http://example.org/arcaneweb#missionShortName
+# 定义“missionShortName（任务简称）”数据属性，记录ArcaneMission（行动任务）的任务简称，值类型为 xsd:string。
+:missionShortName rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :ArcaneMission ;
+                  rdfs:range xsd:string ;
+                  rdfs:label "任务简称"@zh .
+
+
+###  http://example.org/arcaneweb#missionTargetAltitudeFt
+# 定义“missionTargetAltitudeFt（目标高度（尺））”数据属性，记录ArcaneMission（行动任务）的目标高度（尺），值类型为 xsd:decimal。
+:missionTargetAltitudeFt rdf:type owl:DatatypeProperty ;
+                         rdfs:domain :ArcaneMission ;
+                         rdfs:range xsd:decimal ;
+                         rdfs:label "目标高度（尺）"@zh .
+
+
+###  http://example.org/arcaneweb#missionTargetLatitudeDeg
+# 定义“missionTargetLatitudeDeg（目标星象坐标（纬））”数据属性，记录ArcaneMission（行动任务）的目标星象坐标（纬），值类型为 xsd:decimal。
+:missionTargetLatitudeDeg rdf:type owl:DatatypeProperty ;
+                          rdfs:domain :ArcaneMission ;
+                          rdfs:range xsd:decimal ;
+                          rdfs:label "目标星象坐标（纬）"@zh .
+
+
+###  http://example.org/arcaneweb#missionTargetLongitudeDeg
+# 定义“missionTargetLongitudeDeg（目标星象坐标（经））”数据属性，记录ArcaneMission（行动任务）的目标星象坐标（经），值类型为 xsd:decimal。
+:missionTargetLongitudeDeg rdf:type owl:DatatypeProperty ;
+                           rdfs:domain :ArcaneMission ;
+                           rdfs:range xsd:decimal ;
+                           rdfs:label "目标星象坐标（经）"@zh .
+
+
+###  http://example.org/arcaneweb#missionTargetSpeedKn
+# 定义“missionTargetSpeedKn（目标速度（迅捷度））”数据属性，记录ArcaneMission（行动任务）的目标速度（迅捷度），值类型为 xsd:decimal。
+:missionTargetSpeedKn rdf:type owl:DatatypeProperty ;
+                      rdfs:domain :ArcaneMission ;
+                      rdfs:range xsd:decimal ;
+                      rdfs:label "目标速度（迅捷度）"@zh .
+
+
+###  http://example.org/arcaneweb#missionTargetImpedanceThreshold
+# 定义“missionTargetImpedanceThreshold（目标阻抗阈值）”数据属性，记录ArcaneMission（行动任务）的目标阻抗阈值，值类型为 xsd:decimal。
+:missionTargetImpedanceThreshold rdf:type owl:DatatypeProperty ;
+                            rdfs:domain :ArcaneMission ;
+                            rdfs:range xsd:decimal ;
+                            rdfs:comment "任务侧的目标阻抗指标，沿用原版 missionTargetImpedanceThreshold 的数值尺度和计算口径；“目标阻抗阈值”为背景化显示名称，不额外引入特定元素抗性或新的计算公式。"@zh ;
+                            rdfs:label "目标阻抗阈值"@zh .
+
+
+###  http://example.org/arcaneweb#missionTargetType
+# 定义“missionTargetType（目标类型）”数据属性，记录ArcaneMission（行动任务）的目标类型，值类型为 xsd:string。
+:missionTargetType rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :ArcaneMission ;
+                   rdfs:range xsd:string ;
+                   rdfs:label "目标类型"@zh .
+
+
+###  http://example.org/arcaneweb#missionTime
+# 定义“missionTime（任务时间）”数据属性，记录ArcaneMission（行动任务）的任务时间，值类型为 xsd:dateTime。
+:missionTime rdf:type owl:DatatypeProperty ;
+             rdfs:domain :ArcaneMission ;
+             rdfs:range xsd:dateTime ;
+             rdfs:label "任务时间"@zh .
+
+
+###  http://example.org/arcaneweb#missionType
+# 定义“missionType（任务类型）”数据属性，记录ArcaneMission（行动任务）的任务类型，值类型为 xsd:string。
+:missionType rdf:type owl:DatatypeProperty ;
+             rdfs:domain :ArcaneMission ;
+             rdfs:range xsd:string ;
+             rdfs:label "任务类型"@zh .
+
+
+###  http://example.org/arcaneweb#nodeOrder
+# 定义“nodeOrder（法阵节点顺序）”数据属性，记录ChainNode（法术链节点）的法阵节点顺序，值类型为 xsd:integer。
+:nodeOrder rdf:type owl:DatatypeProperty ,
+                    owl:FunctionalProperty ;
+           rdfs:domain :ChainNode ;
+           rdfs:range xsd:integer ;
+           rdfs:comment "只记录单个法阵节点的序号；同一法术链内序号唯一、连续等约束不适合用 OWL 表达，需由 SHACL 或程序检查。"@zh ;
+           rdfs:label "法阵节点顺序"@zh .
+
+
+###  http://example.org/arcaneweb#nodeRole
+# 定义“nodeRole（节点职能）”数据属性，记录ChainNode（法术链节点）的节点职能，值类型为 xsd:string。
+:nodeRole rdf:type owl:DatatypeProperty ;
+          rdfs:domain :ChainNode ;
+          rdfs:range xsd:string ;
+          rdfs:label "节点职能"@zh .
+
+
+###  http://example.org/arcaneweb#artifactStatus
+# 定义“artifactStatus（法器状态）”数据属性，记录Artifact（法器）的法器状态，值类型为 xsd:string。
+:artifactStatus rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :Artifact ;
+                   rdfs:range xsd:string ;
+                   rdfs:label "法器状态"@zh .
+
+
+###  http://example.org/arcaneweb#insightIntervalS
+# 定义“insightIntervalS（灵视探知时间间隔（秒））”数据属性，记录InsightArtifact（灵视探知法器）的灵视探知时间间隔（秒），值类型为 xsd:decimal。
+:insightIntervalS rdf:type owl:DatatypeProperty ;
+                rdfs:domain :InsightArtifact ;
+                rdfs:range xsd:decimal ;
+                rdfs:label "灵视探知时间间隔（秒）"@zh .
+
+
+###  http://example.org/arcaneweb#insightTargetType
+# 定义“insightTargetType（灵视探知目标类型）”数据属性，记录InsightArtifact（灵视探知法器）的灵视探知目标类型，值类型为 xsd:string。
+:insightTargetType rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :InsightArtifact ;
+                 rdfs:range xsd:string ;
+                 rdfs:label "灵视探知目标类型"@zh .
+
+
+###  http://example.org/arcaneweb#relationEndTime
+# 定义“relationEndTime（法阵解除时间）”数据属性，记录ChainRelation（法阵组合关系）的法阵解除时间，值类型为 xsd:dateTime。
+:relationEndTime rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :ChainRelation ;
+                 rdfs:range xsd:dateTime ;
+                 rdfs:label "法阵解除时间"@zh .
+
+
+###  http://example.org/arcaneweb#relationStartTime
+# 定义“relationStartTime（法阵生效时间）”数据属性，记录ChainRelation（法阵组合关系）的法阵生效时间，值类型为 xsd:dateTime。
+:relationStartTime rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :ChainRelation ;
+                   rdfs:range xsd:dateTime ;
+                   rdfs:label "法阵生效时间"@zh .
+
+
+###  http://example.org/arcaneweb#relayDelayMs
+# 定义“relayDelayMs（魔力共鸣延迟（毫秒））”数据属性，记录CoordinationArtifact（协调法器）的魔力共鸣延迟（毫秒），值类型为 xsd:decimal。
+:relayDelayMs rdf:type owl:DatatypeProperty ;
+              rdfs:domain :CoordinationArtifact ;
+              rdfs:range xsd:decimal ;
+              rdfs:label "魔力共鸣延迟（毫秒）"@zh .
+
+
+###  http://example.org/arcaneweb#manaRechargeTimeS
+# 定义“manaRechargeTimeS（魔力回充耗时（秒））”数据属性，记录ManifestationArtifact（具现法器）的魔力回充耗时（秒），值类型为 xsd:decimal。
+:manaRechargeTimeS rdf:type owl:DatatypeProperty ;
+             rdfs:domain :ManifestationArtifact ;
+             rdfs:range xsd:decimal ;
+             rdfs:label "魔力回充耗时（秒）"@zh .
+
+
+###  http://example.org/arcaneweb#responseTimeS
+# 定义“responseTimeS（吟唱耗时（秒））”数据属性，记录ManifestationArtifact（具现法器）的吟唱耗时（秒），值类型为 xsd:decimal。
+:responseTimeS rdf:type owl:DatatypeProperty ;
+               rdfs:domain :ManifestationArtifact ;
+               rdfs:range xsd:decimal ;
+               rdfs:label "吟唱耗时（秒）"@zh .
+
+
+###  http://example.org/arcaneweb#multiCastCount
+# 定义“multiCastCount（多重施法连发数）”数据属性，记录ManifestationArtifact（具现法器）的多重施法连发数，值类型为 xsd:integer。
+:multiCastCount rdf:type owl:DatatypeProperty ;
+           rdfs:domain :ManifestationArtifact ;
+           rdfs:range xsd:integer ;
+           rdfs:label "多重施法连发数"@zh .
+
+
+###  http://example.org/arcaneweb#speedKn
+# 定义“speedKn（飞行极速（迅捷度））”数据属性，记录Artifact（法器）的飞行极速（迅捷度），值类型为 xsd:decimal。
+:speedKn rdf:type owl:DatatypeProperty ;
+         rdfs:domain :Artifact ;
+         rdfs:range xsd:decimal ;
+         rdfs:label "飞行极速（迅捷度）"@zh .
+
+
+###  http://example.org/arcaneweb#manifestationTargetType
+# 定义“manifestationTargetType（具现目标类型）”数据属性，记录ManifestationArtifact（具现法器）的具现目标类型，值类型为 xsd:string。
+:manifestationTargetType rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :ManifestationArtifact ;
+                  rdfs:range xsd:string ;
+                  rdfs:label "具现目标类型"@zh .
+
+
+###  http://example.org/arcaneweb#targetAltitudeFt
+# 定义“targetAltitudeFt（目标高度（尺））”数据属性，记录Target（交互目标）的目标高度（尺），值类型为 xsd:decimal。
+:targetAltitudeFt rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :Target ;
+                  rdfs:range xsd:decimal ;
+                  rdfs:label "目标高度（尺）"@zh .
+
+
+###  http://example.org/arcaneweb#targetDistanceNm
+# 定义“targetDistanceNm（目标距离（里））”数据属性，记录ArcaneMission（行动任务）的目标距离（里），值类型为 xsd:decimal。
+:targetDistanceNm rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :ArcaneMission ;
+                  rdfs:range xsd:decimal ;
+                  rdfs:comment "扩展：表 5 之外补充的目标距离字段。"@zh ;
+                  rdfs:label "目标距离（里）"@zh .
+
+
+###  http://example.org/arcaneweb#targetLatitudeDeg
+# 定义“targetLatitudeDeg（目标星象坐标（纬））”数据属性，记录Target（交互目标）的目标星象坐标（纬），值类型为 xsd:decimal。
+:targetLatitudeDeg rdf:type owl:DatatypeProperty ;
+                   rdfs:domain :Target ;
+                   rdfs:range xsd:decimal ;
+                   rdfs:label "目标星象坐标（纬）"@zh .
+
+
+###  http://example.org/arcaneweb#targetLongitudeDeg
+# 定义“targetLongitudeDeg（目标星象坐标（经））”数据属性，记录Target（交互目标）的目标星象坐标（经），值类型为 xsd:decimal。
+:targetLongitudeDeg rdf:type owl:DatatypeProperty ;
+                    rdfs:domain :Target ;
+                    rdfs:range xsd:decimal ;
+                    rdfs:label "目标星象坐标（经）"@zh .
+
+
+###  http://example.org/arcaneweb#targetSpeedKn
+# 定义“targetSpeedKn（目标速度（迅捷度））”数据属性，记录Target（交互目标）的目标速度（迅捷度），值类型为 xsd:decimal。
+:targetSpeedKn rdf:type owl:DatatypeProperty ;
+               rdfs:domain :Target ;
+               rdfs:range xsd:decimal ;
+               rdfs:label "目标速度（迅捷度）"@zh .
+
+
+###  http://example.org/arcaneweb#targetImpedanceThreshold
+# 定义“targetImpedanceThreshold（目标阻抗阈值）”数据属性，记录Target（交互目标）的目标阻抗阈值，值类型为 xsd:decimal。
+:targetImpedanceThreshold rdf:type owl:DatatypeProperty ;
+                     rdfs:domain :Target ;
+                     rdfs:range xsd:decimal ;
+                     rdfs:comment "目标侧的阻抗指标，沿用原版 targetImpedanceThreshold 的数值尺度和计算口径；“目标阻抗阈值”为背景化显示名称，不额外引入特定元素抗性或新的计算公式。"@zh ;
+                     rdfs:label "目标阻抗阈值"@zh .
+
+
+###  http://example.org/arcaneweb#targetType
+# 定义“targetType（目标类型）”数据属性，记录Target（交互目标）的目标类型，值类型为 xsd:string。
+:targetType rdf:type owl:DatatypeProperty ;
+            rdfs:domain :Target ;
+            rdfs:range xsd:string ;
+            rdfs:label "目标类型"@zh .
+
+
+#    Classes
+
+###  http://example.org/arcaneweb#ElementalFieldSituation
+# 构建“ElementalFieldSituation（元素场域态势）”类，定义该概念的相关信息和约束。
+:ElementalFieldSituation rdf:type owl:Class ;
+                      rdfs:comment "元素场域中魔力分布及元素环境的当前状态和发展变化趋势。"@zh ;
+                      rdfs:label "元素场域态势"@zh .
+
+
+###  http://example.org/arcaneweb#BranchRelation
+# 构建“BranchRelation（分支法阵）”类，归属于“ChainRelation（法阵组合关系）”类。
+:BranchRelation rdf:type owl:Class ;
+                rdfs:subClassOf :ChainRelation ;
+                rdfs:label "分支法阵"@zh .
+
+
+###  http://example.org/arcaneweb#ChainNode
+# 构建“ChainNode（法术链节点）”类，定义该概念的相关信息和约束。
+:ChainNode rdf:type owl:Class ;
+           rdfs:comment "1.6 扩展：用于表达节点顺序、职能和法器关联；本文件中它是法术链结构的唯一权威表示。"@zh ;
+           rdfs:label "法术链节点"@zh .
+
+
+###  http://example.org/arcaneweb#ChainRelation
+# 构建“ChainRelation（法阵组合关系）”类，定义该概念的相关信息和约束。
+:ChainRelation rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty :relatedChain ;
+                                 owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                 owl:onClass :SpellChain
+                               ] ;
+               rdfs:comment "2.1.3 扩展：以具体关系实例表达并列、串联、分支等法阵组合。并列法阵用 relatedChain 列出参与者，有向法阵用 fromChain/toChain 表示方向；不再使用法术链到法术链的直接属性。"@zh ;
+               rdfs:label "法阵组合关系"@zh .
+
+
+###  http://example.org/arcaneweb#ArcaneCapability
+# 构建“ArcaneCapability（法术能力）”类，定义该概念的相关信息和约束。
+:ArcaneCapability rdf:type owl:Class ;
+                  rdfs:comment "法器执行行动任务的本领，是法器体系的固有属性，与型号、法术参数等有关。"@zh ;
+                  rdfs:label "法术能力"@zh .
+
+
+###  http://example.org/arcaneweb#ArcaneMission
+# 构建“ArcaneMission（行动任务）”类，定义该概念的相关信息和约束。
+:ArcaneMission rdf:type owl:Class ;
+               rdfs:comment "奥术网为实现行动目标需要完成的各种任务的统称，包括探知、研判、决断、施法等。"@zh ;
+               rdfs:label "行动任务"@zh .
+
+
+###  http://example.org/arcaneweb#OrchestrationCapability
+# 构建“OrchestrationCapability（统筹能力）”类，归属于“CoordinationCapability（协调能力）”类。
+:OrchestrationCapability rdf:type owl:Class ;
+                   rdfs:subClassOf :CoordinationCapability ;
+                   rdfs:label "统筹能力"@zh .
+
+
+###  http://example.org/arcaneweb#CoordinationChainNode
+# 构建“CoordinationChainNode（协调链节点）”类，归属于“ChainNode（法术链节点）”类。
+:CoordinationChainNode rdf:type owl:Class ;
+                  rdfs:subClassOf :ChainNode ,
+                                  [ rdf:type owl:Restriction ;
+                                    owl:onProperty :nodeArtifact ;
+                                    owl:someValuesFrom :CoordinationArtifact
+                                  ] ;
+                  rdfs:label "协调链节点"@zh .
+
+
+###  http://example.org/arcaneweb#CoordinationCapability
+# 构建“CoordinationCapability（协调能力）”类，归属于“ArcaneCapability（法术能力）”类。
+:CoordinationCapability rdf:type owl:Class ;
+                          rdfs:subClassOf :ArcaneCapability ;
+                          rdfs:label "协调能力"@zh .
+
+
+###  http://example.org/arcaneweb#CoordinationArtifact
+# 构建“CoordinationArtifact（协调法器）”类，归属于“Artifact（法器）”类。
+:CoordinationArtifact rdf:type owl:Class ;
+                         rdfs:subClassOf :Artifact ,
+                                         [ rdf:type owl:Restriction ;
+                                           owl:onProperty :hasCapability ;
+                                           owl:someValuesFrom :CoordinationCapability
+                                         ] ;
+                         rdfs:comment "各类协调机构，是奥术网的核心，对一切魔法活动执行决断；包括联合统筹中枢、浮空艇群组协调中枢等。"@zh ;
+                         rdfs:label "协调法器"@zh .
+
+
+###  http://example.org/arcaneweb#CoordinationMission
+# 构建“CoordinationMission（协调任务）”类，归属于“ArcaneMission（行动任务）”类。
+:CoordinationMission rdf:type owl:Class ;
+                       rdfs:subClassOf :ArcaneMission ,
+                                       [ rdf:type owl:Restriction ;
+                                         owl:onProperty :requiresCapability ;
+                                         owl:someValuesFrom :CoordinationCapability
+                                       ] ;
+                       rdfs:label "协调任务"@zh .
+
+
+###  http://example.org/arcaneweb#CoordinationPlatform
+# 构建“CoordinationPlatform（协调平台）”类，归属于“CoordinationArtifact（协调法器）”类。
+:CoordinationPlatform rdf:type owl:Class ;
+                        rdfs:subClassOf :CoordinationArtifact ,
+                                        :ArtifactPlatform ;
+                        rdfs:comment "扩展子类：浮空艇群组协调中枢等承载协调节点的平台。论文表 2 把这类协调机构也归入协调法器。"@zh ;
+                        rdfs:label "协调平台"@zh .
+
+
+###  http://example.org/arcaneweb#CommunicationCapability
+# 构建“CommunicationCapability（传讯能力）”类，归属于“CoordinationCapability（协调能力）”类。
+:CommunicationCapability rdf:type owl:Class ;
+                         rdfs:subClassOf :CoordinationCapability ;
+                         rdfs:label "传讯能力"@zh .
+
+
+###  http://example.org/arcaneweb#DecisionCapability
+# 构建“DecisionCapability（决断能力）”类，归属于“CoordinationCapability（协调能力）”类。
+:DecisionCapability rdf:type owl:Class ;
+                    rdfs:subClassOf :CoordinationCapability ;
+                    rdfs:label "决断能力"@zh .
+
+
+###  http://example.org/arcaneweb#DecisionArtifact
+# 构建“DecisionArtifact（决断法器）”类，归属于“CoordinationArtifact（协调法器）”类。
+:DecisionArtifact rdf:type owl:Class ;
+                   rdfs:subClassOf :CoordinationArtifact ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :hasCapability ;
+                                     owl:someValuesFrom :DecisionCapability
+                                   ] ;
+                   rdfs:label "决断法器"@zh .
+
+
+###  http://example.org/arcaneweb#DecisionMission
+# 构建“DecisionMission（决断任务（D 决断））”类，归属于“CoordinationMission（协调任务）”类。
+:DecisionMission rdf:type owl:Class ;
+                 rdfs:subClassOf :CoordinationMission ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :requiresCapability ;
+                                   owl:someValuesFrom :DecisionCapability
+                                 ] ;
+                 rdfs:label "决断任务（D 决断）"@zh .
+
+
+###  http://example.org/arcaneweb#ArtifactPlatform
+# 构建“ArtifactPlatform（承载平台）”类，归属于“Artifact（法器）”类。
+:ArtifactPlatform rdf:type owl:Class ;
+                   rdfs:subClassOf :Artifact ;
+                   rdfs:comment "扩展类：承载感知装置、协调节点或魔晶载体的云翼灵兽、浮空艇、符文载具、施法台等平台。"@zh ;
+                   rdfs:label "承载平台"@zh .
+
+
+###  http://example.org/arcaneweb#EvaluationCapability
+# 构建“EvaluationCapability（解析能力）”类，归属于“CoordinationCapability（协调能力）”类。
+:EvaluationCapability rdf:type owl:Class ;
+                      rdfs:subClassOf :CoordinationCapability ;
+                      rdfs:label "解析能力"@zh .
+
+
+###  http://example.org/arcaneweb#JudgmentCapability
+# 构建“JudgmentCapability（占卜能力）”类，归属于“CoordinationCapability（协调能力）”类。
+:JudgmentCapability rdf:type owl:Class ;
+                    rdfs:subClassOf :CoordinationCapability ;
+                    rdfs:label "占卜能力"@zh .
+
+
+###  http://example.org/arcaneweb#JudgmentArtifact
+# 构建“JudgmentArtifact（占卜法器）”类，归属于“CoordinationArtifact（协调法器）”类。
+:JudgmentArtifact rdf:type owl:Class ;
+                   rdfs:subClassOf :CoordinationArtifact ,
+                                   [ rdf:type owl:Restriction ;
+                                     owl:onProperty :hasCapability ;
+                                     owl:someValuesFrom :JudgmentCapability
+                                   ] ;
+                   rdfs:label "占卜法器"@zh .
+
+
+###  http://example.org/arcaneweb#JudgmentMission
+# 构建“JudgmentMission（占卜任务（O2 研判））”类，归属于“CoordinationMission（协调任务）”类。
+:JudgmentMission rdf:type owl:Class ;
+                 rdfs:subClassOf :CoordinationMission ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :requiresCapability ;
+                                   owl:someValuesFrom :JudgmentCapability
+                                 ] ;
+                 rdfs:label "占卜任务（O2 研判）"@zh .
+
+
+###  http://example.org/arcaneweb#SpellChain
+# 构建“SpellChain（法术链）”类，定义该概念的相关信息和约束。
+:SpellChain rdf:type owl:Class ;
+           rdfs:subClassOf [ rdf:type owl:Restriction ;
+                             owl:onProperty :chainTarget ;
+                             owl:someValuesFrom :Target
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasChainNode ;
+                             owl:someValuesFrom :CoordinationChainNode
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasChainNode ;
+                             owl:someValuesFrom :InsightChainNode
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasChainNode ;
+                             owl:someValuesFrom :ManifestationChainNode
+                           ] ;
+           rdfs:comment "1.6/2.x 扩展：由交互目标、灵视探知、协调、具现节点构成的闭合施法链路。第 6 节的 someValuesFrom 公理只要求存在相应角色节点和目标，不校验节点顺序、连通性、闭环和资源冲突。"@zh ;
+           rdfs:label "法术链"@zh .
+
+
+###  http://example.org/arcaneweb#ArcaneWeb
+# 构建“ArcaneWeb（奥术网）”类，定义该概念的相关信息和约束。
+:ArcaneWeb rdf:type owl:Class ;
+         rdfs:subClassOf [ rdf:type owl:Restriction ;
+                           owl:onProperty :hasChain ;
+                           owl:someValuesFrom :SpellChain
+                         ] ;
+         rdfs:comment "1.6/2.x 扩展：多条法术链通过共享节点和法阵组合关系形成的分布式施法网络。"@zh ;
+         rdfs:label "奥术网"@zh .
+
+
+###  http://example.org/arcaneweb#InvocationRequirement
+# 构建“InvocationRequirement（施法需求）”类，定义该概念的相关信息和约束。
+:InvocationRequirement rdf:type owl:Class ;
+                        rdfs:comment "在一定的时期，为完成可能担负的行动任务，对魔法力量建设的基本要求。暂时只建立需求与行动任务、法术、法器的关系。"@zh ;
+                        rdfs:label "施法需求"@zh .
+
+
+###  http://example.org/arcaneweb#ParallelRelation
+# 构建“ParallelRelation（并列法阵）”类，归属于“ChainRelation（法阵组合关系）”类。
+:ParallelRelation rdf:type owl:Class ;
+                  rdfs:subClassOf :ChainRelation ;
+                  rdfs:label "并列法阵"@zh .
+
+
+###  http://example.org/arcaneweb#InsightCapability
+# 构建“InsightCapability（灵视探知能力）”类，归属于“ArcaneCapability（法术能力）”类。
+:InsightCapability rdf:type owl:Class ;
+                 rdfs:subClassOf :ArcaneCapability ;
+                 rdfs:label "灵视探知能力"@zh .
+
+
+###  http://example.org/arcaneweb#InsightChainNode
+# 构建“InsightChainNode（灵视探知链节点）”类，归属于“ChainNode（法术链节点）”类。
+:InsightChainNode rdf:type owl:Class ;
+                rdfs:subClassOf :ChainNode ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :nodeArtifact ;
+                                  owl:someValuesFrom :InsightArtifact
+                                ] ;
+                rdfs:label "灵视探知链节点"@zh .
+
+
+###  http://example.org/arcaneweb#InsightArtifact
+# 构建“InsightArtifact（灵视探知法器）”类，归属于“Artifact（法器）”类。
+:InsightArtifact rdf:type owl:Class ;
+                rdfs:subClassOf :Artifact ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :hasCapability ;
+                                  owl:someValuesFrom :InsightCapability
+                                ] ;
+                rdfs:comment "灵视探知类单元平台，承担发现、搜集共鸣空间信息参数并回传的任务；包括感知魔像、探知魔像、探知法阵、星界探知镜等。感知挂载和灵视探知平台都归入此类。"@zh ;
+                rdfs:label "灵视探知法器"@zh .
+
+
+###  http://example.org/arcaneweb#InsightMission
+# 构建“InsightMission（灵视探知任务（O1 探知））”类，归属于“ArcaneMission（行动任务）”类。
+:InsightMission rdf:type owl:Class ;
+              rdfs:subClassOf :ArcaneMission ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :requiresCapability ;
+                                owl:someValuesFrom :InsightCapability
+                              ] ;
+              rdfs:label "灵视探知任务（O1 探知）"@zh .
+
+
+###  http://example.org/arcaneweb#InsightPlatform
+# 构建“InsightPlatform（灵视探知平台）”类，归属于“ArtifactPlatform（承载平台）”类。
+:InsightPlatform rdf:type owl:Class ;
+               rdfs:subClassOf :ArtifactPlatform ,
+                               :InsightArtifact ;
+               rdfs:comment "扩展子类：感知魔像、探知魔像、星界探知镜等承载灵视探知挂载的平台。论文表 2 把这类单元平台也归入灵视探知法器。"@zh ;
+               rdfs:label "灵视探知平台"@zh .
+
+
+###  http://example.org/arcaneweb#InsightRangeCapability
+# 构建“InsightRangeCapability（感知距离能力）”类，归属于“InsightCapability（灵视探知能力）”类。
+:InsightRangeCapability rdf:type owl:Class ;
+                      rdfs:subClassOf :InsightCapability ;
+                      rdfs:label "感知距离能力"@zh .
+
+
+###  http://example.org/arcaneweb#InsightTargetTypeCapability
+# 构建“InsightTargetTypeCapability（灵视探知目标类型能力）”类，归属于“InsightCapability（灵视探知能力）”类。
+:InsightTargetTypeCapability rdf:type owl:Class ;
+                           rdfs:subClassOf :InsightCapability ;
+                           rdfs:label "灵视探知目标类型能力"@zh .
+
+
+###  http://example.org/arcaneweb#SerialRelation
+# 构建“SerialRelation（串联法阵）”类，归属于“ChainRelation（法阵组合关系）”类。
+:SerialRelation rdf:type owl:Class ;
+                rdfs:subClassOf :ChainRelation ;
+                rdfs:label "串联法阵"@zh .
+
+
+###  http://example.org/arcaneweb#ManifestationAltitudeCapability
+# 构建“ManifestationAltitudeCapability（具现高度能力）”类，归属于“ManifestationCapability（具现能力）”类。
+:ManifestationAltitudeCapability rdf:type owl:Class ;
+                          rdfs:subClassOf :ManifestationCapability ;
+                          rdfs:label "具现高度能力"@zh .
+
+
+###  http://example.org/arcaneweb#CrystalVessel
+# 构建“CrystalVessel（魔晶载体）”类，归属于“ManifestationArtifact（具现法器）”类。
+:CrystalVessel rdf:type owl:Class ;
+                  rdfs:subClassOf :ManifestationArtifact ;
+                  rdfs:comment "扩展类：魔晶载体、辉光载体等一次性或可消耗的具现挂载。魔晶载体可以通过 mountedOn 关联承载平台，但本类不强制所有实例都已挂载。"@zh ;
+                  rdfs:label "魔晶载体"@zh .
+
+
+###  http://example.org/arcaneweb#ManifestationCapability
+# 构建“ManifestationCapability（具现能力）”类，归属于“ArcaneCapability（法术能力）”类。
+:ManifestationCapability rdf:type owl:Class ;
+                  rdfs:subClassOf :ArcaneCapability ;
+                  rdfs:label "具现能力"@zh .
+
+
+###  http://example.org/arcaneweb#ManifestationChainNode
+# 构建“ManifestationChainNode（具现链节点）”类，归属于“ChainNode（法术链节点）”类。
+:ManifestationChainNode rdf:type owl:Class ;
+                 rdfs:subClassOf :ChainNode ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :nodeArtifact ;
+                                   owl:someValuesFrom :ManifestationArtifact
+                                 ] ;
+                 rdfs:comment "节点法器取具现法器，既可以是释放平台，也可以是魔晶载体。"@zh ;
+                 rdfs:label "具现链节点"@zh .
+
+
+###  http://example.org/arcaneweb#ManifestationArtifact
+# 构建“ManifestationArtifact（具现法器）”类，归属于“Artifact（法器）”类。
+:ManifestationArtifact rdf:type owl:Class ;
+                 rdfs:subClassOf :Artifact ,
+                                 [ rdf:type owl:Restriction ;
+                                   owl:onProperty :hasCapability ;
+                                   owl:someValuesFrom :ManifestationCapability
+                                 ] ;
+                 rdfs:comment "功能角色类：表示可执行魔法抵消和魔力消解任务的功能单元，在协调节点的协调安排和灵视探知节点的信息传输下，对交互目标进行扰动或具现。既包括具现平台，也包括魔晶载体，不限定为承载平台。原版表 3 的具现属性以本类为定义域；CrystalVessel 作为子类继承相关属性的适用范围。"@zh ;
+                 rdfs:label "具现法器"@zh .
+
+
+###  http://example.org/arcaneweb#ManifestationMission
+# 构建“ManifestationMission（具现任务（A 施法））”类，归属于“ArcaneMission（行动任务）”类。
+:ManifestationMission rdf:type owl:Class ;
+               rdfs:subClassOf :ArcaneMission ,
+                               [ rdf:type owl:Restriction ;
+                                 owl:onProperty :requiresCapability ;
+                                 owl:someValuesFrom :ManifestationCapability
+                               ] ;
+               rdfs:label "具现任务（A 施法）"@zh .
+
+
+###  http://example.org/arcaneweb#ManifestationPlatform
+# 构建“ManifestationPlatform（具现平台）”类，归属于“ArtifactPlatform（承载平台）”类。
+:ManifestationPlatform rdf:type owl:Class ;
+                rdfs:subClassOf :ArtifactPlatform ,
+                                :ManifestationArtifact ;
+                rdfs:comment "扩展子类：御风灵舟、守护法阵、浮空艇等可释放或投掷魔晶载体的平台。平台归入具现法器是论文的建模方式；魔晶载体是消耗性挂载。"@zh ;
+                rdfs:label "具现平台"@zh .
+
+
+###  http://example.org/arcaneweb#ManifestationRangeCapability
+# 构建“ManifestationRangeCapability（具现距离能力）”类，归属于“ManifestationCapability（具现能力）”类。
+:ManifestationRangeCapability rdf:type owl:Class ;
+                       rdfs:subClassOf :ManifestationCapability ;
+                       rdfs:label "具现距离能力"@zh .
+
+
+###  http://example.org/arcaneweb#ManifestationTargetQuantityCapability
+# 构建“ManifestationTargetQuantityCapability（具现目标数量能力）”类，归属于“ManifestationCapability（具现能力）”类。
+:ManifestationTargetQuantityCapability rdf:type owl:Class ;
+                                rdfs:subClassOf :ManifestationCapability ;
+                                rdfs:label "具现目标数量能力"@zh .
+
+
+###  http://example.org/arcaneweb#ManifestationTargetTypeCapability
+# 构建“ManifestationTargetTypeCapability（具现目标类型能力）”类，归属于“ManifestationCapability（具现能力）”类。
+:ManifestationTargetTypeCapability rdf:type owl:Class ;
+                            rdfs:subClassOf :ManifestationCapability ;
+                            rdfs:label "具现目标类型能力"@zh .
+
+
+###  http://example.org/arcaneweb#Target
+# 构建“Target（交互目标）”类，定义该概念的相关信息和约束。
+:Target rdf:type owl:Class ;
+        rdfs:comment "1.6/2.x 扩展：行动任务需要感知、跟踪、具现或解析的对方对象。"@zh ;
+        rdfs:label "交互目标"@zh .
+
+
+###  http://example.org/arcaneweb#Artifact
+# 构建“Artifact（法器）”类，定义该概念的相关信息和约束。
+:Artifact rdf:type owl:Class ;
+                 rdfs:comment "为遂行一定的行动任务、具有一定魔法功能的法器系统，是奥术网的最小组成功能要素。"@zh ;
+                 rdfs:label "法器"@zh .
+
+
+#    Individuals
+
+###  http://example.org/arcaneweb#AirInsightCapability
+# 定义“AirInsightCapability（空中灵视探知能力）”规范能力个体，属于“InsightTargetTypeCapability（灵视探知目标类型能力）”类。
+:AirInsightCapability rdf:type owl:NamedIndividual ,
+                             :InsightTargetTypeCapability ;
+                    rdfs:label "空中灵视探知能力"@zh .
+
+
+###  http://example.org/arcaneweb#AirManifestationCapability
+# 定义“AirManifestationCapability（对空具现能力）”规范能力个体，属于“ManifestationTargetTypeCapability（具现目标类型能力）”类。
+:AirManifestationCapability rdf:type owl:NamedIndividual ,
+                              :ManifestationTargetTypeCapability ;
+                     rdfs:label "对空具现能力"@zh .
+
+
+###  http://example.org/arcaneweb#InterferenceResistantTransmissionCapability
+# 定义“InterferenceResistantTransmissionCapability（抗共鸣扰动传讯能力）”规范能力个体，属于“CommunicationCapability（传讯能力）”类。
+:InterferenceResistantTransmissionCapability rdf:type owl:NamedIndividual ,
+                                            :CommunicationCapability ;
+                                   rdfs:label "抗共鸣扰动传讯能力"@zh .
+
+
+###  http://example.org/arcaneweb#AreaManifestationCapability
+# 定义“AreaManifestationCapability（范围具现能力）”规范能力个体，属于“ManifestationTargetQuantityCapability（具现目标数量能力）”类。
+:AreaManifestationCapability rdf:type owl:NamedIndividual ,
+                               :ManifestationTargetQuantityCapability ;
+                      rdfs:label "范围具现能力"@zh .
+
+
+###  http://example.org/arcaneweb#GroundInsightCapability
+# 定义“GroundInsightCapability（地面灵视探知能力）”规范能力个体，属于“InsightTargetTypeCapability（灵视探知目标类型能力）”类。
+:GroundInsightCapability rdf:type owl:NamedIndividual ,
+                                :InsightTargetTypeCapability ;
+                       rdfs:label "地面灵视探知能力"@zh .
+
+
+###  http://example.org/arcaneweb#GroundManifestationCapability
+# 定义“GroundManifestationCapability（对地具现能力）”规范能力个体，属于“ManifestationTargetTypeCapability（具现目标类型能力）”类。
+:GroundManifestationCapability rdf:type owl:NamedIndividual ,
+                                 :ManifestationTargetTypeCapability ;
+                        rdfs:label "对地具现能力"@zh .
+
+
+###  http://example.org/arcaneweb#HighAltitudeManifestationCapability
+# 定义“HighAltitudeManifestationCapability（高空具现能力）”规范能力个体，属于“ManifestationAltitudeCapability（具现高度能力）”类。
+:HighAltitudeManifestationCapability rdf:type owl:NamedIndividual ,
+                                       :ManifestationAltitudeCapability ;
+                              rdfs:label "高空具现能力"@zh .
+
+
+###  http://example.org/arcaneweb#InformationRelayCapability
+# 定义“InformationRelayCapability（魔法信息中继能力）”规范能力个体，属于“CommunicationCapability（传讯能力）”类。
+:InformationRelayCapability rdf:type owl:NamedIndividual ,
+                                     :CommunicationCapability ;
+                            rdfs:label "魔法信息中继能力"@zh .
+
+
+###  http://example.org/arcaneweb#LongRangeInsightCapability
+# 定义“LongRangeInsightCapability（远程感知能力）”规范能力个体，属于“InsightRangeCapability（感知距离能力）”类。
+:LongRangeInsightCapability rdf:type owl:NamedIndividual ,
+                                   :InsightRangeCapability ;
+                          rdfs:label "远程感知能力"@zh .
+
+
+###  http://example.org/arcaneweb#LongRangeManifestationCapability
+# 定义“LongRangeManifestationCapability（远程具现能力）”规范能力个体，属于“ManifestationRangeCapability（具现距离能力）”类。
+:LongRangeManifestationCapability rdf:type owl:NamedIndividual ,
+                                    :ManifestationRangeCapability ;
+                           rdfs:label "远程具现能力"@zh .
+
+
+###  http://example.org/arcaneweb#LowAltitudeManifestationCapability
+# 定义“LowAltitudeManifestationCapability（低空具现能力）”规范能力个体，属于“ManifestationAltitudeCapability（具现高度能力）”类。
+:LowAltitudeManifestationCapability rdf:type owl:NamedIndividual ,
+                                      :ManifestationAltitudeCapability ;
+                             rdfs:label "低空具现能力"@zh .
+
+
+###  http://example.org/arcaneweb#MediumRangeInsightCapability
+# 定义“MediumRangeInsightCapability（中程感知能力）”规范能力个体，属于“InsightRangeCapability（感知距离能力）”类。
+:MediumRangeInsightCapability rdf:type owl:NamedIndividual ,
+                                     :InsightRangeCapability ;
+                            rdfs:label "中程感知能力"@zh .
+
+
+###  http://example.org/arcaneweb#MediumRangeManifestationCapability
+# 定义“MediumRangeManifestationCapability（中程具现能力）”规范能力个体，属于“ManifestationRangeCapability（具现距离能力）”类。
+:MediumRangeManifestationCapability rdf:type owl:NamedIndividual ,
+                                      :ManifestationRangeCapability ;
+                             rdfs:label "中程具现能力"@zh .
+
+
+###  http://example.org/arcaneweb#MultiArtifactOrchestrationCapability
+# 定义“MultiArtifactOrchestrationCapability（多法器协同统筹能力）”规范能力个体，属于“OrchestrationCapability（统筹能力）”类。
+:MultiArtifactOrchestrationCapability rdf:type owl:NamedIndividual ,
+                                          :OrchestrationCapability ;
+                                 rdfs:label "多法器协同统筹能力"@zh .
+
+
+###  http://example.org/arcaneweb#MultiTargetEvaluationCapability
+# 定义“MultiTargetEvaluationCapability（多目标解析能力）”规范能力个体，属于“EvaluationCapability（解析能力）”类。
+:MultiTargetEvaluationCapability rdf:type owl:NamedIndividual ,
+                                          :EvaluationCapability ;
+                                 rdfs:label "多目标解析能力"@zh .
+
+
+###  http://example.org/arcaneweb#RapidEvaluationCapability
+# 定义“RapidEvaluationCapability（快速解析能力）”规范能力个体，属于“EvaluationCapability（解析能力）”类。
+:RapidEvaluationCapability rdf:type owl:NamedIndividual ,
+                                    :EvaluationCapability ;
+                           rdfs:label "快速解析能力"@zh .
+
+
+###  http://example.org/arcaneweb#RapidResponseCoordinationCapability
+# 定义“RapidResponseCoordinationCapability（快速响应能力）”规范能力个体，属于“OrchestrationCapability（统筹能力）”类。
+:RapidResponseCoordinationCapability rdf:type owl:NamedIndividual ,
+                                         :OrchestrationCapability ;
+                                rdfs:label "快速响应能力"@zh .
+
+
+###  http://example.org/arcaneweb#BeastManifestationCapability
+# 定义“BeastManifestationCapability（对大型灵兽具现能力）”规范能力个体，属于“ManifestationTargetTypeCapability（具现目标类型能力）”类。
+:BeastManifestationCapability rdf:type owl:NamedIndividual ,
+                               :ManifestationTargetTypeCapability ;
+                      rdfs:label "对大型灵兽具现能力"@zh .
+
+
+###  http://example.org/arcaneweb#ShortRangeInsightCapability
+# 定义“ShortRangeInsightCapability（近程感知能力）”规范能力个体，属于“InsightRangeCapability（感知距离能力）”类。
+:ShortRangeInsightCapability rdf:type owl:NamedIndividual ,
+                                    :InsightRangeCapability ;
+                           rdfs:label "近程感知能力"@zh .
+
+
+###  http://example.org/arcaneweb#ShortRangeManifestationCapability
+# 定义“ShortRangeManifestationCapability（近程具现能力）”规范能力个体，属于“ManifestationRangeCapability（具现距离能力）”类。
+:ShortRangeManifestationCapability rdf:type owl:NamedIndividual ,
+                                     :ManifestationRangeCapability ;
+                            rdfs:label "近程具现能力"@zh .
+
+
+###  http://example.org/arcaneweb#SinglePointManifestationCapability
+# 定义“SinglePointManifestationCapability（单体具现能力）”规范能力个体，属于“ManifestationTargetQuantityCapability（具现目标数量能力）”类。
+:SinglePointManifestationCapability rdf:type owl:NamedIndividual ,
+                                      :ManifestationTargetQuantityCapability ;
+                             rdfs:label "单体具现能力"@zh .
+
+
+###  http://example.org/arcaneweb#AstralInsightCapability
+# 定义“AstralInsightCapability（星界灵视探知能力）”规范能力个体，属于“InsightTargetTypeCapability（灵视探知目标类型能力）”类。
+:AstralInsightCapability rdf:type owl:NamedIndividual ,
+                               :InsightTargetTypeCapability ;
+                      rdfs:label "星界灵视探知能力"@zh .
+
+
+###  http://example.org/arcaneweb#AstralManifestationCapability
+# 定义“AstralManifestationCapability（星界具现能力）”规范能力个体，属于“ManifestationAltitudeCapability（具现高度能力）”类。
+:AstralManifestationCapability rdf:type owl:NamedIndividual ,
+                                :ManifestationAltitudeCapability ;
+                       rdfs:label "星界具现能力"@zh .
+
+
+###  http://example.org/arcaneweb#DeepCreatureManifestationCapability
+# 定义“DeepCreatureManifestationCapability（对深水灵兽具现能力）”规范能力个体，属于“ManifestationTargetTypeCapability（具现目标类型能力）”类。
+:DeepCreatureManifestationCapability rdf:type owl:NamedIndividual ,
+                                    :ManifestationTargetTypeCapability ;
+                           rdfs:label "对深水灵兽具现能力"@zh .
+
+
+###  http://example.org/arcaneweb#UnderwaterInsightCapability
+# 定义“UnderwaterInsightCapability（水下灵视探知能力）”规范能力个体，属于“InsightTargetTypeCapability（灵视探知目标类型能力）”类。
+:UnderwaterInsightCapability rdf:type owl:NamedIndividual ,
+                                    :InsightTargetTypeCapability ;
+                           rdfs:label "水下灵视探知能力"@zh .
+
+
+###  http://example.org/arcaneweb#UnderwaterManifestationCapability
+# 定义“UnderwaterManifestationCapability（水下具现能力）”规范能力个体，属于“ManifestationAltitudeCapability（具现高度能力）”类。
+:UnderwaterManifestationCapability rdf:type owl:NamedIndividual ,
+                                     :ManifestationAltitudeCapability ;
+                            rdfs:label "水下具现能力"@zh .
+
+
+#    0.7 文献对照与说明目录
+# 以下 AnnotationProperty 用于描述术语，不参与 domain/range 或业务关系推理。
+
+:sourceSection a owl:AnnotationProperty ;
+    rdfs:label "参考章节"@zh ;
+    rdfs:comment "用户提供的截图中的章节或表号；属于来源定位，不表示逐字转录。"@zh .
+:correspondsToPhase a owl:AnnotationProperty ;
+    rdfs:label "对应 OODA 阶段"@zh ;
+    rdfs:comment "类或术语的阶段标注；不是实例执行顺序，也不自动传播到实例。"@zh .
+:unitSymbol a owl:AnnotationProperty ;
+    rdfs:label "单位符号"@zh ;
+    rdfs:comment "描述数据属性的单位；不执行单位换算。1 表示无量纲。"@zh .
+:semanticNote a owl:AnnotationProperty ;
+    rdfs:label "建模口径说明"@zh .
+:formulaText a owl:AnnotationProperty ;
+    rdfs:label "公式文本"@zh ;
+    rdfs:comment "来源中的数学表达式的文本记录；不是 SWRL、SPARQL 或可执行代码。"@zh .
+
+:OODAPhase a owl:Class ;
+    rdfs:label "OODA 阶段"@zh ;
+    :sourceSection "第一部分 OODA 扩展说明" ;
+    rdfs:comment "用于文献阶段对照的词表。阶段循环与一次任务执行的依赖图分开表达。"@zh .
+:ObservePhase a owl:NamedIndividual, :OODAPhase ;
+    rdfs:label "O1 探知（Observe）"@zh .
+:OrientPhase a owl:NamedIndividual, :OODAPhase ;
+    rdfs:label "O2 研判（Orient）"@zh .
+:DecidePhase a owl:NamedIndividual, :OODAPhase ;
+    rdfs:label "D 决断（Decide）"@zh .
+:ActPhase a owl:NamedIndividual, :OODAPhase ;
+    rdfs:label "A 施法（Act）"@zh .
+
+:ArcaneMission :sourceSection "1.1 表 1；1.4 表 5" .
+:ArcaneCapability :sourceSection "1.1 表 1；1.3 表 4" .
+:Artifact :sourceSection "1.1 表 1；1.2 表 2、表 3" ;
+    :semanticNote "灵视探知、协调、具现是功能角色，可由同一实体兼任，不设为两两互斥；平台/挂载物是另一分类维度。"@zh .
+:ElementalFieldSituation :sourceSection "1.1 表 1" ;
+    :semanticNote "目前只表达态势与任务、能力和目标的关联，未提供元素种类、魔力场或环境数值模型。"@zh .
+:InvocationRequirement :sourceSection "1.1 表 1" ;
+    :semanticNote "需求关系的存在不代表已通过满足性判定；截图未定义结构化阈值字段，本轮不自行编造阈值。"@zh .
+
+:InsightArtifact :sourceSection "1.2 表 2、表 3" ; :correspondsToPhase :ObservePhase .
+:JudgmentArtifact :sourceSection "1.2 OODA 细分" ; :correspondsToPhase :OrientPhase ;
+    rdfs:altLabel "研判法器"@zh .
+:DecisionArtifact :sourceSection "1.2 OODA 细分" ; :correspondsToPhase :DecidePhase .
+:ManifestationArtifact :sourceSection "1.2 表 2、表 3" ; :correspondsToPhase :ActPhase .
+:CoordinationArtifact :sourceSection "1.2 表 2、表 3" ;
+    :semanticNote "协调层覆盖研判和决断两个阶段；父类本身不绑定单一阶段。"@zh .
+
+:InsightCapability :sourceSection "1.3 表 4" ; :correspondsToPhase :ObservePhase .
+:JudgmentCapability :sourceSection "1.3 OODA 细分" ; :correspondsToPhase :OrientPhase ;
+    rdfs:altLabel "研判能力"@zh .
+:DecisionCapability :sourceSection "1.3 OODA 细分" ; :correspondsToPhase :DecidePhase .
+:ManifestationCapability :sourceSection "1.3 表 4" ; :correspondsToPhase :ActPhase .
+:CoordinationCapability :sourceSection "1.3 表 4" .
+:CommunicationCapability :sourceSection "1.3 表 4" .
+:OrchestrationCapability :sourceSection "1.3 表 4" .
+:EvaluationCapability :sourceSection "1.3 表 4" ;
+    :semanticNote "解析能力按表 4 保留在协调能力下。与 JudgmentCapability 相关，但截图未给出等价或包含公理，故不自动合并。"@zh .
+
+:InsightMission :sourceSection "1.4" ; :correspondsToPhase :ObservePhase .
+:JudgmentMission :sourceSection "1.4" ; :correspondsToPhase :OrientPhase ;
+    rdfs:altLabel "研判任务"@zh .
+:DecisionMission :sourceSection "1.4" ; :correspondsToPhase :DecidePhase .
+:ManifestationMission :sourceSection "1.4" ; :correspondsToPhase :ActPhase .
+:CoordinationMission :sourceSection "1.4" ;
+    :semanticNote "0.7 将具体任务的后继关系从类的存在性限制中移出。类型表示任务职责，不强制每个任务都有后续具现任务。"@zh .
+:finishStartPrecedes :sourceSection "1.4 时序表达（项目扩展属性）" ;
+    :semanticNote "用于具体任务实例的完成—开始依赖。OODA 阶段循环不等于 nextNode 或依赖图必须成环；截图中引用的图 5 图形本轮未提供。"@zh .
+
+:hasCapability :sourceSection "1.1；2.1.1" ;
+    :semanticNote "表示法器具有某项能力，不自动推导其数值性能满足某个任务。"@zh .
+:requiresCapability :sourceSection "1.1；2.1.1" ;
+    :semanticNote "表示任务所需能力；声明该关系与由规则计算该关系是两个步骤。"@zh .
+:ChainNode :sourceSection "项目扩展：链内参与节点" ;
+    :semanticNote "同一法器参与不同链时，应分别建立节点，再通过 nodeArtifact 指向同一法器；避免共享节点导致顺序混淆。"@zh .
+:SpellChain :sourceSection "2.1 步骤 2（项目结构化扩展）" .
+:ArcaneWeb :sourceSection "2.1 步骤 3（项目结构化扩展）" .
+:ChainRelation :sourceSection "2.1.3（项目结构化扩展）" .
+:ArtifactPlatform :sourceSection "项目扩展：承载平台" .
+:CrystalVessel :sourceSection "项目扩展：可消耗挂载物" .
+
+# 单位采用现有 IRI 的单位约定，不因魔法化显示名称而改变。
+:latitudeDeg :unitSymbol "deg" .
+:longitudeDeg :unitSymbol "deg" .
+:altitudeFt :unitSymbol "ft" .
+:speedKn :unitSymbol "kn" .
+:detectionRangeNm :unitSymbol "nmi" .
+:distanceResolutionM :unitSymbol "m" .
+:azimuthCoverageDeg :unitSymbol "deg" .
+:elevationCoverageDeg :unitSymbol "deg" .
+:azimuthResolutionDeg :unitSymbol "deg" .
+:elevationResolutionDeg :unitSymbol "deg" .
+:insightIntervalS :unitSymbol "s" ;
+    :semanticNote "采样或灵视探知间隔不自动等于式（4）的阶段总耗时。"@zh .
+:evaluationTimeS :unitSymbol "s" .
+:evaluationAreaKm2 :unitSymbol "km2" .
+:communicationBandwidthMbps :unitSymbol "Mbps" .
+:communicationPowerW :unitSymbol "W" .
+:relayDelayMs :unitSymbol "ms" .
+:responseTimeS :unitSymbol "s" ;
+    :semanticNote "响应时间是单项参数，不自动等于式（4）的完整施法阶段耗时。"@zh .
+:manaRechargeTimeS :unitSymbol "s" .
+:minRangeNm :unitSymbol "nmi" .
+:maxRangeNm :unitSymbol "nmi" .
+:disturbanceRadiusM :unitSymbol "m" .
+:flightSpeedKn :unitSymbol "kn" .
+:climbSpeedKn :unitSymbol "kn" .
+:maxTargetSpeedKn :unitSymbol "kn" .
+:flightAltitudeFt :unitSymbol "ft" .
+:minActivationAltitudeFt :unitSymbol "ft" .
+:maxActivationAltitudeFt :unitSymbol "ft" .
+:minTargetAltitudeFt :unitSymbol "ft" .
+:maxTargetAltitudeFt :unitSymbol "ft" .
+:maxCommDistanceNm :unitSymbol "nmi" .
+:missionTargetAltitudeFt :unitSymbol "ft" .
+:missionTargetSpeedKn :unitSymbol "kn" .
+:missionTargetLatitudeDeg :unitSymbol "deg" .
+:missionTargetLongitudeDeg :unitSymbol "deg" .
+:targetAltitudeFt :unitSymbol "ft" .
+:targetSpeedKn :unitSymbol "kn" .
+:targetLatitudeDeg :unitSymbol "deg" .
+:targetLongitudeDeg :unitSymbol "deg" .
+:targetDistanceNm :unitSymbol "nmi" .
+:detectionPrecision :unitSymbol "1" ;
+    :semanticNote "项目扩展的 0—1 汇总指标；表 3 的距离/角度误差不能未经定义就直接转换为此指标。标注本身不约束数值范围。"@zh .
+:attunementProbability :unitSymbol "1" ;
+    :semanticNote "灵性锁定概率与式（5）的阶段精度不是已声明的同一指标。"@zh .
+:disturbanceRate :unitSymbol "1" .
+:cost :semanticNote "使用成本。表 3 在具现法器行列出附魔造价，本项目将成本提升到法器父类以统一描述。币种和计价基准须由实例数据明确，不能默认是采购价。"@zh .
+:missionTargetType :semanticNote "来源类别编码与显示名称分开；背景化显示名不自动改变来源类别编码。"@zh .
+:missionTime :semanticNote "任务时间使用 xsd:dateTime；它是时间点，不是持续时间。"@zh .
+:nodeOrder :semanticNote "序号为整数不代表唯一、从 1 开始或连续；这些是实例数据校验要求。"@zh .
+
+# 规则描述目录：只记录来源、类别和语义，不产生候选法器或链网。
+:DesignRuleDescription a owl:Class ; rdfs:label "设计规则说明"@zh .
+:TaskCapabilityRuleDescription a owl:NamedIndividual, :DesignRuleDescription ;
+    rdfs:label "任务—能力映射规则说明"@zh ; :sourceSection "2.1.1；式（1）" ;
+    rdfs:comment "描述任务属性条件与所需能力之间的条件关系；条件阈值未在截图中完整给出。"@zh .
+:CapabilityArtifactRuleDescription a owl:NamedIndividual, :DesignRuleDescription ;
+    rdfs:label "能力—法器映射规则说明"@zh ; :sourceSection "2.1.1；式（2）" ;
+    rdfs:comment "描述能力需求与法器属性条件的映射；本目录不进行法器筛选。"@zh .
+:ArtifactCooperationRuleDescription a owl:NamedIndividual, :DesignRuleDescription ;
+    rdfs:label "法器协同规则说明"@zh ; :sourceSection "2.1.2；式（3）" ;
+    rdfs:comment "描述协同条件的合取；成对条件成立不自动证明整条链有序、连通或不存在资源冲突。"@zh .
+:ChainCooperationRuleDescription a owl:NamedIndividual, :DesignRuleDescription ;
+    rdfs:label "法术链协同规则说明"@zh ; :sourceSection "2.1.3" ;
+    rdfs:comment "来源描述并行、串行、分支和资源共享。本体中的关系实例只记录组合，不自动验证容量、占用时间或消耗性资源约束。"@zh .
+
+# 数学式文本目录：编号沿用截图；不给未出现的时间/精度分项补造定义。
+:FormulaDescription a owl:Class ; rdfs:label "公式说明"@zh .
+:Formula01 a owl:NamedIndividual, :FormulaDescription ;
+    rdfs:label "式（1）条件—能力表达"@zh ; :sourceSection "2.1.1；式（1）" ;
+    :formulaText "(t_i^1 AND t_i^2 AND ... AND t_i^n) -> c_i" ;
+    :semanticNote "按截图合取含义记录。截图中的交集符号用于条件同时成立；并非完整的一阶逻辑或可执行 OWL 规则语法。"@zh .
+:Formula02 a owl:NamedIndividual, :FormulaDescription ;
+    rdfs:label "式（2）条件—资源表达"@zh ; :sourceSection "2.1.1；式（2）" ;
+    :formulaText "(c_i^1 AND c_i^2 AND ... AND c_i^n) -> w_i" .
+:Formula03 a owl:NamedIndividual, :FormulaDescription ;
+    rdfs:label "式（3）协同条件表达"@zh ; :sourceSection "2.1.2；式（3）" ;
+    :formulaText "(w_ij^1 AND w_ij^2 AND ... AND w_ij^n) -> l_k" ;
+    :semanticNote "截图写法省略了整条链的参与者量化和全局条件；不能把任意一对资源满足条件等同于链构造完成。"@zh .
+:Formula04 a owl:NamedIndividual, :FormulaDescription ;
+    rdfs:label "式（4）总时间"@zh ; :sourceSection "评估指标；式（4）" ;
+    :formulaText "T = T_o + T_d + T_a" ;
+    :semanticNote "三个阶段耗时相加；来源暂不考虑传讯类法器。只在阶段不重叠且计量口径一致时按该式解释。"@zh .
+:Formula05 a owl:NamedIndividual, :FormulaDescription ;
+    rdfs:label "式（5）总精度"@zh ; :sourceSection "评估指标；式（5）" ;
+    :formulaText "A = A_o * A_d * A_a" ;
+    :semanticNote "来源采用阶段精度乘积。阶段指标的标度、获取方式和合成适用性须另行定义，不能自动解释为经过验证的联合概率。"@zh .
+:Formula06 a owl:NamedIndividual, :FormulaDescription ;
+    rdfs:label "式（6）总成本"@zh ; :sourceSection "评估指标；式（6）" ;
+    :formulaText "C = C_o + C_d + C_a" ;
+    :semanticNote "按一致币种和使用成本口径求和；多条链共享资源时，截图没有给出网络级成本去重规则。"@zh .
+:Formula07 a owl:NamedIndividual, :FormulaDescription ;
+    rdfs:label "式（7）时间归一化"@zh ; :sourceSection "评估指标；式（7）" ;
+    :formulaText "T_prime = 1 - (T - min(T)) / (max(T) - min(T))" .
+:Formula08 a owl:NamedIndividual, :FormulaDescription ;
+    rdfs:label "式（8）精度归一化"@zh ; :sourceSection "评估指标；式（8）" ;
+    :formulaText "A_prime = (A - min(A)) / (max(A) - min(A))" .
+:Formula09 a owl:NamedIndividual, :FormulaDescription ;
+    rdfs:label "式（9）成本归一化"@zh ; :sourceSection "评估指标；式（9）" ;
+    :formulaText "C_prime = 1 - (C - min(C)) / (max(C) - min(C))" .
+:Formula10 a owl:NamedIndividual, :FormulaDescription ;
+    rdfs:label "式（10）加权评分"@zh ; :sourceSection "评估指标；式（10）" ;
+    :formulaText "P = w_1 * T_prime + w_2 * A_prime + w_3 * C_prime" ;
+    :semanticNote "来源要求每个权重属于 [0,1] 且权重和为 1；三个归一化值须使用同一比较集合。截图未规定 max=min 时的处理，本体不自行设定得分。"@zh .
+
+# 截图逐项来源补充（0.8.1）：仅添加注释，不增加规则或场景。
+:artifactId :sourceSection "1.2 表 3；截图 20261023222313" .
+:artifactCategory :sourceSection "1.2 表 3；截图 20261023222313" .
+:artifactName :sourceSection "1.2 表 3；截图 20261023222313" .
+:artifactShortName :sourceSection "1.2 表 3；截图 20261023222313" .
+:longitudeDeg :sourceSection "1.2 表 3；截图 20261023222313" .
+:latitudeDeg :sourceSection "1.2 表 3；截图 20261023222313" .
+:altitudeFt :sourceSection "1.2 表 3；截图 20261023222313" .
+:speedKn :sourceSection "1.2 表 3；截图 20261023222313" .
+:artifactStatus :sourceSection "1.2 表 3；截图 20261023222313" .
+:insightTargetType :sourceSection "1.2 表 3；截图 20261023222313" .
+:detectionRangeNm :sourceSection "1.2 表 3；截图 20261023222313" .
+:azimuthCoverageDeg :sourceSection "1.2 表 3；截图 20261023222313" .
+:elevationCoverageDeg :sourceSection "1.2 表 3；截图 20261023222313" .
+:maxInsightMarks :sourceSection "1.2 表 3；截图 20261023222313" .
+:distanceResolutionM :sourceSection "1.2 表 3；截图 20261023222313" .
+:azimuthResolutionDeg :sourceSection "1.2 表 3；截图 20261023222313" .
+:elevationResolutionDeg :sourceSection "1.2 表 3；截图 20261023222313" .
+:insightIntervalS :sourceSection "1.2 表 3；截图 20261023222313" .
+:evaluationTimeS :sourceSection "1.2 表 3；截图 20261023222313" .
+:maxEvaluationTargets :sourceSection "1.2 表 3；截图 20261023222313" .
+:evaluationAreaKm2 :sourceSection "1.2 表 3；截图 20261023222313" .
+:communicationBandwidthMbps :sourceSection "1.2 表 3；截图 20261023222313" .
+:communicationPowerW :sourceSection "1.2 表 3；截图 20261023222313" .
+:relayDelayMs :sourceSection "1.2 表 3；截图 20261023222313" .
+:manifestationTargetType :sourceSection "1.2 表 3；截图 20261023222313" .
+:maxRangeNm :sourceSection "1.2 表 3；截图 20261023222313" .
+:minRangeNm :sourceSection "1.2 表 3；截图 20261023222313" .
+:manifestationPotency :sourceSection "1.2 表 3；截图 20261023222313" .
+:disturbanceRadiusM :sourceSection "1.2 表 3；截图 20261023222313" .
+:responseTimeS :sourceSection "1.2 表 3；截图 20261023222313" .
+:multiCastCount :sourceSection "1.2 表 3；截图 20261023222313" .
+:manaRechargeTimeS :sourceSection "1.2 表 3；截图 20261023222313" .
+:maxTargetSpeedKn :sourceSection "1.2 表 3；截图 20261023222313" .
+:flightSpeedKn :sourceSection "1.2 表 3；截图 20261023222313" .
+:climbSpeedKn :sourceSection "1.2 表 3；截图 20261023222313" .
+:minTargetAltitudeFt :sourceSection "1.2 表 3；截图 20261023222313" .
+:maxTargetAltitudeFt :sourceSection "1.2 表 3；截图 20261023222313" .
+:minActivationAltitudeFt :sourceSection "1.2 表 3；截图 20261023222313" .
+:maxActivationAltitudeFt :sourceSection "1.2 表 3；截图 20261023222313" .
+:flightAltitudeFt :sourceSection "1.2 表 3；截图 20261023222313" .
+:attunementProbability :sourceSection "1.2 表 3；截图 20261023222313" .
+:disturbanceRate :sourceSection "1.2 表 3；截图 20261023222313" .
+:cost :sourceSection "1.2 表 3；截图 20261023222313" .
+:missionName :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionShortName :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionCode :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionType :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionLocation :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionTime :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionMetrics :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionTargetType :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionTargetSpeedKn :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionTargetAltitudeFt :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionTargetLongitudeDeg :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionTargetLatitudeDeg :sourceSection "1.4 表 5；截图 20261023222331" .
+:missionTargetImpedanceThreshold :sourceSection "1.4 表 5；截图 20261023222331" .
+:ManifestationRangeCapability :sourceSection "1.3 表 4；截图 20261023222320" ; :semanticNote "表 4 分类维度：具现距离。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。"@zh .
+:ManifestationAltitudeCapability :sourceSection "1.3 表 4；截图 20261023222320" ; :semanticNote "表 4 分类维度：具现高度。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。"@zh .
+:ManifestationTargetTypeCapability :sourceSection "1.3 表 4；截图 20261023222320" ; :semanticNote "表 4 分类维度：目标类型。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。"@zh .
+:ManifestationTargetQuantityCapability :sourceSection "1.3 表 4；截图 20261023222320" ; :semanticNote "表 4 分类维度：目标数量。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。"@zh .
+:CommunicationCapability :sourceSection "1.3 表 4；截图 20261023222320" ; :semanticNote "表 4 分类维度：传讯能力。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。"@zh .
+:OrchestrationCapability :sourceSection "1.3 表 4；截图 20261023222320" ; :semanticNote "表 4 分类维度：统筹能力。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。"@zh .
+:EvaluationCapability :sourceSection "1.3 表 4；截图 20261023222326" ; :semanticNote "表 4 分类维度：解析能力。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。"@zh .
+:InsightRangeCapability :sourceSection "1.3 表 4；截图 20261023222326" ; :semanticNote "表 4 分类维度：感知距离。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。"@zh .
+:InsightTargetTypeCapability :sourceSection "1.3 表 4；截图 20261023222326" ; :semanticNote "表 4 分类维度：目标类型。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。"@zh .
+:InsightArtifact rdfs:comment "表示灵视探知监视类单元平台，承担发现、搜集共鸣空间信息参数并回传的任务。"@zh .
+:CoordinationArtifact rdfs:comment "表示各类协调机构，是奥术网的核心，对魔法活动执行决断。"@zh .
+:ManifestationArtifact rdfs:comment "表示可执行魔法抵消和魔力消解任务的功能单元，在协调节点的协调安排和灵视探知节点的信息传输下，对交互目标进行扰动或具现。"@zh .
+:FormulaDescription :semanticNote "本批截图只提供式（1）至式（10），未定义 SE、α/β 或状态更新方程；这些不列入本批资料的实现范围。"@zh .
+
+###  Initial serialization generated by the OWL API; subsequent edits maintained in this project.
+
+# 2026-10-27 显示名迁移：尺=原英尺(ft)，里=原海里(nmi)，迅捷度=原节(kn)。
+# 仅更换显示名，不改数值、换算、参照面、原始类型编码或OWL公理。
+# 共鸣效值沿用manifestationPotency；传音频段沿用带宽Mbps口径，不改成频率；飞行极速沿用原速度测量口径，不新增最大值约束。

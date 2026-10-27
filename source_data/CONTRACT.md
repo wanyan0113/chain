@@ -2,7 +2,7 @@
 
 此契约先于实现确定。通用来源代码只读取本目录、本地 JSON/TTL 及调用者显式提供的映射；不导入主本体、环境或根目录校验工具，不解析截图，不执行映射表达式。
 
-`schema.json` 定义 bundle；`source_mappings/article_source.json` 定义本次输入读取位置；`adapter_mappings/source_metadata.json` 定义 RDF 固定字段和引用。所有配置只允许声明式数据。
+`schema.json` 定义 bundle；`source_mappings/case_fields.json` 定义本次输入读取位置；`adapter_mappings/source_metadata.json` 定义 RDF 固定字段和引用。所有配置只允许声明式数据。
 
 包包含 format_version、metadata 和 materials/tables/fields/records/values/issues/gaps/statements 八个对象数组。每个对象有全包唯一 id。metadata 保留输入文件名、SHA256 和完整已解析 JSON；完整快照用于逐项验证与恢复，包括顶层元数据。材料保存定位、核对日期及转录摘要；未知表名和表头为 null，不能把整理者的键名冒称原表头。
 

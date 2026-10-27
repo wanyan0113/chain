@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""杀伤网本体第一轮结构审查。
+"""奥术网本体第一轮结构审查。
 
 用法：
     python -m pip install rdflib
     python check_ontology.py
-    python check_ontology.py killweb_ontology.ttl
-    python check_ontology.py --fail-on-warn killweb_ontology.ttl
+    python check_ontology.py arcane_ontology.ttl
+    python check_ontology.py --fail-on-warn arcane_ontology.ttl
 
 边界：
     - 本脚本检查语法、声明、domain/range、restriction、inverse、
@@ -475,36 +475,36 @@ def check_disjointness(graph: Graph, classes, report: Report) -> None:
                         )
 
 CORE_CLASSES = [
-    "CombatMission", "BattlefieldSituation", "CombatCapability",
-    "OperationalRequirement", "WeaponEquipment",
+    "ArcaneMission", "ElementalFieldSituation", "ArcaneCapability",
+    "InvocationRequirement", "Artifact",
 ]
 
 OODA_CLASSES = [
-    "ReconMission", "JudgmentMission", "DecisionMission", "StrikeMission",
-    "ReconCapability", "JudgmentCapability", "DecisionCapability", "StrikeCapability",
-    "ReconEquipment", "JudgmentEquipment", "DecisionEquipment", "StrikeEquipment",
+    "InsightMission", "JudgmentMission", "DecisionMission", "ManifestationMission",
+    "InsightCapability", "JudgmentCapability", "DecisionCapability", "ManifestationCapability",
+    "InsightArtifact", "JudgmentArtifact", "DecisionArtifact", "ManifestationArtifact",
 ]
 
 TABLE3_PROPERTIES = [
-    "equipmentId", "equipmentCategory", "equipmentName", "equipmentShortName",
-    "longitudeDeg", "latitudeDeg", "altitudeFt", "speedKn", "operationalStatus",
-    "reconTargetType", "detectionRangeNm", "azimuthCoverageDeg", "elevationCoverageDeg",
-    "maxSearchTargets", "detectionPrecision", "distanceResolutionM",
-    "azimuthResolutionDeg", "elevationResolutionDeg", "reconIntervalS",
+    "artifactId", "artifactCategory", "artifactName", "artifactShortName",
+    "longitudeDeg", "latitudeDeg", "altitudeFt", "speedKn", "artifactStatus",
+    "insightTargetType", "detectionRangeNm", "azimuthCoverageDeg", "elevationCoverageDeg",
+    "maxInsightMarks", "detectionPrecision", "distanceResolutionM",
+    "azimuthResolutionDeg", "elevationResolutionDeg", "insightIntervalS",
     "evaluationTimeS", "maxEvaluationTargets", "evaluationAreaKm2",
     "communicationBandwidthMbps", "communicationPowerW", "relayDelayMs",
-    "strikeTargetType", "maxRangeNm", "minRangeNm", "damageValue", "damageRadiusM",
-    "responseTimeS", "salvoSize", "reloadTimeS", "maxTargetSpeedKn",
+    "manifestationTargetType", "maxRangeNm", "minRangeNm", "manifestationPotency", "disturbanceRadiusM",
+    "responseTimeS", "multiCastCount", "manaRechargeTimeS", "maxTargetSpeedKn",
     "flightSpeedKn", "climbSpeedKn", "minTargetAltitudeFt", "maxTargetAltitudeFt",
-    "minLaunchAltitudeFt", "maxLaunchAltitudeFt", "flightAltitudeFt",
-    "hitProbability", "damageRate", "cost",
+    "minActivationAltitudeFt", "maxActivationAltitudeFt", "flightAltitudeFt",
+    "attunementProbability", "disturbanceRate", "cost",
 ]
 
 TABLE5_PROPERTIES = [
     "missionName", "missionShortName", "missionCode", "missionType",
     "missionLocation", "missionTime", "missionMetrics", "missionTargetType",
     "missionTargetSpeedKn", "missionTargetAltitudeFt", "missionTargetLongitudeDeg",
-    "missionTargetLatitudeDeg", "missionTargetSurvivability",
+    "missionTargetLatitudeDeg", "missionTargetImpedanceThreshold",
 ]
 
 
@@ -546,26 +546,26 @@ def check_paper_coverage(graph: Graph, report: Report) -> None:
 
 def check_project_rules(graph: Graph, report: Report) -> None:
     names = [
-        "KillChain", "KillWeb", "ChainNode", "ReconChainNode", "CommandChainNode",
-        "StrikeChainNode", "ChainRelation", "SerialRelation", "BranchRelation",
-        "hasChainNode", "nodeOrder", "nextNode", "previousNode", "nodeEquipment",
+        "SpellChain", "ArcaneWeb", "ChainNode", "InsightChainNode", "CoordinationChainNode",
+        "ManifestationChainNode", "ChainRelation", "SerialRelation", "BranchRelation",
+        "hasChainNode", "nodeOrder", "nextNode", "previousNode", "nodeArtifact",
         "chainTarget", "chainId", "hasChain", "hasRelation", "relatedChain",
         "fromChain", "toChain", "chainRelation", "hasTarget", "Target",
-        "CombatMission", "ReconEquipment", "CommandControlEquipment",
-        "StrikeEquipment", "OperationalRequirement",
+        "ArcaneMission", "InsightArtifact", "CoordinationArtifact",
+        "ManifestationArtifact", "InvocationRequirement",
         "requirementForMission", "requirementConstrainsCapability",
-        "requirementConstrainsEquipment", "supportsMission", "satisfiesRequirement",
+        "requirementConstrainsArtifact", "supportsMission", "satisfiesRequirement",
     ]
     term = {name: find_named(graph, name) for name in names}
     required = [
-        "KillChain", "ChainNode", "hasChainNode", "nodeOrder", "nextNode",
-        "nodeEquipment", "chainTarget",
+        "SpellChain", "ChainNode", "hasChainNode", "nodeOrder", "nextNode",
+        "nodeArtifact", "chainTarget",
     ]
     if any(term[name] is None for name in required):
-        report.info("PROJECT", "未检测到完整的 KillChain/ChainNode 结构，跳过项目规则检查")
+        report.info("PROJECT", "未检测到完整的 SpellChain/ChainNode 结构，跳过项目规则检查")
         return
 
-    chains = instances_of(graph, term["KillChain"])
+    chains = instances_of(graph, term["SpellChain"])
     membership = defaultdict(list)
 
     for chain in chains:
@@ -585,9 +585,9 @@ def check_project_rules(graph: Graph, report: Report) -> None:
             if not any_type_matches(graph, node, term["ChainNode"]):
                 report.error("CHAIN", f"节点 {local_name(node)} 未声明为 ChainNode")
 
-            equipment = list(graph.objects(node, term["nodeEquipment"]))
-            if not equipment:
-                report.error("CHAIN", f"节点 {local_name(node)} 没有 nodeEquipment")
+            artifact = list(graph.objects(node, term["nodeArtifact"]))
+            if not artifact:
+                report.error("CHAIN", f"节点 {local_name(node)} 没有 nodeArtifact")
 
             order_values = list(graph.objects(node, term["nodeOrder"]))
             order = None
@@ -604,29 +604,29 @@ def check_project_rules(graph: Graph, report: Report) -> None:
                     orders[order] = node
 
             roles = [
-                role for role in ("ReconChainNode", "CommandChainNode", "StrikeChainNode")
+                role for role in ("InsightChainNode", "CoordinationChainNode", "ManifestationChainNode")
                 if any_type_matches(graph, node, term[role])
             ]
             if not roles:
-                report.error("CHAIN", f"节点 {local_name(node)} 没有侦察/指控/打击角色类型")
+                report.error("CHAIN", f"节点 {local_name(node)} 没有灵视探知/指控/具现角色类型")
             elif len(roles) > 1:
                 report.warn("CHAIN", f"节点 {local_name(node)} 同时具有多个角色类型：{roles}")
 
-            equipment_type_map = {
-                "ReconChainNode": "ReconEquipment",
-                "CommandChainNode": "CommandControlEquipment",
-                "StrikeChainNode": "StrikeEquipment",
+            artifact_type_map = {
+                "InsightChainNode": "InsightArtifact",
+                "CoordinationChainNode": "CoordinationArtifact",
+                "ManifestationChainNode": "ManifestationArtifact",
             }
             for role in roles:
-                expected = term[equipment_type_map[role]]
+                expected = term[artifact_type_map[role]]
                 if expected is None:
                     continue
-                for item in equipment:
+                for item in artifact:
                     if not any_type_matches(graph, item, expected):
                         report.warn(
                             "CHAIN",
-                            f"节点 {local_name(node)} 的角色是 {role}，但装备 {local_name(item)} "
-                            f"没有显式类型 {equipment_type_map[role]}",
+                            f"节点 {local_name(node)} 的角色是 {role}，但法器 {local_name(item)} "
+                            f"没有显式类型 {artifact_type_map[role]}",
                         )
 
             next_values = list(graph.objects(node, term["nextNode"]))
@@ -637,7 +637,7 @@ def check_project_rules(graph: Graph, report: Report) -> None:
                 "order": order,
                 "next": next_values,
                 "previous": previous_values,
-                "equipment": equipment,
+                "artifact": artifact,
                 "roles": roles,
             }
 
@@ -678,7 +678,7 @@ def check_project_rules(graph: Graph, report: Report) -> None:
 
         role_presence = {
             role: any(any_type_matches(graph, node, term[role]) for node in nodes)
-            for role in ("ReconChainNode", "CommandChainNode", "StrikeChainNode")
+            for role in ("InsightChainNode", "CoordinationChainNode", "ManifestationChainNode")
         }
         for role, present in role_presence.items():
             if not present:
@@ -725,12 +725,12 @@ def check_project_rules(graph: Graph, report: Report) -> None:
                     report.error("RELATION", f"有向关系 {local_name(relation)} 的 fromChain 与 toChain 相同")
         report.info("RELATION", f"链间关系检查完成：{len(all_relations)} 个关系")
 
-        if term["KillWeb"] is not None and term["hasChain"] is not None and term["hasRelation"] is not None:
-            for web in instances_of(graph, term["KillWeb"]):
+        if term["ArcaneWeb"] is not None and term["hasChain"] is not None and term["hasRelation"] is not None:
+            for web in instances_of(graph, term["ArcaneWeb"]):
                 web_chains = set(graph.objects(web, term["hasChain"]))
                 web_relations = set(graph.objects(web, term["hasRelation"]))
                 if not web_chains:
-                    report.error("WEB", f"杀伤网 {local_name(web)} 没有 hasChain")
+                    report.error("WEB", f"奥术网 {local_name(web)} 没有 hasChain")
                 for relation in web_relations:
                     for chain in graph.objects(relation, term["relatedChain"]):
                         if chain not in web_chains:
@@ -740,36 +740,36 @@ def check_project_rules(graph: Graph, report: Report) -> None:
                                 f"不在网 {local_name(web)} 的 hasChain 中",
                             )
                 for mission in graph.objects(web, term["supportsMission"]):
-                    if not any_type_matches(graph, mission, term["CombatMission"]):
-                        report.warn("WEB", f"网 {local_name(web)} 的 supportsMission 不是 CombatMission")
+                    if not any_type_matches(graph, mission, term["ArcaneMission"]):
+                        report.warn("WEB", f"网 {local_name(web)} 的 supportsMission 不是 ArcaneMission")
                 for requirement in graph.objects(web, term["satisfiesRequirement"]):
-                    if not any_type_matches(graph, requirement, term["OperationalRequirement"]):
-                        report.warn("WEB", f"网 {local_name(web)} 的 satisfiesRequirement 不是 OperationalRequirement")
+                    if not any_type_matches(graph, requirement, term["InvocationRequirement"]):
+                        report.warn("WEB", f"网 {local_name(web)} 的 satisfiesRequirement 不是 InvocationRequirement")
 
-    if term["OperationalRequirement"] is not None:
-        capability_class = find_named(graph, "CombatCapability")
-        equipment_class = find_named(graph, "WeaponEquipment")
-        for requirement in instances_of(graph, term["OperationalRequirement"]):
+    if term["InvocationRequirement"] is not None:
+        capability_class = find_named(graph, "ArcaneCapability")
+        artifact_class = find_named(graph, "Artifact")
+        for requirement in instances_of(graph, term["InvocationRequirement"]):
             for mission in graph.objects(requirement, term["requirementForMission"]):
-                if not any_type_matches(graph, mission, term["CombatMission"]):
+                if not any_type_matches(graph, mission, term["ArcaneMission"]):
                     report.warn("REQUIREMENT", f"需求 {local_name(requirement)} 的 requirementForMission 不是任务")
             for capability in graph.objects(requirement, term["requirementConstrainsCapability"]):
                 if not any_type_matches(graph, capability, capability_class):
                     report.warn("REQUIREMENT", f"需求 {local_name(requirement)} 的 requirementConstrainsCapability 不是能力")
-            for equipment in graph.objects(requirement, term["requirementConstrainsEquipment"]):
-                if not any_type_matches(graph, equipment, equipment_class):
-                    report.warn("REQUIREMENT", f"需求 {local_name(requirement)} 的 requirementConstrainsEquipment 不是装备")
+            for artifact in graph.objects(requirement, term["requirementConstrainsArtifact"]):
+                if not any_type_matches(graph, artifact, artifact_class):
+                    report.warn("REQUIREMENT", f"需求 {local_name(requirement)} 的 requirementConstrainsArtifact 不是法器")
 
-    if term["CombatMission"] is not None and term["hasTarget"] is not None and term["Target"] is not None:
+    if term["ArcaneMission"] is not None and term["hasTarget"] is not None and term["Target"] is not None:
         pairs = [
             ("missionTargetType", "targetType"),
             ("missionTargetSpeedKn", "targetSpeedKn"),
             ("missionTargetAltitudeFt", "targetAltitudeFt"),
             ("missionTargetLongitudeDeg", "targetLongitudeDeg"),
             ("missionTargetLatitudeDeg", "targetLatitudeDeg"),
-            ("missionTargetSurvivability", "targetSurvivability"),
+            ("missionTargetImpedanceThreshold", "targetImpedanceThreshold"),
         ]
-        for mission in instances_of(graph, term["CombatMission"]):
+        for mission in instances_of(graph, term["ArcaneMission"]):
             targets = list(graph.objects(mission, term["hasTarget"]))
             if not targets:
                 continue
@@ -824,7 +824,7 @@ def analyze_graph(graph: Graph, *, generic: bool = False) -> Report:
 
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description="RDF/OWL 本体静态结构审查")
-    parser.add_argument("path", nargs="?", default="killweb_ontology.ttl", help="本地 TTL 文件路径")
+    parser.add_argument("path", nargs="?", default="arcane_ontology.ttl", help="本地 TTL 文件路径")
     parser.add_argument("--fail-on-warn", action="store_true", help="把 WARN 也视为失败")
     parser.add_argument("--generic", action="store_true", help="只执行通用 RDF/OWL 检查")
     parser.add_argument("--json-output", type=Path, help="另存 UTF-8 JSON 检查报告")

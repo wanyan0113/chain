@@ -4,7 +4,7 @@
 
 接口现在区分两种验收范围：默认“场景背景接入”只要求有效的任务—态势关联；`--require-observations` 才要求完整观测路径。文章没有明确要求独立环境观测，不能把项目的严格观测要求当成文章缺项。
 
-`kw:` 沿用主本体的 `http://example.org/killweb#`；`env:` 沿用独立环境模块的 `urn:environment:`；新增关系使用 `urn:environment-integration:`。不复制核心类，不修改主本体或环境模块的类和标识符。
+`kw:` 沿用主本体的 `http://example.org/arcaneweb#`；`env:` 沿用独立环境模块的 `urn:environment:`；新增关系使用 `urn:environment-integration:`。不复制核心类，不修改主本体或环境模块的类和标识符。
 
 ## 文件与来源
 
@@ -18,7 +18,7 @@
 
 ## 需要准备的实际数据
 
-1. 项目实例文件：任务显式声明为 `kw:CombatMission` 或其具名子类，态势声明为 `kw:BattlefieldSituation`；用 `kw:hasSituation` 从任务引用态势。
+1. 项目实例文件：任务显式声明为 `kw:ArcaneMission` 或其具名子类，态势声明为 `kw:ElementalFieldSituation`；用 `kw:hasSituation` 从任务引用态势。
 2. 可选环境文件：可以只提供资料给出的区域；有实际参数和观测时，按 `environment/README.md` 提供数据。未提供观测不必补造时间或数值；已经提供的参数、观测始终完整校验。
 3. 可选观测关联文件：有观测时用 `link:hasObservation` 从态势 IRI 引用观测 IRI；两端必须使用前述文件中的同一个完整 IRI。仅包含关联边也可以，不必重复声明实例。
 
@@ -32,7 +32,7 @@
 .\.venv\Scripts\python.exe -m integration.load_project --project <任务态势文件.ttl> --environment <参数文件.ttl> <观测文件.ttl> --links <关联文件.ttl>
 ```
 
-自动显式加载主本体、环境本体、连接本体。主本体默认为根目录 `killweb_ontology.ttl`，可用 `--ontology` 指定本地文件；不自动下载 `owl:imports`。其余数据均需自行提供。
+自动显式加载主本体、环境本体、连接本体。主本体默认为根目录 `arcane_ontology.ttl`，可用 `--ontology` 指定本地文件；不自动下载 `owl:imports`。其余数据均需自行提供。
 
 只有场景背景时，`--environment` 和 `--links` 可省略：
 

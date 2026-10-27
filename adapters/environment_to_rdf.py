@@ -1,4 +1,4 @@
-"""Explicit environmental JSON or existing TTL; never interprets equipment tables."""
+"""Explicit environmental JSON or existing TTL; never interprets artifact tables."""
 from __future__ import annotations
 
 import argparse

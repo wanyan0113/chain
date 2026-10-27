@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 class FieldDictionaryTests(unittest.TestCase):
     def test_complete_coverage_and_separate_issue_scopes(self):
-        bundle = ingest(ROOT / "data/article_source/raw_tables.json", ROOT / "source_mappings/article_source.json")
+        bundle = ingest(ROOT / "data/article_source/case_records.json", ROOT / "source_mappings/case_fields.json")
         result = field_dictionary(bundle)
         self.assertEqual(result["counts"]["fields"], len(bundle["fields"]))
         self.assertEqual(sum(row["value_count"] for row in result["fields"]), len(bundle["values"]))

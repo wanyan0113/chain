@@ -27,8 +27,8 @@ from source_data.query import query_issues, query_records, query_unconfirmed
 from source_data.validate import validate_bundle
 
 ROOT = Path(__file__).resolve().parent.parent
-RAW = ROOT / "data/article_source/raw_tables.json"
-MAPPING = ROOT / "source_mappings/article_source.json"
+RAW = ROOT / "data/article_source/case_records.json"
+MAPPING = ROOT / "source_mappings/case_fields.json"
 
 
 def setUpModule():
@@ -56,7 +56,7 @@ class SourcePipelineTests(unittest.TestCase):
                             input_filename=RAW.name, input_sha256=self.original_digest)
 
     def test_review_counts_and_all_original_values(self):
-        review = read_json(ROOT / "data/article_source/review_report.json")
+        review = read_json(ROOT / "data/article_source/case_review.json")
         raw = read_json(RAW)
         rows = query_records(self.graph)
         self.assertEqual(len(rows), 18)
@@ -103,7 +103,7 @@ class SourcePipelineTests(unittest.TestCase):
     def test_unknown_and_dimensionless_units_not_conflated(self):
         fields = {f["key"]: f for f in self.bundle["fields"]}
         self.assertEqual(fields["precision_raw"]["unit"]["status"], "unconfirmed")
-        self.assertEqual(fields["damage_value"]["unit"]["status"], "unknown")
+        self.assertEqual(fields["resonance_value"]["unit"]["status"], "unknown")
         self.assertEqual(fields["altitude_ft"]["unit"]["description"], "ft")
 
     def test_invalid_mapping_path_and_expression(self):
@@ -226,7 +226,7 @@ class EnvironmentAdapterTests(unittest.TestCase):
             rows = query_observations(loaded, area=URIRef("urn:test:area"))
             self.assertEqual(rows[0]["value"], "1.25")
             scene = Path(directory) / "scene.ttl"
-            scene.write_text('@prefix kw: <http://example.org/killweb#> . <urn:test:mission> a kw:CombatMission ; kw:hasSituation <urn:test:situation> . <urn:test:situation> a kw:BattlefieldSituation . <urn:test:situation> <urn:environment-integration:hasObservation> <urn:test:observation> .', encoding="utf-8")
+            scene.write_text('@prefix kw: <http://example.org/arcaneweb#> . <urn:test:mission> a kw:ArcaneMission ; kw:hasSituation <urn:test:situation> . <urn:test:situation> a kw:ElementalFieldSituation . <urn:test:situation> <urn:environment-integration:hasObservation> <urn:test:observation> .', encoding="utf-8")
             joined, report = load_project([scene], [path], require_observations=True)
             self.assertEqual(report.counts()["ERROR"], 0)
             self.assertEqual(query_project(joined, require_observations=True)[0]["connection_status"], "observation_linked")

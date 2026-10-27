@@ -13,10 +13,10 @@ from check_ontology import any_type_matches, instances_of
 from environment.loader import ENV, load_environment, query_observations, timestamp
 from validate_data import iri
 
-KW = Namespace("http://example.org/killweb#")
+KW = Namespace("http://example.org/arcaneweb#")
 LINK = Namespace("urn:environment-integration:")
 MODULE_DIR = Path(__file__).resolve().parent
-DEFAULT_ONTOLOGY = MODULE_DIR.parent / "killweb_ontology.ttl"
+DEFAULT_ONTOLOGY = MODULE_DIR.parent / "arcane_ontology.ttl"
 
 
 def load_project(project_paths, environment_paths=(), link_paths=(), *,
@@ -31,12 +31,12 @@ def load_project(project_paths, environment_paths=(), link_paths=(), *,
     graph, report = load_environment(paths, require_observations=require_observations,
                                      require_parameters=False)
     observation_gap = report.error if require_observations else report.warn
-    for cls in (KW.CombatMission, KW.BattlefieldSituation, ENV.Observation):
+    for cls in (KW.ArcaneMission, KW.ElementalFieldSituation, ENV.Observation):
         if not any((cls, RDF.type, kind) in graph for kind in (OWL.Class, RDFS.Class)):
             report.error("LINK_SCHEMA", f"缺少连接所需类声明：{cls}")
     for prop, domain, range_ in (
-        (KW.hasSituation, KW.CombatMission, KW.BattlefieldSituation),
-        (LINK.hasObservation, KW.BattlefieldSituation, ENV.Observation),
+        (KW.hasSituation, KW.ArcaneMission, KW.ElementalFieldSituation),
+        (LINK.hasObservation, KW.ElementalFieldSituation, ENV.Observation),
     ):
         if (prop, RDF.type, OWL.ObjectProperty) not in graph:
             report.error("LINK_SCHEMA", f"缺少连接对象属性声明：{prop}")
@@ -66,7 +66,7 @@ def load_project(project_paths, environment_paths=(), link_paths=(), *,
     linked_situations = set()
     linked_observations = set()
     for situation, observation in edges:
-        valid_situation = endpoint(situation, KW.BattlefieldSituation)
+        valid_situation = endpoint(situation, KW.ElementalFieldSituation)
         valid_observation = endpoint(observation, ENV.Observation)
         if valid_situation and valid_observation:
             linked_situations.add(situation)
@@ -77,8 +77,8 @@ def load_project(project_paths, environment_paths=(), link_paths=(), *,
     context_missions = set()
     context_situations = set()
     for mission, situation in graph.subject_objects(KW.hasSituation):
-        valid_mission = endpoint(mission, KW.CombatMission)
-        valid_situation = endpoint(situation, KW.BattlefieldSituation)
+        valid_mission = endpoint(mission, KW.ArcaneMission)
+        valid_situation = endpoint(situation, KW.ElementalFieldSituation)
         if valid_mission and valid_situation:
             context_missions.add(mission)
             context_situations.add(situation)
@@ -93,7 +93,7 @@ def load_project(project_paths, environment_paths=(), link_paths=(), *,
         report.error("NO_PATH", "没有完整的任务—态势—环境观测路径")
     for situation in sorted(linked_situations - context_situations, key=str):
         report.warn("UNUSED_SITUATION", f"态势 {situation} 已关联观测，但没有任务显式引用")
-    for mission in sorted(instances_of(graph, KW.CombatMission), key=str):
+    for mission in sorted(instances_of(graph, KW.ArcaneMission), key=str):
         if not list(graph.objects(mission, KW.hasSituation)):
             report.warn("UNLINKED_MISSION", f"任务 {mission} 未关联态势，不会出现在联合查询结果中")
     for observation in sorted(instances_of(graph, ENV.Observation) - linked_observations, key=str):
@@ -106,7 +106,7 @@ def load_project(project_paths, environment_paths=(), link_paths=(), *,
 def query_project(graph, *, mission=None, situation=None, parameter=None, area=None,
                   start=None, end=None, require_observations=False):
     """Query a validated graph without assigning observations automatically."""
-    for selected, expected in ((mission, KW.CombatMission), (situation, KW.BattlefieldSituation)):
+    for selected, expected in ((mission, KW.ArcaneMission), (situation, KW.ElementalFieldSituation)):
         if selected is not None:
             if not isinstance(selected, URIRef):
                 raise ValueError("任务和态势过滤必须使用完整 IRI 的 URIRef")

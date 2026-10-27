@@ -40,7 +40,7 @@ def ontology_inventory(path):
 
 def project_inventory(root):
     root = Path(root)
-    paths = ["killweb_ontology.ttl", "environment/ontology.ttl", "source_data/ontology.ttl",
+    paths = ["arcane_ontology.ttl", "environment/ontology.ttl", "source_data/ontology.ttl",
              "integration/environment_mapping.ttl"]
     modules = []
     for path in paths:
