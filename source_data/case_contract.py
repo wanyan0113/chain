@@ -2,6 +2,7 @@
 from copy import deepcopy
 from decimal import Decimal
 import math
+import re
 
 from .common import ValidationError
 
@@ -32,6 +33,25 @@ UNIT_FACTORS = {
 CANONICAL_UNITS = {'distance': 'n mile', 'altitude': 'ft', 'speed': 'kn', 'attunement_probability': '1'}
 
 
+def validate_coordinate(value, key, where):
+    """Validate syntax and physical bounds without reinterpreting swapped columns."""
+    text = value.strip().upper()
+    decimal = re.fullmatch(r'([NSEW])?\s*([+-]?\d+(?:\.\d+)?)\s*°?', text)
+    dms = re.fullmatch(r'([NSEW])?\s*(\d+)\s*°\s*(\d+)\s*[′\']\s*(\d+(?:\.\d+)?)\s*[″\"]', text)
+    match = dms or decimal
+    if not match:
+        raise ValidationError(f'{where} 坐标格式无效；请使用十进制度或度分秒')
+    direction = match[1]
+    limit = 90 if direction in ('N', 'S') else 180 if direction in ('E', 'W') else (180 if key == 'longitude_column_raw' else 90)
+    degrees = Decimal(match[2])
+    if dms:
+        minutes, seconds = Decimal(match[3]), Decimal(match[4])
+        if minutes >= 60 or seconds >= 60 or degrees > limit or (degrees == limit and (minutes or seconds)):
+            raise ValidationError(f'{where} 坐标度分秒超出范围')
+    elif abs(degrees) > limit or (direction and match[2].startswith(('+', '-'))):
+        raise ValidationError(f'{where} 坐标超出范围或方向与符号混用')
+
+
 def validate_case_document(document):
     """Both Excel and direct bundle mapping call this exact case contract."""
     if not isinstance(document, dict):
@@ -59,6 +79,8 @@ def validate_case_document(document):
                         raise ValidationError(f'{where} 必须为非空文本')
                     if kind == 'id' and ('::' in value or '\n' in value or '\r' in value):
                         raise ValidationError(f'{where} 编号不能含::或换行')
+                    if key in ('longitude_column_raw', 'latitude_column_raw'):
+                        validate_coordinate(value, key, where)
                 elif kind == 'list':
                     if not isinstance(value, list) or not value or any(not isinstance(v, str) or not v.strip() for v in value):
                         raise ValidationError(f'{where} 必须为非空文本数组')

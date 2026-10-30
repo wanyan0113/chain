@@ -1,7 +1,7 @@
 """Map source records to descriptive ontology instances, without design rules."""
 from __future__ import annotations
 
-from decimal import Decimal
+from decimal import Decimal, localcontext
 import hashlib
 import json
 from pathlib import Path
@@ -126,7 +126,11 @@ def map_case_instances(bundle, *, bindings=None, reasoner=False):
         number = Decimal(str(value))
         if unit:
             declared = prepared['units'][unit]
-            number *= UNIT_FACTORS[unit][declared]
+            factor = UNIT_FACTORS[unit][declared]
+            # Preserve every input digit, including when the unit factor is 1.
+            with localcontext() as context:
+                context.prec = max(28, len(number.as_tuple().digits) + len(factor.as_tuple().digits))
+                number = number * factor
         return Literal(number, datatype=XSD.decimal)
 
     def numeric_claim(node, prop, record, key, unit):

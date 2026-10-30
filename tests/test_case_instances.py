@@ -1,5 +1,6 @@
 """Instance mapping, source traceability and rejection of inconsistent input."""
 from copy import deepcopy
+from decimal import Decimal, localcontext
 from pathlib import Path
 import unittest
 
@@ -152,6 +153,41 @@ class CaseInstanceTests(unittest.TestCase):
         bindings['tasks'][0]['target']['source_keys'] = ['not-a-material']
         with self.assertRaisesRegex(ValidationError, 'source_keys'):
             map_case_instances(self.bundle(), bindings=bindings)
+
+    def test_coordinate_syntax_and_bounds_rejected(self):
+        for value in ['garbage', 'N91°00′00″', 'E181°00′00″',
+                      'N70°60′00″', 'N70°00′60″', 'N90°00′01″', 'N-70', 'NaN']:
+            with self.subTest(value=value):
+                self.setUp()
+                self.document['table8'][0]['longitude_column_raw'] = value
+                with self.assertRaisesRegex(ValidationError, '坐标'):
+                    map_case_instances(self.bundle())
+
+    def test_valid_coordinates_preserve_header_conflict(self):
+        for longitude, latitude in [('180', '-90'), ('E180°00′00″', 'N90°00′00″'),
+                                    ('N70°58′08″', 'E40°25′06″')]:
+            with self.subTest(longitude=longitude):
+                self.setUp()
+                self.document['table8'][0]['longitude_column_raw'] = longitude
+                self.document['table8'][0]['latitude_column_raw'] = latitude
+                bundle = self.bundle()
+                _, report = map_case_instances(bundle)
+                self.assertEqual(bundle['metadata']['raw_document']['table8'][0]['longitude_column_raw'], longitude)
+                row_findings = [f for f in report['cleaning']['findings']
+                                if 'table8[0].longitude_column_raw' in f['paths']]
+                self.assertEqual(bool(row_findings), longitude.startswith('N'))
+
+    def test_large_number_mapping_preserves_digits_under_small_context(self):
+        value = 123456789012345678901234567890
+        self.document['table8'][0]['altitude_ft'] = value
+        self.document['table9'][0]['attunement_probability_percent'] = 95
+        with localcontext() as context:
+            context.prec = 6
+            graph, report = map_case_instances(self.bundle())
+        platform = next(e for e in report['entities'] if e['code'] == 'R-Golem' and e['kind'] == 'platform')
+        self.assertEqual(graph.value(URIRef(platform['iri']), KW.altitudeFt).toPython(), Decimal(value))
+        resource = next(e for e in report['entities'] if e['code'] == 'R-Sigil-A')
+        self.assertEqual(graph.value(URIRef(resource['iri']), KW.attunementProbability).toPython(), Decimal('0.95'))
 
 
 if __name__ == '__main__':
