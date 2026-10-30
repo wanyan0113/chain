@@ -131,6 +131,17 @@ class ExcelEntryTests(unittest.TestCase):
             self.assertEqual(field['raw_value'], 12)
             self.assertEqual(field['display_label'], '最大作用距离（n mile）')
             self.assertTrue((Path(result['output']) / 'results/provenance.ttl').exists())
+            self.assertEqual(result['instance_report']['status'], 'valid')
+            from rdflib import Graph, URIRef
+            from adapters.case_instances import KW
+            instance = next(e for e in record['instances'] if e['code'] == 'R-Sigil-A')
+            graph = Graph().parse(Path(result['output']) / 'results/instances.ttl', format='turtle')
+            self.assertEqual(float(graph.value(URIRef(instance['iri']), KW.maxRangeNm)), 12)
+            self.assertTrue((Path(result['output']) / 'results/instance_report.json').exists())
+            combined = Graph().parse(Path(result['output']) / 'results/ontology_with_instances.ttl', format='turtle')
+            from rdflib import RDF, OWL
+            self.assertIn((KW.InsightArtifact, RDF.type, OWL.Class), combined)
+            self.assertIn((URIRef(instance['iri']), RDF.type, KW.ManifestationArtifact), combined)
         self.assertEqual(original, (ROOT / 'data/article_source/case_records.json').read_bytes())
 
     def test_http_upload_and_validation_failure(self):

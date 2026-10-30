@@ -1,5 +1,7 @@
 # 奥术网模型与数据工具
 
+Excel导入现已接通描述性本体实例映射：生成带来源关联的实例RDF、完整性检查报告及可用Protégé直接打开的合并文件。详见 [案例实例映射说明](adapters/案例实例映射说明.md)。
+
 当前主本体为`arcane_ontology.ttl`，业务命名空间为`http://example.org/arcaneweb#`。主要入口：
 
 | 模块 | 入口／配置 |

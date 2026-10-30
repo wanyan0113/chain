@@ -12,6 +12,9 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
+from adapters.case_instances import instance_outputs, map_case_instances
+from source_data.common import read_json, write_outputs
+
 from .importer import EntryError, convert, read_xlsx
 from .schema import TABLES
 
@@ -39,11 +42,15 @@ def run_import(data, filename, *, output_root=None):
         return json.loads(p.stdout)
     report = run('ingest', converted, '--mapping', ROOT / 'source_mappings/case_fields.json', '--output-dir', result_dir, '--rdf')
     query = run('query', result_dir / 'provenance.ttl')
+    instance_graph, instance_report = map_case_instances(read_json(result_dir / 'bundle.json'))
+    write_outputs(result_dir, instance_outputs(instance_graph, instance_report))
     labels = {key: label for _, _, fields in TABLES.values() for key, label, _ in fields}
     for record in query['records']:
+        record['instances'] = [e for e in instance_report['entities'] if record['id'] in e['source_records']]
         for field in record['fields']:
             field['display_label'] = labels.get(field['field']['key'], field['field']['key'])
     result = {'report': report, 'records': query['records'], 'output': str(out),
+              'instance_report': instance_report,
               'filename': filename, 'input_sha256': hashlib.sha256(data).hexdigest(),
               'backend_module': 'source_data.cli', 'backend_path': str(ROOT / 'source_data'),
               'notes': ['结构与引用检查通过不代表所有业务问题已解决。',
