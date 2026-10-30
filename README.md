@@ -1,5 +1,7 @@
 # 奥术网模型与数据工具
 
+新增通用 [Excel任务规则验证](rule_review/使用说明.md)：启动网页后打开 `/rules`，导入规则台账及任务事实，查看需求结论、逐条件解释、来源、缺失信息和预期结果对照。自带普通文件审核流程技术示例；文章规则仍按 [资料台账](rule_review/规则台账.md) 记录核对范围，不把技术配置当作原文数据。
+
 能力推理现可单独执行：`python -m design infer-capabilities design/examples/capability_demo.json --output-dir generated/capability_demo`。根据任务属性与显式规则输出能力需求、规则命中依据、缺失条件和RDF，无需先补齐整套链网设计数据。详见 [能力推理说明](design/能力推理说明.md)。
 
 Excel导入现已接通描述性本体实例映射：生成带来源关联的实例RDF、完整性检查报告及可用Protégé直接打开的合并文件。详见 [案例实例映射说明](adapters/案例实例映射说明.md)。

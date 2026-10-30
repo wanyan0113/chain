@@ -3,7 +3,7 @@
 <title>案例数据导入与查询</title>
 <style>
 body{font:16px/1.65 "Microsoft YaHei",sans-serif;background:#f3f5f8;color:#243247;margin:0}main{max-width:1100px;margin:40px auto;padding:0 24px}h1{font-size:28px}h2{font-size:21px}section{background:white;padding:24px;border-radius:12px;margin:18px 0}a{color:#245b9e}button{background:#245b9e;color:white;border:0;border-radius:6px;padding:12px 24px;font-size:16px;cursor:pointer}button:disabled{opacity:.5}input,select{padding:10px;font-size:15px;max-width:95%}table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:10px;border-bottom:1px solid #e1e5ec;text-align:left;word-break:break-word}th{background:#eef2f7}.muted{color:#5d6b7e;font-size:14px}.error{color:#a32020;white-space:pre-wrap}pre{white-space:pre-wrap;word-break:break-all}#status{margin-top:15px}label{display:block;margin:12px 0}#results[hidden]{display:none}</style>
-<main><h1>案例数据导入与查询</h1><p>填写 Excel，导入数据，再查看原始值、资料来源和登记疑点。</p>
+<main><h1>案例数据导入与查询</h1><p>填写 Excel，导入数据，再查看原始值、资料来源和登记疑点。</p><p><a href="/rules">打开任务规则验证：查看需求结论、条件依据与缺失信息</a></p>
 <section><h2>1. 准备数据</h2><p><a href="/example.xlsx" download="案例示例.xlsx">下载案例示例</a>　 <a href="/blank.xlsx" download="空白模板.xlsx">下载空白模板</a></p><p class="muted">先用示例试一次。修改前四张表的数据后保存，再导入。图片需先整理为表格；来源和人工疑点在表中登记。</p>
 <h2>2. 导入并检查</h2><input type="file" id="file" accept=".xlsx"><button id="import">导入</button><div id="status" role="status"></div></section>
 <div id="results" hidden><section><h2>本次运行结果</h2><p id="summary"></p><pre id="counts"></pre><p class="muted" id="notes"></p><p class="muted">结果目录：<span id="output"></span></p><details><summary>查看运行依据</summary><p>核心程序：<span id="commit"></span></p><p>输入文件 SHA256：<span id="sha"></span></p><p>目录中保留输入Excel、转换后的案例、程序日志、来源RDF及校验报告。</p></details></section>

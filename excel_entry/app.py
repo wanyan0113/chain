@@ -22,6 +22,26 @@ ROOT = Path(__file__).resolve().parents[1]
 TEMPLATES = ROOT / 'excel_entry/templates'
 
 
+def run_rule_review(data, filename, *, output_root=None):
+    from rule_review.core import review
+    result = review(data)
+    out = (output_root or ROOT / 'generated/rule-reviews') / (datetime.now().strftime('%Y%m%d-%H%M%S') + '-' + uuid.uuid4().hex[:8])
+    lines = ['# 任务规则验证', '', result['scope'], '']
+    for task in result['tasks']:
+        lines += [f"## {task['id']}", '', f"状态：{task['status']}",
+                  '需求结论：' + ('、'.join(task['conclusions']) or '未命中；不代表不需要'),
+                  '缺失条件：' + ('、'.join(task['missing']) or '无缺失事实'),
+                  '待确认规则：' + ('、'.join(task['pending_rules']) or '无')]
+        for item in task['rules']:
+            rule = item['rule']
+            lines += [f"- {rule['id']}：{item['status']}；{rule['conclusion']}；{rule['basis']}；{rule['source']} / {rule['location']}"]
+            lines += [f"  - {c['condition']['field']}：{c['reason']}" for c in item['checks']]
+    result.update(filename=filename, output=str(out))
+    write_outputs(out, {'input.xlsx': data, 'rule_report.json': json.dumps(result, ensure_ascii=False, indent=2) + '\n',
+                        'rule_summary.md': '\n'.join(lines) + '\n'})
+    return result
+
+
 def run_import(data, filename, *, output_root=None, bindings=None, reasoner=False):
     document = convert(read_xlsx(data))
     output_root = output_root or ROOT / 'generated/excel-runs'
@@ -81,6 +101,9 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         path = urlsplit(self.path).path
         files = {'/': (ROOT / 'excel_entry/index.html', 'text/html; charset=utf-8'),
+                 '/rules': (ROOT / 'rule_review/index.html', 'text/html; charset=utf-8'),
+                 '/rules-example.xlsx': (ROOT / 'rule_review/templates/规则验证示例.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
+                 '/rules-blank.xlsx': (ROOT / 'rule_review/templates/规则验证空白.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
                  '/example.xlsx': (TEMPLATES / '案例示例.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
                  '/blank.xlsx': (TEMPLATES / '空白模板.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')}
         if path not in files:
@@ -94,13 +117,17 @@ class Handler(BaseHTTPRequestHandler):
         expected_origin = f'http://127.0.0.1:{self.server.server_port}'
         if self.headers.get('Host') != expected_origin.removeprefix('http://') or (origin and origin != expected_origin):
             return self.send(403, b'Forbidden', 'text/plain')
-        if urlsplit(self.path).path != '/import':
+        path = urlsplit(self.path).path
+        if path not in ('/import', '/review-rules'):
             return self.send(404, b'Not found', 'text/plain')
         try:
             size = int(self.headers.get('Content-Length', '0'))
             if not 0 < size <= 10_000_000:
                 raise EntryError('请选择10MB以内的.xlsx文件。')
-            result = run_import(self.rfile.read(size), unquote(urlsplit(self.path).query or 'input.xlsx'), bindings=self.bindings, reasoner=self.reasoner)
+            payload = self.rfile.read(size)
+            filename = unquote(urlsplit(self.path).query or 'input.xlsx')
+            result = (run_rule_review(payload, filename) if path == '/review-rules'
+                      else run_import(payload, filename, bindings=self.bindings, reasoner=self.reasoner))
             self.send(200, json.dumps(result, ensure_ascii=False).encode(), 'application/json; charset=utf-8')
         except (EntryError, ValueError) as exc:
             self.send(400, json.dumps({'error': str(exc)}, ensure_ascii=False).encode(), 'application/json; charset=utf-8')
