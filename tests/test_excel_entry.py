@@ -1,4 +1,4 @@
-"""Entry contract, source fidelity, live HTTP and historical backend integration."""
+"""Entry contract, source fidelity, live HTTP and project backend integration."""
 import copy
 import io
 import json
@@ -11,7 +11,7 @@ from urllib.request import Request, urlopen
 from xml.etree import ElementTree as ET
 import zipfile
 
-from excel_entry.app import BASELINE, COMMIT, Handler, ROOT, run_import, verify_backend
+from excel_entry.app import Handler, ROOT, run_import
 from excel_entry.importer import EntryError, NS, convert, read_xlsx
 from http.server import HTTPServer
 
@@ -119,10 +119,11 @@ class ExcelEntryTests(unittest.TestCase):
             convert(s)
 
     def test_live_import_changed_cell_reaches_rdf_query(self):
-        original = (BASELINE / 'data/article_source/case_records.json').read_bytes()
+        original = (ROOT / 'data/article_source/case_records.json').read_bytes()
         with tempfile.TemporaryDirectory(dir=ROOT / 'tmp') as directory:
             result = run_import(change_cell(self.data, value='12'), 'changed.xlsx', output_root=Path(directory))
-            self.assertEqual(result['backend_commit'], COMMIT)
+            self.assertEqual(result['backend_module'], 'source_data.cli')
+            self.assertEqual(result['backend_path'], str(ROOT / 'source_data'))
             self.assertEqual(result['report']['status'], 'valid')
             self.assertEqual(result['report']['counts']['records'], 18)
             record = next(r for r in result['records'] if r['original_code'] == 'R-Sigil-A')
@@ -130,8 +131,7 @@ class ExcelEntryTests(unittest.TestCase):
             self.assertEqual(field['raw_value'], 12)
             self.assertEqual(field['display_label'], '最大作用距离（n mile）')
             self.assertTrue((Path(result['output']) / 'results/provenance.ttl').exists())
-        self.assertEqual(original, (BASELINE / 'data/article_source/case_records.json').read_bytes())
-        verify_backend(BASELINE)
+        self.assertEqual(original, (ROOT / 'data/article_source/case_records.json').read_bytes())
 
     def test_http_upload_and_validation_failure(self):
         server = HTTPServer(('127.0.0.1', 0), Handler)

@@ -1,1 +1,1 @@
-"""Independent Excel entry for the historical source-data backend."""
+"""Excel entry for the project's source-data backend."""

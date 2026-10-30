@@ -183,7 +183,7 @@ def convert(sheets):
         if not out:
             raise EntryError(f'{name}：至少填写一条记录。')
         if table == 'table11' and len(out) != 1:
-            raise EntryError('任务：此历史版本只支持一条任务记录。')
+            raise EntryError('任务：当前入口只支持一条任务记录。')
         d[table] = out[0] if table == 'table11' else out
         index[name] = table
     index.update({'事实': 'explicit_facts', '缺失事实': 'missing_facts'})
@@ -244,7 +244,7 @@ def workbook_spec(d, blank=False):
 
 if __name__ == '__main__':
     root = Path(__file__).resolve().parents[1]
-    d = json.loads((root / 'generated/week2-bbd1f9f/data/article_source/case_records.json').read_text(encoding='utf-8'))
+    d = json.loads((root / 'data/article_source/case_records.json').read_text(encoding='utf-8'))
     out = root / 'tmp/excel-entry'
     out.mkdir(parents=True, exist_ok=True)
     (out / 'spec.json').write_text(json.dumps({'example': workbook_spec(d), 'blank': workbook_spec(d, True)}, ensure_ascii=False), encoding='utf-8')

@@ -1,4 +1,4 @@
-"""Local live entry. Historical Python code is executed in a subprocess."""
+"""Local Excel entry using this project's source-data CLI."""
 from __future__ import annotations
 
 import argparse
@@ -16,31 +16,11 @@ from .importer import EntryError, convert, read_xlsx
 from .schema import TABLES
 
 ROOT = Path(__file__).resolve().parents[1]
-BASELINE = ROOT / 'generated/week2-bbd1f9f'
-COMMIT = 'bbd1f9f23290e7a18df4099722dd031e182c4629'
 TEMPLATES = ROOT / 'excel_entry/templates'
 
 
-def verify_backend(path):
-    def git(*args, binary=False):
-        p = subprocess.run(['git', '-C', str(path), *args], capture_output=True, timeout=20)
-        if p.returncode:
-            raise EntryError('历史代码目录不可用，请检查 generated/week2-bbd1f9f。')
-        return p.stdout if binary else p.stdout.decode('utf-8').strip()
-    if git('rev-parse', 'HEAD') != COMMIT:
-        raise EntryError('历史代码版本不符，停止运行。')
-    names = git('ls-tree', '-r', '--name-only', COMMIT, 'source_data', 'source_mappings/case_fields.json').splitlines()
-    for name in names:
-        if name.endswith(('.py', '.json')):
-            actual = (path / name).read_bytes().replace(b'\r\n', b'\n')
-            expected = git('show', f'{COMMIT}:{name}', binary=True).replace(b'\r\n', b'\n')
-            if actual != expected:
-                raise EntryError(f'历史核心代码已修改：{name}。请恢复后再演示。')
-
-
-def run_import(data, filename, *, backend=BASELINE, output_root=None):
+def run_import(data, filename, *, output_root=None):
     document = convert(read_xlsx(data))
-    verify_backend(backend)
     output_root = output_root or ROOT / 'generated/excel-runs'
     out = output_root / (datetime.now().strftime('%Y%m%d-%H%M%S') + '-' + uuid.uuid4().hex[:8])
     out.mkdir(parents=True)
@@ -51,13 +31,13 @@ def run_import(data, filename, *, backend=BASELINE, output_root=None):
     result_dir = out / 'results'
     def run(*args):
         cmd = [sys.executable, '-B', '-m', 'source_data.cli', *map(str, args)]
-        p = subprocess.run(cmd, cwd=backend, capture_output=True, encoding='utf-8', errors='replace',
+        p = subprocess.run(cmd, cwd=ROOT, capture_output=True, encoding='utf-8', errors='replace',
                            env=__import__('os').environ | {'PYTHONIOENCODING': 'utf-8'}, timeout=120)
         (out / ('ingest.log' if args[0] == 'ingest' else 'query.log')).write_text(p.stdout + '\n' + p.stderr, encoding='utf-8')
         if p.returncode:
-            raise EntryError('历史程序未通过检查：' + p.stdout[-2500:])
+            raise EntryError('数据处理程序未通过检查：' + p.stdout[-2500:])
         return json.loads(p.stdout)
-    report = run('ingest', converted, '--mapping', backend / 'source_mappings/case_fields.json', '--output-dir', result_dir, '--rdf')
+    report = run('ingest', converted, '--mapping', ROOT / 'source_mappings/case_fields.json', '--output-dir', result_dir, '--rdf')
     query = run('query', result_dir / 'provenance.ttl')
     labels = {key: label for _, _, fields in TABLES.values() for key, label, _ in fields}
     for record in query['records']:
@@ -65,7 +45,7 @@ def run_import(data, filename, *, backend=BASELINE, output_root=None):
             field['display_label'] = labels.get(field['field']['key'], field['field']['key'])
     result = {'report': report, 'records': query['records'], 'output': str(out),
               'filename': filename, 'input_sha256': hashlib.sha256(data).hexdigest(),
-              'backend_commit': COMMIT,
+              'backend_module': 'source_data.cli', 'backend_path': str(ROOT / 'source_data'),
               'notes': ['结构与引用检查通过不代表所有业务问题已解决。',
                         '疑点为表格中的人工登记内容；修改数值后请复核疑点说明。']}
     (out / 'run_result.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
@@ -114,7 +94,7 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Excel案例录入与历史版本现场演示')
+    parser = argparse.ArgumentParser(description='Excel案例录入与查询展示')
     parser.add_argument('--file', type=Path, help='直接导入，无需打开网页')
     parser.add_argument('--port', type=int, default=8765)
     args = parser.parse_args()
@@ -122,7 +102,6 @@ def main():
         result = run_import(args.file.read_bytes(), args.file.name)
         print(json.dumps({k: v for k, v in result.items() if k != 'records'}, ensure_ascii=False, indent=2))
         return
-    verify_backend(BASELINE)
     server = HTTPServer(('127.0.0.1', args.port), Handler)
     print(f'请在浏览器打开 http://127.0.0.1:{args.port} ，按 Ctrl+C 停止。', flush=True)
     try:
