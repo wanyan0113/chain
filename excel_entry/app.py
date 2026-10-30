@@ -36,6 +36,19 @@ def run_rule_review(data, filename, *, output_root=None):
             rule = item['rule']
             lines += [f"- {rule['id']}：{item['status']}；{rule['conclusion']}；{rule['basis']}；{rule['source']} / {rule['location']}"]
             lines += [f"  - {c['condition']['field']}：{c['reason']}" for c in item['checks']]
+    validation = result['case_validation']
+    lines += ['', '## 对照用例', '']
+    if not validation['total']:
+        lines.append('未登记对照用例；未验证，不能视为对照通过。')
+    else:
+        lines += [f"用例总数：{validation['total']}；一致：{validation['matched']}；不一致：{validation['mismatched']}。", '']
+        for case in result['cases']:
+            outcome = '一致' if case['matches'] else '不一致'
+            lines += [f"### {case['id']}（{outcome}）", '', f"任务：{case['task']}；规则：{case['rule']}",
+                      f"预期状态：{case['expected']}；实际状态：{case['actual']}",
+                      f"预期需求结论：{case['expected_conclusion'] if case['expected_conclusion'] is not None else '无结论'}",
+                      f"实际需求结论：{case['actual_conclusion'] if case['actual_conclusion'] is not None else '无结论'}",
+                      f"状态核对：{'一致' if case['status_matches'] else '不一致'}；结论核对：{'一致' if case['conclusion_matches'] else '不一致'}", '']
     result.update(filename=filename, output=str(out))
     write_outputs(out, {'input.xlsx': data, 'rule_report.json': json.dumps(result, ensure_ascii=False, indent=2) + '\n',
                         'rule_summary.md': '\n'.join(lines) + '\n'})

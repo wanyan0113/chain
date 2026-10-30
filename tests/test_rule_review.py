@@ -55,6 +55,8 @@ class RuleReviewTests(unittest.TestCase):
         self.assertEqual(result['tasks'][2]['missing'], ['pages'])
         self.assertEqual(len(result['cases']), 6)
         self.assertTrue(all(c['matches'] for c in result['cases']))
+        self.assertEqual(result['case_validation'], {'status': 'passed', 'total': 6, 'matched': 6, 'mismatched': 0})
+        self.assertTrue(all(c['status_matches'] and c['conclusion_matches'] for c in result['cases']))
 
     def test_numeric_boundaries_zero_blank_and_mismatched_unit(self):
         for value, expected in [(20, 'pass'), (21, 'fail'), (0, 'pass'), (None, 'unknown')]:
@@ -89,10 +91,47 @@ class RuleReviewTests(unittest.TestCase):
         self.assertEqual(result['tasks'][1]['status'], 'no_match')
 
     def test_mismatched_expectation_is_visible_not_used_as_input(self):
-        result = review(edit_cell(self.data, 5, 'D2', 'fail'))
+        data = edit_cell(edit_cell(self.data, 5, 'D2', 'fail'), 5, 'E2', '无结论')
+        result = review(data)
         self.assertFalse(result['cases'][0]['matches'])
         self.assertEqual(result['cases'][0]['actual'], 'pass')
         self.assertIn('归档能力', result['tasks'][0]['conclusions'])
+
+    def test_changed_rule_conclusion_fails_independent_expectations(self):
+        result = review(edit_cell(self.data, 3, 'B2', '另一项需求'))
+        failed = [case for case in result['cases'] if not case['matches']]
+        self.assertEqual([case['id'] for case in failed], ['C1', 'C5'])
+        self.assertEqual(result['case_validation'], {'status': 'failed', 'total': 6, 'matched': 4, 'mismatched': 2})
+        for case in failed:
+            self.assertTrue(case['status_matches'])
+            self.assertFalse(case['conclusion_matches'])
+            self.assertEqual(case['expected_conclusion'], '归档能力')
+            self.assertEqual(case['actual_conclusion'], '另一项需求')
+
+    def test_expected_conclusion_does_not_rewrite_actual_conclusion(self):
+        result = review(edit_cell(self.data, 5, 'E2', '独立的错误预期'))
+        self.assertFalse(result['cases'][0]['matches'])
+        self.assertTrue(result['cases'][0]['status_matches'])
+        self.assertEqual(result['cases'][0]['actual_conclusion'], '归档能力')
+        self.assertEqual(result['case_validation']['mismatched'], 1)
+        for case in result['cases'][2:4] + result['cases'][5:]:
+            self.assertIsNone(case['actual_conclusion'])
+            self.assertIsNone(case['expected_conclusion'])
+            self.assertTrue(case['matches'])
+
+    def test_missing_or_contradictory_expectations_rejected(self):
+        for cell, value in [('E2', None), ('E2', '无结论'), ('E4', '错误的非空结论')]:
+            with self.subTest(cell=cell, value=value):
+                with self.assertRaisesRegex(EntryError, '预期|结论'):
+                    review(edit_cell(self.data, 5, cell, value))
+
+    def test_old_template_rejected_with_update_instructions(self):
+        sheets = read_xlsx(self.data)
+        for cells in sheets['对照用例'].values():
+            cells.pop(5, None)
+        with patch('rule_review.core.read_xlsx', return_value=sheets):
+            with self.assertRaisesRegex(EntryError, '重新下载模板'):
+                review(b'old-template')
 
     def test_generic_boolean_and_list_membership(self):
         sheets = read_xlsx(self.data)
@@ -117,7 +156,25 @@ class RuleReviewTests(unittest.TestCase):
             self.assertEqual((out / 'input.xlsx').read_bytes(), self.data)
             self.assertEqual(json.loads((out / 'rule_report.json').read_text(encoding='utf-8')), result)
             self.assertIn('pages', (out / 'rule_summary.md').read_text(encoding='utf-8'))
+            self.assertIn('用例总数：6；一致：6；不一致：0', (out / 'rule_summary.md').read_text(encoding='utf-8'))
             self.assertFalse(list(out.glob('*.ttl')))
+
+    def test_markdown_records_conclusion_and_state_mismatches(self):
+        (ROOT / 'tmp').mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=ROOT / 'tmp') as temporary:
+            data = edit_cell(self.data, 3, 'B2', '另一项需求')
+            result = run_rule_review(data, 'changed.xlsx', output_root=Path(temporary))
+            summary = (Path(result['output']) / 'rule_summary.md').read_text(encoding='utf-8')
+            for value in ['用例总数：6；一致：4；不一致：2', 'C1（不一致）', 'C5（不一致）',
+                          '预期状态：pass；实际状态：pass', '预期需求结论：归档能力',
+                          '实际需求结论：另一项需求', '状态核对：一致；结论核对：不一致']:
+                self.assertIn(value, summary)
+            data = edit_cell(edit_cell(self.data, 5, 'D2', 'fail'), 5, 'E2', '无结论')
+            result = run_rule_review(data, 'state.xlsx', output_root=Path(temporary))
+            summary = (Path(result['output']) / 'rule_summary.md').read_text(encoding='utf-8')
+            self.assertIn('预期状态：fail；实际状态：pass', summary)
+            self.assertIn('预期需求结论：无结论', summary)
+            self.assertIn('状态核对：不一致；结论核对：不一致', summary)
 
     def test_condition_limit_rejects_without_truncation(self):
         document = read_document(self.data)
@@ -132,7 +189,14 @@ class RuleReviewTests(unittest.TestCase):
         with patch('rule_review.core.read_xlsx', return_value=sheets):
             result = review(b'fixture')
         self.assertEqual(result['cases'], [])
+        self.assertEqual(result['case_validation'], {'status': 'not_run', 'total': 0, 'matched': 0, 'mismatched': 0})
         self.assertEqual(result['tasks'][0]['status'], 'matched')
+        (ROOT / 'tmp').mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=ROOT / 'tmp') as temporary:
+            with patch('rule_review.core.read_xlsx', return_value=sheets):
+                result = run_rule_review(b'fixture', 'no-cases.xlsx', output_root=Path(temporary))
+            summary = (Path(result['output']) / 'rule_summary.md').read_text(encoding='utf-8')
+            self.assertIn('未登记对照用例；未验证', summary)
 
     def test_http_routes_upload_and_failure(self):
         (ROOT / 'tmp').mkdir(exist_ok=True)
@@ -148,6 +212,12 @@ class RuleReviewTests(unittest.TestCase):
                     response = urlopen(Request(base + '/review-rules?sample.xlsx', data=self.data,
                                                headers={'Origin': base, 'Content-Type': 'application/octet-stream'}))
                     self.assertEqual(len(json.load(response)['cases']), 6)
+                    changed = edit_cell(self.data, 3, 'B2', '另一项需求')
+                    response = urlopen(Request(base + '/review-rules?changed.xlsx', data=changed, headers={'Origin': base}))
+                    result = json.load(response)
+                    self.assertEqual(result['case_validation']['mismatched'], 2)
+                    summary = (Path(result['output']) / 'rule_summary.md').read_text(encoding='utf-8')
+                    self.assertIn('C1（不一致）', summary)
                     for payload, origin, expected in [(b'bad', base, 400), (self.data, 'http://other.example', 403)]:
                         with self.assertRaises(HTTPError) as raised:
                             urlopen(Request(base + '/review-rules', data=payload, headers={'Origin': origin}))

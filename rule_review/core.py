@@ -12,7 +12,7 @@ HEADERS = {
     '任务事实': ['任务编号', '字段', '类型', '原值', '单位', '来源定位'],
     '规则台账': ['规则编号', '需求结论', '依据类别', '来源文件', '原文位置', '确认状态', '说明'],
     '规则条件': ['规则编号', '字段', '运算符', '类型', '比较值', '单位'],
-    '对照用例': ['用例编号', '任务编号', '规则编号', '预期规则状态'],
+    '对照用例': ['用例编号', '任务编号', '规则编号', '预期规则状态', '预期需求结论'],
 }
 KINDS = ('文本', '数值', '布尔', '列表')
 OPERATORS = ('eq', 'contains', 'lt', 'le', 'gt', 'ge')
@@ -57,6 +57,8 @@ def read_document(data):
     sheets = read_xlsx(data)
     if set(sheets) != set(HEADERS):
         raise EntryError('请使用规则验证模板，保留五张表及其名称')
+    if sheets['对照用例'].get(1, {}) == {i + 1: h for i, h in enumerate(HEADERS['对照用例'][:-1])}:
+        raise EntryError('对照用例模板已更新：请重新下载模板，独立填写新增的“预期需求结论”列；无结论时填“无结论”')
     tasks, rules, cases = {}, {}, []
     for row, (identifier, description) in records(sheets, '任务', HEADERS['任务']):
         identifier = text(identifier, f'任务第{row}行')
@@ -99,12 +101,17 @@ def read_document(data):
         if not rule['conditions']:
             raise EntryError(f"规则{rule['id']}没有条件；请登记条件，或将未完整条目保存在文献台账中")
     ids = set()
-    for row, (identifier, task, rule, expected) in records(sheets, '对照用例', HEADERS['对照用例']):
+    for row, (identifier, task, rule, expected, expected_conclusion) in records(sheets, '对照用例', HEADERS['对照用例']):
         identifier, task, rule, expected = [text(v, f'对照用例第{row}行') for v in (identifier, task, rule, expected)]
         if identifier in ids or task not in tasks or rule not in rules or expected not in ('pass', 'fail', 'unknown', 'skipped'):
             raise EntryError(f'对照用例第{row}行：编号重复、引用不存在或预期状态无效')
         ids.add(identifier)
-        cases.append({'id': identifier, 'task': task, 'rule': rule, 'expected': expected})
+        expected_conclusion = text(expected_conclusion, f'对照用例第{row}行预期需求结论；没有结论请填“无结论”')
+        has_expected_conclusion = expected_conclusion != '无结论'
+        if has_expected_conclusion != (expected == 'pass'):
+            raise EntryError(f'对照用例第{row}行：pass需要具体预期结论，其他状态应填“无结论”')
+        cases.append({'id': identifier, 'task': task, 'rule': rule, 'expected': expected,
+                      'expected_conclusion': None if expected_conclusion == '无结论' else expected_conclusion})
     return {'tasks': list(tasks.values()), 'rules': list(rules.values()), 'cases': cases}
 
 
@@ -154,10 +161,21 @@ def review(data):
                       'conclusions': conclusions, 'rules': results,
                       'missing': sorted({c['missing'] for r in unknown for c in r['checks'] if 'missing' in c}),
                       'pending_rules': [r['rule']['id'] for r in unknown if r['rule']['status'] == '待确认']})
-    lookup = {(t['id'], r['rule']['id']): r['status'] for t in tasks for r in t['rules']}
-    cases = [{**case, 'actual': lookup[(case['task'], case['rule'])],
-              'matches': lookup[(case['task'], case['rule'])] == case['expected']} for case in document['cases']]
+    lookup = {(t['id'], r['rule']['id']): r for t in tasks for r in t['rules']}
+    cases = []
+    for case in document['cases']:
+        result = lookup[(case['task'], case['rule'])]
+        actual = result['status']
+        actual_conclusion = result['rule']['conclusion'] if actual == 'pass' else None
+        status_matches = actual == case['expected']
+        conclusion_matches = actual_conclusion == case['expected_conclusion']
+        cases.append({**case, 'actual': actual, 'actual_conclusion': actual_conclusion,
+                      'status_matches': status_matches, 'conclusion_matches': conclusion_matches,
+                      'matches': status_matches and conclusion_matches})
+    matched = sum(case['matches'] for case in cases)
     return {'status': 'needs_information' if any(t['status'] == 'needs_information' for t in tasks) else 'evaluated',
             'input_sha256': hashlib.sha256(data).hexdigest(), 'tasks': tasks, 'cases': cases,
+            'case_validation': {'status': 'not_run' if not cases else 'passed' if matched == len(cases) else 'failed',
+                                'total': len(cases), 'matched': matched, 'mismatched': len(cases) - matched},
             'ledger': deepcopy(document['rules']),
             'scope': '给定事实与已登记规则的一步条件验证；未命中不代表不需要；对照用例不补全原始事实。'}
