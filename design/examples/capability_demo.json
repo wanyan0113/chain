@@ -1,0 +1,34 @@
+{
+  "format_version": "1.0",
+  "scope": "能力推理技术演示：目标类型规则来自提供的截图；任务和1000ft高度分界为虚构测试配置，不是文章案例事实",
+  "required_roles": ["manifestation"],
+  "tasks": [
+    {
+      "id": "demo-air-task",
+      "attributes": {"target_type": "法球", "target_altitude": {"value": 500, "unit": "ft"}},
+      "source_refs": ["虚构任务，仅用于演示输入格式"],
+      "blocking_issue_ids": []
+    }
+  ],
+  "task_rules": [
+    {
+      "id": "ball-needs-air-manifestation",
+      "role": "manifestation",
+      "capability": "对空具现能力",
+      "when": [{"field": "task.target_type", "op": "eq", "value": "法球"}],
+      "source_refs": ["联想截图_20261027150810.png：2.1.1示例第1条，当目标是法球时需要对空具现能力"],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "demo-low-air-target",
+      "role": "manifestation",
+      "capability": "低空具现能力",
+      "when": [
+        {"field": "task.target_type", "op": "eq", "value": "法球"},
+        {"field": "task.target_altitude", "op": "le", "value": {"value": 1000, "unit": "ft"}}
+      ],
+      "source_refs": ["低空具现能力类别见表4；1000ft阈值仅为虚构技术测试值，不来自截图"],
+      "blocking_issue_ids": []
+    }
+  ]
+}

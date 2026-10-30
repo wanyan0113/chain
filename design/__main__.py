@@ -59,6 +59,10 @@ def main(argv=None):
     run.add_argument("input", type=Path)
     run.add_argument("--output-dir", type=Path, required=True)
     run.add_argument("--overwrite", action="store_true")
+    capabilities = sub.add_parser("infer-capabilities", help="独立执行任务→能力推理，不要求法器或评分数据")
+    capabilities.add_argument("input", type=Path)
+    capabilities.add_argument("--output-dir", type=Path, required=True)
+    capabilities.add_argument("--overwrite", action="store_true")
     audit = sub.add_parser("audit-case")
     audit.add_argument("--input", type=Path, default=ROOT / "data/article_source/case_records.json")
     audit.add_argument("--mapping", type=Path, default=ROOT / "source_mappings/case_fields.json")
@@ -69,7 +73,23 @@ def main(argv=None):
     reference.add_argument("--overwrite", action="store_true")
     args = parser.parse_args(argv)
     try:
-        if args.command == "reproduce-case":
+        if args.command == "infer-capabilities":
+            from .capabilities import infer_capabilities, capability_rdf, capability_summary
+            doc = read_json(args.input)
+            result = infer_capabilities(doc)
+            outputs = {}
+            if result["status"] == "complete":
+                graph = capability_rdf(doc, result)
+                review = analyze_graph(Graph().parse(ROOT / "arcane_ontology.ttl", format="turtle") + graph)
+                if review.counts()["ERROR"] or review.counts()["WARN"]:
+                    raise DesignError(f"能力实例未通过主本体静态检查：{review.items}")
+                outputs["capabilities.ttl"] = graph.serialize(format="turtle")
+            elif (args.output_dir / "capabilities.ttl").exists():
+                raise DesignError("输出目录含既有 capabilities.ttl；请为未完成报告使用新目录，避免混淆旧结果")
+            outputs["capability_report.json"] = json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n"
+            outputs["capability_summary.md"] = capability_summary(result)
+            write_outputs(args.output_dir, outputs, overwrite=args.overwrite, protected=[args.input])
+        elif args.command == "reproduce-case":
             from .reference import REFERENCE_PATH, reference_summary, reference_to_rdf, reproduce_reference
             result = reproduce_reference()
             graph = reference_to_rdf(result)

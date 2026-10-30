@@ -1,5 +1,7 @@
 # 奥术网模型与数据工具
 
+能力推理现可单独执行：`python -m design infer-capabilities design/examples/capability_demo.json --output-dir generated/capability_demo`。根据任务属性与显式规则输出能力需求、规则命中依据、缺失条件和RDF，无需先补齐整套链网设计数据。详见 [能力推理说明](design/能力推理说明.md)。
+
 Excel导入现已接通描述性本体实例映射：生成带来源关联的实例RDF、完整性检查报告及可用Protégé直接打开的合并文件。详见 [案例实例映射说明](adapters/案例实例映射说明.md)。
 
 两个录入入口共用案例检查契约；派生实例支持概率与声明单位转换、文本规范化、坐标格式及范围检查、异常标记和分类字段覆盖报告。资源基础能力可实例化，任务关系需要附来源的显式配置。`启动Excel演示.ps1` 默认通过 `--reasoner` 使用HermiT检查完整OWL一致性，依赖见 `requirements-reasoner.txt`；直接使用Python入口未启用该参数时，报告明确记录未执行。

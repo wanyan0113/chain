@@ -1,0 +1,42 @@
+{
+  "scope": "仅核对用户提供的第二部分2.1.1第1条文字规则；不是完整文章案例复现",
+  "source": {
+    "file": "联想截图_20261027150810.png",
+    "location": "2.1.1任务—法术映射规则，任务示例第1条",
+    "quote": "当目标是法球时，需要对空具现能力"
+  },
+  "rule": {
+    "id": "article-ball-needs-air",
+    "role": "manifestation",
+    "capability": "对空具现能力",
+    "when": [{"field": "task.target_type", "op": "eq", "value": "法球"}],
+    "source_refs": ["联想截图_20261027150810.png，2.1.1示例第1条：当目标是法球时，需要对空具现能力"],
+    "blocking_issue_ids": []
+  },
+  "cases": [
+    {
+      "id": "article-explicit-positive",
+      "basis": "原文明确的条件与结论；构造最小输入验证该规则，不声称是原文真实任务实例",
+      "attributes": {"target_type": "法球"},
+      "expected_rule_status": "pass",
+      "expected_capabilities": ["对空具现能力"],
+      "expected_status": "complete"
+    },
+    {
+      "id": "antecedent-not-matched",
+      "basis": "单向蕴含规则的形式化检查；原文没有断言其他目标不需要对空能力",
+      "attributes": {"target_type": "其他目标"},
+      "expected_rule_status": "fail",
+      "expected_capabilities": [],
+      "expected_status": "blocked"
+    },
+    {
+      "id": "antecedent-unknown",
+      "basis": "项目缺失数据政策的检查；不是原文提出的额外业务结论",
+      "attributes": {},
+      "expected_rule_status": "unknown",
+      "expected_capabilities": [],
+      "expected_status": "blocked"
+    }
+  ]
+}

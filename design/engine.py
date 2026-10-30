@@ -6,6 +6,7 @@ Unknown conditions never count as satisfied. Inputs are not mutated.
 from __future__ import annotations
 
 from collections import Counter
+from copy import deepcopy
 from itertools import combinations, product
 import json
 import math
@@ -24,18 +25,20 @@ class SearchLimitError(DesignError):
     pass
 
 
-def validate_document(doc):
+def require_finite(value):
     # jsonschema accepts Python NaN/Infinity as numbers; reject these recursively.
-    def finite(value):
-        if isinstance(value, float) and not math.isfinite(value):
-            raise DesignError("数值必须有限")
-        if isinstance(value, dict):
-            for item in value.values():
-                finite(item)
-        elif isinstance(value, list):
-            for item in value:
-                finite(item)
-    finite(doc)
+    if isinstance(value, float) and not math.isfinite(value):
+        raise DesignError("数值必须有限")
+    if isinstance(value, dict):
+        for item in value.values():
+            require_finite(item)
+    elif isinstance(value, list):
+        for item in value:
+            require_finite(item)
+
+
+def validate_document(doc):
+    require_finite(doc)
     schema = json.loads(Path(__file__).with_name("schema.json").read_text(encoding="utf-8"))
     errors = sorted(Draft202012Validator(schema).iter_errors(doc), key=lambda e: str(list(e.path)))
     if errors:
@@ -123,9 +126,34 @@ def evaluate(rule, scopes):
               for status, reason in [condition_result(condition, scopes)]]
     statuses = {check["status"] for check in checks}
     status = "fail" if "fail" in statuses else "unknown" if "unknown" in statuses or rule["blocking_issue_ids"] else "pass"
-    return {"rule": rule["id"], "capability": rule["capability"], "role": rule["role"],
+    # Freeze the evidence at evaluation time, including nested quantity values.
+    return deepcopy({"rule": rule["id"], "capability": rule["capability"], "role": rule["role"],
             "status": status, "checks": checks, "source_refs": rule["source_refs"],
-            "blocking_issue_ids": rule["blocking_issue_ids"]}
+            "blocking_issue_ids": rule["blocking_issue_ids"]})
+
+
+def infer_task_capabilities(task, rules, required_roles=ROLES):
+    """Step 2, shared by standalone inference and the complete design pipeline.
+
+    Matched capabilities are a lower bound while any blocker remains.
+    Callers must check status before using the result as a complete requirement.
+    """
+    inference = [evaluate(rule, {"task": task["attributes"]}) for rule in rules]
+    required = {role: sorted({r["capability"] for r in inference
+                             if r["role"] == role and r["status"] == "pass"})
+                for role in ROLES}
+    blockers = []
+    if task["blocking_issue_ids"]:
+        blockers.append({"code": "TASK_ISSUES", "issues": list(task["blocking_issue_ids"])})
+    unknown = [r["rule"] for r in inference if r["status"] == "unknown"]
+    if unknown:
+        blockers.append({"code": "UNKNOWN_TASK_RULE", "rules": unknown})
+    for role in required_roles:
+        if not required[role]:
+            blockers.append({"code": "NO_CAPABILITY", "role": role})
+    return {"task": task["id"], "status": "blocked" if blockers else "complete",
+            "source_refs": list(task["source_refs"]), "inference": inference,
+            "required_capabilities": required, "blockers": blockers}
 
 
 def rank_chains(chains, weights, equal_score):
@@ -196,18 +224,13 @@ def design(doc):
     comparison_groups = []
     unresolved = False
     for ti, task in enumerate(doc["tasks"], 1):
-        inference = [evaluate(rule, {"task": task["attributes"]}) for rule in doc["task_rules"]]
-        required = {role: sorted({r["capability"] for r in inference if r["role"] == role and r["status"] == "pass"}) for role in ROLES}
+        capability_result = infer_task_capabilities(task, doc["task_rules"])
+        inference = capability_result["inference"]
+        required = capability_result["required_capabilities"]
         result = {"task": task["id"], "target": task["target"], "inference": inference,
-                  "required_capabilities": required, "selection": [], "chains": [], "rejected_chains": [], "blockers": []}
+                  "required_capabilities": required, "selection": [], "chains": [], "rejected_chains": [],
+                  "blockers": capability_result["blockers"]}
         report["tasks"].append(result)
-        if task["blocking_issue_ids"]:
-            result["blockers"].append({"code": "TASK_ISSUES", "issues": task["blocking_issue_ids"]})
-        if any(r["status"] == "unknown" for r in inference):
-            result["blockers"].append({"code": "UNKNOWN_TASK_RULE"})
-        for role in ROLES:
-            if not required[role]:
-                result["blockers"].append({"code": "NO_CAPABILITY", "role": role})
         candidates = {role: [] for role in ROLES}
         for artifact in doc["artifacts"]:
             role = artifact["role"]
@@ -291,7 +314,7 @@ def design(doc):
             comparison_groups.append(result["chains"])
     if not all(comparison_groups):
         report["status"] = "blocked" if unresolved else "no_feasible_design"
-        return report
+        return deepcopy(report)
     best = None
     rejection_counts = Counter()
     for chosen in bounded_product(comparison_groups, doc["policies"]["max_network_combinations"], "奥术网"):
@@ -309,7 +332,7 @@ def design(doc):
                                                for (code, resource), count in sorted(rejection_counts.items())]
     if best is None:
         report["status"] = "no_feasible_design"
-        return report
+        return deepcopy(report)
     _, chosen, score = best
     selected = {c["task"]: c for c in chosen}
     deps = {(d["before"], d["after"]) for d in doc.get("dependencies", [])}
@@ -333,4 +356,5 @@ def design(doc):
                          "relations": relations, "makespan_s": max(c["end_s"] for c in chosen) - min(c["start_s"] for c in chosen),
                          "cost_per_execution": sum(c["metrics"]["cost"] for c in chosen),
                          "cost_unit": doc["policies"]["cost_unit"]}
-    return report
+    # Link evidence also contains nested input objects; detach the whole report.
+    return deepcopy(report)

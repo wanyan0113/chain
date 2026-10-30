@@ -1,5 +1,7 @@
 # 六步规则设计模块
 
+新增可独立运行的能力推理（步骤2）：`python -m design infer-capabilities design/examples/capability_demo.json --output-dir generated/capability_demo`。只需任务与规则，不要求法器、评分或资源数据；输出逐条件解释、能力集合、阻塞报告和完整结果的RDF。该入口与完整设计共用能力推理逻辑，详见 [能力推理说明](能力推理说明.md)。
+
 按用户2026-10-27提供的第一、二部分截图，实现2.3的六步流程。引擎使用显式条件匹配和有上限的穷举搜索，复用主本体导出业务实例。原来源层、环境层和本体定义继续独立工作。
 
 ```powershell
