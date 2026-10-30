@@ -11,11 +11,14 @@ import math
 import posixpath
 import re
 import zipfile
+from decimal import Decimal, InvalidOperation
 from datetime import date
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
 from .schema import TABLES, META_HEADERS, META_LABELS, FACT_HEADERS, ISSUE_HEADERS, INSTRUCTIONS
+from source_data.case_contract import validate_case_document
+from source_data.common import ValidationError
 
 NS = {'s': 'http://schemas.openxmlformats.org/spreadsheetml/2006/main'}
 REL = '{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id'
@@ -73,17 +76,21 @@ def read_xlsx(data: bytes) -> dict:
                     elif not v:
                         continue
                     else:
-                        number = float(v)
-                        if not math.isfinite(number):
+                        number = Decimal(v)
+                        if not number.is_finite():
                             raise EntryError(f'{name}!{cell}：数字必须有限。')
-                        value = int(number) if number.is_integer() else number
+                        if number and abs(number.adjusted()) > 308:
+                            raise EntryError(f'{name}!{cell}：数字超出支持范围。')
+                        value = int(number) if number == number.to_integral_value() else float(number)
+                        if Decimal(str(value)) != number:
+                            raise EntryError(f'{name}!{cell}：数字精度超出支持范围，请减少小数位。')
                     if value != '':
                         rows.setdefault(row, {})[col] = value
                 result[name] = rows
             return result
     except EntryError:
         raise
-    except (KeyError, ValueError, TypeError, AttributeError, ET.ParseError, zipfile.BadZipFile, RuntimeError, IndexError) as exc:
+    except (KeyError, ValueError, TypeError, AttributeError, ET.ParseError, zipfile.BadZipFile, RuntimeError, IndexError, InvalidOperation) as exc:
         raise EntryError('无法读取.xlsx，请使用提供的模板并在Excel/WPS中保存。') from exc
 
 
@@ -146,9 +153,6 @@ def convert(sheets):
     for key in META_LABELS['单位']:
         if key not in d['units']:
             raise EntryError(f'案例说明：缺少「{META_LABELS["单位"][key]}」单位说明。')
-    for key, expected in {'altitude': 'ft', 'distance': 'n mile', 'speed': 'kn', 'attunement_probability': '%'}.items():
-        if d['units'][key] != expected:
-            raise EntryError(f'案例说明：「{META_LABELS["单位"][key]}」须使用模板单位 {expected}；本入口不自动换算单位。')
     index = {}
     for table, (name, identity, fields) in TABLES.items():
         out, ids = [], set()
@@ -167,8 +171,10 @@ def convert(sheets):
                         raise EntryError(f'{where}：请填写数字，空白不能当作0。')
                     if typ == 'int' and (value < 0 or int(value) != value):
                         raise EntryError(f'{where}：数量须为非负整数。')
-                    if key == 'attunement_probability_percent' and not 0 <= value <= 100:
-                        raise EntryError(f'{where}：概率须在0至100之间。')
+                    if key == 'attunement_probability_percent':
+                        maximum = 1 if d['units']['attunement_probability'] == '1' else 100
+                        if not 0 <= value <= maximum:
+                            raise EntryError(f'{where}：概率须在0至{maximum}之间。')
                 record[key] = value
             id_value = record[identity]
             if id_value in ids:
@@ -205,6 +211,10 @@ def convert(sheets):
         if alignment:
             issue['source_alignment'] = alignment
         d['issues'].append(issue)
+    try:
+        validate_case_document(d)
+    except ValidationError as exc:
+        raise EntryError(str(exc)) from exc
     return d
 
 

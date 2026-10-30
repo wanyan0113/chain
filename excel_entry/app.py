@@ -22,7 +22,7 @@ ROOT = Path(__file__).resolve().parents[1]
 TEMPLATES = ROOT / 'excel_entry/templates'
 
 
-def run_import(data, filename, *, output_root=None):
+def run_import(data, filename, *, output_root=None, bindings=None, reasoner=False):
     document = convert(read_xlsx(data))
     output_root = output_root or ROOT / 'generated/excel-runs'
     out = output_root / (datetime.now().strftime('%Y%m%d-%H%M%S') + '-' + uuid.uuid4().hex[:8])
@@ -42,13 +42,20 @@ def run_import(data, filename, *, output_root=None):
         return json.loads(p.stdout)
     report = run('ingest', converted, '--mapping', ROOT / 'source_mappings/case_fields.json', '--output-dir', result_dir, '--rdf')
     query = run('query', result_dir / 'provenance.ttl')
-    instance_graph, instance_report = map_case_instances(read_json(result_dir / 'bundle.json'))
+    instance_graph, instance_report = map_case_instances(read_json(result_dir / 'bundle.json'), bindings=bindings, reasoner=reasoner)
     write_outputs(result_dir, instance_outputs(instance_graph, instance_report))
     labels = {key: label for _, _, fields in TABLES.values() for key, label, _ in fields}
     for record in query['records']:
         record['instances'] = [e for e in instance_report['entities'] if record['id'] in e['source_records']]
         for field in record['fields']:
             field['display_label'] = labels.get(field['field']['key'], field['field']['key'])
+            # Source queries show original values in their declared input unit.
+            unit = field['field']['unit']['description']
+            for default in ('n mile', 'ft', 'kn'):
+                if unit and f'（{default}）' in field['display_label']:
+                    field['display_label'] = field['display_label'].replace(f'（{default}）', f'（{unit}）')
+            if field['field']['key'] == 'attunement_probability_percent' and unit == '1':
+                field['display_label'] = '概率（0至1）'
     result = {'report': report, 'records': query['records'], 'output': str(out),
               'instance_report': instance_report,
               'filename': filename, 'input_sha256': hashlib.sha256(data).hexdigest(),
@@ -60,6 +67,8 @@ def run_import(data, filename, *, output_root=None):
 
 
 class Handler(BaseHTTPRequestHandler):
+    bindings = None
+    reasoner = False
     def send(self, status, content, mime):
         self.send_response(status)
         self.send_header('Content-Type', mime)
@@ -91,7 +100,7 @@ class Handler(BaseHTTPRequestHandler):
             size = int(self.headers.get('Content-Length', '0'))
             if not 0 < size <= 10_000_000:
                 raise EntryError('请选择10MB以内的.xlsx文件。')
-            result = run_import(self.rfile.read(size), unquote(urlsplit(self.path).query or 'input.xlsx'))
+            result = run_import(self.rfile.read(size), unquote(urlsplit(self.path).query or 'input.xlsx'), bindings=self.bindings, reasoner=self.reasoner)
             self.send(200, json.dumps(result, ensure_ascii=False).encode(), 'application/json; charset=utf-8')
         except (EntryError, ValueError) as exc:
             self.send(400, json.dumps({'error': str(exc)}, ensure_ascii=False).encode(), 'application/json; charset=utf-8')
@@ -104,11 +113,16 @@ def main():
     parser = argparse.ArgumentParser(description='Excel案例录入与查询展示')
     parser.add_argument('--file', type=Path, help='直接导入，无需打开网页')
     parser.add_argument('--port', type=int, default=8765)
+    parser.add_argument('--bindings', type=Path, help='已核实且附来源的实例关系JSON配置')
+    parser.add_argument('--reasoner', action='store_true', help='导入时执行HermiT检查')
     args = parser.parse_args()
+    bindings = read_json(args.bindings) if args.bindings else None
     if args.file:
-        result = run_import(args.file.read_bytes(), args.file.name)
+        result = run_import(args.file.read_bytes(), args.file.name, bindings=bindings, reasoner=args.reasoner)
         print(json.dumps({k: v for k, v in result.items() if k != 'records'}, ensure_ascii=False, indent=2))
         return
+    Handler.bindings = bindings
+    Handler.reasoner = args.reasoner
     server = HTTPServer(('127.0.0.1', args.port), Handler)
     print(f'请在浏览器打开 http://127.0.0.1:{args.port} ，按 Ctrl+C 停止。', flush=True)
     try:

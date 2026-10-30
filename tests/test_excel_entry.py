@@ -18,7 +18,7 @@ from http.server import HTTPServer
 EXAMPLE = ROOT / 'excel_entry/templates/案例示例.xlsx'
 
 
-def change_cell(data, *, formula=False, value='12'):
+def change_cell(data, *, formula=False, value='12', cell_ref='D2'):
     """Mutate a disposable test copy, not an authored deliverable."""
     out = io.BytesIO()
     with zipfile.ZipFile(io.BytesIO(data)) as src, zipfile.ZipFile(out, 'w') as dst:
@@ -26,7 +26,7 @@ def change_cell(data, *, formula=False, value='12'):
             content = src.read(item.filename)
             if item.filename == 'xl/worksheets/sheet3.xml':
                 tree = ET.fromstring(content)
-                cell = next(c for c in tree.findall('s:sheetData/s:row/s:c', NS) if c.attrib['r'] == 'D2')
+                cell = next(c for c in tree.findall('s:sheetData/s:row/s:c', NS) if c.attrib['r'] == cell_ref)
                 cell.attrib.pop('t', None)
                 for child in list(cell):
                     cell.remove(child)
@@ -118,6 +118,36 @@ class ExcelEntryTests(unittest.TestCase):
         with self.assertRaisesRegex(EntryError, '只支持一条'):
             convert(s)
 
+    def test_shared_case_validation_and_exact_numeric_reading(self):
+        sheets = copy.deepcopy(self.sheets)
+        sheets['作用能力'][2][6] = -1
+        with self.assertRaisesRegex(EntryError, '非负'):
+            convert(sheets)
+        workbook = change_cell(self.data, value='9007199254740993')
+        self.assertEqual(read_xlsx(workbook)['作用能力'][2][4], 9007199254740993)
+        with self.assertRaisesRegex(EntryError, '精度超出'):
+            read_xlsx(change_cell(self.data, value='0.123456789012345678901234'))
+        with self.assertRaisesRegex(EntryError, '超出支持范围'):
+            read_xlsx(change_cell(self.data, value='1e999999'))
+
+    def test_declared_units_are_preserved_and_instances_converted(self):
+        # Technical workbook copy: declare a different input distance unit.
+        sheets = copy.deepcopy(self.sheets)
+        for row in sheets['案例说明'].values():
+            if row.get(1) == '单位' and row.get(2) == '距离':
+                row[3] = 'km'
+        document = convert(sheets)
+        self.assertEqual(document['units']['distance'], 'km')
+        from source_data.ingest import build_bundle
+        from source_data.common import read_json
+        from adapters.case_instances import map_case_instances, KW
+        from rdflib import URIRef
+        bundle = build_bundle(document, read_json(ROOT / 'source_mappings/case_fields.json'),
+                              input_filename='unit-fixture.json', input_sha256='0' * 64)
+        graph, report = map_case_instances(bundle)
+        resource = next(e for e in report['entities'] if e['code'] == 'R-Sigil-A')
+        self.assertAlmostEqual(float(graph.value(URIRef(resource['iri']), KW.maxRangeNm)), 10 / 1.852)
+
     def test_live_import_changed_cell_reaches_rdf_query(self):
         original = (ROOT / 'data/article_source/case_records.json').read_bytes()
         with tempfile.TemporaryDirectory(dir=ROOT / 'tmp') as directory:
@@ -158,6 +188,11 @@ class ExcelEntryTests(unittest.TestCase):
             with self.assertRaises(HTTPError) as ctx:
                 urlopen(Request(base + '/import', data=b'invalid'))
             self.assertEqual(ctx.exception.code, 400)
+            ctx.exception.close()
+            with self.assertRaises(HTTPError) as ctx:
+                urlopen(Request(base + '/import', data=change_cell(self.data, value='200', cell_ref='L2')))
+            self.assertEqual(ctx.exception.code, 400)
+            self.assertIn('概率', json.load(ctx.exception)['error'])
             ctx.exception.close()
             with self.assertRaises(HTTPError) as ctx:
                 urlopen(Request(base + '/import', data=self.data, headers={'Origin': 'https://example.com'}))

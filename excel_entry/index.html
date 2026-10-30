@@ -11,13 +11,23 @@ body{font:16px/1.65 "Microsoft YaHei",sans-serif;background:#f3f5f8;color:#24324
 <script>
 const $=id=>document.getElementById(id);let records=[];
 function p(parent,value){const el=document.createElement('p');el.textContent=value;parent.append(el)}
-function showMapping(report){let el=$('mapping-status');if(!el){el=document.createElement('p');el.id='mapping-status';$('summary').after(el)}el.textContent=`实例映射：${report.status}，共 ${report.counts.entities} 个实例条目。来源疑点仍保留。`;}
+function showMapping(report){
+let el=$('mapping-status');if(!el){el=document.createElement('div');el.id='mapping-status';$('summary').after(el)}el.replaceChildren();
+p(el,`实例映射：${report.status}，共 ${report.counts.entities} 个实例条目。来源疑点仍保留。`);
+p(el,`字段覆盖：编号 ${report.counts.identity_values??0} 项，属性 ${report.counts.property_values??0} 项，仅保留原值 ${report.counts.unmapped_values??0} 项。`);
+p(el,`本次自动标记 ${report.cleaning?.findings?.length??0} 项待核对问题；已规范化 ${report.cleaning?.changes?.length??0} 处文本或列表。HermiT：${report.validation_scope?.owl_reasoner??'not_run'}。`);
+for(const t of report.task_bindings??[])if(t.target!=='mapped'||t.capabilities!=='mapped')p(el,'任务的具体目标或能力关系仍需有来源的显式配置。');
+const details=document.createElement('details'), summary=document.createElement('summary');summary.textContent='查看待确认字段与清洗记录';details.append(summary);
+for(const v of report.unmapped_values??[])p(details,`${v.path}：${v.reason}`);
+for(const c of report.cleaning?.changes??[])p(details,`${c.path}：${JSON.stringify(c.original)} → ${JSON.stringify(c.normalized)}`);
+for(const f of report.cleaning?.findings??[])p(details,`${f.code}：${f.paths.join('，')}（保留原值）`);el.append(details);
+}
 function showRecord(){const r=records[Number($('record').value)];$('values').replaceChildren();$('sources').replaceChildren();$('issues').replaceChildren();$('instances').replaceChildren();if(!r)return;
 for(const f of r.fields){let tr=document.createElement('tr');for(const v of [f.display_label??f.field.key??f.field.id,typeof f.raw_value==='object'?JSON.stringify(f.raw_value):f.raw_value]){let td=document.createElement('td');td.textContent=v;tr.append(td)}$('values').append(tr)}
 for(const s of r.materials)p($('sources'),`${s.filename}　定位：${s.locator}`);
 for(const e of r.instances??[])for(const relation of e.relations??[])p($('instances'),`${e.code} —${relation.relation}→ ${relation.other}`);
-const typeNames={ObjectCollection:'对象集合',ArtifactPlatform:'承载平台',InsightArtifact:'灵视探知法器',ManifestationArtifact:'具现法器',ArcaneMission:'行动任务'};
-for(const e of r.instances??[]){const name=e.type.split(/[#:\/]/).pop();p($('instances'),`${e.code} · ${typeNames[name]??name}`);const details=document.createElement('details');const summary=document.createElement('summary');summary.textContent='查看实例标识与来源记录';details.append(summary);p(details,e.iri);for(const id of e.source_records)p(details,id);$('instances').append(details)}
+const typeNames={ObjectCollection:'对象集合',ArtifactPlatform:'承载平台',InsightArtifact:'灵视探知法器',ManifestationArtifact:'具现法器',ArcaneMission:'行动任务',InsightCapability:'灵视探知能力',ManifestationCapability:'具现能力',CoordinationCapability:'协调能力',Target:'交互对象'};
+for(const e of r.instances??[]){const name=e.type.split(/[#:\/]/).pop();p($('instances'),`${e.code} · ${typeNames[name]??name}`);const details=document.createElement('details');const summary=document.createElement('summary');summary.textContent='查看实例标识与来源记录';details.append(summary);p(details,e.iri);for(const a of e.attributes??[])p(details,a.property+': '+a.value+(a.unit?' '+a.unit:''));for(const id of e.source_records)p(details,id);$('instances').append(details)}
 for(const i of r.issues)p($('issues'),`${i.code}：${i.description}（${i.status}）`);if(!r.issues.length)p($('issues'),'此记录没有登记关联疑点。')}
 $('record').onchange=showRecord;
 $('import').onclick=async()=>{records=[];$('results').hidden=true;$('record').replaceChildren();$('status').className='';const file=$('file').files[0];if(!file){$('status').textContent='请先选择Excel文件。';return}if(!file.name.toLowerCase().endsWith('.xlsx')){$('status').textContent='请选择.xlsx文件。';return}$('import').disabled=true;$('status').textContent='正在读取表格、执行导入与RDF查询……';try{const response=await fetch('/import?'+encodeURIComponent(file.name),{method:'POST',headers:{'Content-Type':'application/octet-stream'},body:file});const data=await response.json();if(!response.ok)throw Error(data.error);records=data.records;showMapping(data.instance_report);$('summary').textContent=`已导入 ${data.filename}。来源包校验：${data.report.status}；查询返回 ${records.length} 条记录。`;$('counts').textContent=Object.entries(data.report.counts).map(([k,v])=>`${k}: ${v}`).join('　');$('notes').textContent=data.notes.join(' ');$('output').textContent=data.output;$('commit').textContent=data.backend_module;$('sha').textContent=data.input_sha256;for(let i=0;i<records.length;i++){let o=document.createElement('option');o.value=i;o.textContent=records[i].original_code??records[i].id;$('record').append(o)}showRecord();$('results').hidden=false;$('status').textContent='导入完成。可切换下方记录查看本次查询结果。'}catch(e){$('status').className='error';$('status').textContent=e.message}finally{$('import').disabled=false}};

@@ -1,0 +1,2 @@
+# Optional OWL consistency check; requires Java on PATH.
+owlready2==0.51
