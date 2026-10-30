@@ -45,6 +45,10 @@ def ingest(input_path, mapping_path):
     from pathlib import Path
     mapping = read_json(mapping_path)
     document = read_json(input_path)
+    check_mapping(mapping)
+    from .case_contract import is_case_mapping, validate_case_document
+    if is_case_mapping(mapping):
+        validate_case_document(document)
     return build_bundle(document, mapping, input_filename=Path(input_path).name,
                         input_sha256=digest(input_path))
 

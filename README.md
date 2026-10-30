@@ -4,6 +4,8 @@ Excel导入现已接通描述性本体实例映射：生成带来源关联的实
 
 两个录入入口共用案例检查契约；派生实例支持概率与声明单位转换、文本规范化、坐标格式及范围检查、异常标记和分类字段覆盖报告。资源基础能力可实例化，任务关系需要附来源的显式配置。`启动Excel演示.ps1` 默认通过 `--reasoner` 使用HermiT检查完整OWL一致性，依赖见 `requirements-reasoner.txt`；直接使用Python入口未启用该参数时，报告明确记录未执行。
 
+数据清洗也可独立执行 `python -B -m source_data.cli clean 输入.json --output-dir generated/case_cleaning`，无需生成本体实例。案例导入自动输出清洗数据和报告，校验报告区分来源一致性与案例字段检查，详见 [数据清洗说明](source_data/数据清洗说明.md)。
+
 当前主本体为`arcane_ontology.ttl`，业务命名空间为`http://example.org/arcaneweb#`。主要入口：
 
 | 模块 | 入口／配置 |

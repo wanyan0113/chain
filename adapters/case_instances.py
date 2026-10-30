@@ -1,7 +1,7 @@
 """Map source records to descriptive ontology instances, without design rules."""
 from __future__ import annotations
 
-from decimal import Decimal, localcontext
+from decimal import Decimal
 import hashlib
 import json
 from pathlib import Path
@@ -14,7 +14,7 @@ from check_ontology import analyze_graph
 from source_data.common import ValidationError, dumps, source_iri
 from source_data.load import bundle_graph
 from source_data.validate import validate_bundle
-from source_data.case_contract import CANONICAL_UNITS, UNIT_FACTORS, prepare_case
+from source_data.case_contract import CANONICAL_UNITS, UNIT_FACTORS, prepare_case, canonical_number
 from source_data.common import resolve
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -126,11 +126,7 @@ def map_case_instances(bundle, *, bindings=None, reasoner=False):
         number = Decimal(str(value))
         if unit:
             declared = prepared['units'][unit]
-            factor = UNIT_FACTORS[unit][declared]
-            # Preserve every input digit, including when the unit factor is 1.
-            with localcontext() as context:
-                context.prec = max(28, len(number.as_tuple().digits) + len(factor.as_tuple().digits))
-                number = number * factor
+            number = canonical_number(value, unit, declared)
         return Literal(number, datatype=XSD.decimal)
 
     def numeric_claim(node, prop, record, key, unit):

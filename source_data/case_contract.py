@@ -1,6 +1,6 @@
 """Shared checks and reversible normalization for the four-table case format."""
 from copy import deepcopy
-from decimal import Decimal
+from decimal import Decimal, localcontext
 import math
 import re
 
@@ -31,6 +31,54 @@ UNIT_FACTORS = {
     'attunement_probability': {'%': Decimal('0.01'), '1': Decimal(1)},
 }
 CANONICAL_UNITS = {'distance': 'n mile', 'altitude': 'ft', 'speed': 'kn', 'attunement_probability': '1'}
+NUMERIC_UNITS = {
+    'altitude_ft': 'altitude', 'detection_range_nm': 'distance',
+    'max_range_nm': 'distance', 'min_range_nm': 'distance',
+    'max_target_speed_kn': 'speed', 'min_target_altitude_ft': 'altitude',
+    'max_target_altitude_ft': 'altitude', 'min_activation_altitude_ft': 'altitude',
+    'max_activation_altitude_ft': 'altitude', 'attunement_probability_percent': 'attunement_probability',
+    'target_altitude_ft': 'altitude', 'target_speed_kn': 'speed',
+}
+
+
+def canonical_number(value, unit, declared):
+    number, factor = Decimal(str(value)), UNIT_FACTORS[unit][declared]
+    with localcontext() as context:
+        context.prec = max(28, len(number.as_tuple().digits) + len(factor.as_tuple().digits))
+        return number * factor
+
+
+def is_case_mapping(mapping):
+    """Recognize supported case tables without importing project configuration."""
+    return {entry['path'] for entry in mapping['tables']} == set(FIELDS)
+
+
+def cleaning_outputs(document):
+    """Standalone derived data and audit log, independent of ontology instances."""
+    import hashlib
+    import json
+    from .common import dumps
+    cleaned, cleaning = prepare_case(document)
+    normalized_numbers = []
+    for table in FIELDS:
+        rows = [cleaned[table]] if table == 'table11' else cleaned[table]
+        for index, row in enumerate(rows):
+            prefix = table if table == 'table11' else f'{table}[{index}]'
+            for key, value in row.items():
+                if key not in NUMERIC_UNITS:
+                    continue
+                unit = NUMERIC_UNITS[key]
+                declared = cleaned['units'][unit]
+                normalized_numbers.append({'path': f'{prefix}.{key}', 'original': value,
+                    'input_unit': declared, 'output_unit': CANONICAL_UNITS[unit],
+                    'normalized_value': str(canonical_number(value, unit, declared)),
+                    'factor': str(UNIT_FACTORS[unit][declared]), 'policy': 'declared_unit_conversion_v1'})
+    cleaning.update(status='valid', case_contract='passed',
+                    normalized_numbers=normalized_numbers,
+                    input_content_sha256=hashlib.sha256(dumps(document).encode('utf-8')).hexdigest(),
+                    scope='模板校验、文本列表规范化和声明单位换算；清洗数据保留输入单位，换算数值另列于normalized_numbers，不判定来源事实真伪。')
+    return {'cleaned_case.json': json.dumps(cleaned, ensure_ascii=False, indent=2) + '\n',
+            'cleaning_report.json': json.dumps(cleaning, ensure_ascii=False, indent=2) + '\n'}
 
 
 def validate_coordinate(value, key, where):

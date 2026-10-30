@@ -11,6 +11,14 @@ from .ingest import ingest
 from .load import bundle_graph, load_source
 from .query import query_issues, query_materials, query_records, query_unconfirmed
 from .validate import validate_bundle
+from .case_contract import cleaning_outputs, is_case_mapping
+
+
+def validate_entry(bundle, **kwargs):
+    result = validate_bundle(bundle, **kwargs)
+    if not result['counts']['ERROR'] and is_case_mapping(bundle['metadata']['mapping']):
+        result = validate_bundle(bundle, check_case=True, **kwargs)
+    return result
 
 
 class JsonParser(argparse.ArgumentParser):
@@ -35,6 +43,10 @@ def main(argv=None):
     val = sub.add_parser("validate")
     val.add_argument("bundle", type=Path)
     val.add_argument("--original", type=Path)
+    clean = sub.add_parser('clean', help='独立校验和清洗案例JSON，不生成本体实例')
+    clean.add_argument('input', type=Path)
+    clean.add_argument('--output-dir', type=Path, required=True)
+    clean.add_argument('--overwrite', action='store_true')
     export = sub.add_parser("export")
     export.add_argument("bundle", type=Path)
     export.add_argument("--output-dir", type=Path, required=True)
@@ -52,18 +64,24 @@ def main(argv=None):
         args = parser.parse_args(argv)
         if args.command == "ingest":
             bundle = ingest(args.input, args.mapping)
-            result = validate_bundle(bundle, original_path=args.input)
+            result = validate_entry(bundle, original_path=args.input)
             require_valid(result)
             outputs = {"bundle.json": json.dumps(bundle, ensure_ascii=False, indent=2) + "\n",
                        "validation_report.json": json.dumps(result, ensure_ascii=False, indent=2) + "\n"}
+            if is_case_mapping(bundle['metadata']['mapping']):
+                outputs.update(cleaning_outputs(bundle['metadata']['raw_document']))
             if args.rdf:
                 # Export uses the fixed source RDF contract; no adapter or domain import.
                 outputs["provenance.ttl"] = bundle_graph(bundle).serialize(format="turtle")
             write_outputs(args.output_dir, outputs, overwrite=args.overwrite, protected=[args.input, args.mapping])
         elif args.command == "validate":
-            result = validate_bundle(read_json(args.bundle), original_path=args.original)
+            result = validate_entry(read_json(args.bundle), original_path=args.original)
             print(dumps(result))
             return int(bool(result["counts"]["ERROR"]))
+        elif args.command == 'clean':
+            outputs = cleaning_outputs(read_json(args.input))
+            write_outputs(args.output_dir, outputs, overwrite=args.overwrite, protected=[args.input])
+            result = json.loads(outputs['cleaning_report.json'])
         elif args.command == "dictionary":
             from .dictionary import field_dictionary, dictionary_markdown
             catalogue = field_dictionary(read_json(args.bundle))
@@ -74,7 +92,7 @@ def main(argv=None):
             result = {"status": catalogue["status"], "counts": catalogue["counts"]}
         elif args.command == "export":
             bundle = read_json(args.bundle)
-            result = validate_bundle(bundle)
+            result = validate_entry(bundle)
             require_valid(result)
             write_outputs(args.output_dir, {"provenance.ttl": bundle_graph(bundle).serialize(format="turtle")},
                           overwrite=args.overwrite, protected=[args.bundle])

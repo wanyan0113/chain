@@ -11,11 +11,18 @@ from .common import COLLECTIONS, MODULE, digest, dumps, read_json, report
 from .ingest import build_bundle
 
 
-def validate_bundle(bundle, *, original_path=None):
+def validate_bundle(bundle, *, original_path=None, check_case=False):
+    """Check source fidelity; check_case also applies the supported case contract.
+
+    Raw archive readers deliberately retain invalid source facts. Entry points
+    enable case checks separately; validation_scope always states what ran.
+    """
     errors = [f"{'.'.join(map(str, error.absolute_path))}: {error.message}"
               for error in Draft202012Validator(read_json(MODULE / "schema.json")).iter_errors(bundle)]
     if errors:
-        return report(errors)
+        result = report(errors)
+        result['validation_scope'] = {'source_integrity': 'failed', 'case_contract': 'not_run', 'external_source_truth': 'not_verified'}
+        return result
     all_ids = [obj["id"] for name in COLLECTIONS for obj in bundle[name]]
     duplicate_ids = [key for key, count in Counter(all_ids).items() if count > 1]
     if duplicate_ids:
@@ -41,6 +48,19 @@ def validate_bundle(bundle, *, original_path=None):
                 errors.append("原文件内容与来源包快照不一致")
     except (ValueError, TypeError, KeyError, OSError) as exc:
         errors.append(str(exc))
-    return report(errors, **{name: len(bundle[name]) for name in COLLECTIONS},
+    source_status = 'failed' if errors else 'passed'
+    case_status = 'not_run'
+    if check_case:
+        from .case_contract import validate_case_document
+        try:
+            validate_case_document(metadata['raw_document'])
+            case_status = 'passed'
+        except ValueError as exc:
+            case_status = 'failed'
+            errors.append(str(exc))
+    result = report(errors, **{name: len(bundle[name]) for name in COLLECTIONS},
                   open_issues=sum(x["status"] != "resolved" for x in bundle["issues"]),
                   open_gaps=sum(x["status"] != "resolved" for x in bundle["gaps"]))
+    result['validation_scope'] = {'source_integrity': source_status, 'case_contract': case_status,
+                                  'external_source_truth': 'not_verified'}
+    return result
