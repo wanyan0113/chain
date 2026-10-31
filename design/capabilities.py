@@ -10,6 +10,7 @@ from rdflib import Graph, Literal, Namespace, RDF, RDFS, URIRef
 
 from .engine import DesignError, infer_task_capabilities, require_finite
 from .rdf import CAPABILITY_TYPES, KW
+from .capability_identity import capability_binding
 
 META = Namespace("urn:arcane-capability-inference:")
 
@@ -51,6 +52,9 @@ def infer_capabilities(document):
              for task in document["tasks"]]
     for task, result in zip(document["tasks"], tasks):
         result["attributes"] = deepcopy(task["attributes"])
+        result["ontology_bindings"] = [capability_binding(role, label)
+                                       for role, labels in result["required_capabilities"].items()
+                                       for label in labels]
     return {
         "format_version": "1.0", "scope": document["scope"],
         "status": "complete" if all(t["status"] == "complete" for t in tasks) else "blocked",
@@ -85,7 +89,9 @@ def capability_rdf(document, report):
         for result in task["inference"]:
             if result["status"] != "pass":
                 continue
-            capability = entity("capability", f"{result['role']}/{result['capability']}")
+            binding = capability_binding(result['role'], result['capability'])
+            capability = (URIRef(binding['canonical_uri']) if binding['status'] == 'mapped' else
+                          entity("capability", f"{result['role']}/{result['capability']}"))
             rule = entity("rule", result["rule"])
             graph.add((capability, RDF.type, CAPABILITY_TYPES[result["role"]]))
             graph.add((capability, RDFS.label, Literal(result["capability"])))
@@ -96,6 +102,8 @@ def capability_rdf(document, report):
             graph.add((evidence, META.forMission, mission))
             graph.add((evidence, META.concludes, capability))
             graph.add((evidence, META.matchedRule, rule))
+            graph.add((evidence, META.identityStatus, Literal(binding['status'])))
+            graph.add((evidence, META.identityReason, Literal(binding['reason'])))
             graph.add((evidence, META.checksPayload, Literal(json.dumps(result["checks"], ensure_ascii=False))))
             for source in result["source_refs"]:
                 graph.add((rule, META.sourceRef, Literal(source)))
@@ -110,6 +118,10 @@ def capability_summary(report):
         lines += [f"## {task['task']}", "", f"状态：{task['status']}", ""]
         for role, capabilities in task["required_capabilities"].items():
             lines.append(f"- {roles[role]}：{'、'.join(capabilities) or '未推出'}")
+        for binding in task['ontology_bindings']:
+            lines.append(f"- 本体对应 {binding['capability']}："
+                         + (binding['canonical_uri'] if binding['status'] == 'mapped' else
+                            '未映射（仅使用本次局部个体）') + f"；{binding['reason']}")
         for rule in task["inference"]:
             lines += ["", f"规则 {rule['rule']} → {rule['capability']}：{rule['status']}",
                       f"来源：{'；'.join(rule['source_refs']) or '未提供'}"]

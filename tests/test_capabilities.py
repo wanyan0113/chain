@@ -7,13 +7,15 @@ import sys
 import tempfile
 import unittest
 
-from rdflib import Graph, RDF
+from rdflib import Graph, RDF, RDFS, Literal
+from rdflib.namespace import OWL
 
 from check_ontology import analyze_graph
 from design import infer_capabilities
-from design.capabilities import capability_rdf
+from design.capabilities import capability_rdf, capability_summary, META
+from design.capability_identity import CANONICAL_CAPABILITIES
 from design.engine import DesignError, design
-from design.rdf import KW
+from design.rdf import KW, CAPABILITY_TYPES
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -154,6 +156,68 @@ class CapabilityTests(unittest.TestCase):
         counts = analyze_graph(Graph().parse(ROOT / "arcane_ontology.ttl") + graph).counts()
         self.assertEqual((counts["ERROR"], counts["WARN"]), (0, 0))
         report["tasks"][0]["required_capabilities"]["manifestation"].clear()
+        with self.assertRaises(DesignError):
+            capability_rdf(self.doc, report)
+
+    def test_identity_registry_matches_named_individuals_and_roles(self):
+        ontology = Graph().parse(ROOT / 'arcane_ontology.ttl')
+        identifiers = []
+        for role, entries in CANONICAL_CAPABILITIES.items():
+            for label, identifier in entries.items():
+                node = KW[identifier]
+                identifiers.append(node)
+                self.assertIn((node, RDF.type, OWL.NamedIndividual), ontology)
+                self.assertIn(Literal(label, lang='zh'), list(ontology.objects(node, RDFS.label)))
+                types = set(ontology.objects(node, RDF.type))
+                pending = list(types)
+                while pending:
+                    for parent in ontology.objects(pending.pop(), RDFS.subClassOf):
+                        if parent not in types:
+                            types.add(parent)
+                            pending.append(parent)
+                self.assertIn(CAPABILITY_TYPES[role], types)
+        self.assertEqual(len(identifiers), len(set(identifiers)))
+
+    def test_export_reuses_canonical_uri_and_keeps_task_evidence_separate(self):
+        other = deepcopy(self.doc['tasks'][0])
+        other['id'] = 'second-task'
+        self.doc['tasks'].append(other)
+        report = infer_capabilities(self.doc)
+        graph = capability_rdf(self.doc, report)
+        # Query by the existing ontology URI, without relying on a label match.
+        missions = set(graph.subjects(KW.requiresCapability, KW.AirManifestationCapability))
+        self.assertEqual(len(missions), 2)
+        evidence = list(graph.subjects(META.concludes, KW.AirManifestationCapability))
+        self.assertEqual(len(evidence), 2)
+        self.assertEqual({graph.value(e, META.forMission) for e in evidence}, missions)
+        self.assertTrue(all(graph.value(e, META.identityStatus) == Literal('mapped') for e in evidence))
+        self.assertFalse(any(graph.triples((None, OWL.sameAs, None))))
+        self.assertTrue(all(b['status'] == 'mapped' for t in report['tasks'] for b in t['ontology_bindings']))
+        self.assertIn(str(KW.AirManifestationCapability), capability_summary(report))
+        # A changed input uses new evidence IDs but the same canonical capability.
+        self.doc['scope'] += ' another input snapshot'
+        second = capability_rdf(self.doc, infer_capabilities(self.doc))
+        self.assertTrue(set(evidence).isdisjoint(second.subjects(META.concludes, KW.AirManifestationCapability)))
+
+    def test_unknown_or_wrong_role_does_not_merge_by_name(self):
+        for label in ('自定义测试能力', '空中灵视探知能力'):
+            with self.subTest(label=label):
+                doc = deepcopy(self.doc)
+                doc['task_rules'][0]['capability'] = label
+                report = infer_capabilities(doc)
+                binding = next(b for b in report['tasks'][0]['ontology_bindings'] if b['capability'] == label)
+                self.assertEqual(binding['status'], 'unmapped')
+                self.assertIsNone(binding['canonical_uri'])
+                graph = capability_rdf(doc, report)
+                nodes = list(graph.subjects(RDFS.label, Literal(label)))
+                self.assertEqual(len(nodes), 1)
+                self.assertTrue(str(nodes[0]).startswith('urn:arcane-capability-inference:'))
+                self.assertFalse(list(graph.subjects(KW.requiresCapability, KW.AirInsightCapability)))
+                self.assertIn('未映射', capability_summary(report))
+
+    def test_tampered_identity_binding_is_rejected(self):
+        report = infer_capabilities(self.doc)
+        report['tasks'][0]['ontology_bindings'][0]['canonical_uri'] = str(KW.AirInsightCapability)
         with self.assertRaises(DesignError):
             capability_rdf(self.doc, report)
 
