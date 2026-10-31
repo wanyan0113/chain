@@ -10,17 +10,9 @@ from rdflib import Graph, Literal, Namespace, RDF, RDFS, URIRef
 
 from .engine import DesignError, infer_task_capabilities, require_finite
 from .rdf import CAPABILITY_TYPES, KW
-from .capability_identity import capability_binding
+from .capability_identity import capability_binding, load_capability_ontology, mapping_summary
 
 META = Namespace("urn:arcane-capability-inference:")
-
-
-def mapping_summary(bindings):
-    """Identity coverage is independent of whether inference has completed."""
-    total = len(bindings)
-    mapped = sum(b['status'] == 'mapped' for b in bindings)
-    return {'status': 'not_run' if not total else 'complete' if mapped == total else 'incomplete',
-            'total': total, 'mapped': mapped, 'unmapped': total - mapped}
 
 
 def capability_schema():
@@ -58,9 +50,10 @@ def infer_capabilities(document):
             raise DesignError("任务—能力规则只能引用 task 字段")
     tasks = [infer_task_capabilities(task, document["task_rules"], document["required_roles"])
              for task in document["tasks"]]
+    ontology = load_capability_ontology()
     for task, result in zip(document["tasks"], tasks):
         result["attributes"] = deepcopy(task["attributes"])
-        result["ontology_bindings"] = [capability_binding(role, label)
+        result["ontology_bindings"] = [capability_binding(role, label, ontology=ontology)
                                        for role, labels in result["required_capabilities"].items()
                                        for label in labels]
         result['ontology_mapping'] = mapping_summary(result['ontology_bindings'])
@@ -97,6 +90,7 @@ def capability_rdf(document, report, *, require_canonical=False):
     graph.add((run, META.inputPayload, Literal(json.dumps(document, ensure_ascii=False, allow_nan=False))))
     graph.add((run, META.reportPayload, Literal(json.dumps(report, ensure_ascii=False, allow_nan=False))))
     for task in report["tasks"]:
+        bindings = {(b['role'], b['capability']): b for b in task['ontology_bindings']}
         mission = entity("mission", task["task"])
         graph.add((mission, RDF.type, KW.ArcaneMission))
         graph.add((mission, RDFS.label, Literal(task["task"])))
@@ -105,7 +99,7 @@ def capability_rdf(document, report, *, require_canonical=False):
         for result in task["inference"]:
             if result["status"] != "pass":
                 continue
-            binding = capability_binding(result['role'], result['capability'])
+            binding = bindings[(result['role'], result['capability'])]
             capability = (URIRef(binding['canonical_uri']) if binding['status'] == 'mapped' else
                           entity("capability", f"{result['role']}/{result['capability']}"))
             rule = entity("rule", result["rule"])

@@ -13,8 +13,9 @@ import math
 from pathlib import Path
 
 from jsonschema import Draft202012Validator
+from .vocabulary import ROLES
+from .capability_identity import annotate_design_mapping
 
-ROLES = ("insight", "coordination", "manifestation")
 
 
 class DesignError(ValueError):
@@ -314,7 +315,7 @@ def design(doc):
             comparison_groups.append(result["chains"])
     if not all(comparison_groups):
         report["status"] = "blocked" if unresolved else "no_feasible_design"
-        return deepcopy(report)
+        return annotate_design_mapping(deepcopy(report))
     best = None
     rejection_counts = Counter()
     for chosen in bounded_product(comparison_groups, doc["policies"]["max_network_combinations"], "奥术网"):
@@ -332,7 +333,7 @@ def design(doc):
                                                for (code, resource), count in sorted(rejection_counts.items())]
     if best is None:
         report["status"] = "no_feasible_design"
-        return deepcopy(report)
+        return annotate_design_mapping(deepcopy(report))
     _, chosen, score = best
     selected = {c["task"]: c for c in chosen}
     deps = {(d["before"], d["after"]) for d in doc.get("dependencies", [])}
@@ -357,4 +358,4 @@ def design(doc):
                          "cost_per_execution": sum(c["metrics"]["cost"] for c in chosen),
                          "cost_unit": doc["policies"]["cost_unit"]}
     # Link evidence also contains nested input objects; detach the whole report.
-    return deepcopy(report)
+    return annotate_design_mapping(deepcopy(report))

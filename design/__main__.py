@@ -19,6 +19,9 @@ ROOT = Path(__file__).resolve().parent.parent
 
 def render_summary(result):
     lines = ["# 法术链设计报告", "", f"状态：{result['status']}", "", f"数据范围：{result['scope']}", ""]
+    mapping = result['ontology_mapping']
+    lines += [f"本体映射：{mapping['status']}；已映射 {mapping['mapped']}／{mapping['total']}；未映射 {mapping['unmapped']}",
+              f"规范URI导出就绪：{'是' if result['canonical_export_ready'] else '否'}", ""]
     for task in result["tasks"]:
         lines += [f"## {task['task']}", "", f"目标：{task['target']}", "",
                   "| 候选链 | 探知 → 协调 → 具现 | 时间（秒） | 精度乘积 | 使用成本 | 评分 |", "| --- | --- | ---: | ---: | ---: | ---: |"]
@@ -28,12 +31,26 @@ def render_summary(result):
             values = [f"{metrics[key]:.8g}" if key in metrics else "缺失" for key in ("time", "accuracy", "cost")]
             lines.append(f"| {chain['id']} | {' → '.join(chain['artifacts'].values())} | {' | '.join(values)} | {score} |")
         lines += ["", f"阻塞项：{json.dumps(task['blockers'], ensure_ascii=False)}", ""]
+        for binding in task['ontology_bindings']:
+            lines.append(f"- 能力对应 {binding['role']}／{binding['capability']}："
+                         + (binding['canonical_uri'] or '未映射；默认导出仅使用局部个体')
+                         + f"；{binding['reason']}")
     network = result["network"]
     if network:
         lines += ["## 选中奥术网", "", f"链：{', '.join(network['chains'])}", "",
                   f"目标函数：每个任务内归一化评分的算术平均；最优值 {network['score']:.6f}。", "",
                   f"计划跨度：{network['makespan_s']} 秒；按次使用成本合计：{network['cost_per_execution']} {network['cost_unit']}。", "",
                   "这是给定规则、资源和固定开始时间下的确定性计划；不表示动态场景仿真或实测效果。", ""]
+        lines += ["| 任务 | 选中链 | 闭合路径 |", "| --- | --- | --- |"]
+        for task in result['tasks']:
+            for chain in task['chains']:
+                if chain['id'] in network['chains']:
+                    lines.append(f"| {task['task']} | {chain['id']} | {' → '.join(chain['closed_path'])} |")
+        search = result['network_search']
+        lines += ["", f"网络组合：检查 {search['evaluated']} 组，可行 {search['feasible']} 组。",
+                  "资源冲突计数（同一组合可同时违反多项约束）：", ""]
+        for rejection in search['rejections']:
+            lines.append(f"- {rejection['code']}／{rejection['resource']}：{rejection['count']}")
     lines += ["完整规则命中、排除原因、资源冲突及来源记录见 design_report.json。", ""]
     return "\n".join(lines)
 
@@ -59,6 +76,8 @@ def main(argv=None):
     run.add_argument("input", type=Path)
     run.add_argument("--output-dir", type=Path, required=True)
     run.add_argument("--overwrite", action="store_true")
+    run.add_argument("--require-canonical", action="store_true",
+                     help="链网完整且能力全部对应规范URI时才导出RDF，否则保存报告并返回1")
     capabilities = sub.add_parser("infer-capabilities", help="独立执行任务→能力推理，不要求法器或评分数据")
     capabilities.add_argument("input", type=Path)
     capabilities.add_argument("--output-dir", type=Path, required=True)
@@ -113,8 +132,8 @@ def main(argv=None):
             result = design(doc)
             result["input_sha256"] = hashlib.sha256(args.input.read_bytes()).hexdigest()
             outputs = {}
-            if result["status"] == "complete":
-                graph = design_to_rdf(doc, result)
+            if result["status"] == "complete" and (not args.require_canonical or result['canonical_export_ready']):
+                graph = design_to_rdf(doc, result, require_canonical=args.require_canonical)
                 combined = Graph().parse(ROOT / "arcane_ontology.ttl", format="turtle") + graph
                 review = analyze_graph(combined)
                 if review.counts()["ERROR"] or review.counts()["WARN"]:
@@ -123,13 +142,13 @@ def main(argv=None):
                 outputs["design.ttl"] = graph.serialize(format="turtle")
             # An old successful RDF must never survive beside a blocked report.
             target = args.output_dir / "design.ttl"
-            if result["status"] != "complete" and target.exists():
-                raise DesignError("输出目录含既有 design.ttl；请为未完成报告使用新目录，避免混淆旧方案")
+            if 'design.ttl' not in outputs and target.exists():
+                raise DesignError("输出目录含既有 design.ttl；请为未满足导出条件的报告使用新目录，避免混淆旧方案")
             outputs["design_report.json"] = json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n"
             outputs["design_summary.md"] = render_summary(result)
             write_outputs(args.output_dir, outputs, overwrite=args.overwrite, protected=[args.input])
         print(json.dumps(result, ensure_ascii=False, allow_nan=False))
-        if args.command == 'infer-capabilities' and args.require_canonical and not result['canonical_export_ready']:
+        if args.command in ('infer-capabilities', 'run') and args.require_canonical and not result['canonical_export_ready']:
             return 1
         return 0 if result["status"] in {"complete", "reference_reproduced"} else 1
     except (ValueError, OSError) as exc:

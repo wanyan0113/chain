@@ -6,6 +6,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 from rdflib import Graph, RDF, RDFS, Literal
 from rdflib.namespace import OWL
@@ -241,6 +242,38 @@ class CapabilityTests(unittest.TestCase):
         empty = infer_capabilities(self.doc)
         self.assertEqual(empty['ontology_mapping']['status'], 'not_run')
         self.assertFalse(empty['canonical_export_ready'])
+
+    def test_current_ontology_changes_invalidate_registered_identity(self):
+        original_report = infer_capabilities(self.doc)
+        for change, expected_reason in [('individual', '具名个体'), ('label', '标签'), ('role', '所属能力类别')]:
+            with self.subTest(change=change):
+                ontology = Graph().parse(ROOT / 'arcane_ontology.ttl')
+                node = KW.AirManifestationCapability
+                if change == 'individual':
+                    ontology.remove((node, RDF.type, OWL.NamedIndividual))
+                elif change == 'label':
+                    ontology.remove((node, RDFS.label, None))
+                    ontology.add((node, RDFS.label, Literal('已修改的测试标签', lang='zh')))
+                else:
+                    ontology.remove((node, RDF.type, KW.ManifestationTargetTypeCapability))
+                    ontology.add((node, RDF.type, KW.InsightCapability))
+                with patch('design.capabilities.load_capability_ontology', return_value=ontology) as loader:
+                    report = infer_capabilities(self.doc)
+                    loader.assert_called_once_with()
+                    binding = next(b for b in report['tasks'][0]['ontology_bindings']
+                                   if b['capability'] == '对空具现能力')
+                    self.assertEqual(binding['status'], 'unmapped')
+                    self.assertIsNone(binding['canonical_uri'])
+                    self.assertIn(expected_reason, binding['reason'])
+                    self.assertEqual(report['status'], 'complete')
+                    self.assertFalse(report['canonical_export_ready'])
+                    with self.assertRaises(DesignError):
+                        capability_rdf(self.doc, report, require_canonical=True)
+                    with self.assertRaises(DesignError):
+                        capability_rdf(self.doc, original_report)
+                    graph = capability_rdf(self.doc, report)
+                    self.assertFalse(list(graph.subjects(KW.requiresCapability, node)))
+                    self.assertIn(expected_reason, capability_summary(report))
 
     def test_mapping_aggregation_does_not_hide_blocked_task(self):
         other = deepcopy(self.doc['tasks'][0])

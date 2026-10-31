@@ -1,23 +1,26 @@
 """Export selected designs using existing core classes; trace metadata is separate."""
 from urllib.parse import quote
+from copy import deepcopy
 import hashlib
 import json
 
 from rdflib import Graph, Literal, Namespace, RDF, RDFS, URIRef
 from rdflib.namespace import XSD
 
-from .engine import DesignError, ROLES
+from .engine import DesignError
+from .vocabulary import ROLES, KW, ARTIFACT_TYPES, NODE_TYPES, CAPABILITY_TYPES
+from .capability_identity import annotate_design_mapping
 
-KW = Namespace("http://example.org/arcaneweb#")
 DESIGN = Namespace("urn:arcane-design:")
-ARTIFACT_TYPES = dict(zip(ROLES, (KW.InsightArtifact, KW.CoordinationArtifact, KW.ManifestationArtifact)))
-NODE_TYPES = dict(zip(ROLES, (KW.InsightChainNode, KW.CoordinationChainNode, KW.ManifestationChainNode)))
-CAPABILITY_TYPES = dict(zip(ROLES, (KW.InsightCapability, KW.CoordinationCapability, KW.ManifestationCapability)))
 
 
-def design_to_rdf(doc, report):
+def design_to_rdf(doc, report, *, require_canonical=False):
     if report["status"] != "complete" or report["network"] is None:
         raise DesignError("只有完整通过约束检查的设计才导出业务实例")
+    if report != annotate_design_mapping(deepcopy(report)):
+        raise DesignError("链网报告的能力映射与当前本体不一致，请重新运行设计")
+    if require_canonical and not report['canonical_export_ready']:
+        raise DesignError("链网设计含未映射能力，不能按规范URI模式导出")
     graph = Graph()
     graph.bind("kw", KW)
     graph.bind("design", DESIGN)
@@ -33,6 +36,7 @@ def design_to_rdf(doc, report):
     graph.add((web, RDF.type, KW.ArcaneWeb))
     chosen = set(report["network"]["chains"])
     for task_result in report["tasks"]:
+        bindings = {(b['role'], b['capability']): b for b in task_result['ontology_bindings']}
         mission = entity("mission", task_result["task"])
         target = entity("target", task_result["target"])
         graph.add((mission, RDF.type, KW.ArcaneMission))
@@ -59,10 +63,25 @@ def design_to_rdf(doc, report):
                 if i < 2:
                     graph.add((nodes[i], KW.nextNode, nodes[i + 1]))
                 for cap in task_result["required_capabilities"][role]:
-                    capability = entity("capability", f"{role}/{cap}")
+                    binding = bindings[(role, cap)]
+                    capability = (URIRef(binding['canonical_uri']) if binding['status'] == 'mapped' else
+                                  entity("capability", f"{role}/{cap}"))
                     graph.add((capability, RDF.type, CAPABILITY_TYPES[role]))
                     graph.add((artifact, KW.hasCapability, capability))
                     graph.add((mission, KW.requiresCapability, capability))
+                    evidence = entity("capability-evidence", json.dumps([candidate['id'], role, cap]))
+                    graph.add((evidence, DESIGN.forMission, mission))
+                    graph.add((evidence, DESIGN.forChain, chain))
+                    graph.add((evidence, DESIGN.forArtifact, artifact))
+                    graph.add((evidence, DESIGN.concludes, capability))
+                    graph.add((evidence, DESIGN.identityStatus, Literal(binding['status'])))
+                    graph.add((evidence, DESIGN.identityReason, Literal(binding['reason'])))
+                    graph.add((evidence, DESIGN.ruleEvidencePayload, Literal(json.dumps({
+                        'task_rules': [r for r in task_result['inference'] if r['status'] == 'pass'
+                                       and r['role'] == role and r['capability'] == cap],
+                        'artifact_rules': [r for s in task_result['selection'] if s['artifact'] == candidate['artifacts'][role]
+                                           for r in s['rules'] if r['status'] == 'pass' and r['capability'] == cap],
+                    }, ensure_ascii=False))))
             insight, coordination, manifestation = [entity("artifact", candidate["artifacts"][r]) for r in ROLES]
             graph.add((insight, KW.detects, target))
             graph.add((insight, KW.insightToCoordinationCommunication, coordination))

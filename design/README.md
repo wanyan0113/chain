@@ -14,6 +14,22 @@
 
 Python入口为 `from design import design; result = design(document)`。不修改输入，不联网，不执行输入中的Python或SPARQL。
 
+## 从能力到完整链网的可运行示例
+
+```powershell
+.\.venv\Scripts\python.exe -B -m design run design/examples/canonical_network_demo.json --output-dir generated/canonical_network_demo --require-canonical
+```
+
+该输入是虚构工程配置，不是文章案例。它复用原技术示例的两个并发任务、共享探知与协调资源、两个具现资源；任务需求和法器筛选规则使用规范能力名称。每个任务有2条候选链，网络共检查4组组合，其中3组可行；两个任务都选一次性快速资源的组合被容量和库存约束排除。最终选择一条快链和一条慢链，形成包含两条并行链、共享探知和协调资源的网络。
+
+`design_summary.md` 列出所有候选链、选中链的闭合路径、网络搜索数量和资源冲突；JSON保留完整条件判断及来源。`design.ttl` 保存选中网络、链、有序节点、法器与规范能力关系。规范URI同时用于任务 `requiresCapability` 和选中法器 `hasCapability`；任务、链、法器的每项能力证据分别保存，不因共用能力而混在一起。
+
+完整设计和独立能力入口现在共用身份登记及本体检查。完整设计报告为每个任务提供 `ontology_bindings`、`ontology_mapping`，顶层提供汇总和 `canonical_export_ready`。该就绪标记同时要求设计 `complete` 和能力映射完整，不能仅因部分已推导能力都映射成功而宣称网络可导出。
+
+`run --require-canonical` 未就绪时保存JSON及Markdown，退出1，不输出RDF；已有旧RDF时要求新目录，退出2并保留旧结果。默认模式继续允许明确标记为未映射的局部能力个体。Python对应 `design_to_rdf(document, report, require_canonical=True)`；导出会重新核对当前本体映射，拒绝过期或被修改的映射报告。它不重新执行全部网络搜索，也不是任意外部报告的完整真实性验证器。
+
+本次没有从文章疑点中补造规则或坐标，也没有把Excel通用规则页的任意结论自动当作可用于设计的能力。真实案例要走同一流程，仍需按 `schema.json` 提供确认的任务、法器属性、筛选规则、协同边、指标和资源约束。Excel到该设计契约的转换尚未接通。
+
 ## 对照截图的实现
 
 | 截图步骤 | 当前行为 | 依据与边界 |
