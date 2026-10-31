@@ -30,7 +30,17 @@ Python入口为 `from design import design; result = design(document)`。不修�
 
 完整设计的 `input_sha256` 现在表示排序键后规范JSON内容的摘要，涵盖全部输入，包括未参与条件匹配的来源字段。CLI另用 `input_file_sha256` 保存输入文件原始字节摘要。`input_file_sha256` 和导出后的 `rdf_validation` 属于文件／检查附注，Python导出不将它们作为推理证据验证或写入RDF；RDF的 `reportPayload` 仅保存与当前输入重新核对一致的核心报告。旧报告需重新运行设计生成。
 
-本次没有从文章疑点中补造规则或坐标，也没有把Excel通用规则页的任意结论自动当作可用于设计的能力。真实案例要走同一流程，仍需按 `schema.json` 提供确认的任务、法器属性、筛选规则、协同边、指标和资源约束。Excel到该设计契约的转换尚未接通。
+本次没有从文章疑点中补造规则或坐标，也没有把Excel通用规则页的任意结论自动当作可用于设计的能力。真实案例要走同一流程，仍需提供确认的任务、法器属性、筛选规则、协同边、指标和资源约束。现已支持专用Excel模板转换为 `schema.json` 契约，使用步骤见 [Excel使用说明](../excel_entry/使用说明.md)。
+
+## Excel完整链网入口
+
+运行 `python -B -m excel_entry.app` 后打开 `http://127.0.0.1:8765/design`，下载链网设计示例或空白模板。也可执行 `python -B -m excel_entry.app --design-file excel_entry/templates/链网设计示例.xlsx`。
+
+`design/excel.py` 仅转换显式填写的设计输入，调用同一设计引擎。模板包含设置、任务、法器、情境、属性、规则、条件、协同关系、依赖和资源组，支持常量与字段比较。无条件必须显式声明；漏填数字不当作0，指标全部空白表示未知，部分空白报错；重复或悬空引用会报错。空白模板没有默认业务数据或政策。
+
+网页显示候选链、评分、选中网络、资源冲突及完整规则证据。输出保存在每次独立的 `generated/excel-designs/` 子目录，包含原Excel、设计输入JSON、核心报告、文字报告和运行记录。仅设计完整且规范能力映射齐全时，才尝试严格RDF导出；静态本体检查含错误或警告时保留报告并停止RDF写入。网页分别显示设计与RDF导出状态。此入口不调用HermiT；`--reasoner` 仍仅适用于旧案例导入。
+
+模板可由 `design/build_excel_templates.mjs` 使用技能运行时中的 `@oai/artifact-tool` 重建：将脚本复制到项目 `tmp` 子目录，为该目录创建指向运行时 `node_modules` 的junction，在项目根目录运行脚本。模板列契约及指南取自 `design.excel`，示例数据取自规范能力链网技术示例。渲染预览写入 `tmp/design-templates/previews`。
 
 ## 对照截图的实现
 

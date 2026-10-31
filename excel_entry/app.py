@@ -22,6 +22,37 @@ ROOT = Path(__file__).resolve().parents[1]
 TEMPLATES = ROOT / 'excel_entry/templates'
 
 
+def run_design(data, filename, *, output_root=None):
+    """Full design from explicit Excel inputs; strict canonical RDF export."""
+    from design.engine import design
+    from design.excel import read_design
+    from design.rdf import design_to_rdf
+    from design.__main__ import render_summary
+    from check_ontology import analyze_graph
+    from rdflib import Graph
+    document = read_design(data)
+    result = design(document)
+    out = (output_root or ROOT / 'generated/excel-designs') / (datetime.now().strftime('%Y%m%d-%H%M%S') + '-' + uuid.uuid4().hex[:8])
+    outputs = {'input.xlsx': data, 'design_input.json': json.dumps(document, ensure_ascii=False, indent=2) + '\n'}
+    export = {'status': 'not_ready', 'reason': '设计尚未完整或存在未映射能力', 'validation': None}
+    if result['status'] == 'complete' and result['canonical_export_ready']:
+        graph = design_to_rdf(document, result, require_canonical=True)
+        review = analyze_graph(Graph().parse(ROOT / 'arcane_ontology.ttl', format='turtle') + graph)
+        export['validation'] = review.counts()
+        if review.counts()['ERROR'] or review.counts()['WARN']:
+            export.update(status='validation_failed', reason='生成实例未通过主本体静态检查')
+        else:
+            outputs['design.ttl'] = graph.serialize(format='turtle')
+            export.update(status='exported', reason='规范能力RDF已通过静态检查；未执行OWL推理器')
+    response = {'filename': filename, 'output': str(out), 'report': result, 'rdf_export': export,
+                'input_file_sha256': hashlib.sha256(data).hexdigest(), 'summary': render_summary(result)}
+    outputs.update({'design_report.json': json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + '\n',
+                    'design_summary.md': response['summary'],
+                    'run_result.json': json.dumps(response, ensure_ascii=False, indent=2, allow_nan=False) + '\n'})
+    write_outputs(out, outputs)
+    return response
+
+
 def run_rule_review(data, filename, *, output_root=None):
     from rule_review.core import review
     result = review(data)
@@ -114,6 +145,9 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         path = urlsplit(self.path).path
         files = {'/': (ROOT / 'excel_entry/index.html', 'text/html; charset=utf-8'),
+                 '/design': (ROOT / 'design/excel.html', 'text/html; charset=utf-8'),
+                 '/design-example.xlsx': (TEMPLATES / '链网设计示例.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
+                 '/design-blank.xlsx': (TEMPLATES / '链网设计空白.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
                  '/rules': (ROOT / 'rule_review/index.html', 'text/html; charset=utf-8'),
                  '/rules-example.xlsx': (ROOT / 'rule_review/templates/规则验证示例.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
                  '/rules-blank.xlsx': (ROOT / 'rule_review/templates/规则验证空白.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
@@ -131,7 +165,7 @@ class Handler(BaseHTTPRequestHandler):
         if self.headers.get('Host') != expected_origin.removeprefix('http://') or (origin and origin != expected_origin):
             return self.send(403, b'Forbidden', 'text/plain')
         path = urlsplit(self.path).path
-        if path not in ('/import', '/review-rules'):
+        if path not in ('/import', '/review-rules', '/design-run'):
             return self.send(404, b'Not found', 'text/plain')
         try:
             size = int(self.headers.get('Content-Length', '0'))
@@ -139,7 +173,8 @@ class Handler(BaseHTTPRequestHandler):
                 raise EntryError('请选择10MB以内的.xlsx文件。')
             payload = self.rfile.read(size)
             filename = unquote(urlsplit(self.path).query or 'input.xlsx')
-            result = (run_rule_review(payload, filename) if path == '/review-rules'
+            result = (run_design(payload, filename) if path == '/design-run'
+                      else run_rule_review(payload, filename) if path == '/review-rules'
                       else run_import(payload, filename, bindings=self.bindings, reasoner=self.reasoner))
             self.send(200, json.dumps(result, ensure_ascii=False).encode(), 'application/json; charset=utf-8')
         except (EntryError, ValueError) as exc:
@@ -151,12 +186,18 @@ class Handler(BaseHTTPRequestHandler):
 
 def main():
     parser = argparse.ArgumentParser(description='Excel案例录入与查询展示')
-    parser.add_argument('--file', type=Path, help='直接导入，无需打开网页')
+    inputs = parser.add_mutually_exclusive_group()
+    inputs.add_argument('--file', type=Path, help='直接导入案例，无需打开网页')
+    inputs.add_argument('--design-file', type=Path, help='从链网专用Excel生成完整设计，无需打开网页')
     parser.add_argument('--port', type=int, default=8765)
     parser.add_argument('--bindings', type=Path, help='已核实且附来源的实例关系JSON配置')
     parser.add_argument('--reasoner', action='store_true', help='导入时执行HermiT检查')
     args = parser.parse_args()
     bindings = read_json(args.bindings) if args.bindings else None
+    if args.design_file:
+        result = run_design(args.design_file.read_bytes(), args.design_file.name)
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return
     if args.file:
         result = run_import(args.file.read_bytes(), args.file.name, bindings=bindings, reasoner=args.reasoner)
         print(json.dumps({k: v for k, v in result.items() if k != 'records'}, ensure_ascii=False, indent=2))

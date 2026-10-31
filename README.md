@@ -49,4 +49,4 @@ Excel导入现已接通描述性本体实例映射：生成带来源关联的实
 
 新增文章单条链复现：`python -m design reproduce-case --output-dir generated/article_reference_chain`。按新增第三部分截图的表13复算4组评分，输出正文明确标识的最优链及RDF；状态为 `reference_reproduced`，尚未独立验证完整筛选和协同可行性。详见设计模块说明。
 
-新增独立Excel入口：在项目根目录执行 `powershell -NoProfile -ExecutionPolicy Bypass -File .\启动Excel演示.ps1`，再打开 `http://127.0.0.1:8765`。提供中文案例示例、空白模板、录入检查以及本次实际导入和查询结果。入口直接调用当前项目的 `source_data` 模块，无需下载历史代码目录；网页仅执行数据导入、校验和查询。详见 [Excel使用与展示步骤](excel_entry/使用说明.md)。
+新增独立Excel入口：在项目根目录执行 `powershell -NoProfile -ExecutionPolicy Bypass -File .\启动Excel演示.ps1`，再打开 `http://127.0.0.1:8765`。案例页调用当前项目的 `source_data` 模块，提供数据导入、来源查询与检查；`/rules` 提供通用规则验证；`/design` 使用独立链网Excel模板，生成候选链、选中网络和规范能力RDF。详见 [Excel使用与展示步骤](excel_entry/使用说明.md)。
