@@ -125,6 +125,64 @@ class DesignIdentityTests(unittest.TestCase):
             self.assertEqual(run(success, '--overwrite').returncode, 2)
             self.assertEqual(old, {p.name: p.read_bytes() for p in success.iterdir()})
 
+    def test_changed_input_cannot_be_exported_with_old_report(self):
+        report = design(self.doc)
+        for field in ('scope', 'task_source', 'artifact_source', 'context_source', 'rule_source'):
+            with self.subTest(field=field):
+                changed = deepcopy(self.doc)
+                if field == 'scope':
+                    changed['scope'] += ' changed'
+                else:
+                    key = {'task_source': 'tasks', 'artifact_source': 'artifacts',
+                           'context_source': 'contexts', 'rule_source': 'task_rules'}[field]
+                    changed[key][0]['source_refs'].append('changed-source')
+                for strict in (False, True):
+                    with self.assertRaises(DesignError):
+                        design_to_rdf(changed, report, require_canonical=strict)
+
+    def test_changed_evidence_and_network_report_are_rejected(self):
+        report = design(self.doc)
+        for field in ('task_evidence', 'artifact_evidence', 'network_score', 'unexpected_metadata'):
+            with self.subTest(field=field):
+                changed = deepcopy(report)
+                if field == 'task_evidence':
+                    changed['tasks'][0]['inference'][0]['source_refs'].append('changed-source')
+                elif field == 'artifact_evidence':
+                    changed['tasks'][0]['selection'][0]['rules'][0]['source_refs'].append('changed-source')
+                elif field == 'network_score':
+                    changed['network']['score'] = 999
+                else:
+                    changed['unexpected'] = 'not produced by the engine'
+                for strict in (False, True):
+                    with self.assertRaises(DesignError):
+                        design_to_rdf(self.doc, changed, require_canonical=strict)
+
+    def test_cli_metadata_is_not_serialized_as_reasoning_evidence(self):
+        report = design(self.doc)
+        annotated = deepcopy(report)
+        annotated['input_file_sha256'] = 'not-verifiable-from-the-parsed-document'
+        annotated['rdf_validation'] = {'ERROR': 999}
+        snapshot = deepcopy(annotated)
+        graph = design_to_rdf(self.doc, annotated, require_canonical=True)
+        payload = json.loads(str(next(graph.objects(None, DESIGN.reportPayload))))
+        self.assertEqual(payload, report)
+        self.assertNotIn('input_file_sha256', payload)
+        self.assertNotIn('rdf_validation', payload)
+        self.assertEqual(annotated, snapshot)
+
+    def test_content_digest_covers_facts_not_used_by_matching_rules(self):
+        report = design(self.doc)
+        changed = deepcopy(self.doc)
+        changed['artifacts'][0]['source_refs'].append('new-source')
+        current = design(changed)
+        self.assertEqual(report['network'], current['network'])
+        self.assertNotEqual(report['input_sha256'], current['input_sha256'])
+        graph = design_to_rdf(changed, current, require_canonical=True)
+        stored_input = json.loads(str(next(graph.objects(None, DESIGN.inputPayload))))
+        stored_report = json.loads(str(next(graph.objects(None, DESIGN.reportPayload))))
+        self.assertEqual(stored_input, changed)
+        self.assertEqual(stored_report, current)
+
 
 if __name__ == '__main__':
     unittest.main()

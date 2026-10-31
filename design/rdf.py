@@ -1,15 +1,12 @@
 """Export selected designs using existing core classes; trace metadata is separate."""
 from urllib.parse import quote
-from copy import deepcopy
-import hashlib
 import json
 
 from rdflib import Graph, Literal, Namespace, RDF, RDFS, URIRef
 from rdflib.namespace import XSD
 
-from .engine import DesignError
+from .engine import DesignError, design
 from .vocabulary import ROLES, KW, ARTIFACT_TYPES, NODE_TYPES, CAPABILITY_TYPES
-from .capability_identity import annotate_design_mapping
 
 DESIGN = Namespace("urn:arcane-design:")
 
@@ -17,14 +14,20 @@ DESIGN = Namespace("urn:arcane-design:")
 def design_to_rdf(doc, report, *, require_canonical=False):
     if report["status"] != "complete" or report["network"] is None:
         raise DesignError("只有完整通过约束检查的设计才导出业务实例")
-    if report != annotate_design_mapping(deepcopy(report)):
-        raise DesignError("链网报告的能力映射与当前本体不一致，请重新运行设计")
+    expected = design(doc)
+    # CLI-only file/check annotations are not part of the reasoning result and
+    # cannot be verified from a parsed JSON document. Never emit them as evidence.
+    core_report = {key: value for key, value in report.items()
+                   if key not in ('input_file_sha256', 'rdf_validation')}
+    if core_report != expected:
+        raise DesignError("链网报告与当前输入、推理证据或本体映射不一致，请重新运行设计")
+    report = expected
     if require_canonical and not report['canonical_export_ready']:
         raise DesignError("链网设计含未映射能力，不能按规范URI模式导出")
     graph = Graph()
     graph.bind("kw", KW)
     graph.bind("design", DESIGN)
-    fingerprint = hashlib.sha256(json.dumps(doc, ensure_ascii=False, sort_keys=True, allow_nan=False).encode("utf-8")).hexdigest()
+    fingerprint = report['input_sha256']
     def entity(kind, identifier):
         return URIRef(f"urn:arcane-design:run:{fingerprint}:{kind}:{quote(identifier, safe='')}")
     run = entity("run", "current")

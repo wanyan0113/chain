@@ -9,6 +9,7 @@ from collections import Counter
 from copy import deepcopy
 from itertools import combinations, product
 import json
+import hashlib
 import math
 from pathlib import Path
 
@@ -220,6 +221,8 @@ def design(doc):
     links = {(e["from"], e["to"]): e for e in doc["links"]}
     contexts = {(c["task"], c["artifact"]): c for c in doc.get("contexts", [])}
     report = {"format_version": "1.0", "scope": doc["scope"], "status": "blocked",
+              "input_sha256": hashlib.sha256(json.dumps(doc, ensure_ascii=False, sort_keys=True,
+                                                        allow_nan=False).encode('utf-8')).hexdigest(),
               "policies": dict(doc["policies"]), "weights": dict(doc["weights"]),
               "tasks": [], "network": None, "network_search": {"evaluated": 0, "feasible": 0, "rejections": []}}
     comparison_groups = []

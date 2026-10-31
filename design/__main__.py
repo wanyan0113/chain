@@ -130,7 +130,7 @@ def main(argv=None):
         else:
             doc = read_json(args.input)
             result = design(doc)
-            result["input_sha256"] = hashlib.sha256(args.input.read_bytes()).hexdigest()
+            result["input_file_sha256"] = hashlib.sha256(args.input.read_bytes()).hexdigest()
             outputs = {}
             if result["status"] == "complete" and (not args.require_canonical or result['canonical_export_ready']):
                 graph = design_to_rdf(doc, result, require_canonical=args.require_canonical)

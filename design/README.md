@@ -26,7 +26,9 @@ Python入口为 `from design import design; result = design(document)`。不修�
 
 完整设计和独立能力入口现在共用身份登记及本体检查。完整设计报告为每个任务提供 `ontology_bindings`、`ontology_mapping`，顶层提供汇总和 `canonical_export_ready`。该就绪标记同时要求设计 `complete` 和能力映射完整，不能仅因部分已推导能力都映射成功而宣称网络可导出。
 
-`run --require-canonical` 未就绪时保存JSON及Markdown，退出1，不输出RDF；已有旧RDF时要求新目录，退出2并保留旧结果。默认模式继续允许明确标记为未映射的局部能力个体。Python对应 `design_to_rdf(document, report, require_canonical=True)`；导出会重新核对当前本体映射，拒绝过期或被修改的映射报告。它不重新执行全部网络搜索，也不是任意外部报告的完整真实性验证器。
+`run --require-canonical` 未就绪时保存JSON及Markdown，退出1，不输出RDF；已有旧RDF时要求新目录，退出2并保留旧结果。默认模式继续允许明确标记为未映射的局部能力个体。Python对应 `design_to_rdf(document, report, require_canonical=True)`。默认和严格模式都会针对当前输入重新执行设计，比较完整推理结果、本体映射和输入摘要，拒绝旧报告或修改过的条件、来源证据、评分及网络结果。重新验证会再次执行有上限的网络搜索，导出有相应计算开销；这仍不能验证外部来源是否真实。
+
+完整设计的 `input_sha256` 现在表示排序键后规范JSON内容的摘要，涵盖全部输入，包括未参与条件匹配的来源字段。CLI另用 `input_file_sha256` 保存输入文件原始字节摘要。`input_file_sha256` 和导出后的 `rdf_validation` 属于文件／检查附注，Python导出不将它们作为推理证据验证或写入RDF；RDF的 `reportPayload` 仅保存与当前输入重新核对一致的核心报告。旧报告需重新运行设计生成。
 
 本次没有从文章疑点中补造规则或坐标，也没有把Excel通用规则页的任意结论自动当作可用于设计的能力。真实案例要走同一流程，仍需按 `schema.json` 提供确认的任务、法器属性、筛选规则、协同边、指标和资源约束。Excel到该设计契约的转换尚未接通。
 
