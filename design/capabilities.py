@@ -15,6 +15,14 @@ from .capability_identity import capability_binding
 META = Namespace("urn:arcane-capability-inference:")
 
 
+def mapping_summary(bindings):
+    """Identity coverage is independent of whether inference has completed."""
+    total = len(bindings)
+    mapped = sum(b['status'] == 'mapped' for b in bindings)
+    return {'status': 'not_run' if not total else 'complete' if mapped == total else 'incomplete',
+            'total': total, 'mapped': mapped, 'unmapped': total - mapped}
+
+
 def capability_schema():
     """Reuse the design contract; target identity and schedule are not needed yet."""
     base = json.loads(Path(__file__).with_name("schema.json").read_text(encoding="utf-8"))
@@ -55,20 +63,28 @@ def infer_capabilities(document):
         result["ontology_bindings"] = [capability_binding(role, label)
                                        for role, labels in result["required_capabilities"].items()
                                        for label in labels]
+        result['ontology_mapping'] = mapping_summary(result['ontology_bindings'])
+        result['canonical_export_ready'] = (result['status'] == 'complete' and
+                                             result['ontology_mapping']['status'] == 'complete')
+    mapping = mapping_summary([b for task in tasks for b in task['ontology_bindings']])
     return {
         "format_version": "1.0", "scope": document["scope"],
         "status": "complete" if all(t["status"] == "complete" for t in tasks) else "blocked",
         "required_roles": list(document["required_roles"]), "tasks": tasks,
+        "ontology_mapping": mapping,
+        "canonical_export_ready": all(t['canonical_export_ready'] for t in tasks),
         "input_sha256": hashlib.sha256(json.dumps(document, ensure_ascii=False, sort_keys=True,
                                                   allow_nan=False).encode("utf-8")).hexdigest(),
         "validation_scope": "仅给定任务事实和显式规则下的能力需求推理；未验证规则完备性、来源真实性或法器可行性",
     }
 
 
-def capability_rdf(document, report):
+def capability_rdf(document, report, *, require_canonical=False):
     """Export complete requirements to the existing ontology with rule evidence."""
     if report != infer_capabilities(document) or report["status"] != "complete":
         raise DesignError("只有与当前输入一致且完整的能力推理结果才能导出业务实例")
+    if require_canonical and not report['canonical_export_ready']:
+        raise DesignError('存在未映射能力，不能按规范URI模式导出；请先核对 ontology_bindings')
     graph = Graph()
     graph.bind("kw", KW)
     graph.bind("inference", META)
@@ -112,16 +128,21 @@ def capability_rdf(document, report):
 
 def capability_summary(report):
     roles = {"insight": "探知", "coordination": "协调", "manifestation": "具现"}
-    lines = ["# 能力推理报告", "", f"状态：{report['status']}", "", report["validation_scope"], "",
+    mapping = report['ontology_mapping']
+    lines = ["# 能力推理报告", "", f"推理状态：{report['status']}",
+             f"本体映射：{mapping['status']}；已映射 {mapping['mapped']}／{mapping['total']}；未映射 {mapping['unmapped']}",
+             f"规范URI导出就绪：{'是' if report['canonical_export_ready'] else '否'}", "", report["validation_scope"], "",
              "blocked 时已命中能力仅为部分结果，不能作为完整需求交给后续法器筛选。", ""]
     for task in report["tasks"]:
-        lines += [f"## {task['task']}", "", f"状态：{task['status']}", ""]
+        lines += [f"## {task['task']}", "", f"推理状态：{task['status']}",
+                  f"本体映射：{task['ontology_mapping']['status']}；规范URI导出就绪："
+                  + ('是' if task['canonical_export_ready'] else '否'), ""]
         for role, capabilities in task["required_capabilities"].items():
             lines.append(f"- {roles[role]}：{'、'.join(capabilities) or '未推出'}")
         for binding in task['ontology_bindings']:
             lines.append(f"- 本体对应 {binding['capability']}："
                          + (binding['canonical_uri'] if binding['status'] == 'mapped' else
-                            '未映射（仅使用本次局部个体）') + f"；{binding['reason']}")
+                            '未映射（允许局部导出时使用本次局部个体）') + f"；{binding['reason']}")
         for rule in task["inference"]:
             lines += ["", f"规则 {rule['rule']} → {rule['capability']}：{rule['status']}",
                       f"来源：{'；'.join(rule['source_refs']) or '未提供'}"]

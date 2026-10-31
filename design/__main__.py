@@ -63,6 +63,8 @@ def main(argv=None):
     capabilities.add_argument("input", type=Path)
     capabilities.add_argument("--output-dir", type=Path, required=True)
     capabilities.add_argument("--overwrite", action="store_true")
+    capabilities.add_argument("--require-canonical", action="store_true",
+                              help="仅在推理完整且能力全部对应规范URI时导出RDF，否则保存报告并返回1")
     audit = sub.add_parser("audit-case")
     audit.add_argument("--input", type=Path, default=ROOT / "data/article_source/case_records.json")
     audit.add_argument("--mapping", type=Path, default=ROOT / "source_mappings/case_fields.json")
@@ -78,14 +80,14 @@ def main(argv=None):
             doc = read_json(args.input)
             result = infer_capabilities(doc)
             outputs = {}
-            if result["status"] == "complete":
-                graph = capability_rdf(doc, result)
+            if result["status"] == "complete" and (not args.require_canonical or result['canonical_export_ready']):
+                graph = capability_rdf(doc, result, require_canonical=args.require_canonical)
                 review = analyze_graph(Graph().parse(ROOT / "arcane_ontology.ttl", format="turtle") + graph)
                 if review.counts()["ERROR"] or review.counts()["WARN"]:
                     raise DesignError(f"能力实例未通过主本体静态检查：{review.items}")
                 outputs["capabilities.ttl"] = graph.serialize(format="turtle")
             elif (args.output_dir / "capabilities.ttl").exists():
-                raise DesignError("输出目录含既有 capabilities.ttl；请为未完成报告使用新目录，避免混淆旧结果")
+                raise DesignError("输出目录含既有 capabilities.ttl；请为未满足本次导出条件的报告使用新目录，避免混淆旧结果")
             outputs["capability_report.json"] = json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n"
             outputs["capability_summary.md"] = capability_summary(result)
             write_outputs(args.output_dir, outputs, overwrite=args.overwrite, protected=[args.input])
@@ -127,6 +129,8 @@ def main(argv=None):
             outputs["design_summary.md"] = render_summary(result)
             write_outputs(args.output_dir, outputs, overwrite=args.overwrite, protected=[args.input])
         print(json.dumps(result, ensure_ascii=False, allow_nan=False))
+        if args.command == 'infer-capabilities' and args.require_canonical and not result['canonical_export_ready']:
+            return 1
         return 0 if result["status"] in {"complete", "reference_reproduced"} else 1
     except (ValueError, OSError) as exc:
         result = {"status": "search_limit" if isinstance(exc, SearchLimitError) else "invalid", "error": str(exc), "network": None}

@@ -221,6 +221,67 @@ class CapabilityTests(unittest.TestCase):
         with self.assertRaises(DesignError):
             capability_rdf(self.doc, report)
 
+    def test_mapping_coverage_is_separate_from_inference_status(self):
+        report = infer_capabilities(self.doc)
+        self.assertEqual(report['ontology_mapping'], {'status': 'complete', 'total': 2, 'mapped': 2, 'unmapped': 0})
+        self.assertTrue(report['canonical_export_ready'])
+        capability_rdf(self.doc, report, require_canonical=True)
+        self.doc['task_rules'][0]['capability'] = '自定义测试能力'
+        report = infer_capabilities(self.doc)
+        self.assertEqual(report['status'], 'complete')
+        self.assertEqual(report['ontology_mapping'], {'status': 'incomplete', 'total': 2, 'mapped': 1, 'unmapped': 1})
+        self.assertFalse(report['canonical_export_ready'])
+        self.assertIn('规范URI导出就绪：否', capability_summary(report))
+        with self.assertRaisesRegex(DesignError, '未映射能力'):
+            capability_rdf(self.doc, report, require_canonical=True)
+        # The previous explicit local-individual export remains supported.
+        self.assertTrue(len(capability_rdf(self.doc, report)))
+        # Identity coverage alone must not certify incomplete reasoning.
+        del self.doc['tasks'][0]['attributes']['target_type']
+        empty = infer_capabilities(self.doc)
+        self.assertEqual(empty['ontology_mapping']['status'], 'not_run')
+        self.assertFalse(empty['canonical_export_ready'])
+
+    def test_mapping_aggregation_does_not_hide_blocked_task(self):
+        other = deepcopy(self.doc['tasks'][0])
+        other['id'] = 'needs-more-information'
+        del other['attributes']['target_altitude']
+        self.doc['tasks'].append(other)
+        report = infer_capabilities(self.doc)
+        self.assertEqual(report['ontology_mapping'], {'status': 'complete', 'total': 3, 'mapped': 3, 'unmapped': 0})
+        self.assertEqual(report['status'], 'blocked')
+        self.assertFalse(report['canonical_export_ready'])
+        self.assertTrue(report['tasks'][0]['canonical_export_ready'])
+        self.assertFalse(report['tasks'][1]['canonical_export_ready'])
+
+    def test_cli_canonical_mode_preserves_reports_and_rejects_stale_rdf(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / 'input.json'
+            def run(target, *flags):
+                source.write_text(json.dumps(self.doc, ensure_ascii=False), encoding='utf-8')
+                return subprocess.run([sys.executable, '-B', '-m', 'design', 'infer-capabilities',
+                                       str(source), '--output-dir', str(target), '--require-canonical', *flags],
+                                      cwd=ROOT, capture_output=True, text=True, encoding='utf-8')
+            success = root / 'success'
+            first = run(success)
+            self.assertEqual(first.returncode, 0, first.stdout + first.stderr)
+            rdf_before = (success / 'capabilities.ttl').read_bytes()
+            report_before = (success / 'capability_report.json').read_bytes()
+            self.doc['task_rules'][0]['capability'] = '归档测试能力'
+            blocked = root / 'unmapped'
+            result = run(blocked)
+            self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+            report = json.loads((blocked / 'capability_report.json').read_text(encoding='utf-8'))
+            self.assertEqual(report, json.loads(result.stdout))
+            self.assertEqual(report['status'], 'complete')
+            self.assertFalse(report['canonical_export_ready'])
+            self.assertTrue((blocked / 'capability_summary.md').exists())
+            self.assertFalse((blocked / 'capabilities.ttl').exists())
+            self.assertEqual(run(success, '--overwrite').returncode, 2)
+            self.assertEqual((success / 'capabilities.ttl').read_bytes(), rdf_before)
+            self.assertEqual((success / 'capability_report.json').read_bytes(), report_before)
+
     def test_cli_success_blocked_and_stale_rdf_guard(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
