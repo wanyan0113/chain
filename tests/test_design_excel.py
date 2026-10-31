@@ -1,9 +1,13 @@
 """Real workbook conversion, changed constraints, blocked exports and local HTTP."""
 from copy import deepcopy
+from contextlib import redirect_stdout, redirect_stderr
+import io
 import json
 from pathlib import Path
 import tempfile
 import threading
+import subprocess
+import sys
 import unittest
 from unittest.mock import patch
 from http.server import HTTPServer
@@ -12,7 +16,7 @@ from urllib.error import HTTPError
 
 from design.excel import convert, read_design
 from design.engine import design
-from excel_entry.app import Handler, run_design
+from excel_entry.app import Handler, run_design, main
 from excel_entry.importer import EntryError, read_xlsx
 from tests.test_rule_review import edit_cell
 
@@ -34,6 +38,43 @@ class DesignExcelTests(unittest.TestCase):
         self.assertEqual([len(t['chains']) for t in report['tasks']], [2, 2])
         self.assertEqual(report['network']['score'], .5)
         self.assertEqual(report['network_search']['feasible'], 3)
+
+    def test_cli_exit_status_includes_export_failure(self):
+        for status, export, expected in [('complete','exported',0), ('blocked','not_ready',1),
+                ('no_feasible_design','not_ready',1), ('complete','not_ready',1),
+                ('complete','validation_failed',2)]:
+            with self.subTest(status=status,export=export):
+                result={'report': {'status': status}, 'rdf_export': {'status': export}}
+                output=io.StringIO()
+                with patch('excel_entry.app.run_design',return_value=result), redirect_stdout(output):
+                    self.assertEqual(main(['--design-file',str(EXAMPLE)]),expected)
+                self.assertEqual(json.loads(output.getvalue()),result)
+
+    def test_cli_invalid_inputs_and_search_limit_return_two(self):
+        from design.engine import SearchLimitError
+        for error in (EntryError('无效表格'), OSError('写入失败'), SearchLimitError('搜索上限')):
+            with self.subTest(error=error):
+                output=io.StringIO()
+                with patch('excel_entry.app.run_design',side_effect=error), redirect_stdout(output), redirect_stderr(io.StringIO()):
+                    self.assertEqual(main(['--design-file',str(EXAMPLE)]),2)
+                self.assertEqual(json.loads(output.getvalue())['status'],
+                                 'search_limit' if isinstance(error,SearchLimitError) else 'invalid')
+
+    def test_module_process_exit_codes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            success=EXAMPLE
+            blocked=Path(directory)/'blocked.xlsx'
+            data=self.data
+            for cell in ('D2','E2','F2','G2'):
+                data=edit_cell(data,3,cell,None)
+            blocked.write_bytes(data)
+            for path, expected in ((success,0),(blocked,1),(Path(directory)/'missing.xlsx',2)):
+                with self.subTest(expected=expected):
+                    process=subprocess.run([sys.executable,'-B','-m','excel_entry.app','--design-file',str(path)],
+                        cwd=ROOT,capture_output=True,encoding='utf-8',
+                        env=__import__('os').environ | {'PYTHONIOENCODING':'utf-8'},timeout=30)
+                    self.assertEqual(process.returncode,expected,process.stderr)
+                    self.assertIsInstance(json.loads(process.stdout),dict)
 
     def test_resource_change_reselects_network(self):
         data = edit_cell(edit_cell(self.data, 3, 'H4', 2), 3, 'J4', 2)

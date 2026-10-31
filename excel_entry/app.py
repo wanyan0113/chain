@@ -184,7 +184,7 @@ class Handler(BaseHTTPRequestHandler):
             self.send(500, json.dumps({'error': '运行失败，具体原因见终端。'}, ensure_ascii=False).encode(), 'application/json; charset=utf-8')
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description='Excel案例录入与查询展示')
     inputs = parser.add_mutually_exclusive_group()
     inputs.add_argument('--file', type=Path, help='直接导入案例，无需打开网页')
@@ -192,12 +192,22 @@ def main():
     parser.add_argument('--port', type=int, default=8765)
     parser.add_argument('--bindings', type=Path, help='已核实且附来源的实例关系JSON配置')
     parser.add_argument('--reasoner', action='store_true', help='导入时执行HermiT检查')
-    args = parser.parse_args()
-    bindings = read_json(args.bindings) if args.bindings else None
+    args = parser.parse_args(argv)
     if args.design_file:
-        result = run_design(args.design_file.read_bytes(), args.design_file.name)
-        print(json.dumps(result, ensure_ascii=False, indent=2))
-        return
+        try:
+            result = run_design(args.design_file.read_bytes(), args.design_file.name)
+            print(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False))
+            if result['rdf_export']['status'] == 'validation_failed':
+                return 2
+            return 0 if (result['report']['status'] == 'complete'
+                         and result['rdf_export']['status'] == 'exported') else 1
+        except (ValueError, OSError) as exc:
+            from design.engine import SearchLimitError
+            print(json.dumps({'status': 'search_limit' if isinstance(exc, SearchLimitError) else 'invalid',
+                              'error': str(exc), 'network': None}, ensure_ascii=False))
+            print(str(exc), file=sys.stderr)
+            return 2
+    bindings = read_json(args.bindings) if args.bindings else None
     if args.file:
         result = run_import(args.file.read_bytes(), args.file.name, bindings=bindings, reasoner=args.reasoner)
         print(json.dumps({k: v for k, v in result.items() if k != 'records'}, ensure_ascii=False, indent=2))
@@ -215,4 +225,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())
