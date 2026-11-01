@@ -40,6 +40,10 @@ Python入口为 `from design import design; result = design(document)`。不修�
 
 网页显示候选链、评分、选中网络、资源冲突及完整规则证据。输出保存在每次独立的 `generated/excel-designs/` 子目录，包含原Excel、设计输入JSON、核心报告、文字报告和运行记录。仅设计完整且规范能力映射齐全时，才尝试严格RDF导出；静态本体检查含错误或警告时保留报告并停止RDF写入。网页分别显示设计与RDF导出状态。此入口不调用HermiT；`--reasoner` 仍仅适用于旧案例导入。
 
+页面的 `design/network_view.mjs` 将报告中的选中链或指定候选链投影为SVG，不重新执行筛选或推导协同关系。节点身份使用“类型+编号”，共享法器合并显示，法器边保留方向及原始协同证据。选中网络、单条已选链和候选链预览明确区分；没有网络时显示空状态。支持节点键盘操作、规则来源查看和独立SVG下载。图形布局仅表达结构，不表示物理坐标或调度时间；网络关系来自 `network.relations`。
+
+安装Node.js时，Python测试套件也执行 `tests/test_network_view.mjs`，使用真实引擎报告核对共享节点、预览状态、类型身份、方向和证据。没有Node.js时该项会明确跳过，不能视为图形模型已验证。
+
 模板可由 `design/build_excel_templates.mjs` 使用技能运行时中的 `@oai/artifact-tool` 重建：将脚本复制到项目 `tmp` 子目录，为该目录创建指向运行时 `node_modules` 的junction，在项目根目录运行脚本。模板列契约及指南取自 `design.excel`，示例数据取自规范能力链网技术示例。渲染预览写入 `tmp/design-templates/previews`。
 
 ## 对照截图的实现

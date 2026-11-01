@@ -146,6 +146,7 @@ class Handler(BaseHTTPRequestHandler):
         path = urlsplit(self.path).path
         files = {'/': (ROOT / 'excel_entry/index.html', 'text/html; charset=utf-8'),
                  '/design': (ROOT / 'design/excel.html', 'text/html; charset=utf-8'),
+                 '/design-network.mjs': (ROOT / 'design/network_view.mjs', 'text/javascript; charset=utf-8'),
                  '/design-example.xlsx': (TEMPLATES / '链网设计示例.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
                  '/design-blank.xlsx': (TEMPLATES / '链网设计空白.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
                  '/rules': (ROOT / 'rule_review/index.html', 'text/html; charset=utf-8'),

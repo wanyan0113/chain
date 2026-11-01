@@ -4,6 +4,9 @@
 <style>
 body{max-width:1120px;margin:32px auto;padding:0 20px;font:16px/1.65 system-ui;color:#243247;background:#f6f8fb}h1{font-size:28px}h2{font-size:21px}a{color:#245f9e}section{background:white;padding:20px;margin:18px 0;border:1px solid #dce3ec;border-radius:10px}button{background:#284466;color:white;border:0;border-radius:5px;padding:10px 18px;cursor:pointer}button:disabled{opacity:.5}input{max-width:100%;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:9px;text-align:left;border-bottom:1px solid #dce3ec}th{background:#edf2f8}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px}details{margin:14px 0}summary{cursor:pointer;color:#245f9e}.scroll{overflow:auto}.error{color:#ab2525}[hidden]{display:none!important}.path{padding:12px;background:#edf2f8;overflow-wrap:anywhere}
 </style>
+<style>
+.graph-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.graph-controls select{padding:8px;max-width:100%;font:inherit}.graph-box{overflow:auto;border:1px solid #dce3ec;border-radius:8px;margin-top:14px;background:white}.graph-box svg{display:block;max-width:none}.graph-box g:focus rect{stroke:#111827;stroke-width:3}.graph-legend{display:flex;flex-wrap:wrap;gap:8px 18px;padding:0;list-style:none}.graph-swatch{display:inline-block;width:24px;height:4px;margin-right:7px;vertical-align:middle}.graph-note{font-size:14px;color:#526379}.node-details{border-left:4px solid #284466;padding:12px 18px;background:#f6f8fb}.node-details h3{margin-top:0}
+</style>
 <nav><a href="/">案例录入</a> · <a href="/rules">通用规则验证</a></nav>
 <h1>Excel生成法术链与奥术网</h1>
 <p>填写任务、能力规则、法器、指标与协同关系，生成候选链，并按共享资源约束选择网络。</p>
@@ -12,17 +15,37 @@ body{max-width:1120px;margin:32px auto;padding:0 20px;font:16px/1.65 system-ui;c
 <p>示例使用虚构工程配置，用于演示流程。请阅读模板中的“填写指南”，明确填写规则来源、阈值、单位及资源配置。</p>
 <h2>2. 上传并生成</h2><input id="file" type="file" accept=".xlsx"><br><button id="run">生成链与网</button>
 <p id="status" role="status" aria-live="polite"></p></section>
-<div id="results" hidden><section><h2>3. 设计结果</h2><p id="overview"></p><p id="scope"></p><p id="export"></p><p id="network"></p><div id="tasks"></div></section>
+<div id="results" hidden><section><h2>3. 设计结果</h2><p id="overview"></p><p id="scope"></p><p id="export"></p><p id="network"></p></section>
+<section><h2>链网结构</h2><div class="graph-controls"><label for="graph-view">查看范围</label><select id="graph-view"></select><button id="save-graph" disabled>下载当前图 SVG</button></div>
+<p id="graph-mode" role="status"></p><p class="graph-note">不同颜色表示不同链，绿色节点表示多条链共用的对象。任务到目标的虚线表示归属；目标到探知及具现回目标表示链内流程；法器之间表示报告已检查的协同边。此图不表示物理坐标或执行时间，可左右滚动查看。</p>
+<ul id="graph-legend" class="graph-legend"></ul><div id="graph" class="graph-box"></div><div id="graph-relations"></div><div id="node-details" class="node-details" hidden aria-live="polite"></div></section>
+<section><h2>任务与候选链</h2><div id="tasks"></div></section>
 <section><h2>资源冲突与计算记录</h2><pre id="search"></pre><details><summary>完整推理证据与来源</summary><pre id="evidence"></pre></details><details><summary>文字报告</summary><pre id="summary"></pre></details><h2>文件保存位置</h2><p class="path" id="output"></p></section></div>
-<script>
+<script type="module">
+import {buildGraph,renderGraph,graphSvg} from '/design-network.mjs';
 const $=id=>document.getElementById(id);
+let currentReport=null,currentSvg=null;
+function paragraph(parent,text){const p=document.createElement('p');p.textContent=text;parent.append(p)}
+function inspectNode(node,chains){const panel=$('node-details');panel.replaceChildren();panel.hidden=false;const h=document.createElement('h3');h.textContent=node.label;panel.append(h);
+for(const c of chains){const details=document.createElement('details');details.open=chains.length===1;const title=document.createElement('summary');title.textContent=`${c.id} · 任务 ${c.task}`;details.append(title);
+paragraph(details,`目标：${c.target}；${c.selected?'已被网络选中':'候选链预览'}；评分：${c.score??'未评分'}。`);
+const evidence=node.kind==='artifact'?{requirements:c.evidence.required_capabilities,artifact:c.evidence.artifacts.find(a=>a.artifact===node.label),links:c.evidence.links.filter(e=>e.from===node.label||e.to===node.label)}:c.evidence;
+const pre=document.createElement('pre');pre.textContent=JSON.stringify(evidence,null,2);details.append(pre);panel.append(details)}}
+function drawGraph(){const id=$('graph-view').value;const model=buildGraph(currentReport,id==='network'?null:id.slice(6));
+$('node-details').hidden=true;$('node-details').replaceChildren();$('graph-legend').replaceChildren();$('graph-relations').replaceChildren();
+$('graph-mode').textContent=id==='network'?(currentReport.network?'当前显示选中网络。':'尚未生成选中网络。'):(model.chains[0].selected?'当前显示选中网络中的单条链。':'当前显示候选链预览，尚未被网络选中。');
+for(const c of model.chains){const li=document.createElement('li'),swatch=document.createElement('span');swatch.className='graph-swatch';swatch.style.backgroundColor=c.color;li.append(swatch,document.createTextNode(`${c.id} · ${c.task}`));$('graph-legend').append(li)}
+currentSvg=renderGraph($('graph'),model,inspectNode);$('save-graph').disabled=!currentSvg;
+for(const rel of model.relations){const text=rel.kind==='parallel'?`并行：${rel.chains.join('、')}`:rel.kind==='resource_sharing'?`共享法器：${rel.artifacts.join('、')}（${rel.chains.join('、')}）`:rel.kind==='serial'?`串行依赖：${rel.from} → ${rel.to}`:rel.kind==='branch'?`分支依赖：${rel.from} → ${rel.to.join('、')}`:JSON.stringify(rel);paragraph($('graph-relations'),text)}}
+$('graph-view').onchange=drawGraph;
+$('save-graph').onclick=()=>{if(!currentSvg)return;const blob=new Blob([graphSvg(currentSvg)],{type:'image/svg+xml;charset=utf-8'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=$('graph-view').value==='network'?'selected-network.svg':'chain-preview.svg';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
 function table(parent,headers,rows){const wrap=document.createElement('div');wrap.className='scroll';const t=document.createElement('table');const head=document.createElement('tr');for(const h of headers){const th=document.createElement('th');th.textContent=h;head.append(th)}const thead=document.createElement('thead');thead.append(head);t.append(thead);const body=document.createElement('tbody');for(const row of rows){const tr=document.createElement('tr');for(const v of row){const td=document.createElement('td');td.textContent=v;tr.append(td)}body.append(tr)}t.append(body);wrap.append(t);parent.append(wrap)}
 const statuses={complete:'设计完成',blocked:'等待补充信息',no_feasible_design:'当前约束下无可行方案'};
-function show(data){const r=data.report;$('overview').textContent=`${statuses[r.status]??r.status}。能力映射 ${r.ontology_mapping.mapped}/${r.ontology_mapping.total}。`;$('scope').textContent=r.scope;$('export').textContent=`RDF：${data.rdf_export.reason}`;
+function show(data){const r=data.report;currentReport=r;$('graph-view').replaceChildren();const option=document.createElement('option');option.value='network';option.textContent='选中网络';$('graph-view').append(option);for(const t of r.tasks)for(const c of t.chains){const o=document.createElement('option');o.value='chain:'+c.id;o.textContent=`${c.id} · ${t.task} · ${r.network?.chains.includes(c.id)?'已选中':'候选'}`;$('graph-view').append(o)}drawGraph();$('overview').textContent=`${statuses[r.status]??r.status}。能力映射 ${r.ontology_mapping.mapped}/${r.ontology_mapping.total}。`;$('scope').textContent=r.scope;$('export').textContent=`RDF：${data.rdf_export.reason}`;
 $('network').textContent=r.network?`选中网络：${r.network.chains.join('、')}；平均评分 ${r.network.score}；计划跨度 ${r.network.makespan_s} 秒；使用成本 ${r.network.cost_per_execution} ${r.network.cost_unit}。`:'尚未选出完整网络。';
 for(const task of r.tasks){const h=document.createElement('h2');h.textContent=`任务 ${task.task}`;$('tasks').append(h);const p=document.createElement('p');p.textContent=`目标：${task.target}；候选链 ${task.chains.length} 条`;$('tasks').append(p);
 table($('tasks'),['候选链','闭合路径','时间秒','精度乘积','成本','评分','选中'],task.chains.map(c=>[c.id,c.closed_path.join(' → '),c.metrics?.time??'未知',c.metrics?.accuracy??'未知',c.metrics?.cost??'未知',c.score??'未评分',r.network?.chains.includes(c.id)?'是':'否']));
 if(task.blockers.length){const b=document.createElement('pre');b.textContent='阻塞原因：\n'+JSON.stringify(task.blockers,null,2);$('tasks').append(b)}}
 $('search').textContent=JSON.stringify(r.network_search,null,2);$('evidence').textContent=JSON.stringify(r,null,2);$('summary').textContent=data.summary;$('output').textContent=data.output;$('results').hidden=false;}
-$('run').onclick=async()=>{$('results').hidden=true;$('tasks').replaceChildren();$('status').className='';const file=$('file').files[0];if(!file||!file.name.toLowerCase().endsWith('.xlsx')){$('status').textContent='请选择.xlsx文件。';return}$('run').disabled=true;$('status').textContent='正在检查输入并计算候选链和资源约束……';try{const response=await fetch('/design-run?'+encodeURIComponent(file.name),{method:'POST',headers:{'Content-Type':'application/octet-stream'},body:file});const data=await response.json();if(!response.ok)throw Error(data.error);show(data);$('status').textContent='计算结束，请查看结果及待补充信息。'}catch(e){$('status').className='error';$('status').textContent=e.message}finally{$('run').disabled=false}};
+$('run').onclick=async()=>{$('results').hidden=true;$('tasks').replaceChildren();currentReport=null;currentSvg=null;$('graph').replaceChildren();$('save-graph').disabled=true;$('status').className='';const file=$('file').files[0];if(!file||!file.name.toLowerCase().endsWith('.xlsx')){$('status').textContent='请选择.xlsx文件。';return}$('run').disabled=true;$('status').textContent='正在检查输入并计算候选链和资源约束……';try{const response=await fetch('/design-run?'+encodeURIComponent(file.name),{method:'POST',headers:{'Content-Type':'application/octet-stream'},body:file});const data=await response.json();if(!response.ok)throw Error(data.error);show(data);$('status').textContent='计算结束，请查看结果及待补充信息。'}catch(e){$('status').className='error';$('status').textContent=e.message}finally{$('run').disabled=false}};
 </script></html>

@@ -8,6 +8,7 @@ import tempfile
 import threading
 import subprocess
 import sys
+import shutil
 import unittest
 from unittest.mock import patch
 from http.server import HTTPServer
@@ -75,6 +76,16 @@ class DesignExcelTests(unittest.TestCase):
                         env=__import__('os').environ | {'PYTHONIOENCODING':'utf-8'},timeout=30)
                     self.assertEqual(process.returncode,expected,process.stderr)
                     self.assertIsInstance(json.loads(process.stdout),dict)
+
+    @unittest.skipUnless(shutil.which('node'),'Node.js is required for the browser graph model tests')
+    def test_browser_graph_model_on_real_engine_report(self):
+        with tempfile.TemporaryDirectory() as directory:
+            report=Path(directory)/'report.json'
+            report.write_text(json.dumps(design(read_design(self.data))),encoding='utf-8')
+            process=subprocess.run(['node','--test','tests/test_network_view.mjs'],cwd=ROOT,
+                capture_output=True,encoding='utf-8',timeout=30,
+                env=__import__('os').environ | {'NETWORK_REPORT':str(report)})
+            self.assertEqual(process.returncode,0,process.stdout+process.stderr)
 
     def test_resource_change_reselects_network(self):
         data = edit_cell(edit_cell(self.data, 3, 'H4', 2), 3, 'J4', 2)
@@ -168,7 +179,7 @@ class DesignExcelTests(unittest.TestCase):
             thread.start()
             base=f'http://127.0.0.1:{server.server_port}'
             try:
-                for route in ('/design','/design-example.xlsx','/design-blank.xlsx'):
+                for route in ('/design','/design-network.mjs','/design-example.xlsx','/design-blank.xlsx'):
                     with urlopen(base+route) as response:
                         self.assertEqual(response.status,200)
                 with patch('excel_entry.app.run_design',side_effect=run):
