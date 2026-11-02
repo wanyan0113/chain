@@ -10,7 +10,7 @@ import uuid
 from datetime import datetime
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from pathlib import Path
-from urllib.parse import unquote, urlsplit
+from urllib.parse import parse_qs, unquote, urlsplit
 
 from adapters.case_instances import instance_outputs, map_case_instances
 from source_data.common import read_json, write_outputs
@@ -144,10 +144,16 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = urlsplit(self.path).path
+        embedded = parse_qs(urlsplit(self.path).query).get('embedded') == ['1']
+        def page(content):
+            if embedded:
+                content = content.replace('</style>', '</style><style>nav,.workspace-nav{display:none!important}</style>', 1)
+            return self.send(200, content.encode('utf-8'), 'text/html; charset=utf-8')
         if path == '/article-case':
             from design.reference import reproduce_reference, reference_view_html
-            return self.send(200, reference_view_html(reproduce_reference()).encode('utf-8'), 'text/html; charset=utf-8')
-        files = {'/': (ROOT / 'excel_entry/index.html', 'text/html; charset=utf-8'),
+            return page(reference_view_html(reproduce_reference()))
+        files = {'/': (ROOT / 'excel_entry/workspace.html', 'text/html; charset=utf-8'),
+                 '/sources': (ROOT / 'excel_entry/index.html', 'text/html; charset=utf-8'),
                  '/design': (ROOT / 'design/excel.html', 'text/html; charset=utf-8'),
                  '/design-network.mjs': (ROOT / 'design/network_view.mjs', 'text/javascript; charset=utf-8'),
                  '/design-example.xlsx': (TEMPLATES / '链网设计示例.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
@@ -160,6 +166,8 @@ class Handler(BaseHTTPRequestHandler):
         if path not in files:
             return self.send(404, b'Not found', 'text/plain')
         file, mime = files[path]
+        if mime.startswith('text/html'):
+            return page(file.read_text(encoding='utf-8'))
         self.send(200, file.read_bytes(), mime)
 
     def do_POST(self):

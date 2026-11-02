@@ -4,6 +4,7 @@
 <style>
 body{max-width:1120px;margin:30px auto;padding:0 20px;font:16px/1.7 system-ui;color:#263445;background:#f5f7fa}h1{font-size:27px}h2{font-size:21px}section{background:white;border:1px solid #e2e7ee;border-radius:8px;padding:20px;margin:18px 0}button{padding:9px 15px;border:1px solid #c7d2df;border-radius:5px;background:white;color:#284466;cursor:pointer}table{width:100%;border-collapse:collapse;font-size:14px}td,th{text-align:left;padding:9px;border-bottom:1px solid #e2e7ee}th{background:#f2f5f8}.scroll{overflow:auto}.graph svg{display:block;width:100%;min-width:900px;height:auto}.graph g:focus circle{stroke:#152c42;stroke-width:3}.note{color:#6a4b21;background:#fff7e8;padding:12px;border-left:3px solid #dba646}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px}summary{cursor:pointer;color:#284466}
 </style>
+<nav id="workspace-nav" hidden><a href="/#article">返回综合工作台</a> · <a href="/sources">Excel 来源与参数查询</a> · <a href="/design">链网设计</a></nav>
 <h1>文章案例试跑</h1>
 <p class="note">本页复算表13的四组评分，并展示正文明确给出的链。尚未独立验收法器筛选、协同边、资源容量或完整六任务网络；未执行仿真。</p>
 <section><h2>表13评分对照</h2><p id="winner"></p><div class="scroll"><table><thead><tr><th>表13行号</th><th>时间（秒）</th><th>精度乘积</th><th>代理成本</th><th>复算评分</th><th>文章评分</th><th>舍入一致</th></tr></thead><tbody id="scores"></tbody></table></div>
@@ -16,6 +17,7 @@ body{max-width:1120px;margin:30px auto;padding:0 20px;font:16px/1.7 system-ui;co
 /* SHARED_GRAPH_MODULE */
 const result=JSON.parse(document.getElementById('reference-data').textContent);
 const $=id=>document.getElementById(id);
+if(location.protocol==='http:'||location.protocol==='https:')$('workspace-nav').hidden=false;
 function download(text,type,name){const url=URL.createObjectURL(new Blob([text],{type}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 const rows=[...result.evaluation].sort((a,b)=>Number(a.id)-Number(b.id));
 for(const row of rows){const tr=document.createElement('tr');for(const value of [row.id,row.metrics.time.toFixed(3),(row.metrics.accuracy*100).toFixed(2)+'%',row.metrics.cost,row.score.toFixed(6),row.reported_score.toFixed(3),row.matches_reported_rounding?'是':'否']){const td=document.createElement('td');td.textContent=value;tr.append(td)}$('scores').append(tr)}
