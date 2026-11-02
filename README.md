@@ -1,5 +1,7 @@
 # 奥术网模型与数据工具
 
+网页首页现为综合工作台。新版案例Excel保留原始来源表，并增加规则、协同、指标及资源配置；通过“来源取值”引用当前原参数，同一文件可用于来源查询和链网设计。操作见 [Excel说明](excel_entry/使用说明.md)，文章六步的实现与独立验证范围见 [文章实现进度](design/文章实现进度.md)。文章来源示例的设计表仍待补充，另提供全部虚构的综合设计演示。
+
 完整链网设计现支持规范能力URI及严格导出：`python -m design run design/examples/canonical_network_demo.json --output-dir generated/canonical_network_demo --require-canonical`。虚构示例生成候选链、检查共享资源冲突并选中两条链组成网络；报告及适用范围见 [设计模块](design/README.md)。
 
 新增通用 [Excel任务规则验证](rule_review/使用说明.md)：启动网页后打开 `/rules`，导入规则台账及任务事实，查看需求结论、逐条件解释、来源、缺失信息和预期结果对照。自带普通文件审核流程技术示例；文章规则仍按 [资料台账](rule_review/规则台账.md) 记录核对范围，不把技术配置当作原文数据。

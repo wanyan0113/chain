@@ -118,6 +118,8 @@ def text(value, where, optional=False):
 
 def convert(sheets):
     """Convert all visible sheets, never borrow hidden data from the old case."""
+    from .unified import source_sheets
+    sheets = source_sheets(sheets)
     allowed = {x[0] for x in TABLES.values()} | {'案例说明', '事实', '疑点', '填写指南'}
     extra = set(sheets) - allowed
     if extra:

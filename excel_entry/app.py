@@ -25,15 +25,17 @@ TEMPLATES = ROOT / 'excel_entry/templates'
 def run_design(data, filename, *, output_root=None):
     """Full design from explicit Excel inputs; strict canonical RDF export."""
     from design.engine import design
-    from design.excel import read_design
+    from design.excel import load_design
     from design.rdf import design_to_rdf
     from design.__main__ import render_summary
     from check_ontology import analyze_graph
     from rdflib import Graph
-    document = read_design(data)
+    document, bridge = load_design(data)
     result = design(document)
     out = (output_root or ROOT / 'generated/excel-designs') / (datetime.now().strftime('%Y%m%d-%H%M%S') + '-' + uuid.uuid4().hex[:8])
     outputs = {'input.xlsx': data, 'design_input.json': json.dumps(document, ensure_ascii=False, indent=2) + '\n'}
+    if bridge:
+        outputs['source_bindings.json'] = json.dumps(bridge, ensure_ascii=False, indent=2) + '\n'
     export = {'status': 'not_ready', 'reason': '设计尚未完整或存在未映射能力', 'validation': None}
     if result['status'] == 'complete' and result['canonical_export_ready']:
         graph = design_to_rdf(document, result, require_canonical=True)
@@ -46,6 +48,8 @@ def run_design(data, filename, *, output_root=None):
             export.update(status='exported', reason='规范能力RDF已通过静态检查；未执行OWL推理器')
     response = {'filename': filename, 'output': str(out), 'report': result, 'rdf_export': export,
                 'input_file_sha256': hashlib.sha256(data).hexdigest(), 'summary': render_summary(result)}
+    if bridge:
+        response['source_bridge'] = {key: value for key, value in bridge.items() if key != 'source_case'}
     outputs.update({'design_report.json': json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + '\n',
                     'design_summary.md': response['summary'],
                     'run_result.json': json.dumps(response, ensure_ascii=False, indent=2, allow_nan=False) + '\n'})
@@ -87,7 +91,8 @@ def run_rule_review(data, filename, *, output_root=None):
 
 
 def run_import(data, filename, *, output_root=None, bindings=None, reasoner=False):
-    document = convert(read_xlsx(data))
+    sheets = read_xlsx(data)
+    document = convert(sheets)
     output_root = output_root or ROOT / 'generated/excel-runs'
     out = output_root / (datetime.now().strftime('%Y%m%d-%H%M%S') + '-' + uuid.uuid4().hex[:8])
     out.mkdir(parents=True)
@@ -126,6 +131,8 @@ def run_import(data, filename, *, output_root=None, bindings=None, reasoner=Fals
               'backend_module': 'source_data.cli', 'backend_path': str(ROOT / 'source_data'),
               'notes': ['结构与引用检查通过不代表所有业务问题已解决。',
                         '疑点为表格中的人工登记内容；修改数值后请复核疑点说明。']}
+    if '设计任务' in sheets:
+        result['notes'].append('已识别综合设计工作表。本页只查询来源；请在链网设计页上传同一文件，设计配置空白时不能生成链网。')
     (out / 'run_result.json').write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding='utf-8')
     return result
 
@@ -158,6 +165,7 @@ class Handler(BaseHTTPRequestHandler):
                  '/design-network.mjs': (ROOT / 'design/network_view.mjs', 'text/javascript; charset=utf-8'),
                  '/design-example.xlsx': (TEMPLATES / '链网设计示例.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
                  '/design-blank.xlsx': (TEMPLATES / '链网设计空白.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
+                 '/combined-example.xlsx': (TEMPLATES / '案例设计演示.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
                  '/rules': (ROOT / 'rule_review/index.html', 'text/html; charset=utf-8'),
                  '/rules-example.xlsx': (ROOT / 'rule_review/templates/规则验证示例.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
                  '/rules-blank.xlsx': (ROOT / 'rule_review/templates/规则验证空白.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),

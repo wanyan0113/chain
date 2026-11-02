@@ -170,4 +170,13 @@ def convert(sheets):
 
 
 def read_design(data):
-    return convert(read_xlsx(data))
+    return load_design(data)[0]
+
+
+def load_design(data):
+    """Return explicit engine input plus optional source binding audit."""
+    sheets = read_xlsx(data)
+    if '对象清单' in sheets or '案例说明' in sheets:
+        from excel_entry.unified import convert_design
+        return convert_design(sheets)
+    return convert(sheets), None

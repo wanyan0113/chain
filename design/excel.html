@@ -9,9 +9,10 @@ body{max-width:1120px;margin:32px auto;padding:0 20px;font:16px/1.65 system-ui;c
 </style>
 <nav><a href="/#design">返回综合工作台</a> · <a href="/sources">Excel 来源与参数查询</a> · <a href="/rules">通用规则验证</a></nav>
 <h1>Excel生成法术链与奥术网</h1>
-<p>填写任务、能力规则、法器、指标与协同关系，生成候选链，并按共享资源约束选择网络。</p>
+<p>填写任务、能力规则、法器、指标与协同关系，生成候选链，并按共享资源约束选择网络。支持新版综合案例 Excel，也兼容原专用设计模板。</p>
 <section><h2>1. 下载并填写模板</h2>
-<p><a href="/design-example.xlsx" download="链网设计示例.xlsx">下载双任务示例</a>　<a href="/design-blank.xlsx" download="链网设计空白.xlsx">下载空白模板</a></p>
+<p><a href="/combined-example.xlsx" download="案例设计演示.xlsx">下载综合设计演示（参数查询与链网生成）</a>　<a href="/blank.xlsx" download="空白模板.xlsx">下载综合空白模板</a></p>
+<details><summary>原专用设计模板</summary><a href="/design-example.xlsx" download="链网设计示例.xlsx">下载双任务示例</a>　<a href="/design-blank.xlsx" download="链网设计空白.xlsx">下载专用空白模板</a></details>
 <p>示例使用虚构工程配置，用于演示流程。请阅读模板中的“填写指南”，明确填写规则来源、阈值、单位及资源配置。</p>
 <p><a href="/article-case" target="_blank" rel="noopener">试跑文章第三部分案例：表13复算与原文链图</a></p>
 <h2>2. 上传并生成</h2><input id="file" type="file" accept=".xlsx"><br><button id="run">生成链与网</button>
@@ -21,6 +22,7 @@ body{max-width:1120px;margin:32px auto;padding:0 20px;font:16px/1.65 system-ui;c
 <p id="graph-mode" role="status"></p><p class="graph-note">从左向右读：目标 → 探知 → 协调 → 具现 → 原目标。颜色区分角色；两端同名目标表示同一对象。候选链逐行显示，网络合并共同使用的法器。任务、评分和选中情况见图下表格。</p>
 <div id="graph" class="graph-box"></div><h3>图与任务的对应</h3><div id="graph-legend"></div><details><summary>任务关系与资源共享</summary><div id="graph-relations"></div></details><div id="node-details" class="node-details" hidden aria-live="polite"></div></section>
 <section><h2>任务与候选链</h2><div id="tasks"></div></section>
+<section><h2>原参数取值与来源</h2><p id="source-scope"></p><div class="scroll" id="source-bindings"></div></section>
 <section><h2>资源冲突与计算记录</h2><pre id="search"></pre><details><summary>完整推理证据与来源</summary><pre id="evidence"></pre></details><details><summary>文字报告</summary><pre id="summary"></pre></details><h2>文件保存位置</h2><p class="path" id="output"></p></section></div>
 <script type="module">
 import {buildGraph,renderGraph,graphSvg,rowLabel} from '/design-network.mjs';
@@ -43,6 +45,8 @@ $('save-graph').onclick=()=>{if(!currentSvg)return;const blob=new Blob([graphSvg
 function table(parent,headers,rows){const wrap=document.createElement('div');wrap.className='scroll';const t=document.createElement('table');const head=document.createElement('tr');for(const h of headers){const th=document.createElement('th');th.textContent=h;head.append(th)}const thead=document.createElement('thead');thead.append(head);t.append(thead);const body=document.createElement('tbody');for(const row of rows){const tr=document.createElement('tr');for(const v of row){const td=document.createElement('td');td.textContent=v;tr.append(td)}body.append(tr)}t.append(body);wrap.append(t);parent.append(wrap)}
 const statuses={complete:'设计完成',blocked:'等待补充信息',no_feasible_design:'当前约束下无可行方案'};
 function show(data){const r=data.report;currentReport=r;$('graph-view').replaceChildren();for(const [value,text] of [['network','选中网络'],['candidates','全部候选链（逐行）']]){const o=document.createElement('option');o.value=value;o.textContent=text;$('graph-view').append(o)}for(const t of r.tasks)for(const c of t.chains){const o=document.createElement('option');o.value='chain:'+c.id;o.textContent=`${c.id} · ${t.task} · ${r.network?.chains.includes(c.id)?'已选中':'候选'}`;$('graph-view').append(o)}drawGraph();$('overview').textContent=`${statuses[r.status]??r.status}。能力映射 ${r.ontology_mapping.mapped}/${r.ontology_mapping.total}。`;$('scope').textContent=r.scope;$('export').textContent=`RDF：${data.rdf_export.reason}`;
+$('source-bindings').replaceChildren();$('source-scope').textContent=data.source_bridge?data.source_bridge.scope:'本次使用专用设计模板，属性取自设计表，未关联原始案例表。';
+if(data.source_bridge)table($('source-bindings'),['设计对象','属性','来源记录与字段','原值','单位','阻塞疑点'],data.source_bridge.bindings.map(b=>[`${b.kind} ${b.owner}${b.context?' / '+b.context:''}`,b.field,`${b.source_sheet} / ${b.source_id} / ${b.source_field}`,JSON.stringify(b.raw_value),b.unit??'不适用',b.blocking_issue_ids.join('、')||'无登记阻塞项']));
 $('network').textContent=r.network?`选中网络：${r.network.chains.join('、')}；平均评分 ${r.network.score}；计划跨度 ${r.network.makespan_s} 秒；使用成本 ${r.network.cost_per_execution} ${r.network.cost_unit}。`:'尚未选出完整网络。';
 for(const task of r.tasks){const h=document.createElement('h2');h.textContent=`任务 ${task.task}`;$('tasks').append(h);const p=document.createElement('p');p.textContent=`目标：${task.target}；候选链 ${task.chains.length} 条`;$('tasks').append(p);
 table($('tasks'),['候选链','闭合路径','时间秒','精度乘积','成本','评分','选中'],task.chains.map(c=>[c.id,c.closed_path.join(' → '),c.metrics?.time??'未知',c.metrics?.accuracy??'未知',c.metrics?.cost??'未知',c.score??'未评分',r.network?.chains.includes(c.id)?'是':'否']));

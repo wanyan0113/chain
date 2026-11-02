@@ -34,6 +34,8 @@ Python入口为 `from design import design; result = design(document)`。不修�
 
 ## Excel完整链网入口
 
+现也支持扩展后的最初案例Excel：保留原始来源表，追加设计配置表，通过“来源取值”将已登记字段按编号转换为设计属性，并将相关疑点带入设计阻塞项。`excel_entry/unified.py` 负责桥接，不自动补规则、协同边或指标。文章来源示例的设计表保持空白；另提供全部虚构的综合设计演示验证同一文件的查询与设计流程。操作见 [综合Excel说明](../excel_entry/使用说明.md)。
+
 运行 `python -B -m excel_entry.app` 后打开 `http://127.0.0.1:8765/design`，下载链网设计示例或空白模板。也可执行 `python -B -m excel_entry.app --design-file excel_entry/templates/链网设计示例.xlsx`。
 
 `design/excel.py` 仅转换显式填写的设计输入，调用同一设计引擎。模板包含设置、任务、法器、情境、属性、规则、条件、协同关系、依赖和资源组，支持常量与字段比较。无条件必须显式声明；漏填数字不当作0，指标全部空白表示未知，部分空白报错；重复或悬空引用会报错。空白模板没有默认业务数据或政策。
