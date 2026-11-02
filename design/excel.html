@@ -5,24 +5,25 @@
 body{max-width:1120px;margin:32px auto;padding:0 20px;font:16px/1.65 system-ui;color:#243247;background:#f6f8fb}h1{font-size:28px}h2{font-size:21px}a{color:#245f9e}section{background:white;padding:20px;margin:18px 0;border:1px solid #dce3ec;border-radius:10px}button{background:#284466;color:white;border:0;border-radius:5px;padding:10px 18px;cursor:pointer}button:disabled{opacity:.5}input{max-width:100%;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:9px;text-align:left;border-bottom:1px solid #dce3ec}th{background:#edf2f8}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px}details{margin:14px 0}summary{cursor:pointer;color:#245f9e}.scroll{overflow:auto}.error{color:#ab2525}[hidden]{display:none!important}.path{padding:12px;background:#edf2f8;overflow-wrap:anywhere}
 </style>
 <style>
-.graph-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.graph-controls select{padding:8px;max-width:100%;font:inherit}.graph-box{overflow:auto;border:1px solid #dce3ec;border-radius:8px;margin-top:14px;background:white}.graph-box svg{display:block;max-width:none}.graph-box g:focus rect{stroke:#111827;stroke-width:3}.graph-legend{display:flex;flex-wrap:wrap;gap:8px 18px;padding:0;list-style:none}.graph-swatch{display:inline-block;width:24px;height:4px;margin-right:7px;vertical-align:middle}.graph-note{font-size:14px;color:#526379}.node-details{border-left:4px solid #284466;padding:12px 18px;background:#f6f8fb}.node-details h3{margin-top:0}
+.graph-controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.graph-controls select{padding:8px;max-width:100%;font:inherit}.graph-box{overflow:auto;margin-top:14px;background:white}.graph-box svg{display:block;width:100%;min-width:900px;height:auto}.graph-box g:focus circle{stroke:#111827;stroke-width:3}.graph-note{font-size:14px;color:#526379}.node-details{border-left:4px solid #284466;padding:12px 18px;background:#f6f8fb}.node-details h3{margin-top:0}
 </style>
 <nav><a href="/">案例录入</a> · <a href="/rules">通用规则验证</a></nav>
 <h1>Excel生成法术链与奥术网</h1>
 <p>填写任务、能力规则、法器、指标与协同关系，生成候选链，并按共享资源约束选择网络。</p>
 <section><h2>1. 下载并填写模板</h2>
-<p><a href="/design-example.xlsx">下载双任务示例</a>　<a href="/design-blank.xlsx">下载空白模板</a></p>
+<p><a href="/design-example.xlsx" download="链网设计示例.xlsx">下载双任务示例</a>　<a href="/design-blank.xlsx" download="链网设计空白.xlsx">下载空白模板</a></p>
 <p>示例使用虚构工程配置，用于演示流程。请阅读模板中的“填写指南”，明确填写规则来源、阈值、单位及资源配置。</p>
+<p><a href="/article-case" target="_blank" rel="noopener">试跑文章第三部分案例：表13复算与原文链图</a></p>
 <h2>2. 上传并生成</h2><input id="file" type="file" accept=".xlsx"><br><button id="run">生成链与网</button>
 <p id="status" role="status" aria-live="polite"></p></section>
 <div id="results" hidden><section><h2>3. 设计结果</h2><p id="overview"></p><p id="scope"></p><p id="export"></p><p id="network"></p></section>
 <section><h2>链网结构</h2><div class="graph-controls"><label for="graph-view">查看范围</label><select id="graph-view"></select><button id="save-graph" disabled>下载当前图 SVG</button></div>
-<p id="graph-mode" role="status"></p><p class="graph-note">不同颜色表示不同链，绿色节点表示多条链共用的对象。任务到目标的虚线表示归属；目标到探知及具现回目标表示链内流程；法器之间表示报告已检查的协同边。此图不表示物理坐标或执行时间，可左右滚动查看。</p>
-<ul id="graph-legend" class="graph-legend"></ul><div id="graph" class="graph-box"></div><div id="graph-relations"></div><div id="node-details" class="node-details" hidden aria-live="polite"></div></section>
+<p id="graph-mode" role="status"></p><p class="graph-note">从左向右读：目标 → 探知 → 协调 → 具现 → 原目标。颜色区分角色；两端同名目标表示同一对象。候选链逐行显示，网络合并共同使用的法器。任务、评分和选中情况见图下表格。</p>
+<div id="graph" class="graph-box"></div><h3>图与任务的对应</h3><div id="graph-legend"></div><details><summary>任务关系与资源共享</summary><div id="graph-relations"></div></details><div id="node-details" class="node-details" hidden aria-live="polite"></div></section>
 <section><h2>任务与候选链</h2><div id="tasks"></div></section>
 <section><h2>资源冲突与计算记录</h2><pre id="search"></pre><details><summary>完整推理证据与来源</summary><pre id="evidence"></pre></details><details><summary>文字报告</summary><pre id="summary"></pre></details><h2>文件保存位置</h2><p class="path" id="output"></p></section></div>
 <script type="module">
-import {buildGraph,renderGraph,graphSvg} from '/design-network.mjs';
+import {buildGraph,renderGraph,graphSvg,rowLabel} from '/design-network.mjs';
 const $=id=>document.getElementById(id);
 let currentReport=null,currentSvg=null;
 function paragraph(parent,text){const p=document.createElement('p');p.textContent=text;parent.append(p)}
@@ -31,17 +32,17 @@ for(const c of chains){const details=document.createElement('details');details.o
 paragraph(details,`目标：${c.target}；${c.selected?'已被网络选中':'候选链预览'}；评分：${c.score??'未评分'}。`);
 const evidence=node.kind==='artifact'?{requirements:c.evidence.required_capabilities,artifact:c.evidence.artifacts.find(a=>a.artifact===node.label),links:c.evidence.links.filter(e=>e.from===node.label||e.to===node.label)}:c.evidence;
 const pre=document.createElement('pre');pre.textContent=JSON.stringify(evidence,null,2);details.append(pre);panel.append(details)}}
-function drawGraph(){const id=$('graph-view').value;const model=buildGraph(currentReport,id==='network'?null:id.slice(6));
+function drawGraph(){const id=$('graph-view').value;const model=id==='candidates'?buildGraph(currentReport,null,{allCandidates:true}):buildGraph(currentReport,id==='network'?null:id.slice(6));
 $('node-details').hidden=true;$('node-details').replaceChildren();$('graph-legend').replaceChildren();$('graph-relations').replaceChildren();
-$('graph-mode').textContent=id==='network'?(currentReport.network?'当前显示选中网络。':'尚未生成选中网络。'):(model.chains[0].selected?'当前显示选中网络中的单条链。':'当前显示候选链预览，尚未被网络选中。');
-for(const c of model.chains){const li=document.createElement('li'),swatch=document.createElement('span');swatch.className='graph-swatch';swatch.style.backgroundColor=c.color;li.append(swatch,document.createTextNode(`${c.id} · ${c.task}`));$('graph-legend').append(li)}
+$('graph-mode').textContent=id==='network'?(currentReport.network?'当前显示选中网络。':'尚未生成选中网络。'):id==='candidates'?'每行一条候选链；是否选中见图下对应表。':(model.chains[0].selected?'当前显示选中网络中的单条链。':'当前显示候选链预览，尚未被网络选中。');
+table($('graph-legend'),['图中行号','链编号','所属任务','目标','评分','网络选中'],model.chains.map((c,i)=>[model.mode==='network'?'—':rowLabel(i),c.id,c.task,c.target,c.score??'未评分',c.selected?'是':'否']));
 currentSvg=renderGraph($('graph'),model,inspectNode);$('save-graph').disabled=!currentSvg;
 for(const rel of model.relations){const text=rel.kind==='parallel'?`并行：${rel.chains.join('、')}`:rel.kind==='resource_sharing'?`共享法器：${rel.artifacts.join('、')}（${rel.chains.join('、')}）`:rel.kind==='serial'?`串行依赖：${rel.from} → ${rel.to}`:rel.kind==='branch'?`分支依赖：${rel.from} → ${rel.to.join('、')}`:JSON.stringify(rel);paragraph($('graph-relations'),text)}}
 $('graph-view').onchange=drawGraph;
-$('save-graph').onclick=()=>{if(!currentSvg)return;const blob=new Blob([graphSvg(currentSvg)],{type:'image/svg+xml;charset=utf-8'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=$('graph-view').value==='network'?'selected-network.svg':'chain-preview.svg';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+$('save-graph').onclick=()=>{if(!currentSvg)return;const blob=new Blob([graphSvg(currentSvg)],{type:'image/svg+xml;charset=utf-8'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;const view=$('graph-view').value;a.download=view==='network'?'selected-network.svg':view==='candidates'?'candidate-chains.svg':view.slice(6)+'.svg';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
 function table(parent,headers,rows){const wrap=document.createElement('div');wrap.className='scroll';const t=document.createElement('table');const head=document.createElement('tr');for(const h of headers){const th=document.createElement('th');th.textContent=h;head.append(th)}const thead=document.createElement('thead');thead.append(head);t.append(thead);const body=document.createElement('tbody');for(const row of rows){const tr=document.createElement('tr');for(const v of row){const td=document.createElement('td');td.textContent=v;tr.append(td)}body.append(tr)}t.append(body);wrap.append(t);parent.append(wrap)}
 const statuses={complete:'设计完成',blocked:'等待补充信息',no_feasible_design:'当前约束下无可行方案'};
-function show(data){const r=data.report;currentReport=r;$('graph-view').replaceChildren();const option=document.createElement('option');option.value='network';option.textContent='选中网络';$('graph-view').append(option);for(const t of r.tasks)for(const c of t.chains){const o=document.createElement('option');o.value='chain:'+c.id;o.textContent=`${c.id} · ${t.task} · ${r.network?.chains.includes(c.id)?'已选中':'候选'}`;$('graph-view').append(o)}drawGraph();$('overview').textContent=`${statuses[r.status]??r.status}。能力映射 ${r.ontology_mapping.mapped}/${r.ontology_mapping.total}。`;$('scope').textContent=r.scope;$('export').textContent=`RDF：${data.rdf_export.reason}`;
+function show(data){const r=data.report;currentReport=r;$('graph-view').replaceChildren();for(const [value,text] of [['network','选中网络'],['candidates','全部候选链（逐行）']]){const o=document.createElement('option');o.value=value;o.textContent=text;$('graph-view').append(o)}for(const t of r.tasks)for(const c of t.chains){const o=document.createElement('option');o.value='chain:'+c.id;o.textContent=`${c.id} · ${t.task} · ${r.network?.chains.includes(c.id)?'已选中':'候选'}`;$('graph-view').append(o)}drawGraph();$('overview').textContent=`${statuses[r.status]??r.status}。能力映射 ${r.ontology_mapping.mapped}/${r.ontology_mapping.total}。`;$('scope').textContent=r.scope;$('export').textContent=`RDF：${data.rdf_export.reason}`;
 $('network').textContent=r.network?`选中网络：${r.network.chains.join('、')}；平均评分 ${r.network.score}；计划跨度 ${r.network.makespan_s} 秒；使用成本 ${r.network.cost_per_execution} ${r.network.cost_unit}。`:'尚未选出完整网络。';
 for(const task of r.tasks){const h=document.createElement('h2');h.textContent=`任务 ${task.task}`;$('tasks').append(h);const p=document.createElement('p');p.textContent=`目标：${task.target}；候选链 ${task.chains.length} 条`;$('tasks').append(p);
 table($('tasks'),['候选链','闭合路径','时间秒','精度乘积','成本','评分','选中'],task.chains.map(c=>[c.id,c.closed_path.join(' → '),c.metrics?.time??'未知',c.metrics?.accuracy??'未知',c.metrics?.cost??'未知',c.score??'未评分',r.network?.chains.includes(c.id)?'是':'否']));

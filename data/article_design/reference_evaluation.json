@@ -21,11 +21,26 @@
     "coordination": {"id": "联合统筹中枢", "platform": "R-Golem"},
     "manifestation": {"id": "R-Sigil-B", "platform": "R-Gryphon#1"}
   },
+  "additional_reported_chains": [
+    {
+      "id": "reported-orb-chain",
+      "mission": "魔法抵消 B-Orb-A",
+      "target": "B-Orb-A",
+      "source_refs": ["联想截图_20261027151026.png：3.2.3正文陈述的第二条链"],
+      "artifacts": {
+        "insight": {"id": "R-Eye-A", "platform": "R-Golem"},
+        "coordination": {"id": "联合统筹中枢", "platform": "R-Golem"},
+        "manifestation": {"id": "R-Sigil-E", "platform": "R-Rune"}
+      }
+    }
+  ],
   "unresolved": [
     "未提供全部候选间明确传讯边、传讯距离及最大传讯距离，不能独立验收协同可行性。",
     "表8、表11坐标列名与N/E方向冲突；表13距离和速度仅作为方案级评价输入，不回填法器实测参数。",
     "表9中R-Sigil-D/E/F作用距离上下界倒置，激发高度0/0与严格边界规则冲突，原值未更改。",
     "表12列R-Eye-A/R-Eye-D，而表13第3、4行探知精度80%与R-Eye-D的75%不一致；不据此给第3、4行强配法器身份。",
-    "缺少其余任务完整数据，未执行多任务组网或动态仿真。"
+    "缺少其余任务完整数据，未执行多任务组网或动态仿真。",
+    "B-Orb-A仅沿用3.2.3正文名称，未据此补造四个法球的编号对应、属性、评分或任务时序。",
+    "表10要求的探知最大标记数、协调最大解析数及协同传讯参数尚未完整提供，不能独立证明两条链可同时执行。"
   ]
 }

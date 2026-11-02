@@ -37,13 +37,18 @@ def reproduce_reference():
     winner["artifacts"] = deepcopy(doc["explicit_best_chain"])
     del winner["artifacts"]["evaluation_row"]
     winner["closed_path"] = [doc["target"], *[winner["artifacts"][r]["id"] for r in ROLES], doc["target"]]
+    reported_topology = [{"id": "reported-eidolon-chain", "mission": doc["mission"], "target": doc["target"],
+        "artifacts": deepcopy(winner["artifacts"]), "metrics": deepcopy(winner["metrics"]),
+        "score": winner["score"], "evaluation_row": winner["id"], "source_refs": deepcopy(doc["sources"])}]
+    for statement in doc.get("additional_reported_chains", []):
+        reported_topology.append({**deepcopy(statement), "metrics": None, "score": None, "evaluation_row": None})
     return {"status": "reference_reproduced", "scope": doc["scope"], "mission": doc["mission"],
             "target": doc["target"], "sources": doc["sources"], "weights": doc["weights"],
             "time_unit": "s", "time_basis": "表13距离(n mile)/速度(kn)得到小时，再乘3600换算秒；未补造三阶段耗时",
             "accuracy_basis": "表13探知精度百分比×锁定率百分比，分别除以100后相乘",
             "cost_basis": doc["cost_basis"], "cost_unit": "article_evaluation_proxy",
             "input_sha256": hashlib.sha256(REFERENCE_PATH.read_bytes()).hexdigest(),
-            "evaluation": chains, "chain": winner,
+            "evaluation": chains, "chain": winner, "reported_topology": reported_topology,
             "validation": {"score_reproduction": "passed", "independent_feasibility": "not_verified", "simulation": "not_performed"},
             "unresolved": doc["unresolved"]}
 
@@ -107,3 +112,11 @@ def reference_summary(result):
     lines += ["", "本结果从文章给出的4组评价数据中计算最优行，并输出正文明确标识的链。尚未独立验证法器筛选及协同可行性。RDF中的节点顺序表示文章方案，不代表传讯边已验收。", "", "待核对：", ""]
     lines += ["- " + issue for issue in result["unresolved"]]
     return "\n".join(lines) + "\n"
+
+
+def reference_view_html(result):
+    """Offline report using the shared SVG renderer, with reference-only labels."""
+    script = Path(__file__).with_name('network_view.mjs').read_text(encoding='utf-8')
+    payload = json.dumps(result, ensure_ascii=False, allow_nan=False).replace('<', '\\u003c')
+    template = Path(__file__).with_name('reference_view.html').read_text(encoding='utf-8')
+    return template.replace('/* SHARED_GRAPH_MODULE */', script).replace('/* REFERENCE_RESULT */', payload)

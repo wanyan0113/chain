@@ -111,7 +111,7 @@ def main(argv=None):
             outputs["capability_summary.md"] = capability_summary(result)
             write_outputs(args.output_dir, outputs, overwrite=args.overwrite, protected=[args.input])
         elif args.command == "reproduce-case":
-            from .reference import REFERENCE_PATH, reference_summary, reference_to_rdf, reproduce_reference
+            from .reference import REFERENCE_PATH, reference_summary, reference_to_rdf, reproduce_reference, reference_view_html
             result = reproduce_reference()
             graph = reference_to_rdf(result)
             review = analyze_graph(Graph().parse(ROOT / "arcane_ontology.ttl", format="turtle") + graph)
@@ -120,6 +120,7 @@ def main(argv=None):
             result["validation"]["rdf_structure"] = review.counts()
             write_outputs(args.output_dir, {
                 "reference_chain.ttl": graph.serialize(format="turtle"),
+                "reference_view.html": reference_view_html(result),
                 "reference_report.json": json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n",
                 "reference_chain.md": reference_summary(result)}, overwrite=args.overwrite, protected=[REFERENCE_PATH])
         elif args.command == "audit-case":

@@ -144,6 +144,9 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         path = urlsplit(self.path).path
+        if path == '/article-case':
+            from design.reference import reproduce_reference, reference_view_html
+            return self.send(200, reference_view_html(reproduce_reference()).encode('utf-8'), 'text/html; charset=utf-8')
         files = {'/': (ROOT / 'excel_entry/index.html', 'text/html; charset=utf-8'),
                  '/design': (ROOT / 'design/excel.html', 'text/html; charset=utf-8'),
                  '/design-network.mjs': (ROOT / 'design/network_view.mjs', 'text/javascript; charset=utf-8'),
