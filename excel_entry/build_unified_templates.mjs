@@ -25,6 +25,7 @@ function write(sheet,rows,color='#284466'){
   sheet.freezePanes.freezeRows(1);sheet.showGridLines=false;sheet.tabColor=color;
 }
 for(const item of spec.templates){
+  if(process.argv[2] && item.filename!==process.argv[2])continue;
   const wb=item.source?Workbook.create():await SpreadsheetFile.importXlsx(await FileBlob.load(path.join(output,item.filename)));
   console.log(item.filename,(await wb.inspect({kind:'sheet',include:'id,name',maxChars:1600})).ndjson);
   if(!item.source){

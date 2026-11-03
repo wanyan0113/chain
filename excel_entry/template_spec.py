@@ -17,6 +17,7 @@ EXTRA_GUIDE = [
     ['数值与疑点', '保留案例说明声明的单位，不自动换算。引用字段的人工疑点、自动边界矛盾和未知单位会阻塞设计。'],
     ['指标和资源', '法器表集中填写耗时、精度、成本、容量、库存和冷却；设计设置填写评价权重。不能直接将原作用值当作成本。'],
     ['仍需填写', '来源取值仅生成属性；规则、协同关系、任务时序、指标和资源不会从原文或原始表自动补全。'],
+    ['表10原文校验', '设计设置增加“表10原文校验”，值为文本true时强制执行原文筛选和协同条件。专用表10示例已开启；目标数量target_count、最大标记数max_tracks、最大解析数max_processing_targets均填数值、单位1。'],
 ]
 
 
@@ -64,10 +65,33 @@ def spec():
     demo['来源取值'] = [headers['来源取值']] + bindings
     bound = {(row[0],row[1],row[2],row[3]) for row in bindings}
     demo['属性'] = [demo['属性'][0]] + [row for row in demo['属性'][1:] if tuple(row[:4]) not in bound]
+    article = deepcopy(demo)
+    article['设计设置'].append(['表10原文校验','true'])
+    article['设计指南'] += [['原文字段', '任务：impedance、target_speed、target_altitude、target_count。探知：detection_range、max_tracks。协调：max_processing_targets。具现：resonance、max_target_speed、min_target_altitude、max_target_altitude、min_activation_altitude、max_activation_altitude。情境：target_distance、platform_altitude。']]
+    for task in doc['tasks']:
+        article['属性'] += [['任务',task['id'],None,'target_count','数值',1,'1']]
+        article['来源取值'] += [['任务',task['id'],None,field,'任务','demo-source-task',label]
+            for field,label in [('impedance','目标阈值（单位待确认）'),('target_speed','目标速度（kn）'),('target_altitude','目标高度（ft）')]]
+    article['属性'] += [['法器','demo-eye',None,'max_tracks','数值',3,'1'],
+                       ['法器','demo-coordinator',None,'max_processing_targets','数值',3,'1']]
+    article['来源取值'].append(['法器','demo-eye',None,'detection_range','探测能力','demo-platform','探测距离（n mile）'])
+    for identifier in ('demo-fast','demo-slow'):
+        article['来源取值'] += [['法器',identifier,None,field,'作用能力',identifier,label]
+            for field,label in [('resonance','作用值（单位待确认）'),('max_target_speed','最大目标速度（kn）'),
+                ('min_target_altitude','最小目标高度（ft）'),('max_target_altitude','最大目标高度（ft）'),
+                ('min_activation_altitude','最小释放高度（ft）'),('max_activation_altitude','最大释放高度（ft）')]]
+        for task in doc['tasks']:
+            article['属性'].append(['情境',task['id'],identifier,'platform_altitude','数值',100,'ft'])
+    article_source = deepcopy(source)
+    article_source['scope'] = '表10集成演示：全部参数为虚构工程配置，规则条件转录自文章，不是文章真实案例复现。'
+    for row in article_source['table9']:
+        row['resonance_value'] = 2
+    article['设计设置'][1][1] = article_source['scope']
     return {'guide': INSTRUCTIONS + EXTRA_GUIDE,
             'templates': [dict(filename='案例示例.xlsx', extension=empty),
                           dict(filename='空白模板.xlsx', extension=empty),
-                          dict(filename='案例设计演示.xlsx', source=workbook_spec(source), extension=demo)]}
+                          dict(filename='案例设计演示.xlsx', source=workbook_spec(source), extension=demo),
+                          dict(filename='表10设计演示.xlsx', source=workbook_spec(article_source), extension=article)]}
 
 
 if __name__ == '__main__':

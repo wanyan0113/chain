@@ -7,6 +7,7 @@ body{font:16px/1.65 "Microsoft YaHei",sans-serif;background:#f3f5f8;color:#24324
 <p class="workspace-nav"><a href="/design">打开完整链网设计：上传专用Excel，查看候选链与选中网络</a></p>
 <section><h2>1. 准备数据</h2><p><a href="/example.xlsx" download="案例示例.xlsx">下载文章来源示例（含待填设计表）</a>　 <a href="/blank.xlsx" download="空白模板.xlsx">下载综合空白模板</a>　<a href="/combined-example.xlsx" download="案例设计演示.xlsx">下载综合设计演示（虚构）</a></p><p class="muted">原来的参数、来源和疑点表保持原意，新增绿色页签填写设计配置。“来源取值”可按编号引用原参数。同一文件可在此查询，也可在“链网设计”页上传生成；本页导入不会自动运行设计。文章示例缺少的设计数据保持空白。</p>
 <h2>2. 导入并检查</h2><input type="file" id="file" accept=".xlsx"><button id="import">导入</button><div id="status" role="status"></div></section>
+<p><a href="/article-design-example.xlsx" download="表10设计演示.xlsx">下载表10校验综合示例（虚构数据）</a>：同一文件先查询来源，再在“链网设计”生成并查看原文条件核验。</p>
 <div id="results" hidden><section><h2>本次运行结果</h2><p id="summary"></p><pre id="counts"></pre><p class="muted" id="notes"></p><p class="muted">结果目录：<span id="output"></span></p><details><summary>查看运行依据</summary><p>核心程序：<span id="commit"></span></p><p>输入文件 SHA256：<span id="sha"></span></p><p>目录中保留输入Excel、转换后的案例、程序日志、来源RDF及校验报告。</p></details></section>
 <section><h2>3. 查询记录</h2><label>选择记录 <select id="record"></select></label><h3>原始字段值</h3><table><thead><tr><th>字段</th><th>原始值</th></tr></thead><tbody id="values"></tbody></table><h3>关联本体实例</h3><div id="instances"></div><h3>对应资料来源</h3><div id="sources"></div><h3>关联疑点（人工登记，含表级疑点）</h3><div id="issues"></div></section></div></main>
 <script>

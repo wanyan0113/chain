@@ -217,6 +217,10 @@ def network_conflicts(chains, doc):
 
 def design(doc):
     validate_document(doc)
+    article_enabled = doc['policies'].get('article_table10', False)
+    if article_enabled:
+        from .article_integration import validate_counts, screening, cooperation
+        validate_counts(doc)
     artifacts = {a["id"]: a for a in doc["artifacts"]}
     links = {(e["from"], e["to"]): e for e in doc["links"]}
     contexts = {(c["task"], c["artifact"]): c for c in doc.get("contexts", [])}
@@ -226,6 +230,8 @@ def design(doc):
               "policies": dict(doc["policies"]), "weights": dict(doc["weights"]),
               "tasks": [], "network": None, "network_search": {"evaluated": 0, "feasible": 0, "rejections": []}}
     comparison_groups = []
+    if article_enabled:
+        report['article_table10'] = {'enabled':True,'status':'not_ready','combinations':[],'selected':None}
     unresolved = False
     for ti, task in enumerate(doc["tasks"], 1):
         capability_result = infer_task_capabilities(task, doc["task_rules"])
@@ -253,18 +259,25 @@ def design(doc):
                 target_status = ("unknown" if not isinstance(target_type, str) or not isinstance(target_types, list)
                                  else "pass" if target_type in target_types else "fail")
             issues = artifact["blocking_issue_ids"] + context.get("blocking_issue_ids", [])
+            article_check = screening(task, artifact, context) if article_enabled else None
+            article_status = article_check['status'] if article_check else 'pass'
             uncertain = bool(issues) or target_status == "unknown" or any(
                 not any(r["capability"] == cap for r in checks)
                 or any(r["capability"] == cap and r["status"] == "unknown" for r in checks)
                 for cap in missing)
-            if artifact["available"] and required[role] and target_status != "fail" and uncertain:
+            if artifact["available"] and required[role] and target_status != "fail" and article_status != 'fail' and uncertain:
                 result["blockers"].append({"code": "UNKNOWN_ARTIFACT", "artifact": artifact["id"]})
             accepted = bool(required[role]) and not missing and artifact["available"] and not issues and target_status == "pass"
+            if accepted and article_status == 'unknown':
+                result['blockers'].append({'code':'UNKNOWN_TABLE10_SCREENING','artifact':artifact['id']})
+            accepted = accepted and article_status == 'pass'
             result["selection"].append({"artifact": artifact["id"], "accepted": bool(accepted),
                                         "missing_capabilities": missing, "rules": checks,
                                         "target_type_check": target_status,
                                         "available": artifact["available"],
                                         "blocking_issue_ids": artifact["blocking_issue_ids"] + context.get("blocking_issue_ids", [])})
+            if article_check:
+                result['selection'][-1]['table10'] = article_check
             if accepted:
                 candidates[role].append(artifact["id"])
         if result["blockers"]:
@@ -320,10 +333,19 @@ def design(doc):
         report["status"] = "blocked" if unresolved else "no_feasible_design"
         return annotate_design_mapping(deepcopy(report))
     best = None
+    unknown_article = False
     rejection_counts = Counter()
     for chosen in bounded_product(comparison_groups, doc["policies"]["max_network_combinations"], "奥术网"):
         report["network_search"]["evaluated"] += 1
         conflicts = network_conflicts(chosen, doc)
+        article_result = cooperation(chosen, doc) if article_enabled else None
+        if article_result:
+            report['article_table10']['combinations'].append({'chains':[c['id'] for c in chosen],
+                'engineering_conflicts':deepcopy(conflicts),**article_result})
+            if not conflicts and article_result['status'] == 'unknown':
+                unknown_article = True
+            if article_result['status'] != 'pass':
+                conflicts.append({'code':'TABLE10_' + article_result['status'].upper(),'resource':'parallel-groups'})
         if conflicts:
             rejection_counts.update((c["code"], c.get("resource", f"{c.get('before')}->{c.get('after')}")) for c in conflicts)
             continue
@@ -331,13 +353,20 @@ def design(doc):
         score = sum(c["score"] for c in chosen) / len(chosen)
         key = (-score, tuple(c["id"] for c in chosen))
         if best is None or key < best[0]:
-            best = key, chosen, score
+            best = key, chosen, score, article_result
     report["network_search"]["rejections"] = [{"code": code, "resource": resource, "count": count}
                                                for (code, resource), count in sorted(rejection_counts.items())]
+    if article_enabled:
+        report['article_table10']['status'] = 'unknown' if unknown_article else 'pass' if best else 'fail'
+    if unknown_article:
+        report['status'] = 'blocked'
+        return annotate_design_mapping(deepcopy(report))
     if best is None:
         report["status"] = "no_feasible_design"
         return annotate_design_mapping(deepcopy(report))
-    _, chosen, score = best
+    _, chosen, score, article_result = best
+    if article_enabled:
+        report['article_table10']['selected'] = article_result
     selected = {c["task"]: c for c in chosen}
     deps = {(d["before"], d["after"]) for d in doc.get("dependencies", [])}
     relations = []

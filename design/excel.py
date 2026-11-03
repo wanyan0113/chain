@@ -21,6 +21,7 @@ HEADERS = {
     '填写指南': ['项目', '说明'],
 }
 SETTINGS = ['范围说明', '时间权重', '精度权重', '成本权重', '同值指标评分', '成本单位', '链组合上限', '网络组合上限']
+OPTIONAL_SETTINGS = ['表10原文校验']
 ROLES = {'探知': 'insight', '协调': 'coordination', '具现': 'manifestation'}
 RULES = {'任务': 'task_rules', '法器': 'artifact_rules'}
 GUIDE = [
@@ -79,10 +80,10 @@ def convert(sheets):
     rows = {name: list(records(sheets, name, headers)) for name, headers in HEADERS.items()}
     settings = {}
     for row, (key, value) in rows['设计设置']:
-        if key not in SETTINGS or key in settings:
+        if key not in SETTINGS + OPTIONAL_SETTINGS or key in settings:
             raise EntryError(f'设计设置第{row}行：未知或重复设置')
         settings[key] = value
-    if set(settings) != set(SETTINGS):
+    if not set(SETTINGS).issubset(settings):
         raise EntryError('设计设置缺项')
     doc = {'format_version': '1.0', 'scope': text(settings['范围说明'], '范围说明'),
            'weights': {key: number(settings[label], label) for key, label in zip(('time', 'accuracy', 'cost'), SETTINGS[1:4])},
@@ -91,6 +92,8 @@ def convert(sheets):
                         'max_chain_combinations': number(settings['链组合上限'], '链组合上限', True),
                         'max_network_combinations': number(settings['网络组合上限'], '网络组合上限', True)},
            **{k: [] for k in ('tasks', 'artifacts', 'contexts', 'task_rules', 'artifact_rules', 'links', 'dependencies', 'resource_groups')}}
+    if '表10原文校验' in settings:
+        doc['policies']['article_table10'] = boolean(settings['表10原文校验'], '表10原文校验')
     owners = {}
     def add_owner(kind, key, obj):
         if (kind, key) in owners:

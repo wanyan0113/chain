@@ -20,6 +20,8 @@ ROOT = Path(__file__).resolve().parent.parent
 def render_summary(result):
     lines = ["# 法术链设计报告", "", f"状态：{result['status']}", "", f"数据范围：{result['scope']}", ""]
     mapping = result['ontology_mapping']
+    if 'article_table10' in result:
+        lines += [f"表10原文条件已启用；组网核验：{result['article_table10']['status']}。逐项筛选与组合依据见JSON报告。", '']
     lines += [f"本体映射：{mapping['status']}；已映射 {mapping['mapped']}／{mapping['total']}；未映射 {mapping['unmapped']}",
               f"规范URI导出就绪：{'是' if result['canonical_export_ready'] else '否'}", ""]
     for task in result["tasks"]:

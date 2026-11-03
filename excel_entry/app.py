@@ -166,6 +166,7 @@ class Handler(BaseHTTPRequestHandler):
                  '/design-example.xlsx': (TEMPLATES / '链网设计示例.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
                  '/design-blank.xlsx': (TEMPLATES / '链网设计空白.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
                  '/combined-example.xlsx': (TEMPLATES / '案例设计演示.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
+                 '/article-design-example.xlsx': (TEMPLATES / '表10设计演示.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
                  '/rules': (ROOT / 'rule_review/index.html', 'text/html; charset=utf-8'),
                  '/rules-example.xlsx': (ROOT / 'rule_review/templates/规则验证示例.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),
                  '/rules-blank.xlsx': (ROOT / 'rule_review/templates/规则验证空白.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'),

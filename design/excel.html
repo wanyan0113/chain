@@ -11,6 +11,8 @@ body{max-width:1120px;margin:32px auto;padding:0 20px;font:16px/1.65 system-ui;c
 <h1>Excel生成法术链与奥术网</h1>
 <p>填写任务、能力规则、法器、指标与协同关系，生成候选链，并按共享资源约束选择网络。支持新版综合案例 Excel，也兼容原专用设计模板。</p>
 <section><h2>1. 下载并填写模板</h2>
+<p><a href="/article-design-example.xlsx" download="表10设计演示.xlsx">下载表10校验综合示例（虚构数据，已开启原文条件）</a></p>
+<p>在“设计设置”增加“表10原文校验”，值为文本true时，原文筛选和协同条件参与自动生成。示例可在来源查询页导入同一文件；条件缺失会阻塞，条件失败会排除对应法器或网络组合。</p>
 <p><a href="/combined-example.xlsx" download="案例设计演示.xlsx">下载综合设计演示（参数查询与链网生成）</a>　<a href="/blank.xlsx" download="空白模板.xlsx">下载综合空白模板</a></p>
 <details><summary>原专用设计模板</summary><a href="/design-example.xlsx" download="链网设计示例.xlsx">下载双任务示例</a>　<a href="/design-blank.xlsx" download="链网设计空白.xlsx">下载专用空白模板</a></details>
 <p>示例使用虚构工程配置，用于演示流程。请阅读模板中的“填写指南”，明确填写规则来源、阈值、单位及资源配置。</p>
@@ -23,6 +25,7 @@ body{max-width:1120px;margin:32px auto;padding:0 20px;font:16px/1.65 system-ui;c
 <div id="graph" class="graph-box"></div><h3>图与任务的对应</h3><div id="graph-legend"></div><details><summary>任务关系与资源共享</summary><div id="graph-relations"></div></details><div id="node-details" class="node-details" hidden aria-live="polite"></div></section>
 <section><h2>任务与候选链</h2><div id="tasks"></div></section>
 <section><h2>原参数取值与来源</h2><p id="source-scope"></p><div class="scroll" id="source-bindings"></div></section>
+<section><h2>表10原文条件核验</h2><p id="article-status"></p><div class="scroll" id="article-checks"></div><h3>网络组合核验</h3><div id="article-combinations"></div><details><summary>网络组合与逐项协同依据</summary><pre id="article-evidence"></pre></details></section>
 <section><h2>资源冲突与计算记录</h2><pre id="search"></pre><details><summary>完整推理证据与来源</summary><pre id="evidence"></pre></details><details><summary>文字报告</summary><pre id="summary"></pre></details><h2>文件保存位置</h2><p class="path" id="output"></p></section></div>
 <script type="module">
 import {buildGraph,renderGraph,graphSvg,rowLabel} from '/design-network.mjs';
@@ -45,6 +48,12 @@ $('save-graph').onclick=()=>{if(!currentSvg)return;const blob=new Blob([graphSvg
 function table(parent,headers,rows){const wrap=document.createElement('div');wrap.className='scroll';const t=document.createElement('table');const head=document.createElement('tr');for(const h of headers){const th=document.createElement('th');th.textContent=h;head.append(th)}const thead=document.createElement('thead');thead.append(head);t.append(thead);const body=document.createElement('tbody');for(const row of rows){const tr=document.createElement('tr');for(const v of row){const td=document.createElement('td');td.textContent=v;tr.append(td)}body.append(tr)}t.append(body);wrap.append(t);parent.append(wrap)}
 const statuses={complete:'设计完成',blocked:'等待补充信息',no_feasible_design:'当前约束下无可行方案'};
 function show(data){const r=data.report;currentReport=r;$('graph-view').replaceChildren();for(const [value,text] of [['network','选中网络'],['candidates','全部候选链（逐行）']]){const o=document.createElement('option');o.value=value;o.textContent=text;$('graph-view').append(o)}for(const t of r.tasks)for(const c of t.chains){const o=document.createElement('option');o.value='chain:'+c.id;o.textContent=`${c.id} · ${t.task} · ${r.network?.chains.includes(c.id)?'已选中':'候选'}`;$('graph-view').append(o)}drawGraph();$('overview').textContent=`${statuses[r.status]??r.status}。能力映射 ${r.ontology_mapping.mapped}/${r.ontology_mapping.total}。`;$('scope').textContent=r.scope;$('export').textContent=`RDF：${data.rdf_export.reason}`;
+$('article-checks').replaceChildren();const stateNames={pass:'通过',fail:'不满足',unknown:'存在未知条件',not_ready:'尚未进入组网核验'};
+$('article-status').textContent=r.article_table10?`已开启表10条件；组网核验：${stateNames[r.article_table10.status]??r.article_table10.status}。网络结论同时受能力规则、原文条件和资源约束限制。`:'本次未开启表10原文条件。可在设计设置增加“表10原文校验”并填文本true；当前结果只按已配置的工程规则判断。';
+const articleRows=[];for(const task of r.tasks)for(const item of task.selection)if(item.table10)for(const check of item.table10.checks)articleRows.push([task.task,item.artifact,check.quote,stateNames[check.status],check.reason,item.table10.source]);
+if(articleRows.length)table($('article-checks'),['任务','法器','原文条件','判断','原因','来源'],articleRows);
+$('article-combinations').replaceChildren();if(r.article_table10?.combinations.length)table($('article-combinations'),['组合中的链','表10判断','未满足或未知条件','其他资源冲突'],r.article_table10.combinations.map(c=>{const issues=[...c.plan_checks,...c.groups.flatMap(g=>g.checks)].filter(check=>check.status!=='pass');return[c.chains.join('、'),stateNames[c.status],issues.map(check=>`${check.quote}（${stateNames[check.status]}）`).join('；')||'已核验条件通过',c.engineering_conflicts.map(conflict=>`${conflict.code} ${conflict.resource??''}`).join('；')||'无']}));
+$('article-evidence').textContent=r.article_table10?JSON.stringify(r.article_table10,null,2):'未执行表10内置核验。';
 $('source-bindings').replaceChildren();$('source-scope').textContent=data.source_bridge?data.source_bridge.scope:'本次使用专用设计模板，属性取自设计表，未关联原始案例表。';
 if(data.source_bridge)table($('source-bindings'),['设计对象','属性','来源记录与字段','原值','单位','阻塞疑点'],data.source_bridge.bindings.map(b=>[`${b.kind} ${b.owner}${b.context?' / '+b.context:''}`,b.field,`${b.source_sheet} / ${b.source_id} / ${b.source_field}`,JSON.stringify(b.raw_value),b.unit??'不适用',b.blocking_issue_ids.join('、')||'无登记阻塞项']));
 $('network').textContent=r.network?`选中网络：${r.network.chains.join('、')}；平均评分 ${r.network.score}；计划跨度 ${r.network.makespan_s} 秒；使用成本 ${r.network.cost_per_execution} ${r.network.cost_unit}。`:'尚未选出完整网络。';

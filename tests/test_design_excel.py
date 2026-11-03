@@ -184,7 +184,8 @@ class DesignExcelTests(unittest.TestCase):
             try:
                 for route in ('/','/sources','/sources?embedded=1','/design','/article-case',
                               '/article-case?embedded=1','/rules?embedded=1',
-                              '/design-network.mjs','/design-example.xlsx','/design-blank.xlsx','/combined-example.xlsx'):
+                              '/design-network.mjs','/design-example.xlsx','/design-blank.xlsx','/combined-example.xlsx',
+                              '/article-design-example.xlsx'):
                     with urlopen(base+route) as response:
                         self.assertEqual(response.status,200)
                 with patch('excel_entry.app.run_design',side_effect=run):
