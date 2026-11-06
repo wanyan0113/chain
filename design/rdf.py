@@ -27,7 +27,7 @@ def design_to_rdf(doc, report, *, require_canonical=False):
     graph = Graph()
     graph.bind("kw", KW)
     graph.bind("design", DESIGN)
-    fingerprint = report['input_sha256']
+    fingerprint = report.get('execution_sha256', report['input_sha256'])
     def entity(kind, identifier):
         return URIRef(f"urn:arcane-design:run:{fingerprint}:{kind}:{quote(identifier, safe='')}")
     run = entity("run", "current")
@@ -129,4 +129,11 @@ def design_to_rdf(doc, report, *, require_canonical=False):
         subject, object_ = [entity('artifact', value['id']) if value['kind'] == 'artifact'
                             else URIRef(value['id']) for value in endpoints]
         graph.add((subject, URIRef(fact['predicate']), object_))
+    if 'owl_reasoning' in report:
+        for uri, value in report['owl_reasoning']['subjects'].items():
+            if value['kind'] == 'artifact' and value['id'] not in selected_artifacts:
+                continue
+            kind = 'mission' if value['kind'] == 'task' else value['kind']
+            for cls in report['owl_reasoning']['types'].get(uri, []):
+                graph.add((entity(kind, value['id']), RDF.type, URIRef(cls)))
     return graph

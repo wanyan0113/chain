@@ -1,0 +1,328 @@
+{
+  "format_version": "1.0",
+  "scope": "Fictional knowledge-driven design: actual HermiT task classification and named capability entailments, external numeric selection rules, unchanged optimizer.",
+  "policies": {
+    "equal_metric_score": 0.5,
+    "cost_unit": "demo-credit/use",
+    "max_chain_combinations": 10000,
+    "max_network_combinations": 10000
+  },
+  "weights": {
+    "time": 0.4,
+    "accuracy": 0.4,
+    "cost": 0.2
+  },
+  "tasks": [
+    {
+      "id": "demo-task-1",
+      "target": "demo-target-1",
+      "start_s": 0,
+      "attributes": {
+        "target_type": "幽光法球",
+        "distance_class": "near"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "demo-task-2",
+      "target": "demo-target-2",
+      "start_s": 0,
+      "attributes": {
+        "target_type": "幽光法球",
+        "distance_class": "near"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "demo-eye",
+      "available": true,
+      "attributes": {
+        "target_types": [
+          "幽光法球"
+        ],
+        "max_range": {
+          "value": 100,
+          "unit": "nmi"
+        }
+      },
+      "metrics": {
+        "duration_s": 1,
+        "accuracy": 0.99,
+        "cost": {
+          "value": 1,
+          "unit": "demo-credit/use"
+        }
+      },
+      "capacity": 2,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": [],
+      "ontology_types": [
+        "urn:arcane-knowledge:demo:InsightUnit"
+      ]
+    },
+    {
+      "id": "demo-coordinator",
+      "available": true,
+      "attributes": {},
+      "metrics": {
+        "duration_s": 1,
+        "accuracy": 0.95,
+        "cost": {
+          "value": 1,
+          "unit": "demo-credit/use"
+        }
+      },
+      "capacity": 2,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": [],
+      "ontology_types": [
+        "urn:arcane-knowledge:demo:CoordinationUnit"
+      ]
+    },
+    {
+      "id": "demo-fast",
+      "available": true,
+      "attributes": {
+        "target_types": [
+          "幽光法球"
+        ],
+        "min_range": {
+          "value": 0,
+          "unit": "nmi"
+        },
+        "max_range": {
+          "value": 10,
+          "unit": "nmi"
+        }
+      },
+      "metrics": {
+        "duration_s": 1,
+        "accuracy": 0.9,
+        "cost": {
+          "value": 1,
+          "unit": "demo-credit/use"
+        }
+      },
+      "capacity": 1,
+      "consumable": true,
+      "inventory": 1,
+      "cooldown_s": 0,
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": [],
+      "ontology_types": [
+        "urn:arcane-knowledge:demo:EffectUnit"
+      ]
+    },
+    {
+      "id": "demo-slow",
+      "available": true,
+      "attributes": {
+        "target_types": [
+          "幽光法球"
+        ],
+        "min_range": {
+          "value": 0,
+          "unit": "nmi"
+        },
+        "max_range": {
+          "value": 10,
+          "unit": "nmi"
+        }
+      },
+      "metrics": {
+        "duration_s": 3,
+        "accuracy": 0.8,
+        "cost": {
+          "value": 4,
+          "unit": "demo-credit/use"
+        }
+      },
+      "capacity": 2,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": [],
+      "ontology_types": [
+        "urn:arcane-knowledge:demo:EffectUnit"
+      ]
+    }
+  ],
+  "task_rules": [],
+  "artifact_rules": [],
+  "contexts": [
+    {
+      "task": "demo-task-1",
+      "artifact": "demo-eye",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "demo-task-1",
+      "artifact": "demo-fast",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "demo-task-1",
+      "artifact": "demo-slow",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "demo-task-2",
+      "artifact": "demo-eye",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "demo-task-2",
+      "artifact": "demo-fast",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "demo-task-2",
+      "artifact": "demo-slow",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "links": [
+    {
+      "from": "demo-eye",
+      "to": "demo-coordinator",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-coordinator",
+      "to": "demo-fast",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-coordinator",
+      "to": "demo-slow",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "dependencies": [],
+  "resource_groups": [],
+  "knowledge": {
+    "ontology_files": [
+      "demo-task-capabilities.ttl"
+    ],
+    "rules_file": "demo-selection.rules.json",
+    "source_refs": [
+      "fictional-engineering-knowledge-demo"
+    ]
+  }
+}

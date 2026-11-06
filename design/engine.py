@@ -45,6 +45,8 @@ def validate_document(doc):
     errors = sorted(Draft202012Validator(schema).iter_errors(doc), key=lambda e: str(list(e.path)))
     if errors:
         raise DesignError("; ".join(f"{list(e.path)}: {e.message}" for e in errors[:8]))
+    if 'knowledge' not in doc and any('ontology_types' in task or 'target_ontology_types' in task for task in doc['tasks']):
+        raise DesignError('任务本体类型须通过knowledge配置启用实际HermiT推导')
     if not math.isclose(sum(doc["weights"].values()), 1, rel_tol=0, abs_tol=1e-9):
         raise DesignError("时间、精度、成本权重和必须为 1")
     for collection in ("tasks", "artifacts", "task_rules", "artifact_rules", "resource_groups"):
@@ -105,7 +107,7 @@ def condition_result(condition, scopes):
         if not isinstance(left, list) or not isinstance(right, str):
             return "unknown", "contains 要求字符串数组和字符串"
         passed = right in left
-        if condition['field'] == 'artifact.ontology_capabilities' and not passed:
+        if condition['field'] in ('artifact.ontology_capabilities', 'task.ontology_types') and not passed:
             return 'unknown', '尚未推导出该能力关系；开放世界下不将缺失当作否定'
     elif op == "eq":
         if isinstance(left, dict) or isinstance(right, dict):
@@ -136,13 +138,25 @@ def evaluate(rule, scopes):
             "blocking_issue_ids": rule["blocking_issue_ids"]})
 
 
-def infer_task_capabilities(task, rules, required_roles=ROLES):
+def infer_task_capabilities(task, rules, required_roles=ROLES, ontology_requirements=None):
     """Step 2, shared by standalone inference and the complete design pipeline.
 
     Matched capabilities are a lower bound while any blocker remains.
     Callers must check status before using the result as a complete requirement.
     """
-    inference = [evaluate(rule, {"task": task["attributes"]}) for rule in rules]
+    task_facts = task['attributes']
+    if ontology_requirements is not None:
+        if 'ontology_types' in task_facts:
+            raise DesignError('task.ontology_types 是推导保留字段，不能在属性中手填')
+        task_facts = {**task_facts, 'ontology_types': ontology_requirements['types']}
+    inference = [evaluate(rule, {"task": task_facts}) for rule in rules]
+    if ontology_requirements is not None:
+        for role, capabilities in ontology_requirements['required_capabilities'].items():
+            for capability in capabilities:
+                inference.append({'rule': 'owl:' + capability, 'role': role, 'capability': capability,
+                    'status': 'pass', 'source_refs': list(ontology_requirements['source_refs']), 'blocking_issue_ids': [],
+                    'checks': [{'condition': {'owl_requires_capability': capability}, 'status': 'pass',
+                                'reason': 'HermiT根据任务实例与外置本体公理得出的具名能力需求'}]})
     required = {role: sorted({r["capability"] for r in inference
                              if r["role"] == role and r["status"] == "pass"})
                 for role in ROLES}
@@ -155,9 +169,12 @@ def infer_task_capabilities(task, rules, required_roles=ROLES):
     for role in required_roles:
         if not required[role]:
             blockers.append({"code": "NO_CAPABILITY", "role": role})
-    return {"task": task["id"], "status": "blocked" if blockers else "complete",
+    result = {"task": task["id"], "status": "blocked" if blockers else "complete",
             "source_refs": list(task["source_refs"]), "inference": inference,
             "required_capabilities": required, "blockers": blockers}
+    if ontology_requirements is not None:
+        result['owl_evidence'] = deepcopy(ontology_requirements)
+    return result
 
 
 def rank_chains(chains, weights, equal_score):
@@ -221,8 +238,20 @@ def design(doc):
     validate_document(doc)
     input_digest = hashlib.sha256(json.dumps(doc, ensure_ascii=False, sort_keys=True,
                                             allow_nan=False).encode('utf-8')).hexdigest()
+    from .knowledge import knowledge_context
+    from .owl_scene import reason_scene
+    from .capability_identity import load_capability_ontology
+    with knowledge_context(doc) as (effective, knowledge):
+        if knowledge is not None:
+            validate_document(effective)
+        owl = reason_scene(effective, load_capability_ontology()) if knowledge is not None else None
+        return _design(effective, input_digest, knowledge, owl)
+
+
+def _design(doc, input_digest, knowledge, owl):
     from .ontology_inference import prepare_artifacts
-    doc, ontology_inference = prepare_artifacts(doc)
+    from .owl_scene import task_requirements
+    doc, ontology_inference = prepare_artifacts(doc, owl_result=owl)
     type_evidence = {item['artifact']: item for item in ontology_inference['artifacts']}
     article_enabled = doc['policies'].get('article_table10', False)
     if article_enabled:
@@ -235,18 +264,23 @@ def design(doc):
               "input_sha256": input_digest, "ontology_inference": ontology_inference,
               "policies": dict(doc["policies"]), "weights": dict(doc["weights"]),
               "tasks": [], "network": None, "network_search": {"evaluated": 0, "feasible": 0, "rejections": []}}
+    if knowledge is not None:
+        report.update(knowledge=knowledge, owl_reasoning=owl,
+                      execution_sha256=hashlib.sha256((input_digest + knowledge['sha256']).encode('ascii')).hexdigest())
     comparison_groups = []
     if article_enabled:
         report['article_table10'] = {'enabled':True,'status':'not_ready','combinations':[],'selected':None}
     unresolved = False
     for ti, task in enumerate(doc["tasks"], 1):
-        capability_result = infer_task_capabilities(task, doc["task_rules"])
+        capability_result = infer_task_capabilities(task, doc["task_rules"], ontology_requirements=task_requirements(task, owl))
         inference = capability_result["inference"]
         required = capability_result["required_capabilities"]
         result = {"task": task["id"], "target": task["target"], "inference": inference,
                   "required_capabilities": required, "selection": [], "chains": [], "rejected_chains": [],
                   "blockers": capability_result["blockers"]}
         report["tasks"].append(result)
+        if 'owl_evidence' in capability_result:
+            result['owl_evidence'] = capability_result['owl_evidence']
         candidates = {role: [] for role in ROLES}
         for artifact in doc["artifacts"]:
             role = artifact["role"]

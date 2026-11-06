@@ -1,10 +1,14 @@
 """Explicit identity registry; labels alone never establish OWL identity."""
 from pathlib import Path
+from contextvars import ContextVar
+import re
 
-from rdflib import Graph, Literal, RDF, RDFS
+from rdflib import Graph, Literal, RDF, RDFS, URIRef
 from rdflib.namespace import OWL
 
 from .vocabulary import KW, CAPABILITY_TYPES
+
+ONTOLOGY_CONTEXT = ContextVar('arcane_design_ontology', default=None)
 
 # Reviewed against the named capability individuals in arcane_ontology.ttl.
 # New conclusions require an explicit entry; there is no fuzzy label matching.
@@ -46,18 +50,22 @@ CANONICAL_CAPABILITIES = {
 
 def load_capability_ontology():
     """Read only the local ontology; never follow owl:imports."""
-    return Graph().parse(Path(__file__).resolve().parents[1] / 'arcane_ontology.ttl', format='turtle')
+    graph = ONTOLOGY_CONTEXT.get()
+    return graph if graph is not None else Graph().parse(Path(__file__).resolve().parents[1] / 'arcane_ontology.ttl', format='turtle')
 
 
 def capability_binding(role, label, *, ontology=None):
     local = CANONICAL_CAPABILITIES.get(role, {}).get(label)
+    explicit_uri = bool(re.match(r'^[A-Za-z][A-Za-z0-9+.-]*:', label))
+    if explicit_uri:
+        local = label
     reason = ('已登记角色与结论的显式映射' if local else
               '结论名称已登记在其他角色下，未建立身份对应' if any(
                   label in entries for entries in CANONICAL_CAPABILITIES.values()) else
               '未登记规范能力映射，不按名称自动合并')
     if local:
         graph = load_capability_ontology() if ontology is None else ontology
-        node = KW[local]
+        node = URIRef(local) if explicit_uri else KW[local]
         types = set(graph.objects(node, RDF.type))
         pending = list(types)
         while pending:
@@ -68,14 +76,16 @@ def capability_binding(role, label, *, ontology=None):
         if (node, RDF.type, OWL.NamedIndividual) not in graph:
             reason = '规范URI未在当前本体声明为具名个体'
             local = None
-        elif (node, RDFS.label, Literal(label, lang='zh')) not in graph:
+        elif not explicit_uri and (node, RDFS.label, Literal(label, lang='zh')) not in graph:
             reason = '规范URI的中文标签与显式映射登记不一致，需重新核对'
             local = None
         elif CAPABILITY_TYPES[role] not in types:
             reason = '规范URI的所属能力类别与登记角色不一致，需重新核对'
             local = None
+    if local and explicit_uri:
+        reason = '显式能力URI已在当前知识库声明，并通过角色类别核验'
     return {'role': role, 'capability': label, 'status': 'mapped' if local else 'unmapped',
-            'canonical_uri': str(KW[local]) if local else None, 'reason': reason}
+            'canonical_uri': str(URIRef(local) if explicit_uri else KW[local]) if local else None, 'reason': reason}
 
 
 def mapping_summary(bindings):

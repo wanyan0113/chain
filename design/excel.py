@@ -20,9 +20,10 @@ HEADERS = {
     '资源组': ['资源组编号', '容量', '法器编号列表'],
     '填写指南': ['项目', '说明'],
 }
-OPTIONAL_HEADERS = {'本体关系': ['主体类型', '主体', '关系URI', '客体类型', '客体', '来源', '阻塞疑点']}
+OPTIONAL_HEADERS = {'本体关系': ['主体类型', '主体', '关系URI', '客体类型', '客体', '来源', '阻塞疑点'],
+                    '本体类型': ['对象类型', '对象编号', '类型URI']}
 SETTINGS = ['范围说明', '时间权重', '精度权重', '成本权重', '同值指标评分', '成本单位', '链组合上限', '网络组合上限']
-OPTIONAL_SETTINGS = ['表10原文校验']
+OPTIONAL_SETTINGS = ['表10原文校验', '本体知识文件', '业务规则文件', '知识来源']
 ROLES = {'探知': 'insight', '协调': 'coordination', '具现': 'manifestation'}
 RULES = {'任务': 'task_rules', '法器': 'artifact_rules'}
 GUIDE = [
@@ -38,6 +39,7 @@ GUIDE = [
     ['指标', '耗时、精度、成本和成本单位全部空白时表示指标未知，部分填写会报错。其他数字不能为空。精度填写0至1。'],
     ['关系与时间', '协同关系为有向边，距离严格小于最大距离。开始时间固定；容量、库存、冷却、依赖和资源组参与网络约束。'],
     ['本体关系', '可选本体关系表：主体类型、主体、关系URI、客体类型、客体、来源、阻塞疑点。类型填法器或能力，能力填完整URI。协同关系的传讯或统筹填“本体推导”时使用推导结果，距离仍须明确填写。'],
+    ['外置知识', '设计设置可填写本体知识文件（knowledge目录内相对路径，分号分隔）、知识来源及可选业务规则文件。此模式实际执行HermiT，再执行规则与组网。可选本体类型表列为对象类型、对象编号、类型URI；对象类型填任务、目标或法器。'],
     ['输出', '上传后显示候选链、选中网络和阻塞原因。完整且规范能力映射就绪时才导出RDF；执行静态本体检查。'],
 ]
 
@@ -97,6 +99,11 @@ def convert(sheets):
            **{k: [] for k in ('tasks', 'artifacts', 'contexts', 'task_rules', 'artifact_rules', 'links', 'dependencies', 'resource_groups')}}
     if '表10原文校验' in settings:
         doc['policies']['article_table10'] = boolean(settings['表10原文校验'], '表10原文校验')
+    if any(key in settings for key in ('本体知识文件', '业务规则文件', '知识来源')):
+        doc['knowledge'] = {'ontology_files': refs(text(settings.get('本体知识文件'), '本体知识文件'), '本体知识文件'),
+                            'source_refs': refs(text(settings.get('知识来源'), '知识来源'), '知识来源')}
+        if settings.get('业务规则文件') is not None:
+            doc['knowledge']['rules_file'] = text(settings['业务规则文件'], '业务规则文件')
     owners = {}
     def add_owner(kind, key, obj):
         if (kind, key) in owners:
@@ -140,6 +147,18 @@ def convert(sheets):
         if owner is None or not re.fullmatch(r'[A-Za-z][A-Za-z0-9_]*', field) or field in owner['attributes']:
             raise EntryError(f'{where}：对象不存在、字段无效或属性重复')
         owner['attributes'][field] = value_of(typ, value, unit, where)
+    for row, (kind, identifier, class_uri) in optional.get('本体类型', []):
+        where = f'本体类型第{row}行'
+        identifier, class_uri = text(identifier, where), text(class_uri, where)
+        selected = ([task for task in doc['tasks'] if task['target'] == identifier] if kind == '目标'
+                    else [owners.get((kind, identifier))] if kind in ('任务', '法器') else [])
+        if not selected or any(owner is None for owner in selected):
+            raise EntryError(f'{where}：对象类型或编号不存在')
+        for owner in selected:
+            values = owner.setdefault('target_ontology_types' if kind == '目标' else 'ontology_types', [])
+            if class_uri in values:
+                raise EntryError(f'{where}：重复类型')
+            values.append(class_uri)
     rules = {}
     for row, (kind, identifier, role, capability, unconditional, source, issues) in rows['规则']:
         where = f'规则第{row}行'

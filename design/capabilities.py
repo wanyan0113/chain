@@ -26,10 +26,13 @@ def capability_schema():
         "properties": {
             "format_version": {"const": "1.0"}, "scope": definitions["id"],
             "tasks": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/task"}},
-            "task_rules": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/taskRule"}},
+            "task_rules": {"type": "array", "items": {"$ref": "#/$defs/taskRule"}},
+            "knowledge": {"$ref": "#/$defs/knowledge"},
             "required_roles": {"type": "array", "minItems": 1, "uniqueItems": True,
                                "items": {"$ref": "#/$defs/role"}},
         }, "$defs": definitions,
+        "allOf": [{"if": {"not": {"required": ["knowledge"]}},
+                   "then": {"properties": {"task_rules": {"minItems": 1}}}}],
     }
 
 
@@ -40,6 +43,27 @@ def infer_capabilities(document):
                     key=lambda e: str(list(e.path)))
     if errors:
         raise DesignError("; ".join(f"{list(e.path)}: {e.message}" for e in errors[:8]))
+    if 'knowledge' not in document and any('ontology_types' in task or 'target_ontology_types' in task for task in document['tasks']):
+        raise DesignError('任务本体类型须通过knowledge配置启用实际HermiT推导')
+    from .knowledge import knowledge_context
+    from .owl_scene import reason_scene
+    original_digest = hashlib.sha256(json.dumps(document, ensure_ascii=False, sort_keys=True,
+                                                allow_nan=False).encode('utf-8')).hexdigest()
+    with knowledge_context(document) as (effective, knowledge):
+        errors = list(Draft202012Validator(capability_schema()).iter_errors(effective))
+        if errors:
+            raise DesignError(str(errors[0].message))
+        owl = reason_scene(effective, load_capability_ontology()) if knowledge is not None else None
+        result = _infer_capabilities(effective, owl)
+        result['input_sha256'] = original_digest
+        if knowledge is not None:
+            result.update(knowledge=knowledge, owl_reasoning=owl,
+                          execution_sha256=hashlib.sha256((original_digest + knowledge['sha256']).encode('ascii')).hexdigest())
+        return result
+
+
+def _infer_capabilities(document, owl):
+    from .owl_scene import task_requirements
     for collection in ("tasks", "task_rules"):
         ids = [item["id"] for item in document[collection]]
         if len(ids) != len(set(ids)):
@@ -48,7 +72,7 @@ def infer_capabilities(document):
         if any(not c["field"].startswith("task.") or
                ("ref" in c and not c["ref"].startswith("task.")) for c in rule["when"]):
             raise DesignError("任务—能力规则只能引用 task 字段")
-    tasks = [infer_task_capabilities(task, document["task_rules"], document["required_roles"])
+    tasks = [infer_task_capabilities(task, document["task_rules"], document["required_roles"], task_requirements(task, owl))
              for task in document["tasks"]]
     ontology = load_capability_ontology()
     for task, result in zip(document["tasks"], tasks):
@@ -83,7 +107,7 @@ def capability_rdf(document, report, *, require_canonical=False):
     graph.bind("inference", META)
 
     def entity(kind, identifier):
-        return URIRef(f"urn:arcane-capability-inference:{report['input_sha256']}:{kind}:"
+        return URIRef(f"urn:arcane-capability-inference:{report.get('execution_sha256', report['input_sha256'])}:{kind}:"
                       + quote(identifier, safe=""))
 
     run = entity("run", "current")
@@ -117,6 +141,13 @@ def capability_rdf(document, report, *, require_canonical=False):
             graph.add((evidence, META.checksPayload, Literal(json.dumps(result["checks"], ensure_ascii=False))))
             for source in result["source_refs"]:
                 graph.add((rule, META.sourceRef, Literal(source)))
+    if 'owl_reasoning' in report:
+        for uri, value in report['owl_reasoning']['subjects'].items():
+            kind = 'mission' if value['kind'] == 'task' else value['kind']
+            for cls in report['owl_reasoning']['types'].get(uri, []):
+                graph.add((entity(kind, value['id']), RDF.type, URIRef(cls)))
+        for task in document['tasks']:
+            graph.add((entity('mission', task['id']), KW.hasTarget, entity('target', task.get('target', task['id']))))
     return graph
 
 
@@ -127,6 +158,9 @@ def capability_summary(report):
              f"本体映射：{mapping['status']}；已映射 {mapping['mapped']}／{mapping['total']}；未映射 {mapping['unmapped']}",
              f"规范URI导出就绪：{'是' if report['canonical_export_ready'] else '否'}", "", report["validation_scope"], "",
              "blocked 时已命中能力仅为部分结果，不能作为完整需求交给后续法器筛选。", ""]
+    if 'owl_reasoning' in report:
+        lines += [f"实际推理器：HermiT；状态：{report['owl_reasoning']['status']}；知识版本：{report['knowledge']['sha256']}", '',
+                  report['owl_reasoning']['scope'], '']
     for task in report["tasks"]:
         lines += [f"## {task['task']}", "", f"推理状态：{task['status']}",
                   f"本体映射：{task['ontology_mapping']['status']}；规范URI导出就绪："

@@ -1,0 +1,44 @@
+@prefix kw: <http://example.org/arcaneweb#> .
+@prefix demo: <urn:arcane-knowledge:demo:> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+demo:ontology a owl:Ontology ;
+  rdfs:label "知识外置技术示例"@zh ; owl:versionInfo "1.0.0" ;
+  rdfs:comment "知识外置与实际OWL推导的虚构工程示例；不是文章真实规则或案例验收依据。主本体由加载器显式合并。"@zh .
+
+# 类的充分必要定义由OWL推理器执行，程序中没有幽光法球的分类分支。
+demo:OrbTarget a owl:Class ; rdfs:label "演示法球目标"@zh ;
+  owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+    kw:Target
+    [ a owl:Restriction ; owl:onProperty kw:targetType ; owl:hasValue "幽光法球"^^xsd:string ]
+  ) ] .
+
+demo:OrbMission a owl:Class ; rdfs:label "演示法球任务"@zh ;
+  owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+    kw:ArcaneMission
+    [ a owl:Restriction ; owl:onProperty kw:hasTarget ; owl:someValuesFrom demo:OrbTarget ]
+  ) ] ;
+  rdfs:subClassOf
+    [ a owl:Restriction ; owl:onProperty kw:requiresCapability ; owl:hasValue kw:AirInsightCapability ],
+    [ a owl:Restriction ; owl:onProperty kw:requiresCapability ; owl:hasValue kw:RapidResponseCoordinationCapability ],
+    [ a owl:Restriction ; owl:onProperty kw:requiresCapability ; owl:hasValue kw:ShortRangeManifestationCapability ] .
+
+# 资源的角色与具名能力也由等价类定义推出，不在场景文件重复声明。
+demo:InsightUnit a owl:Class ; rdfs:label "演示探知单元"@zh ;
+  owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+    kw:InsightArtifact
+    [ a owl:Restriction ; owl:onProperty kw:hasCapability ; owl:hasValue kw:AirInsightCapability ]
+  ) ] .
+demo:CoordinationUnit a owl:Class ; rdfs:label "演示协调单元"@zh ;
+  owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+    kw:CoordinationArtifact
+    [ a owl:Restriction ; owl:onProperty kw:hasCapability ; owl:hasValue kw:RapidResponseCoordinationCapability ]
+  ) ] .
+demo:EffectUnit a owl:Class ; rdfs:label "演示具现单元"@zh ;
+  owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+    kw:ManifestationArtifact
+    [ a owl:Restriction ; owl:onProperty kw:hasCapability ; owl:hasValue kw:ShortRangeManifestationCapability ]
+  ) ] .

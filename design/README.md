@@ -1,5 +1,7 @@
 # 六步规则设计模块
 
+配置 `knowledge` 可启用真实HermiT与外置TTL/JSON规则协作，具名结果实际参与设计。配置、依赖及边界见 [知识协作说明](../knowledge/README.md)。下述有限分类/关系推导适用于未配置 `knowledge` 的兼容模式；知识模式的网页与CLI会自动执行HermiT，独立于旧案例的 `--reasoner` 开关。
+
 本体分类现已参与候选筛选：法器可通过 `ontology_types` 声明本体类，由继承推导设计角色，规则可读取 `artifact.ontology_types`。Excel“法器”的“角色”列也支持完整类URI。运行 `python -B -m design run design/examples/ontology_network_demo.json --output-dir tmp/ontology-network-demo --require-canonical` 查看虚构双任务演示。范围、推导依据及与HermiT的区别见 [本体推导说明](本体推导说明.md)。
 
 关系推导也已接入：可选 `ontology_relations` 提供能力与协同声明，通过本体已有的子属性、逆关系、对称关系推导事实。规则可读取 `artifact.ontology_capabilities`，协同标记可请求本体推导；缺少事实保持未知。Excel支持可选“本体关系”表。完整虚构示例为 `examples/ontology_relations_demo.json`，当前分工与复现边界见 [本体推理现状](../docs/本体推理现状与作用.md)。

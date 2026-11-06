@@ -28,6 +28,7 @@ def run_design(data, filename, *, output_root=None):
     from design.excel import load_design
     from design.rdf import design_to_rdf
     from design.__main__ import render_summary
+    from design.knowledge import ontology_for_document, knowledge_outputs, knowledge_sources
     from check_ontology import analyze_graph
     from rdflib import Graph
     document, bridge = load_design(data)
@@ -39,13 +40,14 @@ def run_design(data, filename, *, output_root=None):
     export = {'status': 'not_ready', 'reason': '设计尚未完整或存在未映射能力', 'validation': None}
     if result['status'] == 'complete' and result['canonical_export_ready']:
         graph = design_to_rdf(document, result, require_canonical=True)
-        review = analyze_graph(Graph().parse(ROOT / 'arcane_ontology.ttl', format='turtle') + graph)
+        review = analyze_graph(ontology_for_document(document) + graph)
         export['validation'] = review.counts()
         if review.counts()['ERROR'] or review.counts()['WARN']:
             export.update(status='validation_failed', reason='生成实例未通过主本体静态检查')
         else:
             outputs['design.ttl'] = graph.serialize(format='turtle')
-            export.update(status='exported', reason='规范能力RDF已通过静态检查；未执行OWL推理器')
+            export.update(status='exported', reason='规范能力RDF已通过静态检查；' +
+                          ('已执行HermiT知识推导' if 'owl_reasoning' in result else '未执行OWL推理器'))
     response = {'filename': filename, 'output': str(out), 'report': result, 'rdf_export': export,
                 'input_file_sha256': hashlib.sha256(data).hexdigest(), 'summary': render_summary(result)}
     if bridge:
@@ -53,7 +55,8 @@ def run_design(data, filename, *, output_root=None):
     outputs.update({'design_report.json': json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + '\n',
                     'design_summary.md': response['summary'],
                     'run_result.json': json.dumps(response, ensure_ascii=False, indent=2, allow_nan=False) + '\n'})
-    write_outputs(out, outputs)
+    outputs.update(knowledge_outputs(document, result))
+    write_outputs(out, outputs, protected=knowledge_sources(document))
     return response
 
 

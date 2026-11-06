@@ -24,6 +24,7 @@ body{max-width:1120px;margin:32px auto;padding:0 20px;font:16px/1.65 system-ui;c
 <p id="graph-mode" role="status"></p><p class="graph-note">从左向右读：目标 → 探知 → 协调 → 具现 → 原目标。颜色区分角色；两端同名目标表示同一对象。候选链逐行显示，网络合并共同使用的法器。任务、评分和选中情况见图下表格。</p>
 <div id="graph" class="graph-box"></div><h3>图与任务的对应</h3><div id="graph-legend"></div><details><summary>任务关系与资源共享</summary><div id="graph-relations"></div></details><div id="node-details" class="node-details" hidden aria-live="polite"></div></section>
 <section><h2>本体推导</h2><p id="ontology-scope"></p><div id="ontology-types"></div><h3>能力与协同关系依据</h3><div id="ontology-relations"></div><details><summary>关系声明、推导过程与成链使用记录</summary><pre id="ontology-relation-evidence"></pre></details></section>
+<section id="owl-section" hidden><h2>外置知识与OWL任务推导</h2><p id="owl-status"></p><div id="owl-tasks"></div><details><summary>知识文件版本及完整推导记录</summary><pre id="owl-evidence"></pre></details></section>
 <section><h2>任务与候选链</h2><div id="tasks"></div></section>
 <section><h2>原参数取值与来源</h2><p id="source-scope"></p><div class="scroll" id="source-bindings"></div></section>
 <section><h2>表10原文条件核验</h2><p id="article-status"></p><div class="scroll" id="article-checks"></div><h3>网络组合核验</h3><div id="article-combinations"></div><details><summary>网络组合与逐项协同依据</summary><pre id="article-evidence"></pre></details></section>
@@ -51,9 +52,13 @@ const statuses={complete:'设计完成',blocked:'等待补充信息',no_feasible
 function show(data){const r=data.report;currentReport=r;$('graph-view').replaceChildren();for(const [value,text] of [['network','选中网络'],['candidates','全部候选链（逐行）']]){const o=document.createElement('option');o.value=value;o.textContent=text;$('graph-view').append(o)}for(const t of r.tasks)for(const c of t.chains){const o=document.createElement('option');o.value='chain:'+c.id;o.textContent=`${c.id} · ${t.task} · ${r.network?.chains.includes(c.id)?'已选中':'候选'}`;$('graph-view').append(o)}drawGraph();$('overview').textContent=`${statuses[r.status]??r.status}。能力映射 ${r.ontology_mapping.mapped}/${r.ontology_mapping.total}。`;$('scope').textContent=r.scope;$('export').textContent=`RDF：${data.rdf_export.reason}`;
 $('article-checks').replaceChildren();const stateNames={pass:'通过',fail:'不满足',unknown:'存在未知条件',not_ready:'尚未进入组网核验'};
 $('ontology-types').replaceChildren();$('ontology-scope').textContent=r.ontology_inference?.scope??'本次未提供本体分类推导记录。';
-if(r.ontology_inference)table($('ontology-types'),['法器','输入方式','设计角色','本体分类依据'],r.ontology_inference.artifacts.map(a=>[a.artifact,a.input_kind==='ontology_types'?'本体类型':'显式角色',a.role,a.role_path.join(' → ')]));
+if(r.ontology_inference)table($('ontology-types'),['法器','输入方式','设计角色','本体分类依据'],r.ontology_inference.artifacts.map(a=>[a.artifact,a.input_kind==='ontology_types'?'本体类型':'显式角色',a.role,a.role_path.join(' → ')||'HermiT根据类定义推导']));
+$('owl-section').hidden=!r.owl_reasoning;$('owl-tasks').replaceChildren();
+if(r.owl_reasoning){$('owl-status').textContent=`已实际执行 ${r.owl_reasoning.engine}，状态 ${r.owl_reasoning.status}。任务需求与外置业务规则共同参与设计。`;
+table($('owl-tasks'),['任务','推导类别','OWL能力需求'],r.tasks.map(t=>[t.task,t.owl_evidence?.types.join('、')??'',JSON.stringify(t.owl_evidence?.required_capabilities??{})]));
+$('owl-evidence').textContent=JSON.stringify({knowledge:r.knowledge,owl_reasoning:r.owl_reasoning},null,2)}
 $('ontology-relations').replaceChildren();const ontologyRelations=r.ontology_inference?.relations;
-if(ontologyRelations?.facts.length)table($('ontology-relations'),['主体','关系','客体','推导方式','来源'],ontologyRelations.facts.map(f=>[f.subject.id,f.predicate,f.object.id,({asserted:'输入声明',subproperty:'子属性',inverse:'逆关系',symmetric:'对称关系'})[f.derivation.rule],f.derivation.source_refs.join('；')]));
+if(ontologyRelations?.facts.length)table($('ontology-relations'),['主体','关系','客体','推导方式','来源'],ontologyRelations.facts.map(f=>[f.subject.id,f.predicate,f.object.id,({asserted:'输入声明',owl_result:'HermiT结果',subproperty:'子属性',inverse:'逆关系',symmetric:'对称关系'})[f.derivation.rule],f.derivation.source_refs.join('；')]));
 $('ontology-relation-evidence').textContent=ontologyRelations?JSON.stringify(ontologyRelations,null,2):'未记录本体关系推导。';
 $('article-status').textContent=r.article_table10?`已开启表10条件；组网核验：${stateNames[r.article_table10.status]??r.article_table10.status}。网络结论同时受能力规则、原文条件和资源约束限制。`:'本次未开启表10原文条件。可在设计设置增加“表10原文校验”并填文本true；当前结果只按已配置的工程规则判断。';
 const articleRows=[];for(const task of r.tasks)for(const item of task.selection)if(item.table10)for(const check of item.table10.checks)articleRows.push([task.task,item.artifact,check.quote,stateNames[check.status],check.reason,item.table10.source]);

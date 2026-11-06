@@ -13,6 +13,7 @@ from source_data.validate import validate_bundle
 
 from .engine import DesignError, SearchLimitError, design
 from .rdf import design_to_rdf
+from .knowledge import ontology_for_document, knowledge_outputs, knowledge_sources
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -20,12 +21,22 @@ ROOT = Path(__file__).resolve().parent.parent
 def render_summary(result):
     lines = ["# 法术链设计报告", "", f"状态：{result['status']}", "", f"数据范围：{result['scope']}", ""]
     mapping = result['ontology_mapping']
+    if 'owl_reasoning' in result:
+        owl = result['owl_reasoning']
+        lines += ['## 外置知识与OWL推导', '', f"实际推理器：{owl['engine']}；状态：{owl['status']}。", '',
+                  '知识版本：' + result['knowledge']['sha256'],
+                  '知识文件：' + '、'.join(file['path'] for file in result['knowledge']['files']), '', owl['scope'], '']
+        for task in result['tasks']:
+            evidence = task.get('owl_evidence', {})
+            lines += [f"任务 {task['task']} 的OWL类别：{'、'.join(evidence.get('types', []))}",
+                      'OWL能力需求：' + json.dumps(evidence.get('required_capabilities', {}), ensure_ascii=False), '']
     if 'ontology_inference' in result:
         inference = result['ontology_inference']
         lines += ['## 本体分类推导', '', inference['scope'], '',
                   '| 法器 | 输入方式 | 推导角色 | 分类路径 |', '| --- | --- | --- | --- |']
         for item in inference['artifacts']:
-            lines.append(f"| {item['artifact']} | {item['input_kind']} | {item['role']} | {' → '.join(item['role_path'])} |")
+            basis = ' → '.join(item['role_path']) or 'HermiT根据类定义推导'
+            lines.append(f"| {item['artifact']} | {item['input_kind']} | {item['role']} | {basis} |")
         lines += ['', '分类结果已用于候选筛选；业务条件与资源优化由规则及设计引擎继续执行。', '']
         relations = inference.get('relations', {})
         lines += ['### 本体关系推导', '', relations.get('scope', ''), '',
@@ -118,7 +129,7 @@ def main(argv=None):
             outputs = {}
             if result["status"] == "complete" and (not args.require_canonical or result['canonical_export_ready']):
                 graph = capability_rdf(doc, result, require_canonical=args.require_canonical)
-                review = analyze_graph(Graph().parse(ROOT / "arcane_ontology.ttl", format="turtle") + graph)
+                review = analyze_graph(ontology_for_document(doc) + graph)
                 if review.counts()["ERROR"] or review.counts()["WARN"]:
                     raise DesignError(f"能力实例未通过主本体静态检查：{review.items}")
                 outputs["capabilities.ttl"] = graph.serialize(format="turtle")
@@ -126,7 +137,8 @@ def main(argv=None):
                 raise DesignError("输出目录含既有 capabilities.ttl；请为未满足本次导出条件的报告使用新目录，避免混淆旧结果")
             outputs["capability_report.json"] = json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n"
             outputs["capability_summary.md"] = capability_summary(result)
-            write_outputs(args.output_dir, outputs, overwrite=args.overwrite, protected=[args.input])
+            outputs.update(knowledge_outputs(doc, result))
+            write_outputs(args.output_dir, outputs, overwrite=args.overwrite, protected=[args.input] + knowledge_sources(doc))
         elif args.command == "reproduce-case":
             from .reference import REFERENCE_PATH, reference_summary, reference_to_rdf, reproduce_reference, reference_view_html
             result = reproduce_reference()
@@ -152,7 +164,7 @@ def main(argv=None):
             outputs = {}
             if result["status"] == "complete" and (not args.require_canonical or result['canonical_export_ready']):
                 graph = design_to_rdf(doc, result, require_canonical=args.require_canonical)
-                combined = Graph().parse(ROOT / "arcane_ontology.ttl", format="turtle") + graph
+                combined = ontology_for_document(doc) + graph
                 review = analyze_graph(combined)
                 if review.counts()["ERROR"] or review.counts()["WARN"]:
                     raise DesignError(f"生成实例未通过主本体静态检查：{review.items}")
@@ -164,7 +176,8 @@ def main(argv=None):
                 raise DesignError("输出目录含既有 design.ttl；请为未满足导出条件的报告使用新目录，避免混淆旧方案")
             outputs["design_report.json"] = json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n"
             outputs["design_summary.md"] = render_summary(result)
-            write_outputs(args.output_dir, outputs, overwrite=args.overwrite, protected=[args.input])
+            outputs.update(knowledge_outputs(doc, result))
+            write_outputs(args.output_dir, outputs, overwrite=args.overwrite, protected=[args.input] + knowledge_sources(doc))
         print(json.dumps(result, ensure_ascii=False, allow_nan=False))
         if args.command in ('infer-capabilities', 'run') and args.require_canonical and not result['canonical_export_ready']:
             return 1
