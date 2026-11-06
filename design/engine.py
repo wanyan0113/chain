@@ -107,8 +107,8 @@ def condition_result(condition, scopes):
         if not isinstance(left, list) or not isinstance(right, str):
             return "unknown", "contains 要求字符串数组和字符串"
         passed = right in left
-        if condition['field'] in ('artifact.ontology_capabilities', 'task.ontology_types') and not passed:
-            return 'unknown', '尚未推导出该能力关系；开放世界下不将缺失当作否定'
+        if condition['field'] in ('artifact.ontology_capabilities', 'task.ontology_types', 'artifact.ontology_types') and not passed:
+            return 'unknown', '尚未推导出该本体类型或能力关系；开放世界下不将缺失当作否定'
     elif op == "eq":
         if isinstance(left, dict) or isinstance(right, dict):
             if not isinstance(left, dict) or not isinstance(right, dict) or left["unit"] != right["unit"]:
@@ -161,6 +161,9 @@ def infer_task_capabilities(task, rules, required_roles=ROLES, ontology_requirem
                              if r["role"] == role and r["status"] == "pass"})
                 for role in ROLES}
     blockers = []
+    if ontology_requirements is not None:
+        blockers.extend({'code': 'UNKNOWN_OWL_FACT', 'mapping': item['mapping'], 'reason': item['reason']}
+                        for item in ontology_requirements.get('projection_issues', []))
     if task["blocking_issue_ids"]:
         blockers.append({"code": "TASK_ISSUES", "issues": list(task["blocking_issue_ids"])})
     unknown = [r["rule"] for r in inference if r["status"] == "unknown"]
@@ -303,6 +306,10 @@ def _design(doc, input_digest, knowledge, owl):
                 target_status = ("unknown" if not isinstance(target_type, str) or not isinstance(target_types, list)
                                  else "pass" if target_type in target_types else "fail")
             issues = artifact["blocking_issue_ids"] + context.get("blocking_issue_ids", [])
+            if owl is not None:
+                issues += ['owl-mapping:' + item['mapping'] for item in owl.get('data_projection', [])
+                           if item['kind'] == 'artifact' and item['owner'] == artifact['id']
+                           and item['required'] and item['status'] == 'unknown']
             article_check = screening(task, artifact, context) if article_enabled else None
             article_status = article_check['status'] if article_check else 'pass'
             uncertain = bool(issues) or target_status == "unknown" or any(
@@ -321,7 +328,7 @@ def _design(doc, input_digest, knowledge, owl):
                                         "missing_capabilities": missing, "rules": checks,
                                         "target_type_check": target_status,
                                         "available": artifact["available"],
-                                        "blocking_issue_ids": artifact["blocking_issue_ids"] + context.get("blocking_issue_ids", [])})
+                                        "blocking_issue_ids": issues})
             if article_check:
                 result['selection'][-1]['table10'] = article_check
             if accepted:

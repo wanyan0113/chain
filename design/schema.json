@@ -22,7 +22,7 @@
   "$defs": {
     "id": {"type": "string", "minLength": 1, "pattern": "\\S"},
     "refs": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}},
-    "knowledge": {"type": "object", "additionalProperties": false, "required": ["ontology_files", "source_refs"], "properties": {"ontology_files": {"type": "array", "minItems": 1, "maxItems": 20, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}}, "rules_file": {"$ref": "#/$defs/id"}, "source_refs": {"allOf": [{"$ref": "#/$defs/refs"}], "minItems": 1}}},
+    "knowledge": {"type": "object", "additionalProperties": false, "required": ["ontology_files", "source_refs"], "properties": {"ontology_files": {"type": "array", "minItems": 1, "maxItems": 20, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}}, "rules_file": {"$ref": "#/$defs/id"}, "fact_mappings_file": {"$ref": "#/$defs/id"}, "source_refs": {"allOf": [{"$ref": "#/$defs/refs"}], "minItems": 1}}},
     "owlTypes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:"}},
     "ontologyEndpoint": {"type": "object", "additionalProperties": false, "required": ["kind", "id"], "properties": {"kind": {"enum": ["artifact", "capability"]}, "id": {"$ref": "#/$defs/id"}}},
     "ontologyRelation": {"type": "object", "additionalProperties": false, "required": ["subject", "predicate", "object", "source_refs", "blocking_issue_ids"], "properties": {"subject": {"$ref": "#/$defs/ontologyEndpoint"}, "predicate": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:"}, "object": {"$ref": "#/$defs/ontologyEndpoint"}, "source_refs": {"allOf": [{"$ref": "#/$defs/refs"}], "minItems": 1}, "blocking_issue_ids": {"$ref": "#/$defs/refs"}}},

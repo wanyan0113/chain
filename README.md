@@ -33,4 +33,16 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\启动Excel演示.ps1
 
 示例用于验证程序机制，不代表文章全部真实实验复现。最优性限定于声明的输入、约束与评分政策；同分时选中结果不表示唯一最优。
 
+## 场景属性参与本体推理
+
+在输入的 `knowledge.fact_mappings_file`（Excel设置“本体事实映射文件”）指定knowledge目录内的JSON文件，例如：
+
+```json
+{"mappings":[{"id":"height","kind":"target","field":"operating_height","property":"http://example.org/arcaneweb#targetAltitudeFt","datatype":"decimal","unit":"ft","source_refs":["字段定义来源"]}]}
+```
+
+对应任务的 `attributes.operating_height` 填 `{"value":1000,"unit":"ft"}`。`kind` 可为task、target或artifact；target从所属任务的attributes读取。属性须在本体声明为数据属性；支持string、boolean、decimal、integer、double，数值必须声明单位，不自动换算。映射默认 `required:true`，缺失、类型或单位不符会记录unknown并阻塞相关任务或法器；明确可选字段才设置false。
+
+修改场景事实、OWL分类公理、字段映射或JSON规则可改变结果，无需修改Python。程序仍固定三种角色、闭合链结构、评分公式和规则运算符；新增这些机制仍需改程序。具名推理结果回流范围为类型及requiresCapability、hasCapability、communicatesWith、orchestrates四种关系，尚非任意OWL结论的通用消费器。
+
 `generated/` 与 `tmp/` 中的运行输出可重新生成；清理它们不影响源代码和知识文件。再次运行仍会按需生成报告。

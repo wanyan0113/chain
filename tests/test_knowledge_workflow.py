@@ -182,15 +182,19 @@ demo:ChangedMission a owl:Class ; owl:equivalentClass [ a owl:Class ; owl:inters
 
     def test_excel_can_reference_external_knowledge_without_template_column_changes(self):
         sheets = read_xlsx((ROOT / 'excel_entry/templates/链网设计示例.xlsx').read_bytes())
-        for key, value in [('本体知识文件', 'demo-task-capabilities.ttl'), ('业务规则文件', 'demo-selection.rules.json'), ('知识来源', 'fictional-demo')]:
+        (self.root / 'excel-facts.json').write_text('{"mappings":[]}', encoding='utf-8')
+        for key, value in [('本体知识文件', 'demo-task-capabilities.ttl'), ('业务规则文件', 'demo-selection.rules.json'), ('本体事实映射文件', 'excel-facts.json'), ('知识来源', 'fictional-demo')]:
             sheets['设计设置'][max(sheets['设计设置']) + 1] = {1: key, 2: value}
         for row, cls in [(2, 'InsightUnit'), (3, 'CoordinationUnit'), (4, 'EffectUnit'), (5, 'EffectUnit')]:
             sheets['法器'][row][2] = D + cls
         sheets['规则'] = {1: sheets['规则'][1]}
         sheets['规则条件'] = {1: sheets['规则条件'][1]}
-        report = design(convert(sheets))
+        document = convert(sheets)
+        self.assertEqual(document['knowledge']['fact_mappings_file'], 'excel-facts.json')
+        report = design(document)
         self.assertEqual(report['status'], 'complete')
         self.assertEqual(report['owl_reasoning']['engine'], 'HermiT')
+        self.assertIn('knowledge/excel-facts.json', [f['path'] for f in report['knowledge']['files']])
 
     def test_cli_uses_merged_ontology_and_saves_reviewable_outputs(self):
         # The actual CLI resolves the repository's knowledge directory, not the
@@ -204,3 +208,106 @@ demo:ChangedMission a owl:Class ; owl:equivalentClass [ a owl:Class ; owl:inters
         self.assertEqual(report['rdf_validation']['WARN'], 0)
         for name in ('design.ttl', 'reasoning_input.ttl', 'reasoning_result.ttl', 'knowledge_snapshot.json'):
             self.assertTrue((out / name).exists(), name)
+
+    def configure_height_mapping(self):
+        self.doc['knowledge']['fact_mappings_file'] = 'facts.json'
+        self.mapping = {'mappings': [{'id': 'height', 'kind': 'target', 'field': 'operating_height',
+            'property': str(KW.targetAltitudeFt), 'datatype': 'decimal', 'unit': 'ft', 'source_refs': ['test-schema']}]}
+        self.mapping_path = self.root / 'facts.json'
+        self.mapping_path.write_text(json.dumps(self.mapping), encoding='utf-8')
+        for task in self.doc['tasks']:
+            task['attributes']['operating_height'] = {'value': 1000, 'unit': 'ft'}
+        self.ttl.write_text(self.ttl.read_text(encoding='utf-8') + '''
+demo:HighTarget a owl:Class ; rdfs:label "High target"@en ; owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+ kw:Target [ a owl:Restriction ; owl:onProperty kw:targetAltitudeFt ; owl:someValuesFrom [
+  a rdfs:Datatype ; owl:onDatatype xsd:decimal ; owl:withRestrictions ( [ xsd:minInclusive "1000"^^xsd:decimal ] ) ] ] ) ] .
+demo:HighMission a owl:Class ; rdfs:label "High mission"@en ; owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+ kw:ArcaneMission [ a owl:Restriction ; owl:onProperty kw:hasTarget ; owl:someValuesFrom demo:HighTarget ] ) ] ;
+ rdfs:subClassOf [ a owl:Restriction ; owl:onProperty kw:requiresCapability ; owl:hasValue kw:AirManifestationCapability ] .
+demo:EffectUnit rdfs:subClassOf [ a owl:Restriction ; owl:onProperty kw:hasCapability ; owl:hasValue kw:AirManifestationCapability ] .
+''', encoding='utf-8')
+        rules = json.loads(self.rules.read_text(encoding='utf-8'))
+        extra = deepcopy(rules['artifact_rules'][-1])
+        extra['id'] = 'high-target-effect'
+        extra['capability'] = str(KW.AirManifestationCapability)
+        extra['when'][-1]['value'] = str(KW.AirManifestationCapability)
+        rules['artifact_rules'].append(extra)
+        self.rules.write_text(json.dumps(rules), encoding='utf-8')
+
+    def test_scene_and_external_numeric_owl_axiom_change_needs_without_python(self):
+        self.configure_height_mapping()
+        high = design(self.doc)
+        self.assertEqual(high['status'], 'complete')
+        self.assertIn(D + 'HighMission', high['tasks'][0]['owl_evidence']['types'])
+        self.assertIn(str(KW.AirManifestationCapability), high['tasks'][0]['required_capabilities']['manifestation'])
+        for task in self.doc['tasks']:
+            task['attributes']['operating_height']['value'] = 999
+        low = design(self.doc)
+        self.assertEqual(low['status'], 'complete')
+        self.assertNotIn(D + 'HighMission', low['tasks'][0]['owl_evidence']['types'])
+        self.assertNotIn(str(KW.AirManifestationCapability), low['tasks'][0]['required_capabilities']['manifestation'])
+        self.ttl.write_text(self.ttl.read_text(encoding='utf-8').replace('"1000"^^xsd:decimal', '"900"^^xsd:decimal'), encoding='utf-8')
+        changed = design(self.doc)
+        self.assertIn(D + 'HighMission', changed['tasks'][0]['owl_evidence']['types'])
+        self.assertEqual(changed['input_sha256'], low['input_sha256'])
+        self.assertNotEqual(changed['execution_sha256'], low['execution_sha256'])
+
+    def test_required_projection_missing_or_unit_mismatch_blocks_instead_of_ignoring_need(self):
+        self.configure_height_mapping()
+        del self.doc['tasks'][0]['attributes']['operating_height']
+        report = design(self.doc)
+        self.assertEqual(report['status'], 'blocked')
+        self.assertIn('UNKNOWN_OWL_FACT', [b['code'] for b in report['tasks'][0]['blockers']])
+        self.assertEqual(report['owl_reasoning']['data_projection'][0]['status'], 'unknown')
+        self.doc['tasks'][0]['attributes']['operating_height'] = {'value': 1000, 'unit': 'm'}
+        report = design(self.doc)
+        self.assertEqual(report['status'], 'blocked')
+        self.assertIn('不一致', report['owl_reasoning']['data_projection'][0]['reason'])
+        doc = {key: deepcopy(self.doc[key]) for key in ('format_version', 'scope', 'tasks', 'task_rules', 'knowledge')}
+        doc['required_roles'] = ['manifestation']
+        self.assertEqual(infer_capabilities(doc)['status'], 'blocked')
+
+    def test_projection_snapshot_and_field_rename_are_external_knowledge(self):
+        self.configure_height_mapping()
+        report = design(self.doc)
+        outputs = knowledge_outputs(self.doc, report)
+        self.assertEqual(len(json.loads(outputs['knowledge_snapshot.json'])['files']), 4)
+        graph = Graph().parse(data=outputs['reasoning_input.ttl'], format='turtle')
+        self.assertEqual(len(list(graph.triples((None, KW.targetAltitudeFt, None)))), 2)
+        self.mapping['mappings'][0]['field'] = 'renamed_height'
+        self.mapping_path.write_text(json.dumps(self.mapping), encoding='utf-8')
+        with self.assertRaises(DesignError):
+            knowledge_outputs(self.doc, report)
+        for task in self.doc['tasks']:
+            task['attributes']['renamed_height'] = task['attributes'].pop('operating_height')
+        current = design(self.doc)
+        self.assertEqual(current['status'], 'complete')
+        self.assertIn(D + 'HighMission', current['tasks'][0]['owl_evidence']['types'])
+        graph = design_to_rdf(self.doc, current, require_canonical=True)
+        counts = analyze_graph(ontology_for_document(self.doc) + graph).counts()
+        self.assertEqual((counts['ERROR'], counts['WARN']), (0, 0))
+
+    def test_unknown_artifact_mapping_is_not_accepted_as_known_capability(self):
+        self.configure_height_mapping()
+        self.mapping['mappings'] = [{'id': 'equipment-name', 'kind': 'artifact', 'field': 'reviewed_name',
+            'property': str(KW.artifactName), 'datatype': 'string', 'source_refs': ['required-equipment-field']}]
+        self.mapping_path.write_text(json.dumps(self.mapping), encoding='utf-8')
+        report = design(self.doc)
+        self.assertEqual(report['status'], 'blocked')
+        self.assertFalse(any(s['accepted'] for s in report['tasks'][0]['selection']))
+        self.assertTrue(all('owl-mapping:equipment-name' in s['blocking_issue_ids'] for s in report['tasks'][0]['selection']))
+
+    def test_mapping_configuration_errors_are_rejected_before_reasoning(self):
+        self.configure_height_mapping()
+        original = deepcopy(self.mapping)
+        for field, value in [('property', str(KW.requiresCapability)), ('unit', 'm'), ('datatype', 'dateTime')]:
+            changed = deepcopy(original)
+            changed['mappings'][0][field] = value
+            self.mapping_path.write_text(json.dumps(changed), encoding='utf-8')
+            with patch('adapters.owl_infer.infer_owl') as reasoner:
+                with self.assertRaises(DesignError):
+                    design(self.doc)
+                reasoner.assert_not_called()
+        self.mapping_path.write_text('{"mappings":[],"mappings":[]}', encoding='utf-8')
+        with self.assertRaisesRegex(DesignError, '重复'):
+            design(self.doc)

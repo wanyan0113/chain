@@ -12,7 +12,7 @@ def scene_uri(kind, identifier):
     return URIRef(f'urn:arcane-scene:{kind}:{quote(identifier, safe="")}')
 
 
-def build_scene_graph(document, ontology):
+def build_scene_graph(document, ontology, *, projection_evidence=None):
     from .engine import DesignError
     graph = ontology + Graph()
     subjects = {}
@@ -58,13 +58,18 @@ def build_scene_graph(document, ontology):
             raise DesignError('OWL关系属性必须声明为对象属性')
         if not assertion['blocking_issue_ids']:
             graph.add((values[0], predicate, values[1]))
+    from .fact_mapping import project_facts
+    evidence = project_facts(document, graph, scene_uri)
+    if projection_evidence is not None:
+        projection_evidence.extend(evidence)
     return graph, subjects
 
 
 def reason_scene(document, ontology):
     from adapters.owl_infer import infer_owl
     from .engine import DesignError
-    graph, subjects = build_scene_graph(document, ontology)
+    projection = []
+    graph, subjects = build_scene_graph(document, ontology, projection_evidence=projection)
     query_subjects = sorted(set(subjects) | {str(node) for node in graph.subjects(RDF.type, OWL.NamedIndividual)})
     result = infer_owl(graph, query_subjects,
                        list(map(str, (KW.requiresCapability, KW.hasCapability, KW.communicatesWith, KW.orchestrates))))
@@ -72,6 +77,7 @@ def reason_scene(document, ontology):
         raise DesignError(f"OWL推理未完成，不回退为普通规则：{result.get('reason', result['status'])}")
     result['input_graph_digest'] = str(to_isomorphic(graph).graph_digest())
     result['subjects'] = subjects
+    result['data_projection'] = projection
     result['source_refs'] = list(document['knowledge']['source_refs'])
     result['scope'] = '实际HermiT分类及具名对象属性结果；保存输入、公理集和结论，不提供最小逻辑证明；不推造数值事实'
     # Make entailed capability types available to identity checks within this run.
@@ -96,6 +102,9 @@ def task_requirements(task, owl_result):
         requirements[roles[0]].append(uri)
     return {'required_capabilities': {role: sorted(set(values)) for role, values in requirements.items()},
             'task_uri': node, 'types': owl_result['types'].get(node, []), 'facts': facts,
+            'projection_issues': [item for item in owl_result.get('data_projection', [])
+                                  if item['kind'] in ('task', 'target') and item['owner'] == task['id']
+                                  and item['required'] and item['status'] == 'unknown'],
             'source_refs': owl_result['source_refs'], 'input_graph_digest': owl_result['input_graph_digest']}
 
 

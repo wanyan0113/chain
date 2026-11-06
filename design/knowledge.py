@@ -13,6 +13,20 @@ ROOT = Path(__file__).resolve().parents[1]
 KNOWLEDGE_ROOT = ROOT / 'knowledge'
 
 
+def read_knowledge_json(content):
+    from .engine import DesignError
+    def pairs(items):
+        result = {}
+        for key, value in items:
+            if key in result:
+                raise DesignError(f'知识文件包含重复JSON键：{key}')
+            result[key] = value
+        return result
+    def invalid(value):
+        raise DesignError(f'知识文件包含非有限数值：{value}')
+    return json.loads(content, object_pairs_hook=pairs, parse_constant=invalid)
+
+
 def knowledge_path(name, suffix):
     from .engine import DesignError
     root = KNOWLEDGE_ROOT.resolve()
@@ -49,16 +63,7 @@ def knowledge_context(document):
     if config.get('rules_file'):
         path = knowledge_path(config['rules_file'], '.json')
         content = snapshot(path, 'knowledge/' + config['rules_file'])
-        def pairs(items):
-            result = {}
-            for key, value in items:
-                if key in result:
-                    raise DesignError(f'知识规则文件包含重复JSON键：{key}')
-                result[key] = value
-            return result
-        def invalid(value):
-            raise DesignError(f'知识规则文件包含非有限数值：{value}')
-        rules = json.loads(content, object_pairs_hook=pairs, parse_constant=invalid)
+        rules = read_knowledge_json(content)
         if not isinstance(rules, dict) or set(rules) != {'task_rules', 'artifact_rules'}:
             raise DesignError('外置规则文件须且仅须包含task_rules和artifact_rules数组')
         for collection in ('task_rules', 'artifact_rules'):
@@ -66,7 +71,14 @@ def knowledge_context(document):
                 raise DesignError('外置规则必须为数组')
             if collection in prepared:
                 prepared[collection] = prepared[collection] + rules[collection]
+    from .fact_mapping import SCENE_MAPPINGS, validate_mappings
+    mappings = []
+    if config.get('fact_mappings_file'):
+        name = config['fact_mappings_file']
+        content = snapshot(knowledge_path(name, '.json'), 'knowledge/' + name)
+        mappings = validate_mappings(read_knowledge_json(content), graph)
     token = capability_identity.ONTOLOGY_CONTEXT.set(graph)
+    mapping_token = SCENE_MAPPINGS.set(mappings)
     try:
         # URI conclusions remove the need to add Python identity registrations
         # for new capabilities. Legacy labels remain supported outside this mode.
@@ -82,6 +94,7 @@ def knowledge_context(document):
                     'sha256': hashlib.sha256(json.dumps(snapshots, sort_keys=True, ensure_ascii=False).encode('utf-8')).hexdigest()}
         yield prepared, metadata
     finally:
+        SCENE_MAPPINGS.reset(mapping_token)
         capability_identity.ONTOLOGY_CONTEXT.reset(token)
 
 
@@ -98,6 +111,8 @@ def knowledge_sources(document):
     sources = [ROOT / 'arcane_ontology.ttl'] + [knowledge_path(name, '.ttl') for name in config['ontology_files']]
     if config.get('rules_file'):
         sources.append(knowledge_path(config['rules_file'], '.json'))
+    if config.get('fact_mappings_file'):
+        sources.append(knowledge_path(config['fact_mappings_file'], '.json'))
     return sources
 
 
