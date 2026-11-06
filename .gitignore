@@ -3,3 +3,10 @@ __pycache__/
 *.py[cod]
 /tmp/
 **/generated/
+
+# Local article experiments; keep outside the shared implementation.
+/experiments/__init__.py
+/experiments/article_pair/
+/knowledge/article-pair*.ttl
+/knowledge/article-pair*.json
+/tests/test_article_pair.py
