@@ -61,7 +61,12 @@ def cooperation(chosen, doc):
                 max_processing_targets=count(artifact['attributes'],'max_processing_targets')))
         for edge in doc['links']:
             if (edge['from'],edge['to']) in used_edges:
-                data['links'].append({key:value for key,value in edge.items() if key!='blocking_issue_ids'})
+                # Reasoning adds provenance to links. The standalone checker
+                # accepts physical/cooperation facts only; evidence stays in
+                # the full design report and must not leak into its schema.
+                data['links'].append({key:value for key,value in edge.items()
+                                      if key in ('from', 'to', 'communicates', 'controls',
+                                                 'distance', 'max_distance', 'source_refs')})
                 data['blocking_issue_ids'] += edge['blocking_issue_ids']
         for context in doc.get('contexts',[]):
             if (context['task'],context['artifact']) in used_contexts:

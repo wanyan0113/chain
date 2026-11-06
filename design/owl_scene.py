@@ -1,7 +1,7 @@
 """Scene facts -> actual OWL entailments -> design input facts."""
 from urllib.parse import quote
 
-from rdflib import Graph, Literal, RDF, URIRef
+from rdflib import Graph, Literal, RDF, RDFS, URIRef
 from rdflib.compare import to_isomorphic
 from rdflib.namespace import OWL, XSD
 
@@ -21,6 +21,10 @@ def build_scene_graph(document, ontology):
         node = scene_uri(kind, identifier)
         subjects[str(node)] = {'kind': kind, 'id': identifier}
         graph.add((node, RDF.type, OWL.NamedIndividual))
+        # Protégé's short-form renderer can display opaque URNs ambiguously.
+        # Labels make scene instances selectable without changing OWL facts.
+        label = {'task': '任务', 'target': '目标', 'artifact': '法器'}[kind]
+        graph.add((node, RDFS.label, Literal(f'{label}：{identifier}', lang='zh')))
         for cls in classes:
             cls = URIRef(cls)
             if (cls, RDF.type, OWL.Class) not in ontology:

@@ -1,0 +1,70 @@
+{
+  "scope": "B-Eidolon#1 single-task experiment; supplemented values are not source facts",
+  "items": [
+    {
+      "id": "MODEL-01",
+      "definition": "三种通用角色能力；目标分类→消解任务→探知/协调/具现需求；法器角色→角色能力",
+      "basis_and_limits": "根据文章第1部分分类及第2部分闭合链结构的工程形式化，不是原文给出的完整OWL规则。通用角色能力不表示已经满足数值条件。不定义远近或快速阈值"
+    },
+    {
+      "id": "RULE-01",
+      "definition": "表10探知2项、具现9项筛选及协同约束",
+      "basis_and_limits": "外部JSON逐项使用现有表10条件，严格大于/小于；原始出处保留在 `data/article_design/table10_screening.json`。协调角色仅检查角色能力，原文没有给出额外直接筛选数值规则"
+    },
+    {
+      "id": "ASSUME-01",
+      "definition": "任务相对开始时刻0",
+      "basis_and_limits": "工程约定，不是实际任务时刻"
+    },
+    {
+      "id": "ASSUME-02",
+      "definition": "距离nmi、速度kn、高度ft；共鸣值与阻抗共用article-resonance比较单位",
+      "basis_and_limits": "沿用项目来源记录约定；新截图文字中的“里/尺/迅捷度”并不独立证明物理换算。只做同口径比较，不由坐标计算距离"
+    },
+    {
+      "id": "ASSUME-03",
+      "definition": "目标数1",
+      "basis_and_limits": "单目标实验设定，不代表全部六项任务"
+    },
+    {
+      "id": "ASSUME-04",
+      "definition": "全部法器可用；容量1、非消耗、库存0、冷却0",
+      "basis_and_limits": "简化资源模型，仅用于本单任务；不声称原文实际库存或消耗性如此"
+    },
+    {
+      "id": "ASSUME-05",
+      "definition": "探知耗时2秒、精度按原表数值/100、成本1；协调耗时1秒、精度0.99、成本1；具现耗时10秒、精度按原表锁定率/100、成本10",
+      "basis_and_limits": "三阶段可分解的工程指标；成本单位experiment-credit/use，与共鸣效值无关。没有用表13距离/速度反填法器实测耗时，也不假装复算表13"
+    },
+    {
+      "id": "ASSUME-06",
+      "definition": "探知目标类型增加“飞行灵体”",
+      "basis_and_limits": "将表8“空中”对应到本案例飞行灵体的显式语义假设；原值保存在source_target_types中"
+    },
+    {
+      "id": "ASSUME-07",
+      "definition": "探知最大标记数2，协调最大解析目标数2",
+      "basis_and_limits": "工程测试值，数量严格大于目标总数1"
+    },
+    {
+      "id": "ASSUME-08",
+      "definition": "每个探知/具现法器到目标距离50nmi",
+      "basis_and_limits": "独立测试距离，非原文坐标解算结果；不要求各距离构成已验证的地理场景"
+    },
+    {
+      "id": "ASSUME-09",
+      "definition": "同平台通信距离0，异平台10nmi；通信上限100nmi",
+      "basis_and_limits": "单独提供的测试通信参数，非原文测量值"
+    },
+    {
+      "id": "ASSUME-10",
+      "definition": "每个探知→协调、协调→每个具现有通信；协调→每个具现有统筹",
+      "basis_and_limits": "显式假设事实写入ontology_relations，links留null请求本体推导；不从通信凭空推出统筹"
+    },
+    {
+      "id": "POLICY-01",
+      "definition": "权重0.3/0.3/0.4；相同指标归一化取0.5；有限穷举上限10000",
+      "basis_and_limits": "权重来自文章；等值处理和搜索上限为工程政策；网络目标函数沿用引擎，本单任务不验证复杂组网最优性"
+    }
+  ]
+}

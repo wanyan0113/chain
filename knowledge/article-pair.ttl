@@ -1,0 +1,33 @@
+@prefix kw: <http://example.org/arcaneweb#> .
+@prefix ap: <urn:arcane:article-pair:> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ap:ontology a owl:Ontology ; owl:versionInfo "1.0" ;
+  rdfs:label "文章单任务对照实验知识"@zh ;
+  rdfs:comment "依据第1部分三类任务/能力/法器及第2部分闭合链结构做的可执行形式化；不是原文提供的OWL文件，不定义近中远或快速阈值。三种能力是本实验的通用角色能力，不断言资源已满足表10数值条件。"@zh .
+
+ap:InsightNeed a owl:NamedIndividual, kw:InsightCapability ; rdfs:label "探知角色能力"@zh .
+ap:CoordinationNeed a owl:NamedIndividual, kw:CoordinationCapability ; rdfs:label "协调角色能力"@zh .
+ap:ManifestationNeed a owl:NamedIndividual, kw:ManifestationCapability ; rdfs:label "具现角色能力"@zh .
+
+ap:FlyingTarget a owl:Class ; rdfs:label "飞行灵体目标"@zh ; owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+  kw:Target [ a owl:Restriction ; owl:onProperty kw:targetType ; owl:hasValue "飞行灵体"^^xsd:string ]
+) ] .
+ap:FlyingEliminationMission a owl:Class ; rdfs:label "飞行灵体消解任务"@zh ; owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+  kw:ArcaneMission [ a owl:Restriction ; owl:onProperty kw:hasTarget ; owl:someValuesFrom ap:FlyingTarget ]
+) ] ; rdfs:subClassOf
+  [ a owl:Restriction ; owl:onProperty kw:requiresCapability ; owl:hasValue ap:InsightNeed ],
+  [ a owl:Restriction ; owl:onProperty kw:requiresCapability ; owl:hasValue ap:CoordinationNeed ],
+  [ a owl:Restriction ; owl:onProperty kw:requiresCapability ; owl:hasValue ap:ManifestationNeed ] .
+
+ap:InsightUnit a owl:Class ; rdfs:label "文章探知角色单元"@zh ; owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+  kw:InsightArtifact [ a owl:Restriction ; owl:onProperty kw:hasCapability ; owl:hasValue ap:InsightNeed ]
+) ] .
+ap:CoordinationUnit a owl:Class ; rdfs:label "文章协调角色单元"@zh ; owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+  kw:CoordinationArtifact [ a owl:Restriction ; owl:onProperty kw:hasCapability ; owl:hasValue ap:CoordinationNeed ]
+) ] .
+ap:ManifestationUnit a owl:Class ; rdfs:label "文章具现角色单元"@zh ; owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+  kw:ManifestationArtifact [ a owl:Restriction ; owl:onProperty kw:hasCapability ; owl:hasValue ap:ManifestationNeed ]
+) ] .

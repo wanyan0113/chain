@@ -1,0 +1,12 @@
+@prefix ap: <urn:arcane:article-pair:> .
+@prefix kw: <http://example.org/arcaneweb#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ap:extension a owl:Ontology ; rdfs:label "文章对照实验目标扩展"@zh ; owl:versionInfo "1.0" ;
+  rdfs:comment "仅供知识变更实验，试验目标及其继承关系为工程假设，不是文章事实。"@zh .
+ap:ExperimentalFlyingTarget a owl:Class ; rdfs:label "工程试验飞行目标"@zh ; rdfs:subClassOf ap:FlyingTarget ;
+  owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+    kw:Target [ a owl:Restriction ; owl:onProperty kw:targetType ; owl:hasValue "试验飞行灵体"^^xsd:string ]
+  ) ] .
