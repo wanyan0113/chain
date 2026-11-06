@@ -28,7 +28,7 @@ GUIDE = [
     ['用途', '完整链网设计输入。示例所有数据和规则均为虚构工程配置，不是文章案例复现依据。'],
     ['填写顺序', '设计设置、任务、法器、情境、属性、规则、规则条件、协同关系。依赖和资源组可留空。'],
     ['布尔与列表', '布尔填文本true或false。来源、阻塞疑点和列表使用英文分号分隔。不要使用公式。'],
-    ['角色', '探知、协调、具现。能力名称使用本体中明确登记的名称；未映射时保留报告并停止规范RDF导出。'],
+    ['角色', '填探知、协调、具现，或填本体类的完整URI（多个用英文分号分隔），由本体继承推导唯一角色。能力名称使用本体中明确登记的名称。'],
     ['属性', '对象类型填任务、法器或情境。情境的对象编号填任务编号，并填写情境法器编号；其他类型此列留空。'],
     ['属性值', '类型填文本、数值、布尔或列表。数值必须填写单位，无量纲填1。原值空白表示未知，不表示0。'],
     ['条件', '同一规则多行条件为且关系。比较方式填常量或字段；字段比较仅填写引用字段，常量填写类型、比较值和单位。'],
@@ -109,12 +109,16 @@ def convert(sheets):
         identifier, role, available, duration, accuracy, cost, unit, capacity, consumable, inventory, cooldown, source, issues = cells
         where = f'法器第{row}行'
         identifier = text(identifier, where)
-        if role not in ROLES:
-            raise EntryError(f'{where}：角色应为探知、协调或具现')
+        if role in ROLES:
+            classification = {'role': ROLES[role]}
+        elif isinstance(role, str) and re.match(r'^[A-Za-z][A-Za-z0-9+.-]*:', role):
+            classification = {'ontology_types': refs(role, where)}
+        else:
+            raise EntryError(f'{where}：角色应为探知、协调、具现或本体类完整URI')
         metrics = None if all(v is None for v in (duration, accuracy, cost, unit)) else dict(
             duration_s=number(duration, where), accuracy=number(accuracy, where),
             cost=dict(value=number(cost, where), unit=text(unit, where)))
-        doc['artifacts'].append(add_owner('法器', identifier, dict(id=identifier, role=ROLES[role],
+        doc['artifacts'].append(add_owner('法器', identifier, dict(id=identifier, **classification,
             available=boolean(available, where), attributes={}, metrics=metrics, capacity=number(capacity, where, True),
             consumable=boolean(consumable, where), inventory=number(inventory, where, True),
             cooldown_s=number(cooldown, where), **evidence(source, issues, where))))

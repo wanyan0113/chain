@@ -23,6 +23,7 @@ body{max-width:1120px;margin:32px auto;padding:0 20px;font:16px/1.65 system-ui;c
 <section><h2>链网结构</h2><div class="graph-controls"><label for="graph-view">查看范围</label><select id="graph-view"></select><button id="save-graph" disabled>下载当前图 SVG</button></div>
 <p id="graph-mode" role="status"></p><p class="graph-note">从左向右读：目标 → 探知 → 协调 → 具现 → 原目标。颜色区分角色；两端同名目标表示同一对象。候选链逐行显示，网络合并共同使用的法器。任务、评分和选中情况见图下表格。</p>
 <div id="graph" class="graph-box"></div><h3>图与任务的对应</h3><div id="graph-legend"></div><details><summary>任务关系与资源共享</summary><div id="graph-relations"></div></details><div id="node-details" class="node-details" hidden aria-live="polite"></div></section>
+<section><h2>本体分类推导</h2><p id="ontology-scope"></p><div id="ontology-types"></div></section>
 <section><h2>任务与候选链</h2><div id="tasks"></div></section>
 <section><h2>原参数取值与来源</h2><p id="source-scope"></p><div class="scroll" id="source-bindings"></div></section>
 <section><h2>表10原文条件核验</h2><p id="article-status"></p><div class="scroll" id="article-checks"></div><h3>网络组合核验</h3><div id="article-combinations"></div><details><summary>网络组合与逐项协同依据</summary><pre id="article-evidence"></pre></details></section>
@@ -49,6 +50,8 @@ function table(parent,headers,rows){const wrap=document.createElement('div');wra
 const statuses={complete:'设计完成',blocked:'等待补充信息',no_feasible_design:'当前约束下无可行方案'};
 function show(data){const r=data.report;currentReport=r;$('graph-view').replaceChildren();for(const [value,text] of [['network','选中网络'],['candidates','全部候选链（逐行）']]){const o=document.createElement('option');o.value=value;o.textContent=text;$('graph-view').append(o)}for(const t of r.tasks)for(const c of t.chains){const o=document.createElement('option');o.value='chain:'+c.id;o.textContent=`${c.id} · ${t.task} · ${r.network?.chains.includes(c.id)?'已选中':'候选'}`;$('graph-view').append(o)}drawGraph();$('overview').textContent=`${statuses[r.status]??r.status}。能力映射 ${r.ontology_mapping.mapped}/${r.ontology_mapping.total}。`;$('scope').textContent=r.scope;$('export').textContent=`RDF：${data.rdf_export.reason}`;
 $('article-checks').replaceChildren();const stateNames={pass:'通过',fail:'不满足',unknown:'存在未知条件',not_ready:'尚未进入组网核验'};
+$('ontology-types').replaceChildren();$('ontology-scope').textContent=r.ontology_inference?.scope??'本次未提供本体分类推导记录。';
+if(r.ontology_inference)table($('ontology-types'),['法器','输入方式','设计角色','本体分类依据'],r.ontology_inference.artifacts.map(a=>[a.artifact,a.input_kind==='ontology_types'?'本体类型':'显式角色',a.role,a.role_path.join(' → ')]));
 $('article-status').textContent=r.article_table10?`已开启表10条件；组网核验：${stateNames[r.article_table10.status]??r.article_table10.status}。网络结论同时受能力规则、原文条件和资源约束限制。`:'本次未开启表10原文条件。可在设计设置增加“表10原文校验”并填文本true；当前结果只按已配置的工程规则判断。';
 const articleRows=[];for(const task of r.tasks)for(const item of task.selection)if(item.table10)for(const check of item.table10.checks)articleRows.push([task.task,item.artifact,check.quote,stateNames[check.status],check.reason,item.table10.source]);
 if(articleRows.length)table($('article-checks'),['任务','法器','原文条件','判断','原因','来源'],articleRows);

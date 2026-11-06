@@ -217,6 +217,11 @@ def network_conflicts(chains, doc):
 
 def design(doc):
     validate_document(doc)
+    input_digest = hashlib.sha256(json.dumps(doc, ensure_ascii=False, sort_keys=True,
+                                            allow_nan=False).encode('utf-8')).hexdigest()
+    from .ontology_inference import prepare_artifacts
+    doc, ontology_inference = prepare_artifacts(doc)
+    type_evidence = {item['artifact']: item for item in ontology_inference['artifacts']}
     article_enabled = doc['policies'].get('article_table10', False)
     if article_enabled:
         from .article_integration import validate_counts, screening, cooperation
@@ -225,8 +230,7 @@ def design(doc):
     links = {(e["from"], e["to"]): e for e in doc["links"]}
     contexts = {(c["task"], c["artifact"]): c for c in doc.get("contexts", [])}
     report = {"format_version": "1.0", "scope": doc["scope"], "status": "blocked",
-              "input_sha256": hashlib.sha256(json.dumps(doc, ensure_ascii=False, sort_keys=True,
-                                                        allow_nan=False).encode('utf-8')).hexdigest(),
+              "input_sha256": input_digest, "ontology_inference": ontology_inference,
               "policies": dict(doc["policies"]), "weights": dict(doc["weights"]),
               "tasks": [], "network": None, "network_search": {"evaluated": 0, "feasible": 0, "rejections": []}}
     comparison_groups = []
@@ -245,7 +249,8 @@ def design(doc):
         for artifact in doc["artifacts"]:
             role = artifact["role"]
             context = contexts.get((task["id"], artifact["id"]), {})
-            scopes = {"task": task["attributes"], "artifact": artifact["attributes"], "context": context.get("attributes", {})}
+            artifact_facts = {**artifact['attributes'], 'ontology_types': type_evidence[artifact['id']]['inferred_types']}
+            scopes = {"task": task["attributes"], "artifact": artifact_facts, "context": context.get("attributes", {})}
             checks = [evaluate(rule, scopes) for rule in doc["artifact_rules"]
                       if rule["role"] == role and rule["capability"] in required[role]]
             # Multiple rules for the same capability are alternatives; each rule
@@ -272,6 +277,7 @@ def design(doc):
                 result['blockers'].append({'code':'UNKNOWN_TABLE10_SCREENING','artifact':artifact['id']})
             accepted = accepted and article_status == 'pass'
             result["selection"].append({"artifact": artifact["id"], "accepted": bool(accepted),
+                                        "ontology_evidence": type_evidence[artifact['id']],
                                         "missing_capabilities": missing, "rules": checks,
                                         "target_type_check": target_status,
                                         "available": artifact["available"],

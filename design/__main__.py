@@ -20,6 +20,13 @@ ROOT = Path(__file__).resolve().parent.parent
 def render_summary(result):
     lines = ["# 法术链设计报告", "", f"状态：{result['status']}", "", f"数据范围：{result['scope']}", ""]
     mapping = result['ontology_mapping']
+    if 'ontology_inference' in result:
+        inference = result['ontology_inference']
+        lines += ['## 本体分类推导', '', inference['scope'], '',
+                  '| 法器 | 输入方式 | 推导角色 | 分类路径 |', '| --- | --- | --- | --- |']
+        for item in inference['artifacts']:
+            lines.append(f"| {item['artifact']} | {item['input_kind']} | {item['role']} | {' → '.join(item['role_path'])} |")
+        lines += ['', '分类结果已用于候选筛选；业务条件与资源优化由规则及设计引擎继续执行。', '']
     if 'article_table10' in result:
         lines += [f"表10原文条件已启用；组网核验：{result['article_table10']['status']}。逐项筛选与组合依据见JSON报告。", '']
     lines += [f"本体映射：{mapping['status']}；已映射 {mapping['mapped']}／{mapping['total']}；未映射 {mapping['unmapped']}",

@@ -59,6 +59,10 @@ def design_to_rdf(doc, report, *, require_canonical=False):
             for i, role in enumerate(ROLES):
                 artifact = entity("artifact", candidate["artifacts"][role])
                 graph.add((artifact, RDF.type, ARTIFACT_TYPES[role]))
+                classification = next(item for item in report['ontology_inference']['artifacts']
+                                      if item['artifact'] == candidate['artifacts'][role])
+                for class_uri in classification['inferred_types']:
+                    graph.add((artifact, RDF.type, URIRef(class_uri)))
                 graph.add((nodes[i], RDF.type, NODE_TYPES[role]))
                 graph.add((chain, KW.hasChainNode, nodes[i]))
                 graph.add((nodes[i], KW.nodeOrder, Literal(i + 1, datatype=XSD.integer)))
