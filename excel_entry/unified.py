@@ -23,16 +23,20 @@ def source_sheets(sheets):
     """Validate extension structure before allowing the original query path."""
     extra = set(sheets) - SOURCE_SHEETS
     if extra:
+        from design.excel import OPTIONAL_HEADERS
         headers = extension_headers()
-        if extra != set(headers):
+        if not set(headers).issubset(extra) or extra - set(headers) - set(OPTIONAL_HEADERS):
             raise EntryError('综合模板设计工作表缺失或含未知表；请使用新版案例模板，保留所有工作表')
         for name, columns in headers.items():
             list(records(sheets, name, columns))
+        for name, columns in OPTIONAL_HEADERS.items():
+            if name in sheets:
+                list(records(sheets, name, columns))
     return {name: rows for name, rows in sheets.items() if name in SOURCE_SHEETS}
 
 
 def convert_design(sheets):
-    from design.excel import convert
+    from design.excel import convert, OPTIONAL_HEADERS
     from .importer import convert as convert_source
     from source_data.case_contract import NUMERIC_UNITS, prepare_case
     if not (set(sheets) - SOURCE_SHEETS):
@@ -42,6 +46,7 @@ def convert_design(sheets):
     names = {name: ('任务' if name == '设计任务' else '填写指南' if name == '设计指南' else name)
              for name in extension_headers() if name != '来源取值'}
     design_sheets = {target: deepcopy(sheets[name]) for name, target in names.items()}
+    design_sheets.update({name: deepcopy(sheets[name]) for name in OPTIONAL_HEADERS if name in sheets})
     if len(design_sheets['任务']) == 1:
         raise EntryError('来源数据可查询，但设计配置尚未填写：请先填写设计设置、设计任务、法器、规则、协同关系等表；不要将未知数据补为0')
     # Build binding rows before conversion so duplicate manual/mapped attributes

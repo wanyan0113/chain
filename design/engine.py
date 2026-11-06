@@ -105,6 +105,8 @@ def condition_result(condition, scopes):
         if not isinstance(left, list) or not isinstance(right, str):
             return "unknown", "contains 要求字符串数组和字符串"
         passed = right in left
+        if condition['field'] == 'artifact.ontology_capabilities' and not passed:
+            return 'unknown', '尚未推导出该能力关系；开放世界下不将缺失当作否定'
     elif op == "eq":
         if isinstance(left, dict) or isinstance(right, dict):
             if not isinstance(left, dict) or not isinstance(right, dict) or left["unit"] != right["unit"]:
@@ -249,7 +251,10 @@ def design(doc):
         for artifact in doc["artifacts"]:
             role = artifact["role"]
             context = contexts.get((task["id"], artifact["id"]), {})
-            artifact_facts = {**artifact['attributes'], 'ontology_types': type_evidence[artifact['id']]['inferred_types']}
+            if 'ontology_capabilities' in artifact['attributes']:
+                raise DesignError('ontology_capabilities 是推导保留字段，不能在属性中手填')
+            artifact_facts = {**artifact['attributes'], 'ontology_types': type_evidence[artifact['id']]['inferred_types'],
+                              'ontology_capabilities': ontology_inference['relations']['capabilities'][artifact['id']]}
             scopes = {"task": task["attributes"], "artifact": artifact_facts, "context": context.get("attributes", {})}
             checks = [evaluate(rule, scopes) for rule in doc["artifact_rules"]
                       if rule["role"] == role and rule["capability"] in required[role]]
@@ -278,6 +283,7 @@ def design(doc):
             accepted = accepted and article_status == 'pass'
             result["selection"].append({"artifact": artifact["id"], "accepted": bool(accepted),
                                         "ontology_evidence": type_evidence[artifact['id']],
+                                        "ontology_capabilities": artifact_facts['ontology_capabilities'],
                                         "missing_capabilities": missing, "rules": checks,
                                         "target_type_check": target_status,
                                         "available": artifact["available"],
@@ -301,15 +307,20 @@ def design(doc):
                 evidence.append(edge)
                 if edge["blocking_issue_ids"]:
                     reasons.append({"code": "LINK_ISSUES", "from": a, "to": b})
-                if not edge["communicates"]:
+                if edge['communicates'] is None:
+                    reasons.append({'code': 'UNKNOWN_COMMUNICATION', 'from': a, 'to': b})
+                elif not edge["communicates"]:
                     reasons.append({"code": "NO_COMMUNICATION", "from": a, "to": b})
                 if edge["distance"]["value"] >= edge["max_distance"]["value"]:
                     reasons.append({"code": "COMMUNICATION_RANGE", "from": a, "to": b})
-                if index == 1 and not edge["controls"]:
-                    reasons.append({"code": "NO_CONTROL", "from": a, "to": b})
+                if index == 1:
+                    if edge['controls'] is None:
+                        reasons.append({'code': 'UNKNOWN_CONTROL', 'from': a, 'to': b})
+                    elif not edge['controls']:
+                        reasons.append({"code": "NO_CONTROL", "from": a, "to": b})
             if reasons:
                 result["rejected_chains"].append({"artifacts": dict(zip(ROLES, ids)), "reasons": reasons})
-                if all(reason["code"] in {"MISSING_LINK", "LINK_ISSUES"} for reason in reasons):
+                if all(reason["code"] in {"MISSING_LINK", "LINK_ISSUES", "UNKNOWN_COMMUNICATION", "UNKNOWN_CONTROL"} for reason in reasons):
                     result["blockers"].append({"code": "UNKNOWN_COOPERATION", "artifacts": list(ids)})
                     unresolved = True
                 continue

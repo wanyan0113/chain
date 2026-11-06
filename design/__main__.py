@@ -27,6 +27,14 @@ def render_summary(result):
         for item in inference['artifacts']:
             lines.append(f"| {item['artifact']} | {item['input_kind']} | {item['role']} | {' → '.join(item['role_path'])} |")
         lines += ['', '分类结果已用于候选筛选；业务条件与资源优化由规则及设计引擎继续执行。', '']
+        relations = inference.get('relations', {})
+        lines += ['### 本体关系推导', '', relations.get('scope', ''), '',
+                  f"输入关系 {len(relations.get('assertions', []))} 项；可用关系事实 {len(relations.get('facts', []))} 项。", '',
+                  '| 主体 | 关系 | 客体 | 依据 | 来源 |', '| --- | --- | --- | --- | --- |']
+        for fact in relations.get('facts', []):
+            proof = fact['derivation']
+            lines.append(f"| {fact['subject']['id']} | {fact['predicate']} | {fact['object']['id']} | {proof['rule']} | {'；'.join(proof['source_refs'])} |")
+        lines += ['', '缺少能力或协同事实保持未知；能力声明不替代距离、目标类型及资源核验。', '']
     if 'article_table10' in result:
         lines += [f"表10原文条件已启用；组网核验：{result['article_table10']['status']}。逐项筛选与组合依据见JSON报告。", '']
     lines += [f"本体映射：{mapping['status']}；已映射 {mapping['mapped']}／{mapping['total']}；未映射 {mapping['unmapped']}",

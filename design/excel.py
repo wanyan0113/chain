@@ -20,6 +20,7 @@ HEADERS = {
     '资源组': ['资源组编号', '容量', '法器编号列表'],
     '填写指南': ['项目', '说明'],
 }
+OPTIONAL_HEADERS = {'本体关系': ['主体类型', '主体', '关系URI', '客体类型', '客体', '来源', '阻塞疑点']}
 SETTINGS = ['范围说明', '时间权重', '精度权重', '成本权重', '同值指标评分', '成本单位', '链组合上限', '网络组合上限']
 OPTIONAL_SETTINGS = ['表10原文校验']
 ROLES = {'探知': 'insight', '协调': 'coordination', '具现': 'manifestation'}
@@ -36,6 +37,7 @@ GUIDE = [
     ['无条件', '规则无条件列填true时不允许条件行；填false时至少提供一条条件。来源必填，待确认事项登记阻塞疑点。'],
     ['指标', '耗时、精度、成本和成本单位全部空白时表示指标未知，部分填写会报错。其他数字不能为空。精度填写0至1。'],
     ['关系与时间', '协同关系为有向边，距离严格小于最大距离。开始时间固定；容量、库存、冷却、依赖和资源组参与网络约束。'],
+    ['本体关系', '可选本体关系表：主体类型、主体、关系URI、客体类型、客体、来源、阻塞疑点。类型填法器或能力，能力填完整URI。协同关系的传讯或统筹填“本体推导”时使用推导结果，距离仍须明确填写。'],
     ['输出', '上传后显示候选链、选中网络和阻塞原因。完整且规范能力映射就绪时才导出RDF；执行静态本体检查。'],
 ]
 
@@ -75,9 +77,10 @@ def value_of(kind, value, unit, where):
 
 
 def convert(sheets):
-    if set(sheets) != set(HEADERS):
+    if not set(HEADERS).issubset(sheets) or set(sheets) - set(HEADERS) - set(OPTIONAL_HEADERS):
         raise EntryError('请使用完整链网设计模板，保留全部工作表及名称')
     rows = {name: list(records(sheets, name, headers)) for name, headers in HEADERS.items()}
+    optional = {name: list(records(sheets, name, headers)) for name, headers in OPTIONAL_HEADERS.items() if name in sheets}
     settings = {}
     for row, (key, value) in rows['设计设置']:
         if key not in SETTINGS + OPTIONAL_SETTINGS or key in settings:
@@ -165,9 +168,19 @@ def convert(sheets):
     for row, (start, end, communicates, controls, distance, unit, maximum, maxunit, source, issues) in rows['协同关系']:
         where = f'协同关系第{row}行'
         doc['links'].append({'from': text(start, where), 'to': text(end, where),
-            'communicates': boolean(communicates, where), 'controls': boolean(controls, where),
+            'communicates': None if communicates == '本体推导' else boolean(communicates, where),
+            'controls': None if controls == '本体推导' else boolean(controls, where),
             'distance': {'value': number(distance, where), 'unit': text(unit, where)},
             'max_distance': {'value': number(maximum, where), 'unit': text(maxunit, where)}, **evidence(source, issues, where)})
+    kinds = {'法器': 'artifact', '能力': 'capability'}
+    for row, (sk, subject, predicate, ok, object_, source, issues) in optional.get('本体关系', []):
+        where = f'本体关系第{row}行'
+        if sk not in kinds or ok not in kinds:
+            raise EntryError(f'{where}：主体和客体类型须为法器或能力')
+        doc.setdefault('ontology_relations', []).append({
+            'subject': {'kind': kinds[sk], 'id': text(subject, where)},
+            'predicate': text(predicate, where), 'object': {'kind': kinds[ok], 'id': text(object_, where)},
+            **evidence(source, issues, where)})
     for row, (before, after, gap) in rows['任务依赖']:
         doc['dependencies'].append(dict(before=text(before, '前置任务'), after=text(after, '后置任务'), gap_s=number(gap, '间隔秒')))
     for row, (identifier, capacity, artifacts) in rows['资源组']:

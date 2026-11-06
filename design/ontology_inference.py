@@ -1,6 +1,6 @@
 """Explainable named-class entailment used before artifact selection.
 
-This implements rdf:type/rdfs:subClassOf inheritance, not full OWL reasoning.
+This implements named-class and selected object-property entailments, not full OWL reasoning.
 Anonymous restrictions never manufacture named capabilities or numeric facts.
 """
 from collections import deque
@@ -59,7 +59,9 @@ def prepare_artifacts(document):
                          'source_refs': list(artifact['source_refs'])})
     # The digest is invariant to Turtle order and blank-node identifiers.
     digest = hashlib.sha256(str(to_isomorphic(graph).graph_digest()).encode('ascii')).hexdigest()
-    return prepared, {'engine': 'named-class-hierarchy', 'status': 'complete',
+    from .ontology_relations import prepare_relations
+    relations = prepare_relations(prepared, graph, evidence)
+    return prepared, {'engine': 'named-class-and-property-rules', 'status': 'complete',
                       'ontology_sha256': digest,
-                      'scope': '本地主本体 rdf:type 与命名类 rdfs:subClassOf 继承；不等同完整OWL一致性检查，不推造能力或数值事实',
-                      'artifacts': evidence}
+                      'scope': '本地主本体命名类继承及子属性、逆关系、对称关系推导；不等同完整OWL一致性检查，不推造能力或数值事实',
+                      'artifacts': evidence, 'relations': relations}

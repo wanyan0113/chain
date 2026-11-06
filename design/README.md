@@ -2,6 +2,8 @@
 
 本体分类现已参与候选筛选：法器可通过 `ontology_types` 声明本体类，由继承推导设计角色，规则可读取 `artifact.ontology_types`。Excel“法器”的“角色”列也支持完整类URI。运行 `python -B -m design run design/examples/ontology_network_demo.json --output-dir tmp/ontology-network-demo --require-canonical` 查看虚构双任务演示。范围、推导依据及与HermiT的区别见 [本体推导说明](本体推导说明.md)。
 
+关系推导也已接入：可选 `ontology_relations` 提供能力与协同声明，通过本体已有的子属性、逆关系、对称关系推导事实。规则可读取 `artifact.ontology_capabilities`，协同标记可请求本体推导；缺少事实保持未知。Excel支持可选“本体关系”表。完整虚构示例为 `examples/ontology_relations_demo.json`，当前分工与复现边界见 [本体推理现状](../docs/本体推理现状与作用.md)。
+
 新增表10直接筛选对照：`python -B -m design.article_rules design/examples/table10_screening_demo.json`。已转录探知2项及具现9项条件，输出原文定位与逐项判断；构造测试验证严格边界、缺失和单位，不声称真实案例已筛选完成。范围与待补事项见 [表10规则对照](表10规则对照.md)。
 
 表10协同核验：`python -B -m design.article_cooperation design/examples/table10_parallel_demo.json`。独立入口检查调用者明确声明的一个并行链组，验证有向传讯、通信距离、统筹关系、具现法器单链使用，以及共享探知范围、最大标记数和协调最大解析数。后两项严格大于共享任务目标数量总和；不等同于通用引擎的容量大于等于并发数。

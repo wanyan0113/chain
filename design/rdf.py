@@ -120,4 +120,13 @@ def design_to_rdf(doc, report, *, require_canonical=False):
         else:
             for chain in relation["chains"]:
                 graph.add((node, KW.relatedChain, entity("chain", chain)))
+    selected_artifacts = {identifier for task in report['tasks'] for chain in task['chains']
+                          if chain['id'] in chosen for identifier in chain['artifacts'].values()}
+    for fact in report['ontology_inference']['relations']['facts']:
+        endpoints = [fact['subject'], fact['object']]
+        if any(value['kind'] == 'artifact' and value['id'] not in selected_artifacts for value in endpoints):
+            continue
+        subject, object_ = [entity('artifact', value['id']) if value['kind'] == 'artifact'
+                            else URIRef(value['id']) for value in endpoints]
+        graph.add((subject, URIRef(fact['predicate']), object_))
     return graph
