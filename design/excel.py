@@ -23,7 +23,7 @@ HEADERS = {
 OPTIONAL_HEADERS = {'本体关系': ['主体类型', '主体', '关系URI', '客体类型', '客体', '来源', '阻塞疑点'],
                     '本体类型': ['对象类型', '对象编号', '类型URI']}
 SETTINGS = ['范围说明', '时间权重', '精度权重', '成本权重', '同值指标评分', '成本单位', '链组合上限', '网络组合上限']
-OPTIONAL_SETTINGS = ['表10原文校验', '本体知识文件', '业务规则文件', '本体事实映射文件', '知识来源']
+OPTIONAL_SETTINGS = ['表10原文校验', '本体知识文件', '业务规则文件', '本体事实映射文件', '知识来源', '网络搜索方式', '搜索节点上限']
 ROLES = {'探知': 'insight', '协调': 'coordination', '具现': 'manifestation'}
 RULES = {'任务': 'task_rules', '法器': 'artifact_rules'}
 GUIDE = [
@@ -38,6 +38,7 @@ GUIDE = [
     ['无条件', '规则无条件列填true时不允许条件行；填false时至少提供一条条件。来源必填，待确认事项登记阻塞疑点。'],
     ['指标', '耗时、精度、成本和成本单位全部空白时表示指标未知，部分填写会报错。其他数字不能为空。精度填写0至1。'],
     ['关系与时间', '协同关系为有向边，距离严格小于最大距离。开始时间固定；容量、库存、冷却、依赖和资源组参与网络约束。'],
+    ['搜索', '网络搜索方式可选auto、exhaustive、branch_and_bound，默认auto；超过网络组合上限时自动改用分支定界。搜索节点上限默认1000000，触限会报错。表10校验保留穷举。'],
     ['本体关系', '可选本体关系表：主体类型、主体、关系URI、客体类型、客体、来源、阻塞疑点。类型填法器或能力，能力填完整URI。协同关系的传讯或统筹填“本体推导”时使用推导结果，距离仍须明确填写。'],
     ['外置知识', '设计设置可填写本体知识文件（knowledge目录内相对路径，分号分隔）、知识来源及可选业务规则文件、本体事实映射文件。映射将属性送入OWL，必需字段缺失或单位不符会阻塞。此模式实际执行HermiT，再执行规则与组网。可选本体类型表列为对象类型、对象编号、类型URI；对象类型填任务、目标或法器。'],
     ['输出', '上传后显示候选链、选中网络和阻塞原因。完整且规范能力映射就绪时才导出RDF；执行静态本体检查。'],
@@ -99,6 +100,10 @@ def convert(sheets):
            **{k: [] for k in ('tasks', 'artifacts', 'contexts', 'task_rules', 'artifact_rules', 'links', 'dependencies', 'resource_groups')}}
     if '表10原文校验' in settings:
         doc['policies']['article_table10'] = boolean(settings['表10原文校验'], '表10原文校验')
+    if '网络搜索方式' in settings:
+        doc['policies']['network_search_method'] = text(settings['网络搜索方式'], '网络搜索方式')
+    if '搜索节点上限' in settings:
+        doc['policies']['max_network_search_nodes'] = number(settings['搜索节点上限'], '搜索节点上限', True)
     if any(key in settings for key in ('本体知识文件', '业务规则文件', '本体事实映射文件', '知识来源')):
         doc['knowledge'] = {'ontology_files': refs(text(settings.get('本体知识文件'), '本体知识文件'), '本体知识文件'),
                             'source_refs': refs(text(settings.get('知识来源'), '知识来源'), '知识来源')}

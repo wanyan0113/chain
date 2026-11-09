@@ -136,6 +136,7 @@ class DesignTests(unittest.TestCase):
         for key in ("max_chain_combinations", "max_network_combinations"):
             doc = deepcopy(self.doc)
             doc["policies"][key] = 1
+            doc["policies"]["network_search_method"] = "exhaustive"
             with self.assertRaises(SearchLimitError):
                 design(doc)
 

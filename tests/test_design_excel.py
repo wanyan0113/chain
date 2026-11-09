@@ -51,6 +51,16 @@ class DesignExcelTests(unittest.TestCase):
                     self.assertEqual(main(['--design-file',str(EXAMPLE)]),expected)
                 self.assertEqual(json.loads(output.getvalue()),result)
 
+    def test_optional_search_settings_reach_optimizer(self):
+        sheets = deepcopy(self.sheets)
+        for key, value in [('网络搜索方式', 'branch_and_bound'), ('搜索节点上限', 1000)]:
+            sheets['设计设置'][max(sheets['设计设置']) + 1] = {1: key, 2: value}
+        doc = convert(sheets)
+        self.assertEqual(doc['policies']['max_network_search_nodes'], 1000)
+        result = design(doc)
+        self.assertEqual(result['network_search']['algorithm'], 'branch_and_bound')
+        self.assertEqual(result['network_search']['optimality'], 'proven')
+
     def test_cli_invalid_inputs_and_search_limit_return_two(self):
         from design.engine import SearchLimitError
         for error in (EntryError('无效表格'), OSError('写入失败'), SearchLimitError('搜索上限')):

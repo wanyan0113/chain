@@ -1,6 +1,6 @@
 """Six-step design over explicit facts and user-supplied conjunctive rules.
 
-This is a bounded exhaustive constraint search, not a full OWL reasoner.
+Network selection uses bounded exhaustive or exact branch-and-bound search.
 Unknown conditions never count as satisfied. Inputs are not mutated.
 """
 from __future__ import annotations
@@ -16,6 +16,7 @@ from pathlib import Path
 from jsonschema import Draft202012Validator
 from .vocabulary import ROLES
 from .capability_identity import annotate_design_mapping
+from .plans import attach_plan, member_ids, resource_conflicts
 
 
 
@@ -204,37 +205,14 @@ def bounded_product(groups, limit, label):
 
 
 def network_conflicts(chains, doc):
-    artifacts = {a["id"]: a for a in doc["artifacts"]}
     selected = {c["task"]: c for c in chains}
     conflicts = []
     for dep in doc.get("dependencies", []):
+        if dep["before"] not in selected or dep["after"] not in selected:
+            continue
         if selected[dep["after"]]["start_s"] < selected[dep["before"]]["end_s"] + dep["gap_s"]:
             conflicts.append({"code": "PRECEDENCE", **dep})
-    # Conservative reservation: each artifact is occupied for its whole chain.
-    # End events precede start events, so [start,end) intervals can touch.
-    reservations = {a: [] for a in artifacts}
-    uses = Counter(a for chain in chains for a in chain["artifacts"].values())
-    for chain in chains:
-        for a in chain["artifacts"].values():
-            reservations[a].extend([(chain["start_s"], 1),
-                                    (chain["end_s"] + artifacts[a]["cooldown_s"], -1)])
-    def exceeds(events, capacity):
-        occupied = 0
-        for _, delta in sorted(events):
-            occupied += delta
-            if occupied > capacity:
-                return True
-        return False
-    for a, item in artifacts.items():
-        if exceeds(reservations[a], item["capacity"]):
-            conflicts.append({"code": "CAPACITY", "resource": a})
-        if item["consumable"] and uses[a] > item["inventory"]:
-            conflicts.append({"code": "INVENTORY", "resource": a})
-    for group in doc.get("resource_groups", []):
-        events = [event for a in group["artifacts"] for event in reservations[a]]
-        if exceeds(events, group["capacity"]):
-            conflicts.append({"code": "GROUP_CAPACITY", "resource": group["id"]})
-    return conflicts
+    return conflicts + resource_conflicts(chains, doc)
 
 
 def design(doc):
@@ -377,6 +355,7 @@ def _design(doc, input_digest, knowledge, owl):
                 chain["end_s"] = chain["start_s"] + chain["metrics"]["time"]
                 if not all(math.isfinite(chain["metrics"][k]) for k in ("time", "accuracy", "cost")) or not math.isfinite(chain["end_s"]):
                     raise DesignError("指标计算溢出")
+            attach_plan(chain, artifacts)
             result["chains"].append(chain)
         if any(c["metrics"] is None for c in result["chains"]):
             result["blockers"].append({"code": "MISSING_METRICS", "chains": [c["id"] for c in result["chains"] if c["metrics"] is None]})
@@ -393,27 +372,41 @@ def _design(doc, input_digest, knowledge, owl):
     best = None
     unknown_article = False
     rejection_counts = Counter()
-    for chosen in bounded_product(comparison_groups, doc["policies"]["max_network_combinations"], "奥术网"):
-        report["network_search"]["evaluated"] += 1
-        conflicts = network_conflicts(chosen, doc)
-        article_result = cooperation(chosen, doc) if article_enabled else None
-        if article_result:
-            report['article_table10']['combinations'].append({'chains':[c['id'] for c in chosen],
-                'engineering_conflicts':deepcopy(conflicts),**article_result})
-            if not conflicts and article_result['status'] == 'unknown':
-                unknown_article = True
-            if article_result['status'] != 'pass':
-                conflicts.append({'code':'TABLE10_' + article_result['status'].upper(),'resource':'parallel-groups'})
-        if conflicts:
-            rejection_counts.update((c["code"], c.get("resource", f"{c.get('before')}->{c.get('after')}")) for c in conflicts)
-            continue
-        report["network_search"]["feasible"] += 1
-        score = sum(c["score"] for c in chosen) / len(chosen)
-        key = (-score, tuple(c["id"] for c in chosen))
-        if best is None or key < best[0]:
-            best = key, chosen, score, article_result
-    report["network_search"]["rejections"] = [{"code": code, "resource": resource, "count": count}
-                                               for (code, resource), count in sorted(rejection_counts.items())]
+    combination_count = math.prod(map(len, comparison_groups))
+    method = doc['policies'].get('network_search_method', 'auto')
+    use_branch = (not article_enabled and (method == 'branch_and_bound' or
+                  (method == 'auto' and combination_count > doc['policies']['max_network_combinations'])))
+    if use_branch:
+        from .search import branch_and_bound
+        best, report['network_search'] = branch_and_bound(comparison_groups, doc, network_conflicts)
+    else:
+        report['network_search'].update(algorithm='exhaustive', candidate_combinations=combination_count,
+                                        counts_scope='all_complete_combinations', optimality='not_proven')
+        if article_enabled and method != 'exhaustive':
+            report['network_search']['method_reason'] = 'Table-10 unknown checks require exhaustive auditing.'
+        for chosen in bounded_product(comparison_groups, doc["policies"]["max_network_combinations"], "奥术网"):
+            report["network_search"]["evaluated"] += 1
+            conflicts = network_conflicts(chosen, doc)
+            article_result = cooperation(chosen, doc) if article_enabled else None
+            if article_result:
+                report['article_table10']['combinations'].append({'chains':[c['id'] for c in chosen],
+                    'engineering_conflicts':deepcopy(conflicts),**article_result})
+                if not conflicts and article_result['status'] == 'unknown':
+                    unknown_article = True
+                if article_result['status'] != 'pass':
+                    conflicts.append({'code':'TABLE10_' + article_result['status'].upper(),'resource':'parallel-groups'})
+            if conflicts:
+                rejection_counts.update((c["code"], c.get("resource", f"{c.get('before')}->{c.get('after')}")) for c in conflicts)
+                continue
+            report["network_search"]["feasible"] += 1
+            score = sum(c["score"] for c in chosen) / len(chosen)
+            key = (-score, tuple(c["id"] for c in chosen))
+            if best is None or key < best[0]:
+                best = key, chosen, score, article_result
+        report["network_search"]["rejections"] = [{"code": code, "resource": resource, "count": count}
+                                                   for (code, resource), count in sorted(rejection_counts.items())]
+        report['network_search']['optimality'] = ('not_proven' if unknown_article else
+                                                  'proven' if best else 'proven_infeasible')
     if article_enabled:
         report['article_table10']['status'] = 'unknown' if unknown_article else 'pass' if best else 'fail'
     if unknown_article:
@@ -434,7 +427,7 @@ def _design(doc, input_digest, knowledge, owl):
             relations.append({"kind": "serial", "from": before["id"], "to": after["id"]})
         elif max(a["start_s"], b["start_s"]) < min(a["end_s"], b["end_s"]):
             relations.append({"kind": "parallel", "chains": [a["id"], b["id"]]})
-        shared = sorted(set(a["artifacts"].values()) & set(b["artifacts"].values()))
+        shared = sorted(member_ids(a) & member_ids(b))
         if shared:
             relations.append({"kind": "resource_sharing", "chains": [a["id"], b["id"]], "artifacts": shared})
     for before in selected:

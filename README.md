@@ -46,3 +46,11 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\启动Excel演示.ps1
 修改场景事实、OWL分类公理、字段映射或JSON规则可改变结果，无需修改Python。程序仍固定三种角色、闭合链结构、评分公式和规则运算符；新增这些机制仍需改程序。具名推理结果回流范围为类型及requiresCapability、hasCapability、communicatesWith、orchestrates四种关系，尚非任意OWL结论的通用消费器。
 
 `generated/` 与 `tmp/` 中的运行输出可重新生成；清理它们不影响源代码和知识文件。再次运行仍会按需生成报告。
+
+## 网络搜索
+
+原有时间、精度、成本公式与网络平均评分保持不变。`policies.network_search_method` 可选 `auto`（默认）、`exhaustive` 或 `branch_and_bound`。auto在组合数超过 `max_network_combinations` 时改用分支定界；穷举模式仍以该参数为硬上限。分支定界提前排除容量、库存、冷却、资源组及任务依赖冲突，用剩余任务最高分作上界，并保留同分按候选链编号选择的顺序。
+
+`max_network_search_nodes` 默认1000000，限制分支定界访问节点数；触限抛出搜索上限错误，不返回已证明最优的设计。`network_search.optimality` 表示证明状态；剪枝模式的evaluated、feasible和rejections仅统计实际访问的完整候选或剪枝冲突，不代表全部可行方案数。表10模式为保留所有未知条件的审计，仍使用穷举。Excel可选设置为“网络搜索方式”和“搜索节点上限”。
+
+候选链新增 `plan.members`、`plan.connections` 和 `plan.resource_usage`，把成员集合、连接与容量/库存占用交给搜索模块；保留原artifacts字段兼容现有导出。当前生成与评价仍是一探知、一协调、一具现，多成员只预留内部结构及资源核验接口，尚未开放多单元生成、融合公式或导出。

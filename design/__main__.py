@@ -75,7 +75,12 @@ def render_summary(result):
                 if chain['id'] in network['chains']:
                     lines.append(f"| {task['task']} | {chain['id']} | {' → '.join(chain['closed_path'])} |")
         search = result['network_search']
-        lines += ["", f"网络组合：检查 {search['evaluated']} 组，可行 {search['feasible']} 组。",
+        lines += ["", f"搜索方式：{search.get('algorithm', 'exhaustive')}；最优性状态：{search.get('optimality', 'not_proven')}。",
+                  (f"网络组合：检查 {search['evaluated']} 组，可行 {search['feasible']} 组。"
+                   if search.get('algorithm') == 'exhaustive' else
+                   f"已检查完整组合 {search['evaluated']} 组，其中可行 {search['feasible']} 组。"),
+                  (f"访问搜索节点 {search['nodes']}；约束剪枝 {search['pruned_constraints']}；评分上界剪枝 {search['pruned_bound']}。剪枝模式下计数不是全部可行方案数。"
+                   if search.get('algorithm') == 'branch_and_bound' else '穷举计数覆盖全部完整组合。'),
                   "资源冲突计数（同一组合可同时违反多项约束）：", ""]
         for rejection in search['rejections']:
             lines.append(f"- {rejection['code']}／{rejection['resource']}：{rejection['count']}")
