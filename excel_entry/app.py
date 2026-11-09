@@ -38,6 +38,8 @@ def run_design(data, filename, *, output_root=None):
     if bridge:
         outputs['source_bindings.json'] = json.dumps(bridge, ensure_ascii=False, indent=2) + '\n'
     export = {'status': 'not_ready', 'reason': '设计尚未完整或存在未映射能力', 'validation': None}
+    if result['status'] == 'feasible_trajectories':
+        export.update(reason='已生成逐目标可行轨迹；仅可行性模式不选择网络，不导出选中设计RDF')
     if result['status'] == 'complete' and result['canonical_export_ready']:
         graph = design_to_rdf(document, result, require_canonical=True)
         review = analyze_graph(ontology_for_document(document) + graph)
@@ -223,7 +225,8 @@ def main(argv=None):
             print(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False))
             if result['rdf_export']['status'] == 'validation_failed':
                 return 2
-            return 0 if (result['report']['status'] == 'complete'
+            return 0 if (result['report']['status'] == 'feasible_trajectories' or
+                         result['report']['status'] == 'complete'
                          and result['rdf_export']['status'] == 'exported') else 1
         except (ValueError, OSError) as exc:
             from design.engine import SearchLimitError

@@ -1,7 +1,7 @@
 """Candidate structure consumed by resource search, independent of role counts.
 
-Generation and evaluation still use the original one-unit-per-role model.
-Reservations retain the existing conservative whole-chain interval semantics.
+Legacy candidates reserve whole-chain intervals. Ordered-step candidates
+provide explicit reservations per execution, including repeated resource uses.
 """
 from collections import Counter
 

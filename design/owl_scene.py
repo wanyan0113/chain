@@ -23,7 +23,7 @@ def build_scene_graph(document, ontology, *, projection_evidence=None):
         graph.add((node, RDF.type, OWL.NamedIndividual))
         # Protégé's short-form renderer can display opaque URNs ambiguously.
         # Labels make scene instances selectable without changing OWL facts.
-        label = {'task': '任务', 'target': '目标', 'artifact': '法器'}[kind]
+        label = {'task': '任务', 'target': '目标', 'artifact': '法器', 'step': '任务环节'}[kind]
         graph.add((node, RDFS.label, Literal(f'{label}：{identifier}', lang='zh')))
         for cls in classes:
             cls = URIRef(cls)
@@ -39,6 +39,22 @@ def build_scene_graph(document, ontology, *, projection_evidence=None):
         target_type = task['attributes'].get('target_type')
         if isinstance(target_type, str) and not task['blocking_issue_ids']:
             graph.add((target, KW.targetType, Literal(target_type, datatype=XSD.string)))
+    from .sequences import SEQUENCES, step_id
+    sequences = SEQUENCES.get()
+    if sequences:
+        for task in document['tasks']:
+            for template in sequences['templates']:
+                for index, step in enumerate(template['steps'], 1):
+                    identifier = step_id(task['id'], template['id'], step['id'])
+                    node = typed('step', identifier, [str(KW.SequentialStepMission)] + step.get('ontology_types', []))
+                    subjects[str(node)].update(task=task['id'], template=template['id'], step=step['id'])
+                    graph.add((scene_uri('task', task['id']), KW.hasSequentialStep, node))
+                    graph.add((node, KW.stepTarget, scene_uri('target', task.get('target', task['id']))))
+                    graph.add((node, KW.stepActivity, Literal(step['activity'], datatype=XSD.string)))
+                    graph.add((node, KW.stepIndex, Literal(index, datatype=XSD.integer)))
+                    if not task['blocking_issue_ids'] and not template.get('blocking_issue_ids'):
+                        for uri in step['capabilities']:
+                            graph.add((node, KW.requiresCapability, URIRef(uri)))
     for artifact in document.get('artifacts', []):
         classes = artifact.get('ontology_types', [])
         if artifact.get('role'):

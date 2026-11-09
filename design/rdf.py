@@ -7,6 +7,7 @@ from rdflib.namespace import XSD
 
 from .engine import DesignError, design
 from .vocabulary import ROLES, KW, ARTIFACT_TYPES, NODE_TYPES, CAPABILITY_TYPES
+from .plans import member_ids
 
 DESIGN = Namespace("urn:arcane-design:")
 
@@ -55,28 +56,44 @@ def design_to_rdf(doc, report, *, require_canonical=False):
             graph.add((chain, KW.chainTarget, target))
             graph.add((web, KW.hasChain, chain))
             graph.add((chain, DESIGN.forMission, mission))
-            nodes = [entity("node", f"{candidate['id']}/{role}") for role in ROLES]
-            for i, role in enumerate(ROLES):
-                artifact = entity("artifact", candidate["artifacts"][role])
+            ordered = candidate.get('plan', {}).get('mode') == 'ordered_steps'
+            steps = (candidate['plan']['steps'] if ordered else
+                     [{'id': role, 'role': role, 'artifact': candidate['artifacts'][role],
+                       'required_capabilities': task_result['required_capabilities'][role]} for role in ROLES])
+            nodes = [entity("node", f"{candidate['id']}/{step['id']}") for step in steps]
+            for i, step in enumerate(steps):
+                role = step['role']
+                artifact = entity("artifact", step['artifact'])
                 graph.add((artifact, RDF.type, ARTIFACT_TYPES[role]))
                 classification = next(item for item in report['ontology_inference']['artifacts']
-                                      if item['artifact'] == candidate['artifacts'][role])
+                                      if item['artifact'] == step['artifact'])
                 for class_uri in classification['inferred_types']:
                     graph.add((artifact, RDF.type, URIRef(class_uri)))
                 graph.add((nodes[i], RDF.type, NODE_TYPES[role]))
                 graph.add((chain, KW.hasChainNode, nodes[i]))
                 graph.add((nodes[i], KW.nodeOrder, Literal(i + 1, datatype=XSD.integer)))
                 graph.add((nodes[i], KW.nodeArtifact, artifact))
-                if i < 2:
+                if i < len(steps) - 1:
                     graph.add((nodes[i], KW.nextNode, nodes[i + 1]))
-                for cap in task_result["required_capabilities"][role]:
+                if ordered:
+                    from .sequences import step_id
+                    step_mission = entity('step', step_id(task_result['task'], candidate['plan']['template'], step['id']))
+                    graph.add((step_mission, RDF.type, KW.SequentialStepMission))
+                    graph.add((step_mission, KW.stepTarget, target))
+                    graph.add((mission, KW.hasSequentialStep, step_mission))
+                    graph.add((step_mission, KW.stepActivity, Literal(step['activity'], datatype=XSD.string)))
+                    graph.add((step_mission, KW.stepIndex, Literal(i + 1, datatype=XSD.integer)))
+                    graph.add((nodes[i], DESIGN.forStepMission, step_mission))
+                for cap in step['required_capabilities']:
                     binding = bindings[(role, cap)]
                     capability = (URIRef(binding['canonical_uri']) if binding['status'] == 'mapped' else
                                   entity("capability", f"{role}/{cap}"))
                     graph.add((capability, RDF.type, CAPABILITY_TYPES[role]))
                     graph.add((artifact, KW.hasCapability, capability))
                     graph.add((mission, KW.requiresCapability, capability))
-                    evidence = entity("capability-evidence", json.dumps([candidate['id'], role, cap]))
+                    if ordered:
+                        graph.add((step_mission, KW.requiresCapability, capability))
+                    evidence = entity("capability-evidence", json.dumps([candidate['id'], step['id'], cap]))
                     graph.add((evidence, DESIGN.forMission, mission))
                     graph.add((evidence, DESIGN.forChain, chain))
                     graph.add((evidence, DESIGN.forArtifact, artifact))
@@ -86,14 +103,25 @@ def design_to_rdf(doc, report, *, require_canonical=False):
                     graph.add((evidence, DESIGN.ruleEvidencePayload, Literal(json.dumps({
                         'task_rules': [r for r in task_result['inference'] if r['status'] == 'pass'
                                        and r['role'] == role and r['capability'] == cap],
-                        'artifact_rules': [r for s in task_result['selection'] if s['artifact'] == candidate['artifacts'][role]
+                        'artifact_rules': [r for s in task_result['selection'] if s['artifact'] == step['artifact']
+                                           and (not ordered or (s.get('step') == step['id'] and s.get('template') == candidate['plan']['template']))
                                            for r in s['rules'] if r['status'] == 'pass' and r['capability'] == cap],
                     }, ensure_ascii=False))))
-            insight, coordination, manifestation = [entity("artifact", candidate["artifacts"][r]) for r in ROLES]
-            graph.add((insight, KW.detects, target))
-            graph.add((insight, KW.insightToCoordinationCommunication, coordination))
-            graph.add((coordination, KW.coordinationToManifestationCommunication, manifestation))
-            graph.add((coordination, KW.orchestrates, manifestation))
+            if ordered:
+                for step in steps:
+                    if step['activity'] == 'observe':
+                        graph.add((entity('artifact', step['artifact']), KW.detects, target))
+                for connection in candidate['plan']['connections']:
+                    left, right = [entity('artifact', connection[key]) for key in ('from', 'to')]
+                    graph.add((left, KW.communicatesWith, right))
+                    if connection['relation'] == 'control':
+                        graph.add((left, KW.orchestrates, right))
+            else:
+                insight, coordination, manifestation = [entity("artifact", candidate["artifacts"][r]) for r in ROLES]
+                graph.add((insight, KW.detects, target))
+                graph.add((insight, KW.insightToCoordinationCommunication, coordination))
+                graph.add((coordination, KW.coordinationToManifestationCommunication, manifestation))
+                graph.add((coordination, KW.orchestrates, manifestation))
             graph.add((chain, DESIGN.closedTarget, target))
     for i, relation in enumerate(report["network"]["relations"], 1):
         node = entity("relation", str(i))
@@ -121,7 +149,7 @@ def design_to_rdf(doc, report, *, require_canonical=False):
             for chain in relation["chains"]:
                 graph.add((node, KW.relatedChain, entity("chain", chain)))
     selected_artifacts = {identifier for task in report['tasks'] for chain in task['chains']
-                          if chain['id'] in chosen for identifier in chain['artifacts'].values()}
+                          if chain['id'] in chosen for identifier in member_ids(chain)}
     for fact in report['ontology_inference']['relations']['facts']:
         endpoints = [fact['subject'], fact['object']]
         if any(value['kind'] == 'artifact' and value['id'] not in selected_artifacts for value in endpoints):
@@ -130,8 +158,14 @@ def design_to_rdf(doc, report, *, require_canonical=False):
                             else URIRef(value['id']) for value in endpoints]
         graph.add((subject, URIRef(fact['predicate']), object_))
     if 'owl_reasoning' in report:
+        from .sequences import step_id
+        selected_steps = {step_id(task['task'], chain['plan']['template'], step['id'])
+                          for task in report['tasks'] for chain in task['chains'] if chain['id'] in chosen
+                          and chain.get('plan', {}).get('mode') == 'ordered_steps' for step in chain['plan']['steps']}
         for uri, value in report['owl_reasoning']['subjects'].items():
             if value['kind'] == 'artifact' and value['id'] not in selected_artifacts:
+                continue
+            if value['kind'] == 'step' and value['id'] not in selected_steps:
                 continue
             kind = 'mission' if value['kind'] == 'task' else value['kind']
             for cls in report['owl_reasoning']['types'].get(uri, []):

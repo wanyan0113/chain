@@ -77,8 +77,15 @@ def knowledge_context(document):
         name = config['fact_mappings_file']
         content = snapshot(knowledge_path(name, '.json'), 'knowledge/' + name)
         mappings = validate_mappings(read_knowledge_json(content), graph)
+    from .sequences import SEQUENCES, validate_sequences
+    sequences = None
+    if config.get('sequences_file'):
+        name = config['sequences_file']
+        content = snapshot(knowledge_path(name, '.json'), 'knowledge/' + name)
+        sequences = validate_sequences(read_knowledge_json(content), graph)
     token = capability_identity.ONTOLOGY_CONTEXT.set(graph)
     mapping_token = SCENE_MAPPINGS.set(mappings)
+    sequence_token = SEQUENCES.set(sequences)
     try:
         # URI conclusions remove the need to add Python identity registrations
         # for new capabilities. Legacy labels remain supported outside this mode.
@@ -94,6 +101,7 @@ def knowledge_context(document):
                     'sha256': hashlib.sha256(json.dumps(snapshots, sort_keys=True, ensure_ascii=False).encode('utf-8')).hexdigest()}
         yield prepared, metadata
     finally:
+        SEQUENCES.reset(sequence_token)
         SCENE_MAPPINGS.reset(mapping_token)
         capability_identity.ONTOLOGY_CONTEXT.reset(token)
 
@@ -113,6 +121,8 @@ def knowledge_sources(document):
         sources.append(knowledge_path(config['rules_file'], '.json'))
     if config.get('fact_mappings_file'):
         sources.append(knowledge_path(config['fact_mappings_file'], '.json'))
+    if config.get('sequences_file'):
+        sources.append(knowledge_path(config['sequences_file'], '.json'))
     return sources
 
 

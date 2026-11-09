@@ -17,12 +17,12 @@ export function buildGraph(report, chainId=null, {allCandidates=false}={}) {
   });
   const mode=allCandidates?'candidates':chainId===null?'network':'chain';
   const nodeMap=new Map(),edgeMap=new Map(),chains=[];
-  function node(kind,id,column,chain,task) {
+  function node(kind,id,column,chain,task,role='target') {
     // Left and right targets are two occurrences of the same business object.
     // Network artifacts merge by identity; chain rows remain separate drawings.
     const objectKey=identity(kind,id);
     const key=JSON.stringify([objectKey,column,mode==='network'?(kind==='target'?task:'shared'):chain]);
-    if(!nodeMap.has(key)) nodeMap.set(key,{key,objectKey,kind,label:id,column,role:kind==='artifact'?ROLES[column-1]:'target',chains:[]});
+    if(!nodeMap.has(key)) nodeMap.set(key,{key,objectKey,kind,label:id,column,role,chains:[]});
     const item=nodeMap.get(key);
     if(!item.chains.includes(chain)) item.chains.push(chain);
     return key;
@@ -34,19 +34,23 @@ export function buildGraph(report, chainId=null, {allCandidates=false}={}) {
         required_capabilities:task.required_capabilities,
         artifacts:task.selection.filter(s=>Object.values(chain.artifacts).includes(s.artifact)),
         links:chain.link_evidence,blockers:task.blockers}});
+    const ordered=chain.plan?.mode==='ordered_steps';
+    const steps=ordered?chain.plan.steps:ROLES.map(role=>({role,artifact:chain.artifacts[role]}));
     const route=[node('target',task.target,0,chain.id,task.task),
-      ...ROLES.map((role,i)=>node('artifact',chain.artifacts[role],i+1,chain.id,task.task)),
-      node('target',task.target,4,chain.id,task.task)];
-    const labels=['探知','传讯','传讯与统筹','具现'];
+      ...steps.map((step,i)=>node('artifact',step.artifact,i+1,chain.id,task.task,step.role)),
+      node('target',task.target,steps.length+1,chain.id,task.task)];
+    const labels=ordered?['探知',...chain.plan.connections.map(c=>c.relation==='control'?'传讯与统筹':'传讯'),'评估闭合']:['探知','传讯','传讯与统筹','具现'];
     route.slice(0,-1).forEach((from,i)=>{
       const to=route[i+1],key=JSON.stringify([from,to]);
-      if(!edgeMap.has(key)) edgeMap.set(key,{from,to,label:labels[i],kind:i===1||i===2?'cooperation':'flow',chains:[],evidence:[]});
+      const cooperation=i>0&&i<route.length-2;
+      if(!edgeMap.has(key)) edgeMap.set(key,{from,to,label:labels[i],kind:cooperation?'cooperation':'flow',chains:[],evidence:[]});
       const edge=edgeMap.get(key);
       edge.chains.push(chain.id);
-      if(i===1||i===2) edge.evidence.push({chain:chain.id,link:chain.link_evidence[i-1]});
+      if(cooperation) edge.evidence.push({chain:chain.id,link:chain.link_evidence[i-1]});
     });
   });
-  const columns=Array.from({length:5},()=>[]);
+  const columnCount=Math.max(5,...[...nodeMap.values()].map(n=>n.column+1));
+  const columns=Array.from({length:columnCount},()=>[]);
   for(const n of nodeMap.values()) columns[n.column].push(n);
   const rows=Math.max(1,...columns.map(col=>col.length));
   const top=126,pitch=120;
@@ -55,7 +59,7 @@ export function buildGraph(report, chainId=null, {allCandidates=false}={}) {
     n.y=mode==='network'?top+(i+.5)*(rows*pitch/col.length):top+chains.findIndex(c=>c.id===n.chains[0])*pitch+24;
   });
   return {mode,nodes:[...nodeMap.values()],edges:[...edgeMap.values()],chains,
-    relations:mode==='network'?(report.network?.relations??[]):[],width:1112,
+    relations:mode==='network'?(report.network?.relations??[]):[],width:1112+(columnCount-5)*224,
     height:mode==='network'?top+rows*pitch+70:top+rows*pitch+30,status:report.status,scope:report.scope};
 }
 

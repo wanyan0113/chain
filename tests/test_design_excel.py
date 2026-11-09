@@ -61,6 +61,22 @@ class DesignExcelTests(unittest.TestCase):
         self.assertEqual(result['network_search']['algorithm'], 'branch_and_bound')
         self.assertEqual(result['network_search']['optimality'], 'proven')
 
+    def test_optional_activity_metrics_preserve_unknown_and_reject_duplicates(self):
+        from design.excel import OPTIONAL_HEADERS
+        sheets = deepcopy(self.sheets)
+        identifier = convert(sheets)['artifacts'][0]['id']
+        sheets['环节指标'] = {1: dict(enumerate(OPTIONAL_HEADERS['环节指标'], 1)),
+                              2: {1: identifier, 2: 'assess', 3: 2, 4: .8, 5: 1, 6: 'demo-credit/use'},
+                              3: {1: identifier, 2: 'observe'}}
+        # Use the workbook's explicitly declared currency.
+        sheets['环节指标'][2][6] = convert(self.sheets)['policies']['cost_unit']
+        metrics = convert(sheets)['artifacts'][0]['activity_metrics']
+        self.assertEqual(metrics['assess']['duration_s'], 2)
+        self.assertIsNone(metrics['observe'])
+        sheets['环节指标'][4] = dict(sheets['环节指标'][2])
+        with self.assertRaises(EntryError):
+            convert(sheets)
+
     def test_cli_invalid_inputs_and_search_limit_return_two(self):
         from design.engine import SearchLimitError
         for error in (EntryError('无效表格'), OSError('写入失败'), SearchLimitError('搜索上限')):

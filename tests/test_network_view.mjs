@@ -5,6 +5,23 @@ import {buildGraph,buildReferenceGraph} from '../design/network_view.mjs';
 
 const report=JSON.parse(fs.readFileSync(process.env.NETWORK_REPORT,'utf8'));
 
+test('ordered trajectories render all repeated-role stages with correct roles',()=>{
+  const doc=structuredClone(report),chain=doc.tasks[0].chains[0];
+  const roles=['insight','coordination','manifestation','coordination','manifestation','insight'];
+  const ids=['eye-1','center-1','effect-1','center-2','effect-2','eye-2'];
+  chain.plan={mode:'ordered_steps',steps:roles.map((role,i)=>({id:`s${i}`,role,artifact:ids[i]})),
+    connections:roles.slice(1).map(()=>({relation:'communication'}))};
+  chain.artifacts=Object.fromEntries(ids.map((id,i)=>[`s${i}`,id]));
+  chain.link_evidence=ids.slice(1).map((to,i)=>({from:ids[i],to}));
+  const graph=buildGraph(doc,chain.id);
+  assert.equal(graph.nodes.length,8);
+  assert.equal(graph.edges.length,7);
+  assert.deepEqual(graph.nodes.filter(n=>n.kind==='artifact').map(n=>n.role),roles);
+  assert.deepEqual(graph.nodes.filter(n=>n.kind==='artifact').map(n=>n.label),ids);
+  assert.equal(graph.edges.filter(e=>e.kind==='cooperation').length,5);
+  assert.ok(graph.width>1112);
+});
+
 test('selected network reuses shared resources, keeps only chosen chains and directed evidence',()=>{
   const before=structuredClone(report),g=buildGraph(report);
   assert.equal(g.chains.length,2);

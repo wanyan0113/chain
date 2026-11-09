@@ -75,6 +75,9 @@ def validate_document(doc):
         metrics = item["metrics"]
         if metrics and (metrics["cost"]["unit"] != doc["policies"]["cost_unit"] or metrics["cost"]["value"] < 0):
             raise DesignError(f"{item['id']} 成本单位不一致或成本为负")
+        for activity, metric in item.get('activity_metrics', {}).items():
+            if metric and (metric['cost']['unit'] != doc['policies']['cost_unit'] or metric['cost']['value'] < 0):
+                raise DesignError(f"{item['id']} 的{activity}活动成本单位不一致或成本为负")
     for rule in doc["task_rules"]:
         if any(not c["field"].startswith("task.") or ("ref" in c and not c["ref"].startswith("task.")) for c in rule["when"]):
             raise DesignError("任务—能力规则只能引用 task 字段")
@@ -233,8 +236,12 @@ def _design(doc, input_digest, knowledge, owl):
     from .ontology_inference import prepare_artifacts
     from .owl_scene import task_requirements
     doc, ontology_inference = prepare_artifacts(doc, owl_result=owl)
+    from .sequences import SEQUENCES, generate_task
+    sequences = SEQUENCES.get()
     type_evidence = {item['artifact']: item for item in ontology_inference['artifacts']}
     article_enabled = doc['policies'].get('article_table10', False)
+    if sequences and article_enabled:
+        raise DesignError('顺序序列模式不能套用原三节点表10校验；请分别验证两种模型')
     if article_enabled:
         from .article_integration import validate_counts, screening, cooperation
         validate_counts(doc)
@@ -248,11 +255,27 @@ def _design(doc, input_digest, knowledge, owl):
     if knowledge is not None:
         report.update(knowledge=knowledge, owl_reasoning=owl,
                       execution_sha256=hashlib.sha256((input_digest + knowledge['sha256']).encode('ascii')).hexdigest())
+    if sequences:
+        report['sequence_model'] = {'evaluation': sequences['evaluation'], 'communication_model': sequences['communication_model'],
+                                    'scope': '4至6个顺序环节，每环节一个执行对象；AS解释为act后assess；评估映射为insight角色，使用单独能力与指标'}
     comparison_groups = []
     if article_enabled:
         report['article_table10'] = {'enabled':True,'status':'not_ready','combinations':[],'selected':None}
     unresolved = False
     for ti, task in enumerate(doc["tasks"], 1):
+        if sequences:
+            result = generate_task(task, doc, ontology_inference, owl, ti)
+            report['tasks'].append(result)
+            if result['blockers']:
+                unresolved = True
+                comparison_groups.append([])
+            elif sequences['evaluation']['mode'] == 'sequential_product':
+                if result['chains']:
+                    rank_chains(result['chains'], doc['weights'], doc['policies']['equal_metric_score'])
+                comparison_groups.append(result['chains'])
+            else:
+                comparison_groups.append(result['chains'])
+            continue
         capability_result = infer_task_capabilities(task, doc["task_rules"], ontology_requirements=task_requirements(task, owl))
         inference = capability_result["inference"]
         required = capability_result["required_capabilities"]
@@ -366,6 +389,9 @@ def _design(doc, input_digest, knowledge, owl):
             if result["chains"]:
                 rank_chains(result["chains"], doc["weights"], doc["policies"]["equal_metric_score"])
             comparison_groups.append(result["chains"])
+    if sequences and sequences['evaluation']['mode'] == 'feasibility_only':
+        report['status'] = ('blocked' if unresolved else 'feasible_trajectories' if all(comparison_groups) else 'no_feasible_design')
+        return annotate_design_mapping(deepcopy(report))
     if not all(comparison_groups):
         report["status"] = "blocked" if unresolved else "no_feasible_design"
         return annotate_design_mapping(deepcopy(report))

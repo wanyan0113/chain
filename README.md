@@ -43,7 +43,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\启动Excel演示.ps1
 
 对应任务的 `attributes.operating_height` 填 `{"value":1000,"unit":"ft"}`。`kind` 可为task、target或artifact；target从所属任务的attributes读取。属性须在本体声明为数据属性；支持string、boolean、decimal、integer、double，数值必须声明单位，不自动换算。映射默认 `required:true`，缺失、类型或单位不符会记录unknown并阻塞相关任务或法器；明确可选字段才设置false。
 
-修改场景事实、OWL分类公理、字段映射或JSON规则可改变结果，无需修改Python。程序仍固定三种角色、闭合链结构、评分公式和规则运算符；新增这些机制仍需改程序。具名推理结果回流范围为类型及requiresCapability、hasCapability、communicatesWith、orchestrates四种关系，尚非任意OWL结论的通用消费器。
+修改场景事实、OWL分类公理、字段映射或JSON规则可改变结果，无需修改Python。程序仍固定三种角色、评价机制和规则运算符；新增这些机制仍需改程序。具名推理结果回流范围为类型及requiresCapability、hasCapability、communicatesWith、orchestrates四种关系，尚非任意OWL结论的通用消费器。
 
 `generated/` 与 `tmp/` 中的运行输出可重新生成；清理它们不影响源代码和知识文件。再次运行仍会按需生成报告。
 
@@ -53,4 +53,21 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\启动Excel演示.ps1
 
 `max_network_search_nodes` 默认1000000，限制分支定界访问节点数；触限抛出搜索上限错误，不返回已证明最优的设计。`network_search.optimality` 表示证明状态；剪枝模式的evaluated、feasible和rejections仅统计实际访问的完整候选或剪枝冲突，不代表全部可行方案数。表10模式为保留所有未知条件的审计，仍使用穷举。Excel可选设置为“网络搜索方式”和“搜索节点上限”。
 
-候选链新增 `plan.members`、`plan.connections` 和 `plan.resource_usage`，把成员集合、连接与容量/库存占用交给搜索模块；保留原artifacts字段兼容现有导出。当前生成与评价仍是一探知、一协调、一具现，多成员只预留内部结构及资源核验接口，尚未开放多单元生成、融合公式或导出。
+候选链使用 `plan.members`、`plan.connections` 和 `plan.resource_usage`，把成员集合、连接与容量/库存占用交给搜索模块。不启用任务序列时，仍使用原来的一探知、一协调、一具现模式及其公式。
+
+## 顺序任务序列（新文章的方法融合）
+
+在 `knowledge.sequences_file` 指定knowledge目录内的JSON（契约见 `design/sequence_schema.json`）；Excel对应设置为“任务序列文件”。外置模板规定适用条件 `when`、环节 `steps`、`allow_nonadjacent_reuse`，顶层明确 `communication_model` 为directed或undirected，以及 `evaluation.mode`。模板、环节、评价和配置均须登记 `source_refs`。
+
+每个环节填写id、activity、role、capabilities（具名能力完整URI）、min_level和source_refs；可选ontology_types引入OWL环节分类。非首环节须声明incoming_relation为communication或control，control仅适用于协调→具现。支持4至6个顺序环节：observe起始，含decide，以act→assess结束。例如 `observe→decide→act→decide→act→assess` 可由多个不同探知、协调和具现对象依次完成。每环节只分配一个对象，相邻对象必须不同并可通联；非相邻复用由模板明确允许。
+
+observe/assess对应insight、decide对应coordination、act对应manifestation。评估的能力须明确登记，可以使用单独的具名评估能力。资源 `attributes.level_<activity>` 使用 `{"value":0.9,"unit":"1"}`，与环节min_level比较。`SequentialStepMission` 的类型和requiresCapability由HermiT实际推导，随后业务规则核验数值条件。stepTarget与整体任务hasTarget分开，避免把整体多角色能力需求强加给每个环节。
+
+两种评价方式须显式选择：
+
+- `feasibility_only`：只生成逐目标可行轨迹，成功状态为 `feasible_trajectories`；不评分、不选择同时可执行的网络、不导出选中设计RDF。可查看报告及reasoning_input/result。
+- `sequential_product`：显式采用工程假设——环节耗时相加、精度相乘、每次执行成本相加，再接回原归一化、权重及网络搜索。各资源必须单独提供 `activity_metrics.<activity>`（duration_s、accuracy、cost），不沿用旧metrics。重复执行按次计成本和库存，按环节时间及冷却计资源占用。Excel可添加“环节指标”表，列为法器编号、活动、耗时秒、精度0至1、使用成本、成本单位。
+
+报告中 `plan.steps` 给出顺序、执行对象、能力与时间；`sequence_generation` 记录搜索和剪枝。先筛选环节候选域，再深度优先回溯并即时检查连接，借鉴CPBS-MP；`max_sequence_search_nodes` 默认1000000，生成候选数仍受max_chain_combinations约束，触限报错，不返回截断集合。
+
+这是把新文章的轨迹生成方法适配到现有实例级程序，并非其数值实验复现。文中AS按“具现后评估”两个环节解释；未实现同环节多个对象的并行融合、一个物理对象承担多种角色、论文转化率或DEA配置评价。网络开始时间仍须输入，程序不自动调度。

@@ -21,6 +21,10 @@ ROOT = Path(__file__).resolve().parent.parent
 def render_summary(result):
     lines = ["# 法术链设计报告", "", f"状态：{result['status']}", "", f"数据范围：{result['scope']}", ""]
     mapping = result['ontology_mapping']
+    if 'sequence_model' in result:
+        lines += ['顺序序列模式：每环节一个执行对象，AS解释为具现后评估；不表示并行联合执行。',
+                  '评价配置：' + json.dumps(result['sequence_model']['evaluation'], ensure_ascii=False),
+                  'sequential_product是显式工程假设，并非新文章给出的联合效果公式；feasible_trajectories仅表示逐目标轨迹生成完成。', '']
     if 'owl_reasoning' in result:
         owl = result['owl_reasoning']
         lines += ['## 外置知识与OWL推导', '', f"实际推理器：{owl['engine']}；状态：{owl['status']}。", '',
@@ -52,13 +56,18 @@ def render_summary(result):
               f"规范URI导出就绪：{'是' if result['canonical_export_ready'] else '否'}", ""]
     for task in result["tasks"]:
         lines += [f"## {task['task']}", "", f"目标：{task['target']}", "",
-                  "| 候选链 | 探知 → 协调 → 具现 | 时间（秒） | 精度乘积 | 使用成本 | 评分 |", "| --- | --- | ---: | ---: | ---: | ---: |"]
+                  "| 候选链 | 顺序执行对象 | 时间（秒） | 精度乘积 | 使用成本 | 评分 |", "| --- | --- | ---: | ---: | ---: | ---: |"]
         for chain in task["chains"]:
             metrics = chain["metrics"] or {}
             score = "未评分" if chain["score"] is None else f"{chain['score']:.6f}"
             values = [f"{metrics[key]:.8g}" if key in metrics else "缺失" for key in ("time", "accuracy", "cost")]
             lines.append(f"| {chain['id']} | {' → '.join(chain['artifacts'].values())} | {' | '.join(values)} | {score} |")
         lines += ["", f"阻塞项：{json.dumps(task['blockers'], ensure_ascii=False)}", ""]
+        if 'sequence_generation' in task:
+            lines += ['序列生成：' + json.dumps(task['sequence_generation'], ensure_ascii=False), '']
+            for candidate in task['chains']:
+                lines += [candidate['id'] + '：' + ' → '.join(
+                    f"{step['id']}[{step['activity']}]={step['artifact']}" for step in candidate['plan']['steps']), '']
         for binding in task['ontology_bindings']:
             lines.append(f"- 能力对应 {binding['role']}／{binding['capability']}："
                          + (binding['canonical_uri'] or '未映射；默认导出仅使用局部个体')
@@ -186,7 +195,7 @@ def main(argv=None):
         print(json.dumps(result, ensure_ascii=False, allow_nan=False))
         if args.command in ('infer-capabilities', 'run') and args.require_canonical and not result['canonical_export_ready']:
             return 1
-        return 0 if result["status"] in {"complete", "reference_reproduced"} else 1
+        return 0 if result["status"] in {"complete", "reference_reproduced", "feasible_trajectories"} else 1
     except (ValueError, OSError) as exc:
         result = {"status": "search_limit" if isinstance(exc, SearchLimitError) else "invalid", "error": str(exc), "network": None}
         print(json.dumps(result, ensure_ascii=False))

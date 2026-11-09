@@ -21,9 +21,10 @@ HEADERS = {
     '填写指南': ['项目', '说明'],
 }
 OPTIONAL_HEADERS = {'本体关系': ['主体类型', '主体', '关系URI', '客体类型', '客体', '来源', '阻塞疑点'],
-                    '本体类型': ['对象类型', '对象编号', '类型URI']}
+                    '本体类型': ['对象类型', '对象编号', '类型URI'],
+                    '环节指标': ['法器编号', '活动', '耗时秒', '精度0至1', '使用成本', '成本单位']}
 SETTINGS = ['范围说明', '时间权重', '精度权重', '成本权重', '同值指标评分', '成本单位', '链组合上限', '网络组合上限']
-OPTIONAL_SETTINGS = ['表10原文校验', '本体知识文件', '业务规则文件', '本体事实映射文件', '知识来源', '网络搜索方式', '搜索节点上限']
+OPTIONAL_SETTINGS = ['表10原文校验', '本体知识文件', '业务规则文件', '本体事实映射文件', '知识来源', '网络搜索方式', '搜索节点上限', '任务序列文件', '序列搜索节点上限']
 ROLES = {'探知': 'insight', '协调': 'coordination', '具现': 'manifestation'}
 RULES = {'任务': 'task_rules', '法器': 'artifact_rules'}
 GUIDE = [
@@ -39,6 +40,9 @@ GUIDE = [
     ['指标', '耗时、精度、成本和成本单位全部空白时表示指标未知，部分填写会报错。其他数字不能为空。精度填写0至1。'],
     ['关系与时间', '协同关系为有向边，距离严格小于最大距离。开始时间固定；容量、库存、冷却、依赖和资源组参与网络约束。'],
     ['搜索', '网络搜索方式可选auto、exhaustive、branch_and_bound，默认auto；超过网络组合上限时自动改用分支定界。搜索节点上限默认1000000，触限会报错。表10校验保留穷举。'],
+    ['顺序序列', '可选设置任务序列文件和序列搜索节点上限；序列JSON位于knowledge内。每环节一个对象，可重复角色，4至6环节；AS明确解释为具现后评估，不表示同环节多对象融合。'],
+    ['环节配置', '属性表填写level_observe、level_decide、level_act、level_assess（0至1，单位1）。可选环节指标表按法器与活动分别填写指标；活动为observe、decide、act或assess，四项指标全部留空表示未知，不自动沿用法器总指标。'],
+    ['序列评价', 'feasibility_only只输出逐目标可行轨迹；sequential_product须显式提供环节指标，按耗时求和、精度相乘、每次执行成本求和接回网络搜索。这是工程评价假设，不是新文章的转化率或DEA。'],
     ['本体关系', '可选本体关系表：主体类型、主体、关系URI、客体类型、客体、来源、阻塞疑点。类型填法器或能力，能力填完整URI。协同关系的传讯或统筹填“本体推导”时使用推导结果，距离仍须明确填写。'],
     ['外置知识', '设计设置可填写本体知识文件（knowledge目录内相对路径，分号分隔）、知识来源及可选业务规则文件、本体事实映射文件。映射将属性送入OWL，必需字段缺失或单位不符会阻塞。此模式实际执行HermiT，再执行规则与组网。可选本体类型表列为对象类型、对象编号、类型URI；对象类型填任务、目标或法器。'],
     ['输出', '上传后显示候选链、选中网络和阻塞原因。完整且规范能力映射就绪时才导出RDF；执行静态本体检查。'],
@@ -104,13 +108,17 @@ def convert(sheets):
         doc['policies']['network_search_method'] = text(settings['网络搜索方式'], '网络搜索方式')
     if '搜索节点上限' in settings:
         doc['policies']['max_network_search_nodes'] = number(settings['搜索节点上限'], '搜索节点上限', True)
-    if any(key in settings for key in ('本体知识文件', '业务规则文件', '本体事实映射文件', '知识来源')):
+    if '序列搜索节点上限' in settings:
+        doc['policies']['max_sequence_search_nodes'] = number(settings['序列搜索节点上限'], '序列搜索节点上限', True)
+    if any(key in settings for key in ('本体知识文件', '业务规则文件', '本体事实映射文件', '知识来源', '任务序列文件')):
         doc['knowledge'] = {'ontology_files': refs(text(settings.get('本体知识文件'), '本体知识文件'), '本体知识文件'),
                             'source_refs': refs(text(settings.get('知识来源'), '知识来源'), '知识来源')}
         if settings.get('业务规则文件') is not None:
             doc['knowledge']['rules_file'] = text(settings['业务规则文件'], '业务规则文件')
         if settings.get('本体事实映射文件') is not None:
             doc['knowledge']['fact_mappings_file'] = text(settings['本体事实映射文件'], '本体事实映射文件')
+        if settings.get('任务序列文件') is not None:
+            doc['knowledge']['sequences_file'] = text(settings['任务序列文件'], '任务序列文件')
     owners = {}
     def add_owner(kind, key, obj):
         if (kind, key) in owners:
@@ -139,6 +147,17 @@ def convert(sheets):
             available=boolean(available, where), attributes={}, metrics=metrics, capacity=number(capacity, where, True),
             consumable=boolean(consumable, where), inventory=number(inventory, where, True),
             cooldown_s=number(cooldown, where), **evidence(source, issues, where))))
+    for row, (identifier, activity, duration, accuracy, cost, unit) in optional.get('环节指标', []):
+        where = f'环节指标第{row}行'
+        owner = owners.get(('法器', text(identifier, where)))
+        if owner is None or activity not in ('observe', 'decide', 'act', 'assess'):
+            raise EntryError(f'{where}：法器不存在或活动无效')
+        metrics = owner.setdefault('activity_metrics', {})
+        if activity in metrics:
+            raise EntryError(f'{where}：同一法器活动指标重复')
+        metrics[activity] = None if all(v is None for v in (duration, accuracy, cost, unit)) else dict(
+            duration_s=number(duration, where), accuracy=number(accuracy, where),
+            cost=dict(value=number(cost, where), unit=text(unit, where)))
     for row, (task, artifact, source, issues) in rows['情境']:
         where = f'情境第{row}行'
         task, artifact = text(task, where), text(artifact, where)
