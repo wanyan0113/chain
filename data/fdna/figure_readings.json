@@ -1,0 +1,581 @@
+{
+  "id": "paper_figures_8_9_selected_raster_points",
+  "data_kind": "uncertain_raster_readings",
+  "source_sha256": "210ab50b6d97c68f0c402336ef05fb6ca5bb659f84f42d663d66b11a1093f5e5",
+  "method": "从已核对指纹的原文PDF第11、12页提取内嵌图像，在原生像素尺寸下依据图例人工确认31个可辨曲线点，并以颜色像素位置辅助定位；未采集重叠不清的曲线点。坐标原点为图像左上角，x向右、y向下；每轴两个锚点为[像素,刻度]，作线性标定。图像指纹对应PDF内嵌JPX原始字节。每点保守计入横向±3像素、纵向±5像素以容纳线宽、压缩、人工选点及刻度标定误差；这不是统计置信区间，也不代表原始推演精度。",
+  "axis_mapping": {
+    "kind": "candidate_identity",
+    "basis": "仅为检验候选扫描约定，暂令基础式给定效能等于原图t读数；其余无入边节点固定100，中间节点逐点重算。原文未完整确定此对应关系，比较结果仅对这一假设成立，不以读图值反求或改写参数。"
+  },
+  "panels": [
+    {
+      "id": "8a",
+      "observer": "F7",
+      "pdf_page": 11,
+      "image_xref": 84,
+      "image_sha256": "7e73376af97254ee3e17583ce8d35491cd01feae8997c0ea8330a248527ea73b",
+      "size": [
+        1323,
+        376
+      ],
+      "x_axis": [
+        [
+          67,
+          0
+        ],
+        [
+          414,
+          100
+        ]
+      ],
+      "y_axis": [
+        [
+          10,
+          100
+        ],
+        [
+          265.5,
+          40
+        ]
+      ],
+      "legend": [
+        "S1",
+        "D2",
+        "S3",
+        "D4",
+        "S5",
+        "S6",
+        "S8",
+        "S10"
+      ]
+    },
+    {
+      "id": "8b",
+      "observer": "F9",
+      "pdf_page": 11,
+      "image_xref": 84,
+      "image_sha256": "7e73376af97254ee3e17583ce8d35491cd01feae8997c0ea8330a248527ea73b",
+      "size": [
+        1323,
+        376
+      ],
+      "x_axis": [
+        [
+          511,
+          0
+        ],
+        [
+          858,
+          100
+        ]
+      ],
+      "y_axis": [
+        [
+          10,
+          100
+        ],
+        [
+          259,
+          30
+        ]
+      ],
+      "legend": [
+        "S1",
+        "D2",
+        "S3",
+        "D4",
+        "S5",
+        "S6",
+        "S8",
+        "S10"
+      ]
+    },
+    {
+      "id": "8c",
+      "observer": "F11",
+      "pdf_page": 11,
+      "image_xref": 84,
+      "image_sha256": "7e73376af97254ee3e17583ce8d35491cd01feae8997c0ea8330a248527ea73b",
+      "size": [
+        1323,
+        376
+      ],
+      "x_axis": [
+        [
+          951,
+          0
+        ],
+        [
+          1300,
+          100
+        ]
+      ],
+      "y_axis": [
+        [
+          9,
+          100
+        ],
+        [
+          277,
+          30
+        ]
+      ],
+      "legend": [
+        "S1",
+        "D2",
+        "S3",
+        "D4",
+        "S5",
+        "S6",
+        "S8",
+        "S10"
+      ]
+    },
+    {
+      "id": "9a",
+      "observer": "S5",
+      "pdf_page": 12,
+      "image_xref": 80,
+      "image_sha256": "fdd94c52765e0cc11a82a91623dca499f7d7fd9134fc4c3666ff47c8781453df",
+      "size": [
+        440,
+        378
+      ],
+      "x_axis": [
+        [
+          68,
+          0
+        ],
+        [
+          423,
+          100
+        ]
+      ],
+      "y_axis": [
+        [
+          10,
+          100
+        ],
+        [
+          250,
+          40
+        ]
+      ],
+      "legend": [
+        "S1",
+        "D2",
+        "D4"
+      ]
+    },
+    {
+      "id": "9b",
+      "observer": "S6",
+      "pdf_page": 12,
+      "image_xref": 81,
+      "image_sha256": "a797c3289bfcce286f9b8f26d2544ab8cfcf88fda583cf4b7472919afdf03058",
+      "size": [
+        440,
+        380
+      ],
+      "x_axis": [
+        [
+          68,
+          0
+        ],
+        [
+          423,
+          100
+        ]
+      ],
+      "y_axis": [
+        [
+          9.5,
+          100
+        ],
+        [
+          268,
+          50
+        ]
+      ],
+      "legend": [
+        "S1",
+        "D2",
+        "D4"
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "panel": "8a",
+      "driver": "S1",
+      "pixel": [
+        103,
+        152.5
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "8a",
+      "driver": "S1",
+      "pixel": [
+        241,
+        39
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "8a",
+      "driver": "D2",
+      "pixel": [
+        103,
+        73
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "8a",
+      "driver": "D2",
+      "pixel": [
+        241,
+        19.5
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "8a",
+      "driver": "D4",
+      "pixel": [
+        241,
+        43
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "8b",
+      "driver": "S1",
+      "pixel": [
+        546,
+        32
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "8b",
+      "driver": "S1",
+      "pixel": [
+        685,
+        14
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "8b",
+      "driver": "S3",
+      "pixel": [
+        546,
+        172
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "8b",
+      "driver": "S3",
+      "pixel": [
+        685,
+        32.5
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "8b",
+      "driver": "S8",
+      "pixel": [
+        546,
+        232.5
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "8b",
+      "driver": "S8",
+      "pixel": [
+        685,
+        92.5
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "8b",
+      "driver": "S10",
+      "pixel": [
+        546,
+        58.5
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "8b",
+      "driver": "S10",
+      "pixel": [
+        685,
+        23
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "8c",
+      "driver": "S1",
+      "pixel": [
+        986,
+        31
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "8c",
+      "driver": "S3",
+      "pixel": [
+        986,
+        161.5
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "8c",
+      "driver": "S3",
+      "pixel": [
+        1126,
+        36
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "8c",
+      "driver": "S8",
+      "pixel": [
+        986,
+        39.5
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "8c",
+      "driver": "S10",
+      "pixel": [
+        986,
+        230.5
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "8c",
+      "driver": "S10",
+      "pixel": [
+        1126,
+        78.5
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "9a",
+      "driver": "S1",
+      "pixel": [
+        104,
+        227.5
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "9a",
+      "driver": "S1",
+      "pixel": [
+        246,
+        67.5
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "9a",
+      "driver": "D2",
+      "pixel": [
+        104,
+        59.5
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "9a",
+      "driver": "D2",
+      "pixel": [
+        246,
+        22
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "9a",
+      "driver": "D4",
+      "pixel": [
+        104,
+        96
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "9a",
+      "driver": "D4",
+      "pixel": [
+        246,
+        57
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "9b",
+      "driver": "S1",
+      "pixel": [
+        104,
+        218.5
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "9b",
+      "driver": "S1",
+      "pixel": [
+        246,
+        28
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "9b",
+      "driver": "D2",
+      "pixel": [
+        104,
+        160.5
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "9b",
+      "driver": "D2",
+      "pixel": [
+        246,
+        25.5
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "9b",
+      "driver": "D4",
+      "pixel": [
+        104,
+        105.5
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    },
+    {
+      "panel": "9b",
+      "driver": "D4",
+      "pixel": [
+        246,
+        62
+      ],
+      "pixel_error": [
+        3,
+        5
+      ]
+    }
+  ]
+}

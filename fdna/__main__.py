@@ -10,6 +10,7 @@ from source_data.common import read_json, write_outputs
 from .engine import MODEL, evaluate
 from .model import inspect_model, load_model, verify_sources
 from .sweep import csv_report, plot_sweep, render_sweep_summary, sweep
+from .figure_compare import compare_readings, plot_comparison, render_comparison
 
 
 def render_summary(report):
@@ -47,6 +48,12 @@ def main(argv=None):
     scan.add_argument('--protocol', type=Path, required=True)
     scan.add_argument('--output-dir', type=Path, required=True)
     scan.add_argument('--plot', action='store_true', help='另存基础式曲线图，需要matplotlib')
+    compare = commands.add_parser('compare', help='带误差读图值与基础式作条件对照')
+    compare.add_argument('case', type=Path)
+    compare.add_argument('--protocol', type=Path, required=True)
+    compare.add_argument('--readings', type=Path, required=True)
+    compare.add_argument('--output-dir', type=Path, required=True)
+    compare.add_argument('--plot', action='store_true')
     args = parser.parse_args(argv)
     try:
         model = load_model(args.case)
@@ -57,17 +64,23 @@ def main(argv=None):
             result = inspect_model(model)
             result['source_verification'] = provenance
         else:
-            if args.command == 'sweep':
+            if args.command in ('sweep', 'compare'):
                 input_path = args.protocol
                 protocol = read_json(input_path)
-                result = sweep(model, protocol)
-                outputs = {
-                    'protocol_snapshot.json': json.dumps(protocol, ensure_ascii=False, indent=2, allow_nan=False) + '\n',
-                    'fdna_sweep.csv': csv_report(result),
-                    'fdna_summary.md': render_sweep_summary(result),
-                }
-                if args.plot:
-                    outputs['fdna_sweep.png'] = plot_sweep(result)
+                if args.command == 'compare':
+                    result = compare_readings(model, protocol, read_json(args.readings))
+                    outputs = {'fdna_summary.md': render_comparison(result)}
+                    if args.plot:
+                        outputs['fdna_comparison.png'] = plot_comparison(result, model)
+                else:
+                    result = sweep(model, protocol)
+                    outputs = {
+                        'fdna_sweep.csv': csv_report(result),
+                        'fdna_summary.md': render_sweep_summary(result),
+                    }
+                    if args.plot:
+                        outputs['fdna_sweep.png'] = plot_sweep(result)
+                outputs['protocol_snapshot.json'] = json.dumps(protocol, ensure_ascii=False, indent=2, allow_nan=False) + '\n'
             else:
                 input_path = args.scenario
                 scenario = read_json(input_path)
@@ -84,13 +97,16 @@ def main(argv=None):
             protected = [args.case, input_path] + [
                 (args.case.resolve().parent / source['path']).resolve()
                 for source in model['sources'] if 'path' in source]
+            if args.command == 'compare':
+                protected.append(args.readings)
             write_outputs(args.output_dir, {
                 'case_snapshot.json': json.dumps(model, ensure_ascii=False, indent=2, allow_nan=False) + '\n',
                 'fdna_report.json': json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + '\n',
                 **outputs,
             }, protected=protected)
-        printed = ({k: v for k, v in result.items() if k not in ('rows', 'traces', 'baseline')}
-                   if args.command == 'sweep' else result)
+        printed = ({k: v for k, v in result.items() if k not in
+                    ('rows', 'traces', 'baseline', 'comparisons', 'readings_snapshot')}
+                   if args.command in ('sweep', 'compare') else result)
         print(json.dumps(printed, ensure_ascii=False, indent=2, allow_nan=False))
         return 1 if result['status'] == 'blocked' else 0
     except (ValueError, OSError) as exc:

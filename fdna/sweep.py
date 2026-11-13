@@ -10,7 +10,7 @@ from .engine import MODEL, evaluate
 from .model import ModelError, inspect_model
 
 
-def sweep(model, protocol):
+def validate_protocol(model, protocol):
     structure = inspect_model(model)
     fields = {'id', 'basis', 'model', 'baseline', 'drivers', 'observers', 'values'}
     if not isinstance(protocol, dict) or set(protocol) != fields:
@@ -37,6 +37,13 @@ def sweep(model, protocol):
     baseline = evaluate(model, base_scenario)
     if baseline['status'] != 'complete':
         raise ModelError('扫描参照须给齐六类无入边节点的效能，且依赖参数已知')
+    return baseline
+
+
+def sweep(model, protocol):
+    baseline = validate_protocol(model, protocol)
+    base_scenario = baseline['scenario']
+    grid = protocol['values']
     base_values = {n['id']: n['value'] for n in baseline['nodes']}
     rows, traces = [], []
     for driver in protocol['drivers']:
