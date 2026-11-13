@@ -1,0 +1,106 @@
+{
+  "format_version": "1.0",
+  "id": "arcane_se_method_check",
+  "basis": "仅用于核验指标转SE的求法：人工指定线性上下界，将融合结束刻度减开始刻度作为成本型时长。全部界限与刻度均为核验约定，不是原文实验配置。",
+  "rules": {
+    "S1": {
+      "method": "linear_minmax",
+      "measure": "value",
+      "direction": "cost",
+      "lower": 0,
+      "upper": 100,
+      "unit": "time_scale",
+      "basis": "Explicit arithmetic-check assumption; not a reported article configuration"
+    },
+    "D2": {
+      "method": "linear_minmax",
+      "measure": "elapsed",
+      "direction": "cost",
+      "lower": 0,
+      "upper": 20,
+      "unit": "time_scale",
+      "basis": "Explicit arithmetic-check assumption; not a reported article configuration"
+    },
+    "S3": {
+      "method": "linear_minmax",
+      "measure": "value",
+      "direction": "benefit",
+      "lower": 0,
+      "upper": 10,
+      "unit": "count",
+      "basis": "Explicit arithmetic-check assumption; not a reported article configuration"
+    },
+    "D4": {
+      "method": "linear_minmax",
+      "measure": "elapsed",
+      "direction": "cost",
+      "lower": 0,
+      "upper": 20,
+      "unit": "time_scale",
+      "basis": "Explicit arithmetic-check assumption; not a reported article configuration"
+    },
+    "S5": {
+      "method": "linear_minmax",
+      "measure": "value",
+      "direction": "benefit",
+      "lower": 0,
+      "upper": 100,
+      "unit": "time_scale",
+      "basis": "Explicit arithmetic-check assumption; not a reported article configuration"
+    },
+    "S6": {
+      "method": "linear_minmax",
+      "measure": "value",
+      "direction": "benefit",
+      "lower": 0,
+      "upper": 100,
+      "unit": "time_scale",
+      "basis": "Explicit arithmetic-check assumption; not a reported article configuration"
+    },
+    "F7": {
+      "method": "linear_minmax",
+      "measure": "value",
+      "direction": "benefit",
+      "lower": 0,
+      "upper": 1,
+      "unit": "ratio",
+      "basis": "Explicit arithmetic-check assumption; not a reported article configuration"
+    },
+    "S8": {
+      "method": "linear_minmax",
+      "measure": "value",
+      "direction": "benefit",
+      "lower": 0,
+      "upper": 10,
+      "unit": "count",
+      "basis": "Explicit arithmetic-check assumption; not a reported article configuration"
+    },
+    "F9": {
+      "method": "linear_minmax",
+      "measure": "value",
+      "direction": "benefit",
+      "lower": 0,
+      "upper": 1,
+      "unit": "ratio",
+      "basis": "Explicit arithmetic-check assumption; not a reported article configuration"
+    },
+    "S10": {
+      "method": "linear_minmax",
+      "measure": "value",
+      "direction": "benefit",
+      "lower": 0,
+      "upper": 10,
+      "unit": "count",
+      "basis": "Explicit arithmetic-check assumption; not a reported article configuration"
+    },
+    "F11": {
+      "method": "linear_minmax",
+      "measure": "value",
+      "direction": "benefit",
+      "lower": 0,
+      "upper": 1,
+      "unit": "ratio",
+      "basis": "Explicit arithmetic-check assumption; not a reported article configuration"
+    }
+  }
+}

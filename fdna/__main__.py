@@ -11,6 +11,7 @@ from .engine import MODEL, evaluate
 from .model import inspect_model, load_model, verify_sources
 from .sweep import csv_report, plot_sweep, render_sweep_summary, sweep
 from .figure_compare import compare_readings, plot_comparison, render_comparison
+from .self_effectiveness import normalize_measurements, render_se_summary, se_csv
 
 
 def render_summary(report):
@@ -54,6 +55,11 @@ def main(argv=None):
     compare.add_argument('--readings', type=Path, required=True)
     compare.add_argument('--output-dir', type=Path, required=True)
     compare.add_argument('--plot', action='store_true')
+    normalizer = commands.add_parser('normalize', help='按明确约定将原始效能指标转为SE')
+    normalizer.add_argument('case', type=Path)
+    normalizer.add_argument('--calibration', type=Path, required=True)
+    normalizer.add_argument('--measurements', type=Path, required=True)
+    normalizer.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         model = load_model(args.case)
@@ -64,7 +70,11 @@ def main(argv=None):
             result = inspect_model(model)
             result['source_verification'] = provenance
         else:
-            if args.command in ('sweep', 'compare'):
+            if args.command == 'normalize':
+                input_path = args.measurements
+                result = normalize_measurements(model, read_json(args.calibration), read_json(input_path))
+                outputs = {'fdna_summary.md': render_se_summary(result), 'se_values.csv': se_csv(result)}
+            elif args.command in ('sweep', 'compare'):
                 input_path = args.protocol
                 protocol = read_json(input_path)
                 if args.command == 'compare':
@@ -99,14 +109,17 @@ def main(argv=None):
                 for source in model['sources'] if 'path' in source]
             if args.command == 'compare':
                 protected.append(args.readings)
+            if args.command == 'normalize':
+                protected.append(args.calibration)
             write_outputs(args.output_dir, {
                 'case_snapshot.json': json.dumps(model, ensure_ascii=False, indent=2, allow_nan=False) + '\n',
                 'fdna_report.json': json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + '\n',
                 **outputs,
             }, protected=protected)
         printed = ({k: v for k, v in result.items() if k not in
-                    ('rows', 'traces', 'baseline', 'comparisons', 'readings_snapshot')}
-                   if args.command in ('sweep', 'compare') else result)
+                    ('rows', 'traces', 'baseline', 'comparisons', 'readings_snapshot', 'records',
+                     'fit_inputs', 'measurements_snapshot', 'calibration_snapshot')}
+                   if args.command in ('sweep', 'compare', 'normalize') else result)
         print(json.dumps(printed, ensure_ascii=False, indent=2, allow_nan=False))
         return 1 if result['status'] == 'blocked' else 0
     except (ValueError, OSError) as exc:

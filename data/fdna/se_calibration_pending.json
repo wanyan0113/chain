@@ -1,0 +1,18 @@
+{
+  "format_version": "1.0",
+  "id": "arcane_se_pending",
+  "basis": "依文稿4.2节登记待定归一化约定；原文没有给出完整公式与界限，各节点保持未知，不能据此声称原始指标已可重现。",
+  "rules": {
+    "S1": null,
+    "D2": null,
+    "S3": null,
+    "D4": null,
+    "S5": null,
+    "S6": null,
+    "F7": null,
+    "S8": null,
+    "F9": null,
+    "S10": null,
+    "F11": null
+  }
+}
