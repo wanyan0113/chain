@@ -1,0 +1,794 @@
+{
+  "format_version": "1.0",
+  "case_id": "arcane_dependency_reference",
+  "case_sha256": "f2fd995e116794e1cdf56c4034523d496be594d1f10ff37421969c9deb1f2ed8",
+  "basis": "依第三节规则1—7、式(3)—(9)与表3—4建立六层实体及映射。实例标识为实现所设；功能为规则派生，活动槽位为明确标记的解释，尚无原始活动记录确认。",
+  "source_locators": [
+    {
+      "source": "fantasy",
+      "id": "section3_1",
+      "label": "第3.1节，规则1—7、式(3)—(6)"
+    },
+    {
+      "source": "fantasy",
+      "id": "section3_2",
+      "label": "第3.2节，六层节点、式(7)—(9)"
+    },
+    {
+      "source": "fantasy",
+      "id": "section3_3",
+      "label": "第3.3节，能力及功能层依赖含义"
+    }
+  ],
+  "policy": {
+    "activity_partition": "outer_members_as_activity_slots",
+    "partition_confirmed": false,
+    "group_timing": "unspecified",
+    "function_identity": "constructed_from_rule6_bijection",
+    "dependency_parameters": "not_transferred"
+  },
+  "system": {
+    "id": "KW_arcane",
+    "label": "给定协同阵界的奥术网",
+    "represents": "SoS",
+    "chains": [
+      "KC1",
+      "KC2"
+    ],
+    "evidence": {
+      "kind": "derived",
+      "source_refs": [
+        "fantasy:section3_1",
+        "fantasy:table4"
+      ],
+      "basis": "依据规则1—2与式(3)以奥术网表征协同阵界，以案例两条法术链作为成员。"
+    }
+  },
+  "tasks": [
+    {
+      "id": "Task_KC1",
+      "label": "面向暮影浮空方舟的法术链任务",
+      "chain": "KC1",
+      "target": "T2",
+      "activity_order": [
+        "Act_KC1_1",
+        "Act_KC1_2",
+        "Act_KC1_3",
+        "Act_KC1_4",
+        "Act_KC1_5"
+      ],
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:table4"
+        ],
+        "basis": "依据规则2与式(4)登记任务与法术链的一一对应；活动槽位划分另按解释登记。"
+      }
+    },
+    {
+      "id": "Task_KC2",
+      "label": "面向暮影感知魔像的法术链任务",
+      "chain": "KC2",
+      "target": "T1",
+      "activity_order": [
+        "Act_KC2_1",
+        "Act_KC2_2"
+      ],
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:table4"
+        ],
+        "basis": "依据规则2与式(4)登记任务与法术链的一一对应；活动槽位划分另按解释登记。"
+      }
+    }
+  ],
+  "activities": [
+    {
+      "id": "Act_KC1_1",
+      "label": "KC1第1活动槽位",
+      "task": "Task_KC1",
+      "type": "R",
+      "capability_group": [
+        "S1"
+      ],
+      "performers": [
+        "U1"
+      ],
+      "functions": [
+        "FN_S1"
+      ],
+      "evidence": {
+        "kind": "interpretation",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_2",
+          "fantasy:table4"
+        ],
+        "basis": "将表4最外层成员登记为一个活动槽位；保留组内括号，不推定组内先后、并行或选择关系。活动类别按支撑能力类别对应。"
+      }
+    },
+    {
+      "id": "Act_KC1_2",
+      "label": "KC1第2活动槽位",
+      "task": "Task_KC1",
+      "type": "D",
+      "capability_group": [
+        "D2"
+      ],
+      "performers": [
+        "U2"
+      ],
+      "functions": [
+        "FN_D2"
+      ],
+      "evidence": {
+        "kind": "interpretation",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_2",
+          "fantasy:table4"
+        ],
+        "basis": "将表4最外层成员登记为一个活动槽位；保留组内括号，不推定组内先后、并行或选择关系。活动类别按支撑能力类别对应。"
+      }
+    },
+    {
+      "id": "Act_KC1_3",
+      "label": "KC1第3活动槽位",
+      "task": "Task_KC1",
+      "type": "D",
+      "capability_group": [
+        "D4"
+      ],
+      "performers": [
+        "U3"
+      ],
+      "functions": [
+        "FN_D4"
+      ],
+      "evidence": {
+        "kind": "interpretation",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_2",
+          "fantasy:table4"
+        ],
+        "basis": "将表4最外层成员登记为一个活动槽位；保留组内括号，不推定组内先后、并行或选择关系。活动类别按支撑能力类别对应。"
+      }
+    },
+    {
+      "id": "Act_KC1_4",
+      "label": "KC1第4活动槽位",
+      "task": "Task_KC1",
+      "type": "R",
+      "capability_group": [
+        "S5",
+        "S6"
+      ],
+      "performers": [
+        "U4",
+        "U5"
+      ],
+      "functions": [
+        "FN_S5",
+        "FN_S6"
+      ],
+      "evidence": {
+        "kind": "interpretation",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_2",
+          "fantasy:table4"
+        ],
+        "basis": "将表4最外层成员登记为一个活动槽位；保留组内括号，不推定组内先后、并行或选择关系。活动类别按支撑能力类别对应。"
+      }
+    },
+    {
+      "id": "Act_KC1_5",
+      "label": "KC1第5活动槽位",
+      "task": "Task_KC1",
+      "type": "E",
+      "capability_group": [
+        "F7"
+      ],
+      "performers": [
+        "U6"
+      ],
+      "functions": [
+        "FN_F7"
+      ],
+      "evidence": {
+        "kind": "interpretation",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_2",
+          "fantasy:table4"
+        ],
+        "basis": "将表4最外层成员登记为一个活动槽位；保留组内括号，不推定组内先后、并行或选择关系。活动类别按支撑能力类别对应。"
+      }
+    },
+    {
+      "id": "Act_KC2_1",
+      "label": "KC2第1活动槽位",
+      "task": "Task_KC2",
+      "type": "R",
+      "capability_group": [
+        [
+          "S8",
+          "S10"
+        ],
+        "S3"
+      ],
+      "performers": [
+        "U7",
+        "U8",
+        "U3"
+      ],
+      "functions": [
+        "FN_S8",
+        "FN_S10",
+        "FN_S3"
+      ],
+      "evidence": {
+        "kind": "interpretation",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_2",
+          "fantasy:table4"
+        ],
+        "basis": "将表4最外层成员登记为一个活动槽位；保留组内括号，不推定组内先后、并行或选择关系。活动类别按支撑能力类别对应。"
+      }
+    },
+    {
+      "id": "Act_KC2_2",
+      "label": "KC2第2活动槽位",
+      "task": "Task_KC2",
+      "type": "E",
+      "capability_group": [
+        "F9",
+        "F11"
+      ],
+      "performers": [
+        "U7",
+        "U8"
+      ],
+      "functions": [
+        "FN_F9",
+        "FN_F11"
+      ],
+      "evidence": {
+        "kind": "interpretation",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_2",
+          "fantasy:table4"
+        ],
+        "basis": "将表4最外层成员登记为一个活动槽位；保留组内括号，不推定组内先后、并行或选择关系。活动类别按支撑能力类别对应。"
+      }
+    }
+  ],
+  "functions": [
+    {
+      "id": "FN_S1",
+      "label": "星界探知镜的灵视探知功能",
+      "subject": "U1",
+      "capability": "S1",
+      "type": "S",
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_2",
+          "fantasy:table3"
+        ],
+        "basis": "依据规则6为每个能力构造一个对应功能实例；主体及类别沿用表3，不推定内部术式模块。"
+      }
+    },
+    {
+      "id": "FN_D2",
+      "label": "联合统筹中枢的协调统筹功能",
+      "subject": "U2",
+      "capability": "D2",
+      "type": "D",
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_2",
+          "fantasy:table3"
+        ],
+        "basis": "依据规则6为每个能力构造一个对应功能实例；主体及类别沿用表3，不推定内部术式模块。"
+      }
+    },
+    {
+      "id": "FN_S3",
+      "label": "感知魔像群的灵视探知功能",
+      "subject": "U3",
+      "capability": "S3",
+      "type": "S",
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_2",
+          "fantasy:table3"
+        ],
+        "basis": "依据规则6为每个能力构造一个对应功能实例；主体及类别沿用表3，不推定内部术式模块。"
+      }
+    },
+    {
+      "id": "FN_D4",
+      "label": "感知魔像群的协调统筹功能",
+      "subject": "U3",
+      "capability": "D4",
+      "type": "D",
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_2",
+          "fantasy:table3"
+        ],
+        "basis": "依据规则6为每个能力构造一个对应功能实例；主体及类别沿用表3，不推定内部术式模块。"
+      }
+    },
+    {
+      "id": "FN_S5",
+      "label": "第一浮游灵体群的灵视探知功能",
+      "subject": "U4",
+      "capability": "S5",
+      "type": "S",
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_2",
+          "fantasy:table3"
+        ],
+        "basis": "依据规则6为每个能力构造一个对应功能实例；主体及类别沿用表3，不推定内部术式模块。"
+      }
+    },
+    {
+      "id": "FN_S6",
+      "label": "第二浮游灵体群的灵视探知功能",
+      "subject": "U5",
+      "capability": "S6",
+      "type": "S",
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_2",
+          "fantasy:table3"
+        ],
+        "basis": "依据规则6为每个能力构造一个对应功能实例；主体及类别沿用表3，不推定内部术式模块。"
+      }
+    },
+    {
+      "id": "FN_F7",
+      "label": "具现法印群的魔力具现功能",
+      "subject": "U6",
+      "capability": "F7",
+      "type": "F",
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_2",
+          "fantasy:table3"
+        ],
+        "basis": "依据规则6为每个能力构造一个对应功能实例；主体及类别沿用表3，不推定内部术式模块。"
+      }
+    },
+    {
+      "id": "FN_S8",
+      "label": "第一御风灵骑的灵视探知功能",
+      "subject": "U7",
+      "capability": "S8",
+      "type": "S",
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_2",
+          "fantasy:table3"
+        ],
+        "basis": "依据规则6为每个能力构造一个对应功能实例；主体及类别沿用表3，不推定内部术式模块。"
+      }
+    },
+    {
+      "id": "FN_F9",
+      "label": "第一御风灵骑的魔力具现功能",
+      "subject": "U7",
+      "capability": "F9",
+      "type": "F",
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_2",
+          "fantasy:table3"
+        ],
+        "basis": "依据规则6为每个能力构造一个对应功能实例；主体及类别沿用表3，不推定内部术式模块。"
+      }
+    },
+    {
+      "id": "FN_S10",
+      "label": "第二御风灵骑的灵视探知功能",
+      "subject": "U8",
+      "capability": "S10",
+      "type": "S",
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_2",
+          "fantasy:table3"
+        ],
+        "basis": "依据规则6为每个能力构造一个对应功能实例；主体及类别沿用表3，不推定内部术式模块。"
+      }
+    },
+    {
+      "id": "FN_F11",
+      "label": "第二御风灵骑的魔力具现功能",
+      "subject": "U8",
+      "capability": "F11",
+      "type": "F",
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_2",
+          "fantasy:table3"
+        ],
+        "basis": "依据规则6为每个能力构造一个对应功能实例；主体及类别沿用表3，不推定内部术式模块。"
+      }
+    }
+  ],
+  "function_dependencies": [
+    {
+      "id": "FD_S1_S5",
+      "feeder": "FN_S1",
+      "receiver": "FN_S5",
+      "capability_feeder": "S1",
+      "capability_receiver": "S5",
+      "interaction_mechanism": null,
+      "parameters": null,
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_3",
+          "paper:table7",
+          "fantasy:table7"
+        ],
+        "basis": "依据规则7建立能力层与功能层依赖的结构对应；未确认物资流或信息流机理，不复制能力层α、β作为功能层参数。"
+      }
+    },
+    {
+      "id": "FD_D2_S5",
+      "feeder": "FN_D2",
+      "receiver": "FN_S5",
+      "capability_feeder": "D2",
+      "capability_receiver": "S5",
+      "interaction_mechanism": null,
+      "parameters": null,
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_3",
+          "paper:table7",
+          "fantasy:table7"
+        ],
+        "basis": "依据规则7建立能力层与功能层依赖的结构对应；未确认物资流或信息流机理，不复制能力层α、β作为功能层参数。"
+      }
+    },
+    {
+      "id": "FD_D4_S5",
+      "feeder": "FN_D4",
+      "receiver": "FN_S5",
+      "capability_feeder": "D4",
+      "capability_receiver": "S5",
+      "interaction_mechanism": null,
+      "parameters": null,
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_3",
+          "paper:table7",
+          "fantasy:table7"
+        ],
+        "basis": "依据规则7建立能力层与功能层依赖的结构对应；未确认物资流或信息流机理，不复制能力层α、β作为功能层参数。"
+      }
+    },
+    {
+      "id": "FD_S1_S6",
+      "feeder": "FN_S1",
+      "receiver": "FN_S6",
+      "capability_feeder": "S1",
+      "capability_receiver": "S6",
+      "interaction_mechanism": null,
+      "parameters": null,
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_3",
+          "paper:table7",
+          "fantasy:table7"
+        ],
+        "basis": "依据规则7建立能力层与功能层依赖的结构对应；未确认物资流或信息流机理，不复制能力层α、β作为功能层参数。"
+      }
+    },
+    {
+      "id": "FD_D2_S6",
+      "feeder": "FN_D2",
+      "receiver": "FN_S6",
+      "capability_feeder": "D2",
+      "capability_receiver": "S6",
+      "interaction_mechanism": null,
+      "parameters": null,
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_3",
+          "paper:table7",
+          "fantasy:table7"
+        ],
+        "basis": "依据规则7建立能力层与功能层依赖的结构对应；未确认物资流或信息流机理，不复制能力层α、β作为功能层参数。"
+      }
+    },
+    {
+      "id": "FD_D4_S6",
+      "feeder": "FN_D4",
+      "receiver": "FN_S6",
+      "capability_feeder": "D4",
+      "capability_receiver": "S6",
+      "interaction_mechanism": null,
+      "parameters": null,
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_3",
+          "paper:table7",
+          "fantasy:table7"
+        ],
+        "basis": "依据规则7建立能力层与功能层依赖的结构对应；未确认物资流或信息流机理，不复制能力层α、β作为功能层参数。"
+      }
+    },
+    {
+      "id": "FD_S5_F7",
+      "feeder": "FN_S5",
+      "receiver": "FN_F7",
+      "capability_feeder": "S5",
+      "capability_receiver": "F7",
+      "interaction_mechanism": null,
+      "parameters": null,
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_3",
+          "paper:table7",
+          "fantasy:table7"
+        ],
+        "basis": "依据规则7建立能力层与功能层依赖的结构对应；未确认物资流或信息流机理，不复制能力层α、β作为功能层参数。"
+      }
+    },
+    {
+      "id": "FD_S6_F7",
+      "feeder": "FN_S6",
+      "receiver": "FN_F7",
+      "capability_feeder": "S6",
+      "capability_receiver": "F7",
+      "interaction_mechanism": null,
+      "parameters": null,
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_3",
+          "paper:table7",
+          "fantasy:table7"
+        ],
+        "basis": "依据规则7建立能力层与功能层依赖的结构对应；未确认物资流或信息流机理，不复制能力层α、β作为功能层参数。"
+      }
+    },
+    {
+      "id": "FD_S3_F9",
+      "feeder": "FN_S3",
+      "receiver": "FN_F9",
+      "capability_feeder": "S3",
+      "capability_receiver": "F9",
+      "interaction_mechanism": null,
+      "parameters": null,
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_3",
+          "paper:table7",
+          "fantasy:table7"
+        ],
+        "basis": "依据规则7建立能力层与功能层依赖的结构对应；未确认物资流或信息流机理，不复制能力层α、β作为功能层参数。"
+      }
+    },
+    {
+      "id": "FD_S5_F9",
+      "feeder": "FN_S5",
+      "receiver": "FN_F9",
+      "capability_feeder": "S5",
+      "capability_receiver": "F9",
+      "interaction_mechanism": null,
+      "parameters": null,
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_3",
+          "paper:table7",
+          "fantasy:table7"
+        ],
+        "basis": "依据规则7建立能力层与功能层依赖的结构对应；未确认物资流或信息流机理，不复制能力层α、β作为功能层参数。"
+      }
+    },
+    {
+      "id": "FD_S6_F9",
+      "feeder": "FN_S6",
+      "receiver": "FN_F9",
+      "capability_feeder": "S6",
+      "capability_receiver": "F9",
+      "interaction_mechanism": null,
+      "parameters": null,
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_3",
+          "paper:table7",
+          "fantasy:table7"
+        ],
+        "basis": "依据规则7建立能力层与功能层依赖的结构对应；未确认物资流或信息流机理，不复制能力层α、β作为功能层参数。"
+      }
+    },
+    {
+      "id": "FD_S8_F9",
+      "feeder": "FN_S8",
+      "receiver": "FN_F9",
+      "capability_feeder": "S8",
+      "capability_receiver": "F9",
+      "interaction_mechanism": null,
+      "parameters": null,
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_3",
+          "paper:table7",
+          "fantasy:table7"
+        ],
+        "basis": "依据规则7建立能力层与功能层依赖的结构对应；未确认物资流或信息流机理，不复制能力层α、β作为功能层参数。"
+      }
+    },
+    {
+      "id": "FD_S10_F9",
+      "feeder": "FN_S10",
+      "receiver": "FN_F9",
+      "capability_feeder": "S10",
+      "capability_receiver": "F9",
+      "interaction_mechanism": null,
+      "parameters": null,
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_3",
+          "paper:table7",
+          "fantasy:table7"
+        ],
+        "basis": "依据规则7建立能力层与功能层依赖的结构对应；未确认物资流或信息流机理，不复制能力层α、β作为功能层参数。"
+      }
+    },
+    {
+      "id": "FD_S3_F11",
+      "feeder": "FN_S3",
+      "receiver": "FN_F11",
+      "capability_feeder": "S3",
+      "capability_receiver": "F11",
+      "interaction_mechanism": null,
+      "parameters": null,
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_3",
+          "paper:table7",
+          "fantasy:table7"
+        ],
+        "basis": "依据规则7建立能力层与功能层依赖的结构对应；未确认物资流或信息流机理，不复制能力层α、β作为功能层参数。"
+      }
+    },
+    {
+      "id": "FD_S5_F11",
+      "feeder": "FN_S5",
+      "receiver": "FN_F11",
+      "capability_feeder": "S5",
+      "capability_receiver": "F11",
+      "interaction_mechanism": null,
+      "parameters": null,
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_3",
+          "paper:table7",
+          "fantasy:table7"
+        ],
+        "basis": "依据规则7建立能力层与功能层依赖的结构对应；未确认物资流或信息流机理，不复制能力层α、β作为功能层参数。"
+      }
+    },
+    {
+      "id": "FD_S6_F11",
+      "feeder": "FN_S6",
+      "receiver": "FN_F11",
+      "capability_feeder": "S6",
+      "capability_receiver": "F11",
+      "interaction_mechanism": null,
+      "parameters": null,
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_3",
+          "paper:table7",
+          "fantasy:table7"
+        ],
+        "basis": "依据规则7建立能力层与功能层依赖的结构对应；未确认物资流或信息流机理，不复制能力层α、β作为功能层参数。"
+      }
+    },
+    {
+      "id": "FD_S8_F11",
+      "feeder": "FN_S8",
+      "receiver": "FN_F11",
+      "capability_feeder": "S8",
+      "capability_receiver": "F11",
+      "interaction_mechanism": null,
+      "parameters": null,
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_3",
+          "paper:table7",
+          "fantasy:table7"
+        ],
+        "basis": "依据规则7建立能力层与功能层依赖的结构对应；未确认物资流或信息流机理，不复制能力层α、β作为功能层参数。"
+      }
+    },
+    {
+      "id": "FD_S10_F11",
+      "feeder": "FN_S10",
+      "receiver": "FN_F11",
+      "capability_feeder": "S10",
+      "capability_receiver": "F11",
+      "interaction_mechanism": null,
+      "parameters": null,
+      "evidence": {
+        "kind": "derived",
+        "source_refs": [
+          "fantasy:section3_1",
+          "fantasy:section3_3",
+          "paper:table7",
+          "fantasy:table7"
+        ],
+        "basis": "依据规则7建立能力层与功能层依赖的结构对应；未确认物资流或信息流机理，不复制能力层α、β作为功能层参数。"
+      }
+    }
+  ]
+}

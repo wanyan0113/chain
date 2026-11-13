@@ -12,6 +12,7 @@ from .model import inspect_model, load_model, verify_sources
 from .sweep import csv_report, plot_sweep, render_sweep_summary, sweep
 from .figure_compare import compare_readings, plot_comparison, render_comparison
 from .self_effectiveness import normalize_measurements, render_se_summary, se_csv
+from .structure import inspect_structure, render_structure, structure_csv
 
 
 def render_summary(report):
@@ -60,6 +61,10 @@ def main(argv=None):
     normalizer.add_argument('--calibration', type=Path, required=True)
     normalizer.add_argument('--measurements', type=Path, required=True)
     normalizer.add_argument('--output-dir', type=Path, required=True)
+    structural = commands.add_parser('structure', help='核对第三节六层实体与规则映射')
+    structural.add_argument('case', type=Path)
+    structural.add_argument('--structure', type=Path, required=True)
+    structural.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         model = load_model(args.case)
@@ -70,7 +75,11 @@ def main(argv=None):
             result = inspect_model(model)
             result['source_verification'] = provenance
         else:
-            if args.command == 'normalize':
+            if args.command == 'structure':
+                input_path = args.structure
+                result = inspect_structure(model, read_json(input_path))
+                outputs = {'fdna_summary.md': render_structure(result), 'structure_mapping.csv': structure_csv(result)}
+            elif args.command == 'normalize':
                 input_path = args.measurements
                 result = normalize_measurements(model, read_json(args.calibration), read_json(input_path))
                 outputs = {'fdna_summary.md': render_se_summary(result), 'se_values.csv': se_csv(result)}
@@ -118,8 +127,9 @@ def main(argv=None):
             }, protected=protected)
         printed = ({k: v for k, v in result.items() if k not in
                     ('rows', 'traces', 'baseline', 'comparisons', 'readings_snapshot', 'records',
-                     'fit_inputs', 'measurements_snapshot', 'calibration_snapshot')}
-                   if args.command in ('sweep', 'compare', 'normalize') else result)
+                     'fit_inputs', 'measurements_snapshot', 'calibration_snapshot', 'structure_snapshot',
+                     'graph', 'activity_order_relations')}
+                   if args.command in ('sweep', 'compare', 'normalize', 'structure') else result)
         print(json.dumps(printed, ensure_ascii=False, indent=2, allow_nan=False))
         return 1 if result['status'] == 'blocked' else 0
     except (ValueError, OSError) as exc:
