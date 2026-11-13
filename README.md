@@ -55,13 +55,13 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\启动Excel演示.ps1
 
 候选链使用 `plan.members`、`plan.connections` 和 `plan.resource_usage`，把成员集合、连接与容量/库存占用交给搜索模块。不启用任务序列时，仍使用原来的一探知、一协调、一具现模式及其公式。
 
-## 顺序任务序列（新文章的方法融合）
+## 可配置顺序任务序列
 
 在 `knowledge.sequences_file` 指定knowledge目录内的JSON（契约见 `design/sequence_schema.json`）；Excel对应设置为“任务序列文件”。外置模板规定适用条件 `when`、环节 `steps`、`allow_nonadjacent_reuse`，顶层明确 `communication_model` 为directed或undirected，以及 `evaluation.mode`。模板、环节、评价和配置均须登记 `source_refs`。
 
-每个环节填写id、activity、role、capabilities（具名能力完整URI）、min_level和source_refs；可选ontology_types引入OWL环节分类。非首环节须声明incoming_relation为communication或control，control仅适用于协调→具现。支持4至6个顺序环节：observe起始，含decide，以act→assess结束。例如 `observe→decide→act→decide→act→assess` 可由多个不同探知、协调和具现对象依次完成。每环节只分配一个对象，相邻对象必须不同并可通联；非相邻复用由模板明确允许。
+每个环节填写id、activity、role、capabilities（具名能力完整URI）、min_level和source_refs；可选ontology_types引入OWL环节分类。非首环节须声明incoming_relation为communication或control，control仅适用于指控→打击。保留侦察—指控—打击主线：observe起始，含decide，以act结束；至少三个环节，不再限定4至6个环节，也不自动增加评估。既可配置 `observe→decide→act`，也可配置 `observe→decide→decide→act`（侦察→指控1→指控2→打击）。重复的decide均为指控，不要求拆为研判和决断。每环节只分配一个对象，相邻对象必须不同并可通联；非相邻复用由模板明确允许。未设置固定环节数上限，但仍受下述搜索工作量与候选数上限约束。
 
-observe/assess对应insight、decide对应coordination、act对应manifestation。评估的能力须明确登记，可以使用单独的具名评估能力。资源 `attributes.level_<activity>` 使用 `{"value":0.9,"unit":"1"}`，与环节min_level比较。`SequentialStepMission` 的类型和requiresCapability由HermiT实际推导，随后业务规则核验数值条件。stepTarget与整体任务hasTarget分开，避免把整体多角色能力需求强加给每个环节。
+observe对应insight（侦察）、decide对应coordination（指控）、act对应manifestation（打击）。为兼容既有配置保留可选assess（insight角色），只有模板显式填写才会参与执行；不使用评估时无需提供评估能力或指标。资源 `attributes.level_<activity>` 使用 `{"value":0.9,"unit":"1"}`，与环节min_level比较。`SequentialStepMission` 的类型和requiresCapability由HermiT实际推导，随后业务规则核验数值条件。stepTarget与整体任务hasTarget分开，避免把整体多角色能力需求强加给每个环节。
 
 两种评价方式须显式选择：
 
@@ -70,4 +70,4 @@ observe/assess对应insight、decide对应coordination、act对应manifestation�
 
 报告中 `plan.steps` 给出顺序、执行对象、能力与时间；`sequence_generation` 记录搜索和剪枝。先筛选环节候选域，再深度优先回溯并即时检查连接，借鉴CPBS-MP；`max_sequence_search_nodes` 默认1000000，生成候选数仍受max_chain_combinations约束，触限报错，不返回截断集合。
 
-这是把新文章的轨迹生成方法适配到现有实例级程序，并非其数值实验复现。文中AS按“具现后评估”两个环节解释；未实现同环节多个对象的并行融合、一个物理对象承担多种角色、论文转化率或DEA配置评价。网络开始时间仍须输入，程序不自动调度。
+顺序链生成借鉴新文章的逐环节搜索方法，主体保留原文侦察—指控—打击结构及原有归一化和加权评分；不是新文章的数值实验复现，也不强制采用其流程。多环节指标采用上面显式声明的顺序汇总口径。未实现同环节多个对象的并行融合、一个物理对象承担多种角色、论文转化率或DEA配置评价。网络开始时间仍须输入，程序不自动调度。

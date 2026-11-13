@@ -85,6 +85,74 @@ class SequenceTests(unittest.TestCase):
     def save(self):
         (self.root / 'sequences.json').write_text(json.dumps(self.config), encoding='utf-8')
 
+    def test_three_step_chain_without_assessment_reuses_original_scoring(self):
+        self.doc, self.config = make_fixture(self.root, ('observe', 'decide', 'act'))
+        # No assessment inputs are required when assessment is absent.
+        eye = self.doc['artifacts'][0]
+        del eye['activity_metrics']['assess']
+        del eye['attributes']['level_assess']
+        report = design(self.doc)
+        self.assertEqual(report['status'], 'complete')
+        self.assertEqual([len(t['chains']) for t in report['tasks']], [2, 2])
+        legacy_doc = deepcopy(self.doc)
+        del legacy_doc['knowledge']['sequences_file']
+        legacy = design(legacy_doc)
+        self.assertEqual(legacy['status'], 'complete')
+        for current, old in zip(report['tasks'], legacy['tasks']):
+            expected = {c['artifacts']['manifestation']: c for c in old['chains']}
+            for chain in current['chains']:
+                self.assertEqual([s['activity'] for s in chain['plan']['steps']], ['observe', 'decide', 'act'])
+                previous = expected[chain['artifacts']['s3']]
+                self.assertEqual(chain['metrics'], previous['metrics'])
+                self.assertAlmostEqual(chain['score'], previous['score'])
+        self.assertTrue(report['canonical_export_ready'])
+        design_to_rdf(self.doc, report, require_canonical=True)
+
+    def test_two_consecutive_command_steps_are_not_split_into_subroles(self):
+        self.doc, self.config = make_fixture(self.root, ('observe', 'decide', 'decide', 'act'))
+        coordinator = next(a for a in self.doc['artifacts'] if a['id'] == 'demo-coordinator')
+        self.doc['artifacts'].append({**deepcopy(coordinator), 'id': 'coordinator-2'})
+        edge = self.doc['links'][0]
+        self.doc['links'] = [{**deepcopy(edge), 'from': a['id'], 'to': b['id'], 'controls': True}
+                            for a in self.doc['artifacts'] for b in self.doc['artifacts'] if a['id'] != b['id']]
+        report = design(self.doc)
+        self.assertEqual(report['status'], 'complete')
+        for task in report['tasks']:
+            self.assertTrue(task['chains'])
+            for chain in task['chains']:
+                steps = chain['plan']['steps']
+                self.assertEqual([s['activity'] for s in steps], ['observe', 'decide', 'decide', 'act'])
+                self.assertEqual([s['role'] for s in steps], ['insight', 'coordination', 'coordination', 'manifestation'])
+                self.assertNotEqual(steps[1]['artifact'], steps[2]['artifact'])
+                self.assertEqual(len(chain['plan']['members']['coordination']), 2)
+                self.assertEqual(chain['plan']['connections'][1]['relation'], 'communication')
+                strike = next(a for a in self.doc['artifacts'] if a['id'] == steps[-1]['artifact'])['metrics']
+                self.assertEqual(chain['metrics']['time'], 3 + strike['duration_s'])
+                self.assertAlmostEqual(chain['metrics']['accuracy'], .99 * .95 * .95 *
+                                       strike['accuracy'])
+        design_to_rdf(self.doc, report, require_canonical=True)
+
+    def test_more_than_six_steps_without_assessment(self):
+        activities = ('observe', 'decide', 'observe', 'decide', 'observe', 'decide', 'act')
+        self.doc, self.config = make_fixture(self.root, activities)
+        report = design(self.doc)
+        self.assertEqual(report['status'], 'complete')
+        for task in report['tasks']:
+            self.assertTrue(task['chains'])
+            for chain in task['chains']:
+                self.assertEqual([s['activity'] for s in chain['plan']['steps']], list(activities))
+                strike = next(a for a in self.doc['artifacts'] if a['id'] == chain['artifacts']['s7'])['metrics']
+                self.assertEqual(chain['metrics']['time'], 6 + strike['duration_s'])
+                self.assertEqual(len(chain['plan']['resource_usage']), 7)
+
+    def test_sequence_backbone_is_still_required(self):
+        for activities in (('observe', 'decide'), ('observe', 'observe', 'act'),
+                           ('decide', 'observe', 'act'), ('observe', 'act', 'decide')):
+            with self.subTest(activities=activities):
+                self.doc, self.config = make_fixture(self.root, activities)
+                with self.assertRaises(DesignError):
+                    design(self.doc)
+
     def test_real_step_entailment_export_and_stage_resources(self):
         report = design(self.doc)
         self.assertEqual(report['status'], 'complete')

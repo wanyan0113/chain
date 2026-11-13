@@ -1,4 +1,4 @@
-"""Ordered, single-executor-per-step trajectories inspired by CPBS-MP.
+"""Configurable ordered chains with one executor per step.
 
 This is a class-to-instance adaptation, not a reproduction of the paper's
 numerical experiments or an implementation of simultaneous coalition actions.
@@ -40,9 +40,12 @@ def validate_sequences(config, ontology):
         if len({step['id'] for step in steps}) != len(steps):
             raise DesignError('同一序列内环节编号重复')
         activities = [s['activity'] for s in steps]
-        # Resolve ambiguous AS notation explicitly as separate act + assess.
-        if activities[0] != 'observe' or activities[-2:] != ['act', 'assess'] or 'decide' not in activities:
-            raise DesignError('序列须以observe开始、以act和assess结束，并包含decide；AS按两个顺序环节解释')
+        # Keep the reconnaissance-command-strike backbone without fixing the
+        # number of instances in each role. Assessment is an optional legacy
+        # extension, never an implicitly inserted or required final step.
+        ends_with_strike = activities[-1] == 'act' or activities[-2:] == ['act', 'assess']
+        if activities[0] != 'observe' or not ends_with_strike or 'decide' not in activities:
+            raise DesignError('序列须以observe开始、包含decide并以act结束；可显式选配act后的assess，但不强制评估')
         for index, step in enumerate(steps):
             if step['role'] != ACTIVITY_ROLES[step['activity']]:
                 raise DesignError('环节活动与角色不一致；评估明确使用insight角色及单独能力/指标')
