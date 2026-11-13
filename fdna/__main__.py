@@ -9,6 +9,7 @@ import sys
 from source_data.common import read_json, write_outputs
 from .engine import MODEL, evaluate
 from .model import inspect_model, load_model, verify_sources
+from .sweep import csv_report, plot_sweep, render_sweep_summary, sweep
 
 
 def render_summary(report):
@@ -41,6 +42,11 @@ def main(argv=None):
     run.add_argument('--scenario', type=Path, required=True)
     run.add_argument('--model', choices=[MODEL], required=True)
     run.add_argument('--output-dir', type=Path, required=True)
+    scan = commands.add_parser('sweep', help='按明确约定逐项改变无入边节点效能')
+    scan.add_argument('case', type=Path)
+    scan.add_argument('--protocol', type=Path, required=True)
+    scan.add_argument('--output-dir', type=Path, required=True)
+    scan.add_argument('--plot', action='store_true', help='另存基础式曲线图，需要matplotlib')
     args = parser.parse_args(argv)
     try:
         model = load_model(args.case)
@@ -51,23 +57,41 @@ def main(argv=None):
             result = inspect_model(model)
             result['source_verification'] = provenance
         else:
-            scenario = read_json(args.scenario)
-            result = evaluate(model, scenario)
+            if args.command == 'sweep':
+                input_path = args.protocol
+                protocol = read_json(input_path)
+                result = sweep(model, protocol)
+                outputs = {
+                    'protocol_snapshot.json': json.dumps(protocol, ensure_ascii=False, indent=2, allow_nan=False) + '\n',
+                    'fdna_sweep.csv': csv_report(result),
+                    'fdna_summary.md': render_sweep_summary(result),
+                }
+                if args.plot:
+                    outputs['fdna_sweep.png'] = plot_sweep(result)
+            else:
+                input_path = args.scenario
+                scenario = read_json(input_path)
+                result = evaluate(model, scenario)
+                outputs = {
+                    'scenario_snapshot.json': json.dumps(scenario, ensure_ascii=False, indent=2, allow_nan=False) + '\n',
+                    'fdna_summary.md': render_summary(result),
+                }
             result['source_verification'] = provenance
             module = Path(__file__).resolve().parent
             output = args.output_dir.resolve()
             if output == module or module in output.parents:
                 raise ValueError('结果不可写入能力依赖模块目录')
-            protected = [args.case, args.scenario] + [
+            protected = [args.case, input_path] + [
                 (args.case.resolve().parent / source['path']).resolve()
                 for source in model['sources'] if 'path' in source]
             write_outputs(args.output_dir, {
                 'case_snapshot.json': json.dumps(model, ensure_ascii=False, indent=2, allow_nan=False) + '\n',
-                'scenario_snapshot.json': json.dumps(scenario, ensure_ascii=False, indent=2, allow_nan=False) + '\n',
                 'fdna_report.json': json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + '\n',
-                'fdna_summary.md': render_summary(result),
+                **outputs,
             }, protected=protected)
-        print(json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False))
+        printed = ({k: v for k, v in result.items() if k not in ('rows', 'traces', 'baseline')}
+                   if args.command == 'sweep' else result)
+        print(json.dumps(printed, ensure_ascii=False, indent=2, allow_nan=False))
         return 1 if result['status'] == 'blocked' else 0
     except (ValueError, OSError) as exc:
         print(json.dumps({'status': 'invalid', 'error': str(exc)}, ensure_ascii=False))
