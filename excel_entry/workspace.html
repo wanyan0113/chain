@@ -5,7 +5,7 @@
 body{margin:0;background:#f3f5f8;color:#243247;font:16px/1.65 "Microsoft YaHei",sans-serif}header{max-width:1160px;margin:auto;padding:20px 24px 12px}h1{font-size:26px;margin:0}p{margin:8px 0;color:#526379}nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}button{font:inherit;padding:10px 18px;border:1px solid #bdcadb;border-radius:7px;background:white;color:#284466;cursor:pointer}button[aria-selected=true]{background:#284466;color:white}button:focus-visible{outline:3px solid #d49c30;outline-offset:2px}main{max-width:1220px;margin:auto}iframe{width:100%;height:calc(100vh - 235px);min-height:650px;border:0;display:block}[hidden]{display:none!important}.note{font-size:14px}
 </style>
 <header><h1>案例与链网综合工作台</h1>
-<p>导入 Excel 查询原始参数和来源，也可以查看规则判断、设计链网或试跑文章案例。切换页签保留本次已打开页面的结果。</p>
+<p>导入 Excel 查询原始参数和来源，也可以查看规则判断、设计链网或查阅文章案例。切换页签保留本次已打开页面的结果。</p>
 <nav role="tablist" aria-label="功能选择">
 <button id="tab-sources" role="tab" aria-controls="panel-sources" aria-selected="true" data-view="sources">Excel 来源与参数</button>
 <button id="tab-design" role="tab" aria-controls="panel-design" aria-selected="false" tabindex="-1" data-view="design">链网设计</button>
@@ -15,7 +15,7 @@ body{margin:0;background:#f3f5f8;color:#243247;font:16px/1.65 "Microsoft YaHei",
 <main>
 <div id="panel-sources" role="tabpanel" aria-labelledby="tab-sources"><iframe title="Excel 来源与参数查询" data-src="/sources?embedded=1"></iframe></div>
 <div id="panel-design" role="tabpanel" aria-labelledby="tab-design" hidden><iframe title="Excel 链网设计" data-src="/design?embedded=1"></iframe></div>
-<div id="panel-article" role="tabpanel" aria-labelledby="tab-article" hidden><iframe title="文章案例试跑" data-src="/article-case?embedded=1"></iframe></div>
+<div id="panel-article" role="tabpanel" aria-labelledby="tab-article" hidden><iframe title="文章案例原文记录" data-src="/article-case?embedded=1"></iframe></div>
 <div id="panel-rules" role="tabpanel" aria-labelledby="tab-rules" hidden><iframe title="任务规则验证" data-src="/rules?embedded=1"></iframe></div>
 </main>
 <script>

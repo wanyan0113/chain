@@ -134,7 +134,7 @@ def main(argv=None):
     audit.add_argument("--mapping", type=Path, default=ROOT / "source_mappings/case_fields.json")
     audit.add_argument("--output-dir", type=Path)
     audit.add_argument("--overwrite", action="store_true")
-    reference = sub.add_parser("reproduce-case", help="复算文章表13并导出正文明确给出的单条链")
+    reference = sub.add_parser("reference-case", aliases=['reproduce-case'], help="记录文章原始数据、原文评分和链结构，不推算指标")
     reference.add_argument("--output-dir", type=Path, required=True)
     reference.add_argument("--overwrite", action="store_true")
     args = parser.parse_args(argv)
@@ -156,9 +156,9 @@ def main(argv=None):
             outputs["capability_summary.md"] = capability_summary(result)
             outputs.update(knowledge_outputs(doc, result))
             write_outputs(args.output_dir, outputs, overwrite=args.overwrite, protected=[args.input] + knowledge_sources(doc))
-        elif args.command == "reproduce-case":
-            from .reference import REFERENCE_PATH, reference_summary, reference_to_rdf, reproduce_reference, reference_view_html
-            result = reproduce_reference()
+        elif args.command in ("reference-case", "reproduce-case"):
+            from .reference import REFERENCE_PATH, reference_summary, reference_to_rdf, load_reference, reference_view_html
+            result = load_reference()
             graph = reference_to_rdf(result)
             review = analyze_graph(Graph().parse(ROOT / "arcane_ontology.ttl", format="turtle") + graph)
             if review.counts()["ERROR"] or review.counts()["WARN"]:
@@ -198,7 +198,7 @@ def main(argv=None):
         print(json.dumps(result, ensure_ascii=False, allow_nan=False))
         if args.command in ('infer-capabilities', 'run') and args.require_canonical and not result['canonical_export_ready']:
             return 1
-        return 0 if result["status"] in {"complete", "reference_reproduced", "feasible_trajectories"} else 1
+        return 0 if result["status"] in {"complete", "reference_recorded", "feasible_trajectories"} else 1
     except (ValueError, OSError) as exc:
         result = {"status": "search_limit" if isinstance(exc, SearchLimitError) else "invalid", "error": str(exc), "network": None}
         print(json.dumps(result, ensure_ascii=False))

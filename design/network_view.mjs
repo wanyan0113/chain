@@ -64,10 +64,10 @@ export function buildGraph(report, chainId=null, {allCandidates=false}={}) {
 }
 
 export function buildReferenceGraph(result,{network=false}={}) {
-  if(result.status!=='reference_reproduced') throw Error('需要文章案例复算结果');
+  if(result.status!=='reference_recorded') throw Error('需要文章原文记录');
   const statements=network?result.reported_topology:result.reported_topology.slice(0,1);
   // A presentation adapter only: these statements are never design-engine inputs.
-  const projection={status:'reference_reproduced',scope:result.scope,
+  const projection={status:'reference_recorded',scope:result.scope,
     tasks:statements.map(s=>({task:s.mission,target:s.target,inference:[],required_capabilities:{},selection:[],blockers:[],
       chains:[{id:s.id,artifacts:Object.fromEntries(ROLES.map(r=>[r,s.artifacts[r].id])),link_evidence:[],
         metrics:s.metrics,score:s.score}]})),
@@ -75,13 +75,14 @@ export function buildReferenceGraph(result,{network=false}={}) {
   const model=buildGraph(projection,network?null:statements[0].id);
   model.mode=network?'reference-network':'reference-chain';
   model.referenceOnly=true;
-  model.title=network?'原文陈述的两条链（未独立验收）':'正文明确给出的最优链（评分已复算，筛选未独立验收）';
+  model.title=network?'原文陈述的两条链（未独立验收）':'正文明确给出的链（原文方案，未独立验收）';
   for(const chain of model.chains) {
     const statement=statements.find(s=>s.id===chain.id);
     chain.selected=false;
     chain.referenceOnly=true;
     chain.evidence={source_refs:statement.source_refs,independent_feasibility:'not_verified',
-      evaluation_row:statement.evaluation_row,metrics:statement.metrics,score:statement.score};
+      evaluation_row:statement.evaluation_row,metrics:statement.metrics,score:statement.score,
+      reported_score:statement.reported_score};
   }
   for(const node of model.nodes) {
     if(node.kind==='artifact') {

@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>文章案例试跑</title>
+<title>文章案例原文记录</title>
 <style>
 body{max-width:1120px;margin:30px auto;padding:0 20px;font:16px/1.7 system-ui;color:#263445;background:#f5f7fa}h1{font-size:27px}h2{font-size:21px}section{background:white;border:1px solid #e2e7ee;border-radius:8px;padding:20px;margin:18px 0}button{padding:9px 15px;border:1px solid #c7d2df;border-radius:5px;background:white;color:#284466;cursor:pointer}table{width:100%;border-collapse:collapse;font-size:14px}td,th{text-align:left;padding:9px;border-bottom:1px solid #e2e7ee}th{background:#f2f5f8}.scroll{overflow:auto}.graph svg{display:block;width:100%;min-width:900px;height:auto}.graph g:focus circle{stroke:#152c42;stroke-width:3}.note{color:#6a4b21;background:#fff7e8;padding:12px;border-left:3px solid #dba646}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px}summary{cursor:pointer;color:#284466}
 </style>
 <nav id="workspace-nav" hidden><a href="/#article">返回综合工作台</a> · <a href="/sources">Excel 来源与参数查询</a> · <a href="/design">链网设计</a></nav>
-<h1>文章案例试跑</h1>
-<p class="note">本页复算表13的四组评分，并展示正文明确给出的链。尚未独立验收法器筛选、协同边、资源容量或完整六任务网络；未执行仿真。</p>
-<section><h2>表13评分对照</h2><p id="winner"></p><div class="scroll"><table><thead><tr><th>表13行号</th><th>时间（秒）</th><th>精度乘积</th><th>代理成本</th><th>复算评分</th><th>文章评分</th><th>舍入一致</th></tr></thead><tbody id="scores"></tbody></table></div>
-<p>权重：时间0.3、精度0.3、成本0.4。成本沿用表13评价代理值。第3、4行探知精度与表12的法器身份存在冲突，保留评价数据，不给它们强配法器名称。</p></section>
-<section><h2>魔力消解 B-Eidolon#1</h2><p>这条链的身份由正文明确给出；表13的第1行评分最高。</p><div id="chain" class="scroll graph"></div><button id="save-chain">下载链图 SVG</button><div id="chain-evidence"></div></section>
+<h1>文章案例原文记录</h1>
+<p class="note">本页记录表13原始数据、原文分数和正文给出的链结构。执行耗时、综合精度、使用成本及程序评分均未计算；尚未独立验收完整六任务网络，未执行仿真。</p>
+<section><h2>表13原始记录</h2><p id="winner"></p><div class="scroll"><table><thead><tr><th>表13行号</th><th>距离原值</th><th>速度原值</th><th>探知精度原值（%）</th><th>锁定率原值（%）</th><th>附魔造价原值</th><th>原文评分</th></tr></thead><tbody id="scores"></tbody></table></div>
+<p id="weights"></p><p>以上数值仅作原文对照，不作为链网设计的执行指标。第3、4行探知精度与表12的法器身份存在冲突，保留原始记录，不给它们强配法器名称。</p></section>
+<section><h2>魔力消解 B-Eidolon#1</h2><p>这条链的身份来自正文；未通过本页计算指标或排序选出。</p><div id="chain" class="scroll graph"></div><button id="save-chain">下载链图 SVG</button><div id="chain-evidence"></div></section>
 <section><h2>正文陈述的两链结构</h2><p>第二条链沿用3.2.3的“魔法抵消 B-Orb-A”及其法器名称。该任务缺少完整输入和评价数据，未补造评分、坐标、容量或执行时序。</p><div id="network" class="scroll graph"></div><button id="save-network">下载原文结构 SVG</button><div id="network-evidence"></div></section>
-<section><h2>仍需核对</h2><ul id="issues"></ul><h2>依据截图</h2><ul id="sources"></ul><button id="save-report">下载试跑报告 JSON</button></section>
+<section><h2>仍需核对</h2><ul id="issues"></ul><h2>依据截图</h2><ul id="sources"></ul><button id="save-report">下载原文记录 JSON</button></section>
 <script type="application/json" id="reference-data">/* REFERENCE_RESULT */</script>
 <script type="module">
 /* SHARED_GRAPH_MODULE */
@@ -20,8 +20,9 @@ const $=id=>document.getElementById(id);
 if(location.protocol==='http:'||location.protocol==='https:')$('workspace-nav').hidden=false;
 function download(text,type,name){const url=URL.createObjectURL(new Blob([text],{type}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
 const rows=[...result.evaluation].sort((a,b)=>Number(a.id)-Number(b.id));
-for(const row of rows){const tr=document.createElement('tr');for(const value of [row.id,row.metrics.time.toFixed(3),(row.metrics.accuracy*100).toFixed(2)+'%',row.metrics.cost,row.score.toFixed(6),row.reported_score.toFixed(3),row.matches_reported_rounding?'是':'否']){const td=document.createElement('td');td.textContent=value;tr.append(td)}$('scores').append(tr)}
-$('winner').textContent=`最优评价行：${result.chain.id}；评分 ${result.chain.score.toFixed(6)}。四行均与文章三位小数结果一致。`;
+for(const row of rows){const tr=document.createElement('tr');for(const value of [row.id,row.raw.distance,row.raw.speed,row.raw.insight_percent,row.raw.attunement_percent,row.raw.cost_proxy,row.reported_score]){const td=document.createElement('td');td.textContent=value;tr.append(td)}$('scores').append(tr)}
+$('winner').textContent=`正文所指表13行号：${result.chain.id}；原文评分：${result.chain.reported_score}。本页未重新评分或选择最优方案。`;
+$('weights').textContent=`原文权重：时间${result.weights.time}、精度${result.weights.accuracy}、成本${result.weights.cost}；仅作记录。`;
 for(const issue of result.unresolved){const li=document.createElement('li');li.textContent=issue;$('issues').append(li)}
 const sources=[...new Set(result.reported_topology.flatMap(s=>s.source_refs))];for(const source of sources){const li=document.createElement('li');li.textContent=source;$('sources').append(li)}
 function inspect(panelId,node,chains){const panel=$(panelId);panel.replaceChildren();const details=document.createElement('details');details.open=true;const title=document.createElement('summary');title.textContent=`${node.label}：原文依据`;details.append(title);const pre=document.createElement('pre');pre.textContent=JSON.stringify(chains.map(c=>({chain:c.id,mission:c.task,target:c.target,...c.evidence})),null,2);details.append(pre);panel.append(details)}

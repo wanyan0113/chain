@@ -110,7 +110,7 @@ test('article structure remains a reported reference, never an independently sel
   assert.ok(chain.nodes.some(n=>n.label==='R-Sigil-B'&&n.platform==='R-Gryphon#1'));
   const network=buildReferenceGraph(reference,{network:true});
   assert.equal(network.mode,'reference-network');
-  assert.equal(network.status,'reference_reproduced');
+  assert.equal(network.status,'reference_recorded');
   assert.ok(network.title.includes('未独立验收'));
   assert.equal(network.nodes.filter(n=>n.label==='R-Eye-A').length,1);
   assert.equal(network.nodes.filter(n=>n.label==='联合统筹中枢').length,1);
@@ -118,6 +118,10 @@ test('article structure remains a reported reference, never an independently sel
   assert.equal(network.edges.filter(e=>e.chains.length===2).length,1);
   assert.equal(network.chains[1].metrics,null);
   assert.equal(network.chains[1].score,null);
+  assert.equal(network.chains[0].metrics,null);
+  assert.equal(network.chains[0].score,null);
+  assert.equal(network.chains[0].evidence.reported_score,0.896);
+  assert.ok(!chain.title.includes('评分已复算'));
   for(const e of network.edges) for(const evidence of e.evidence) {
     assert.equal(evidence.independent_feasibility,'not_verified');
     assert.ok(evidence.source_refs.length>0);

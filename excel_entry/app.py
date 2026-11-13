@@ -162,8 +162,8 @@ class Handler(BaseHTTPRequestHandler):
                 content = content.replace('</style>', '</style><style>nav,.workspace-nav{display:none!important}</style>', 1)
             return self.send(200, content.encode('utf-8'), 'text/html; charset=utf-8')
         if path == '/article-case':
-            from design.reference import reproduce_reference, reference_view_html
-            return page(reference_view_html(reproduce_reference()))
+            from design.reference import load_reference, reference_view_html
+            return page(reference_view_html(load_reference()))
         files = {'/': (ROOT / 'excel_entry/workspace.html', 'text/html; charset=utf-8'),
                  '/sources': (ROOT / 'excel_entry/index.html', 'text/html; charset=utf-8'),
                  '/design': (ROOT / 'design/excel.html', 'text/html; charset=utf-8'),

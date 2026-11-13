@@ -106,11 +106,11 @@ class DesignExcelTests(unittest.TestCase):
     @unittest.skipUnless(shutil.which('node'),'Node.js is required for the browser graph model tests')
     def test_browser_graph_model_on_real_engine_report(self):
         with tempfile.TemporaryDirectory() as directory:
-            from design.reference import reproduce_reference
+            from design.reference import load_reference
             report=Path(directory)/'report.json'
             report.write_text(json.dumps(design(read_design(self.data))),encoding='utf-8')
             reference=Path(directory)/'reference.json'
-            reference.write_text(json.dumps(reproduce_reference()),encoding='utf-8')
+            reference.write_text(json.dumps(load_reference()),encoding='utf-8')
             process=subprocess.run(['node','--test','tests/test_network_view.mjs'],cwd=ROOT,
                 capture_output=True,encoding='utf-8',timeout=30,
                 env=__import__('os').environ | {'NETWORK_REPORT':str(report),'NETWORK_REFERENCE':str(reference)})
