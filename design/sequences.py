@@ -40,11 +40,11 @@ def validate_sequences(config, ontology):
         if len({step['id'] for step in steps}) != len(steps):
             raise DesignError('同一序列内环节编号重复')
         activities = [s['activity'] for s in steps]
-        # Keep the reconnaissance-command-strike backbone without fixing the
+        # Keep the insight-coordination-manifestation backbone without fixing the
         # number of instances in each role. Assessment is an optional legacy
         # extension, never an implicitly inserted or required final step.
-        ends_with_strike = activities[-1] == 'act' or activities[-2:] == ['act', 'assess']
-        if activities[0] != 'observe' or not ends_with_strike or 'decide' not in activities:
+        ends_with_act = activities[-1] == 'act' or activities[-2:] == ['act', 'assess']
+        if activities[0] != 'observe' or not ends_with_act or 'decide' not in activities:
             raise DesignError('序列须以observe开始、包含decide并以act结束；可显式选配act后的assess，但不强制评估')
         for index, step in enumerate(steps):
             if step['role'] != ACTIVITY_ROLES[step['activity']]:

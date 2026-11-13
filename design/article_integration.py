@@ -22,6 +22,25 @@ def screening(task, artifact, context):
                            'artifact':artifact['attributes'], 'context':context.get('attributes',{})})
 
 
+def cooperation_prefix(chosen, doc):
+    """Only source-backed failures that survive every remaining extension.
+
+    Keep the full checker's three-valued semantics: an unknown target count
+    added later makes its total unknown, even when a known subtotal already
+    exceeds a limit. Thus count-based pruning requires all task counts known.
+    Fixed [start,end) intervals, positive counts and singleton roles are the
+    same assumptions as cooperation(); this is not for ordered-step plans.
+    """
+    result = cooperation(chosen, doc)
+    failures = [check for check in result['plan_checks'] if check['status'] == 'fail']
+    safe_ids = {'shared-detection-range'}
+    if all(task['attributes'].get('target_count') is not None for task in doc['tasks']):
+        safe_ids.update(('shared-max-tracks', 'shared-max-processing'))
+    failures += [check for group in result['groups'] for check in group['checks']
+                 if check['id'] in safe_ids and check['status'] == 'fail']
+    return {'status': 'fail' if failures else 'unknown', 'checks': failures}
+
+
 def cooperation(chosen, doc):
     """Sweep actual [start,end) intervals; do not treat overlap as transitive.
 

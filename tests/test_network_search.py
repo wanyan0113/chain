@@ -86,15 +86,19 @@ class NetworkSearchTests(unittest.TestCase):
         conflicts = network_conflicts([chain, other], doc)
         self.assertEqual({c['code'] for c in conflicts}, {'INVENTORY'})
 
-    def test_article_unknown_audit_uses_exhaustive_even_when_branch_requested(self):
-        from unittest.mock import patch
-        doc = self.fixture()
+    def test_article_unknown_audit_survives_pruned_search(self):
+        from design.excel import read_design
+        doc = read_design((ROOT / 'excel_entry/templates/表10设计演示.xlsx').read_bytes())
+        doc['tasks'][1]['start_s'] = 3
+        doc['artifacts'][0]['attributes'].pop('max_tracks')
         doc['policies'].update(article_table10=True, network_search_method='branch_and_bound')
-        with patch('design.article_integration.validate_counts'), patch('design.article_integration.screening', return_value={'status': 'pass'}), patch('design.article_integration.cooperation', return_value={'status': 'unknown'}):
-            report = design(doc)
+        report = design(doc)
         self.assertEqual(report['status'], 'blocked')
-        self.assertEqual(report['network_search']['algorithm'], 'exhaustive')
+        self.assertEqual(report['network_search']['algorithm'], 'branch_and_bound')
         self.assertEqual(report['network_search']['optimality'], 'not_proven')
+        self.assertFalse(report['network_search']['score_bound_enabled'])
+        self.assertTrue(any(c['status'] == 'pass' and not c['engineering_conflicts']
+                            for c in report['article_table10']['combinations']))
 
     def test_twelve_tasks_with_256_candidates_each_are_solved_without_cross_product(self):
         artifacts = [{'id': f'a{i}', 'capacity': 1, 'consumable': True, 'inventory': 1, 'cooldown_s': 0} for i in range(32)]

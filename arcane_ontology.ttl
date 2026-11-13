@@ -1782,7 +1782,7 @@
 # Project extension: ordered mission steps, not simultaneous coalitions.
 :SequentialStepMission a owl:Class ; rdfs:subClassOf :ArcaneMission ;
     rdfs:label "顺序任务环节"@zh ;
-    rdfs:comment "在侦察、指控、打击主线上按配置建立顺序环节，同一角色可重复出现；每个环节分配一个执行实例，不强制评估，不声明联合效果公式。"@zh .
+    rdfs:comment "在探知、协调、具现主线上按配置建立顺序环节，同一角色可重复出现；每个环节分配一个执行实例，不强制评估，不声明联合效果公式。"@zh .
 :hasSequentialStep a owl:ObjectProperty ;
     rdfs:label "包含顺序任务环节"@zh ; rdfs:domain :ArcaneMission ; rdfs:range :SequentialStepMission .
 :stepActivity a owl:DatatypeProperty ;

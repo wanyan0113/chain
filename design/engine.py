@@ -257,7 +257,7 @@ def _design(doc, input_digest, knowledge, owl):
                       execution_sha256=hashlib.sha256((input_digest + knowledge['sha256']).encode('ascii')).hexdigest())
     if sequences:
         report['sequence_model'] = {'evaluation': sequences['evaluation'], 'communication_model': sequences['communication_model'],
-                                    'scope': '4至6个顺序环节，每环节一个执行对象；AS解释为act后assess；评估映射为insight角色，使用单独能力与指标'}
+                                    'scope': '至少三个顺序环节，以observe起始、包含decide并以act结束，可显式选配末尾assess；每环节一个执行对象，评估使用insight角色及单独能力与指标'}
     comparison_groups = []
     if article_enabled:
         report['article_table10'] = {'enabled':True,'status':'not_ready','combinations':[],'selected':None}
@@ -400,16 +400,28 @@ def _design(doc, input_digest, knowledge, owl):
     rejection_counts = Counter()
     combination_count = math.prod(map(len, comparison_groups))
     method = doc['policies'].get('network_search_method', 'auto')
-    use_branch = (not article_enabled and (method == 'branch_and_bound' or
-                  (method == 'auto' and combination_count > doc['policies']['max_network_combinations'])))
+    use_branch = (method == 'branch_and_bound' or
+                  (method == 'auto' and combination_count > doc['policies']['max_network_combinations']))
     if use_branch:
         from .search import branch_and_bound
-        best, report['network_search'] = branch_and_bound(comparison_groups, doc, network_conflicts)
+        def audit_cooperation(chosen, document):
+            if len(chosen) != len(comparison_groups):
+                from .article_integration import cooperation_prefix
+                return cooperation_prefix(chosen, document)
+            result = cooperation(chosen, document)
+            report['article_table10']['combinations'].append({
+                'chains': [c['id'] for c in chosen],
+                'engineering_conflicts': deepcopy(network_conflicts(chosen, document)), **result})
+            return result
+        best, report['network_search'] = branch_and_bound(
+            comparison_groups, doc, network_conflicts,
+            cooperation_check=audit_cooperation if article_enabled else None)
+        unknown_article = report['network_search']['optimality'] == 'not_proven'
+        if article_enabled:
+            report['network_search']['method_reason'] = 'Table-10 definite failures prune prefixes; score bounds disabled for unknown auditing.'
     else:
         report['network_search'].update(algorithm='exhaustive', candidate_combinations=combination_count,
                                         counts_scope='all_complete_combinations', optimality='not_proven')
-        if article_enabled and method != 'exhaustive':
-            report['network_search']['method_reason'] = 'Table-10 unknown checks require exhaustive auditing.'
         for chosen in bounded_product(comparison_groups, doc["policies"]["max_network_combinations"], "奥术网"):
             report["network_search"]["evaluated"] += 1
             conflicts = network_conflicts(chosen, doc)

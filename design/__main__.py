@@ -22,7 +22,7 @@ def render_summary(result):
     lines = ["# 法术链设计报告", "", f"状态：{result['status']}", "", f"数据范围：{result['scope']}", ""]
     mapping = result['ontology_mapping']
     if 'sequence_model' in result:
-        lines += ['顺序序列模式：每环节一个执行对象，AS解释为具现后评估；不表示并行联合执行。',
+        lines += ['顺序序列模式：至少三个环节，每环节一个执行对象，可重复角色；末尾评估仅在模板显式配置时参与，不表示并行联合执行。',
                   '评价配置：' + json.dumps(result['sequence_model']['evaluation'], ensure_ascii=False),
                   'sequential_product是显式工程假设，并非新文章给出的联合效果公式；feasible_trajectories仅表示逐目标轨迹生成完成。', '']
     if 'owl_reasoning' in result:
@@ -52,6 +52,9 @@ def render_summary(result):
         lines += ['', '缺少能力或协同事实保持未知；能力声明不替代距离、目标类型及资源核验。', '']
     if 'article_table10' in result:
         lines += [f"表10原文条件已启用；组网核验：{result['article_table10']['status']}。逐项筛选与组合依据见JSON报告。", '']
+        search = result['network_search']
+        if search.get('score_bound_enabled') is False:
+            lines += [f"表10提前剪除 {search['pruned_table10']} 个确定失败的部分组合；组合依据仅列实际访问的完整组合。评分上界剪枝关闭，未知条件仍须核验。", '']
     lines += [f"本体映射：{mapping['status']}；已映射 {mapping['mapped']}／{mapping['total']}；未映射 {mapping['unmapped']}",
               f"规范URI导出就绪：{'是' if result['canonical_export_ready'] else '否'}", ""]
     for task in result["tasks"]:

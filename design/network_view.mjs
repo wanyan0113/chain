@@ -39,7 +39,7 @@ export function buildGraph(report, chainId=null, {allCandidates=false}={}) {
     const route=[node('target',task.target,0,chain.id,task.task),
       ...steps.map((step,i)=>node('artifact',step.artifact,i+1,chain.id,task.task,step.role)),
       node('target',task.target,steps.length+1,chain.id,task.task)];
-    const labels=ordered?['探知',...chain.plan.connections.map(c=>c.relation==='control'?'传讯与统筹':'传讯'),'评估闭合']:['探知','传讯','传讯与统筹','具现'];
+    const labels=ordered?['探知',...chain.plan.connections.map(c=>c.relation==='control'?'传讯与统筹':'传讯'),'轨迹闭合']:['探知','传讯','传讯与统筹','具现'];
     route.slice(0,-1).forEach((from,i)=>{
       const to=route[i+1],key=JSON.stringify([from,to]);
       const cooperation=i>0&&i<route.length-2;
