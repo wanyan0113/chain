@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object", "additionalProperties": false,
+  "required": ["format_version", "id", "label", "scope", "sources", "subjects", "targets", "nodes", "edges", "chains", "reported_fit", "case_extension", "gaps"],
+  "properties": {
+    "format_version": {"const": "1.0"},
+    "id": {"$ref": "#/$defs/text"}, "label": {"$ref": "#/$defs/text"}, "scope": {"$ref": "#/$defs/text"},
+    "sources": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["id", "kind", "reference", "sha256", "locators"], "properties": {
+      "id": {"$ref": "#/$defs/text"}, "kind": {"enum": ["literature", "revised_document"]}, "reference": {"$ref": "#/$defs/text"},
+      "path": {"$ref": "#/$defs/text"}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+      "locators": {"type": "object", "minProperties": 1, "additionalProperties": {"$ref": "#/$defs/text"}}
+    }}},
+    "subjects": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/entity"}},
+    "targets": {"type": "array", "items": {"$ref": "#/$defs/entity"}},
+    "nodes": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["id", "label", "subject", "role", "indicator", "source_refs"], "properties": {
+      "id": {"$ref": "#/$defs/text"}, "label": {"$ref": "#/$defs/text"}, "subject": {"$ref": "#/$defs/text"},
+      "role": {"enum": ["insight", "coordination", "manifestation"]},
+      "indicator": {"type": "object", "additionalProperties": false, "required": ["label", "direction", "normalization"], "properties": {
+        "label": {"$ref": "#/$defs/text"}, "direction": {"enum": ["cost", "benefit", "unspecified"]}, "normalization": {"type": "null"}
+      }}, "source_refs": {"$ref": "#/$defs/refs"}
+    }}},
+    "edges": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["feeder", "receiver", "alpha", "beta", "source_refs"], "properties": {
+      "feeder": {"$ref": "#/$defs/text"}, "receiver": {"$ref": "#/$defs/text"},
+      "alpha": {"type": ["number", "null"], "minimum": 0, "maximum": 1}, "beta": {"type": ["number", "null"], "minimum": 0, "maximum": 100},
+      "source_refs": {"$ref": "#/$defs/refs"}
+    }}},
+    "chains": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["id", "target", "members", "source_refs"], "properties": {
+      "id": {"$ref": "#/$defs/text"}, "target": {"$ref": "#/$defs/text"}, "members": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/member"}}, "source_refs": {"$ref": "#/$defs/refs"}
+    }}},
+    "reported_fit": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["receiver", "pseudo_r_squared", "definition", "source_refs"], "properties": {
+      "receiver": {"$ref": "#/$defs/text"}, "pseudo_r_squared": {"type": ["number", "null"]}, "definition": {"type": "null"}, "source_refs": {"$ref": "#/$defs/refs"}
+    }}},
+    "case_extension": {"type": "object", "additionalProperties": false, "required": ["delta", "delta_scope", "output_policy", "source_refs"], "properties": {
+      "delta": {"type": "object", "additionalProperties": {"type": "null"}},
+      "delta_scope": {"type": "null"}, "output_policy": {"type": "null"}, "source_refs": {"$ref": "#/$defs/refs"}
+    }},
+    "gaps": {"type": "array", "items": {"$ref": "#/$defs/entity"}}
+  },
+  "$defs": {
+    "text": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[^:]+:[^:]+$"}},
+    "entity": {"type": "object", "additionalProperties": false, "required": ["id", "label", "source_refs"], "properties": {"id": {"$ref": "#/$defs/text"}, "label": {"$ref": "#/$defs/text"}, "source_refs": {"$ref": "#/$defs/refs"}}},
+    "member": {"oneOf": [{"$ref": "#/$defs/text"}, {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/member"}}]}
+  }
+}

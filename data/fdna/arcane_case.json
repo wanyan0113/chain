@@ -1,0 +1,671 @@
+{
+  "format_version": "1.0",
+  "id": "arcane_dependency_reference",
+  "label": "奥术网法术能力依赖案例",
+  "scope": "依修订稿登记主体、能力、分组法术链与原文表7参数；基础式重算与完整案例重现分别记载。",
+  "sources": [
+    {
+      "id": "paper",
+      "kind": "literature",
+      "reference": "DOI:10.16182/j.issn1004731x.joss.23-1542",
+      "sha256": "210ab50b6d97c68f0c402336ef05fb6ca5bb659f84f42d663d66b11a1093f5e5",
+      "locators": {
+        "eq1_eq2": "式(1)—(2)，原文第1079页",
+        "eq10_eq12": "式(10)—(12)，原文第1084—1085页",
+        "table2": "表2，原文第1083页",
+        "table3": "表3，原文第1083页",
+        "table4": "表4，原文第1084页",
+        "table5": "表5，原文第1084页",
+        "table7": "表7，原文第1085页",
+        "section4_2": "第4.2节，原文第1082页",
+        "section5_2": "第5.2节，原文第1084页",
+        "section5_3": "第5.3节，原文第1084—1085页",
+        "section5_4": "第5.4节与图7—9，原文第1085—1087页"
+      }
+    },
+    {
+      "id": "fantasy",
+      "kind": "revised_document",
+      "reference": "西幻场景修订稿，2026-11-13",
+      "sha256": "83b418253576cdb6c6dd7334a84c86527faeaeb7cc1b39ae7c3264d14782c4b9",
+      "locators": {
+        "eq1_eq2": "式(1)—(2)",
+        "eq10_eq12": "式(10)—(12)",
+        "table2": "表2",
+        "table3": "表3",
+        "table4": "表4",
+        "table5": "表5",
+        "table7": "表7",
+        "section4_2": "第4.2节",
+        "section5_2": "第5.2节",
+        "section5_3": "第5.3节",
+        "section5_4": "第5.4节与图7—9",
+        "calibration": "文末校准说明"
+      }
+    }
+  ],
+  "subjects": [
+    {
+      "id": "U1",
+      "label": "星界探知镜",
+      "source_refs": [
+        "paper:table2",
+        "fantasy:table2"
+      ]
+    },
+    {
+      "id": "U2",
+      "label": "联合统筹中枢",
+      "source_refs": [
+        "paper:table2",
+        "fantasy:table2"
+      ]
+    },
+    {
+      "id": "U3",
+      "label": "感知魔像群",
+      "source_refs": [
+        "paper:table2",
+        "fantasy:table2"
+      ]
+    },
+    {
+      "id": "U4",
+      "label": "第一浮游灵体群",
+      "source_refs": [
+        "paper:table2",
+        "fantasy:table2"
+      ]
+    },
+    {
+      "id": "U5",
+      "label": "第二浮游灵体群",
+      "source_refs": [
+        "paper:table2",
+        "fantasy:table2"
+      ]
+    },
+    {
+      "id": "U6",
+      "label": "具现法印群",
+      "source_refs": [
+        "paper:table2",
+        "fantasy:table2"
+      ]
+    },
+    {
+      "id": "U7",
+      "label": "第一御风灵骑",
+      "source_refs": [
+        "paper:table2",
+        "fantasy:table2"
+      ]
+    },
+    {
+      "id": "U8",
+      "label": "第二御风灵骑",
+      "source_refs": [
+        "paper:table2",
+        "fantasy:table2"
+      ]
+    }
+  ],
+  "targets": [
+    {
+      "id": "T1",
+      "label": "暮影感知魔像",
+      "source_refs": [
+        "paper:table2",
+        "fantasy:table2"
+      ]
+    },
+    {
+      "id": "T2",
+      "label": "暮影浮空方舟",
+      "source_refs": [
+        "paper:table2",
+        "fantasy:table2"
+      ]
+    },
+    {
+      "id": "T3",
+      "label": "暮影暗影灵骑",
+      "source_refs": [
+        "paper:table2",
+        "fantasy:table2"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "S1",
+      "label": "灵视探知",
+      "subject": "U1",
+      "role": "insight",
+      "indicator": {
+        "label": "发现目标时间",
+        "direction": "cost",
+        "normalization": null
+      },
+      "source_refs": [
+        "paper:table3",
+        "paper:table5",
+        "fantasy:table3",
+        "fantasy:table5"
+      ]
+    },
+    {
+      "id": "D2",
+      "label": "协调统筹",
+      "subject": "U2",
+      "role": "coordination",
+      "indicator": {
+        "label": "感知信息融合开始时间和结束时间",
+        "direction": "unspecified",
+        "normalization": null
+      },
+      "source_refs": [
+        "paper:table3",
+        "paper:table5",
+        "fantasy:table3",
+        "fantasy:table5"
+      ]
+    },
+    {
+      "id": "S3",
+      "label": "灵视探知",
+      "subject": "U3",
+      "role": "insight",
+      "indicator": {
+        "label": "发现目标次数",
+        "direction": "benefit",
+        "normalization": null
+      },
+      "source_refs": [
+        "paper:table3",
+        "paper:table5",
+        "fantasy:table3",
+        "fantasy:table5"
+      ]
+    },
+    {
+      "id": "D4",
+      "label": "协调统筹",
+      "subject": "U3",
+      "role": "coordination",
+      "indicator": {
+        "label": "感知信息融合开始时间和结束时间",
+        "direction": "unspecified",
+        "normalization": null
+      },
+      "source_refs": [
+        "paper:table3",
+        "paper:table5",
+        "fantasy:table3",
+        "fantasy:table5"
+      ]
+    },
+    {
+      "id": "S5",
+      "label": "灵视探知",
+      "subject": "U4",
+      "role": "insight",
+      "indicator": {
+        "label": "有效跟踪目标时长",
+        "direction": "benefit",
+        "normalization": null
+      },
+      "source_refs": [
+        "paper:table3",
+        "paper:table5",
+        "fantasy:table3",
+        "fantasy:table5"
+      ]
+    },
+    {
+      "id": "S6",
+      "label": "灵视探知",
+      "subject": "U5",
+      "role": "insight",
+      "indicator": {
+        "label": "有效跟踪目标时长",
+        "direction": "benefit",
+        "normalization": null
+      },
+      "source_refs": [
+        "paper:table3",
+        "paper:table5",
+        "fantasy:table3",
+        "fantasy:table5"
+      ]
+    },
+    {
+      "id": "F7",
+      "label": "魔力具现",
+      "subject": "U6",
+      "role": "manifestation",
+      "indicator": {
+        "label": "对目标有效消解程度",
+        "direction": "benefit",
+        "normalization": null
+      },
+      "source_refs": [
+        "paper:table3",
+        "paper:table5",
+        "fantasy:table3",
+        "fantasy:table5"
+      ]
+    },
+    {
+      "id": "S8",
+      "label": "灵视探知",
+      "subject": "U7",
+      "role": "insight",
+      "indicator": {
+        "label": "有效发现并灵性锁定目标的次数",
+        "direction": "benefit",
+        "normalization": null
+      },
+      "source_refs": [
+        "paper:table3",
+        "paper:table5",
+        "fantasy:table3",
+        "fantasy:table5"
+      ]
+    },
+    {
+      "id": "F9",
+      "label": "魔力具现",
+      "subject": "U7",
+      "role": "manifestation",
+      "indicator": {
+        "label": "对目标有效消解程度",
+        "direction": "benefit",
+        "normalization": null
+      },
+      "source_refs": [
+        "paper:table3",
+        "paper:table5",
+        "fantasy:table3",
+        "fantasy:table5"
+      ]
+    },
+    {
+      "id": "S10",
+      "label": "灵视探知",
+      "subject": "U8",
+      "role": "insight",
+      "indicator": {
+        "label": "有效发现并灵性锁定目标的次数",
+        "direction": "benefit",
+        "normalization": null
+      },
+      "source_refs": [
+        "paper:table3",
+        "paper:table5",
+        "fantasy:table3",
+        "fantasy:table5"
+      ]
+    },
+    {
+      "id": "F11",
+      "label": "魔力具现",
+      "subject": "U8",
+      "role": "manifestation",
+      "indicator": {
+        "label": "对目标有效消解程度",
+        "direction": "benefit",
+        "normalization": null
+      },
+      "source_refs": [
+        "paper:table3",
+        "paper:table5",
+        "fantasy:table3",
+        "fantasy:table5"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "feeder": "S1",
+      "receiver": "S5",
+      "alpha": 0.21,
+      "beta": 34,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "feeder": "D2",
+      "receiver": "S5",
+      "alpha": 0.18,
+      "beta": 56,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "feeder": "D4",
+      "receiver": "S5",
+      "alpha": 0.43,
+      "beta": 62,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "feeder": "S1",
+      "receiver": "S6",
+      "alpha": 0.18,
+      "beta": 48,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "feeder": "D2",
+      "receiver": "S6",
+      "alpha": 0.23,
+      "beta": 59,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "feeder": "D4",
+      "receiver": "S6",
+      "alpha": 0.51,
+      "beta": 57,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "feeder": "S5",
+      "receiver": "F7",
+      "alpha": 0.33,
+      "beta": 38,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "feeder": "S6",
+      "receiver": "F7",
+      "alpha": 0.37,
+      "beta": 42,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "feeder": "S3",
+      "receiver": "F9",
+      "alpha": 0.12,
+      "beta": 43,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "feeder": "S5",
+      "receiver": "F9",
+      "alpha": 0.03,
+      "beta": 68,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "feeder": "S6",
+      "receiver": "F9",
+      "alpha": 0.06,
+      "beta": 69,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "feeder": "S8",
+      "receiver": "F9",
+      "alpha": 0.43,
+      "beta": 26,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "feeder": "S10",
+      "receiver": "F9",
+      "alpha": 0.17,
+      "beta": 75,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "feeder": "S3",
+      "receiver": "F11",
+      "alpha": 0.11,
+      "beta": 49,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "feeder": "S5",
+      "receiver": "F11",
+      "alpha": 0.04,
+      "beta": 64,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "feeder": "S6",
+      "receiver": "F11",
+      "alpha": 0.08,
+      "beta": 65,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "feeder": "S8",
+      "receiver": "F11",
+      "alpha": 0.15,
+      "beta": 81,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "feeder": "S10",
+      "receiver": "F11",
+      "alpha": 0.39,
+      "beta": 33,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    }
+  ],
+  "chains": [
+    {
+      "id": "KC1",
+      "target": "T2",
+      "members": [
+        "S1",
+        "D2",
+        "D4",
+        [
+          "S5",
+          "S6"
+        ],
+        "F7"
+      ],
+      "source_refs": [
+        "paper:table4",
+        "fantasy:table4"
+      ]
+    },
+    {
+      "id": "KC2",
+      "target": "T1",
+      "members": [
+        [
+          [
+            "S8",
+            "S10"
+          ],
+          "S3"
+        ],
+        [
+          "F9",
+          "F11"
+        ]
+      ],
+      "source_refs": [
+        "paper:table4",
+        "fantasy:table4"
+      ]
+    }
+  ],
+  "reported_fit": [
+    {
+      "receiver": "S5",
+      "pseudo_r_squared": 0.65,
+      "definition": null,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "receiver": "S6",
+      "pseudo_r_squared": 0.72,
+      "definition": null,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "receiver": "F7",
+      "pseudo_r_squared": 0.77,
+      "definition": null,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "receiver": "F9",
+      "pseudo_r_squared": 0.63,
+      "definition": null,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    },
+    {
+      "receiver": "F11",
+      "pseudo_r_squared": 0.61,
+      "definition": null,
+      "source_refs": [
+        "paper:table7",
+        "fantasy:table7"
+      ]
+    }
+  ],
+  "case_extension": {
+    "delta": {
+      "S5": null,
+      "S6": null,
+      "F7": null,
+      "F9": null,
+      "F11": null
+    },
+    "delta_scope": null,
+    "output_policy": null,
+    "source_refs": [
+      "paper:eq10_eq12",
+      "fantasy:eq10_eq12"
+    ]
+  },
+  "gaps": [
+    {
+      "id": "unknown_delta",
+      "label": "δ的取值、共用或逐节点之别尚待核实。",
+      "source_refs": [
+        "paper:eq10_eq12",
+        "fantasy:section5_3"
+      ]
+    },
+    {
+      "id": "unknown_output_policy",
+      "label": "加δ后的效能范围约定尚待核实。",
+      "source_refs": [
+        "paper:eq10_eq12",
+        "fantasy:section5_3"
+      ]
+    },
+    {
+      "id": "unknown_normalization",
+      "label": "效能指标转化公式与上下界尚待核实。",
+      "source_refs": [
+        "paper:section4_2",
+        "fantasy:section4_2"
+      ]
+    },
+    {
+      "id": "missing_observations",
+      "label": "尚未取得原文六千余次推演的原始记录。",
+      "source_refs": [
+        "paper:section5_2",
+        "fantasy:section5_2"
+      ]
+    },
+    {
+      "id": "unknown_fit_protocol",
+      "label": "起始参数求法及全部拟合约定尚待核实。",
+      "source_refs": [
+        "paper:section5_3",
+        "fantasy:section5_3"
+      ]
+    },
+    {
+      "id": "unknown_fit_definition",
+      "label": "伪R²的具体定义与对应记录尚待核实。",
+      "source_refs": [
+        "paper:section5_4",
+        "fantasy:section5_4"
+      ]
+    },
+    {
+      "id": "unknown_sweep_protocol",
+      "label": "图8—9的t尺度、逐节点变化方式及其余节点取值尚待核实。",
+      "source_refs": [
+        "paper:section5_4",
+        "fantasy:section5_4"
+      ]
+    }
+  ]
+}
