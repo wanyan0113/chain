@@ -7,6 +7,7 @@ import math
 
 from .model import ModelError
 from .sweep import sweep, validate_protocol
+from .diagnostics import diagnose_comparisons
 
 
 def _numbers(value, count):
@@ -118,6 +119,7 @@ def compare_readings(model, protocol, readings):
             'source_snapshot': deepcopy(model['sources']), 'comparisons': comparisons,
             'counts': {status: sum(r['status'] == status for r in comparisons)
                        for status in ('overlap', 'separated')},
+            'diagnostics': diagnose_comparisons(model, comparisons),
             'not_covered': [{'panel': p['id'], 'driver': n} for p in panels for n in p['legend']
                             if n not in protocol['drivers']],
             'not_sampled': [{'panel': p['id'], 'driver': n} for p in panels for n in p['legend']
@@ -139,6 +141,18 @@ def render_comparison(report):
     lines += ['', '误差界限为像素选取与标定的保守估计，不是统计置信区间。'
               '对照同时考虑横轴读数误差引起的预测范围。未据此拟合或修改α、β、δ。', '',
               '图8中S5、S6作为变化对象的曲线未纳入基础式对照；中间节点变化方式仍待核实。']
+    diagnosis = report['diagnostics']
+    lines += ['', '## 条件诊断', '', diagnosis['scope'], '', diagnosis['cod_bound_meaning'], '',
+              f"共有{diagnosis['counts']['exceeds_base_bound']}个选点超过基础式对应CoD上限。", '',
+              diagnosis['constant_delta_meaning'], '',
+              '| 接受节点 | 选点数 | 所需加项共同下界 | 所需加项共同上界 | 固定加项解释 |',
+              '| --- | ---: | ---: | ---: | --- |']
+    for item in diagnosis['constant_delta_tests']:
+        status = '交集为空' if item['status'] == 'incompatible' else '尚不能排除'
+        lines.append(f"| {item['receiver']} | {item['points']} | {item['required_lower']:.3f} | "
+                     f"{item['required_upper']:.3f} | {status} |")
+    lines += ['', '此处列的是相容性约束，不是原文δ估计值。', '']
+    lines.extend(f'- {item}' for item in diagnosis['limits'])
     return '\n'.join(lines) + '\n'
 
 
