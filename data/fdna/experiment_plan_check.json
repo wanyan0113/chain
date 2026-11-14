@@ -1,0 +1,116 @@
+{
+  "format_version": "1.0",
+  "id": "arcane_experiment_method_check",
+  "basis": "Artificial contract checks only; all units and values are chosen for verification, not original experiments.",
+  "data_kind": "method_check",
+  "case_sha256": "f2fd995e116794e1cdf56c4034523d496be594d1f10ff37421969c9deb1f2ed8",
+  "structure_sha256": "dc51b3661bd4bd52422addb4e0512dae1d3d901c2d75c313764db1fcdfb00270",
+  "variables": [
+    {
+      "id": "mirror_start",
+      "label": "星界探知镜启动时间",
+      "category": "method",
+      "target_kind": "subject",
+      "targets": [
+        "U1"
+      ],
+      "unit": "time_scale",
+      "basis": "Artificial unit for contract verification only.",
+      "source_refs": [
+        "fantasy:section5_2",
+        "fantasy:table2"
+      ]
+    },
+    {
+      "id": "golem_path",
+      "label": "感知魔像移动路径",
+      "category": "method",
+      "target_kind": "subject",
+      "targets": [
+        "U3"
+      ],
+      "unit": "path_code",
+      "basis": "Artificial unit for contract verification only.",
+      "source_refs": [
+        "fantasy:section5_2",
+        "fantasy:table2"
+      ]
+    },
+    {
+      "id": "golem_range",
+      "label": "感知魔像探知范围",
+      "category": "performance",
+      "target_kind": "subject",
+      "targets": [
+        "U3"
+      ],
+      "unit": "distance_scale",
+      "basis": "Artificial unit for contract verification only.",
+      "source_refs": [
+        "fantasy:section5_2",
+        "fantasy:table2"
+      ]
+    },
+    {
+      "id": "spirit_range",
+      "label": "浮游灵体探知范围",
+      "category": "performance",
+      "target_kind": "subject",
+      "targets": [
+        "U4",
+        "U5"
+      ],
+      "unit": "distance_scale",
+      "basis": "Artificial unit for contract verification only.",
+      "source_refs": [
+        "fantasy:section5_2",
+        "fantasy:table2"
+      ]
+    },
+    {
+      "id": "golem_processing",
+      "label": "感知魔像感知信息处理速度",
+      "category": "performance",
+      "target_kind": "subject",
+      "targets": [
+        "U3"
+      ],
+      "unit": "processing_scale",
+      "basis": "Artificial unit for contract verification only.",
+      "source_refs": [
+        "fantasy:section5_2",
+        "fantasy:table2"
+      ]
+    },
+    {
+      "id": "ark_ward",
+      "label": "浮空方舟防阵强度",
+      "category": "environment",
+      "target_kind": "target",
+      "targets": [
+        "T2"
+      ],
+      "unit": "ward_scale",
+      "basis": "Artificial unit for contract verification only.",
+      "source_refs": [
+        "fantasy:section5_2",
+        "fantasy:table2"
+      ]
+    },
+    {
+      "id": "ark_speed",
+      "label": "浮空方舟逃逸速度",
+      "category": "environment",
+      "target_kind": "target",
+      "targets": [
+        "T2"
+      ],
+      "unit": "speed_scale",
+      "basis": "Artificial unit for contract verification only.",
+      "source_refs": [
+        "fantasy:section5_2",
+        "fantasy:table2"
+      ]
+    }
+  ]
+}

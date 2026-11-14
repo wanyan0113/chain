@@ -14,6 +14,7 @@ from .figure_compare import compare_readings, plot_comparison, render_comparison
 from .self_effectiveness import normalize_measurements, render_se_summary, se_csv
 from .structure import inspect_structure, render_structure, structure_csv
 from .identification import identify_dependencies
+from .experiments import inspect_experiments
 
 
 def render_summary(report):
@@ -71,6 +72,12 @@ def main(argv=None):
     identify.add_argument('--structure', type=Path, required=True)
     identify.add_argument('--records', type=Path, required=True)
     identify.add_argument('--output-dir', type=Path, required=True)
+    experiments = commands.add_parser('experiments', help='核查实验变量与法术链闭合记录')
+    experiments.add_argument('case', type=Path)
+    experiments.add_argument('--structure', type=Path, required=True)
+    experiments.add_argument('--plan', type=Path, required=True)
+    experiments.add_argument('--batch', type=Path, required=True)
+    experiments.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         model = load_model(args.case)
@@ -81,7 +88,11 @@ def main(argv=None):
             result = inspect_model(model)
             result['source_verification'] = provenance
         else:
-            if args.command == 'identify':
+            if args.command == 'experiments':
+                input_path = args.batch
+                result = inspect_experiments(model, read_json(args.structure), read_json(args.plan), read_json(input_path))
+                outputs = {}
+            elif args.command == 'identify':
                 input_path = args.records
                 result = identify_dependencies(model, read_json(args.structure), read_json(input_path))
                 outputs = {}
@@ -130,8 +141,10 @@ def main(argv=None):
                 protected.append(args.readings)
             if args.command == 'normalize':
                 protected.append(args.calibration)
-            if args.command == 'identify':
+            if args.command in ('identify', 'experiments'):
                 protected.append(args.structure)
+            if args.command == 'experiments':
+                protected.append(args.plan)
             write_outputs(args.output_dir, {
                 'case_snapshot.json': json.dumps(model, ensure_ascii=False, indent=2, allow_nan=False) + '\n',
                 'fdna_report.json': json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + '\n',
@@ -140,8 +153,9 @@ def main(argv=None):
         printed = ({k: v for k, v in result.items() if k not in
                     ('rows', 'traces', 'baseline', 'comparisons', 'readings_snapshot', 'records',
                      'fit_inputs', 'measurements_snapshot', 'calibration_snapshot', 'structure_snapshot',
-                     'graph', 'activity_order_relations', 'candidates', 'records_snapshot')}
-                   if args.command in ('sweep', 'compare', 'normalize', 'structure', 'identify') else result)
+                     'graph', 'activity_order_relations', 'candidates', 'records_snapshot',
+                     'runs', 'closures', 'plan_snapshot', 'batch_snapshot')}
+                   if args.command in ('sweep', 'compare', 'normalize', 'structure', 'identify', 'experiments') else result)
         print(json.dumps(printed, ensure_ascii=False, indent=2, allow_nan=False))
         return 1 if result['status'] == 'blocked' else 0
     except (ValueError, OSError) as exc:

@@ -1,0 +1,166 @@
+{
+  "format_version": "1.0",
+  "id": "arcane_closure_method_check",
+  "data_kind": "method_check",
+  "reference": "Artificial contract check; not original records and not table5 measurements.",
+  "plan_sha256": "d9dba88136c0cbc09866c11fa26f835fc94f2e8967da4e49d0f6ccd41c360b3f",
+  "time_unit": "time_scale",
+  "runs": [
+    {
+      "id": "run_check",
+      "assignments": {
+        "mirror_start": {
+          "value": 10,
+          "unit": "time_scale"
+        },
+        "golem_path": {
+          "value": "path_A",
+          "unit": "path_code"
+        },
+        "golem_range": {
+          "value": 10,
+          "unit": "distance_scale"
+        },
+        "spirit_range": {
+          "value": 10,
+          "unit": "distance_scale"
+        },
+        "golem_processing": {
+          "value": 10,
+          "unit": "processing_scale"
+        },
+        "ark_ward": {
+          "value": 10,
+          "unit": "ward_scale"
+        },
+        "ark_speed": {
+          "value": 10,
+          "unit": "speed_scale"
+        }
+      },
+      "source_locator": "artificial:run_check",
+      "closures": [
+        {
+          "id": "closure_check",
+          "attempt": "1",
+          "task": "Task_KC1",
+          "target": "T2",
+          "status": "closed",
+          "start": 0,
+          "end": 50,
+          "source_locator": "artificial:closure_check",
+          "events": [
+            {
+              "id": "event_S1",
+              "activity": "Act_KC1_1",
+              "capability": "S1",
+              "subject": "U1",
+              "start": 0,
+              "end": 5,
+              "time_unit": "time_scale",
+              "outcome": "completed",
+              "facts": [
+                {
+                  "name": "check_value",
+                  "value": 1,
+                  "unit": "check_scale"
+                }
+              ],
+              "source_locator": "artificial:S1"
+            },
+            {
+              "id": "event_D2",
+              "activity": "Act_KC1_2",
+              "capability": "D2",
+              "subject": "U2",
+              "start": 10,
+              "end": 15,
+              "time_unit": "time_scale",
+              "outcome": "completed",
+              "facts": [
+                {
+                  "name": "check_value",
+                  "value": 1,
+                  "unit": "check_scale"
+                }
+              ],
+              "source_locator": "artificial:D2"
+            },
+            {
+              "id": "event_D4",
+              "activity": "Act_KC1_3",
+              "capability": "D4",
+              "subject": "U3",
+              "start": 20,
+              "end": 25,
+              "time_unit": "time_scale",
+              "outcome": "completed",
+              "facts": [
+                {
+                  "name": "check_value",
+                  "value": 1,
+                  "unit": "check_scale"
+                }
+              ],
+              "source_locator": "artificial:D4"
+            },
+            {
+              "id": "event_S5",
+              "activity": "Act_KC1_4",
+              "capability": "S5",
+              "subject": "U4",
+              "start": 30,
+              "end": 35,
+              "time_unit": "time_scale",
+              "outcome": "completed",
+              "facts": [
+                {
+                  "name": "check_value",
+                  "value": 1,
+                  "unit": "check_scale"
+                }
+              ],
+              "source_locator": "artificial:S5"
+            },
+            {
+              "id": "event_S6",
+              "activity": "Act_KC1_4",
+              "capability": "S6",
+              "subject": "U5",
+              "start": 30,
+              "end": 35,
+              "time_unit": "time_scale",
+              "outcome": "completed",
+              "facts": [
+                {
+                  "name": "check_value",
+                  "value": 1,
+                  "unit": "check_scale"
+                }
+              ],
+              "source_locator": "artificial:S6"
+            },
+            {
+              "id": "event_F7",
+              "activity": "Act_KC1_5",
+              "capability": "F7",
+              "subject": "U6",
+              "start": 40,
+              "end": 45,
+              "time_unit": "time_scale",
+              "outcome": "completed",
+              "facts": [
+                {
+                  "name": "check_value",
+                  "value": 1,
+                  "unit": "check_scale"
+                }
+              ],
+              "source_locator": "artificial:F7"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
