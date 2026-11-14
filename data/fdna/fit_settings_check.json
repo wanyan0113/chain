@@ -1,0 +1,10 @@
+{
+  "format_version": "1.0",
+  "id": "arcane_bounded_base_check",
+  "basis": "人工基础式求法核验；α∈[0,1]、β∈[0,100]，以均方残差进行多起点最小二乘，不使用原文参数作为起点。不包含原文δ扩展或PCA起点求法。",
+  "model": "fdna_base_eq1_eq2",
+  "seed": 20261114,
+  "starts": 12,
+  "max_nfev": 1500,
+  "delta_policy": "excluded_for_base_check"
+}

@@ -1,0 +1,193 @@
+"""Bounded local SE regression and explicitly artificial method verification."""
+from copy import deepcopy
+from itertools import product
+import json
+from pathlib import Path
+
+from jsonschema import Draft202012Validator
+
+from .engine import MODEL, evaluate
+from .model import ModelError, _finite, inspect_model, validate_model
+from .structure import digest
+
+
+def _libraries():
+    try:
+        import numpy as np
+        import scipy
+        from scipy.optimize import least_squares
+    except ImportError as exc:
+        raise ModelError('参数拟合需要 requirements-fdna.txt 中的SciPy依赖') from exc
+    return np, scipy, least_squares
+
+
+def _validate(kind, value):
+    _finite(value)
+    schema = json.loads(Path(__file__).with_name('fitting_schema.json').read_text(encoding='utf-8'))
+    errors = list(Draft202012Validator({'$defs': schema['$defs'], '$ref': '#/$defs/' + kind}).iter_errors(value))
+    if errors:
+        raise ModelError('拟合配置或SE样本不符合数据契约：' + errors[0].message)
+
+
+def generate_samples(model, config):
+    """Only leaf SE is varied. Intermediate values come from the network evaluator."""
+    structure = inspect_model(model)
+    _validate('generation', config)
+    leaves = structure['exogenous_nodes']
+    if config['include_leaf_corners'] and len(leaves) > 10:
+        raise ModelError('角点核验最多支持10个无入边节点')
+    if any(e['alpha'] is None or e['beta'] is None for e in model['edges']):
+        raise ModelError('生成已知参数样本需要全部α、β已知')
+    np, _, _ = _libraries()
+    rng = np.random.default_rng(config['seed'])
+    inputs = []
+    if config['include_leaf_corners']:
+        inputs.extend(('train', values) for values in product((0.0, 100.0), repeat=len(leaves)))
+    for split, count in (('train', config['random_train']), ('holdout', config['random_holdout'])):
+        inputs.extend((split, row) for row in rng.uniform(0, 100, (count, len(leaves))).tolist())
+    rows = []
+    for index, (split, values) in enumerate(inputs):
+        scenario = {'id': f'artificial:{index}', 'basis': config['basis'], 'node_values': dict(zip(leaves, values))}
+        computed = evaluate(model, scenario)
+        rows.append({'id': scenario['id'], 'split': split,
+                     'node_values': {n['id']: n['value'] for n in computed['nodes']}})
+    return {'format_version': '1.0', 'id': config['id'], 'data_kind': 'method_check',
+            'basis': '人工无噪声基础式样本，仅改变无入边节点SE；'+config['basis'],
+            'case_sha256': digest(model), 'records': rows}
+
+
+def fit_parameters(model, samples, settings):
+    validate_model(model)
+    _validate('samples', samples)
+    _validate('settings', settings)
+    if samples['case_sha256'] != digest(model):
+        raise ModelError('拟合样本与案例版本不一致')
+    nodes = {n['id'] for n in model['nodes']}
+    identifiers = set()
+    for row in samples['records']:
+        if row['id'] in identifiers or set(row['node_values']) - nodes:
+            raise ModelError('样本标识重复或引用未登记能力节点')
+        identifiers.add(row['id'])
+    np, scipy, least_squares = _libraries()
+    rng = np.random.default_rng(settings['seed'])
+    reports = []
+    # Use only endpoint topology here; reported alpha/beta never initialize the solver.
+    receivers = sorted({e['receiver'] for e in model['edges']})
+    for receiver in receivers:
+        feeders = [e['feeder'] for e in model['edges'] if e['receiver'] == receiver]
+        n = len(feeders)
+        data, omitted = {}, []
+        for split in ('train', 'holdout'):
+            rows = []
+            for row in samples['records']:
+                if row['split'] != split:
+                    continue
+                if any(row['node_values'].get(key) is None for key in [*feeders, receiver]):
+                    omitted.append({'id': row['id'], 'reason': 'MISSING_LOCAL_SE'})
+                else:
+                    rows.append(row)
+            data[split] = rows
+        if len(data['train']) < 2*n:
+            reports.append({'receiver': receiver, 'status': 'insufficient_samples',
+                            'train_rows': len(data['train']), 'required_minimum': 2*n, 'omitted': omitted})
+            continue
+        x = np.array([[r['node_values'][f] for f in feeders] for r in data['train']])
+        y = np.array([r['node_values'][receiver] for r in data['train']])
+        def predict(p, inputs):
+            sod = np.mean(100 - p[:n] * (100-inputs), axis=1)
+            cod = np.min(inputs + 100*p[n:], axis=1)
+            return np.minimum(sod, cod)
+        starts = [np.full(2*n, .5)] + [rng.uniform(.01, .99, 2*n) for _ in range(settings['starts']-1)]
+        attempts = []
+        for start in starts:
+            solved = least_squares(lambda p: predict(p, x)-y, start, bounds=(0, 1),
+                                   max_nfev=settings['max_nfev'], ftol=1e-11, xtol=1e-11, gtol=1e-11)
+            rmse = float(np.sqrt(np.mean(solved.fun**2)))
+            attempts.append((rmse, solved, start))
+        attempts.sort(key=lambda item: item[0])
+        best_rmse, best, _ = attempts[0]
+        parameter_names = [f'alpha:{f}' for f in feeders] + [f'beta:{f}' for f in feeders]
+        scale = np.array([1.0]*n + [100.0]*n)
+        physical = best.x*scale
+        sod = np.mean(100-best.x[:n]*(100-x), axis=1)
+        cod_terms = x+100*best.x[n:]
+        cod = np.min(cod_terms, axis=1)
+        margin = 1e-7
+        sod_active = sod < cod-margin
+        limiting = np.argmin(cod_terms, axis=1)
+        cod_unique = (np.sort(cod_terms, axis=1)[:, 1]-cod > margin) if n > 1 else np.ones(len(x), dtype=bool)
+        cod_active = (cod < sod-margin) & cod_unique
+        # Ignore nonsmooth ties: numerical differences there can spuriously suggest sensitivity.
+        jacobian = np.zeros((len(x), 2*n))
+        jacobian[sod_active, :n] = -(100-x[sod_active])/n
+        for i in range(n):
+            jacobian[cod_active & (limiting == i), n+i] = 100
+        # Rank is local sensitivity on smooth rows, not global uniqueness.
+        singular = np.linalg.svd(jacobian, compute_uv=False)
+        rank = int(np.sum(singular > (singular[0]*1e-7 if len(singular) and singular[0] else 1e-7)))
+        inactive = [parameter_names[i] for i in range(2*n) if np.linalg.norm(jacobian[:, i]) < 1e-7]
+        near = [sol.x*scale for rmse, sol, _ in attempts if rmse <= best_rmse + max(1e-6, best_rmse*.01)]
+        spread = np.ptp(np.array(near), axis=0)
+        evaluations = {}
+        for split, rows in data.items():
+            if not rows:
+                evaluations[split] = None
+                continue
+            inputs = np.array([[r['node_values'][f] for f in feeders] for r in rows])
+            actual = np.array([r['node_values'][receiver] for r in rows])
+            predicted = predict(best.x, inputs)
+            residuals = predicted-actual
+            evaluations[split] = {'count': len(rows), 'rmse': float(np.sqrt(np.mean(residuals**2))),
+                                  'max_absolute_error': float(np.max(np.abs(residuals))),
+                                  'rows': [{'id': row['id'], 'observed': float(a), 'predicted': float(p),
+                                            'residual': float(p-a)} for row, a, p in zip(rows, actual, predicted)]}
+        reports.append({'receiver': receiver, 'status': 'fitted' if best.success else 'iteration_limit',
+                        'feeders': feeders, 'parameters': [
+                            {'feeder': f, 'alpha': float(physical[i]), 'beta': float(physical[n+i])}
+                            for i, f in enumerate(feeders)],
+                        'metrics': evaluations, 'omitted': omitted,
+                        'sensitivity': {'local_jacobian_rank': rank, 'parameter_count': 2*n,
+                                        'inactive_parameters': inactive, 'global_uniqueness_established': False,
+                                        'method': 'analytic_scaled_jacobian_on_smooth_rows',
+                                        'tie_tolerance': margin,
+                                        'excluded_tie_rows': int(np.sum(~(sod_active | cod_active))),
+                                        'sod_active_rows': int(np.sum(sod_active)),
+                                        'cod_active_rows': {f: int(np.sum(cod_active & (limiting == i)))
+                                                            for i, f in enumerate(feeders)}},
+                        'near_best_start_count': len(near),
+                        'near_best_parameter_spread': dict(zip(parameter_names, map(float, spread))),
+                        'attempts': [{'rmse': rmse, 'success': bool(sol.success), 'status': int(sol.status),
+                                      'nfev': int(sol.nfev), 'initial': list(map(float, start)),
+                                      'parameters': list(map(float, sol.x*scale))}
+                                     for rmse, sol, start in attempts]})
+    return {'format_version': '1.0', 'status': 'complete' if reports and all(r['status'] == 'fitted' for r in reports) else 'blocked',
+            'case': model['id'], 'data_kind': samples['data_kind'],
+            'scope': '基础式α、β的有界局部回归；δ明确排除，不代替原文扩展模型。',
+            'input_sha256': digest({'case': model, 'samples': samples, 'settings': settings}),
+            'receivers': reports, 'samples_snapshot': deepcopy(samples), 'settings_snapshot': deepcopy(settings),
+            'source_snapshot': deepcopy(model['sources']), 'case_reproduction_ready': False,
+            'solver': {'name': 'scipy.optimize.least_squares', 'scipy': scipy.__version__, 'numpy': np.__version__,
+                       'parameterization': 'alpha=p[0:n], beta=100*p[n:2n]', 'bounds': {'alpha': [0, 1], 'beta': [0, 100]},
+                       'initialization': 'neutral_and_seeded_random_not_reported_parameters'},
+            'policies': {'model': MODEL, 'delta': settings['delta_policy'], 'clipping': 'none',
+                         'holdout_used_for_optimization': False, 'pseudo_r_squared': None},
+            'limits': ['人工无噪声样本只检验求法，不代表原文六千余次推演',
+                       '局部敏感度秩及多起点差异只能诊断可辨识性，不能证明全局唯一或全局最优',
+                       '未实现原文δ、PCA起始值或伪R²，残差为预测值减观测值']}
+
+
+def fit_check(model, generation, settings):
+    samples = generate_samples(model, generation)
+    report = fit_parameters(model, samples, settings)
+    truth = {(e['feeder'], e['receiver']): e for e in model['edges']}
+    comparisons = []
+    for receiver in report['receivers']:
+        for p in receiver.get('parameters', []):
+            original = truth[p['feeder'], receiver['receiver']]
+            comparisons.append({'feeder': p['feeder'], 'receiver': receiver['receiver'],
+                                'known_alpha': original['alpha'], 'known_beta': original['beta'],
+                                'fitted_alpha': p['alpha'], 'fitted_beta': p['beta'],
+                                'alpha_error': p['alpha']-original['alpha'], 'beta_error': p['beta']-original['beta']})
+    report.update(generation_snapshot=deepcopy(generation), known_parameter_comparison=comparisons,
+                  verification_sha256=digest({'fit_input_sha256': report['input_sha256'], 'generation': generation}))
+    return report

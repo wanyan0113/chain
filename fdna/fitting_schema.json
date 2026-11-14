@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "text": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "settings": {"type": "object", "additionalProperties": false,
+      "required": ["format_version", "id", "basis", "model", "seed", "starts", "max_nfev", "delta_policy"],
+      "properties": {"format_version": {"const": "1.0"}, "id": {"$ref": "#/$defs/text"}, "basis": {"$ref": "#/$defs/text"},
+        "model": {"const": "fdna_base_eq1_eq2"}, "seed": {"type": "integer", "minimum": 0, "maximum": 4294967295},
+        "starts": {"type": "integer", "minimum": 2, "maximum": 64},
+        "max_nfev": {"type": "integer", "minimum": 1, "maximum": 10000},
+        "delta_policy": {"const": "excluded_for_base_check"}}},
+    "samples": {"type": "object", "additionalProperties": false,
+      "required": ["format_version", "id", "data_kind", "basis", "case_sha256", "records"],
+      "properties": {"format_version": {"const": "1.0"}, "id": {"$ref": "#/$defs/text"},
+        "data_kind": {"enum": ["method_check", "user_supplied_se"]}, "basis": {"$ref": "#/$defs/text"},
+        "case_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "records": {"type": "array", "items": {"type": "object", "additionalProperties": false,
+          "required": ["id", "split", "node_values"], "properties": {
+            "id": {"$ref": "#/$defs/text"}, "split": {"enum": ["train", "holdout"]},
+            "node_values": {"type": "object", "additionalProperties": {"type": ["number", "null"], "minimum": 0, "maximum": 100}}}}}}},
+    "generation": {"type": "object", "additionalProperties": false,
+      "required": ["format_version", "id", "basis", "seed", "random_train", "random_holdout", "include_leaf_corners"],
+      "properties": {"format_version": {"const": "1.0"}, "id": {"$ref": "#/$defs/text"}, "basis": {"$ref": "#/$defs/text"},
+        "seed": {"type": "integer", "minimum": 0, "maximum": 4294967295},
+        "random_train": {"type": "integer", "minimum": 16, "maximum": 10000},
+        "random_holdout": {"type": "integer", "minimum": 16, "maximum": 10000},
+        "include_leaf_corners": {"type": "boolean"}}}
+  }
+}

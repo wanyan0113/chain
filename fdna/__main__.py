@@ -16,6 +16,7 @@ from .structure import inspect_structure, render_structure, structure_csv
 from .identification import identify_dependencies
 from .experiments import inspect_experiments
 from .extraction import extract_measurements
+from .fitting import fit_check, fit_parameters
 
 
 def render_summary(report):
@@ -87,6 +88,16 @@ def main(argv=None):
     extract.add_argument('--extraction', type=Path, required=True)
     extract.add_argument('--calibration', type=Path)
     extract.add_argument('--output-dir', type=Path, required=True)
+    fit = commands.add_parser('fit', help='用明确分组的SE样本拟合基础式α、β')
+    fit.add_argument('case', type=Path)
+    fit.add_argument('--samples', type=Path, required=True)
+    fit.add_argument('--settings', type=Path, required=True)
+    fit.add_argument('--output-dir', type=Path, required=True)
+    artificial = commands.add_parser('fit-check', help='生成明确标记的人工SE样本并验证有界拟合')
+    artificial.add_argument('case', type=Path)
+    artificial.add_argument('--generation', type=Path, required=True)
+    artificial.add_argument('--settings', type=Path, required=True)
+    artificial.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         model = load_model(args.case)
@@ -97,7 +108,12 @@ def main(argv=None):
             result = inspect_model(model)
             result['source_verification'] = provenance
         else:
-            if args.command == 'extract':
+            if args.command in ('fit', 'fit-check'):
+                input_path = args.samples if args.command == 'fit' else args.generation
+                result = (fit_parameters(model, read_json(input_path), read_json(args.settings))
+                          if args.command == 'fit' else fit_check(model, read_json(input_path), read_json(args.settings)))
+                outputs = {}
+            elif args.command == 'extract':
                 input_path = args.batch
                 result = extract_measurements(model, read_json(args.structure), read_json(args.plan),
                                               read_json(input_path), read_json(args.extraction),
@@ -157,6 +173,8 @@ def main(argv=None):
                 protected.append(args.readings)
             if args.command == 'normalize':
                 protected.append(args.calibration)
+            if args.command in ('fit', 'fit-check'):
+                protected.append(args.settings)
             if args.command in ('identify', 'experiments', 'extract'):
                 protected.append(args.structure)
             if args.command in ('experiments', 'extract'):
@@ -175,8 +193,9 @@ def main(argv=None):
                      'fit_inputs', 'measurements_snapshot', 'calibration_snapshot', 'structure_snapshot',
                      'graph', 'activity_order_relations', 'candidates', 'records_snapshot',
                      'runs', 'closures', 'plan_snapshot', 'batch_snapshot', 'measurements',
-                     'normalization', 'experiment_check', 'config_snapshot')}
-                   if args.command in ('sweep', 'compare', 'normalize', 'structure', 'identify', 'experiments', 'extract') else result)
+                     'normalization', 'experiment_check', 'config_snapshot', 'receivers', 'samples_snapshot',
+                     'known_parameter_comparison')}
+                   if args.command in ('sweep', 'compare', 'normalize', 'structure', 'identify', 'experiments', 'extract', 'fit', 'fit-check') else result)
         print(json.dumps(printed, ensure_ascii=False, indent=2, allow_nan=False))
         return 1 if result['status'] == 'blocked' else 0
     except (ValueError, OSError) as exc:

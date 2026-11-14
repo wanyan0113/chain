@@ -1,0 +1,9 @@
+{
+  "format_version": "1.0",
+  "id": "arcane_artificial_se_fit_check",
+  "basis": "依据案例已报告参数构造人工无噪声样本；仅随机改变六个无入边能力SE，中间节点由基础式传播计算。训练集补充64个叶子取值角点。留出样本独立生成，不用于优化或起点选择，不是原文推演记录。",
+  "seed": 20261114,
+  "random_train": 384,
+  "random_holdout": 192,
+  "include_leaf_corners": true
+}
