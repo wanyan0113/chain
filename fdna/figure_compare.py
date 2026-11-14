@@ -75,7 +75,7 @@ def compare_readings(model, protocol, readings):
         panel = by_id[observation['panel']]
         driver = observation['driver']
         if not isinstance(driver, str) or driver not in panel['legend'] or driver not in protocol['drivers']:
-            raise ModelError('读图对照只支持已登记图例中的无入边变化节点')
+            raise ModelError('读图对照须使用图例及显式扫描约定中已登记的变化节点')
         pixel, error = observation['pixel'], observation['pixel_error']
         if (not _numbers(pixel, 2) or not _numbers(error, 2) or min(error) <= 0 or
                 any(not 0 <= v < bound for v, bound in zip(pixel, panel['size']))):
@@ -140,7 +140,7 @@ def render_comparison(report):
                      f"±{r['read_error']:.3f} | {r['predicted']:.3f} | {status} |")
     lines += ['', '误差界限为像素选取与标定的保守估计，不是统计置信区间。'
               '对照同时考虑横轴读数误差引起的预测范围。未据此拟合或修改α、β、δ。', '',
-              '图8中S5、S6作为变化对象的曲线未纳入基础式对照；中间节点变化方式仍待核实。']
+              '仅对登记的读图点作对照；扫描支持某条曲线不等于已取得该曲线读数，原文中间节点变化方式仍待核实。']
     diagnosis = report['diagnostics']
     lines += ['', '## 条件诊断', '', diagnosis['scope'], '', diagnosis['cod_bound_meaning'], '',
               f"共有{diagnosis['counts']['exceeds_base_bound']}个选点超过基础式对应CoD上限。", '',

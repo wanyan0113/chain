@@ -13,19 +13,23 @@ from .model import ModelError, inspect_model
 def validate_protocol(model, protocol):
     structure = inspect_model(model)
     fields = {'id', 'basis', 'model', 'baseline', 'drivers', 'observers', 'values'}
-    if not isinstance(protocol, dict) or set(protocol) != fields:
+    if (not isinstance(protocol, dict) or set(protocol) - fields - {'intervention_policy'} or
+            fields - set(protocol)):
         raise ModelError('扫描约定须包含id、basis、model、baseline、drivers、observers、values')
+    intervention = 'intervention_policy' in protocol
+    if intervention and protocol['intervention_policy'] != 'clamp_driver_recompute_descendants':
+        raise ModelError('中间节点扫描须显式采用固定变化节点并重算下游的约定')
     if any(not isinstance(protocol[k], str) or not protocol[k].strip() for k in ('id', 'basis')):
         raise ModelError('扫描须说明名称与假设依据')
     if protocol['model'] != MODEL:
         raise ModelError('扫描仅支持明确选用基础式(1)—(2)')
-    for key, allowed in (('drivers', set(structure['exogenous_nodes'])),
+    for key, allowed in (('drivers', {n['id'] for n in model['nodes']} if intervention else set(structure['exogenous_nodes'])),
                          ('observers', {n['id'] for n in model['nodes']})):
         items = protocol[key]
         if (not isinstance(items, list) or not items or
                 any(not isinstance(n, str) or n not in allowed for n in items) or
                 len(items) != len(set(items))):
-            raise ModelError('扫描节点须存在且不重复；只可改变无入边节点')
+            raise ModelError('扫描节点须存在且不重复；改变中间节点须声明干预约定')
     grid = protocol['values']
     if (not isinstance(grid, list) or not 2 <= len(grid) <= 1001 or
             any(isinstance(v, bool) or not isinstance(v, (int, float)) or
@@ -42,6 +46,7 @@ def validate_protocol(model, protocol):
 
 def sweep(model, protocol):
     baseline = validate_protocol(model, protocol)
+    intervention = 'intervention_policy' in protocol
     base_scenario = baseline['scenario']
     grid = protocol['values']
     base_values = {n['id']: n['value'] for n in baseline['nodes']}
@@ -50,10 +55,17 @@ def sweep(model, protocol):
         for index, value in enumerate(grid):
             scenario = deepcopy(base_scenario)
             scenario['id'] = f"{protocol['id']}:{driver}:{index}"
-            scenario['node_values'][driver] = value
-            result = evaluate(model, scenario)
-            traces.append({'driver': driver, 'input': value, 'scenario': scenario,
-                           'input_sha256': result['input_sha256'], 'nodes': result['nodes']})
+            if intervention:
+                result = evaluate(model, scenario, intervention={
+                    'basis': protocol['basis'], 'node_values': {driver: value}})
+            else:
+                scenario['node_values'][driver] = value
+                result = evaluate(model, scenario)
+            trace = {'driver': driver, 'input': value, 'scenario': scenario,
+                     'input_sha256': result['input_sha256'], 'nodes': result['nodes']}
+            if intervention:
+                trace['intervention_snapshot'] = result['intervention_snapshot']
+            traces.append(trace)
             by_id = {n['id']: n for n in result['nodes']}
             for observer in protocol['observers']:
                 node = by_id[observer]
@@ -63,7 +75,7 @@ def sweep(model, protocol):
                              'sod_mean': node['sod_mean'], 'cod_min': node['cod_min'],
                              'binding_constraints': node['binding_constraints']})
     snapshot = {'case': model, 'protocol': protocol, 'model': MODEL}
-    return {
+    report = {
         'format_version': '1.0', 'status': 'complete', 'model': MODEL, 'case': model['id'],
         'scope': '基础式逐项扫描；其余无入边节点固定于参照，中间节点逐点重算。'
                  '取值与原图t的映射未核实，不属于图8—9的逐点复现。',
@@ -76,6 +88,11 @@ def sweep(model, protocol):
         'not_covered': ['图8中S5、S6的独立变化曲线：尚未指定中间节点变化方式',
                         'δ与原始拟合、残差及伪R²的重新核验'],
     }
+    if intervention:
+        report['scope'] = '基础式逐节点干预扫描：固定变化节点，暂停其入边方程，其余无入边节点保持参照，下游逐点重算；不认定为原文图8—9扫描约定。'
+        report['policies']['intermediate_override'] = 'explicit_clamp_suspend_incoming_recompute_descendants'
+        report['not_covered'] = ['原图t与给定效能的映射及真实扫描约定', 'δ与原始拟合、残差及伪R²的重新核验']
+    return report
 
 
 def csv_report(report):

@@ -1,4 +1,4 @@
-"""FDNA equations (1)-(2), with explicit exogenous values and per-edge evidence."""
+"""FDNA equations (1)-(2), explicit inputs, optional clamps and per-edge evidence."""
 from __future__ import annotations
 
 from copy import deepcopy
@@ -11,7 +11,7 @@ from .model import ModelError, inspect_model, validate_model
 MODEL = 'fdna_base_eq1_eq2'
 
 
-def evaluate(model, scenario):
+def evaluate(model, scenario, *, intervention=None):
     validate_model(model)
     if not isinstance(scenario, dict) or set(scenario) != {'id', 'basis', 'node_values'}:
         raise ModelError('推演须且仅含id、basis与node_values')
@@ -26,13 +26,28 @@ def evaluate(model, scenario):
                                   or not 0 <= value <= 100 or not math.isfinite(value)):
             raise ModelError(f'{node}效能须在[0,100]内，未知时填null或留缺')
     nodes = {node['id']: node for node in model['nodes']}
+    forced = {}
+    if intervention is not None:
+        if (not isinstance(intervention, dict) or set(intervention) != {'basis', 'node_values'} or
+                not isinstance(intervention['basis'], str) or not intervention['basis'].strip() or
+                not isinstance(intervention['node_values'], dict) or not intervention['node_values'] or
+                set(intervention['node_values']) - set(nodes)):
+            raise ModelError('节点干预须明确依据及已登记节点的效能')
+        forced = intervention['node_values']
+        for node, value in forced.items():
+            if (isinstance(value, bool) or not isinstance(value, (int, float)) or
+                    not 0 <= value <= 100 or not math.isfinite(value)):
+                raise ModelError(f'{node}干预效能须为[0,100]内的有限数值')
     incoming = {node: [] for node in nodes}
     for edge in model['edges']:
         incoming[edge['receiver']].append(edge)
     results = {}
     for node in structure['topological_order']:
         blockers, terms = [], []
-        if not incoming[node]:
+        if node in forced:
+            value = forced[node]
+            sod = cod = None
+        elif not incoming[node]:
             value = values.get(node)
             if value is None:
                 blockers.append({'code': 'UNKNOWN_EXOGENOUS', 'node': node})
@@ -60,16 +75,21 @@ def evaluate(model, scenario):
                 value = min(sod, cod)
         results[node] = {
             'id': node, 'label': nodes[node]['label'], 'subject': nodes[node]['subject'],
-            'kind': 'derived' if incoming[node] else 'exogenous',
-            'status': 'unknown' if blockers else 'computed' if incoming[node] else 'supplied',
+            'kind': 'intervened' if node in forced else 'derived' if incoming[node] else 'exogenous',
+            'status': 'supplied' if node in forced else 'unknown' if blockers else 'computed' if incoming[node] else 'supplied',
             'value': value, 'sod_mean': sod, 'cod_min': cod,
             'binding_constraints': [] if value is None or not terms else
                 (['sod_mean'] if sod == value else []) +
                 [f"cod:{term['feeder']}" for term in terms if term['cod'] == value],
             'terms': terms, 'blockers': blockers, 'source_refs': deepcopy(nodes[node]['source_refs']),
         }
+        if node in forced:
+            results[node]['intervention'] = {'basis': intervention['basis'],
+                                            'suspended_incoming_edges': deepcopy(incoming[node])}
     snapshot = {'case': model, 'scenario': scenario, 'model': MODEL}
-    return {
+    if intervention is not None:
+        snapshot['intervention'] = intervention
+    report = {
         'format_version': '1.0', 'model': MODEL, 'case': model['id'], 'scenario': deepcopy(scenario),
         'input_sha256': hashlib.sha256(json.dumps(snapshot, ensure_ascii=False, sort_keys=True,
                                                  allow_nan=False).encode('utf-8')).hexdigest(),
@@ -83,3 +103,8 @@ def evaluate(model, scenario):
         'reported_fit': deepcopy(model['reported_fit']), 'case_extension': deepcopy(model['case_extension']),
         'source_snapshot': deepcopy(model['sources']),
     }
+    if intervention is not None:
+        report['intervention_snapshot'] = deepcopy(intervention)
+        report['scope'] = '基础式显式节点干预：固定指定节点，暂停其入边方程并重算下游；不代表原文扫描约定已确定。'
+        report['policies']['intermediate_override'] = 'explicit_clamp_suspend_incoming_recompute_descendants'
+    return report

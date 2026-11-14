@@ -52,7 +52,7 @@ def main(argv=None):
     run.add_argument('--model', choices=[MODEL, ADDITIVE_MODEL], required=True)
     run.add_argument('--extension', type=Path, help='δ扩展必须显式提供逐接受节点δ与输出约定')
     run.add_argument('--output-dir', type=Path, required=True)
-    scan = commands.add_parser('sweep', help='按明确约定逐项改变无入边节点效能')
+    scan = commands.add_parser('sweep', help='按明确约定逐项改变节点效能；中间节点须声明干预策略')
     scan.add_argument('case', type=Path)
     scan.add_argument('--protocol', type=Path, required=True)
     scan.add_argument('--output-dir', type=Path, required=True)
