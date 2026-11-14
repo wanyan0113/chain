@@ -19,6 +19,7 @@ from .extraction import extract_measurements
 from .fitting import fit_check, fit_parameters
 from .additive import ADDITIVE_MODEL, evaluate_additive
 from .robustness import robustness_check
+from .application import analyze_application, application_csv
 
 
 def render_summary(report):
@@ -107,6 +108,10 @@ def main(argv=None):
     stability.add_argument('--settings', type=Path, required=True)
     stability.add_argument('--protocol', type=Path, required=True)
     stability.add_argument('--output-dir', type=Path, required=True)
+    application = commands.add_parser('application', help='比较指定扫描条件下的节点效能下降、约束及依赖路径')
+    application.add_argument('case', type=Path)
+    application.add_argument('--protocol', type=Path, required=True)
+    application.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         model = load_model(args.case)
@@ -117,7 +122,11 @@ def main(argv=None):
             result = inspect_model(model)
             result['source_verification'] = provenance
         else:
-            if args.command == 'fit-stability':
+            if args.command == 'application':
+                input_path = args.protocol
+                result = analyze_application(model, read_json(input_path))
+                outputs = {'application_ranking.csv': application_csv(result)}
+            elif args.command == 'fit-stability':
                 input_path = args.generation
                 result = robustness_check(model, read_json(input_path), read_json(args.settings), read_json(args.protocol))
                 outputs = {}
@@ -219,8 +228,8 @@ def main(argv=None):
                      'graph', 'activity_order_relations', 'candidates', 'records_snapshot',
                      'runs', 'closures', 'plan_snapshot', 'batch_snapshot', 'measurements',
                      'normalization', 'experiment_check', 'config_snapshot', 'receivers', 'samples_snapshot',
-                     'known_parameter_comparison', 'trials')}
-                   if args.command in ('sweep', 'compare', 'normalize', 'structure', 'identify', 'experiments', 'extract', 'fit', 'fit-check', 'fit-stability') else result)
+                     'known_parameter_comparison', 'trials', 'sweep_snapshot', 'rankings')}
+                   if args.command in ('sweep', 'compare', 'normalize', 'structure', 'identify', 'experiments', 'extract', 'fit', 'fit-check', 'fit-stability', 'application') else result)
         print(json.dumps(printed, ensure_ascii=False, indent=2, allow_nan=False))
         return 1 if result['status'] == 'blocked' else 0
     except (ValueError, OSError) as exc:
