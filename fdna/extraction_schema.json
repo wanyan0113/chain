@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object", "additionalProperties": false,
+  "required": ["format_version", "id", "basis", "data_kind", "batch_sha256", "rules", "groups"],
+  "properties": {
+    "format_version": {"const": "1.0"}, "id": {"$ref": "#/$defs/text"}, "basis": {"$ref": "#/$defs/text"},
+    "data_kind": {"enum": ["method_check", "user_selected_rules"]},
+    "batch_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "rules": {"type": "object", "additionalProperties": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/rule"}]}},
+    "groups": {"type": "array", "items": {"type": "object", "additionalProperties": false,
+      "required": ["id", "run", "closures", "basis"], "properties": {
+        "id": {"$ref": "#/$defs/text"}, "run": {"$ref": "#/$defs/text"}, "basis": {"$ref": "#/$defs/text"},
+        "closures": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/text"}}
+      }}}
+  },
+  "$defs": {
+    "text": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "rule": {"type": "object", "additionalProperties": false,
+      "required": ["indicator", "method", "fields", "unit", "basis"], "properties": {
+        "indicator": {"$ref": "#/$defs/text"},
+        "method": {"enum": ["first_value", "sum_counts", "union_intervals", "single_interval", "single_value"]},
+        "fields": {"type": "array", "minItems": 1, "maxItems": 2, "uniqueItems": true, "items": {"$ref": "#/$defs/text"}},
+        "unit": {"$ref": "#/$defs/text"}, "basis": {"$ref": "#/$defs/text"}
+      }}
+  }
+}
