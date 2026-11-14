@@ -1,0 +1,10 @@
+{
+  "format_version": "1.0",
+  "id": "arcane_supplementary_stability_check",
+  "basis": "补充人工方法检查，不是原文实验设计。比较三个种子、无扰动及0.5、1个SE点标准差的条件高斯扰动；仅扰动训练SE，留出集保持干净。超出[0,100]的扰动重新抽取，不裁剪。",
+  "seeds": [20261114, 20261115, 20261116],
+  "noise_std": [0, 0.5, 1],
+  "random_train": 128,
+  "random_holdout": 64,
+  "starts": 6
+}

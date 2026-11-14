@@ -1,0 +1,12 @@
+{
+  "format_version": "1.0",
+  "id": "arcane_bounded_delta_check",
+  "basis": "人工求法核验：每个接受节点分别使用一个常量δ，界限人为选为[-10,10]。不裁剪效能。原文未确认δ是否逐节点、是否恒定及其界限；这些约定不作为原文配置。",
+  "model": "fdna_additive_delta",
+  "seed": 20261114,
+  "starts": 12,
+  "max_nfev": 1500,
+  "delta_policy": "per_receiver_bounded",
+  "delta_bounds": {"S5": [-10, 10], "S6": [-10, 10], "F7": [-10, 10], "F9": [-10, 10], "F11": [-10, 10]},
+  "output_policy": "no_clipping"
+}

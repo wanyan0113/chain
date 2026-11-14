@@ -1,14 +1,29 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$defs": {
+    "robustness": {"type": "object", "additionalProperties": false,
+      "required": ["format_version", "id", "basis", "seeds", "noise_std", "random_train", "random_holdout", "starts"],
+      "properties": {"format_version": {"const": "1.0"}, "id": {"$ref": "#/$defs/text"}, "basis": {"$ref": "#/$defs/text"},
+        "seeds": {"type": "array", "minItems": 2, "maxItems": 10, "uniqueItems": true,
+          "items": {"type": "integer", "minimum": 0, "maximum": 4294967295}},
+        "noise_std": {"type": "array", "minItems": 2, "maxItems": 5, "uniqueItems": true,
+          "items": {"type": "number", "minimum": 0, "maximum": 10}},
+        "random_train": {"type": "integer", "minimum": 16, "maximum": 10000},
+        "random_holdout": {"type": "integer", "minimum": 16, "maximum": 10000},
+        "starts": {"type": "integer", "minimum": 2, "maximum": 64}}},
     "text": {"type": "string", "minLength": 1, "pattern": "\\S"},
     "settings": {"type": "object", "additionalProperties": false,
       "required": ["format_version", "id", "basis", "model", "seed", "starts", "max_nfev", "delta_policy"],
       "properties": {"format_version": {"const": "1.0"}, "id": {"$ref": "#/$defs/text"}, "basis": {"$ref": "#/$defs/text"},
-        "model": {"const": "fdna_base_eq1_eq2"}, "seed": {"type": "integer", "minimum": 0, "maximum": 4294967295},
+        "model": {"enum": ["fdna_base_eq1_eq2", "fdna_additive_delta"]}, "seed": {"type": "integer", "minimum": 0, "maximum": 4294967295},
         "starts": {"type": "integer", "minimum": 2, "maximum": 64},
         "max_nfev": {"type": "integer", "minimum": 1, "maximum": 10000},
-        "delta_policy": {"const": "excluded_for_base_check"}}},
+        "delta_policy": {"enum": ["excluded_for_base_check", "per_receiver_bounded"]},
+        "delta_bounds": {"type": "object", "additionalProperties": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number"}}},
+        "output_policy": {"const": "no_clipping"}},
+      "allOf": [{"if": {"properties": {"model": {"const": "fdna_additive_delta"}}},
+        "then": {"required": ["delta_bounds", "output_policy"], "properties": {"delta_policy": {"const": "per_receiver_bounded"}}},
+        "else": {"properties": {"delta_policy": {"const": "excluded_for_base_check"}}, "not": {"anyOf": [{"required": ["delta_bounds"]}, {"required": ["output_policy"]}]}}}]},
     "samples": {"type": "object", "additionalProperties": false,
       "required": ["format_version", "id", "data_kind", "basis", "case_sha256", "records"],
       "properties": {"format_version": {"const": "1.0"}, "id": {"$ref": "#/$defs/text"},
@@ -24,6 +39,6 @@
         "seed": {"type": "integer", "minimum": 0, "maximum": 4294967295},
         "random_train": {"type": "integer", "minimum": 16, "maximum": 10000},
         "random_holdout": {"type": "integer", "minimum": 16, "maximum": 10000},
-        "include_leaf_corners": {"type": "boolean"}}}
+        "include_leaf_corners": {"type": "boolean"}, "extension": {"type": "object"}}}
   }
 }

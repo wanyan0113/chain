@@ -17,6 +17,8 @@ from .identification import identify_dependencies
 from .experiments import inspect_experiments
 from .extraction import extract_measurements
 from .fitting import fit_check, fit_parameters
+from .additive import ADDITIVE_MODEL, evaluate_additive
+from .robustness import robustness_check
 
 
 def render_summary(report):
@@ -47,7 +49,8 @@ def main(argv=None):
     run = commands.add_parser('evaluate', help='依基础式求取效能')
     run.add_argument('case', type=Path)
     run.add_argument('--scenario', type=Path, required=True)
-    run.add_argument('--model', choices=[MODEL], required=True)
+    run.add_argument('--model', choices=[MODEL, ADDITIVE_MODEL], required=True)
+    run.add_argument('--extension', type=Path, help='δ扩展必须显式提供逐接受节点δ与输出约定')
     run.add_argument('--output-dir', type=Path, required=True)
     scan = commands.add_parser('sweep', help='按明确约定逐项改变无入边节点效能')
     scan.add_argument('case', type=Path)
@@ -98,6 +101,12 @@ def main(argv=None):
     artificial.add_argument('--generation', type=Path, required=True)
     artificial.add_argument('--settings', type=Path, required=True)
     artificial.add_argument('--output-dir', type=Path, required=True)
+    stability = commands.add_parser('fit-stability', help='补充人工扰动与多种子的稳定性诊断')
+    stability.add_argument('case', type=Path)
+    stability.add_argument('--generation', type=Path, required=True)
+    stability.add_argument('--settings', type=Path, required=True)
+    stability.add_argument('--protocol', type=Path, required=True)
+    stability.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         model = load_model(args.case)
@@ -108,7 +117,11 @@ def main(argv=None):
             result = inspect_model(model)
             result['source_verification'] = provenance
         else:
-            if args.command in ('fit', 'fit-check'):
+            if args.command == 'fit-stability':
+                input_path = args.generation
+                result = robustness_check(model, read_json(input_path), read_json(args.settings), read_json(args.protocol))
+                outputs = {}
+            elif args.command in ('fit', 'fit-check'):
                 input_path = args.samples if args.command == 'fit' else args.generation
                 result = (fit_parameters(model, read_json(input_path), read_json(args.settings))
                           if args.command == 'fit' else fit_check(model, read_json(input_path), read_json(args.settings)))
@@ -156,11 +169,19 @@ def main(argv=None):
             else:
                 input_path = args.scenario
                 scenario = read_json(input_path)
-                result = evaluate(model, scenario)
+                if args.model == ADDITIVE_MODEL:
+                    if args.extension is None:
+                        raise ValueError('δ扩展求值须提供--extension，不能默认δ为零')
+                    result = evaluate_additive(model, scenario, read_json(args.extension))
+                else:
+                    if args.extension is not None:
+                        raise ValueError('基础式不接受δ配置，请明确选择δ扩展模型')
+                    result = evaluate(model, scenario)
                 outputs = {
                     'scenario_snapshot.json': json.dumps(scenario, ensure_ascii=False, indent=2, allow_nan=False) + '\n',
-                    'fdna_summary.md': render_summary(result),
                 }
+                if args.model == MODEL:
+                    outputs['fdna_summary.md'] = render_summary(result)
             result['source_verification'] = provenance
             module = Path(__file__).resolve().parent
             output = args.output_dir.resolve()
@@ -171,10 +192,14 @@ def main(argv=None):
                 for source in model['sources'] if 'path' in source]
             if args.command == 'compare':
                 protected.append(args.readings)
+            if args.command == 'evaluate' and args.extension:
+                protected.append(args.extension)
             if args.command == 'normalize':
                 protected.append(args.calibration)
-            if args.command in ('fit', 'fit-check'):
+            if args.command in ('fit', 'fit-check', 'fit-stability'):
                 protected.append(args.settings)
+            if args.command == 'fit-stability':
+                protected.append(args.protocol)
             if args.command in ('identify', 'experiments', 'extract'):
                 protected.append(args.structure)
             if args.command in ('experiments', 'extract'):
@@ -194,8 +219,8 @@ def main(argv=None):
                      'graph', 'activity_order_relations', 'candidates', 'records_snapshot',
                      'runs', 'closures', 'plan_snapshot', 'batch_snapshot', 'measurements',
                      'normalization', 'experiment_check', 'config_snapshot', 'receivers', 'samples_snapshot',
-                     'known_parameter_comparison')}
-                   if args.command in ('sweep', 'compare', 'normalize', 'structure', 'identify', 'experiments', 'extract', 'fit', 'fit-check') else result)
+                     'known_parameter_comparison', 'trials')}
+                   if args.command in ('sweep', 'compare', 'normalize', 'structure', 'identify', 'experiments', 'extract', 'fit', 'fit-check', 'fit-stability') else result)
         print(json.dumps(printed, ensure_ascii=False, indent=2, allow_nan=False))
         return 1 if result['status'] == 'blocked' else 0
     except (ValueError, OSError) as exc:
