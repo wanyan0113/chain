@@ -116,6 +116,10 @@ class AdditiveFittingTests(unittest.TestCase):
             if row['split'] == 'holdout': row['node_values']['S5'] = 0
         self.assertEqual(receiver['attempts'], fit_parameters(self.model, samples, self.settings)['receivers'][0]['attempts'])
 
+    def test_lbfgsb_recovers_nonzero_delta_from_analytical_samples(self):
+        self.settings['solver'] = 'L-BFGS-B'
+        self.test_recovers_nonzero_delta_from_independent_analytical_samples()
+
     def test_generation_propagates_nonzero_delta_and_rejects_outside_se_range(self):
         self.generation.update(random_train=16, random_holdout=16, include_leaf_corners=False)
         samples = generate_samples(self.model, self.generation)

@@ -58,6 +58,21 @@ class FittingTests(unittest.TestCase):
         self.assertTrue(all(0 <= attempt['parameters'][0] <= 1 and 0 <= attempt['parameters'][1] <= 100
                             for attempt in receiver['attempts']))
 
+    def test_lbfgsb_recovers_analytical_parameters_and_isolates_holdout(self):
+        self.settings['solver'] = 'L-BFGS-B'
+        self.test_recovers_active_parameters_against_independent_piecewise_formula()
+        self.test_holdout_and_reported_parameters_do_not_influence_optimization()
+        report = self.fit()
+        self.assertEqual(report['solver']['name'], 'scipy.optimize.minimize')
+        self.assertEqual(report['solver']['method'], 'L-BFGS-B')
+
+    def test_lbfgsb_evaluation_limit_is_reported_without_claiming_convergence(self):
+        self.settings.update(solver='L-BFGS-B', max_nfev=1)
+        report = self.fit()
+        self.assertEqual(report['status'], 'blocked')
+        self.assertTrue(all(not a['success'] and a['message']
+                            for a in report['receivers'][0]['attempts']))
+
     def test_holdout_and_reported_parameters_do_not_influence_optimization(self):
         original = self.fit()['receivers'][0]
         for row in self.samples['records']:
@@ -94,7 +109,7 @@ class FittingTests(unittest.TestCase):
 
     def test_contract_rejects_invalid_samples_and_unstated_delta_policy(self):
         original = deepcopy((self.samples, self.settings))
-        for change in ('hash', 'duplicate', 'unknown_node', 'bounds', 'bool', 'nan', 'split', 'delta', 'starts'):
+        for change in ('hash', 'duplicate', 'unknown_node', 'bounds', 'bool', 'nan', 'split', 'delta', 'starts', 'solver'):
             self.samples, self.settings = deepcopy(original)
             if change == 'hash': self.samples['case_sha256'] = '0'*64
             elif change == 'duplicate': self.samples['records'].append(deepcopy(self.samples['records'][0]))
@@ -105,6 +120,7 @@ class FittingTests(unittest.TestCase):
             elif change == 'split': self.samples['records'][0]['split'] = 'unknown'
             elif change == 'delta': self.settings['delta_policy'] = 'assume_zero_in_article'
             elif change == 'starts': self.settings['starts'] = 0
+            elif change == 'solver': self.settings['solver'] = 'unknown'
             with self.subTest(change=change), self.assertRaises(ModelError): self.fit()
 
     def test_generator_changes_only_leaf_values_and_is_reproducible(self):

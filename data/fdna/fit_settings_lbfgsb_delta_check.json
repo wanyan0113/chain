@@ -1,0 +1,13 @@
+{
+  "format_version": "1.0",
+  "id": "arcane_lbfgsb_delta_check",
+  "basis": "采用L-BFGS-B核验人工δ扩展样本；逐接受节点常量δ及[-10,10]界限仍为显式人工约定，不代表原文配置。使用中性及固定种子随机起点，未补造PCA起点，不裁剪效能。",
+  "model": "fdna_additive_delta",
+  "solver": "L-BFGS-B",
+  "seed": 20261114,
+  "starts": 12,
+  "max_nfev": 1500,
+  "delta_policy": "per_receiver_bounded",
+  "delta_bounds": {"S5": [-10, 10], "S6": [-10, 10], "F7": [-10, 10], "F9": [-10, 10], "F11": [-10, 10]},
+  "output_policy": "no_clipping"
+}

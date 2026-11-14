@@ -16,10 +16,10 @@ def _libraries():
     try:
         import numpy as np
         import scipy
-        from scipy.optimize import least_squares
+        from scipy import optimize
     except ImportError as exc:
         raise ModelError('参数拟合需要 requirements-fdna.txt 中的SciPy依赖') from exc
-    return np, scipy, least_squares
+    return np, scipy, optimize
 
 
 def _validate(kind, value):
@@ -77,7 +77,8 @@ def fit_parameters(model, samples, settings):
         if row['id'] in identifiers or set(row['node_values']) - nodes:
             raise ModelError('样本标识重复或引用未登记能力节点')
         identifiers.add(row['id'])
-    np, scipy, least_squares = _libraries()
+    np, scipy, optimize = _libraries()
+    solver = settings.get('solver', 'least_squares')
     rng = np.random.default_rng(settings['seed'])
     reports = []
     # Use only endpoint topology here; reported alpha/beta never initialize the solver.
@@ -114,12 +115,33 @@ def fit_parameters(model, samples, settings):
             sod = np.mean(100 - p[:n] * (100-inputs), axis=1)
             cod = np.min(inputs + 100*p[n:2*n], axis=1)
             return np.minimum(sod, cod) + (delta_low+delta_span*p[-1] if additive else 0)
+        def objective_gradient(p):
+            # MSE and a branch gradient; at ties choose one active branch.
+            sod = np.mean(100-p[:n]*(100-x), axis=1)
+            cod_terms = x+100*p[n:2*n]
+            cod = np.min(cod_terms, axis=1)
+            sod_branch = sod <= cod
+            residual = predict(p, x)-y
+            jac = np.zeros((len(x), parameter_count))
+            jac[sod_branch, :n] = -(100-x[sod_branch])/n
+            cod_rows = np.flatnonzero(~sod_branch)
+            jac[cod_rows, n+np.argmin(cod_terms[cod_rows], axis=1)] = 100
+            if additive:
+                jac[:, -1] = delta_span
+            return float(np.mean(residual**2)), 2*jac.T@residual/len(x)
         starts = [np.full(parameter_count, .5)] + [rng.uniform(.01, .99, parameter_count) for _ in range(settings['starts']-1)]
         attempts = []
         for start in starts:
-            solved = least_squares(lambda p: predict(p, x)-y, start, bounds=(0, 1),
-                                   max_nfev=settings['max_nfev'], ftol=1e-11, xtol=1e-11, gtol=1e-11)
-            rmse = float(np.sqrt(np.mean(solved.fun**2)))
+            if solver == 'L-BFGS-B':
+                solved = optimize.minimize(objective_gradient, start, jac=True, method='L-BFGS-B',
+                                           bounds=[(0, 1)]*parameter_count,
+                                           options={'maxfun': settings['max_nfev'],
+                                                    'maxiter': settings['max_nfev'],
+                                                    'ftol': 1e-15, 'gtol': 1e-9, 'maxls': 50})
+            else:
+                solved = optimize.least_squares(lambda p: predict(p, x)-y, start, bounds=(0, 1),
+                                                max_nfev=settings['max_nfev'], ftol=1e-11, xtol=1e-11, gtol=1e-11)
+            rmse = float(np.sqrt(np.mean((predict(solved.x, x)-y)**2)))
             attempts.append((rmse, solved, start))
         attempts.sort(key=lambda item: item[0])
         best_rmse, best, _ = attempts[0]
@@ -180,7 +202,8 @@ def fit_parameters(model, samples, settings):
                         'near_best_start_count': len(near),
                         'near_best_parameter_spread': dict(zip(parameter_names, map(float, spread))),
                         'attempts': [{'rmse': rmse, 'success': bool(sol.success), 'status': int(sol.status),
-                                      'nfev': int(sol.nfev), 'initial': list(map(float, start)),
+                                      'nfev': int(sol.nfev), 'message': str(sol.message),
+                                      'initial': list(map(float, start)),
                                       'parameters': list(map(float, sol.x*scale+offset))}
                                      for rmse, sol, start in attempts]})
     return {'format_version': '1.0', 'status': 'complete' if reports and all(r['status'] == 'fitted' for r in reports) else 'blocked',
@@ -190,7 +213,11 @@ def fit_parameters(model, samples, settings):
             'input_sha256': digest({'case': model, 'samples': samples, 'settings': settings}),
             'receivers': reports, 'samples_snapshot': deepcopy(samples), 'settings_snapshot': deepcopy(settings),
             'source_snapshot': deepcopy(model['sources']), 'case_reproduction_ready': False,
-            'solver': {'name': 'scipy.optimize.least_squares', 'scipy': scipy.__version__, 'numpy': np.__version__,
+            'solver': {'name': ('scipy.optimize.minimize' if solver == 'L-BFGS-B' else 'scipy.optimize.least_squares'),
+                       'method': solver if solver == 'L-BFGS-B' else 'trf',
+                       'objective': ('mean_squared_residual' if solver == 'L-BFGS-B' else 'half_sum_squared_residual'),
+                       'gradient': ('analytic_active_branch_with_one_branch_at_ties' if solver == 'L-BFGS-B' else 'finite_difference_residual_jacobian'),
+                       'scipy': scipy.__version__, 'numpy': np.__version__,
                        'parameterization': 'alpha=p[0:n], beta=100*p[n:2n]' +
                                            (', delta=lower+(upper-lower)*p[-1]' if additive else ''),
                        'bounds': {'alpha': [0, 1], 'beta': [0, 100],

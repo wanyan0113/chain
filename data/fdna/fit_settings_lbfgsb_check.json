@@ -1,0 +1,11 @@
+{
+  "format_version": "1.0",
+  "id": "arcane_lbfgsb_base_check",
+  "basis": "采用原文明确命名的L-BFGS-B方法，以人工样本核验基础式有界回归。目标为均方残差，参数缩放至[0,1]，使用中性及固定种子随机起点；不认定这些细节等同原文，未补造PCA起点。",
+  "model": "fdna_base_eq1_eq2",
+  "solver": "L-BFGS-B",
+  "seed": 20261114,
+  "starts": 12,
+  "max_nfev": 1500,
+  "delta_policy": "excluded_for_base_check"
+}
