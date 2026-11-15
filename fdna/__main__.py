@@ -20,6 +20,7 @@ from .fitting import fit_check, fit_parameters
 from .additive import ADDITIVE_MODEL, evaluate_additive
 from .robustness import robustness_check
 from .application import analyze_application, application_csv
+from .preparation import prepare_fit_samples
 
 
 def render_summary(report):
@@ -112,6 +113,10 @@ def main(argv=None):
     application.add_argument('case', type=Path)
     application.add_argument('--protocol', type=Path, required=True)
     application.add_argument('--output-dir', type=Path, required=True)
+    prepare = commands.add_parser('prepare-fit', help='从闭合事实提取实测SE，按整次推演划分并导出拟合样本')
+    prepare.add_argument('case', type=Path)
+    for flag in ('structure', 'plan', 'batch', 'extraction', 'calibration', 'partition', 'output-dir'):
+        prepare.add_argument('--'+flag, type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         model = load_model(args.case)
@@ -122,7 +127,13 @@ def main(argv=None):
             result = inspect_model(model)
             result['source_verification'] = provenance
         else:
-            if args.command == 'application':
+            if args.command == 'prepare-fit':
+                input_path = args.batch
+                result = prepare_fit_samples(model, read_json(args.structure), read_json(args.plan),
+                                             read_json(args.batch), read_json(args.extraction),
+                                             read_json(args.calibration), read_json(args.partition))
+                outputs = {'fit_samples.json': json.dumps(result['samples'], ensure_ascii=False, indent=2, allow_nan=False)+'\n'}
+            elif args.command == 'application':
                 input_path = args.protocol
                 result = analyze_application(model, read_json(input_path))
                 outputs = {'application_ranking.csv': application_csv(result)}
@@ -217,6 +228,8 @@ def main(argv=None):
                 protected.append(args.extraction)
                 if args.calibration:
                     protected.append(args.calibration)
+            if args.command == 'prepare-fit':
+                protected.extend([args.structure, args.plan, args.extraction, args.calibration, args.partition])
             write_outputs(args.output_dir, {
                 'case_snapshot.json': json.dumps(model, ensure_ascii=False, indent=2, allow_nan=False) + '\n',
                 'fdna_report.json': json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + '\n',
@@ -228,8 +241,9 @@ def main(argv=None):
                      'graph', 'activity_order_relations', 'candidates', 'records_snapshot',
                      'runs', 'closures', 'plan_snapshot', 'batch_snapshot', 'measurements',
                      'normalization', 'experiment_check', 'config_snapshot', 'receivers', 'samples_snapshot',
-                     'known_parameter_comparison', 'trials', 'sweep_snapshot', 'rankings')}
-                   if args.command in ('sweep', 'compare', 'normalize', 'structure', 'identify', 'experiments', 'extract', 'fit', 'fit-check', 'fit-stability', 'application') else result)
+                     'known_parameter_comparison', 'trials', 'sweep_snapshot', 'rankings', 'samples', 'extraction_snapshot',
+                     'lineage', 'partition_snapshot')}
+                   if args.command in ('sweep', 'compare', 'normalize', 'structure', 'identify', 'experiments', 'extract', 'fit', 'fit-check', 'fit-stability', 'application', 'prepare-fit') else result)
         print(json.dumps(printed, ensure_ascii=False, indent=2, allow_nan=False))
         return 1 if result['status'] == 'blocked' else 0
     except (ValueError, OSError) as exc:

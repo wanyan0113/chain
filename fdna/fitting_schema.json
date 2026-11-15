@@ -1,6 +1,14 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$defs": {
+    "partition": {"type": "object", "additionalProperties": false,
+      "required": ["format_version", "id", "basis", "data_kind", "batch_sha256", "extraction_sha256", "run_splits"],
+      "properties": {"format_version": {"const": "1.0"}, "id": {"$ref": "#/$defs/text"},
+        "basis": {"$ref": "#/$defs/text"}, "data_kind": {"enum": ["method_check", "user_supplied_partition"]},
+        "batch_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "extraction_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "run_splits": {"type": "object", "propertyNames": {"$ref": "#/$defs/text"},
+          "additionalProperties": {"enum": ["train", "holdout"]}}}},
     "robustness": {"type": "object", "additionalProperties": false,
       "required": ["format_version", "id", "basis", "seeds", "noise_std", "random_train", "random_holdout", "starts"],
       "properties": {"format_version": {"const": "1.0"}, "id": {"$ref": "#/$defs/text"}, "basis": {"$ref": "#/$defs/text"},
