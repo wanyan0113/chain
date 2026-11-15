@@ -21,6 +21,7 @@ from .additive import ADDITIVE_MODEL, evaluate_additive
 from .robustness import robustness_check
 from .application import analyze_application, application_csv
 from .preparation import prepare_fit_samples
+from .residuals import diagnose_residuals, residual_csv, plot_residuals
 
 
 def render_summary(report):
@@ -117,6 +118,11 @@ def main(argv=None):
     prepare.add_argument('case', type=Path)
     for flag in ('structure', 'plan', 'batch', 'extraction', 'calibration', 'partition', 'output-dir'):
         prepare.add_argument('--'+flag, type=Path, required=True)
+    residuals = commands.add_parser('residuals', help='核对已有拟合报告，分别导出训练与留出残差诊断')
+    residuals.add_argument('case', type=Path)
+    residuals.add_argument('--fit-report', type=Path, required=True)
+    residuals.add_argument('--output-dir', type=Path, required=True)
+    residuals.add_argument('--plot', action='store_true')
     args = parser.parse_args(argv)
     try:
         model = load_model(args.case)
@@ -127,7 +133,13 @@ def main(argv=None):
             result = inspect_model(model)
             result['source_verification'] = provenance
         else:
-            if args.command == 'prepare-fit':
+            if args.command == 'residuals':
+                input_path = args.fit_report
+                result = diagnose_residuals(model, read_json(input_path))
+                outputs = {'residuals.csv': residual_csv(result)}
+                if args.plot:
+                    outputs['residuals.png'] = plot_residuals(result)
+            elif args.command == 'prepare-fit':
                 input_path = args.batch
                 result = prepare_fit_samples(model, read_json(args.structure), read_json(args.plan),
                                              read_json(args.batch), read_json(args.extraction),
@@ -242,8 +254,8 @@ def main(argv=None):
                      'runs', 'closures', 'plan_snapshot', 'batch_snapshot', 'measurements',
                      'normalization', 'experiment_check', 'config_snapshot', 'receivers', 'samples_snapshot',
                      'known_parameter_comparison', 'trials', 'sweep_snapshot', 'rankings', 'samples', 'extraction_snapshot',
-                     'lineage', 'partition_snapshot')}
-                   if args.command in ('sweep', 'compare', 'normalize', 'structure', 'identify', 'experiments', 'extract', 'fit', 'fit-check', 'fit-stability', 'application', 'prepare-fit') else result)
+                     'lineage', 'partition_snapshot', 'series', 'fit_snapshot')}
+                   if args.command in ('sweep', 'compare', 'normalize', 'structure', 'identify', 'experiments', 'extract', 'fit', 'fit-check', 'fit-stability', 'application', 'prepare-fit', 'residuals') else result)
         print(json.dumps(printed, ensure_ascii=False, indent=2, allow_nan=False))
         return 1 if result['status'] == 'blocked' else 0
     except (ValueError, OSError) as exc:
