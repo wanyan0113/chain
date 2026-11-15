@@ -38,20 +38,13 @@ def _loss_grid(model, protocol):
     return losses
 
 
-def check_precision(model, protocol):
-    """Exact output envelopes; conservative ranks; finite, shared-parameter witnesses.
-
-    On this base DAG, SE is increasing in feeders and beta, decreasing in alpha.
-    Thus two global corners attain output extrema, including through propagation.
-    Differences between two scenarios need not share this monotonicity: overlapping
-    envelopes cannot establish a reversal, or an exact attainable rank range.
-    """
-    nominal = sweep(model, protocol)
-    if (any(v != 100 for v in protocol['baseline'].values()) or
-            protocol['values'][0] != 0 or protocol['values'][-1] != 100):
-        raise ModelError('精度检查须以全部无入边节点100为参照，扫描覆盖0与100')
+def rounding_models(model):
+    """Closed nearest-rounding outer box and two monotone output corners."""
+    inspect_model(model)
     bounds = []
     for edge in model['edges']:
+        if edge['alpha'] is None or edge['beta'] is None:
+            raise ModelError('舍入检查须给齐报告参数')
         bounds.append({'feeder': edge['feeder'], 'receiver': edge['receiver'],
                        **{p: {'reported': edge[p], 'lower': max(0, edge[p]-half),
                               'upper': min(cap, edge[p]+half)}
@@ -64,7 +57,22 @@ def check_precision(model, protocol):
             edge['beta'] = bound['beta']['lower' if output_lower else 'upper']
         return candidate
 
-    lower_model, upper_model = corner(True), corner(False)
+    return corner(True), corner(False), bounds
+
+
+def check_precision(model, protocol):
+    """Exact output envelopes; conservative ranks; finite, shared-parameter witnesses.
+
+    On this base DAG, SE is increasing in feeders and beta, decreasing in alpha.
+    Thus two global corners attain output extrema, including through propagation.
+    Differences between two scenarios need not share this monotonicity: overlapping
+    envelopes cannot establish a reversal, or an exact attainable rank range.
+    """
+    nominal = sweep(model, protocol)
+    if (any(v != 100 for v in protocol['baseline'].values()) or
+            protocol['values'][0] != 0 or protocol['values'][-1] != 100):
+        raise ModelError('精度检查须以全部无入边节点100为参照，扫描覆盖0与100')
+    lower_model, upper_model, bounds = rounding_models(model)
     low_scan, high_scan = sweep(lower_model, protocol), sweep(upper_model, protocol)
     for candidate, scan in ((model, nominal), (lower_model, low_scan), (upper_model, high_scan)):
         numeric = _loss_grid(candidate, protocol)

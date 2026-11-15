@@ -23,6 +23,7 @@ from .application import analyze_application, application_csv
 from .preparation import prepare_fit_samples
 from .residuals import diagnose_residuals, residual_csv, plot_residuals
 from .precision import check_precision
+from .protocol_audit import audit_protocols
 
 
 def render_summary(report):
@@ -128,6 +129,11 @@ def main(argv=None):
     precision.add_argument('case', type=Path)
     precision.add_argument('--protocol', type=Path, required=True)
     precision.add_argument('--output-dir', type=Path, required=True)
+    protocol_audit = commands.add_parser('protocol-audit', help='对照四种显式扫描假设及报告精度，保留读图分离点')
+    protocol_audit.add_argument('case', type=Path)
+    protocol_audit.add_argument('--protocol', type=Path, required=True)
+    protocol_audit.add_argument('--readings', type=Path, required=True)
+    protocol_audit.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         model = load_model(args.case)
@@ -138,7 +144,11 @@ def main(argv=None):
             result = inspect_model(model)
             result['source_verification'] = provenance
         else:
-            if args.command == 'precision':
+            if args.command == 'protocol-audit':
+                input_path = args.protocol
+                result = audit_protocols(model, read_json(input_path), read_json(args.readings))
+                outputs = {}
+            elif args.command == 'precision':
                 input_path = args.protocol
                 result = check_precision(model, read_json(input_path))
                 outputs = {}
@@ -231,7 +241,7 @@ def main(argv=None):
             protected = [args.case, input_path] + [
                 (args.case.resolve().parent / source['path']).resolve()
                 for source in model['sources'] if 'path' in source]
-            if args.command == 'compare':
+            if args.command in ('compare', 'protocol-audit'):
                 protected.append(args.readings)
             if args.command == 'evaluate' and args.extension:
                 protected.append(args.extension)
@@ -263,8 +273,9 @@ def main(argv=None):
                      'runs', 'closures', 'plan_snapshot', 'batch_snapshot', 'measurements',
                      'normalization', 'experiment_check', 'config_snapshot', 'receivers', 'samples_snapshot',
                      'known_parameter_comparison', 'trials', 'sweep_snapshot', 'rankings', 'samples', 'extraction_snapshot',
-                     'lineage', 'partition_snapshot', 'series', 'fit_snapshot', 'witnesses', 'tested_settings')}
-                   if args.command in ('sweep', 'compare', 'normalize', 'structure', 'identify', 'experiments', 'extract', 'fit', 'fit-check', 'fit-stability', 'application', 'prepare-fit', 'residuals', 'precision') else result)
+                     'lineage', 'partition_snapshot', 'series', 'fit_snapshot', 'witnesses', 'tested_settings',
+                     'candidate_results', 'parameter_bounds', 'protocol_snapshot')}
+                   if args.command in ('sweep', 'compare', 'normalize', 'structure', 'identify', 'experiments', 'extract', 'fit', 'fit-check', 'fit-stability', 'application', 'prepare-fit', 'residuals', 'precision', 'protocol-audit') else result)
         print(json.dumps(printed, ensure_ascii=False, indent=2, allow_nan=False))
         return 1 if result['status'] == 'blocked' else 0
     except (ValueError, OSError) as exc:
