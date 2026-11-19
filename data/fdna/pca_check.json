@@ -1,0 +1,7 @@
+{
+  "format_version": "1.0",
+  "id": "arcane_training_pca_check",
+  "basis": "人工样本的方法检查：仅用训练供给变量；尺度及阈值显式配置，不认定等同原文。",
+  "scaling": "unit_variance",
+  "variance_target": 0.95
+}

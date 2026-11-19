@@ -88,12 +88,33 @@ def fit_parameters(model, samples, settings):
         bounds = settings['delta_bounds']
         if set(bounds) != set(receivers) or any(pair[0] >= pair[1] for pair in bounds.values()):
             raise ModelError('δ界限须逐接受节点登记，且下界严格小于上界')
+    initialization = settings.get('initialization')
+    pca_report = None
+    if initialization is not None:
+        if set(initialization['receivers']) != set(receivers):
+            raise ModelError('显式起点须恰好覆盖全部接受节点')
+        from .pca import analyze_pca
+        pca_report = analyze_pca(model, samples, initialization['pca'])
     for receiver in receivers:
         feeders = [e['feeder'] for e in model['edges'] if e['receiver'] == receiver]
         n = len(feeders)
         parameter_count = 2*n + int(additive)
         delta_low, delta_high = settings['delta_bounds'][receiver] if additive else (0, 0)
         delta_span = delta_high-delta_low
+        configured = None
+        if initialization is not None:
+            initial = initialization['receivers'][receiver]
+            params = {p['feeder']: p for p in initial['parameters']}
+            if len(params) != len(initial['parameters']) or set(params) != set(feeders):
+                raise ModelError('起点参数的供给节点须与案例逐一对应且不重复')
+            if additive:
+                if 'delta' not in initial or not delta_low <= initial['delta'] <= delta_high:
+                    raise ModelError('扩展模型起点须明确δ，且在声明界限内')
+            elif 'delta' in initial:
+                raise ModelError('基础式起点不能包含δ')
+            configured = np.array([params[f]['alpha'] for f in feeders] +
+                                  [params[f]['beta']/100 for f in feeders] +
+                                  ([(initial['delta']-delta_low)/delta_span] if additive else []))
         data, omitted = {}, []
         for split in ('train', 'holdout'):
             rows = []
@@ -129,9 +150,13 @@ def fit_parameters(model, samples, settings):
             if additive:
                 jac[:, -1] = delta_span
             return float(np.mean(residual**2)), 2*jac.T@residual/len(x)
-        starts = [np.full(parameter_count, .5)] + [rng.uniform(.01, .99, parameter_count) for _ in range(settings['starts']-1)]
+        starts = ([configured] if configured is not None else []) + [np.full(parameter_count, .5)]
+        start_sources = (['explicit_configuration'] if configured is not None else []) + ['neutral']
+        random_count = settings['starts'] - len(starts)
+        starts += [rng.uniform(.01, .99, parameter_count) for _ in range(random_count)]
+        start_sources += ['seeded_random'] * random_count
         attempts = []
-        for start in starts:
+        for start, start_source in zip(starts, start_sources):
             if solver == 'L-BFGS-B':
                 solved = optimize.minimize(objective_gradient, start, jac=True, method='L-BFGS-B',
                                            bounds=[(0, 1)]*parameter_count,
@@ -142,9 +167,9 @@ def fit_parameters(model, samples, settings):
                 solved = optimize.least_squares(lambda p: predict(p, x)-y, start, bounds=(0, 1),
                                                 max_nfev=settings['max_nfev'], ftol=1e-11, xtol=1e-11, gtol=1e-11)
             rmse = float(np.sqrt(np.mean((predict(solved.x, x)-y)**2)))
-            attempts.append((rmse, solved, start))
+            attempts.append((rmse, solved, start, start_source))
         attempts.sort(key=lambda item: item[0])
-        best_rmse, best, _ = attempts[0]
+        best_rmse, best, _, _ = attempts[0]
         parameter_names = [f'alpha:{f}' for f in feeders] + [f'beta:{f}' for f in feeders]
         parameter_names += ['delta'] if additive else []
         scale = np.array([1.0]*n + [100.0]*n + ([delta_span] if additive else []))
@@ -169,7 +194,7 @@ def fit_parameters(model, samples, settings):
         singular = np.linalg.svd(jacobian, compute_uv=False)
         rank = int(np.sum(singular > (singular[0]*1e-7 if len(singular) and singular[0] else 1e-7)))
         inactive = [parameter_names[i] for i in range(parameter_count) if np.linalg.norm(jacobian[:, i]) < 1e-7]
-        near = [sol.x*scale+offset for rmse, sol, _ in attempts if rmse <= best_rmse + max(1e-6, best_rmse*.01)]
+        near = [sol.x*scale+offset for rmse, sol, _, _ in attempts if rmse <= best_rmse + max(1e-6, best_rmse*.01)]
         spread = np.ptp(np.array(near), axis=0)
         evaluations = {}
         for split, rows in data.items():
@@ -204,8 +229,9 @@ def fit_parameters(model, samples, settings):
                         'attempts': [{'rmse': rmse, 'success': bool(sol.success), 'status': int(sol.status),
                                       'nfev': int(sol.nfev), 'message': str(sol.message),
                                       'initial': list(map(float, start)),
+                                      'initial_source': start_source,
                                       'parameters': list(map(float, sol.x*scale+offset))}
-                                     for rmse, sol, start in attempts]})
+                                     for rmse, sol, start, start_source in attempts]})
     return {'format_version': '1.0', 'status': 'complete' if reports and all(r['status'] == 'fitted' for r in reports) else 'blocked',
             'case': model['id'], 'data_kind': samples['data_kind'],
             'scope': ('按显式界限逐接受节点拟合α、β、δ；不裁剪，不认定原文δ为逐节点常量。' if additive else
@@ -213,6 +239,7 @@ def fit_parameters(model, samples, settings):
             'input_sha256': digest({'case': model, 'samples': samples, 'settings': settings}),
             'receivers': reports, 'samples_snapshot': deepcopy(samples), 'settings_snapshot': deepcopy(settings),
             'source_snapshot': deepcopy(model['sources']), 'case_reproduction_ready': False,
+            'pca_diagnostics': pca_report,
             'solver': {'name': ('scipy.optimize.minimize' if solver == 'L-BFGS-B' else 'scipy.optimize.least_squares'),
                        'method': solver if solver == 'L-BFGS-B' else 'trf',
                        'objective': ('mean_squared_residual' if solver == 'L-BFGS-B' else 'half_sum_squared_residual'),
@@ -222,12 +249,14 @@ def fit_parameters(model, samples, settings):
                                            (', delta=lower+(upper-lower)*p[-1]' if additive else ''),
                        'bounds': {'alpha': [0, 1], 'beta': [0, 100],
                                   'delta': deepcopy(settings['delta_bounds']) if additive else None},
-                       'initialization': 'neutral_and_seeded_random_not_reported_parameters'},
+                       'initialization': ('explicit_physical_parameters_plus_neutral_and_seeded_random'
+                                          if initialization is not None else 'neutral_and_seeded_random_not_reported_parameters')},
             'policies': {'model': settings['model'], 'delta': settings['delta_policy'], 'clipping': 'none',
                          'holdout_used_for_optimization': False, 'pseudo_r_squared': None},
             'limits': ['人工无噪声样本只检验求法，不代表原文六千余次推演',
                        '局部敏感度秩及多起点差异只能诊断可辨识性，不能证明全局唯一或全局最优',
-                       'δ是否共用、界限及输出处理均未获原文确认；未实现PCA起始值或伪R²，残差为预测值减观测值']}
+                       'δ是否共用、界限及输出处理均未获原文确认；未复现原文PCA到起点的映射或伪R²，残差为预测值减观测值',
+                       'PCA仅作训练供给变量诊断；显式起点来自配置，不由载荷自动换算，也不证明因果或参数唯一']}
 
 
 def fit_check(model, generation, settings):

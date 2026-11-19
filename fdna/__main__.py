@@ -24,6 +24,8 @@ from .preparation import prepare_fit_samples
 from .residuals import diagnose_residuals, residual_csv, plot_residuals
 from .precision import check_precision
 from .protocol_audit import audit_protocols
+from .pca import analyze_pca
+from .fitted_application import analyze_fitted_application, response_difference_csv
 
 
 def render_summary(report):
@@ -134,6 +136,16 @@ def main(argv=None):
     protocol_audit.add_argument('--protocol', type=Path, required=True)
     protocol_audit.add_argument('--readings', type=Path, required=True)
     protocol_audit.add_argument('--output-dir', type=Path, required=True)
+    pca = commands.add_parser('pca', help='仅用训练样本分析供给变量的主成分，不自动换算参数起点')
+    pca.add_argument('case', type=Path)
+    pca.add_argument('--samples', type=Path, required=True)
+    pca.add_argument('--config', type=Path, required=True)
+    pca.add_argument('--output-dir', type=Path, required=True)
+    fitted_application = commands.add_parser('fitted-application', help='核验拟合报告并以拟合参数重算传播，与来源参数同条件对照')
+    fitted_application.add_argument('case', type=Path)
+    fitted_application.add_argument('--fit-report', type=Path, required=True)
+    fitted_application.add_argument('--protocol', type=Path, required=True)
+    fitted_application.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         model = load_model(args.case)
@@ -144,7 +156,16 @@ def main(argv=None):
             result = inspect_model(model)
             result['source_verification'] = provenance
         else:
-            if args.command == 'protocol-audit':
+            if args.command == 'fitted-application':
+                input_path = args.fit_report
+                result = analyze_fitted_application(model, read_json(args.fit_report), read_json(args.protocol))
+                outputs = {'response_differences.csv': response_difference_csv(result),
+                           'residuals.csv': residual_csv(result['residual_audit'])}
+            elif args.command == 'pca':
+                input_path = args.samples
+                result = analyze_pca(model, read_json(args.samples), read_json(args.config))
+                outputs = {}
+            elif args.command == 'protocol-audit':
                 input_path = args.protocol
                 result = audit_protocols(model, read_json(input_path), read_json(args.readings))
                 outputs = {}
@@ -243,6 +264,10 @@ def main(argv=None):
                 for source in model['sources'] if 'path' in source]
             if args.command in ('compare', 'protocol-audit'):
                 protected.append(args.readings)
+            if args.command == 'pca':
+                protected.append(args.config)
+            if args.command == 'fitted-application':
+                protected.append(args.protocol)
             if args.command == 'evaluate' and args.extension:
                 protected.append(args.extension)
             if args.command == 'normalize':
@@ -274,8 +299,9 @@ def main(argv=None):
                      'normalization', 'experiment_check', 'config_snapshot', 'receivers', 'samples_snapshot',
                      'known_parameter_comparison', 'trials', 'sweep_snapshot', 'rankings', 'samples', 'extraction_snapshot',
                      'lineage', 'partition_snapshot', 'series', 'fit_snapshot', 'witnesses', 'tested_settings',
-                     'candidate_results', 'parameter_bounds', 'protocol_snapshot')}
-                   if args.command in ('sweep', 'compare', 'normalize', 'structure', 'identify', 'experiments', 'extract', 'fit', 'fit-check', 'fit-stability', 'application', 'prepare-fit', 'residuals', 'precision', 'protocol-audit') else result)
+                     'candidate_results', 'parameter_bounds', 'protocol_snapshot', 'residual_audit',
+                     'fitted_application', 'reference_application', 'response_differences')}
+                   if args.command in ('fitted-application', 'pca', 'sweep', 'compare', 'normalize', 'structure', 'identify', 'experiments', 'extract', 'fit', 'fit-check', 'fit-stability', 'application', 'prepare-fit', 'residuals', 'precision', 'protocol-audit') else result)
         print(json.dumps(printed, ensure_ascii=False, indent=2, allow_nan=False))
         return 1 if result['status'] == 'blocked' else 0
     except (ValueError, OSError) as exc:

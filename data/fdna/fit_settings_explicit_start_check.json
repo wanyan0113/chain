@@ -1,0 +1,133 @@
+{
+  "format_version": "1.0",
+  "id": "arcane_explicit_start_check",
+  "basis": "人工样本检验PCA诊断与显式起点接入；起点统一设为α=0.35、β=45，不取表7值，不由PCA载荷换算。",
+  "model": "fdna_base_eq1_eq2",
+  "solver": "L-BFGS-B",
+  "seed": 20261114,
+  "starts": 12,
+  "max_nfev": 1500,
+  "delta_policy": "excluded_for_base_check",
+  "initialization": {
+    "basis": "统一人工起点，用于检查配置读取；不是原文PCA起点。",
+    "pca": {
+      "format_version": "1.0",
+      "id": "arcane_training_pca_check",
+      "basis": "人工样本的方法检查：仅用训练供给变量；尺度及阈值显式配置，不认定等同原文。",
+      "scaling": "unit_variance",
+      "variance_target": 0.95
+    },
+    "receivers": {
+      "F11": {
+        "parameters": [
+          {
+            "feeder": "S3",
+            "alpha": 0.35,
+            "beta": 45
+          },
+          {
+            "feeder": "S5",
+            "alpha": 0.35,
+            "beta": 45
+          },
+          {
+            "feeder": "S6",
+            "alpha": 0.35,
+            "beta": 45
+          },
+          {
+            "feeder": "S8",
+            "alpha": 0.35,
+            "beta": 45
+          },
+          {
+            "feeder": "S10",
+            "alpha": 0.35,
+            "beta": 45
+          }
+        ]
+      },
+      "F7": {
+        "parameters": [
+          {
+            "feeder": "S5",
+            "alpha": 0.35,
+            "beta": 45
+          },
+          {
+            "feeder": "S6",
+            "alpha": 0.35,
+            "beta": 45
+          }
+        ]
+      },
+      "F9": {
+        "parameters": [
+          {
+            "feeder": "S3",
+            "alpha": 0.35,
+            "beta": 45
+          },
+          {
+            "feeder": "S5",
+            "alpha": 0.35,
+            "beta": 45
+          },
+          {
+            "feeder": "S6",
+            "alpha": 0.35,
+            "beta": 45
+          },
+          {
+            "feeder": "S8",
+            "alpha": 0.35,
+            "beta": 45
+          },
+          {
+            "feeder": "S10",
+            "alpha": 0.35,
+            "beta": 45
+          }
+        ]
+      },
+      "S5": {
+        "parameters": [
+          {
+            "feeder": "S1",
+            "alpha": 0.35,
+            "beta": 45
+          },
+          {
+            "feeder": "D2",
+            "alpha": 0.35,
+            "beta": 45
+          },
+          {
+            "feeder": "D4",
+            "alpha": 0.35,
+            "beta": 45
+          }
+        ]
+      },
+      "S6": {
+        "parameters": [
+          {
+            "feeder": "S1",
+            "alpha": 0.35,
+            "beta": 45
+          },
+          {
+            "feeder": "D2",
+            "alpha": 0.35,
+            "beta": 45
+          },
+          {
+            "feeder": "D4",
+            "alpha": 0.35,
+            "beta": 45
+          }
+        ]
+      }
+    }
+  }
+}
