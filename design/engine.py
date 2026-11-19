@@ -240,8 +240,8 @@ def _design(doc, input_digest, knowledge, owl):
     sequences = SEQUENCES.get()
     type_evidence = {item['artifact']: item for item in ontology_inference['artifacts']}
     article_enabled = doc['policies'].get('article_table10', False)
-    if sequences and article_enabled:
-        raise DesignError('顺序序列模式不能套用原三节点表10校验；请分别验证两种模型')
+    if sequences and article_enabled and sequences['evaluation']['mode'] != 'sequential_product':
+        raise DesignError('多环节表10协同检查需要逐活动时间；请使用sequential_product并提供活动指标')
     if article_enabled:
         from .article_integration import validate_counts, screening, cooperation
         validate_counts(doc)
@@ -418,10 +418,18 @@ def _design(doc, input_digest, knowledge, owl):
             cooperation_check=audit_cooperation if article_enabled else None)
         unknown_article = report['network_search']['optimality'] == 'not_proven'
         if article_enabled:
-            report['network_search']['method_reason'] = 'Table-10 definite failures prune prefixes; score bounds disabled for unknown auditing.'
+            report['network_search']['method_reason'] = (
+                'Table-10 definite failures and score bounds prune prefixes; unknowns block only if they can improve the verified optimum.'
+                if doc['policies'].get('table10_score_bound', False) else
+                'Table-10 definite failures prune prefixes; score bounds disabled for unknown auditing.')
     else:
+        objective_audit = article_enabled and doc['policies'].get('table10_score_bound', False)
+        unknown_best = None
         report['network_search'].update(algorithm='exhaustive', candidate_combinations=combination_count,
                                         counts_scope='all_complete_combinations', optimality='not_proven')
+        if objective_audit:
+            report['network_search'].update(unknown_combinations_seen=0,
+                                           audit_scope='all_complete_combinations; unknowns evaluated against final optimum')
         for chosen in bounded_product(comparison_groups, doc["policies"]["max_network_combinations"], "奥术网"):
             report["network_search"]["evaluated"] += 1
             conflicts = network_conflicts(chosen, doc)
@@ -431,6 +439,11 @@ def _design(doc, input_digest, knowledge, owl):
                     'engineering_conflicts':deepcopy(conflicts),**article_result})
                 if not conflicts and article_result['status'] == 'unknown':
                     unknown_article = True
+                    if objective_audit:
+                        report['network_search']['unknown_combinations_seen'] += 1
+                        key = (-sum(c['score'] for c in chosen) / len(chosen), tuple(c['id'] for c in chosen))
+                        if unknown_best is None or key < unknown_best:
+                            unknown_best = key
                 if article_result['status'] != 'pass':
                     conflicts.append({'code':'TABLE10_' + article_result['status'].upper(),'resource':'parallel-groups'})
             if conflicts:
@@ -443,6 +456,9 @@ def _design(doc, input_digest, knowledge, owl):
                 best = key, chosen, score, article_result
         report["network_search"]["rejections"] = [{"code": code, "resource": resource, "count": count}
                                                    for (code, resource), count in sorted(rejection_counts.items())]
+        if objective_audit:
+            unknown_article = unknown_best is not None and (best is None or unknown_best < best[0])
+            report['network_search']['unresolved_can_improve'] = unknown_article
         report['network_search']['optimality'] = ('not_proven' if unknown_article else
                                                   'proven' if best else 'proven_infeasible')
     if article_enabled:

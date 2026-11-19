@@ -28,8 +28,8 @@ def cooperation_prefix(chosen, doc):
     Keep the full checker's three-valued semantics: an unknown target count
     added later makes its total unknown, even when a known subtotal already
     exceeds a limit. Thus count-based pruning requires all task counts known.
-    Fixed [start,end) intervals, positive counts and singleton roles are the
-    same assumptions as cooperation(); this is not for ordered-step plans.
+    Positive counts and fixed intervals make these failures monotone. Ordered
+    plans use activity intervals; legacy plans use whole-chain intervals.
     """
     result = cooperation(chosen, doc)
     failures = [check for check in result['plan_checks'] if check['status'] == 'fail']
@@ -48,6 +48,9 @@ def cooperation(chosen, doc):
     The source's single-chain manifestation rule applies to the whole plan,
     including serial chains, independently of inventory and cooldown.
     """
+    if any(chain.get('plan', {}).get('mode') == 'ordered_steps' for chain in chosen):
+        from .article_sequence import check_sequence_cooperation
+        return check_sequence_cooperation(chosen, doc)
     from .article_cooperation import check_cooperation, SOURCES
     tasks = {task['id']:task for task in doc['tasks']}
     artifacts = {artifact['id']:artifact for artifact in doc['artifacts']}

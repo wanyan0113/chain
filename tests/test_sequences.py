@@ -252,6 +252,56 @@ class SequenceTests(unittest.TestCase):
             reports.append(design(self.doc))
         self.assertEqual(reports[0]['network'], reports[1]['network'])
 
+    def test_five_step_table10_screening_and_network_search(self):
+        self.doc, self.config = make_fixture(self.root, ('observe', 'decide', 'observe', 'decide', 'act'))
+        self.doc['policies']['article_table10'] = True
+        for task in self.doc['tasks']:
+            task['attributes'].update(target_count={'value': 1, 'unit': '1'},
+                impedance={'value': 1, 'unit': '1'}, target_speed={'value': 1, 'unit': 'speed'},
+                target_altitude={'value': 5, 'unit': 'height'})
+        for context in self.doc['contexts']:
+            context['attributes']['platform_altitude'] = {'value': 5, 'unit': 'height'}
+        for artifact in self.doc['artifacts']:
+            artifact.update(capacity=100, consumable=False, cooldown_s=0)
+            if artifact['id'] == 'demo-eye':
+                artifact['attributes'].update(detection_range={'value': 100, 'unit': 'nmi'},
+                                              max_tracks={'value': 3, 'unit': '1'})
+            elif artifact['id'] == 'demo-coordinator':
+                artifact['attributes']['max_processing_targets'] = {'value': 3, 'unit': '1'}
+            else:
+                artifact['attributes'].update(resonance={'value': 2, 'unit': '1'},
+                    max_target_speed={'value': 2, 'unit': 'speed'},
+                    min_target_altitude={'value': 0, 'unit': 'height'},
+                    max_target_altitude={'value': 10, 'unit': 'height'},
+                    min_activation_altitude={'value': 0, 'unit': 'height'},
+                    max_activation_altitude={'value': 10, 'unit': 'height'})
+        reports = []
+        for method in ('exhaustive', 'branch_and_bound'):
+            self.doc['policies']['network_search_method'] = method
+            report = design(self.doc)
+            self.assertEqual(report['status'], 'complete')
+            self.assertEqual([len(t['chains']) for t in report['tasks']], [2, 2])
+            self.assertTrue(all('table10' in s for t in report['tasks'] for s in t['selection']
+                                if s['role'] != 'coordination'))
+            reports.append(report)
+        self.assertEqual(reports[0]['network'], reports[1]['network'])
+        self.assertEqual(reports[0]['article_table10']['selected'], reports[1]['article_table10']['selected'])
+        self.assertNotEqual(*[c['artifacts']['s5'] for t in reports[1]['tasks'] for c in t['chains']
+                              if c['id'] in reports[1]['network']['chains']])
+        design_to_rdf(self.doc, reports[1], require_canonical=True)
+        # With two tasks this failure is a complete combination, not a prefix.
+        self.doc['artifacts'][0]['attributes']['max_tracks']['value'] = 2
+        report = design(self.doc)
+        self.assertEqual(report['status'], 'no_feasible_design')
+        self.assertTrue(any(r['code'] == 'TABLE10_FAIL' for r in report['network_search']['rejections']))
+        self.assertEqual(report['network_search']['feasible'], 0)
+        # Direct screening also applies at each repeated activity.
+        self.doc['artifacts'][0]['attributes']['detection_range']['value'] = 5
+        report = design(self.doc)
+        self.assertEqual(report['status'], 'no_feasible_design')
+        self.assertTrue(all(s['table10']['status'] == 'fail' for t in report['tasks']
+                            for s in t['selection'] if s['artifact'] == 'demo-eye'))
+
     def test_stale_template_and_semantic_validation(self):
         report = design(self.doc)
         self.config['templates'][0]['steps'][0]['min_level'] = .91

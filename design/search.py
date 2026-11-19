@@ -7,8 +7,10 @@ def branch_and_bound(groups, doc, conflict_check, *, cooperation_check=None):
     """Prune only monotone resource/precedence failures and optimistic bounds.
 
     The callback certifies monotone Table-10 prefix failures. Unknown
-    prefixes must be expanded: a later known failure may settle them. Disable
-    score bounds in this mode to audit even noncompetitive unknown completions.
+    prefixes must be expanded: a later known failure may settle them. By default
+    audit even noncompetitive unknown completions. table10_score_bound opts into
+    objective-focused search: unknowns block certification only if their score
+    and deterministic tie-break can improve the best fully verified network.
     """
     from .engine import SearchLimitError
     groups = [sorted(group, key=lambda c: (-c['score'], c['id'])) for group in groups]
@@ -22,9 +24,14 @@ def branch_and_bound(groups, doc, conflict_check, *, cooperation_check=None):
     rejected = Counter()
     table10_reasons, table10_counts = {}, Counter()
     unknown_cooperation = False
+    unknown_best = None
+    score_bounds = cooperation_check is None or doc['policies'].get('table10_score_bound', False)
     if cooperation_check is not None:
-        stats.update(score_bound_enabled=False, pruned_table10=0,
-                     audit_scope='visited_complete_combinations; definite-failure prefixes pruned')
+        stats.update(score_bound_enabled=score_bounds, pruned_table10=0,
+                     unknown_combinations_seen=0,
+                     audit_scope=('optimality_relevant_combinations; score bounds may skip other combinations'
+                                  if score_bounds else
+                                  'visited_complete_combinations; definite-failure prefixes pruned'))
     best = None
     chosen = []
     # An explicit stack avoids depending on Python's recursion depth.
@@ -52,6 +59,10 @@ def branch_and_bound(groups, doc, conflict_check, *, cooperation_check=None):
         if article is not None:
             if complete and not conflicts and article['status'] == 'unknown':
                 unknown_cooperation = True
+                stats['unknown_combinations_seen'] += 1
+                key = (-sum(c['score'] for c in prefix) / len(groups), tuple(c['id'] for c in prefix))
+                if unknown_best is None or key < unknown_best:
+                    unknown_best = key
             if article['status'] == 'fail' or (complete and article['status'] == 'unknown'):
                 conflicts.append({'code': 'TABLE10_' + article['status'].upper(), 'resource': 'parallel-groups'})
                 if not complete:
@@ -69,7 +80,7 @@ def branch_and_bound(groups, doc, conflict_check, *, cooperation_check=None):
         # by their maxima gives a monotone upper bound, including float rounding.
         upper = sum([c['score'] for c in prefix] + maxima[len(prefix):]) / len(groups)
         smallest_ids = tuple(c['id'] for c in prefix) + tuple(min_ids[len(prefix):])
-        if cooperation_check is None and best is not None and (upper < -best[0][0] or
+        if score_bounds and best is not None and (upper < -best[0][0] or
                                 (upper == -best[0][0] and smallest_ids >= best[0][1])):
             stats['pruned_bound'] += 1
             continue
@@ -82,6 +93,11 @@ def branch_and_bound(groups, doc, conflict_check, *, cooperation_check=None):
             stack.append((depth + 1, iter(groups[depth + 1])))
     stats['rejections'] = [{'code': code, 'resource': resource, 'count': count}
                            for (code, resource), count in sorted(rejected.items())]
+    if cooperation_check is not None and score_bounds:
+        # A visited unknown may predate a later, better incumbent. Reassess it
+        # against the final result, including equal-score deterministic ties.
+        unknown_cooperation = unknown_best is not None and (best is None or unknown_best < best[0])
+        stats['unresolved_can_improve'] = unknown_cooperation
     stats['optimality'] = 'not_proven' if unknown_cooperation else 'proven' if best is not None else 'proven_infeasible'
     if cooperation_check is not None:
         stats['table10_pruning'] = [dict(table10_reasons[key], count=count)

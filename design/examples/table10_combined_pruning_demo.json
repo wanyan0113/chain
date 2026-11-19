@@ -1,0 +1,831 @@
+{
+  "format_version": "1.0",
+  "scope": "人工三任务三环节示例；用于对照表10规则剪枝与评分上界剪枝，不是原文实验结果。",
+  "weights": {
+    "time": 0.4,
+    "accuracy": 0.4,
+    "cost": 0.2
+  },
+  "policies": {
+    "equal_metric_score": 0.5,
+    "cost_unit": "demo-credit/use",
+    "max_chain_combinations": 10000,
+    "max_network_combinations": 10000,
+    "article_table10": true,
+    "table10_score_bound": true,
+    "network_search_method": "branch_and_bound"
+  },
+  "tasks": [
+    {
+      "id": "task-1",
+      "target": "target-1",
+      "start_s": 0,
+      "attributes": {
+        "distance_class": "near",
+        "target_count": {
+          "value": 1,
+          "unit": "1"
+        },
+        "target_type": "幽光法球",
+        "impedance": {
+          "value": 1,
+          "unit": "demo-value"
+        },
+        "target_speed": {
+          "value": 1,
+          "unit": "kn"
+        },
+        "target_altitude": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "source_refs": [
+        "technical-fixture",
+        "Excel:任务::demo-source-task::目标类型",
+        "Excel:任务::demo-source-task::目标阈值（单位待确认）",
+        "Excel:任务::demo-source-task::目标速度（kn）",
+        "Excel:任务::demo-source-task::目标高度（ft）"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "task-2",
+      "target": "target-2",
+      "start_s": 0,
+      "attributes": {
+        "distance_class": "near",
+        "target_count": {
+          "value": 1,
+          "unit": "1"
+        },
+        "target_type": "幽光法球",
+        "impedance": {
+          "value": 1,
+          "unit": "demo-value"
+        },
+        "target_speed": {
+          "value": 1,
+          "unit": "kn"
+        },
+        "target_altitude": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "source_refs": [
+        "technical-fixture",
+        "Excel:任务::demo-source-task::目标类型",
+        "Excel:任务::demo-source-task::目标阈值（单位待确认）",
+        "Excel:任务::demo-source-task::目标速度（kn）",
+        "Excel:任务::demo-source-task::目标高度（ft）"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "task-3",
+      "target": "target-3",
+      "start_s": 0,
+      "attributes": {
+        "distance_class": "near",
+        "target_count": {
+          "value": 1,
+          "unit": "1"
+        },
+        "target_type": "幽光法球",
+        "impedance": {
+          "value": 1,
+          "unit": "demo-value"
+        },
+        "target_speed": {
+          "value": 1,
+          "unit": "kn"
+        },
+        "target_altitude": {
+          "value": 10,
+          "unit": "ft"
+        }
+      },
+      "source_refs": [
+        "technical-fixture",
+        "Excel:任务::demo-source-task::目标类型",
+        "Excel:任务::demo-source-task::目标阈值（单位待确认）",
+        "Excel:任务::demo-source-task::目标速度（kn）",
+        "Excel:任务::demo-source-task::目标高度（ft）"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "demo-eye",
+      "role": "insight",
+      "available": true,
+      "attributes": {
+        "max_tracks": {
+          "value": 4,
+          "unit": "1"
+        },
+        "target_types": [
+          "幽光法球"
+        ],
+        "max_range": {
+          "value": 100,
+          "unit": "nmi"
+        },
+        "detection_range": {
+          "value": 100,
+          "unit": "nmi"
+        }
+      },
+      "metrics": {
+        "duration_s": 1,
+        "accuracy": 0.99,
+        "cost": {
+          "value": 1,
+          "unit": "demo-credit/use"
+        }
+      },
+      "capacity": 100,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "technical-fixture",
+        "Excel:探测能力::demo-platform::目标类型（用分号分隔）",
+        "Excel:探测能力::demo-platform::探测距离（n mile）"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "demo-coordinator",
+      "role": "coordination",
+      "available": true,
+      "attributes": {
+        "supported": "yes",
+        "max_processing_targets": {
+          "value": 4,
+          "unit": "1"
+        }
+      },
+      "metrics": {
+        "duration_s": 1,
+        "accuracy": 0.95,
+        "cost": {
+          "value": 1,
+          "unit": "demo-credit/use"
+        }
+      },
+      "capacity": 100,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "effect-0",
+      "role": "manifestation",
+      "available": true,
+      "attributes": {
+        "target_types": [
+          "幽光法球"
+        ],
+        "max_range": {
+          "value": 10,
+          "unit": "nmi"
+        },
+        "min_range": {
+          "value": 0,
+          "unit": "nmi"
+        },
+        "resonance": {
+          "value": 2,
+          "unit": "demo-value"
+        },
+        "max_target_speed": {
+          "value": 100,
+          "unit": "kn"
+        },
+        "min_target_altitude": {
+          "value": 0,
+          "unit": "ft"
+        },
+        "max_target_altitude": {
+          "value": 1000,
+          "unit": "ft"
+        },
+        "min_activation_altitude": {
+          "value": 0,
+          "unit": "ft"
+        },
+        "max_activation_altitude": {
+          "value": 1000,
+          "unit": "ft"
+        }
+      },
+      "metrics": {
+        "duration_s": 1,
+        "accuracy": 0.95,
+        "cost": {
+          "value": 1,
+          "unit": "demo-credit/use"
+        }
+      },
+      "capacity": 100,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "technical-fixture",
+        "Excel:作用能力::demo-slow::目标类型（用分号分隔）",
+        "Excel:作用能力::demo-slow::最大作用距离（n mile）",
+        "Excel:作用能力::demo-slow::最小作用距离（n mile）",
+        "Excel:作用能力::demo-slow::作用值（单位待确认）",
+        "Excel:作用能力::demo-slow::最大目标速度（kn）",
+        "Excel:作用能力::demo-slow::最小目标高度（ft）",
+        "Excel:作用能力::demo-slow::最大目标高度（ft）",
+        "Excel:作用能力::demo-slow::最小释放高度（ft）",
+        "Excel:作用能力::demo-slow::最大释放高度（ft）"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "effect-1",
+      "role": "manifestation",
+      "available": true,
+      "attributes": {
+        "target_types": [
+          "幽光法球"
+        ],
+        "max_range": {
+          "value": 10,
+          "unit": "nmi"
+        },
+        "min_range": {
+          "value": 0,
+          "unit": "nmi"
+        },
+        "resonance": {
+          "value": 2,
+          "unit": "demo-value"
+        },
+        "max_target_speed": {
+          "value": 100,
+          "unit": "kn"
+        },
+        "min_target_altitude": {
+          "value": 0,
+          "unit": "ft"
+        },
+        "max_target_altitude": {
+          "value": 1000,
+          "unit": "ft"
+        },
+        "min_activation_altitude": {
+          "value": 0,
+          "unit": "ft"
+        },
+        "max_activation_altitude": {
+          "value": 1000,
+          "unit": "ft"
+        }
+      },
+      "metrics": {
+        "duration_s": 2,
+        "accuracy": 0.85,
+        "cost": {
+          "value": 2,
+          "unit": "demo-credit/use"
+        }
+      },
+      "capacity": 100,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "technical-fixture",
+        "Excel:作用能力::demo-slow::目标类型（用分号分隔）",
+        "Excel:作用能力::demo-slow::最大作用距离（n mile）",
+        "Excel:作用能力::demo-slow::最小作用距离（n mile）",
+        "Excel:作用能力::demo-slow::作用值（单位待确认）",
+        "Excel:作用能力::demo-slow::最大目标速度（kn）",
+        "Excel:作用能力::demo-slow::最小目标高度（ft）",
+        "Excel:作用能力::demo-slow::最大目标高度（ft）",
+        "Excel:作用能力::demo-slow::最小释放高度（ft）",
+        "Excel:作用能力::demo-slow::最大释放高度（ft）"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "effect-2",
+      "role": "manifestation",
+      "available": true,
+      "attributes": {
+        "target_types": [
+          "幽光法球"
+        ],
+        "max_range": {
+          "value": 10,
+          "unit": "nmi"
+        },
+        "min_range": {
+          "value": 0,
+          "unit": "nmi"
+        },
+        "resonance": {
+          "value": 2,
+          "unit": "demo-value"
+        },
+        "max_target_speed": {
+          "value": 100,
+          "unit": "kn"
+        },
+        "min_target_altitude": {
+          "value": 0,
+          "unit": "ft"
+        },
+        "max_target_altitude": {
+          "value": 1000,
+          "unit": "ft"
+        },
+        "min_activation_altitude": {
+          "value": 0,
+          "unit": "ft"
+        },
+        "max_activation_altitude": {
+          "value": 1000,
+          "unit": "ft"
+        }
+      },
+      "metrics": {
+        "duration_s": 3,
+        "accuracy": 0.75,
+        "cost": {
+          "value": 3,
+          "unit": "demo-credit/use"
+        }
+      },
+      "capacity": 100,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "technical-fixture",
+        "Excel:作用能力::demo-slow::目标类型（用分号分隔）",
+        "Excel:作用能力::demo-slow::最大作用距离（n mile）",
+        "Excel:作用能力::demo-slow::最小作用距离（n mile）",
+        "Excel:作用能力::demo-slow::作用值（单位待确认）",
+        "Excel:作用能力::demo-slow::最大目标速度（kn）",
+        "Excel:作用能力::demo-slow::最小目标高度（ft）",
+        "Excel:作用能力::demo-slow::最大目标高度（ft）",
+        "Excel:作用能力::demo-slow::最小释放高度（ft）",
+        "Excel:作用能力::demo-slow::最大释放高度（ft）"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "contexts": [
+    {
+      "task": "task-1",
+      "artifact": "demo-eye",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-1",
+      "artifact": "demo-coordinator",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-1",
+      "artifact": "effect-0",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-1",
+      "artifact": "effect-1",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-1",
+      "artifact": "effect-2",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-2",
+      "artifact": "demo-eye",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-2",
+      "artifact": "demo-coordinator",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-2",
+      "artifact": "effect-0",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-2",
+      "artifact": "effect-1",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-2",
+      "artifact": "effect-2",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-3",
+      "artifact": "demo-eye",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-3",
+      "artifact": "demo-coordinator",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-3",
+      "artifact": "effect-0",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-3",
+      "artifact": "effect-1",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-3",
+      "artifact": "effect-2",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 100,
+          "unit": "ft"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "task_rules": [
+    {
+      "id": "need-insight",
+      "role": "insight",
+      "capability": "空中灵视探知能力",
+      "when": [],
+      "source_refs": [
+        "虚构链网技术配置；能力名称使用主本体规范词项，不据此证明资源实际具备该能力"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "need-coordination",
+      "role": "coordination",
+      "capability": "快速响应能力",
+      "when": [],
+      "source_refs": [
+        "虚构链网技术配置；能力名称使用主本体规范词项，不据此证明资源实际具备该能力"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "near-needs-near",
+      "role": "manifestation",
+      "capability": "近程具现能力",
+      "when": [
+        {
+          "field": "task.distance_class",
+          "op": "eq",
+          "value": "near"
+        }
+      ],
+      "source_refs": [
+        "虚构链网技术配置；能力名称使用主本体规范词项，不据此证明资源实际具备该能力"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "artifact_rules": [
+    {
+      "id": "insight-range",
+      "role": "insight",
+      "capability": "空中灵视探知能力",
+      "when": [
+        {
+          "field": "artifact.max_range",
+          "op": "ge",
+          "ref": "context.target_distance"
+        }
+      ],
+      "source_refs": [
+        "虚构链网技术配置；能力名称使用主本体规范词项，不据此证明资源实际具备该能力"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "coordination-supported",
+      "role": "coordination",
+      "capability": "快速响应能力",
+      "when": [
+        {
+          "field": "artifact.supported",
+          "op": "eq",
+          "value": "yes"
+        }
+      ],
+      "source_refs": [
+        "虚构链网技术配置；能力名称使用主本体规范词项，不据此证明资源实际具备该能力"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "near-artifact",
+      "role": "manifestation",
+      "capability": "近程具现能力",
+      "when": [
+        {
+          "field": "artifact.min_range",
+          "op": "lt",
+          "ref": "context.target_distance"
+        },
+        {
+          "field": "artifact.max_range",
+          "op": "gt",
+          "ref": "context.target_distance"
+        }
+      ],
+      "source_refs": [
+        "虚构链网技术配置；能力名称使用主本体规范词项，不据此证明资源实际具备该能力"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "links": [
+    {
+      "from": "demo-eye",
+      "to": "demo-coordinator",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-coordinator",
+      "to": "effect-0",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-coordinator",
+      "to": "effect-1",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-coordinator",
+      "to": "effect-2",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "dependencies": [],
+  "resource_groups": []
+}

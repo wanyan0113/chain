@@ -108,3 +108,109 @@ class Table10PruningTests(unittest.TestCase):
         doc['policies']['max_network_search_nodes'] = 1
         with self.assertRaises(SearchLimitError):
             design(doc)
+
+    def compare_objective_search(self, doc, groups):
+        doc['policies']['table10_score_bound'] = True
+        known, pending = [], []
+        for chosen in product(*groups):
+            if network_conflicts(chosen, doc):
+                continue
+            state = cooperation(chosen, doc)['status']
+            key = (-sum(c['score'] for c in chosen) / len(groups), tuple(c['id'] for c in chosen))
+            if state == 'pass':
+                known.append(key)
+            elif state == 'unknown':
+                pending.append(key)
+
+        def check(chosen, document):
+            return (cooperation_prefix if len(chosen) < len(groups) else cooperation)(chosen, document)
+
+        actual, stats = branch_and_bound(groups, doc, network_conflicts, cooperation_check=check)
+        expected = min(known) if known else None
+        self.assertEqual(None if actual is None else actual[0], expected)
+        unresolved = bool(pending) and (expected is None or min(pending) < expected)
+        self.assertEqual(stats['optimality'], 'not_proven' if unresolved else
+                         'proven' if expected is not None else 'proven_infeasible')
+        return stats
+
+    def test_table10_and_score_bound_both_prune(self):
+        doc, groups = self.fixture()
+        for index, field in [(0, 'max_tracks'), (1, 'max_processing_targets')]:
+            doc['artifacts'][index]['attributes'][field]['value'] = 100
+        stats = self.compare_objective_search(doc, groups)
+        self.assertTrue(stats['score_bound_enabled'])
+        self.assertGreater(stats['pruned_table10'], 0)
+        self.assertGreater(stats['pruned_bound'], 0)
+        doc['policies']['table10_score_bound'] = False
+        self.assertLess(stats['evaluated'], self.compare(doc, groups)['evaluated'])
+
+    def test_combined_pruning_randomized_optimum_and_unknowns_match_exhaustive(self):
+        rng = random.Random(191119)
+        for trial in range(30):
+            doc, groups = self.fixture()
+            for task in doc['tasks']:
+                task['attributes']['target_count'] = None if rng.randrange(5) == 0 else {'value': rng.randint(1, 3), 'unit': '1'}
+            for index, field in [(0, 'max_tracks'), (1, 'max_processing_targets')]:
+                doc['artifacts'][index]['attributes'][field] = None if rng.randrange(5) == 0 else {'value': rng.randint(2, 9), 'unit': '1'}
+            for group in groups:
+                for chain in group:
+                    chain['start_s'] = rng.choice([0, 2, 3, 6])
+                    chain['end_s'] = chain['start_s'] + rng.choice([2, 3])
+                    chain['score'] = rng.choice([0., .5, 1.])
+            with self.subTest(trial=trial):
+                self.compare_objective_search(doc, groups)
+
+    def test_unknowns_compare_scores_and_deterministic_ties(self):
+        def run(candidates):
+            states = {identifier: state for identifier, _, state in candidates}
+            groups = [[dict(id=identifier, score=score) for identifier, score, _ in candidates]]
+            _, stats = branch_and_bound(groups, {'policies': {'table10_score_bound': True}},
+                lambda chosen, doc: [], cooperation_check=lambda chosen, doc: {'status': states[chosen[0]['id']]})
+            return stats['optimality']
+        for candidates, expected in [
+            ([('a', 1., 'pass'), ('b', .8, 'unknown')], 'proven'),
+            ([('a', 1., 'unknown'), ('b', .8, 'pass')], 'not_proven'),
+            ([('a', 1., 'unknown'), ('b', 1., 'pass')], 'not_proven'),
+            ([('a', 1., 'pass'), ('b', 1., 'unknown')], 'proven'),
+            ([('a', 1., 'unknown')], 'not_proven'),
+            ([('a', 1., 'fail')], 'proven_infeasible'),
+        ]:
+            with self.subTest(candidates=candidates):
+                self.assertEqual(run(candidates), expected)
+
+    def test_unknown_seen_before_better_verified_solution_is_reassessed(self):
+        # The optimistic first branch is unknown, but the next branch yields a
+        # verified network with a better final score. Earlier uncertainty must
+        # not leave a stale global "not_proven" flag.
+        groups = [[{'id': 'a', 'score': 1.}, {'id': 'b', 'score': .9}],
+                  [{'id': 'x', 'score': 1.}, {'id': 'y', 'score': 0.}]]
+        def audit(chosen, doc):
+            if len(chosen) == 1:
+                return {'status': 'unknown'}
+            ids = tuple(c['id'] for c in chosen)
+            return {'status': 'unknown' if ids == ('a', 'y') else 'fail' if ids == ('a', 'x') else 'pass'}
+        best, stats = branch_and_bound(groups, {'policies': {'table10_score_bound': True}},
+                                      lambda chosen, doc: [], cooperation_check=audit)
+        self.assertEqual(best[0], (-.95, ('b', 'x')))
+        self.assertEqual(stats['unknown_combinations_seen'], 1)
+        self.assertEqual(stats['optimality'], 'proven')
+
+    def test_opt_in_engine_exhaustive_matches_combined_search(self):
+        doc = read_design((ROOT / 'excel_entry/templates/表10设计演示.xlsx').read_bytes())
+        doc['policies']['table10_score_bound'] = True
+        reports = []
+        for method in ('exhaustive', 'branch_and_bound'):
+            doc['policies']['network_search_method'] = method
+            reports.append(design(doc))
+        self.assertEqual(reports[0]['network'], reports[1]['network'])
+        self.assertEqual(reports[0]['network_search']['optimality'], reports[1]['network_search']['optimality'])
+        # Include unknown completions and one independently verified solution.
+        doc['tasks'][1]['start_s'] = 3
+        doc['artifacts'][0]['attributes'].pop('max_tracks')
+        reports = []
+        for method in ('exhaustive', 'branch_and_bound'):
+            doc['policies']['network_search_method'] = method
+            reports.append(design(doc))
+        self.assertEqual(reports[0]['status'], reports[1]['status'])
+        self.assertEqual(reports[0]['network'], reports[1]['network'])
+        self.assertEqual(reports[0]['network_search']['optimality'], reports[1]['network_search']['optimality'])

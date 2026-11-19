@@ -1,0 +1,88 @@
+{
+  "templates": [
+    {
+      "id": "five-step-table10",
+      "when": [],
+      "allow_nonadjacent_reuse": true,
+      "source_refs": [
+        "synthetic-multistep-table10"
+      ],
+      "steps": [
+        {
+          "id": "s1",
+          "activity": "observe",
+          "role": "insight",
+          "capabilities": [
+            "http://example.org/arcaneweb#AirInsightCapability"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "synthetic-multistep-table10"
+          ]
+        },
+        {
+          "id": "s2",
+          "activity": "decide",
+          "role": "coordination",
+          "capabilities": [
+            "http://example.org/arcaneweb#RapidResponseCoordinationCapability"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "synthetic-multistep-table10"
+          ],
+          "incoming_relation": "communication"
+        },
+        {
+          "id": "s3",
+          "activity": "observe",
+          "role": "insight",
+          "capabilities": [
+            "http://example.org/arcaneweb#AirInsightCapability"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "synthetic-multistep-table10"
+          ],
+          "incoming_relation": "communication"
+        },
+        {
+          "id": "s4",
+          "activity": "decide",
+          "role": "coordination",
+          "capabilities": [
+            "http://example.org/arcaneweb#RapidResponseCoordinationCapability"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "synthetic-multistep-table10"
+          ],
+          "incoming_relation": "communication"
+        },
+        {
+          "id": "s5",
+          "activity": "act",
+          "role": "manifestation",
+          "capabilities": [
+            "http://example.org/arcaneweb#ShortRangeManifestationCapability"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "synthetic-multistep-table10"
+          ],
+          "incoming_relation": "control"
+        }
+      ]
+    }
+  ],
+  "communication_model": "directed",
+  "evaluation": {
+    "mode": "sequential_product",
+    "source_refs": [
+      "synthetic-sequential-product"
+    ]
+  },
+  "source_refs": [
+    "synthetic-multistep-table10"
+  ]
+}

@@ -163,13 +163,21 @@ def generate_task(task, doc, ontology_inference, owl, task_number):
                 issues = a['blocking_issue_ids'] + context.get('blocking_issue_ids', [])
                 issues += ['owl-mapping:' + item['mapping'] for item in owl.get('data_projection', [])
                            if item['kind'] == 'artifact' and item['owner'] == a['id'] and item['required'] and item['status'] == 'unknown']
+                article_check = None
+                if doc['policies'].get('article_table10', False):
+                    from .article_integration import screening
+                    article_check = screening(task, a, context)
                 states = cap_states + [level_status, target_status]
+                if article_check is not None:
+                    states.append(article_check['status'])
                 status = ('fail' if not a['available'] or 'fail' in states else
                           'unknown' if issues or 'unknown' in states or not caps else 'pass')
                 result['selection'].append({'template': template['id'], 'step': step['id'], 'step_uri': node,
                     'artifact': a['id'], 'role': step['role'], 'required_capabilities': caps, 'accepted': status == 'pass',
                     'status': status, 'level_check': level_status, 'target_type_check': target_status,
                     'ontology_evidence': evidence[a['id']], 'rules': checks, 'blocking_issue_ids': issues})
+                if article_check is not None:
+                    result['selection'][-1]['table10'] = article_check
                 if status == 'unknown':
                     result['blockers'].append({'code': 'UNKNOWN_STEP_ARTIFACT', 'template': template['id'], 'step': step['id'], 'artifact': a['id']})
                 if status == 'pass':

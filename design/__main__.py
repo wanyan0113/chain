@@ -55,6 +55,10 @@ def render_summary(result):
         search = result['network_search']
         if search.get('score_bound_enabled') is False:
             lines += [f"表10提前剪除 {search['pruned_table10']} 个确定失败的部分组合；组合依据仅列实际访问的完整组合。评分上界剪枝关闭，未知条件仍须核验。", '']
+        elif search.get('score_bound_enabled') is True:
+            lines += [f"表10提前剪除 {search['pruned_table10']} 个确定失败的部分组合；同时启用评分上界剪枝。"
+                      '最优性针对已通过核验的方案；仍可能改善得分或同分选择的未知组合会阻塞结论。'
+                      '组合依据仅列实际访问结果，不表示已完整审查其他组合的未知条件。', '']
     lines += [f"本体映射：{mapping['status']}；已映射 {mapping['mapped']}／{mapping['total']}；未映射 {mapping['unmapped']}",
               f"规范URI导出就绪：{'是' if result['canonical_export_ready'] else '否'}", ""]
     for task in result["tasks"]:

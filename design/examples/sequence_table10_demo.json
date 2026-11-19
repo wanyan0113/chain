@@ -1,0 +1,1075 @@
+{
+  "format_version": "1.0",
+  "scope": "人工五环节三任务示例；按实际活动区间检查表10共享条件，不是原文数值实验。",
+  "policies": {
+    "equal_metric_score": 0.5,
+    "cost_unit": "demo-credit/use",
+    "max_chain_combinations": 10000,
+    "max_network_combinations": 10000,
+    "article_table10": true,
+    "network_search_method": "branch_and_bound"
+  },
+  "weights": {
+    "time": 0.4,
+    "accuracy": 0.4,
+    "cost": 0.2
+  },
+  "tasks": [
+    {
+      "id": "task-1",
+      "target": "target-1",
+      "start_s": 0,
+      "attributes": {
+        "target_type": "幽光法球",
+        "distance_class": "near",
+        "target_count": {
+          "value": 1,
+          "unit": "1"
+        },
+        "impedance": {
+          "value": 1,
+          "unit": "1"
+        },
+        "target_speed": {
+          "value": 1,
+          "unit": "speed"
+        },
+        "target_altitude": {
+          "value": 5,
+          "unit": "height"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "task-2",
+      "target": "target-2",
+      "start_s": 0,
+      "attributes": {
+        "target_type": "幽光法球",
+        "distance_class": "near",
+        "target_count": {
+          "value": 1,
+          "unit": "1"
+        },
+        "impedance": {
+          "value": 1,
+          "unit": "1"
+        },
+        "target_speed": {
+          "value": 1,
+          "unit": "speed"
+        },
+        "target_altitude": {
+          "value": 5,
+          "unit": "height"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "task-3",
+      "target": "target-3",
+      "start_s": 0,
+      "attributes": {
+        "target_type": "幽光法球",
+        "distance_class": "near",
+        "target_count": {
+          "value": 1,
+          "unit": "1"
+        },
+        "impedance": {
+          "value": 1,
+          "unit": "1"
+        },
+        "target_speed": {
+          "value": 1,
+          "unit": "speed"
+        },
+        "target_altitude": {
+          "value": 5,
+          "unit": "height"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "demo-eye",
+      "available": true,
+      "attributes": {
+        "target_types": [
+          "幽光法球"
+        ],
+        "max_range": {
+          "value": 100,
+          "unit": "nmi"
+        },
+        "level_observe": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "detection_range": {
+          "value": 100,
+          "unit": "nmi"
+        },
+        "max_tracks": {
+          "value": 4,
+          "unit": "1"
+        }
+      },
+      "metrics": {
+        "duration_s": 1,
+        "accuracy": 0.99,
+        "cost": {
+          "value": 1,
+          "unit": "demo-credit/use"
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": [],
+      "ontology_types": [
+        "urn:arcane-knowledge:demo:InsightUnit"
+      ],
+      "activity_metrics": {
+        "observe": {
+          "duration_s": 1,
+          "accuracy": 0.99,
+          "cost": {
+            "value": 1,
+            "unit": "demo-credit/use"
+          }
+        }
+      }
+    },
+    {
+      "id": "demo-coordinator",
+      "available": true,
+      "attributes": {
+        "level_decide": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "max_processing_targets": {
+          "value": 4,
+          "unit": "1"
+        }
+      },
+      "metrics": {
+        "duration_s": 1,
+        "accuracy": 0.95,
+        "cost": {
+          "value": 1,
+          "unit": "demo-credit/use"
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": [],
+      "ontology_types": [
+        "urn:arcane-knowledge:demo:CoordinationUnit"
+      ],
+      "activity_metrics": {
+        "decide": {
+          "duration_s": 1,
+          "accuracy": 0.95,
+          "cost": {
+            "value": 1,
+            "unit": "demo-credit/use"
+          }
+        }
+      }
+    },
+    {
+      "id": "demo-fast",
+      "available": true,
+      "attributes": {
+        "target_types": [
+          "幽光法球"
+        ],
+        "min_range": {
+          "value": 0,
+          "unit": "nmi"
+        },
+        "max_range": {
+          "value": 10,
+          "unit": "nmi"
+        },
+        "level_act": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "resonance": {
+          "value": 2,
+          "unit": "1"
+        },
+        "max_target_speed": {
+          "value": 2,
+          "unit": "speed"
+        },
+        "min_target_altitude": {
+          "value": 0,
+          "unit": "height"
+        },
+        "max_target_altitude": {
+          "value": 10,
+          "unit": "height"
+        },
+        "min_activation_altitude": {
+          "value": 0,
+          "unit": "height"
+        },
+        "max_activation_altitude": {
+          "value": 10,
+          "unit": "height"
+        }
+      },
+      "metrics": {
+        "duration_s": 1,
+        "accuracy": 0.9,
+        "cost": {
+          "value": 1,
+          "unit": "demo-credit/use"
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 1,
+      "cooldown_s": 0,
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": [],
+      "ontology_types": [
+        "urn:arcane-knowledge:demo:EffectUnit"
+      ],
+      "activity_metrics": {
+        "act": {
+          "duration_s": 1,
+          "accuracy": 0.9,
+          "cost": {
+            "value": 1,
+            "unit": "demo-credit/use"
+          }
+        }
+      }
+    },
+    {
+      "id": "demo-slow",
+      "available": true,
+      "attributes": {
+        "target_types": [
+          "幽光法球"
+        ],
+        "min_range": {
+          "value": 0,
+          "unit": "nmi"
+        },
+        "max_range": {
+          "value": 10,
+          "unit": "nmi"
+        },
+        "level_act": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "resonance": {
+          "value": 2,
+          "unit": "1"
+        },
+        "max_target_speed": {
+          "value": 2,
+          "unit": "speed"
+        },
+        "min_target_altitude": {
+          "value": 0,
+          "unit": "height"
+        },
+        "max_target_altitude": {
+          "value": 10,
+          "unit": "height"
+        },
+        "min_activation_altitude": {
+          "value": 0,
+          "unit": "height"
+        },
+        "max_activation_altitude": {
+          "value": 10,
+          "unit": "height"
+        }
+      },
+      "metrics": {
+        "duration_s": 3,
+        "accuracy": 0.8,
+        "cost": {
+          "value": 4,
+          "unit": "demo-credit/use"
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": [],
+      "ontology_types": [
+        "urn:arcane-knowledge:demo:EffectUnit"
+      ],
+      "activity_metrics": {
+        "act": {
+          "duration_s": 3,
+          "accuracy": 0.8,
+          "cost": {
+            "value": 4,
+            "unit": "demo-credit/use"
+          }
+        }
+      }
+    },
+    {
+      "id": "demo-third",
+      "available": true,
+      "attributes": {
+        "target_types": [
+          "幽光法球"
+        ],
+        "min_range": {
+          "value": 0,
+          "unit": "nmi"
+        },
+        "max_range": {
+          "value": 10,
+          "unit": "nmi"
+        },
+        "level_act": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "resonance": {
+          "value": 2,
+          "unit": "1"
+        },
+        "max_target_speed": {
+          "value": 2,
+          "unit": "speed"
+        },
+        "min_target_altitude": {
+          "value": 0,
+          "unit": "height"
+        },
+        "max_target_altitude": {
+          "value": 10,
+          "unit": "height"
+        },
+        "min_activation_altitude": {
+          "value": 0,
+          "unit": "height"
+        },
+        "max_activation_altitude": {
+          "value": 10,
+          "unit": "height"
+        }
+      },
+      "metrics": {
+        "duration_s": 3,
+        "accuracy": 0.8,
+        "cost": {
+          "value": 4,
+          "unit": "demo-credit/use"
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": [],
+      "ontology_types": [
+        "urn:arcane-knowledge:demo:EffectUnit"
+      ],
+      "activity_metrics": {
+        "act": {
+          "duration_s": 3,
+          "accuracy": 0.8,
+          "cost": {
+            "value": 4,
+            "unit": "demo-credit/use"
+          }
+        }
+      }
+    }
+  ],
+  "task_rules": [],
+  "artifact_rules": [],
+  "contexts": [
+    {
+      "task": "task-1",
+      "artifact": "demo-eye",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 5,
+          "unit": "height"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-1",
+      "artifact": "demo-coordinator",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 5,
+          "unit": "height"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-1",
+      "artifact": "demo-fast",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 5,
+          "unit": "height"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-1",
+      "artifact": "demo-slow",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 5,
+          "unit": "height"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-1",
+      "artifact": "demo-third",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 5,
+          "unit": "height"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-2",
+      "artifact": "demo-eye",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 5,
+          "unit": "height"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-2",
+      "artifact": "demo-coordinator",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 5,
+          "unit": "height"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-2",
+      "artifact": "demo-fast",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 5,
+          "unit": "height"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-2",
+      "artifact": "demo-slow",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 5,
+          "unit": "height"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-2",
+      "artifact": "demo-third",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 5,
+          "unit": "height"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-3",
+      "artifact": "demo-eye",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 5,
+          "unit": "height"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-3",
+      "artifact": "demo-coordinator",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 5,
+          "unit": "height"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-3",
+      "artifact": "demo-fast",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 5,
+          "unit": "height"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-3",
+      "artifact": "demo-slow",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 5,
+          "unit": "height"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "task-3",
+      "artifact": "demo-third",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "nmi"
+        },
+        "platform_altitude": {
+          "value": 5,
+          "unit": "height"
+        }
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "links": [
+    {
+      "from": "demo-eye",
+      "to": "demo-coordinator",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-eye",
+      "to": "demo-fast",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-eye",
+      "to": "demo-slow",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-eye",
+      "to": "demo-third",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-coordinator",
+      "to": "demo-eye",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-coordinator",
+      "to": "demo-fast",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-coordinator",
+      "to": "demo-slow",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-coordinator",
+      "to": "demo-third",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-fast",
+      "to": "demo-eye",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-fast",
+      "to": "demo-coordinator",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-fast",
+      "to": "demo-slow",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-fast",
+      "to": "demo-third",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-slow",
+      "to": "demo-eye",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-slow",
+      "to": "demo-coordinator",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-slow",
+      "to": "demo-fast",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-slow",
+      "to": "demo-third",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-third",
+      "to": "demo-eye",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-third",
+      "to": "demo-coordinator",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-third",
+      "to": "demo-fast",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "demo-third",
+      "to": "demo-slow",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 2,
+        "unit": "nmi"
+      },
+      "max_distance": {
+        "value": 20,
+        "unit": "nmi"
+      },
+      "source_refs": [
+        "technical-fixture"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "dependencies": [],
+  "resource_groups": [],
+  "knowledge": {
+    "ontology_files": [
+      "demo-task-capabilities.ttl"
+    ],
+    "rules_file": "demo-selection.rules.json",
+    "source_refs": [
+      "fictional-engineering-knowledge-demo"
+    ],
+    "sequences_file": "sequence-table10.flows.json"
+  }
+}
