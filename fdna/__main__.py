@@ -26,6 +26,7 @@ from .precision import check_precision
 from .protocol_audit import audit_protocols
 from .pca import analyze_pca
 from .fitted_application import analyze_fitted_application, response_difference_csv
+from .recovery import run_recovery, recovery_csvs, render_recovery
 
 
 def render_summary(report):
@@ -51,6 +52,9 @@ def render_summary(report):
 def main(argv=None):
     parser = argparse.ArgumentParser(description='奥术网能力依赖核验')
     commands = parser.add_subparsers(dest='command', required=True)
+    recovery = commands.add_parser('recovery', help='双供给节点的已知参数恢复与独立验证')
+    recovery.add_argument('--config', type=Path, required=True)
+    recovery.add_argument('--output-dir', type=Path, required=True)
     check = commands.add_parser('inspect', help='核对案例结构与来源')
     check.add_argument('case', type=Path)
     run = commands.add_parser('evaluate', help='依基础式求取效能')
@@ -150,6 +154,16 @@ def main(argv=None):
     fitted_application.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args(argv)
     try:
+        if args.command == 'recovery':
+            result = run_recovery(read_json(args.config))
+            write_outputs(args.output_dir, {
+                'fdna_report.json': json.dumps(result,ensure_ascii=False,indent=2,allow_nan=False)+'\n',
+                'recovery_summary.md': render_recovery(result),
+                **recovery_csvs(result),
+            }, protected=[args.config])
+            print(json.dumps(dict(status=result['status'],summary=result['summary'],
+                                  input_sha256=result['input_sha256']),ensure_ascii=False,indent=2))
+            return 0 if result['status']=='complete' else 1
         model = load_model(args.case)
         provenance = verify_sources(model, args.case)
         if any(source['status'] in ('changed', 'unavailable') for source in provenance):

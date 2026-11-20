@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object", "additionalProperties": false,
+  "required": ["format_version", "id", "basis", "seed", "random_train", "random_holdout", "starts", "max_nfev", "cases", "acceptance"],
+  "properties": {
+    "format_version": {"const": "1.0"},
+    "id": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "basis": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "seed": {"type": "integer", "minimum": 0, "maximum": 4294967295},
+    "random_train": {"type": "integer", "minimum": 16, "maximum": 10000},
+    "random_holdout": {"type": "integer", "minimum": 16, "maximum": 10000},
+    "starts": {"type": "integer", "minimum": 2, "maximum": 64},
+    "max_nfev": {"type": "integer", "minimum": 1, "maximum": 10000},
+    "cases": {"type": "array", "minItems": 1, "maxItems": 10,
+      "items": {"type": "object", "additionalProperties": false, "required": ["id", "alpha", "beta"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1, "pattern": "^[A-Za-z0-9_-]+$"},
+          "alpha": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number", "minimum": 0, "maximum": 1}},
+          "beta": {"type": "array", "minItems": 2, "maxItems": 2, "items": {"type": "number", "minimum": 0, "maximum": 100}}
+        }}},
+    "acceptance": {"type": "object", "additionalProperties": false,
+      "required": ["alpha_absolute_error", "beta_absolute_error", "prediction_rmse", "forward_absolute_error"],
+      "properties": {
+        "alpha_absolute_error": {"type": "number", "exclusiveMinimum": 0},
+        "beta_absolute_error": {"type": "number", "exclusiveMinimum": 0},
+        "prediction_rmse": {"type": "number", "exclusiveMinimum": 0},
+        "forward_absolute_error": {"type": "number", "exclusiveMinimum": 0}
+      }}
+  }
+}
