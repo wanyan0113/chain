@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "text": {"type":"string","minLength":1,"pattern":"\\S"},
+    "unit": {"type":"number","minimum":0,"maximum":1},
+    "condition_values": {
+      "type":"object","additionalProperties":false,"required":["C","M","E"],
+      "properties":{"C":{"$ref":"#/$defs/unit"},"M":{"$ref":"#/$defs/unit"},"E":{"$ref":"#/$defs/unit"}}
+    },
+    "condition": {
+      "type":"object","additionalProperties":false,
+      "required":["type","values","capability_base","capability_gain","task_base","task_gain","environment_penalty"],
+      "properties": {
+        "type":{"const":"product_conditions"},"values":{"$ref":"#/$defs/condition_values"},
+        "capability_base":{"$ref":"#/$defs/unit"},"capability_gain":{"$ref":"#/$defs/unit"},
+        "task_base":{"$ref":"#/$defs/unit"},"task_gain":{"$ref":"#/$defs/unit"},
+        "environment_penalty":{"$ref":"#/$defs/unit"}
+      }
+    },
+    "node": {
+      "type":"object","additionalProperties":false,
+      "required":["node_id","parent_nodes","mechanism_type","condition_function","configuration_source"],
+      "properties": {
+        "node_id":{"$ref":"#/$defs/text"},
+        "parent_nodes":{"type":"array","minItems":1,"uniqueItems":true,"items":{"$ref":"#/$defs/text"}},
+        "mechanism_type":{"enum":["weighted","geometric","complementary"]},
+        "weights":{"type":"object","additionalProperties":{"$ref":"#/$defs/unit"}},
+        "support_coefficients":{"type":"object","additionalProperties":{"$ref":"#/$defs/unit"}},
+        "condition_function":{"$ref":"#/$defs/condition"},"configuration_source":{"const":"manual"}
+      },
+      "allOf":[{
+        "if":{"properties":{"mechanism_type":{"const":"complementary"}}},
+        "then":{"required":["support_coefficients"],"not":{"required":["weights"]}},
+        "else":{"required":["weights"],"not":{"required":["support_coefficients"]}}
+      }]
+    },
+    "experiment": {
+      "type":"object","additionalProperties":false,
+      "required":["format_version","id","basis","seed","base_cases","train_count","noise_std","process_std","interaction_gamma","groups","presets"],
+      "properties": {
+        "format_version":{"const":"1.0"},"id":{"$ref":"#/$defs/text"},"basis":{"$ref":"#/$defs/text"},
+        "seed":{"type":"integer","minimum":0,"maximum":4294967295},
+        "base_cases":{"type":"integer","minimum":20,"maximum":10000,"multipleOf":10},
+        "train_count":{"type":"integer","minimum":1},
+        "noise_std":{"type":"array","minItems":1,"maxItems":8,"uniqueItems":true,"items":{"type":"number","minimum":0,"maximum":20}},
+        "process_std":{"type":"number","minimum":0,"maximum":20},"interaction_gamma":{"$ref":"#/$defs/unit"},
+        "groups":{"type":"object","minProperties":1,"additionalProperties":{"$ref":"#/$defs/condition_values"}},
+        "presets":{"type":"object","minProperties":1,"additionalProperties":{"$ref":"#/$defs/node"}}
+      }
+    }
+  }
+}
