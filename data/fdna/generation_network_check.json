@@ -1,0 +1,15 @@
+{
+  "format_version":"1.0",
+  "id":"seven_node_joint_generation_check",
+  "basis":"第二阶段第二步：一轮七节点综合样本生成，核查连续输入、配对噪声和整网训练划分；尚未开展FDNA拟合或10次重复的正式实验。",
+  "seed":20261120,"repetitions":1,"base_cases":250,"train_count":200,
+  "noise_std":[0,2,5,8],"process_std":0,"interaction_gamma":0,
+  "groups":{
+    "unit_conditions":{"C":1,"M":1,"E":0},
+    "fixed_conditions":{"C":0.8,"M":0.7,"E":0.2}
+  },
+  "root_sampling":{
+    "normal":[0.65,0.98],"degraded":[0.20,0.60],"shared_factor_weight":0.15,
+    "fractions":{"normal":0.5,"single":0.2,"double":0.2,"all":0.1}
+  }
+}

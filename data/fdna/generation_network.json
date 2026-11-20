@@ -1,0 +1,14 @@
+{
+  "format_version":"1.0",
+  "id":"seven_node_independent_network",
+  "basis":"第二阶段首版综合场景：四个根节点与三个连续接受节点；结构为预设模拟假设，不代表原文图6。",
+  "nodes":["A","B","C_aux","D_aux","T","Q","R"],
+  "edges":[
+    {"feeder":"A","receiver":"T"},
+    {"feeder":"B","receiver":"T"},
+    {"feeder":"T","receiver":"Q"},
+    {"feeder":"C_aux","receiver":"Q"},
+    {"feeder":"Q","receiver":"R"},
+    {"feeder":"D_aux","receiver":"R"}
+  ]
+}

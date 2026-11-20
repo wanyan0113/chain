@@ -34,6 +34,49 @@
         "else":{"required":["weights"],"not":{"required":["support_coefficients"]}}
       }]
     },
+    "network": {
+      "type":"object","additionalProperties":false,"required":["format_version","id","basis","nodes","edges"],
+      "properties": {
+        "format_version":{"const":"1.0"},"id":{"$ref":"#/$defs/text"},"basis":{"$ref":"#/$defs/text"},
+        "nodes":{"type":"array","minItems":1,"uniqueItems":true,"items":{"$ref":"#/$defs/text"}},
+        "edges":{"type":"array","items":{"type":"object","additionalProperties":false,"required":["feeder","receiver"],
+          "properties":{"feeder":{"$ref":"#/$defs/text"},"receiver":{"$ref":"#/$defs/text"}}}}
+      }
+    },
+    "node_configs": {
+      "type":"object","additionalProperties":false,"required":["format_version","id","basis","nodes"],
+      "properties": {
+        "format_version":{"const":"1.0"},"id":{"$ref":"#/$defs/text"},"basis":{"$ref":"#/$defs/text"},
+        "nodes":{"type":"object","additionalProperties":{"$ref":"#/$defs/node"}}
+      }
+    },
+    "root_sampling": {
+      "type":"object","additionalProperties":false,"required":["normal","degraded","shared_factor_weight","fractions"],
+      "properties": {
+        "normal":{"type":"array","minItems":2,"maxItems":2,"items":{"$ref":"#/$defs/unit"}},
+        "degraded":{"type":"array","minItems":2,"maxItems":2,"items":{"$ref":"#/$defs/unit"}},
+        "shared_factor_weight":{"$ref":"#/$defs/unit"},
+        "fractions":{"type":"object","additionalProperties":false,"required":["normal","single","double","all"],
+          "properties":{"normal":{"$ref":"#/$defs/unit"},"single":{"$ref":"#/$defs/unit"},
+                        "double":{"$ref":"#/$defs/unit"},"all":{"$ref":"#/$defs/unit"}}}
+      }
+    },
+    "network_experiment": {
+      "type":"object","additionalProperties":false,
+      "required":["format_version","id","basis","seed","repetitions","base_cases","train_count","noise_std","process_std","interaction_gamma","groups","root_sampling"],
+      "properties": {
+        "format_version":{"const":"1.0"},"id":{"$ref":"#/$defs/text"},"basis":{"$ref":"#/$defs/text"},
+        "seed":{"type":"integer","minimum":0,"maximum":4294967295},
+        "repetitions":{"type":"integer","minimum":1,"maximum":10},
+        "base_cases":{"type":"integer","minimum":20,"maximum":10000},
+        "train_count":{"type":"integer","minimum":1},
+        "noise_std":{"type":"array","minItems":1,"maxItems":8,"uniqueItems":true,
+                     "items":{"type":"number","minimum":0,"maximum":20}},
+        "process_std":{"type":"number","minimum":0,"maximum":20},"interaction_gamma":{"$ref":"#/$defs/unit"},
+        "groups":{"type":"object","minProperties":1,"additionalProperties":{"$ref":"#/$defs/condition_values"}},
+        "root_sampling":{"$ref":"#/$defs/root_sampling"}
+      }
+    },
     "experiment": {
       "type":"object","additionalProperties":false,
       "required":["format_version","id","basis","seed","base_cases","train_count","noise_std","process_std","interaction_gamma","groups","presets"],
