@@ -1,26 +1,36 @@
-"""Audit a base fit before using its parameters in conditional network analysis."""
+"""Audit fitted parameters and preserve the model in conditional propagation."""
 from copy import deepcopy
 import csv
 import io
 
 from .application import analyze_application
-from .engine import MODEL
+from .additive import ADDITIVE_MODEL, validate_extension
 from .model import ModelError
 from .residuals import diagnose_residuals
 from .structure import digest
 
 
-def analyze_fitted_application(model, fit, protocol):
+def analyze_fitted_application(model, fit, protocol, *, reference_extension=None):
     # Recompute local predictions and verify snapshots before trusting parameters.
     residuals = diagnose_residuals(model, fit)
     if fit['status'] != 'complete':
         raise ModelError('传播应用须使用全部接受节点均已收敛的拟合报告')
-    if fit['settings_snapshot']['model'] != MODEL:
-        raise ModelError('当前应用扫描仅支持基础式；不能丢弃拟合δ后继续传播')
-    if any(r.get('delta') is not None for r in fit['receivers']):
+    additive = fit['settings_snapshot']['model'] == ADDITIVE_MODEL
+    if protocol['model'] != fit['settings_snapshot']['model']:
+        raise ModelError('扫描模型须与拟合模型一致；含δ拟合须使用δ扩展协议')
+    if not additive and any(r.get('delta') is not None for r in fit['receivers']):
         raise ModelError('基础式拟合报告不可带有δ取值')
+    if reference_extension is not None:
+        if not additive:
+            raise ModelError('基础式对照不可提供δ扩展配置')
+        validate_extension(model, reference_extension)
+        if any(v is None for v in reference_extension['delta_values'].values()):
+            raise ModelError('来源δ未知时不能进行扩展式数值对照')
+    extension = (dict(model=ADDITIVE_MODEL, basis='逐接受节点δ来自已核验拟合报告',
+                      delta_values={r['receiver']: r['delta'] for r in fit['receivers']},
+                      output_policy=fit['settings_snapshot']['output_policy']) if additive else None)
     fitted_model = deepcopy(model)
-    fitted_model['scope'] = '按已核验拟合报告替换基础式参数；原文来源仅说明节点及结构，参数来源见外层报告。'
+    fitted_model['scope'] = '按已核验拟合报告替换参数；原文来源仅说明节点及结构，参数来源见外层报告。'
     # Do not attach reported pseudo-R² values to newly fitted parameters.
     fitted_model['reported_fit'] = []
     parameters = {(p['feeder'], row['receiver']): p
@@ -33,10 +43,11 @@ def analyze_fitted_application(model, fit, protocol):
             fitted_alpha=p['alpha'], fitted_beta=p['beta'],
             topology_source_refs=deepcopy(edge['source_refs']), parameter_source='audited_fit_report'))
         edge.update(alpha=p['alpha'], beta=p['beta'])
-    fitted = analyze_application(fitted_model, protocol)
+    fitted = analyze_application(fitted_model, protocol, extension=extension)
     fitted['scope'] = '使用已核验拟合参数的条件传播与节点影响分析；参数来自拟合报告，不是原文表7报告值。'
-    reference_ready = all(e['alpha'] is not None and e['beta'] is not None for e in model['edges'])
-    reference = analyze_application(model, protocol) if reference_ready else None
+    reference_parameters_ready = all(e['alpha'] is not None and e['beta'] is not None for e in model['edges'])
+    reference_ready = reference_parameters_ready and (not additive or reference_extension is not None)
+    reference = analyze_application(model, protocol, extension=reference_extension) if reference_ready else None
     differences = []
     if reference is not None:
         rows = {(r['driver'], r['observer'], r['input']): r
@@ -61,12 +72,15 @@ def analyze_fitted_application(model, fit, protocol):
     return dict(format_version='1.0', status='complete', case=model['id'],
         data_kind=fit['data_kind'], case_reproduction_ready=False,
         scope='第5.3至5.4节计算衔接：先核验拟合残差，再用拟合参数重算传播；与来源参数作同条件对照。',
-        input_sha256=digest(dict(case=model, fit=fit, protocol=protocol)),
+        input_sha256=digest(dict(case=model, fit=fit, protocol=protocol,
+                                 reference_extension=reference_extension)),
         fit_report_sha256=digest(fit), reference_case_sha256=digest(model),
         fitted_case_sha256=digest(fitted_model),
         parameter_changes=changes, residual_audit=residuals,
         fitted_application=fitted, reference_application=reference,
-        comparison_status='compared' if reference_ready else 'reference_parameters_missing',
+        comparison_status=('compared' if reference_ready else 'reference_parameters_missing'
+                           if not reference_parameters_ready else 'reference_delta_not_supplied'),
+        fitted_extension=extension, reference_extension=deepcopy(reference_extension),
         response_differences=differences,
         scan_training_ranges=ranges,
         max_absolute_response_difference=max((abs(r['difference']) for r in differences), default=None),
@@ -80,7 +94,8 @@ def analyze_fitted_application(model, fit, protocol):
                 '扫描约定沿用显式输入，不将效能横轴改称时间；不聚合法术链闭合概率',
                 '局部残差很小不保证整网递推误差很小，也不保证参数唯一',
                 '训练取值范围仅检查单个变量；落在范围内不证明供给变量组合或中间节点干预已获训练样本覆盖',
-                '当前扫描不支持δ扩展，扩展拟合必须保留δ语义后再接入'])
+                'δ扩展按显式逐节点常量且不裁剪；没有来源δ时只报告拟合传播，不将未知δ当作0',
+                '全100基础输入是参照条件；含δ时接受节点不一定为100，下降量按实际参照输出计算'])
 
 
 def response_difference_csv(report):

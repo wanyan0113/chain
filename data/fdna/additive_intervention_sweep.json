@@ -1,0 +1,10 @@
+{
+  "id": "arcane_explicit_delta_eight_node_scan",
+  "basis": "含δ拟合结果的显式方法检查：其余无入边节点保持100；固定变化节点并暂停该节点入边方程及δ，下游按min(SoD,CoD)+δ逐层重算。不裁剪；不是原文图8—9的时间扫描约定。",
+  "model": "fdna_additive_delta",
+  "baseline": {"S1": 100, "D2": 100, "S3": 100, "D4": 100, "S8": 100, "S10": 100},
+  "drivers": ["S1", "D2", "S3", "D4", "S5", "S6", "S8", "S10"],
+  "observers": ["S5", "S6", "F7", "F9", "F11"],
+  "values": [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100],
+  "intervention_policy": "clamp_driver_recompute_descendants"
+}

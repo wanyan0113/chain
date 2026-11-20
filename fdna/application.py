@@ -23,8 +23,8 @@ def _shortest_path(model, source, target):
     return None
 
 
-def analyze_application(model, protocol):
-    scan = sweep(model, protocol)
+def analyze_application(model, protocol, *, extension=None):
+    scan = sweep(model, protocol, extension=extension)
     if any(v != 100 for v in protocol['baseline'].values()) or protocol['values'][0] != 0 or protocol['values'][-1] != 100:
         raise ModelError('应用比较须以全部无入边节点100为参照，扫描覆盖0与100')
     tolerance = 1e-9
@@ -87,7 +87,7 @@ def analyze_application(model, protocol):
                                 'rank_min': 1+sum(r['loss'] > score+tolerance for r in rows),
                                 'rank_max': sum(r['loss'] >= score-tolerance for r in rows)})
             rankings.append({'observer': observer, 'input': value, 'entries': entries})
-    return {
+    report = {
         'format_version': '1.0', 'status': 'complete', 'case': model['id'],
         'scope': '第5.4.2节应用方向的条件分析：比较表7参数、指定扫描输入下的接受节点效能下降及传播路径；下降量指标为本实现的显式约定。',
         'case_reproduction_ready': False,
@@ -107,6 +107,11 @@ def analyze_application(model, protocol):
                    '接受节点SE不等于目标达成率、法术链闭合概率或体系效能；未补造串并联聚合公式',
                    '参数报告精度扰动与排名稳健性尚未由本分析检验'],
     }
+    if extension is not None:
+        report['input_sha256'] = digest({'application': report['input_sha256'], 'extension': extension})
+        report['scope'] = '显式δ扩展下的条件传播、约束与节点影响分析；下降量以该扩展模型的实际参照输出为准。'
+        report['limits'][1] = 'δ采用显式配置；原文δ与图8—9时间映射及扫描条件仍未确定，结果不是原文曲线逐点复现'
+    return report
 
 
 def application_csv(report):

@@ -145,6 +145,8 @@ def main(argv=None):
     fitted_application.add_argument('case', type=Path)
     fitted_application.add_argument('--fit-report', type=Path, required=True)
     fitted_application.add_argument('--protocol', type=Path, required=True)
+    fitted_application.add_argument('--reference-extension', type=Path,
+                                    help='可选来源δ配置；未提供时不假设来源δ为0')
     fitted_application.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args(argv)
     try:
@@ -158,9 +160,13 @@ def main(argv=None):
         else:
             if args.command == 'fitted-application':
                 input_path = args.fit_report
-                result = analyze_fitted_application(model, read_json(args.fit_report), read_json(args.protocol))
+                result = analyze_fitted_application(model, read_json(args.fit_report), read_json(args.protocol),
+                    reference_extension=read_json(args.reference_extension) if args.reference_extension else None)
                 outputs = {'response_differences.csv': response_difference_csv(result),
-                           'residuals.csv': residual_csv(result['residual_audit'])}
+                           'residuals.csv': residual_csv(result['residual_audit']),
+                           'fitted_responses.csv': csv_report(result['fitted_application']['sweep_snapshot'])}
+                if result['reference_application'] is not None:
+                    outputs['reference_responses.csv'] = csv_report(result['reference_application']['sweep_snapshot'])
             elif args.command == 'pca':
                 input_path = args.samples
                 result = analyze_pca(model, read_json(args.samples), read_json(args.config))
@@ -268,6 +274,8 @@ def main(argv=None):
                 protected.append(args.config)
             if args.command == 'fitted-application':
                 protected.append(args.protocol)
+                if args.reference_extension:
+                    protected.append(args.reference_extension)
             if args.command == 'evaluate' and args.extension:
                 protected.append(args.extension)
             if args.command == 'normalize':

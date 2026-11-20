@@ -7,10 +7,11 @@ import json
 import math
 
 from .engine import MODEL, evaluate
+from .additive import ADDITIVE_MODEL, evaluate_additive, validate_extension
 from .model import ModelError, inspect_model
 
 
-def validate_protocol(model, protocol):
+def validate_protocol(model, protocol, *, extension=None):
     structure = inspect_model(model)
     fields = {'id', 'basis', 'model', 'baseline', 'drivers', 'observers', 'values'}
     if (not isinstance(protocol, dict) or set(protocol) - fields - {'intervention_policy'} or
@@ -21,8 +22,13 @@ def validate_protocol(model, protocol):
         raise ModelError('中间节点扫描须显式采用固定变化节点并重算下游的约定')
     if any(not isinstance(protocol[k], str) or not protocol[k].strip() for k in ('id', 'basis')):
         raise ModelError('扫描须说明名称与假设依据')
-    if protocol['model'] != MODEL:
-        raise ModelError('扫描仅支持明确选用基础式(1)—(2)')
+    if extension is None:
+        if protocol['model'] != MODEL:
+            raise ModelError('δ扫描须提供扩展配置；基础扫描须选用基础式(1)—(2)')
+    else:
+        validate_extension(model, extension)
+        if protocol['model'] != ADDITIVE_MODEL:
+            raise ModelError('δ扫描须明确选用δ扩展模型，不能沿用基础式协议')
     for key, allowed in (('drivers', {n['id'] for n in model['nodes']} if intervention else set(structure['exogenous_nodes'])),
                          ('observers', {n['id'] for n in model['nodes']})):
         items = protocol[key]
@@ -38,14 +44,15 @@ def validate_protocol(model, protocol):
         raise ModelError('扫描值须为[0,100]内严格递增的2至1001个有限数值')
     base_scenario = {'id': protocol['id'] + ':baseline', 'basis': protocol['basis'],
                      'node_values': deepcopy(protocol['baseline'])}
-    baseline = evaluate(model, base_scenario)
+    baseline = (evaluate(model, base_scenario) if extension is None else
+                evaluate_additive(model, base_scenario, extension))
     if baseline['status'] != 'complete':
         raise ModelError('扫描参照须给齐六类无入边节点的效能，且依赖参数已知')
     return baseline
 
 
-def sweep(model, protocol):
-    baseline = validate_protocol(model, protocol)
+def sweep(model, protocol, *, extension=None):
+    baseline = validate_protocol(model, protocol, extension=extension)
     intervention = 'intervention_policy' in protocol
     base_scenario = baseline['scenario']
     grid = protocol['values']
@@ -55,12 +62,13 @@ def sweep(model, protocol):
         for index, value in enumerate(grid):
             scenario = deepcopy(base_scenario)
             scenario['id'] = f"{protocol['id']}:{driver}:{index}"
+            forced = None
             if intervention:
-                result = evaluate(model, scenario, intervention={
-                    'basis': protocol['basis'], 'node_values': {driver: value}})
+                forced = {'basis': protocol['basis'], 'node_values': {driver: value}}
             else:
                 scenario['node_values'][driver] = value
-                result = evaluate(model, scenario)
+            result = (evaluate(model, scenario, intervention=forced) if extension is None else
+                      evaluate_additive(model, scenario, extension, intervention=forced))
             trace = {'driver': driver, 'input': value, 'scenario': scenario,
                      'input_sha256': result['input_sha256'], 'nodes': result['nodes']}
             if intervention:
@@ -74,9 +82,11 @@ def sweep(model, protocol):
                              'loss': base_values[observer] - node['value'],
                              'sod_mean': node['sod_mean'], 'cod_min': node['cod_min'],
                              'binding_constraints': node['binding_constraints']})
-    snapshot = {'case': model, 'protocol': protocol, 'model': MODEL}
+    snapshot = {'case': model, 'protocol': protocol, 'model': baseline['model']}
+    if extension is not None:
+        snapshot['extension'] = extension
     report = {
-        'format_version': '1.0', 'status': 'complete', 'model': MODEL, 'case': model['id'],
+        'format_version': '1.0', 'status': 'complete', 'model': baseline['model'], 'case': model['id'],
         'scope': '基础式逐项扫描；其余无入边节点固定于参照，中间节点逐点重算。'
                  '取值与原图t的映射未核实，不属于图8—9的逐点复现。',
         'input_sha256': hashlib.sha256(json.dumps(snapshot, ensure_ascii=False, sort_keys=True,
@@ -92,6 +102,13 @@ def sweep(model, protocol):
         report['scope'] = '基础式逐节点干预扫描：固定变化节点，暂停其入边方程，其余无入边节点保持参照，下游逐点重算；不认定为原文图8—9扫描约定。'
         report['policies']['intermediate_override'] = 'explicit_clamp_suspend_incoming_recompute_descendants'
         report['not_covered'] = ['原图t与给定效能的映射及真实扫描约定', 'δ与原始拟合、残差及伪R²的重新核验']
+    if extension is not None:
+        report['extension_snapshot'] = deepcopy(extension)
+        report['scope'] = '显式δ扩展逐节点扫描：逐层计算min(SoD,CoD)+δ，不裁剪；干预节点固定为指定值并暂停其入边方程及δ。不是原文图8—9的逐点复现。'
+        report['outside_se_range'] = [
+            {'driver': t['driver'], 'input': t['input'], 'node': n['id'], 'value': n['value']}
+            for t in traces for n in t['nodes'] if not 0 <= n['value'] <= 100]
+        report['not_covered'] = ['原文δ与扫描约定', '原始拟合样本与伪R²定义']
     return report
 
 

@@ -24,15 +24,15 @@ def validate_extension(model, extension):
         raise ModelError('δ须为有限数值或null')
 
 
-def evaluate_additive(model, scenario, extension):
-    base = evaluate(model, scenario)
+def evaluate_additive(model, scenario, extension, *, intervention=None):
+    base = evaluate(model, scenario, intervention=intervention)
     validate_extension(model, extension)
     values, results = {}, []
     for original in base['nodes']:
         node = deepcopy(original)
         node['delta'] = None
         node['base_before_delta'] = None
-        if node['kind'] == 'exogenous':
+        if node['kind'] in ('exogenous', 'intervened'):
             values[node['id']] = node['value']
             results.append(node)
             continue
@@ -67,7 +67,8 @@ def evaluate_additive(model, scenario, extension):
         results.append(node)
     return {**base, 'model': ADDITIVE_MODEL, 'nodes': results,
             'status': 'blocked' if any(v is None for v in values.values()) else 'complete',
-            'input_sha256': digest({'case': model, 'scenario': scenario, 'extension': extension}),
+            'input_sha256': digest({'case': model, 'scenario': scenario, 'extension': extension,
+                                    **({'intervention': intervention} if intervention is not None else {})}),
             'scope': '按显式逐接受节点δ求取min(SoD,CoD)+δ；不裁剪效能，不代表原文δ已知。',
             'extension_snapshot': deepcopy(extension),
             'outside_se_range': [key for key, v in values.items() if v is not None and not 0 <= v <= 100],
