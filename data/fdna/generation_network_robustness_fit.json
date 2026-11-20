@@ -1,0 +1,38 @@
+{
+  "format_version": "1.0",
+  "id": "joint_network_noise_repeated_fit",
+  "basis": "第二阶段第四步：独立生成综合网络，按条件、噪声和重复分别拟合；同一重复内配对噪声对照，根节点预测输入仍用干净值；拟合器随机种子固定以考察数据重复变化。",
+  "groups": [
+    "unit_conditions",
+    "fixed_conditions"
+  ],
+  "noise_std": [
+    0,
+    2,
+    5,
+    8
+  ],
+  "repetitions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "settings": {
+    "format_version": "1.0",
+    "id": "joint_base_lbfgsb",
+    "basis": "基础式有界多起点拟合，验证集不参与优化和挑选初值。",
+    "model": "fdna_base_eq1_eq2",
+    "solver": "L-BFGS-B",
+    "seed": 20261120,
+    "starts": 12,
+    "max_nfev": 3000,
+    "delta_policy": "excluded_for_base_check"
+  }
+}

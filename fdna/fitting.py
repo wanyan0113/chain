@@ -2,6 +2,7 @@
 from copy import deepcopy
 from itertools import product
 import json
+import math
 from pathlib import Path
 
 from jsonschema import Draft202012Validator
@@ -20,6 +21,19 @@ def _libraries():
     except ImportError as exc:
         raise ModelError('参数拟合需要 requirements-fdna.txt 中的SciPy依赖') from exc
     return np, scipy, optimize
+
+
+def _select_attempt(attempts):
+    """Prefer convergence only for training losses equal to floating precision.
+
+    Keep materially better unfinished attempts unfinished. No holdout quantities
+    enter this choice; all attempts remain in the report in RMSE order.
+    """
+    minimum=attempts[0][0]
+    tolerance=8*math.ulp(max(1.0,abs(minimum)))
+    selected=next((i for i,a in enumerate(attempts)
+                   if a[1].success and a[0]-minimum<=tolerance),0)
+    return selected,tolerance
 
 
 def _validate(kind, value):
@@ -169,7 +183,8 @@ def fit_parameters(model, samples, settings):
             rmse = float(np.sqrt(np.mean((predict(solved.x, x)-y)**2)))
             attempts.append((rmse, solved, start, start_source))
         attempts.sort(key=lambda item: item[0])
-        best_rmse, best, _, _ = attempts[0]
+        selected_attempt,selection_tolerance=_select_attempt(attempts)
+        best_rmse, best, _, _ = attempts[selected_attempt]
         parameter_names = [f'alpha:{f}' for f in feeders] + [f'beta:{f}' for f in feeders]
         parameter_names += ['delta'] if additive else []
         scale = np.array([1.0]*n + [100.0]*n + ([delta_span] if additive else []))
@@ -210,6 +225,10 @@ def fit_parameters(model, samples, settings):
                                   'rows': [{'id': row['id'], 'observed': float(a), 'predicted': float(p),
                                             'residual': float(p-a)} for row, a, p in zip(rows, actual, predicted)]}
         reports.append({'receiver': receiver, 'status': 'fitted' if best.success else 'iteration_limit',
+                        'attempt_selection': {'index': selected_attempt,
+                            'rule': 'converged_first_only_within_eight_ulps_of_minimum_training_rmse',
+                            'minimum_training_rmse': attempts[0][0],
+                            'absolute_tie_tolerance': selection_tolerance},
                         'feeders': feeders, 'parameters': [
                             {'feeder': f, 'alpha': float(physical[i]), 'beta': float(physical[n+i])}
                             for i, f in enumerate(feeders)],

@@ -87,7 +87,7 @@ def _validate_config(config):
         raise ModelError('本首轮使用中性及随机起点，不能从生成机制参数配置起点')
 
 
-def fit_joint_network(generation,config):
+def fit_joint_network(generation,config,*,progress=None):
     _validate_config(config)
     audit_generation(generation)
     available=generation['config_snapshot']
@@ -151,6 +151,8 @@ def fit_joint_network(generation,config):
                     status='complete' if ready else 'blocked',local_fits=local,parameters=parameters,
                     fitted_model=fitted_model,points=points,metrics=metrics,
                     counts=dict(train=sum(r['split']=='train' for r in rows),holdout=sum(r['split']=='holdout' for r in rows))))
+                if progress is not None:
+                    progress(dict(group=group,noise_sigma=sigma,repetition=rep,status=jobs[-1]['status']))
     return dict(format_version='1.0',status='complete' if all(j['status']=='complete' for j in jobs) else 'blocked',
         stage='second_stage_step_3_joint_fit',config_snapshot=deepcopy(config),
         generation_report_sha256=digest(generation),generation_input_sha256=generation['input_sha256'],

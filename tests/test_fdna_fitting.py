@@ -6,11 +6,12 @@ import io
 import json
 from pathlib import Path
 import tempfile
+from types import SimpleNamespace
 import unittest
 
 from fdna import ModelError, load_model
 from fdna.__main__ import main
-from fdna.fitting import fit_parameters, generate_samples
+from fdna.fitting import fit_parameters, generate_samples, _select_attempt
 from fdna.structure import digest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -72,6 +73,17 @@ class FittingTests(unittest.TestCase):
         self.assertEqual(report['status'], 'blocked')
         self.assertTrue(all(not a['success'] and a['message']
                             for a in report['receivers'][0]['attempts']))
+
+    def test_converged_attempt_preferred_only_within_machine_precision(self):
+        def attempt(rmse,success): return (rmse,SimpleNamespace(success=success),None,None)
+        attempts=[attempt(8.25095237796262,False),attempt(8.250952377962621,True)]
+        selected,tolerance=_select_attempt(attempts)
+        self.assertEqual(selected,1)
+        self.assertLess(tolerance,1e-12)
+        # A visibly worse converged result cannot relabel a better unfinished fit.
+        self.assertEqual(_select_attempt([attempt(8,False),attempt(8.000001,True)])[0],0)
+        self.assertEqual(_select_attempt([attempt(8,False),attempt(8,False)])[0],0)
+        self.assertEqual(_select_attempt([attempt(8,True),attempt(8,True)])[0],0)
 
     def test_holdout_and_reported_parameters_do_not_influence_optimization(self):
         original = self.fit()['receivers'][0]
