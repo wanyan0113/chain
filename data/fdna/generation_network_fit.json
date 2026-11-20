@@ -1,0 +1,13 @@
+{
+  "format_version":"1.0",
+  "id":"joint_network_noiseless_base_fit",
+  "basis":"第二阶段第三步首轮：对同一综合网络数据分别拟合各接受节点全部入边；先比较两组固定条件下的无噪声局部预测与根节点驱动的整网预测。不进行参数真值恢复，不使用生成权重作初值。",
+  "groups":["unit_conditions","fixed_conditions"],
+  "noise_std":[0],
+  "repetitions":[1],
+  "settings":{
+    "format_version":"1.0","id":"joint_base_lbfgsb","basis":"基础式有界多起点拟合，验证集不参与优化和挑选初值。",
+    "model":"fdna_base_eq1_eq2","solver":"L-BFGS-B","seed":20261120,
+    "starts":12,"max_nfev":3000,"delta_policy":"excluded_for_base_check"
+  }
+}
