@@ -266,7 +266,7 @@ def analyze_diagnostics(generation,baseline,comparison,summary,config,*,progress
         limits=['残差图汇集重复内验证条目，仅作分布描述，不将配对条目当成独立实验',
                 '近等训练损失不保证所有输入上的预测等价；留出预测差单独报告，不用于筛选起点',
                 '局部Jacobian零方向可能受参数边界或分支切换限制；只报告预设扰动实际产生的变化',
-                '诊断不改变模型或生成机制，尚未开展变化C、M、E及过程波动、交互、11节点18边实验'])
+                '诊断仅覆盖输入报告明确选择的条件和网络；不由当前诊断推断其他条件或网络实验已完成'])
     return report,all_points
 
 

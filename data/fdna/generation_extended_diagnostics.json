@@ -1,0 +1,84 @@
+{
+  "format_version": "1.0",
+  "id": "post_baseline_frozen_diagnostics",
+  "basis": "复核变化条件、过程和三交互强度的冻结结果；不拟合、不改生成机制或δ界限；近等起点仅依训练损失，阈值20/40仅作描述。",
+  "policy": {
+    "format_version": "1.0",
+    "id": "frozen_delta_residual_and_parameter_diagnostics",
+    "basis": "仅核验并分析冻结的δ重复对照，不重新拟合、不裁剪预测、不改变δ界限；近等起点仅按训练RMSE筛选，留出数据只作诊断。",
+    "near_training_rmse_tolerance": 1e-06,
+    "prediction_equivalence_tolerance": 1e-06,
+    "null_step_fraction": 0.1,
+    "plot_noise_std": [
+      0,
+      8
+    ]
+  },
+  "low_input_thresholds": [
+    20,
+    40
+  ],
+  "sources": [
+    {
+      "id": "varying",
+      "generation_report": "generated/stage2-varying-conditions/generation/generation_report.json",
+      "experiment_dir": "generated/stage2-varying-conditions",
+      "expected_groups": [
+        "varying_conditions"
+      ],
+      "illustration": {
+        "model": "free_delta",
+        "group": "varying_conditions",
+        "noise_sigma": 0,
+        "repetition": 1,
+        "node": "T"
+      }
+    },
+    {
+      "id": "process",
+      "generation_report": "generated/stage2-process-conditions-final/generation/generation_report.json",
+      "experiment_dir": "generated/stage2-process-conditions-final",
+      "expected_groups": [
+        "varying_conditions_process_2"
+      ],
+      "illustration": {
+        "model": "free_delta",
+        "group": "varying_conditions_process_2",
+        "noise_sigma": 0,
+        "repetition": 1,
+        "node": "T"
+      }
+    },
+    {
+      "id": "interaction_main",
+      "generation_report": "generated/stage2-interaction-primary/generation/generation_report.json",
+      "experiment_dir": "generated/stage2-interaction-primary",
+      "expected_groups": [
+        "interaction_015"
+      ],
+      "illustration": {
+        "model": "free_delta",
+        "group": "interaction_015",
+        "noise_sigma": 0,
+        "repetition": 1,
+        "node": "T"
+      }
+    },
+    {
+      "id": "interaction_strengths",
+      "generation_report": "generated/stage2-interaction-primary/generation/generation_report.json",
+      "experiment_dir": "generated/stage2-interaction-sensitivity",
+      "expected_groups": [
+        "interaction_005",
+        "interaction_030"
+      ],
+      "illustration": {
+        "model": "free_delta",
+        "group": "interaction_030",
+        "noise_sigma": 0,
+        "repetition": 1,
+        "node": "R"
+      }
+    }
+  ]
+}
