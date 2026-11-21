@@ -93,7 +93,13 @@ def build_report(generation,base,comparison,summary,reference,old_base,old_compa
     for n,levels in factors.items():
         for g in sorted(levels,key=levels.get):
             for sigma in noises:lines.append(f'| {n} | {levels[g]:.2f} | {sigma} | '+' | '.join(show(find(n,m,g,sigma)) for m in ('base','fixed_delta','free_delta'))+' |')
+    q_order=sorted(factors['Q'],key=factors['Q'].get);lo,hi=q_order[0],q_order[-1];sigma=noises[0]
+    q_interpretation=(f"例如Q的h从{factors['Q'][lo]:.2f}变为{factors['Q'][hi]:.2f}时（观测σ={sigma}），"
+        f"基础式末端RMSE均值由{find('Q','base',lo,sigma)['mean']:.3f}变为{find('Q','base',hi,sigma)['mean']:.3f}，"
+        f"自由δ由{find('Q','free_delta',lo,sigma)['mean']:.3f}变为{find('Q','free_delta',hi,sigma)['mean']:.3f}。"
+        '能力乘数的单调变化不能直接代替拟合误差的变化方向；需分别看各模型的实际预测、目标和参数诊断，不将某个系数认定为普遍更优。')
     lines+=['', '上表为末端R对干净验证目标的整网RMSE；±是重复间样本标准差，不是置信区间。三个节点面板引用同一冻结基线，不可重复计作独立实验。跨组实际状态与目标可能变化，RMSE差不是单独的因果传播误差。',
+        '',q_interpretation,
         '', '| 组 | 自由δ触下界/节点估计数 | 自由δ局部秩不足 | 含δ越界预测条目 |','| --- | ---: | ---: | ---: |']
     for g in [source,*groups]:
         rows=[r for r in delta if r['group']==g and r['model']=='free_delta']
