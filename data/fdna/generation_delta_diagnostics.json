@@ -1,0 +1,19 @@
+{
+  "format_version": "1.0",
+  "id": "frozen_delta_residual_and_parameter_diagnostics",
+  "basis": "仅核验并分析冻结的δ重复对照，不重新拟合、不裁剪预测、不改变δ界限；近等起点仅按训练RMSE筛选，留出数据只作诊断。",
+  "near_training_rmse_tolerance": 1e-06,
+  "prediction_equivalence_tolerance": 1e-06,
+  "null_step_fraction": 0.1,
+  "plot_noise_std": [
+    0,
+    8
+  ],
+  "illustration": {
+    "model": "free_delta",
+    "group": "unit_conditions",
+    "noise_sigma": 0,
+    "repetition": 1,
+    "node": "T"
+  }
+}
