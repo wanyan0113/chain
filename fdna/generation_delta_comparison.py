@@ -61,14 +61,14 @@ def audit_frozen_baseline(generation,baseline,selection):
     return result
 
 
-def run_comparison(generation,baseline,config):
+def run_comparison(generation,baseline,config,*,allow_repeats=False,progress=None):
     if set(config)!= {'format_version','id','basis','groups','noise_std','repetitions','fixed_delta','free_delta_bounds'} or config['format_version']!='1.0':
         raise ModelError('δ对照配置须明确选择、固定值及自由界限')
     _finite(config)
     selection=dict(format_version='1.0',id=config['id'],basis=config['basis'],groups=config['groups'],
         noise_std=config['noise_std'],repetitions=config['repetitions'],settings=baseline['config_snapshot']['settings'])
     _validate_config(selection)
-    if len(config['noise_std'])!=1 or len(config['repetitions'])!=1:
+    if not allow_repeats and (len(config['noise_std'])!=1 or len(config['repetitions'])!=1):
         raise ModelError('首轮对照只选择一个噪声档位和一次重复，不混合汇总')
     receivers=generation['topology']['receivers']
     if (set(config['fixed_delta'])!=set(receivers) or set(config['free_delta_bounds'])!=set(receivers) or
@@ -83,7 +83,8 @@ def run_comparison(generation,baseline,config):
         else: settings.update(delta_policy='per_receiver_bounded',delta_bounds=deepcopy(config['free_delta_bounds']))
         selection=dict(format_version='1.0',id=config['id']+'_'+mode,basis=config['basis'],
             groups=config['groups'],noise_std=config['noise_std'],repetitions=config['repetitions'],settings=settings)
-        fit=fit_joint_network(generation,selection,allow_additive=True)
+        callback=(lambda job,model=mode:progress(dict(model=model,**job))) if progress is not None else None
+        fit=fit_joint_network(generation,selection,allow_additive=True,progress=callback)
         fits[mode]=fit; models[mode]=fit['jobs']
     metrics=[]; decomposition=[]; changes=[]; parameter_changes=[]
     base_lookup={(j['group'],j['noise_sigma'],j['repetition']):j for j in base_jobs}
@@ -129,13 +130,14 @@ def run_comparison(generation,baseline,config):
     status='complete' if all(f['status']=='complete' for f in fits.values()) else 'blocked'
     return dict(format_version='1.0',stage='stage2_delta_comparison',status=status,config_snapshot=deepcopy(config),
         generation_sha256=digest(generation),baseline_fit_sha256=digest(baseline),fits=fits,
-        baseline_jobs_audited=len(base_jobs),metrics=metrics,changes=changes,error_decomposition=decomposition,parameter_changes=parameter_changes,
+        baseline_jobs_audited=len(base_jobs),comparison_scope='repeated' if allow_repeats else 'first_round',
+        metrics=metrics,changes=changes,error_decomposition=decomposition,parameter_changes=parameter_changes,
         policies=dict(baseline_refitted=False,generator_changed=False,split_changed=False,holdout_used_for_selection=False,
             fixed_delta_is_truth=False,prediction_clipping='none',old_base_lower_bound_applied_to_delta=False),
         limits=['固定δ为预先规定的对照值，不是独立场景或原文真值；自由δ界限为实验设定',
                 '不裁剪预测，超出0—100另行计数；基础式下界不直接用于含δ结果',
                 'MSE恒等式描述同一模型输入替换后的预测变化及交叉项，不是因果误差归因',
-                '首轮只对照选定条件与重复，不能代替全部噪声重复或实际任务有效性验证'])
+                '对照范围由配置中的条件、噪声与重复编号限定，不代表实际任务有效性验证'])
 
 
 def render_summary(report):

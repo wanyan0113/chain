@@ -1,0 +1,46 @@
+{
+  "format_version": "1.0",
+  "id": "joint_delta_paired_noise_repeats",
+  "basis": "沿用首轮预设固定δ=-5与自由δ界限[-10,10]，在同一冻结综合网络数据上扩展四档噪声和10次重复；基础式不重新拟合，验证集不用于选择δ或界限。",
+  "groups": [
+    "unit_conditions",
+    "fixed_conditions"
+  ],
+  "noise_std": [
+    0,
+    2,
+    5,
+    8
+  ],
+  "repetitions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "fixed_delta": {
+    "T": -5,
+    "Q": -5,
+    "R": -5
+  },
+  "free_delta_bounds": {
+    "T": [
+      -10,
+      10
+    ],
+    "Q": [
+      -10,
+      10
+    ],
+    "R": [
+      -10,
+      10
+    ]
+  }
+}
