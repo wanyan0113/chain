@@ -1,0 +1,38 @@
+{
+  "format_version": "1.0",
+  "id": "generation_coefficient_fit",
+  "basis": "首批生成系数敏感性：仅扰动末端R的归一化贡献权重对，Q权重相对0.62上下各0.10；D_aux互补变化；不按验证结果选权重。复用变化条件组根输入、条件、划分及噪声创新，过程与交互关闭。",
+  "groups": [
+    "weight_q052",
+    "weight_q072"
+  ],
+  "noise_std": [
+    0,
+    2,
+    5,
+    8
+  ],
+  "repetitions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "settings": {
+    "format_version": "1.0",
+    "id": "joint_base_lbfgsb",
+    "basis": "基础式有界多起点拟合，验证集不参与优化和挑选初值。",
+    "model": "fdna_base_eq1_eq2",
+    "solver": "L-BFGS-B",
+    "seed": 20261120,
+    "starts": 12,
+    "max_nfev": 3000,
+    "delta_policy": "excluded_for_base_check"
+  }
+}

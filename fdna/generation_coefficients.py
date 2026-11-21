@@ -1,0 +1,102 @@
+"""Paired, prespecified terminal-weight sensitivity; never modifies frozen controls."""
+from copy import deepcopy
+import math
+
+from .generation_network import NetworkGenerator
+from .generation_varying import run_varying_network_check
+from .model import ModelError, _finite
+from .structure import digest
+
+
+def run_coefficient_check(network, nodes, config):
+    _finite(config)
+    keys = {'format_version', 'id', 'basis', 'reference_experiment', 'weight_groups'}
+    if not isinstance(config, dict) or set(config) != keys or config['format_version'] != '1.0':
+        raise ModelError('系数敏感性配置字段或版本无效')
+    groups = config['weight_groups']
+    if not isinstance(groups, dict) or not groups:
+        raise ModelError('须预先指定权重组')
+    report = run_varying_network_check(network, nodes, config['reference_experiment'])
+    source = config['reference_experiment']['condition_sampling']['group_id']
+    source_sha = digest(report)
+    old_hashes = {k: digest(report[k]) for k in ('root_inputs', 'clean_runs', 'observations')}
+    if set(groups) & set(report['config_snapshot']['groups']):
+        raise ModelError('新权重组不得与冻结对照重复')
+    generator = NetworkGenerator(network, nodes)
+    if (nodes['nodes']['R']['mechanism_type'] != 'weighted'
+            or set(nodes['nodes']['R']['weights']) != {'Q', 'D_aux'}
+            or any(e['feeder'] == 'R' for e in network['edges'])):
+        raise ModelError('本批仅支持末端R的Q/D_aux归一化权重敏感性')
+    old_runs = {r['base_case_id']: r for r in report['clean_runs'] if r['group'] == source}
+    old_obs = {(r['base_case_id'], r['noise_sigma']): r for r in report['observations'] if r['group'] == source}
+    variants = {}; runs = []; observations = []; structural = []; shifts = []
+    signatures = set()
+    for group, weights in sorted(groups.items()):
+        if not isinstance(group, str) or not group or not isinstance(weights, dict) or set(weights) != {'Q', 'D_aux'}:
+            raise ModelError('权重组须完整指定Q及D_aux')
+        if (any(isinstance(v, bool) or not isinstance(v, (int, float)) or not 0 <= v <= 1 for v in weights.values())
+                or not math.isclose(sum(weights.values()), 1, abs_tol=1e-12, rel_tol=0)):
+            raise ModelError('权重须在0到1且和为1，不自动归一化')
+        signature = (weights['Q'], weights['D_aux'])
+        if signature in signatures or weights == nodes['nodes']['R']['weights']:
+            raise ModelError('权重组不可重复或复制基线')
+        signatures.add(signature)
+        variant = deepcopy(nodes); variant['nodes']['R']['weights'] = deepcopy(weights)
+        variants[group] = variant
+        changed = NetworkGenerator(network, variant)
+        for root in report['root_inputs']:
+            original = old_runs[root['base_case_id']]; conditions = original['conditions_by_node']
+            result = changed.evaluate(root['root_values_clean'], condition_values_by_node=conditions)
+            trace = {n: {k: v for k, v in d.items() if k not in
+                     ('observation_noise', 'receiver_se_observed', 'observation_clipped')}
+                     for n, d in result['node_details'].items()}
+            run_id = group + ':' + root['base_case_id']
+            runs.append(dict(network_run_id=run_id, base_case_id=root['base_case_id'], repetition=root['repetition'],
+                group=group, split=root['split'], conditions_by_node=deepcopy(conditions),
+                node_values_clean=result['node_values_clean'], node_details=trace))
+            for n in generator.receivers:
+                shifts.append(dict(group=group, base_case_id=root['base_case_id'], repetition=root['repetition'],
+                    split=root['split'], node=n, baseline=original['node_values_clean'][n],
+                    changed=result['node_values_clean'][n], shift=result['node_values_clean'][n]-original['node_values_clean'][n]))
+            for sigma in report['config_snapshot']['noise_std']:
+                original_obs = old_obs[root['base_case_id'], sigma]; noise = original_obs['observation_noise'].copy()
+                clean = result['node_values_clean']
+                observations.append(dict(observation_id=run_id+':sigma:'+str(sigma), network_run_id=run_id,
+                    base_case_id=root['base_case_id'], repetition=root['repetition'], group=group, split=root['split'],
+                    noise_sigma=sigma, conditions_by_node=deepcopy(conditions), node_values_clean=clean.copy(),
+                    node_values_observed={n: min(100, max(0, v+noise[n])) for n, v in clean.items()}, observation_noise=noise))
+        for rep in range(1, report['config_snapshot']['repetitions']+1):
+            for split in ('train', 'holdout'):
+                selected = [r for r in runs if r['group']==group and r['repetition']==rep and r['split']==split]
+                for n in generator.receivers:
+                    deficits = [max(0, min(r['node_details'][n]['parent_clean'].values())-r['node_values_clean'][n]) for r in selected]
+                    structural.append(dict(group=group, repetition=rep, split=split, node=n, count=len(deficits),
+                        below_min_parent_fraction=sum(v>1e-10 for v in deficits)/len(deficits),
+                        clean_local_base_rmse_lower_bound=math.sqrt(math.fsum(v*v for v in deficits)/len(deficits))))
+    checks = report['checks']
+    checks.update(coefficient_frozen_rows_unchanged=all(digest(report[k])==v for k,v in old_hashes.items()),
+        coefficient_nonterminal_values_unchanged=all(all(r['node_values_clean'][n]==old_runs[r['base_case_id']]['node_values_clean'][n]
+            for n in generator.nodes if n!='R') for r in runs),
+        coefficient_conditions_and_split_paired=all(r['conditions_by_node']==old_runs[r['base_case_id']]['conditions_by_node']
+            and r['split']==old_runs[r['base_case_id']]['split'] for r in runs),
+        coefficient_observation_noise_paired=all(r['observation_noise']==old_obs[r['base_case_id'],r['noise_sigma']]['observation_noise'] for r in observations),
+        coefficient_parent_continuity=all(d['parent_clean']=={p:r['node_values_clean'][p] for p in d['parent_clean']}
+            for r in runs for d in r['node_details'].values()),
+        coefficient_values_in_range=all(0<=v<=100 for r in observations for k in ('node_values_clean','node_values_observed') for v in r[k].values()))
+    report['clean_runs'].extend(runs); report['observations'].extend(observations)
+    checks['coefficient_observation_ids_unique'] = len({r['observation_id'] for r in report['observations']})==len(report['observations'])
+    report.update(stage='stage2_coefficient_generation', source_varying_generation_sha256=source_sha,
+        coefficient_config_snapshot=deepcopy(config), variant_node_configs=variants,
+        coefficient_shifts=shifts, coefficient_structural_by_split=structural,
+        input_sha256=digest(dict(network=network, node_configs=nodes, experiment=config)))
+    for group, weights in groups.items():
+        report['config_snapshot']['groups'][group] = dict(source_group=source, receiver='R', weights=deepcopy(weights))
+    report['counts'].update(clean_network_runs=len(report['clean_runs']), network_observation_versions=len(report['observations']),
+        node_observation_rows=len(report['observations'])*len(generator.nodes))
+    report['policies'].update(coefficient_scope='terminal_R_normalized_weight_pair', coefficient_groups_prespecified=True)
+    report['limits'] = ['本批只检查R权重对，不代表所有生成系数敏感性完成；两权重和为1，属于一个自由度。',
+        '生成权重不是FDNA参数真值；跨权重组目标发生变化，RMSE差不是因果传播误差。',
+        '共享基础输入、条件、划分及噪声创新；四档噪声不是独立生成实验。',
+        '过程波动与交互关闭；未为改善拟合调整机制或δ界限。']
+    report['status'] = 'complete' if all(checks.values()) else 'blocked'
+    return report

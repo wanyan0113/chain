@@ -1,0 +1,84 @@
+{
+  "format_version": "1.0",
+  "id": "terminal_weight_sensitivity_v1",
+  "basis": "首批生成系数敏感性：仅扰动末端R的归一化贡献权重对，Q权重相对0.62上下各0.10；D_aux互补变化；不按验证结果选权重。复用变化条件组根输入、条件、划分及噪声创新，过程与交互关闭。",
+  "reference_experiment": {
+    "format_version": "1.0",
+    "id": "per_receiver_independent_conditions_v1",
+    "basis": "第四次修订补充版首轮变化条件：每个基础网络、每个接受节点独立抽C/M/E；跨噪声共享；旧根节点、划分、观测扰动保持配对。条件不进入FDNA预测端；过程波动与交互仍关闭。",
+    "base_experiment": {
+      "format_version": "1.0",
+      "id": "joint_network_noise_repeats",
+      "basis": "第二阶段第四步：两组固定条件、四档配对观测噪声、10次独立抽样重复；每次整网划分200训练和50验证；过程噪声与交互项仍为零。",
+      "seed": 20261120,
+      "repetitions": 10,
+      "base_cases": 250,
+      "train_count": 200,
+      "noise_std": [
+        0,
+        2,
+        5,
+        8
+      ],
+      "process_std": 0,
+      "interaction_gamma": 0,
+      "groups": {
+        "unit_conditions": {
+          "C": 1,
+          "M": 1,
+          "E": 0
+        },
+        "fixed_conditions": {
+          "C": 0.8,
+          "M": 0.7,
+          "E": 0.2
+        }
+      },
+      "root_sampling": {
+        "normal": [
+          0.65,
+          0.98
+        ],
+        "degraded": [
+          0.2,
+          0.6
+        ],
+        "shared_factor_weight": 0.15,
+        "fractions": {
+          "normal": 0.5,
+          "single": 0.2,
+          "double": 0.2,
+          "all": 0.1
+        }
+      }
+    },
+    "condition_sampling": {
+      "group_id": "varying_conditions",
+      "mode": "per_receiver_independent",
+      "ranges": {
+        "C": [
+          0.4,
+          1.0
+        ],
+        "M": [
+          0.0,
+          1.0
+        ],
+        "E": [
+          0.0,
+          0.8
+        ]
+      }
+    }
+  },
+  "weight_groups": {
+    "weight_q052": {
+      "Q": 0.52,
+      "D_aux": 0.48
+    },
+    "weight_q072": {
+      "Q": 0.72,
+      "D_aux": 0.28
+    }
+  }
+}
