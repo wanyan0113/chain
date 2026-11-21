@@ -1,0 +1,38 @@
+{
+  "format_version": "1.0",
+  "id": "interaction_strength_sensitivity_base_fit",
+  "basis": "预先指定γ=0.05和0.30正式拟合；复用第12阶段冻结数据，不重新生成或调整强度。求解器、划分、噪声与δ设置和γ=0.15一致；旧0/0.15结果只引用不重拟合。",
+  "groups": [
+    "interaction_005",
+    "interaction_030"
+  ],
+  "noise_std": [
+    0,
+    2,
+    5,
+    8
+  ],
+  "repetitions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "settings": {
+    "format_version": "1.0",
+    "id": "joint_base_lbfgsb",
+    "basis": "基础式有界多起点拟合，验证集不参与优化和挑选初值。",
+    "model": "fdna_base_eq1_eq2",
+    "solver": "L-BFGS-B",
+    "seed": 20261120,
+    "starts": 12,
+    "max_nfev": 3000,
+    "delta_policy": "excluded_for_base_check"
+  }
+}

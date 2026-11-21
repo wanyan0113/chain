@@ -1,0 +1,46 @@
+{
+  "format_version": "1.0",
+  "id": "interaction_strength_sensitivity_delta_comparison",
+  "basis": "预先指定γ=0.05和0.30正式拟合；复用第12阶段冻结数据，不重新生成或调整强度。求解器、划分、噪声与δ设置和γ=0.15一致；旧0/0.15结果只引用不重拟合。",
+  "groups": [
+    "interaction_005",
+    "interaction_030"
+  ],
+  "noise_std": [
+    0,
+    2,
+    5,
+    8
+  ],
+  "repetitions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "fixed_delta": {
+    "T": -5,
+    "Q": -5,
+    "R": -5
+  },
+  "free_delta_bounds": {
+    "T": [
+      -10,
+      10
+    ],
+    "Q": [
+      -10,
+      10
+    ],
+    "R": [
+      -10,
+      10
+    ]
+  }
+}
