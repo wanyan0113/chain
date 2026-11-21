@@ -150,9 +150,9 @@ def build_report(generation, base, comparison, summary, reference, old_base, old
             for i,(f,levels) in enumerate(factors.items()):
                 ordered=sorted(levels,key=levels.get)
                 for ax,sigma in zip(axes[i],display_noises):
-                    for model,title,color in modes:
+                    for model,model_label,color in modes:
                         rows=[find(f,model,g,sigma,quantity=quantity) for g in ordered]
-                        ax.errorbar([levels[g] for g in ordered],[r['mean'] for r in rows],yerr=[r['sd'] or 0 for r in rows],marker='o',capsize=3,label=title,color=color)
+                        ax.errorbar([levels[g] for g in ordered],[r['mean'] for r in rows],yerr=[r['sd'] or 0 for r in rows],marker='o',capsize=3,label=model_label,color=color)
                     ax.set(title=f'仅改变{labels[f]}，R节点，观测σ={sigma}',xlabel=(f'R的{labels[f]}系数' if condition else f'{f}对T的互补支持系数'),ylabel=label,xticks=[levels[g] for g in ordered]);ax.grid(alpha=.2)
             fig.legend(*axes[0,0].get_legend_handles_labels(),loc='outside lower center',ncol=3)
             fig.suptitle(f'{title}（{repeats}次重复，误差棒为样本标准差，单次无SD）');save(fig,name.replace('support','condition') if condition else name)
@@ -163,8 +163,8 @@ def build_report(generation, base, comparison, summary, reference, old_base, old
                 rows=[find(f,'base',g,fc['noise_std'][0],n,'local') for g in ordered]
                 bound_rows=reference['structural_by_split']+generation['coefficient_structural_by_split']
                 values=[distribution([r['clean_local_base_rmse_lower_bound'] for r in bound_rows if r['group']==g and r['node']==n and r['split']=='holdout']) for g in ordered]
-                for data,title,color in [(rows,'基础式局部RMSE','#367AA8'),(values,'同数据结构下界','#8999AA')]:
-                    ax.errorbar([levels[g] for g in ordered],[r['mean'] for r in data],yerr=[r['sd'] or 0 for r in data],marker='o',capsize=3,label=title,color=color)
+                for data,legend_label,color in [(rows,'基础式局部RMSE','#367AA8'),(values,'同数据结构下界','#8999AA')]:
+                    ax.errorbar([levels[g] for g in ordered],[r['mean'] for r in data],yerr=[r['sd'] or 0 for r in data],marker='o',capsize=3,label=legend_label,color=color)
                 ax.set(title=f'仅改变{labels[f]} / {n}',xlabel=f'{labels[f]}系数',ylabel='SE点',xticks=[levels[g] for g in ordered]);ax.grid(alpha=.2);ax.legend(fontsize=8)
         fig.suptitle(f"基础式局部误差及结构下界（观测σ={fc['noise_std'][0]}，均值±样本标准差，单次无SD）");save(fig,'condition_bound' if condition else 'support_bound')
     return outputs

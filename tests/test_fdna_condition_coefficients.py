@@ -70,6 +70,7 @@ class ConditionCoefficientTests(unittest.TestCase):
         self.assertEqual(audit['unchanged_node_metric_checks'],384)
         self.assertIn('T/Q目标不变',outputs['结果解释.md'])
         for name in ('condition_rmse.png','condition_bound.svg','all_condition_delta.csv'):self.assertIn(name,outputs)
+        self.assertIn('末端条件函数系数敏感性',outputs['condition_rmse.svg'].decode('utf-8'))
         bad=deepcopy(result);bad['metrics'][0]['rmse']+=1
         with self.assertRaises(ModelError):build_report(self.g,new,bad,summary,ref,b,c,old)
 
