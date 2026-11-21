@@ -23,9 +23,12 @@ from .structure import digest
 
 def audit_generation(report):
     _finite(report)
-    if report.get('stage') not in ('second_stage_step_2_joint_generation','stage2_varying_conditions_generation','stage2_process_generation') or report.get('status')!='complete':
+    if report.get('stage') not in ('second_stage_step_2_joint_generation','stage2_varying_conditions_generation','stage2_process_generation','stage2_interaction_generation') or report.get('status')!='complete':
         raise ModelError('拟合需要已完成的综合网络生成报告')
-    if report['stage']=='stage2_process_generation':
+    if report['stage']=='stage2_interaction_generation':
+        from .generation_interaction import run_interaction_network_check
+        regenerated=run_interaction_network_check(report['network_snapshot'],report['node_configs_snapshot'],report['interaction_config_snapshot'])
+    elif report['stage']=='stage2_process_generation':
         from .generation_process import run_process_network_check
         regenerated=run_process_network_check(report['network_snapshot'],report['node_configs_snapshot'],report['process_config_snapshot'])
     elif report['stage']=='stage2_varying_conditions_generation':

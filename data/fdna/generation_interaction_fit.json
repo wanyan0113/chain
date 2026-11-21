@@ -1,0 +1,37 @@
+{
+  "format_version": "1.0",
+  "id": "interaction_gamma015_base_fit",
+  "basis": "首轮γ=0.15主交互组：沿用冻结的求解器、多初值和δ设置；只读上游SE，交互γ及C/M/E不直接进入FDNA预测端。",
+  "groups": [
+    "interaction_015"
+  ],
+  "noise_std": [
+    0,
+    2,
+    5,
+    8
+  ],
+  "repetitions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "settings": {
+    "format_version": "1.0",
+    "id": "joint_base_lbfgsb",
+    "basis": "基础式有界多起点拟合，验证集不参与优化和挑选初值。",
+    "model": "fdna_base_eq1_eq2",
+    "solver": "L-BFGS-B",
+    "seed": 20261120,
+    "starts": 12,
+    "max_nfev": 3000,
+    "delta_policy": "excluded_for_base_check"
+  }
+}

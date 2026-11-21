@@ -1,0 +1,45 @@
+{
+  "format_version": "1.0",
+  "id": "interaction_gamma015_delta_comparison",
+  "basis": "首轮γ=0.15主交互组：沿用冻结的求解器、多初值和δ设置；只读上游SE，交互γ及C/M/E不直接进入FDNA预测端。",
+  "groups": [
+    "interaction_015"
+  ],
+  "noise_std": [
+    0,
+    2,
+    5,
+    8
+  ],
+  "repetitions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "fixed_delta": {
+    "T": -5,
+    "Q": -5,
+    "R": -5
+  },
+  "free_delta_bounds": {
+    "T": [
+      -10,
+      10
+    ],
+    "Q": [
+      -10,
+      10
+    ],
+    "R": [
+      -10,
+      10
+    ]
+  }
+}
