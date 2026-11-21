@@ -1,0 +1,77 @@
+{
+  "format_version": "1.0",
+  "id": "remaining_condition_sensitivity_v1",
+  "basis": "在正式计算前冻结剩余代表性扰动；只有实际完成拟合的批次才计为已完成。",
+  "normalized_pairs": [
+    "capability_base+capability_gain=1",
+    "task_base+task_gain=1"
+  ],
+  "boundary_policy": "0或1边界采用0.10单侧步长；内部采用±0.10；不事后截断系数",
+  "batches": {
+    "capability": {
+      "cap_T090": {
+        "node": "T",
+        "factor": "capability_gain",
+        "value": 0.9
+      },
+      "cap_Q035": {
+        "node": "Q",
+        "factor": "capability_gain",
+        "value": 0.35
+      },
+      "cap_Q055": {
+        "node": "Q",
+        "factor": "capability_gain",
+        "value": 0.55
+      },
+      "cap_R090": {
+        "node": "R",
+        "factor": "capability_gain",
+        "value": 0.9
+      }
+    },
+    "upstream_task_environment": {
+      "T_task_gain_008": {
+        "node": "T",
+        "factor": "task_gain",
+        "value": 0.08
+      },
+      "T_task_gain_028": {
+        "node": "T",
+        "factor": "task_gain",
+        "value": 0.28
+      },
+      "T_environment_penalty_018": {
+        "node": "T",
+        "factor": "environment_penalty",
+        "value": 0.18
+      },
+      "T_environment_penalty_038": {
+        "node": "T",
+        "factor": "environment_penalty",
+        "value": 0.38
+      },
+      "Q_task_gain_012": {
+        "node": "Q",
+        "factor": "task_gain",
+        "value": 0.12
+      },
+      "Q_task_gain_032": {
+        "node": "Q",
+        "factor": "task_gain",
+        "value": 0.32
+      },
+      "Q_environment_penalty_025": {
+        "node": "Q",
+        "factor": "environment_penalty",
+        "value": 0.25
+      },
+      "Q_environment_penalty_045": {
+        "node": "Q",
+        "factor": "environment_penalty",
+        "value": 0.45
+      }
+    }
+  },
+  "interpretation": "系数控制作用函数形状，不代表C/M实际能力增强；跨组RMSE为合成设计敏感性，不是单独的因果传播量。"
+}

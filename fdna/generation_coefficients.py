@@ -16,6 +16,14 @@ def coefficient_groups(config):
     return key, config[key]
 
 
+def affected_nodes(network, node):
+    affected={node}
+    while True:
+        expanded=affected|{e['receiver'] for e in network['edges'] if e['feeder'] in affected}
+        if expanded==affected:return affected
+        affected=expanded
+
+
 def run_coefficient_check(network, nodes, config):
     _finite(config)
     if not isinstance(config, dict): raise ModelError('系数实验配置须为对象')
@@ -59,17 +67,20 @@ def run_coefficient_check(network, nodes, config):
             raise ModelError('系数须在0到1；贡献权重之和须为1，不自动归一化')
         if support and sum(weights[p] != original_coefficients[p] for p in parents) != 1:
             raise ModelError('互补系数实验每组须且仅改变一个系数')
-        if condition and (weights['node']!='R' or weights['factor'] not in ('task_gain','environment_penalty')):
-            raise ModelError('首批条件函数实验仅支持末端R的任务增益和环境惩罚系数')
-        signature = (weights['factor'],weights['value']) if condition else tuple(weights[p] for p in sorted(parents))
+        if condition:
+            if weights['node'] not in generator.receivers or weights['factor'] not in ('capability_gain','task_gain','environment_penalty'):
+                raise ModelError('条件函数实验须指定已配置接受节点及能力增益、任务增益或环境惩罚')
+            original_coefficients=nodes['nodes'][weights['node']]['condition_function']
+        signature = (weights['node'],weights['factor'],weights['value']) if condition else tuple(weights[p] for p in sorted(parents))
         unchanged = weights['value']==original_coefficients[weights['factor']] if condition else weights==original_coefficients
         if signature in signatures or unchanged:
             raise ModelError('权重组不可重复或复制基线')
         signatures.add(signature)
         variant = deepcopy(nodes)
         if condition:
-            f=variant['nodes']['R']['condition_function'];f[weights['factor']]=weights['value']
-            if weights['factor']=='task_gain':f['task_base']=1-weights['value']
+            f=variant['nodes'][weights['node']]['condition_function'];f[weights['factor']]=weights['value']
+            if weights['factor'] in ('task_gain','capability_gain'):
+                f[weights['factor'].replace('_gain','_base')]=1-weights['value']
         else:
             variant['nodes'][receiver][field] = deepcopy(weights)
         variants[group] = variant
@@ -104,10 +115,17 @@ def run_coefficient_check(network, nodes, config):
                         below_min_parent_fraction=sum(v>1e-10 for v in deficits)/len(deficits),
                         clean_local_base_rmse_lower_bound=math.sqrt(math.fsum(v*v for v in deficits)/len(deficits))))
     checks = report['checks']
+    extended_condition=condition and any(g['node']!='R' or g['factor']=='capability_gain' for g in groups.values())
     invariant_nodes = generator.roots if support else [n for n in generator.nodes if n!='R']
     invariant_key = 'coefficient_root_values_unchanged' if support else 'coefficient_nonterminal_values_unchanged'
-    checks[invariant_key] = all(all(r['node_values_clean'][n]==old_runs[r['base_case_id']]['node_values_clean'][n]
-        for n in invariant_nodes) for r in runs)
+    if extended_condition:
+        invariant_key='coefficient_unaffected_values_unchanged'
+        unaffected={g:set(generator.nodes)-affected_nodes(network,spec['node']) for g,spec in groups.items()}
+        checks[invariant_key]=all(all(r['node_values_clean'][n]==old_runs[r['base_case_id']]['node_values_clean'][n]
+            for n in unaffected[r['group']]) for r in runs)
+    else:
+        checks[invariant_key] = all(all(r['node_values_clean'][n]==old_runs[r['base_case_id']]['node_values_clean'][n]
+            for n in invariant_nodes) for r in runs)
     checks.update(coefficient_frozen_rows_unchanged=all(digest(report[k])==v for k,v in old_hashes.items()),
         coefficient_conditions_and_split_paired=all(r['conditions_by_node']==old_runs[r['base_case_id']]['conditions_by_node']
             and r['split']==old_runs[r['base_case_id']]['split'] for r in runs),
@@ -127,6 +145,7 @@ def run_coefficient_check(network, nodes, config):
     report['counts'].update(clean_network_runs=len(report['clean_runs']), network_observation_versions=len(report['observations']),
         node_observation_rows=len(report['observations'])*len(generator.nodes))
     scope='terminal_R_conditions_one_at_a_time' if condition else ('T_complementary_one_at_a_time' if support else 'terminal_R_normalized_weight_pair')
+    if extended_condition:scope='network_conditions_one_at_a_time'
     report['policies'].update(coefficient_scope=scope, coefficient_groups_prespecified=True)
     report['limits'] = ['本批只检查R权重对，不代表所有生成系数敏感性完成；两权重和为1，属于一个自由度。',
         '生成权重不是FDNA参数真值；跨权重组目标发生变化，RMSE差不是因果传播误差。',
@@ -138,5 +157,8 @@ def run_coefficient_check(network, nodes, config):
     if condition:
         report['limits'][0] = '本批只检查R任务项及环境项的生成系数；任务基础项与增益项联动保持和为1，不代表全部条件函数敏感性完成。'
         report['limits'][1] = '生成条件函数系数不是FDNA参数真值；C/M/E样本不变，R目标随系数变化，RMSE差不是因果效应估计。'
+    if extended_condition:
+        report['limits'][0]='按接受节点逐一扰动条件函数系数；能力/任务的基础项与增益联动保持和为1，边界参数使用预设单侧扰动。'
+        report['limits'][1]='仅当前节点及其下游允许改变干净状态；C/M/E样本、根输入和划分冻结，跨组RMSE差不是单独的因果传播量。'
     report['status'] = 'complete' if all(checks.values()) else 'blocked'
     return report

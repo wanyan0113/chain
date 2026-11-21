@@ -1,0 +1,40 @@
+{
+  "format_version": "1.0",
+  "id": "generation_capability_coefficients_fit",
+  "basis": "条件函数代表性敏感性第一批：T/R能力增益1处采用预设单侧1→0.90，Q能力增益0.45→0.35/0.55，基础项联动为1-增益。C样本、根输入、条件、划分、噪声创新及求解设置冻结；不依验证误差选择扰动。",
+  "groups": [
+    "cap_T090",
+    "cap_Q035",
+    "cap_Q055",
+    "cap_R090"
+  ],
+  "noise_std": [
+    0,
+    2,
+    5,
+    8
+  ],
+  "repetitions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "settings": {
+    "format_version": "1.0",
+    "id": "joint_base_lbfgsb",
+    "basis": "基础式有界多起点拟合，验证集不参与优化和挑选初值。",
+    "model": "fdna_base_eq1_eq2",
+    "solver": "L-BFGS-B",
+    "seed": 20261120,
+    "starts": 12,
+    "max_nfev": 3000,
+    "delta_policy": "excluded_for_base_check"
+  }
+}

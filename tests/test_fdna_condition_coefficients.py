@@ -43,7 +43,7 @@ class ConditionCoefficientTests(unittest.TestCase):
         audit_generation(self.g)
 
     def test_invalid_or_unchanged_configs_rejected(self):
-        for change in ({'node':'T'},{'factor':'capability_gain'},{'value':1.1},{'value':True},{'value':.2},{'extra':1}):
+        for change in ({'node':'missing'},{'factor':'unknown_gain'},{'value':1.1},{'value':True},{'value':.2},{'extra':1}):
             c=deepcopy(self.config);c['condition_groups']['condition_task010'].update(change)
             with self.subTest(change=change),self.assertRaises(ModelError):run_coefficient_check(self.network,self.nodes,c)
         c=deepcopy(self.config);c['support_groups']={}
