@@ -25,6 +25,8 @@ def build_report(generation, base, comparison, summary, reference, old_base, old
     ordered=sorted(levels,key=levels.get);paired_count=verify_sample_pairing(generation,list(cfg['weight_groups']),source)
     metrics=[r for c in (old_comparison,comparison) for r in c['metrics'] if r['group'] in levels]
     fc=base['config_snapshot']
+    experiment=cfg['reference_experiment']['base_experiment']
+    repeats=len(fc['repetitions']);jobs=3*len(cfg['weight_groups'])*len(fc['noise_std'])*repeats
     summaries,paired=paired_strength_metrics(metrics,levels,fc['noise_std'],fc['repetitions'],['T','Q','R'],source)
     # Reuse the checked generic pairing calculation; expose a coefficient name, never gamma.
     for r in summaries+paired:r['q_weight']=r.pop('gamma')
@@ -59,8 +61,8 @@ def build_report(generation, base, comparison, summary, reference, old_base, old
             ==(mode,group,sigma,node,'holdout','clean',prediction,quantity))
     lines=['# 末端贡献权重敏感性：首批结果','',
         '本批只改变R的Q/D_aux权重对：0.52/0.48、冻结基线0.62/0.38、0.72/0.28。两权重和为1，属于一个自由度；±0.10是预设绝对扰动，不是置信范围或经验证集筛选的最优权重。',
-        '', '复用变化条件组根节点、逐节点C/M/E、划分和观测噪声创新。过程波动与交互关闭，原组不重拟合。每个权重组10次独立数据重复，每次250个基础网络（200训练、50验证），四档观测噪声为配对版本。新增240组模型整网计算、720次接受节点拟合。',
-        '', '基础式δ=0、固定δ=-5、自由δ[-10,10]；12个起点及全部求解设置保持一致。FDNA只读上游SE，生成权重不是α、β真值。',
+        '', f"复用变化条件组根节点、逐节点C/M/E、划分和观测噪声创新。过程波动与交互关闭，原组不重拟合。每个权重组{repeats}次独立数据重复，每次{experiment['base_cases']}个基础网络（{experiment['train_count']}训练、{experiment['base_cases']-experiment['train_count']}验证），{len(fc['noise_std'])}档观测噪声为配对版本。新增{jobs}组模型整网计算、{jobs*3}次接受节点拟合。",
+        '', f"基础式δ=0，固定δ及自由δ界限见实验预先约定；{fc['settings']['starts']}个起点及全部求解设置保持一致。FDNA只读上游SE，生成权重不是α、β真值。",
         '', '| Q权重 | D_aux权重 | 观测σ | 基础式R | 固定δ R | 自由δ R |','| ---: | ---: | ---: | ---: | ---: | ---: |']
     display_noises=list(dict.fromkeys((fc['noise_std'][0],fc['noise_std'][-1])))
     def show(r):return f"{r['mean']:.3f}"+(f" ± {r['sd']:.3f}" if r['sd'] is not None else '（单次，无SD）')
@@ -68,7 +70,7 @@ def build_report(generation, base, comparison, summary, reference, old_base, old
         for sigma in display_noises:
             lines.append(f'| {levels[g]:.2f} | {1-levels[g]:.2f} | {sigma} | '+' | '.join(
                 show(find(m,g,sigma)) for m in ('base','fixed_delta','free_delta'))+' |')
-    lines+=['','上表为R对干净验证目标的整网RMSE，±为10次重复的样本标准差，不是置信区间。跨权重时R目标发生变化；误差差值用于敏感性描述，不是对真实依赖强度的因果估计。',
+    lines+=['',f'上表为R对干净验证目标的整网RMSE，±为{repeats}次重复的样本标准差，不是置信区间；单次重复不报告SD。跨权重时R目标发生变化；误差差值用于敏感性描述，不是对真实依赖强度的因果估计。',
         '', '| Q权重 | 自由δ触下界/节点估计数 | 自由δ局部秩不足 | 含δ越界预测条目 |','| ---: | ---: | ---: | ---: |']
     for g in ordered:
         rows=[r for r in delta if r['group']==g and r['model']=='free_delta']
@@ -90,13 +92,13 @@ def build_report(generation, base, comparison, summary, reference, old_base, old
     modes=[('base','基础式','#367AA8'),('fixed_delta','固定δ','#32986B'),('free_delta','自由δ','#D78C36')]
     with rc_context({'font.family':'Microsoft YaHei','axes.unicode_minus':False,'font.size':10}):
         for quantity,name,label in [('rmse','weight_rmse','整网验证RMSE（SE点）'),('mean_residual','weight_residual','平均残差：预测−目标（SE点）')]:
-            fig=Figure(figsize=(11,4.5),layout='constrained');FigureCanvasAgg(fig);axes=fig.subplots(1,2)
+            fig=Figure(figsize=(5.5*len(display_noises),4.5),layout='constrained');FigureCanvasAgg(fig);axes=fig.subplots(1,len(display_noises),squeeze=False)[0]
             for ax,sigma in zip(axes,display_noises):
                 for mode,title,color in modes:
                     rows=[find(mode,g,sigma,quantity=quantity) for g in ordered]
                     ax.errorbar([levels[g] for g in ordered],[r['mean'] for r in rows],yerr=[r['sd'] or 0 for r in rows],marker='o',capsize=3,label=title,color=color)
                 ax.set(title=f'R节点，观测σ={sigma}',xlabel='Q对R的生成权重（D_aux权重=1−Q权重）',ylabel=label,xticks=[levels[g] for g in ordered]);ax.grid(alpha=.2);ax.legend()
-            fig.suptitle('末端权重敏感性（干净验证目标，10次重复均值±样本标准差）')
+            fig.suptitle(f'末端权重敏感性（干净验证目标，{repeats}次重复；误差棒为样本标准差，单次无SD）')
             for ext in ('png','svg'):
                 stream=io.BytesIO();fig.savefig(stream,format=ext,dpi=180);outputs[name+'.'+ext]=stream.getvalue()
     return outputs

@@ -3,7 +3,7 @@ import argparse
 from pathlib import Path
 
 from source_data.common import read_json, write_outputs
-from .generation_coefficients import run_coefficient_check
+from .generation_coefficients import run_coefficient_check, coefficient_groups
 from .generation_fitting import audit_generation, fit_joint_network, fitting_csvs
 from .generation_delta_comparison import run_comparison
 from .generation_delta_repeats import summarize_comparison, summary_csvs, plot_summary
@@ -20,9 +20,9 @@ def validate_protocol(generation, fc, dc, reference, base, comparison):
             or comparison['generation_sha256']!=digest(reference)
             or comparison['baseline_fit_sha256']!=digest(base)):
         raise ModelError('冻结来源指纹不一致')
-    groups=set(generation['coefficient_config_snapshot']['weight_groups'])
+    groups=set(coefficient_groups(generation['coefficient_config_snapshot'])[1])
     if set(fc['groups'])!=groups or len(fc['groups'])!=len(groups) or dc['groups']!=fc['groups']:
-        raise ModelError('必须完整且仅拟合预设权重组')
+        raise ModelError('必须完整且仅拟合预设系数组')
     if fc['settings']!=base['config_snapshot']['settings']:
         raise ModelError('系数实验不能改变求解设置')
     for k in ('noise_std','repetitions'):
@@ -36,7 +36,7 @@ def validate_protocol(generation, fc, dc, reference, base, comparison):
 
 
 def main():
-    p=argparse.ArgumentParser(description='末端贡献权重的配对敏感性正式实验')
+    p=argparse.ArgumentParser(description='生成系数的配对敏感性正式实验')
     for name in ('config','fit-config','delta-config','reference-dir','output-dir'):
         p.add_argument('--'+name,type=Path,required=True)
     args=p.parse_args(); out=args.output_dir; source=args.reference_dir

@@ -1,0 +1,40 @@
+{
+  "format_version": "1.0",
+  "id": "generation_support_fit",
+  "basis": "互补支持系数OAT敏感性：A=0.90上下各0.10，B=0.78上下各0.10，每组只改一个系数；不要求两支持系数和为1。保留根节点、条件、划分、噪声创新及全部求解设置，过程及交互关闭，不依验证结果选系数。",
+  "groups": [
+    "support_a080",
+    "support_a100",
+    "support_b068",
+    "support_b088"
+  ],
+  "noise_std": [
+    0,
+    2,
+    5,
+    8
+  ],
+  "repetitions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "settings": {
+    "format_version": "1.0",
+    "id": "joint_base_lbfgsb",
+    "basis": "基础式有界多起点拟合，验证集不参与优化和挑选初值。",
+    "model": "fdna_base_eq1_eq2",
+    "solver": "L-BFGS-B",
+    "seed": 20261120,
+    "starts": 12,
+    "max_nfev": 3000,
+    "delta_policy": "excluded_for_base_check"
+  }
+}

@@ -234,7 +234,7 @@ def plot_summary(report):
     with rc_context({'font.family':'Microsoft YaHei','axes.unicode_minus':False,'font.size':10}):
         for table,name,title,ylabel in [('metrics','delta_repeat_rmse','δ对照的整网验证误差','干净目标 RMSE（SE点）'),
                 ('paired_model_changes','paired_delta_change','同次重复相对基础式的变化','配对 ΔRMSE（SE点）')]:
-            fig=Figure(figsize=(13,7.4),layout='constrained'); FigureCanvasAgg(fig)
+            fig=Figure(figsize=(13,max(7.4,3.5*len(groups))),layout='constrained'); FigureCanvasAgg(fig)
             axes=fig.subplots(len(groups),3,squeeze=False,sharex=True)
             for i,g in enumerate(groups):
                 for j,n in enumerate(nodes):
@@ -254,7 +254,7 @@ def plot_summary(report):
             fig.suptitle(title+'（独立数据重复的均值 ± 样本标准差）')
             for ext in ('png','svg'):
                 stream=io.BytesIO(); fig.savefig(stream,format=ext,dpi=200); outputs[name+'.'+ext]=stream.getvalue()
-        fig=Figure(figsize=(13,7.2),layout='constrained'); FigureCanvasAgg(fig); axes=fig.subplots(len(groups),3,squeeze=False)
+        fig=Figure(figsize=(13,max(7.2,3.5*len(groups))),layout='constrained'); FigureCanvasAgg(fig); axes=fig.subplots(len(groups),3,squeeze=False)
         for i,g in enumerate(groups):
             for j,n in enumerate(nodes):
                 ax=axes[i,j]; cfg=report['config_snapshot']
