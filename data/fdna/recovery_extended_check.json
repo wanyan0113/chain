@@ -1,0 +1,78 @@
+{
+  "format_version": "1.0",
+  "id": "recovery_noise_fixed_and_free_delta",
+  "basis": "已知参数恢复：基础式含噪声、已知固定δ和联合估计δ；独立正向展开公式，真值不作起点，固定δ仅用于已知偏移实验。",
+  "seed": 20261121,
+  "random_train": 512,
+  "random_holdout": 256,
+  "starts": 12,
+  "max_nfev": 3000,
+  "cases": [
+    {
+      "id": "primary",
+      "alpha": [
+        0.4,
+        0.65
+      ],
+      "beta": [
+        20,
+        35
+      ],
+      "delta": -5
+    },
+    {
+      "id": "contrast_1",
+      "alpha": [
+        0.75,
+        0.25
+      ],
+      "beta": [
+        15,
+        50
+      ],
+      "delta": -3
+    },
+    {
+      "id": "contrast_2",
+      "alpha": [
+        0.15,
+        0.85
+      ],
+      "beta": [
+        55,
+        10
+      ],
+      "delta": -2
+    }
+  ],
+  "acceptance": {
+    "alpha_absolute_error": 0.0001,
+    "beta_absolute_error": 0.001,
+    "prediction_rmse": 1e-05,
+    "forward_absolute_error": 1e-10
+  },
+  "solver_seed": 20261121,
+  "repetitions": 10,
+  "noise_std": [
+    0,
+    2,
+    5,
+    8
+  ],
+  "delta_bounds": [
+    -10,
+    10
+  ],
+  "probe": {
+    "alpha": [
+      0,
+      0
+    ],
+    "beta": [
+      20,
+      35
+    ],
+    "delta": -5,
+    "input_upper": 40
+  }
+}

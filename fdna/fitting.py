@@ -98,7 +98,11 @@ def fit_parameters(model, samples, settings):
     # Use only endpoint topology here; reported alpha/beta never initialize the solver.
     receivers = sorted({e['receiver'] for e in model['edges']})
     additive = settings['model'] == ADDITIVE_MODEL
-    if additive:
+    fixed_delta = additive and settings['delta_policy']=='per_receiver_fixed'
+    estimate_delta = additive and not fixed_delta
+    if fixed_delta and set(settings['delta_values'])!=set(receivers):
+        raise ModelError('固定δ须逐接受节点完整登记')
+    if estimate_delta:
         bounds = settings['delta_bounds']
         if set(bounds) != set(receivers) or any(pair[0] >= pair[1] for pair in bounds.values()):
             raise ModelError('δ界限须逐接受节点登记，且下界严格小于上界')
@@ -112,8 +116,9 @@ def fit_parameters(model, samples, settings):
     for receiver in receivers:
         feeders = [e['feeder'] for e in model['edges'] if e['receiver'] == receiver]
         n = len(feeders)
-        parameter_count = 2*n + int(additive)
-        delta_low, delta_high = settings['delta_bounds'][receiver] if additive else (0, 0)
+        parameter_count = 2*n + int(estimate_delta)
+        delta_low, delta_high = settings['delta_bounds'][receiver] if estimate_delta else (0, 0)
+        delta_constant = settings['delta_values'][receiver] if fixed_delta else 0
         delta_span = delta_high-delta_low
         configured = None
         if initialization is not None:
@@ -121,14 +126,14 @@ def fit_parameters(model, samples, settings):
             params = {p['feeder']: p for p in initial['parameters']}
             if len(params) != len(initial['parameters']) or set(params) != set(feeders):
                 raise ModelError('起点参数的供给节点须与案例逐一对应且不重复')
-            if additive:
+            if estimate_delta:
                 if 'delta' not in initial or not delta_low <= initial['delta'] <= delta_high:
                     raise ModelError('扩展模型起点须明确δ，且在声明界限内')
             elif 'delta' in initial:
-                raise ModelError('基础式起点不能包含δ')
+                raise ModelError('未估计δ的模型起点不能包含δ')
             configured = np.array([params[f]['alpha'] for f in feeders] +
                                   [params[f]['beta']/100 for f in feeders] +
-                                  ([(initial['delta']-delta_low)/delta_span] if additive else []))
+                                  ([(initial['delta']-delta_low)/delta_span] if estimate_delta else []))
         data, omitted = {}, []
         for split in ('train', 'holdout'):
             rows = []
@@ -149,7 +154,7 @@ def fit_parameters(model, samples, settings):
         def predict(p, inputs):
             sod = np.mean(100 - p[:n] * (100-inputs), axis=1)
             cod = np.min(inputs + 100*p[n:2*n], axis=1)
-            return np.minimum(sod, cod) + (delta_low+delta_span*p[-1] if additive else 0)
+            return np.minimum(sod, cod) + (delta_low+delta_span*p[-1] if estimate_delta else delta_constant)
         def objective_gradient(p):
             # MSE and a branch gradient; at ties choose one active branch.
             sod = np.mean(100-p[:n]*(100-x), axis=1)
@@ -161,7 +166,7 @@ def fit_parameters(model, samples, settings):
             jac[sod_branch, :n] = -(100-x[sod_branch])/n
             cod_rows = np.flatnonzero(~sod_branch)
             jac[cod_rows, n+np.argmin(cod_terms[cod_rows], axis=1)] = 100
-            if additive:
+            if estimate_delta:
                 jac[:, -1] = delta_span
             return float(np.mean(residual**2)), 2*jac.T@residual/len(x)
         starts = ([configured] if configured is not None else []) + [np.full(parameter_count, .5)]
@@ -186,9 +191,9 @@ def fit_parameters(model, samples, settings):
         selected_attempt,selection_tolerance=_select_attempt(attempts)
         best_rmse, best, _, _ = attempts[selected_attempt]
         parameter_names = [f'alpha:{f}' for f in feeders] + [f'beta:{f}' for f in feeders]
-        parameter_names += ['delta'] if additive else []
-        scale = np.array([1.0]*n + [100.0]*n + ([delta_span] if additive else []))
-        offset = np.array([0.0]*(2*n) + ([delta_low] if additive else []))
+        parameter_names += ['delta'] if estimate_delta else []
+        scale = np.array([1.0]*n + [100.0]*n + ([delta_span] if estimate_delta else []))
+        offset = np.array([0.0]*(2*n) + ([delta_low] if estimate_delta else []))
         physical = best.x*scale+offset
         sod = np.mean(100-best.x[:n]*(100-x), axis=1)
         cod_terms = x+100*best.x[n:2*n]
@@ -203,7 +208,7 @@ def fit_parameters(model, samples, settings):
         jacobian[sod_active, :n] = -(100-x[sod_active])/n
         for i in range(n):
             jacobian[cod_active & (limiting == i), n+i] = 100
-        if additive:
+        if estimate_delta:
             jacobian[sod_active | cod_active, -1] = delta_span
         # Rank is local sensitivity on smooth rows, not global uniqueness.
         singular = np.linalg.svd(jacobian, compute_uv=False)
@@ -232,8 +237,8 @@ def fit_parameters(model, samples, settings):
                         'feeders': feeders, 'parameters': [
                             {'feeder': f, 'alpha': float(physical[i]), 'beta': float(physical[n+i])}
                             for i, f in enumerate(feeders)],
-                        'delta': float(physical[-1]) if additive else None,
-                        'delta_bounds': [delta_low, delta_high] if additive else None,
+                        'delta': float(physical[-1]) if estimate_delta else delta_constant if fixed_delta else None,
+                        'delta_bounds': [delta_low, delta_high] if estimate_delta else None,
                         'metrics': evaluations, 'omitted': omitted,
                         'sensitivity': {'local_jacobian_rank': rank, 'parameter_count': parameter_count,
                                         'inactive_parameters': inactive, 'global_uniqueness_established': False,
@@ -253,7 +258,8 @@ def fit_parameters(model, samples, settings):
                                      for rmse, sol, start, start_source in attempts]})
     return {'format_version': '1.0', 'status': 'complete' if reports and all(r['status'] == 'fitted' for r in reports) else 'blocked',
             'case': model['id'], 'data_kind': samples['data_kind'],
-            'scope': ('按显式界限逐接受节点拟合α、β、δ；不裁剪，不认定原文δ为逐节点常量。' if additive else
+            'scope': ('按显式固定δ拟合α、β；δ不作为待估参数，不裁剪。' if fixed_delta else
+                      '按显式界限逐接受节点拟合α、β、δ；不裁剪，不认定原文δ为逐节点常量。' if additive else
                       '基础式α、β的有界局部回归；δ明确排除，不代替原文扩展模型。'),
             'input_sha256': digest({'case': model, 'samples': samples, 'settings': settings}),
             'receivers': reports, 'samples_snapshot': deepcopy(samples), 'settings_snapshot': deepcopy(settings),
@@ -265,9 +271,11 @@ def fit_parameters(model, samples, settings):
                        'gradient': ('analytic_active_branch_with_one_branch_at_ties' if solver == 'L-BFGS-B' else 'finite_difference_residual_jacobian'),
                        'scipy': scipy.__version__, 'numpy': np.__version__,
                        'parameterization': 'alpha=p[0:n], beta=100*p[n:2n]' +
-                                           (', delta=lower+(upper-lower)*p[-1]' if additive else ''),
+                                           (', delta=lower+(upper-lower)*p[-1]' if estimate_delta else
+                                            ', delta=fixed_configuration_not_optimized' if fixed_delta else ''),
                        'bounds': {'alpha': [0, 1], 'beta': [0, 100],
-                                  'delta': deepcopy(settings['delta_bounds']) if additive else None},
+                                  'delta': deepcopy(settings['delta_bounds']) if estimate_delta else None},
+                       'fixed_delta_values': deepcopy(settings['delta_values']) if fixed_delta else None,
                        'initialization': ('explicit_physical_parameters_plus_neutral_and_seeded_random'
                                           if initialization is not None else 'neutral_and_seeded_random_not_reported_parameters')},
             'policies': {'model': settings['model'], 'delta': settings['delta_policy'], 'clipping': 'none',
@@ -287,7 +295,10 @@ def fit_check(model, generation, settings):
     if expected == ADDITIVE_MODEL:
         validate_extension(model, generation['extension'])
         for receiver, value in generation['extension']['delta_values'].items():
-            if (value is None or receiver not in settings['delta_bounds'] or
+            if settings['delta_policy']=='per_receiver_fixed':
+                if value is None or settings['delta_values'].get(receiver)!=value:
+                    raise ModelError('固定δ自检须与生成真值一致')
+            elif (value is None or receiver not in settings['delta_bounds'] or
                     not settings['delta_bounds'][receiver][0] <= value <= settings['delta_bounds'][receiver][1]):
                 raise ModelError('人工设定δ须已知且在声明的拟合界限内')
     samples = generate_samples(model, generation)

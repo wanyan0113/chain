@@ -12,6 +12,7 @@ from jsonschema import Draft202012Validator
 
 from source_data.common import read_json, write_outputs
 from .engine import MODEL, evaluate
+from .additive import ADDITIVE_MODEL, evaluate_additive
 from .fitting import _validate, fit_parameters
 from .generation_network_check import run_network_check
 from .model import ModelError, _finite, validate_model
@@ -75,20 +76,20 @@ def _stats(target,predicted):
                 r_squared=1-sse/sst if sst>0 else None)
 
 
-def _validate_config(config):
+def _validate_config(config,allow_additive=False):
     _finite(config)
     schema=json.loads(Path(__file__).with_name('generation_fitting_schema.json').read_text(encoding='utf-8'))
     errors=list(Draft202012Validator(schema).iter_errors(config))
     if errors: raise ModelError('综合拟合配置不符合契约：'+errors[0].message)
     _validate('settings',config['settings'])
-    if config['settings']['model']!=MODEL:
+    if config['settings']['model']!=MODEL and not (allow_additive and config['settings']['model']==ADDITIVE_MODEL):
         raise ModelError('本首轮入口只支持不含δ的基础式，不丢弃扩展参数')
     if 'initialization' in config['settings']:
         raise ModelError('本首轮使用中性及随机起点，不能从生成机制参数配置起点')
 
 
-def fit_joint_network(generation,config,*,progress=None):
-    _validate_config(config)
+def fit_joint_network(generation,config,*,progress=None,allow_additive=False):
+    _validate_config(config,allow_additive)
     audit_generation(generation)
     available=generation['config_snapshot']
     if (set(config['groups'])-set(available['groups']) or set(config['noise_std'])-set(available['noise_std']) or
@@ -96,6 +97,11 @@ def fit_joint_network(generation,config,*,progress=None):
         raise ModelError('所选条件、噪声或重复编号不在生成报告中')
     full=make_fitting_model(generation['network_snapshot'])
     receivers=generation['topology']['receivers']; roots=generation['topology']['roots']
+    additive=config['settings']['model']==ADDITIVE_MODEL
+    if additive:
+        delta_key='delta_values' if config['settings']['delta_policy']=='per_receiver_fixed' else 'delta_bounds'
+        if set(config['settings'][delta_key])!=set(receivers):
+            raise ModelError('整网δ配置须恰好覆盖接受节点')
     observations=generation['observations']; jobs=[]
     for group in config['groups']:
         for sigma in config['noise_std']:
@@ -106,7 +112,9 @@ def fit_joint_network(generation,config,*,progress=None):
                 local=[]; local_predictions={}; parameters=[]
                 for receiver in receivers:
                     model,samples=project_local_samples(full,rows,receiver)
-                    fit=fit_parameters(model,samples,config['settings'])
+                    settings=deepcopy(config['settings'])
+                    if additive: settings[delta_key]={receiver:settings[delta_key][receiver]}
+                    fit=fit_parameters(model,samples,settings)
                     residual_audit=diagnose_residuals(model,fit)
                     fitted=fit['receivers'][0]
                     local.append(dict(receiver=receiver,model=model,fit=fit,residual_audit=residual_audit))
@@ -121,10 +129,14 @@ def fit_joint_network(generation,config,*,progress=None):
                     for edge in fitted_model['edges']:
                         p=lookup[edge['feeder'],edge['receiver']]
                         edge.update(alpha=p['alpha'],beta=p['beta'])
+                    extension=(dict(model=ADDITIVE_MODEL,basis='来自已核验的逐接受节点拟合/固定δ，不是原文真值',
+                        delta_values={r['receiver']:r['fit']['receivers'][0]['delta'] for r in local},
+                        output_policy='no_clipping') if additive else None)
                     for row in rows:
                         root_values={p:row['node_values_clean'][p] for p in roots}
-                        recursive=evaluate(fitted_model,dict(id=row['observation_id']+':recursive',
-                            basis='仅提供验证或训练根节点，所有中间节点由拟合FDNA递推',node_values=root_values))
+                        scenario=dict(id=row['observation_id']+':recursive',
+                            basis='仅提供验证或训练根节点，所有中间节点由拟合FDNA递推',node_values=root_values)
+                        recursive=evaluate_additive(fitted_model,scenario,extension) if additive else evaluate(fitted_model,scenario)
                         calculated={n['id']:n['value'] for n in recursive['nodes']}
                         for receiver in receivers:
                             parent_values=[row['node_values_clean'][e['feeder']] for e in full['edges'] if e['receiver']==receiver]
@@ -142,14 +154,14 @@ def fit_joint_network(generation,config,*,progress=None):
                                 for mode in ('local','recursive'):
                                     stat=_stats(target,[p[mode+'_prediction'] for p in selected])
                                     bound=(math.sqrt(math.fsum(max(0,p['actual_min_parent']-p['actual_'+target_kind])**2
-                                        for p in selected)/len(selected)) if mode=='local' else None)
+                                        for p in selected)/len(selected)) if mode=='local' and not additive else None)
                                     if bound is not None and stat['rmse']+1e-8<bound:
                                         raise ModelError('局部拟合误差低于同输入同目标的结构下界，请核对计算')
                                     metrics.append(dict(node=receiver,split=split,target=target_kind,mode=mode,
                                                         rmse_lower_bound=bound,**stat))
                 jobs.append(dict(group=group,noise_sigma=sigma,repetition=rep,
                     status='complete' if ready else 'blocked',local_fits=local,parameters=parameters,
-                    fitted_model=fitted_model,points=points,metrics=metrics,
+                    fitted_model=fitted_model,extension=extension if ready else None,points=points,metrics=metrics,
                     counts=dict(train=sum(r['split']=='train' for r in rows),holdout=sum(r['split']=='holdout' for r in rows))))
                 if progress is not None:
                     progress(dict(group=group,noise_sigma=sigma,repetition=rep,status=jobs[-1]['status']))
@@ -161,7 +173,7 @@ def fit_joint_network(generation,config,*,progress=None):
         policies=dict(generator_parameters_used_as_truth=False,generator_parameters_used_as_initialization=False,
             parameter_truth_available=False,holdout_used_for_optimization=False,local_input='clean_parents_observed_receiver',
             recursive_input='clean_roots_only',actual_intermediate_nodes_used_for_recursion=False,
-            reported_pseudo_r_squared_used=False,delta='excluded',prediction_clipping='none'),
+            reported_pseudo_r_squared_used=False,delta=config['settings']['delta_policy'],prediction_clipping='none'),
         limits=['结果是独立合成机制下的模型近似实验，不是参数恢复或原文表7复现',
                 '多起点有界优化不保证全局最优；局部敏感度秩不证明全局唯一',
                 '噪声根节点作为观测保留，当前递推基线仍输入干净根节点，实际测量误差输入另行研究',

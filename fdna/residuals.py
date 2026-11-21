@@ -39,6 +39,9 @@ def diagnose_residuals(model, fit):
         if fit['status'] != expected_status:
             raise ModelError('整体求解状态与逐接受节点状态不一致')
         additive = settings['model'] == ADDITIVE_MODEL
+        fixed_delta = additive and settings['delta_policy']=='per_receiver_fixed'
+        if fixed_delta and set(settings['delta_values'])!=set(incoming):
+            raise ModelError('固定δ须完整覆盖接受节点')
         series = []
         for receiver, edges in incoming.items():
             row = reports[receiver]
@@ -46,7 +49,7 @@ def diagnose_residuals(model, fit):
             valid = {split: [r for r in records.values() if r['split'] == split and
                      all(r['node_values'].get(n) is not None for n in [receiver,*feeders])]
                      for split in ('train','holdout')}
-            minimum = 2*len(feeders)+int(additive)
+            minimum = 2*len(feeders)+int(additive and not fixed_delta)
             if row['status'] == 'insufficient_samples':
                 if len(valid['train']) >= minimum or 'metrics' in row:
                     raise ModelError('样本不足状态与实际样本行数不一致')
@@ -64,9 +67,14 @@ def diagnose_residuals(model, fit):
                         not 0 <= p['alpha'] <= 1 or not 0 <= p['beta'] <= 100):
                     raise ModelError('拟合参数超出有效范围')
             delta = row['delta'] if additive else 0
-            if additive and (isinstance(delta,bool) or delta is None or not
-                             settings['delta_bounds'][receiver][0] <= delta <= settings['delta_bounds'][receiver][1]):
-                raise ModelError('拟合δ与声明界限不一致')
+            if additive:
+                if isinstance(delta,bool) or delta is None:
+                    raise ModelError('拟合δ缺失或类型无效')
+                if fixed_delta:
+                    if delta!=settings['delta_values'][receiver]:
+                        raise ModelError('拟合报告δ与固定配置不一致')
+                elif not settings['delta_bounds'][receiver][0] <= delta <= settings['delta_bounds'][receiver][1]:
+                    raise ModelError('拟合δ与声明界限不一致')
             for split in ('train','holdout'):
                 metrics = row['metrics'][split]
                 if not valid[split]:
