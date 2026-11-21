@@ -9,9 +9,9 @@ from .structure import digest
 
 
 def coefficient_groups(config):
-    kinds = {'weight_groups', 'support_groups'} & set(config)
+    kinds = {'weight_groups', 'support_groups', 'condition_groups'} & set(config)
     if len(kinds) != 1:
-        raise ModelError('一次实验须且仅指定权重组或互补系数组')
+        raise ModelError('一次实验须且仅指定一种生成系数组')
     key = next(iter(kinds))
     return key, config[key]
 
@@ -21,6 +21,7 @@ def run_coefficient_check(network, nodes, config):
     if not isinstance(config, dict): raise ModelError('系数实验配置须为对象')
     kind, groups = coefficient_groups(config)
     support = kind == 'support_groups'
+    condition = kind == 'condition_groups'
     keys = {'format_version', 'id', 'basis', 'reference_experiment', kind}
     if not isinstance(config, dict) or set(config) != keys or config['format_version'] != '1.0':
         raise ModelError('系数敏感性配置字段或版本无效')
@@ -34,7 +35,7 @@ def run_coefficient_check(network, nodes, config):
         raise ModelError('新权重组不得与冻结对照重复')
     generator = NetworkGenerator(network, nodes)
     receiver = 'T' if support else 'R'
-    field = 'support_coefficients' if support else 'weights'
+    field = 'condition_function' if condition else ('support_coefficients' if support else 'weights')
     parents = {'A','B'} if support else {'Q','D_aux'}
     original_coefficients = nodes['nodes'][receiver].get(field)
     if support and (nodes['nodes']['T']['mechanism_type'] != 'complementary'
@@ -49,18 +50,28 @@ def run_coefficient_check(network, nodes, config):
     variants = {}; runs = []; observations = []; structural = []; shifts = []
     signatures = set()
     for group, weights in sorted(groups.items()):
-        if not isinstance(group, str) or not group or not isinstance(weights, dict) or set(weights) != parents:
+        expected_keys = {'node','factor','value'} if condition else parents
+        if not isinstance(group, str) or not group or not isinstance(weights, dict) or set(weights) != expected_keys:
             raise ModelError('系数组须完整指定对应供给节点')
-        if (any(isinstance(v, bool) or not isinstance(v, (int, float)) or not 0 <= v <= 1 for v in weights.values())
-                or (not support and not math.isclose(sum(weights.values()), 1, abs_tol=1e-12, rel_tol=0))):
+        values = [weights['value']] if condition else weights.values()
+        if (any(isinstance(v, bool) or not isinstance(v, (int, float)) or not 0 <= v <= 1 for v in values)
+                or (not support and not condition and not math.isclose(sum(weights.values()), 1, abs_tol=1e-12, rel_tol=0))):
             raise ModelError('系数须在0到1；贡献权重之和须为1，不自动归一化')
         if support and sum(weights[p] != original_coefficients[p] for p in parents) != 1:
             raise ModelError('互补系数实验每组须且仅改变一个系数')
-        signature = tuple(weights[p] for p in sorted(parents))
-        if signature in signatures or weights == original_coefficients:
+        if condition and (weights['node']!='R' or weights['factor'] not in ('task_gain','environment_penalty')):
+            raise ModelError('首批条件函数实验仅支持末端R的任务增益和环境惩罚系数')
+        signature = (weights['factor'],weights['value']) if condition else tuple(weights[p] for p in sorted(parents))
+        unchanged = weights['value']==original_coefficients[weights['factor']] if condition else weights==original_coefficients
+        if signature in signatures or unchanged:
             raise ModelError('权重组不可重复或复制基线')
         signatures.add(signature)
-        variant = deepcopy(nodes); variant['nodes'][receiver][field] = deepcopy(weights)
+        variant = deepcopy(nodes)
+        if condition:
+            f=variant['nodes']['R']['condition_function'];f[weights['factor']]=weights['value']
+            if weights['factor']=='task_gain':f['task_base']=1-weights['value']
+        else:
+            variant['nodes'][receiver][field] = deepcopy(weights)
         variants[group] = variant
         changed = NetworkGenerator(network, variant)
         for root in report['root_inputs']:
@@ -111,10 +122,12 @@ def run_coefficient_check(network, nodes, config):
         coefficient_shifts=shifts, coefficient_structural_by_split=structural,
         input_sha256=digest(dict(network=network, node_configs=nodes, experiment=config)))
     for group, weights in groups.items():
-        report['config_snapshot']['groups'][group] = dict(source_group=source, receiver=receiver, **{field:deepcopy(weights)})
+        report['config_snapshot']['groups'][group] = (dict(source_group=source,**deepcopy(weights)) if condition
+            else dict(source_group=source, receiver=receiver, **{field:deepcopy(weights)}))
     report['counts'].update(clean_network_runs=len(report['clean_runs']), network_observation_versions=len(report['observations']),
         node_observation_rows=len(report['observations'])*len(generator.nodes))
-    report['policies'].update(coefficient_scope='T_complementary_one_at_a_time' if support else 'terminal_R_normalized_weight_pair', coefficient_groups_prespecified=True)
+    scope='terminal_R_conditions_one_at_a_time' if condition else ('T_complementary_one_at_a_time' if support else 'terminal_R_normalized_weight_pair')
+    report['policies'].update(coefficient_scope=scope, coefficient_groups_prespecified=True)
     report['limits'] = ['本批只检查R权重对，不代表所有生成系数敏感性完成；两权重和为1，属于一个自由度。',
         '生成权重不是FDNA参数真值；跨权重组目标发生变化，RMSE差不是因果传播误差。',
         '共享基础输入、条件、划分及噪声创新；四档噪声不是独立生成实验。',
@@ -122,5 +135,8 @@ def run_coefficient_check(network, nodes, config):
     if support:
         report['limits'][0] = '本批逐一改变T的互补支持系数，两系数不要求和为1；不代表条件函数敏感性完成。'
         report['limits'][1] = '生成支持系数不是FDNA参数真值；T的变化经干净状态传至Q/R，跨组RMSE差不是因果传播误差。'
+    if condition:
+        report['limits'][0] = '本批只检查R任务项及环境项的生成系数；任务基础项与增益项联动保持和为1，不代表全部条件函数敏感性完成。'
+        report['limits'][1] = '生成条件函数系数不是FDNA参数真值；C/M/E样本不变，R目标随系数变化，RMSE差不是因果效应估计。'
     report['status'] = 'complete' if all(checks.values()) else 'blocked'
     return report

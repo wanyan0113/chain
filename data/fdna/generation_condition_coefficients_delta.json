@@ -1,0 +1,48 @@
+{
+  "format_version": "1.0",
+  "id": "generation_condition_coefficients_delta",
+  "basis": "首批条件函数系数OAT：末端R任务增益0.20上下各0.10，任务基础项联动为1-增益；环境惩罚0.40上下各0.10；每次只改变一个因素。冻结根输入、C/M/E样本、划分、噪声创新及求解设置，过程与交互关闭，不依验证结果选系数。",
+  "groups": [
+    "condition_task010",
+    "condition_task030",
+    "condition_env030",
+    "condition_env050"
+  ],
+  "noise_std": [
+    0,
+    2,
+    5,
+    8
+  ],
+  "repetitions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "fixed_delta": {
+    "T": -5,
+    "Q": -5,
+    "R": -5
+  },
+  "free_delta_bounds": {
+    "T": [
+      -10,
+      10
+    ],
+    "Q": [
+      -10,
+      10
+    ],
+    "R": [
+      -10,
+      10
+    ]
+  }
+}
