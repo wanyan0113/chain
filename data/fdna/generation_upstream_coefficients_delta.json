@@ -1,0 +1,52 @@
+{
+  "format_version": "1.0",
+  "id": "generation_upstream_coefficients_delta",
+  "basis": "执行上一批已冻结的T/Q任务增益和环境惩罚8组单因素扰动；任务基础项联动为1-增益；保留根输入、逐节点条件、划分、观测创新、四档噪声、10次重复及全部求解设置，冻结基线不重拟合。",
+  "groups": [
+    "T_task_gain_008",
+    "T_task_gain_028",
+    "T_environment_penalty_018",
+    "T_environment_penalty_038",
+    "Q_task_gain_012",
+    "Q_task_gain_032",
+    "Q_environment_penalty_025",
+    "Q_environment_penalty_045"
+  ],
+  "noise_std": [
+    0,
+    2,
+    5,
+    8
+  ],
+  "repetitions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "fixed_delta": {
+    "T": -5,
+    "Q": -5,
+    "R": -5
+  },
+  "free_delta_bounds": {
+    "T": [
+      -10,
+      10
+    ],
+    "Q": [
+      -10,
+      10
+    ],
+    "R": [
+      -10,
+      10
+    ]
+  }
+}

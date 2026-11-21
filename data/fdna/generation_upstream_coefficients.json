@@ -1,0 +1,116 @@
+{
+  "format_version": "1.0",
+  "id": "upstream_task_environment_v1",
+  "basis": "执行上一批已冻结的T/Q任务增益和环境惩罚8组单因素扰动；任务基础项联动为1-增益；保留根输入、逐节点条件、划分、观测创新、四档噪声、10次重复及全部求解设置，冻结基线不重拟合。",
+  "reference_experiment": {
+    "format_version": "1.0",
+    "id": "per_receiver_independent_conditions_v1",
+    "basis": "第四次修订补充版首轮变化条件：每个基础网络、每个接受节点独立抽C/M/E；跨噪声共享；旧根节点、划分、观测扰动保持配对。条件不进入FDNA预测端；过程波动与交互仍关闭。",
+    "base_experiment": {
+      "format_version": "1.0",
+      "id": "joint_network_noise_repeats",
+      "basis": "第二阶段第四步：两组固定条件、四档配对观测噪声、10次独立抽样重复；每次整网划分200训练和50验证；过程噪声与交互项仍为零。",
+      "seed": 20261120,
+      "repetitions": 10,
+      "base_cases": 250,
+      "train_count": 200,
+      "noise_std": [
+        0,
+        2,
+        5,
+        8
+      ],
+      "process_std": 0,
+      "interaction_gamma": 0,
+      "groups": {
+        "unit_conditions": {
+          "C": 1,
+          "M": 1,
+          "E": 0
+        },
+        "fixed_conditions": {
+          "C": 0.8,
+          "M": 0.7,
+          "E": 0.2
+        }
+      },
+      "root_sampling": {
+        "normal": [
+          0.65,
+          0.98
+        ],
+        "degraded": [
+          0.2,
+          0.6
+        ],
+        "shared_factor_weight": 0.15,
+        "fractions": {
+          "normal": 0.5,
+          "single": 0.2,
+          "double": 0.2,
+          "all": 0.1
+        }
+      }
+    },
+    "condition_sampling": {
+      "group_id": "varying_conditions",
+      "mode": "per_receiver_independent",
+      "ranges": {
+        "C": [
+          0.4,
+          1.0
+        ],
+        "M": [
+          0.0,
+          1.0
+        ],
+        "E": [
+          0.0,
+          0.8
+        ]
+      }
+    }
+  },
+  "condition_groups": {
+    "T_task_gain_008": {
+      "node": "T",
+      "factor": "task_gain",
+      "value": 0.08
+    },
+    "T_task_gain_028": {
+      "node": "T",
+      "factor": "task_gain",
+      "value": 0.28
+    },
+    "T_environment_penalty_018": {
+      "node": "T",
+      "factor": "environment_penalty",
+      "value": 0.18
+    },
+    "T_environment_penalty_038": {
+      "node": "T",
+      "factor": "environment_penalty",
+      "value": 0.38
+    },
+    "Q_task_gain_012": {
+      "node": "Q",
+      "factor": "task_gain",
+      "value": 0.12
+    },
+    "Q_task_gain_032": {
+      "node": "Q",
+      "factor": "task_gain",
+      "value": 0.32
+    },
+    "Q_environment_penalty_025": {
+      "node": "Q",
+      "factor": "environment_penalty",
+      "value": 0.25
+    },
+    "Q_environment_penalty_045": {
+      "node": "Q",
+      "factor": "environment_penalty",
+      "value": 0.45
+    }
+  }
+}
