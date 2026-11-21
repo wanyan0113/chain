@@ -102,7 +102,22 @@ def build_report(generation, base, comparison, summary, reference, old_base, old
             for sigma in noises:
                 lines.append(f'| {panel[0]} | {labels[panel[1]]} | {levels[g]:.2f} | {sigma} | '
                     + ' | '.join(show(find(panel, m, g, sigma)) for m in ('base', 'fixed_delta', 'free_delta')) + ' |')
-    lines += ['', '表中为末端R对干净验证目标的整网RMSE；±为重复间样本标准差，不是置信区间。四个面板引用同一冻结基线，不重复计为独立实验。跨组输入与目标可能变化，RMSE差不是单独的因果传播误差。', '',
+    first_sigma = fc['noise_std'][0]
+    selected = [(g, (v['node'], v['factor'])) for g, v in groups.items()]
+    mean_errors = {m: [find(panel, m, g, first_sigma)['mean'] for g, panel in selected]
+        for m in ('base', 'fixed_delta', 'free_delta')}
+    better = sum(f < min(b, d) for b, d, f in zip(*(mean_errors[m] for m in ('base', 'fixed_delta', 'free_delta'))))
+    q_panel = ('Q', 'task_gain'); q_levels = factors[q_panel]; q_order = sorted(q_levels, key=q_levels.get)
+    q_low, q_high = q_order[0], q_order[-1]
+    interpretation = (f"观测σ={first_sigma}时，自由δ在{better}/{len(groups)}个预设新组的末端平均RMSE低于基础式和固定δ。"
+        f"基础式均值范围为{min(mean_errors['base']):.3f}—{max(mean_errors['base']):.3f}，"
+        f"自由δ为{min(mean_errors['free_delta']):.3f}—{max(mean_errors['free_delta']):.3f}。"
+        '这比较的是重复均值，不直接称为统计显著改善。'
+        f"例如Q任务增益从{q_levels[q_low]:.2f}变为{q_levels[q_high]:.2f}，基础式由"
+        f"{find(q_panel,'base',q_low,first_sigma)['mean']:.3f}变为{find(q_panel,'base',q_high,first_sigma)['mean']:.3f}，"
+        f"自由δ由{find(q_panel,'free_delta',q_low,first_sigma)['mean']:.3f}变为"
+        f"{find(q_panel,'free_delta',q_high,first_sigma)['mean']:.3f}；不能从乘数方向推出所有模型误差同方向变化。")
+    lines += ['', '表中为末端R对干净验证目标的整网RMSE；±为重复间样本标准差，不是置信区间。四个面板引用同一冻结基线，不重复计为独立实验。跨组输入与目标可能变化，RMSE差不是单独的因果传播误差。', '', interpretation, '',
         '| 组 | 自由δ触下界/节点估计数 | 自由δ局部秩不足 | 含δ越界预测条目 |', '| --- | ---: | ---: | ---: |']
     for g in [source, *groups]:
         rows = [r for r in delta if r['group'] == g and r['model'] == 'free_delta']
@@ -110,7 +125,7 @@ def build_report(generation, base, comparison, summary, reference, old_base, old
             f"{sum(r['rank_deficient_count'] for r in rows)} | {sum(r['group']==g for r in outside)} |")
     lines += ['', '估计数跨接受节点、配对噪声及重复；越界条目另含模型、划分和局部/整网维度，不是独立实验次数。预测表现、参数识别与输出范围仍须分别报告。', '',
         f'{pairing}个观测版本配对、{len(checked)}项同数据基础式局部结构下界核对通过；不受影响节点的{invariant_parameters}次局部拟合参数和{unchanged}项指标与基线一致。改T允许T/Q/R变化；改Q允许Q/R变化，T应不变。受影响节点均按原设置重新拟合。下界不直接用于含δ或整网误差。', '',
-        '本批补齐已登记的T/Q任务项和环境项代表性扰动，连同既有能力项、R任务/环境、R权重及T互补系数，形成预设代表性单因素覆盖；不代表全参数空间或联合敏感性已完成。敏感性新组的完整有限扰动、参数补偿、残差及输入质量诊断仍待补齐，随后开展多输入已知参数恢复、正式多输入及11节点18边独立拟合。', '']
+        '本批补齐已登记的T/Q任务项和环境项代表性扰动，连同既有能力项、R任务/环境、R权重及T互补系数，形成预设代表性单因素覆盖；不代表全参数空间或联合敏感性已完成。敏感性新组的完整有限扰动、参数补偿及残差诊断仍待补齐。另附的输入质量统计仅作描述，不替代参数深入诊断；随后开展多输入已知参数恢复、正式多输入及11节点18边独立拟合。', '']
     out = {'结果解释.md': '\n'.join(lines), 'upstream_metrics.csv': csv_rows(aggregates),
         'paired_upstream_changes.csv': csv_rows(paired), 'generation_shifts.csv': csv_rows(generation['coefficient_shifts']),
         'structural_crosscheck.csv': csv_rows(checked), 'rank_and_branches.csv': csv_rows(branches),
