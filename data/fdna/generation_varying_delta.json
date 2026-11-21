@@ -1,0 +1,45 @@
+{
+  "format_version": "1.0",
+  "id": "varying_conditions_delta_comparison",
+  "basis": "变化条件组沿用固定δ=-5和自由δ[-10,10]；每节点、噪声、重复估计一个常数，训练估计验证沿用；不按样本拟合δ，不按验证集调界限。",
+  "groups": [
+    "varying_conditions"
+  ],
+  "noise_std": [
+    0,
+    2,
+    5,
+    8
+  ],
+  "repetitions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "fixed_delta": {
+    "T": -5,
+    "Q": -5,
+    "R": -5
+  },
+  "free_delta_bounds": {
+    "T": [
+      -10,
+      10
+    ],
+    "Q": [
+      -10,
+      10
+    ],
+    "R": [
+      -10,
+      10
+    ]
+  }
+}

@@ -42,10 +42,12 @@ class NetworkGenerator:
         self._incoming={n:sorted(v) for n,v in incoming.items()}
         self._generators=generators
 
-    def evaluate(self,root_clean,*,process_noise=None,observation_noise=None,interaction_gamma=0.0):
+    def evaluate(self,root_clean,*,process_noise=None,observation_noise=None,interaction_gamma=0.0,condition_values_by_node=None):
         if not isinstance(root_clean,dict) or set(root_clean)!=set(self.roots):
             raise ModelError('整网输入须恰好提供全部根节点的干净效能')
         _number(interaction_gamma,'交互强度',0,1)
+        if condition_values_by_node is not None and (not isinstance(condition_values_by_node,dict) or set(condition_values_by_node)!=set(self.receivers)):
+            raise ModelError('逐节点条件须恰好覆盖全部接受节点，不覆盖根节点')
         process={} if process_noise is None else process_noise
         observation={} if observation_noise is None else observation_noise
         for noise,allowed in [(process,self.receivers),(observation,self.nodes)]:
@@ -61,7 +63,8 @@ class NetworkGenerator:
                                 process_noise=0.0,process_clipped=False)
             else:
                 generated=self._generators[n].generate({p:clean[p] for p in self._incoming[n]},
-                    process_noise=process.get(n,0.0),interaction_gamma=interaction_gamma)
+                    process_noise=process.get(n,0.0),interaction_gamma=interaction_gamma,
+                    condition_values=condition_values_by_node[n] if condition_values_by_node is not None else None)
                 clean[n]=generated['receiver_se_clean']
                 details[n]={**generated,'kind':'receiver'}
         observed={}

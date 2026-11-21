@@ -23,9 +23,13 @@ from .structure import digest
 
 def audit_generation(report):
     _finite(report)
-    if report.get('stage')!='second_stage_step_2_joint_generation' or report.get('status')!='complete':
+    if report.get('stage') not in ('second_stage_step_2_joint_generation','stage2_varying_conditions_generation') or report.get('status')!='complete':
         raise ModelError('拟合需要已完成的综合网络生成报告')
-    regenerated=run_network_check(report['network_snapshot'],report['node_configs_snapshot'],report['config_snapshot'])
+    if report['stage']=='stage2_varying_conditions_generation':
+        from .generation_varying import run_varying_network_check
+        regenerated=run_varying_network_check(report['network_snapshot'],report['node_configs_snapshot'],report['varying_config_snapshot'])
+    else:
+        regenerated=run_network_check(report['network_snapshot'],report['node_configs_snapshot'],report['config_snapshot'])
     if digest(regenerated)!=digest(report):
         raise ModelError('生成报告与当前配置重算不一致，请核对来源或版本')
 

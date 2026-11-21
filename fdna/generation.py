@@ -56,7 +56,7 @@ class NodeGenerator:
     def config(self):
         return deepcopy(self._config)
 
-    def generate(self,parent_clean,*,process_noise=0.0,observation_noise=0.0,interaction_gamma=0.0):
+    def generate(self,parent_clean,*,process_noise=0.0,observation_noise=0.0,interaction_gamma=0.0,condition_values=None):
         config=self._config
         parents=config['parent_nodes']
         if not isinstance(parent_clean,dict) or set(parent_clean)!=set(parents):
@@ -73,7 +73,10 @@ class NodeGenerator:
                 math.fsum(config['weights'][p]*math.log(x[p]) for p in active))
         else:
             support=1-math.prod(1-config['support_coefficients'][p]*x[p] for p in parents)
-        f=config['condition_function']; v=f['values']
+        f=config['condition_function']; v=f['values'] if condition_values is None else condition_values
+        if not isinstance(v,dict) or set(v)!={'C','M','E'}:
+            raise ModelError('逐样本条件须恰好提供C、M、E')
+        for name,value in v.items(): _number(value,name+'条件',0,1)
         factor=(f['capability_base']+f['capability_gain']*v['C'])*(f['task_base']+f['task_gain']*v['M'])*(1-f['environment_penalty']*v['E'])
         formula=100*support*factor
         interaction=100*interaction_gamma*v['E']*(1-v['C'])
@@ -84,9 +87,11 @@ class NodeGenerator:
         observed_raw=clean+observation_noise
         if not math.isfinite(observed_raw):
             raise ModelError('观测生成结果超出有限数值范围')
-        return dict(node_id=config['node_id'],mechanism_type=kind,support=support,condition_factor=factor,
+        result=dict(node_id=config['node_id'],mechanism_type=kind,support=support,condition_factor=factor,
                     parent_clean=deepcopy(parent_clean),receiver_se_formula=formula,
                     interaction_deduction=interaction,process_noise=process_noise,
                     receiver_se_before_clip=process_raw,receiver_se_clean=clean,
                     observation_noise=observation_noise,receiver_se_observed=_clip(observed_raw),
                     process_clipped=not 0<=process_raw<=100,observation_clipped=not 0<=observed_raw<=100)
+        if condition_values is not None: result['condition_values']=deepcopy(v)
+        return result

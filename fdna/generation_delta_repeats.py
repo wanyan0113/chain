@@ -171,7 +171,7 @@ def summarize_comparison(comparison):
             uncertainty='sample_sd_and_empirical_percentiles_not_confidence_intervals',
             fixed_delta_is_truth=False,delta_bounds_changed=False,prediction_clipping='none',baseline_refitted=False),
         limits=['接受节点观测目标加噪，供给输入及递推根节点仍用干净值；尚未检验输入测量误差',
-                '两组条件仍为组内固定，自身/任务/环境逐样本变化、过程波动与交互尚未加入',
+                '条件作用范围和逐样本抽样方式以对应生成报告为准；本摘要不推断条件的单因素因果作用',
                 '参数触界及秩不足须单独解释；预测改善不证明参数唯一或实际任务有效',
                 '跨重复标准差和分位数不是置信区间，不将配对版本当作独立实验'])
 
