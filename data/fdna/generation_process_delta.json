@@ -1,0 +1,45 @@
+{
+  "format_version": "1.0",
+  "id": "process_std2_delta_comparison",
+  "basis": "Process std=2 extension; fixed delta=-5 and free delta in [-10,10]; no validation-based boundary changes.",
+  "groups": [
+    "varying_conditions_process_2"
+  ],
+  "noise_std": [
+    0,
+    2,
+    5,
+    8
+  ],
+  "repetitions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "fixed_delta": {
+    "T": -5,
+    "Q": -5,
+    "R": -5
+  },
+  "free_delta_bounds": {
+    "T": [
+      -10,
+      10
+    ],
+    "Q": [
+      -10,
+      10
+    ],
+    "R": [
+      -10,
+      10
+    ]
+  }
+}
