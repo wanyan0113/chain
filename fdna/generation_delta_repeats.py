@@ -250,8 +250,9 @@ def plot_summary(report):
                             [r['mean']+r['sd'] for r in shade],alpha=.13,color=color)
                     if table=='paired_model_changes': ax.axhline(0,color='#777777',linestyle='--',linewidth=1)
                     ax.set(title=g+' / '+n,xlabel='观测噪声σ（SE点）',ylabel=ylabel,xticks=report['config_snapshot']['noise_std'])
-                    ax.grid(alpha=.2); ax.legend(fontsize=8)
+                    ax.grid(alpha=.2)
             fig.suptitle(title+'（独立数据重复的均值 ± 样本标准差）')
+            fig.legend(*axes[0,0].get_legend_handles_labels(),loc='outside lower center',ncol=3)
             for ext in ('png','svg'):
                 stream=io.BytesIO(); fig.savefig(stream,format=ext,dpi=200); outputs[name+'.'+ext]=stream.getvalue()
         fig=Figure(figsize=(13,max(7.2,3.5*len(groups))),layout='constrained'); FigureCanvasAgg(fig); axes=fig.subplots(len(groups),3,squeeze=False)
@@ -264,8 +265,9 @@ def plot_summary(report):
                     (cfg['free_delta_bounds'][n][0],'自由δ下界',':','#777777'),(cfg['free_delta_bounds'][n][1],'自由δ上界',':','#777777')]:
                     ax.axhline(value,label=label,linestyle=style,color=color,linewidth=1)
                 ax.set(title=g+' / '+n,xlabel='观测噪声σ（SE点）',ylabel='δ（SE点）',xticks=cfg['noise_std'])
-                ax.grid(alpha=.2); ax.legend(fontsize=7)
+                ax.grid(alpha=.2)
         fig.suptitle('自由δ估计及预设界限（误差棒为样本标准差）')
+        fig.legend(*axes[0,0].get_legend_handles_labels(),loc='outside lower center',ncol=4)
         for ext in ('png','svg'):
             stream=io.BytesIO(); fig.savefig(stream,format=ext,dpi=200); outputs['delta_estimates.'+ext]=stream.getvalue()
     return outputs

@@ -120,7 +120,8 @@ def build_report(generation, base, comparison, summary, reference, old_base, old
                     for model,title,color in modes:
                         rows=[find(f,model,g,sigma,quantity=quantity) for g in ordered]
                         ax.errorbar([levels[g] for g in ordered],[r['mean'] for r in rows],yerr=[r['sd'] or 0 for r in rows],marker='o',capsize=3,label=title,color=color)
-                    ax.set(title=f'仅改变{f}，R节点，观测σ={sigma}',xlabel=f'{f}对T的互补支持系数',ylabel=label,xticks=[levels[g] for g in ordered]);ax.grid(alpha=.2);ax.legend()
+                    ax.set(title=f'仅改变{f}，R节点，观测σ={sigma}',xlabel=f'{f}对T的互补支持系数',ylabel=label,xticks=[levels[g] for g in ordered]);ax.grid(alpha=.2)
+            fig.legend(*axes[0,0].get_legend_handles_labels(),loc='outside lower center',ncol=3)
             fig.suptitle(f'互补系数逐一扰动（{repeats}次重复，误差棒为样本标准差，单次无SD）');save(fig,name)
         fig=Figure(figsize=(13,7.5),layout='constrained');FigureCanvasAgg(fig);axes=fig.subplots(2,3)
         for i,(f,levels) in enumerate(factors.items()):
