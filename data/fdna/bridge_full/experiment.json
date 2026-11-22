@@ -1,0 +1,33 @@
+{
+  "seed": 20261122,
+  "base_cases": 120,
+  "train_count": 90,
+  "root_range": [
+    10,
+    90
+  ],
+  "noise_std": [
+    0,
+    2
+  ],
+  "process_std": 0,
+  "interaction_gamma": 0,
+  "repetitions": 1,
+  "basis": "已选三链共同观测状态的代表性接口演示；非并发调度或容量模型",
+  "root_coupling": [
+    {
+      "id": "demo_eye_common_state",
+      "nodes": [
+        "A1",
+        "A2",
+        "A3"
+      ],
+      "offsets": {
+        "A1": -4,
+        "A2": 0,
+        "A3": 4
+      },
+      "basis": "显式人工假设：共同状态H均匀[10,90]；任务产品SE为H加固定偏移，不代表三台独立设备"
+    }
+  ]
+}

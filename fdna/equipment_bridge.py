@@ -1,5 +1,6 @@
 """Explicit, reviewed activity-flow adapter; equipment links alone are insufficient."""
 from copy import deepcopy
+from collections import defaultdict
 from .model import ModelError
 from .structure import digest
 from .workflow_common import make_model, text
@@ -51,6 +52,19 @@ def bridge(report, config):
     expected = {(c, r) for c in scope for r in chains[c][1]['artifacts']}
     if bindings != expected:
         raise ModelError('范围内链角色必须完整映射')
+    # Reusing physical subjects across tasks requires an explicit state contract.
+    shared=defaultdict(list)
+    for n,item in activities.items(): shared[item['subject'],item['role']].append(n)
+    required={key:set(value) for key,value in shared.items() if len(value)>1}
+    registry={}
+    for policy in config.get('state_sharing',[]):
+        key=policy['subject'],policy['role']
+        if key in registry or key not in required or set(policy['instance_ids'])!=required[key] or len(policy['instance_ids'])!=len(required[key]):
+            raise ModelError('共享主体登记重复或实例覆盖不一致')
+        if policy['mode']!='task_conditioned_outputs': raise ModelError('首版共享主体须显式采用不同任务产品状态')
+        for field in ('rationale','coupling','resource_scope'):text(policy[field],field)
+        registry[key]=deepcopy(policy)
+    if set(registry)!=set(required): raise ModelError('共享装备跨任务状态尚未登记，禁止自动复制或合并')
     # Product matching proposes candidates. Missing reviews remain pending.
     rules = deepcopy(config['reviews'])
     reviewed = {(r['feeder'], r['receiver'], r.get('product')) for r in rules}
@@ -61,7 +75,7 @@ def bridge(report, config):
                 if (a,b,token) not in reviewed:
                     rules.append(dict(id=f'auto_{a}_{b}_{token}', feeder=a, receiver=b, product=token,
                         status='pending', rationale='输入输出名称匹配自动提出；尚无人审查，不导出'))
-    candidates = []; edges = []; pairs = set(); ids = set()
+    candidates = []; edges = []; pairs = set(); ids = set(); claims=set()
     for rule in rules:
         rid = text(rule['id'], '审查id')
         if rid in ids: raise ModelError('审查id重复')
@@ -71,6 +85,10 @@ def bridge(report, config):
             raise ModelError('候选边引用未知实例或自环')
         left, right = activities[a], activities[b]
         token = rule.get('product')
+        if token is not None:text(token,'产品标识')
+        claim=(a,b,token)
+        if claim in claims:raise ModelError('同一产品依赖有重复或冲突审查记录')
+        claims.add(claim)
         matched = bool(token and token in left['outputs'] and token in right['inputs'])
         if left['chain_id'] != right['chain_id']:
             raise ModelError('首版跨链状态关系须另行建模')
@@ -92,6 +110,7 @@ def bridge(report, config):
     make_model(network)  # rejects cycles, unknown references and empty edge sets
     return network, dict(source_report_sha256=digest(report), scope_chain_ids=sorted(scope),
         excluded_selected_chain_ids=sorted(set(selected)-set(scope)), capability_instances=activities,
-        candidates=candidates, upstream_relations_not_exported=deepcopy(report['network'].get('relations', [])),
+        candidates=candidates, state_sharing=list(registry.values()),
+        upstream_relations_not_exported=deepcopy(report['network'].get('relations', [])),
         policies=dict(topology_from_reviewed_assumptions=True, topology_learned_from_se=False,
                       transitive_edges_added=False, score_used_as_se=False, real_dependencies_verified=False))
