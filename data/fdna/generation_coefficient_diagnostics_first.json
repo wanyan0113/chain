@@ -1,0 +1,57 @@
+{
+  "format_version": "1.0",
+  "id": "coefficient_diagnostics_first_batch",
+  "basis": "首批补R归一化权重两组及T互补系数四组冻结诊断；不重拟合，不生成样本。继承原容差、步长及描述阈值；范围图固定取最后配置组的R节点，不依越界数量选示例。其他16个系数配置仍需后续独立批次诊断。",
+  "policy": {
+    "format_version": "1.0",
+    "id": "frozen_delta_residual_and_parameter_diagnostics",
+    "basis": "仅核验并分析冻结的δ重复对照，不重新拟合、不裁剪预测、不改变δ界限；近等起点仅按训练RMSE筛选，留出数据只作诊断。",
+    "near_training_rmse_tolerance": 1e-06,
+    "prediction_equivalence_tolerance": 1e-06,
+    "null_step_fraction": 0.1,
+    "plot_noise_std": [
+      0,
+      8
+    ]
+  },
+  "low_input_thresholds": [
+    20,
+    40
+  ],
+  "sources": [
+    {
+      "id": "weights",
+      "generation_report": "generated/stage2-coefficient-weights/generation/generation_report.json",
+      "experiment_dir": "generated/stage2-coefficient-weights",
+      "expected_groups": [
+        "weight_q052",
+        "weight_q072"
+      ],
+      "illustration": {
+        "model": "free_delta",
+        "group": "weight_q072",
+        "noise_sigma": 0,
+        "repetition": 1,
+        "node": "R"
+      }
+    },
+    {
+      "id": "support",
+      "generation_report": "generated/stage2-support-coefficients/generation/generation_report.json",
+      "experiment_dir": "generated/stage2-support-coefficients",
+      "expected_groups": [
+        "support_a080",
+        "support_a100",
+        "support_b068",
+        "support_b088"
+      ],
+      "illustration": {
+        "model": "free_delta",
+        "group": "support_b088",
+        "noise_sigma": 0,
+        "repetition": 1,
+        "node": "T"
+      }
+    }
+  ]
+}

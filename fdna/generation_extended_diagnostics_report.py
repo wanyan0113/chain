@@ -54,16 +54,35 @@ def additional_findings(reports,tolerance):
     train_only=sum(p['max_train_prediction_change']<=tolerance and p['max_holdout_prediction_change']>tolerance for p in feasible)
     text=['','补充核验：涉及δ的近似等价路径均检查了参数前后值，要求δ实际变化超过1e−6，而不只依据方向标签。',
         f"本轮{sum(g['rank']<g['parameter_count'] for g in geometries)}/{len(geometries)}次局部秩不足；{len(feasible)}次预设扰动在界内可行，其中{sum(p['equivalent_on_sampled_inputs'] for p in feasible)}次在当前训练与验证输入上近似等价。实际确认{len(rows)}条δ变化路径，详细δ和其他参数变化见confirmed_delta_paths.csv。",'']
-    if train_only==0:text+=['本轮未出现“训练预测近似不变、验证预测明显改变”的预设扰动。此前旧固定条件/不额外衰减基线中出现过此现象，属于不同数据集，不与本轮混计。','']
+    if train_only==0:text+=['本轮未出现“训练预测近似不变、验证预测明显改变”的预设扰动；这不表示所有其他输入上都预测等价。不同数据集的结果不在本轮混计。','']
     text+=['这些路径只是在当前样本与既定步长下的证据，不能外推所有输入或所有节点。参数识别问题在此得到更具体的解释，尚未被解决。','']
     return rows,'\n'.join(text)
 
 
-def build_bundle_report(reports,points,quality,config):
+def diagnostic_scope(config,reports):
+    """Freeze plot coverage and the range example before inspecting residuals."""
     if len(reports)!=len(config['sources']) or any(r['status']!='complete' for r in reports):raise ModelError('扩展诊断来源未全部完成')
     groups=[g for s in config['sources'] for g in s['expected_groups']]
+    if not groups or len(groups)!=len(set(groups)):raise ModelError('诊断面板条件组重复或为空')
+    first=reports[0]['comparison_config_snapshot']
+    for source,report in zip(config['sources'],reports):
+        actual=report['comparison_config_snapshot']
+        if actual['groups']!=source['expected_groups']:raise ModelError('诊断报告与来源选择不一致')
+        for key in ('noise_std','repetitions','fixed_delta','free_delta_bounds'):
+            if actual[key]!=first[key]:raise ModelError('诊断来源的比较协议不一致')
+    if set(config['policy']['plot_noise_std'])-set(first['noise_std']):raise ModelError('诊断绘图噪声未覆盖')
+    return dict(groups=groups,cdf_rows=math.ceil(len(groups)/3),repetitions=len(first['repetitions']),
+        range_example=dict(group=groups[-1],node='R',model='free_delta',split='holdout',
+            noise_std=config['policy']['plot_noise_std']))
+
+
+def build_bundle_report(reports,points,quality,config):
+    scope=diagnostic_scope(config,reports);groups=scope['groups']
     labels={'varying_conditions':'变化条件','varying_conditions_process_2':'过程σ=2',
-        'interaction_005':'交互γ=0.05','interaction_015':'交互γ=0.15','interaction_030':'交互γ=0.30'}
+        'interaction_005':'交互γ=0.05','interaction_015':'交互γ=0.15','interaction_030':'交互γ=0.30',
+        'weight_q052':'R权重0.52/0.48','weight_q072':'R权重0.72/0.28',
+        'support_a080':'T互补A=0.80','support_a100':'T互补A=1.00',
+        'support_b068':'T互补B=0.68','support_b088':'T互补B=0.88'}
     nodes=sorted({p['node'] for p in points},key=lambda n:({'T':0,'Q':1,'R':2}.get(n,3),n))
     geometry=summarize_geometries(reports,config['policy']['prediction_equivalence_tolerance'])
     counts={k:sum(r['counts'][k] for r in reports) for k in reports[0]['counts']}
@@ -105,10 +124,11 @@ def build_bundle_report(reports,points,quality,config):
         for ax,sigma in zip(axes,config['policy']['plot_noise_std']):
             for i,(mode,label,color) in enumerate(modes):
                 rows=[aggregate(g,mode,'R',sigma,'mean_residual') for g in groups]
-                ax.bar(np.arange(len(groups))+(i-1)*.24,[r['mean'] for r in rows],width=.24,yerr=[r['sd'] for r in rows],capsize=3,color=color,label=label)
+                ax.bar(np.arange(len(groups))+(i-1)*.24,[r['mean'] for r in rows],width=.24,yerr=[r['sd'] or 0 for r in rows],capsize=3,color=color,label=label)
             ax.set(xticks=range(len(groups)),xticklabels=[labels.get(g,g) for g in groups],ylabel='R整网平均残差（预测−干净目标）',title=f'观测σ={sigma}')
             ax.tick_params(axis='x',labelrotation=20);ax.axhline(0,color='#777777',linestyle='--');ax.grid(axis='y',alpha=.2);ax.legend(fontsize=8)
-        fig.suptitle('新实验组的系统偏差方向（十次重复均值±样本标准差）');save(fig,'new_groups_residual_bias')
+        repeat_label=f"{scope['repetitions']}次重复均值±样本标准差" if scope['repetitions']>1 else '单次结果，无SD误差棒'
+        fig.suptitle(f'新实验组的系统偏差方向（{repeat_label}）');save(fig,'new_groups_residual_bias')
         fig=Figure(figsize=(13,3*len(groups)),layout='constrained');FigureCanvasAgg(fig);axes=fig.subplots(len(groups),len(nodes),squeeze=False)
         for i,g in enumerate(groups):
             for j,n in enumerate(nodes):
@@ -119,7 +139,7 @@ def build_bundle_report(reports,points,quality,config):
                 ax.axhline(0,color='#777777',linestyle='--');ax.set(title=labels.get(g,g)+' / '+n,xlabel='整网预测SE',ylabel='干净目标残差');ax.grid(alpha=.15)
                 if i==0 and j==0:ax.legend(fontsize=7)
         fig.suptitle('观测σ=0验证残差与预测值（配对条目仅作分布描述）');save(fig,'new_groups_residual_vs_prediction')
-        fig=Figure(figsize=(13,8),layout='constrained');FigureCanvasAgg(fig);axes=fig.subplots(2,3)
+        fig=Figure(figsize=(13,4*scope['cdf_rows']),layout='constrained');FigureCanvasAgg(fig);axes=fig.subplots(scope['cdf_rows'],3,squeeze=False)
         for ax,g in zip(axes.flat,groups):
             for mode,label,color in modes:
                 v=sorted(p['residual_clean'] for p in points if p['group']==g and p['node']=='R' and p['model']==mode and p['noise_sigma']==0)
@@ -149,7 +169,10 @@ def build_bundle_report(reports,points,quality,config):
             ax.bar(np.arange(len(groups))+(i-1)*.24,values,width=.24,label=label,color=color)
         ax.set(xticks=range(len(groups)),xticklabels=[labels.get(g,g) for g in groups],ylabel='局部拟合/预设扰动条目数');ax.legend(fontsize=8);ax.grid(axis='y',alpha=.2)
         fig.suptitle('局部秩与有限扰动诊断（三模型、四档配对噪声，非独立样本计数）');save(fig,'new_groups_null_probes')
-        chosen=[p for p in points if p['model']=='free_delta' and p['group']=='interaction_030' and p['node']=='R']
+        example=scope['range_example']
+        chosen=[p for p in points if all(p[k]==example[k] for k in ('model','group','node'))
+            and p['noise_sigma'] in example['noise_std']]
+        if not chosen:raise ModelError('预设输出范围示例没有对应绘图数据')
         fig=Figure(figsize=(11,4.7),layout='constrained');FigureCanvasAgg(fig);axes=fig.subplots(1,2)
         for ax,window in zip(axes,('all','near')):
             selected=chosen if window=='all' else [p for p in chosen if p['base_before_delta']<20]
@@ -159,17 +182,17 @@ def build_bundle_report(reports,points,quality,config):
             limit=100 if window=='all' else 20
             ax.plot([0,limit],[0,-limit],'--',color='#333333',label='δ=−加项前输出')
             ax.set(xlim=(-5,limit),ylim=(-12,11),xlabel='加δ前的整网计算值',ylabel='δ',title='全范围' if window=='all' else '下界附近');ax.grid(alpha=.15);ax.legend(fontsize=8)
-        fig.suptitle('强交互末端R验证负值条件（观测σ=0/8配对，阈值线以下产生负值）');save(fig,'new_groups_lower_range_condition')
+        fig.suptitle(labels.get(example['group'],example['group'])+' / R验证负值条件（配置噪声为配对版本，阈值线以下产生负值）');save(fig,'new_groups_lower_range_condition')
         fig=Figure(figsize=(12,4.8),layout='constrained');FigureCanvasAgg(fig);axes=fig.subplots(1,len(nodes))
         for ax,n in zip(axes,nodes):
             for key,label,color in [('min_input_below_'+str(t)+'_fraction','最低供给<'+str(t),'#367AA8' if i==0 else '#D78C36') for i,t in enumerate(config['low_input_thresholds'])]+[
                     ('target_below_min_fraction','目标<最低供给','#32986B')]:
                 rows=[next(r for r in quality_aggregates if (r['group'],r['node'],r['split'],r['quantity'])==(g,n,'holdout',key)) for g in groups]
-                ax.errorbar(range(len(groups)),[r['mean'] for r in rows],yerr=[r['sd'] for r in rows],marker='o',capsize=3,color=color,label=label)
+                ax.errorbar(range(len(groups)),[r['mean'] for r in rows],yerr=[r['sd'] or 0 for r in rows],marker='o',capsize=3,color=color,label=label)
             ax.set(title=n,xticks=range(len(groups)),xticklabels=[labels.get(g,g) for g in groups],ylabel='验证样本比例');ax.tick_params(axis='x',labelrotation=25);ax.grid(alpha=.15);ax.legend(fontsize=7)
-        fig.suptitle('实际干净供给覆盖与基础式下界违反比例（重复均值±SD，阈值仅作描述）');save(fig,'new_groups_input_coverage')
+        fig.suptitle('实际干净供给覆盖与基础式下界违反比例（'+repeat_label+'，阈值仅作描述）');save(fig,'new_groups_input_coverage')
     lines=['# 新实验组深入诊断与供给数据质量检查','',
-        '本轮复核变化C/M/E、过程σ=2、交互γ=0.05/0.15/0.30五个已冻结实验组，不重新拟合，不生成新样本，不改变机制、δ边界或输出不裁剪策略。20和40两个低输入阈值仅用于描述覆盖，不进入生成、优化或筛选。',
+        f"本轮复核{len(groups)}个已冻结配置："+'、'.join(labels.get(g,g) for g in groups)+'。不重新拟合，不生成新样本，不改变机制、δ边界或输出不裁剪策略。低输入阈值'+str(config['low_input_thresholds'])+'仅用于描述覆盖，不进入生成、优化或筛选。',
         '', '复核规模：'+dumps(counts)+'。预测条目包含模型、节点、噪声版本与局部/整网，不能当作独立实验次数。',
         '', '| 条件 | 模型 | 局部拟合数 | 秩不足 | 可行扰动 | 训练及验证近似等价 | 训练不变但验证改变 | 确认δ补偿方向 |',
         '| --- | --- | ---: | ---: | ---: | ---: | ---: | ---: |']
@@ -186,12 +209,12 @@ def build_bundle_report(reports,points,quality,config):
         '', f'供给质量表共{len(quality["node_quality"])}条重复/划分/节点统计，按干净网络计数、不按观测噪声复制。记录实际供给SE范围、相关系数、各供给成为唯一/并列最低输入的频率、低输入覆盖、目标低于最低供给的比例、结构下界及生成截断；观测边界另存。常数输入相关系数保留空值并标注原因，不补0。',
         '', 'Pearson相关不证明因果；本来带共享因素的根节点也不应强制相关为0。阈值20/40为本轮明确的描述阈值，不代表原文给出的退化标准。几何、加权及交互传播会改变实际供给分布，不能假定中间供给和根节点服从同一分布。',
         '', f'全部{len(outside)}条越界记录按δ加项前输出独立核对，满足精确条件：预测<0当且仅当δ<−加项前输出；预测>100当且仅当δ>100−加项前输出。保留原值，不裁剪；局部/整网、训练/验证和噪声版本不能重复解释为独立观测。',
-        '', '7张图分别展示残差方向、残差-预测关系、末端残差经验分布、预设示例近等起点跨度、秩及扰动、强交互负值条件、实际供给覆盖。完整逐样本残差、参数扰动与供给质量CSV按来源子目录保存。',
-        '', '本轮补齐新组深入诊断与供给质量统计，没有解决参数不可辨识、模型表达限制或输出越界。下一步才开展其他生成系数系统敏感性，再进入正式多输入和11节点18边独立生成拟合。当前结论限定在已设合成机制及输入覆盖，不证明真实任务有效。','']
+        '', '7张图分别展示残差方向、残差-预测关系、末端残差经验分布、预设示例近等起点跨度、秩及扰动、配置末组的末端负值条件、实际供给覆盖。范围示例按配置顺序预先确定，不按越界数量或验证结果挑选。完整逐样本残差、参数扰动与供给质量CSV按来源子目录保存。',
+        '', '本轮补齐配置所列分组的深入诊断与供给质量统计，不代表其他分组已完成。参数识别、模型表达限制和输出越界仍未解决；后续按阶段进度补齐其余敏感性新组诊断，再进入多输入已知参数恢复、正式多输入及11节点18边独立生成拟合。当前结论限定在已设合成机制及输入覆盖，不证明真实任务有效。','']
     meta=dict(status='complete',stage='post_baseline_extended_diagnostics',counts=counts,
         quality_bound_checks=sum(r['quality_bound_checks'] for r in reports),sources={s['id']:r['source_hashes'] for s,r in zip(config['sources'],reports)},
         geometry_summary=geometry,low_input_thresholds=config['low_input_thresholds'],new_fits=0,new_samples=0,
-        report_hashes=[digest(r) for r in reports])
+        report_hashes=[digest(r) for r in reports],plot_scope=scope)
     delta_paths,supplement=additional_findings(reports,config['policy']['prediction_equivalence_tolerance'])
     outputs.update({'结果解释.md':'\n'.join(lines)+supplement,'extended_diagnostics_summary.json':dumps(meta),
         'confirmed_delta_paths.csv':csv_rows(delta_paths),

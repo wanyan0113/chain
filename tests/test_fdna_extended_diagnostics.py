@@ -102,5 +102,51 @@ class ExtendedDiagnosticsTests(unittest.TestCase):
         g['null_probe']['parameters_after'][-1]=-3
         with self.assertRaises(ModelError):confirmed_delta_paths([dict(geometries=[g])],1e-6)
 
+    def test_coefficient_batch_keeps_frozen_diagnostic_protocol(self):
+        c=read('generation_coefficient_diagnostics_first.json');validate_bundle_config(c)
+        self.assertEqual(c['policy'],read('generation_extended_diagnostics.json')['policy'])
+        self.assertEqual(c['low_input_thresholds'],[20,40])
+        self.assertEqual(len([g for s in c['sources'] for g in s['expected_groups']]),6)
+        for source,name,key in zip(c['sources'],('generation_coefficient_conditions.json','generation_support_conditions.json'),
+                                   ('weight_groups','support_groups')):
+            self.assertEqual(source['expected_groups'],list(read(name)[key]))
+
+    def test_bundle_scope_rejects_protocol_drift_and_wrong_source(self):
+        from fdna.generation_extended_diagnostics_report import diagnostic_scope
+        config=deepcopy(self.config);config['sources']=[deepcopy(self.source)]
+        self.assertEqual(diagnostic_scope(config,[self.report])['cdf_rows'],1)
+        for kind in ('selection','duplicate','noise','settings'):
+            c=deepcopy(config);r=deepcopy(self.report)
+            if kind=='selection':c['sources'][0]['expected_groups']=['wrong']
+            elif kind=='duplicate':c['sources'].append(c['sources'][0]);r=[r,r]
+            elif kind=='noise':c['policy']['plot_noise_std']=[99]
+            else:
+                c['sources'].append(deepcopy(c['sources'][0]));c['sources'][1]['expected_groups']=['other']
+                r=[r,deepcopy(r)];r[1]['comparison_config_snapshot']['groups']=['other']
+                r[1]['comparison_config_snapshot']['free_delta_bounds']['T']=[-20,10]
+            with self.subTest(kind=kind),self.assertRaises(ModelError):diagnostic_scope(c,r if isinstance(r,list) else [r])
+
+    def test_bundle_plots_include_eighth_group_and_actual_range_example(self):
+        from fdna.generation_extended_diagnostics_report import build_bundle_report
+        original=self.source['expected_groups'][0]
+        def renamed(value,group):
+            if isinstance(value,dict):return {k:renamed(v,group) for k,v in value.items()}
+            if isinstance(value,list):return [renamed(v,group) for v in value]
+            return group if value==original else value
+        config=deepcopy(self.config);config['sources']=[];reports=[];points=[]
+        quality={k:[] for k in self.quality}
+        for i in range(8):
+            group=f'diagnostic_g{i}';source=renamed(self.source,group);source['id']=group
+            config['sources'].append(source);reports.append(renamed(self.report,group))
+            points.extend(renamed([p for p in self.points if p['split']=='holdout' and p['prediction']=='recursive'],group))
+            for key,rows in self.quality.items():quality[key].extend(renamed(rows,group))
+        outputs=build_bundle_report(reports,points,quality,config)
+        meta=json.loads(outputs['extended_diagnostics_summary.json'])
+        self.assertEqual(meta['plot_scope']['cdf_rows'],3)
+        self.assertEqual(meta['plot_scope']['range_example']['group'],'diagnostic_g7')
+        self.assertIn('diagnostic_g7',outputs['new_groups_residual_cdf.svg'].decode('utf-8'))
+        self.assertIn('diagnostic_g7',outputs['new_groups_lower_range_condition.svg'].decode('utf-8'))
+        self.assertIn('8个已冻结配置',outputs['结果解释.md'])
+
 
 if __name__=='__main__':unittest.main()
