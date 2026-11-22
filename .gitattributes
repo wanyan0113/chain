@@ -1,0 +1,2 @@
+# Acceptance manifests hash exact bytes, including CSV line endings and BOM.
+data/fdna/v1_acceptance/** -text
