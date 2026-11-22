@@ -1,0 +1,94 @@
+{
+  "id": "independent_11_nodes_18_edges",
+  "nodes": [
+    "S1",
+    "D2",
+    "S3",
+    "D4",
+    "S5",
+    "S6",
+    "F7",
+    "S8",
+    "F9",
+    "S10",
+    "F11"
+  ],
+  "edges": [
+    {
+      "feeder": "S1",
+      "receiver": "S5"
+    },
+    {
+      "feeder": "D2",
+      "receiver": "S5"
+    },
+    {
+      "feeder": "D4",
+      "receiver": "S5"
+    },
+    {
+      "feeder": "S1",
+      "receiver": "S6"
+    },
+    {
+      "feeder": "D2",
+      "receiver": "S6"
+    },
+    {
+      "feeder": "D4",
+      "receiver": "S6"
+    },
+    {
+      "feeder": "S5",
+      "receiver": "F7"
+    },
+    {
+      "feeder": "S6",
+      "receiver": "F7"
+    },
+    {
+      "feeder": "S3",
+      "receiver": "F9"
+    },
+    {
+      "feeder": "S5",
+      "receiver": "F9"
+    },
+    {
+      "feeder": "S6",
+      "receiver": "F9"
+    },
+    {
+      "feeder": "S8",
+      "receiver": "F9"
+    },
+    {
+      "feeder": "S10",
+      "receiver": "F9"
+    },
+    {
+      "feeder": "S3",
+      "receiver": "F11"
+    },
+    {
+      "feeder": "S5",
+      "receiver": "F11"
+    },
+    {
+      "feeder": "S6",
+      "receiver": "F11"
+    },
+    {
+      "feeder": "S8",
+      "receiver": "F11"
+    },
+    {
+      "feeder": "S10",
+      "receiver": "F11"
+    },
+    {
+      "feeder": "F11",
+      "receiver": "D2"
+    }
+  ]
+}

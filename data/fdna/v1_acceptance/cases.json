@@ -1,0 +1,146 @@
+[
+  {
+    "id": "valid_json",
+    "network": "network.json",
+    "samples": "observed.json",
+    "config": "config.json",
+    "layout": "wide",
+    "expected_status": "ready_with_warnings",
+    "expected_exit": 0
+  },
+  {
+    "id": "valid_wide",
+    "network": "network.json",
+    "samples": "observed_wide.csv",
+    "config": "config.json",
+    "layout": "wide",
+    "expected_status": "ready_with_warnings",
+    "expected_exit": 0
+  },
+  {
+    "id": "valid_long",
+    "network": "network.json",
+    "samples": "observed_long.csv",
+    "config": "config.json",
+    "layout": "long",
+    "expected_status": "ready_with_warnings",
+    "expected_exit": 0
+  },
+  {
+    "id": "missing_one_root",
+    "network": "network.json",
+    "samples": "missing_one_root_samples.json",
+    "config": "config.json",
+    "layout": "wide",
+    "expected_status": "ready_with_warnings",
+    "expected_exit": 0
+  },
+  {
+    "id": "missing_receiver_all",
+    "network": "network.json",
+    "samples": "missing_receiver_all_samples.json",
+    "config": "config.json",
+    "layout": "wide",
+    "expected_status": "needs_data",
+    "expected_exit": 1
+  },
+  {
+    "id": "duplicate_edge",
+    "network": "duplicate_edge_network.json",
+    "samples": "observed.json",
+    "config": "config.json",
+    "layout": "wide",
+    "expected_status": "invalid",
+    "expected_exit": 2
+  },
+  {
+    "id": "unknown_edge_node",
+    "network": "unknown_edge_node_network.json",
+    "samples": "observed.json",
+    "config": "config.json",
+    "layout": "wide",
+    "expected_status": "invalid",
+    "expected_exit": 2
+  },
+  {
+    "id": "cycle",
+    "network": "cycle_network.json",
+    "samples": "observed.json",
+    "config": "config.json",
+    "layout": "wide",
+    "expected_status": "invalid",
+    "expected_exit": 2
+  },
+  {
+    "id": "self_loop",
+    "network": "self_loop_network.json",
+    "samples": "observed.json",
+    "config": "config.json",
+    "layout": "wide",
+    "expected_status": "invalid",
+    "expected_exit": 2
+  },
+  {
+    "id": "duplicate_sample",
+    "network": "network.json",
+    "samples": "duplicate_sample_samples.json",
+    "config": "config.json",
+    "layout": "wide",
+    "expected_status": "invalid",
+    "expected_exit": 2
+  },
+  {
+    "id": "invalid_se",
+    "network": "network.json",
+    "samples": "invalid_se_samples.json",
+    "config": "config.json",
+    "layout": "wide",
+    "expected_status": "invalid",
+    "expected_exit": 2
+  },
+  {
+    "id": "unknown_se_node",
+    "network": "network.json",
+    "samples": "unknown_se_node_samples.json",
+    "config": "config.json",
+    "layout": "wide",
+    "expected_status": "invalid",
+    "expected_exit": 2
+  },
+  {
+    "id": "split_leakage",
+    "network": "network.json",
+    "samples": "split_leakage_samples.json",
+    "config": "config.json",
+    "layout": "wide",
+    "expected_status": "invalid",
+    "expected_exit": 2
+  },
+  {
+    "id": "insufficient_samples",
+    "network": "network.json",
+    "samples": "insufficient_samples_samples.json",
+    "config": "config.json",
+    "layout": "wide",
+    "expected_status": "needs_data",
+    "expected_exit": 1
+  },
+  {
+    "id": "constant_inputs",
+    "network": "network.json",
+    "samples": "constant_inputs_samples.json",
+    "config": "config.json",
+    "layout": "wide",
+    "expected_status": "ready_with_warnings",
+    "expected_exit": 0
+  },
+  {
+    "id": "ragged_csv",
+    "network": "network.json",
+    "samples": "ragged.csv",
+    "config": "config.json",
+    "layout": "wide",
+    "expected_status": "invalid",
+    "expected_exit": 2
+  }
+]

@@ -1,0 +1,5002 @@
+[
+  {
+    "sample_id": "fixed:rep1:base0:sigma:2",
+    "base_case_id": "rep1:base0",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base1:sigma:2",
+    "base_case_id": "rep1:base1",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base2:sigma:2",
+    "base_case_id": "rep1:base2",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base3:sigma:2",
+    "base_case_id": "rep1:base3",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base4:sigma:2",
+    "base_case_id": "rep1:base4",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base5:sigma:2",
+    "base_case_id": "rep1:base5",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base6:sigma:2",
+    "base_case_id": "rep1:base6",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base7:sigma:2",
+    "base_case_id": "rep1:base7",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base8:sigma:2",
+    "base_case_id": "rep1:base8",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base9:sigma:2",
+    "base_case_id": "rep1:base9",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base10:sigma:2",
+    "base_case_id": "rep1:base10",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base11:sigma:2",
+    "base_case_id": "rep1:base11",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base12:sigma:2",
+    "base_case_id": "rep1:base12",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base13:sigma:2",
+    "base_case_id": "rep1:base13",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base14:sigma:2",
+    "base_case_id": "rep1:base14",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base15:sigma:2",
+    "base_case_id": "rep1:base15",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base16:sigma:2",
+    "base_case_id": "rep1:base16",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base17:sigma:2",
+    "base_case_id": "rep1:base17",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base18:sigma:2",
+    "base_case_id": "rep1:base18",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base19:sigma:2",
+    "base_case_id": "rep1:base19",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base20:sigma:2",
+    "base_case_id": "rep1:base20",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base21:sigma:2",
+    "base_case_id": "rep1:base21",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base22:sigma:2",
+    "base_case_id": "rep1:base22",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base23:sigma:2",
+    "base_case_id": "rep1:base23",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base24:sigma:2",
+    "base_case_id": "rep1:base24",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base25:sigma:2",
+    "base_case_id": "rep1:base25",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base26:sigma:2",
+    "base_case_id": "rep1:base26",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base27:sigma:2",
+    "base_case_id": "rep1:base27",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base28:sigma:2",
+    "base_case_id": "rep1:base28",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base29:sigma:2",
+    "base_case_id": "rep1:base29",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base30:sigma:2",
+    "base_case_id": "rep1:base30",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base31:sigma:2",
+    "base_case_id": "rep1:base31",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base32:sigma:2",
+    "base_case_id": "rep1:base32",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base33:sigma:2",
+    "base_case_id": "rep1:base33",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base34:sigma:2",
+    "base_case_id": "rep1:base34",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base35:sigma:2",
+    "base_case_id": "rep1:base35",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base36:sigma:2",
+    "base_case_id": "rep1:base36",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base37:sigma:2",
+    "base_case_id": "rep1:base37",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base38:sigma:2",
+    "base_case_id": "rep1:base38",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base39:sigma:2",
+    "base_case_id": "rep1:base39",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base40:sigma:2",
+    "base_case_id": "rep1:base40",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base41:sigma:2",
+    "base_case_id": "rep1:base41",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base42:sigma:2",
+    "base_case_id": "rep1:base42",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base43:sigma:2",
+    "base_case_id": "rep1:base43",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base44:sigma:2",
+    "base_case_id": "rep1:base44",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base45:sigma:2",
+    "base_case_id": "rep1:base45",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base46:sigma:2",
+    "base_case_id": "rep1:base46",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base47:sigma:2",
+    "base_case_id": "rep1:base47",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base48:sigma:2",
+    "base_case_id": "rep1:base48",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base49:sigma:2",
+    "base_case_id": "rep1:base49",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base50:sigma:2",
+    "base_case_id": "rep1:base50",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base51:sigma:2",
+    "base_case_id": "rep1:base51",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base52:sigma:2",
+    "base_case_id": "rep1:base52",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base53:sigma:2",
+    "base_case_id": "rep1:base53",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base54:sigma:2",
+    "base_case_id": "rep1:base54",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base55:sigma:2",
+    "base_case_id": "rep1:base55",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base56:sigma:2",
+    "base_case_id": "rep1:base56",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base57:sigma:2",
+    "base_case_id": "rep1:base57",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base58:sigma:2",
+    "base_case_id": "rep1:base58",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base59:sigma:2",
+    "base_case_id": "rep1:base59",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base60:sigma:2",
+    "base_case_id": "rep1:base60",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base61:sigma:2",
+    "base_case_id": "rep1:base61",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base62:sigma:2",
+    "base_case_id": "rep1:base62",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base63:sigma:2",
+    "base_case_id": "rep1:base63",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base64:sigma:2",
+    "base_case_id": "rep1:base64",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base65:sigma:2",
+    "base_case_id": "rep1:base65",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base66:sigma:2",
+    "base_case_id": "rep1:base66",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base67:sigma:2",
+    "base_case_id": "rep1:base67",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base68:sigma:2",
+    "base_case_id": "rep1:base68",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base69:sigma:2",
+    "base_case_id": "rep1:base69",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base70:sigma:2",
+    "base_case_id": "rep1:base70",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base71:sigma:2",
+    "base_case_id": "rep1:base71",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base72:sigma:2",
+    "base_case_id": "rep1:base72",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base73:sigma:2",
+    "base_case_id": "rep1:base73",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base74:sigma:2",
+    "base_case_id": "rep1:base74",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base75:sigma:2",
+    "base_case_id": "rep1:base75",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base76:sigma:2",
+    "base_case_id": "rep1:base76",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base77:sigma:2",
+    "base_case_id": "rep1:base77",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base78:sigma:2",
+    "base_case_id": "rep1:base78",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base79:sigma:2",
+    "base_case_id": "rep1:base79",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base80:sigma:2",
+    "base_case_id": "rep1:base80",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base81:sigma:2",
+    "base_case_id": "rep1:base81",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base82:sigma:2",
+    "base_case_id": "rep1:base82",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base83:sigma:2",
+    "base_case_id": "rep1:base83",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base84:sigma:2",
+    "base_case_id": "rep1:base84",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base85:sigma:2",
+    "base_case_id": "rep1:base85",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base86:sigma:2",
+    "base_case_id": "rep1:base86",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base87:sigma:2",
+    "base_case_id": "rep1:base87",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base88:sigma:2",
+    "base_case_id": "rep1:base88",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base89:sigma:2",
+    "base_case_id": "rep1:base89",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base90:sigma:2",
+    "base_case_id": "rep1:base90",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base91:sigma:2",
+    "base_case_id": "rep1:base91",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base92:sigma:2",
+    "base_case_id": "rep1:base92",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base93:sigma:2",
+    "base_case_id": "rep1:base93",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base94:sigma:2",
+    "base_case_id": "rep1:base94",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base95:sigma:2",
+    "base_case_id": "rep1:base95",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base96:sigma:2",
+    "base_case_id": "rep1:base96",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base97:sigma:2",
+    "base_case_id": "rep1:base97",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base98:sigma:2",
+    "base_case_id": "rep1:base98",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base99:sigma:2",
+    "base_case_id": "rep1:base99",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base100:sigma:2",
+    "base_case_id": "rep1:base100",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base101:sigma:2",
+    "base_case_id": "rep1:base101",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base102:sigma:2",
+    "base_case_id": "rep1:base102",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base103:sigma:2",
+    "base_case_id": "rep1:base103",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base104:sigma:2",
+    "base_case_id": "rep1:base104",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base105:sigma:2",
+    "base_case_id": "rep1:base105",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base106:sigma:2",
+    "base_case_id": "rep1:base106",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base107:sigma:2",
+    "base_case_id": "rep1:base107",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base108:sigma:2",
+    "base_case_id": "rep1:base108",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base109:sigma:2",
+    "base_case_id": "rep1:base109",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base110:sigma:2",
+    "base_case_id": "rep1:base110",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base111:sigma:2",
+    "base_case_id": "rep1:base111",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base112:sigma:2",
+    "base_case_id": "rep1:base112",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base113:sigma:2",
+    "base_case_id": "rep1:base113",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base114:sigma:2",
+    "base_case_id": "rep1:base114",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base115:sigma:2",
+    "base_case_id": "rep1:base115",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base116:sigma:2",
+    "base_case_id": "rep1:base116",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base117:sigma:2",
+    "base_case_id": "rep1:base117",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base118:sigma:2",
+    "base_case_id": "rep1:base118",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base119:sigma:2",
+    "base_case_id": "rep1:base119",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base120:sigma:2",
+    "base_case_id": "rep1:base120",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base121:sigma:2",
+    "base_case_id": "rep1:base121",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base122:sigma:2",
+    "base_case_id": "rep1:base122",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base123:sigma:2",
+    "base_case_id": "rep1:base123",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base124:sigma:2",
+    "base_case_id": "rep1:base124",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base125:sigma:2",
+    "base_case_id": "rep1:base125",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base126:sigma:2",
+    "base_case_id": "rep1:base126",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base127:sigma:2",
+    "base_case_id": "rep1:base127",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base128:sigma:2",
+    "base_case_id": "rep1:base128",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base129:sigma:2",
+    "base_case_id": "rep1:base129",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base130:sigma:2",
+    "base_case_id": "rep1:base130",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base131:sigma:2",
+    "base_case_id": "rep1:base131",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base132:sigma:2",
+    "base_case_id": "rep1:base132",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base133:sigma:2",
+    "base_case_id": "rep1:base133",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base134:sigma:2",
+    "base_case_id": "rep1:base134",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base135:sigma:2",
+    "base_case_id": "rep1:base135",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base136:sigma:2",
+    "base_case_id": "rep1:base136",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base137:sigma:2",
+    "base_case_id": "rep1:base137",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base138:sigma:2",
+    "base_case_id": "rep1:base138",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base139:sigma:2",
+    "base_case_id": "rep1:base139",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base140:sigma:2",
+    "base_case_id": "rep1:base140",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base141:sigma:2",
+    "base_case_id": "rep1:base141",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base142:sigma:2",
+    "base_case_id": "rep1:base142",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base143:sigma:2",
+    "base_case_id": "rep1:base143",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base144:sigma:2",
+    "base_case_id": "rep1:base144",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base145:sigma:2",
+    "base_case_id": "rep1:base145",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base146:sigma:2",
+    "base_case_id": "rep1:base146",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base147:sigma:2",
+    "base_case_id": "rep1:base147",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base148:sigma:2",
+    "base_case_id": "rep1:base148",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base149:sigma:2",
+    "base_case_id": "rep1:base149",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base150:sigma:2",
+    "base_case_id": "rep1:base150",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base151:sigma:2",
+    "base_case_id": "rep1:base151",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base152:sigma:2",
+    "base_case_id": "rep1:base152",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base153:sigma:2",
+    "base_case_id": "rep1:base153",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base154:sigma:2",
+    "base_case_id": "rep1:base154",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base155:sigma:2",
+    "base_case_id": "rep1:base155",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base156:sigma:2",
+    "base_case_id": "rep1:base156",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base157:sigma:2",
+    "base_case_id": "rep1:base157",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base158:sigma:2",
+    "base_case_id": "rep1:base158",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base159:sigma:2",
+    "base_case_id": "rep1:base159",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base160:sigma:2",
+    "base_case_id": "rep1:base160",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base161:sigma:2",
+    "base_case_id": "rep1:base161",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base162:sigma:2",
+    "base_case_id": "rep1:base162",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base163:sigma:2",
+    "base_case_id": "rep1:base163",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base164:sigma:2",
+    "base_case_id": "rep1:base164",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base165:sigma:2",
+    "base_case_id": "rep1:base165",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base166:sigma:2",
+    "base_case_id": "rep1:base166",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base167:sigma:2",
+    "base_case_id": "rep1:base167",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base168:sigma:2",
+    "base_case_id": "rep1:base168",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base169:sigma:2",
+    "base_case_id": "rep1:base169",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base170:sigma:2",
+    "base_case_id": "rep1:base170",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base171:sigma:2",
+    "base_case_id": "rep1:base171",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base172:sigma:2",
+    "base_case_id": "rep1:base172",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base173:sigma:2",
+    "base_case_id": "rep1:base173",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base174:sigma:2",
+    "base_case_id": "rep1:base174",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base175:sigma:2",
+    "base_case_id": "rep1:base175",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base176:sigma:2",
+    "base_case_id": "rep1:base176",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base177:sigma:2",
+    "base_case_id": "rep1:base177",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base178:sigma:2",
+    "base_case_id": "rep1:base178",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base179:sigma:2",
+    "base_case_id": "rep1:base179",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base180:sigma:2",
+    "base_case_id": "rep1:base180",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base181:sigma:2",
+    "base_case_id": "rep1:base181",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base182:sigma:2",
+    "base_case_id": "rep1:base182",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base183:sigma:2",
+    "base_case_id": "rep1:base183",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base184:sigma:2",
+    "base_case_id": "rep1:base184",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base185:sigma:2",
+    "base_case_id": "rep1:base185",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base186:sigma:2",
+    "base_case_id": "rep1:base186",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base187:sigma:2",
+    "base_case_id": "rep1:base187",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base188:sigma:2",
+    "base_case_id": "rep1:base188",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base189:sigma:2",
+    "base_case_id": "rep1:base189",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base190:sigma:2",
+    "base_case_id": "rep1:base190",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base191:sigma:2",
+    "base_case_id": "rep1:base191",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base192:sigma:2",
+    "base_case_id": "rep1:base192",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base193:sigma:2",
+    "base_case_id": "rep1:base193",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base194:sigma:2",
+    "base_case_id": "rep1:base194",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base195:sigma:2",
+    "base_case_id": "rep1:base195",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base196:sigma:2",
+    "base_case_id": "rep1:base196",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base197:sigma:2",
+    "base_case_id": "rep1:base197",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base198:sigma:2",
+    "base_case_id": "rep1:base198",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base199:sigma:2",
+    "base_case_id": "rep1:base199",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base200:sigma:2",
+    "base_case_id": "rep1:base200",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base201:sigma:2",
+    "base_case_id": "rep1:base201",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base202:sigma:2",
+    "base_case_id": "rep1:base202",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base203:sigma:2",
+    "base_case_id": "rep1:base203",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base204:sigma:2",
+    "base_case_id": "rep1:base204",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base205:sigma:2",
+    "base_case_id": "rep1:base205",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base206:sigma:2",
+    "base_case_id": "rep1:base206",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base207:sigma:2",
+    "base_case_id": "rep1:base207",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base208:sigma:2",
+    "base_case_id": "rep1:base208",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base209:sigma:2",
+    "base_case_id": "rep1:base209",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base210:sigma:2",
+    "base_case_id": "rep1:base210",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base211:sigma:2",
+    "base_case_id": "rep1:base211",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base212:sigma:2",
+    "base_case_id": "rep1:base212",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base213:sigma:2",
+    "base_case_id": "rep1:base213",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base214:sigma:2",
+    "base_case_id": "rep1:base214",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base215:sigma:2",
+    "base_case_id": "rep1:base215",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base216:sigma:2",
+    "base_case_id": "rep1:base216",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base217:sigma:2",
+    "base_case_id": "rep1:base217",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base218:sigma:2",
+    "base_case_id": "rep1:base218",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base219:sigma:2",
+    "base_case_id": "rep1:base219",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base220:sigma:2",
+    "base_case_id": "rep1:base220",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base221:sigma:2",
+    "base_case_id": "rep1:base221",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base222:sigma:2",
+    "base_case_id": "rep1:base222",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base223:sigma:2",
+    "base_case_id": "rep1:base223",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base224:sigma:2",
+    "base_case_id": "rep1:base224",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base225:sigma:2",
+    "base_case_id": "rep1:base225",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base226:sigma:2",
+    "base_case_id": "rep1:base226",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base227:sigma:2",
+    "base_case_id": "rep1:base227",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base228:sigma:2",
+    "base_case_id": "rep1:base228",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base229:sigma:2",
+    "base_case_id": "rep1:base229",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base230:sigma:2",
+    "base_case_id": "rep1:base230",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base231:sigma:2",
+    "base_case_id": "rep1:base231",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base232:sigma:2",
+    "base_case_id": "rep1:base232",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base233:sigma:2",
+    "base_case_id": "rep1:base233",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base234:sigma:2",
+    "base_case_id": "rep1:base234",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base235:sigma:2",
+    "base_case_id": "rep1:base235",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base236:sigma:2",
+    "base_case_id": "rep1:base236",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base237:sigma:2",
+    "base_case_id": "rep1:base237",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base238:sigma:2",
+    "base_case_id": "rep1:base238",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base239:sigma:2",
+    "base_case_id": "rep1:base239",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base240:sigma:2",
+    "base_case_id": "rep1:base240",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base241:sigma:2",
+    "base_case_id": "rep1:base241",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base242:sigma:2",
+    "base_case_id": "rep1:base242",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base243:sigma:2",
+    "base_case_id": "rep1:base243",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base244:sigma:2",
+    "base_case_id": "rep1:base244",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base245:sigma:2",
+    "base_case_id": "rep1:base245",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base246:sigma:2",
+    "base_case_id": "rep1:base246",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base247:sigma:2",
+    "base_case_id": "rep1:base247",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base248:sigma:2",
+    "base_case_id": "rep1:base248",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "holdout",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  },
+  {
+    "sample_id": "fixed:rep1:base249:sigma:2",
+    "base_case_id": "rep1:base249",
+    "scenario_id": "fixed",
+    "fit_group": "rep1_sigma2",
+    "split": "train",
+    "node_values": {
+      "S1": 50.0,
+      "D2": 50.0,
+      "S3": 50.0,
+      "D4": 50.0,
+      "S5": 50.0,
+      "S6": 50.0,
+      "F7": 50.0,
+      "S8": 50.0,
+      "F9": 50.0,
+      "S10": 50.0,
+      "F11": 50.0
+    }
+  }
+]

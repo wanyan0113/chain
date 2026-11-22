@@ -1,0 +1,14 @@
+{
+  "source": "既有第22包独立机制模拟数据",
+  "source_file_sha256": "1b304fe4ca21df9f31d7dbcb6756097534c4ce44679db490b5de237ecd44355a",
+  "selected_group": "rep1_sigma2",
+  "samples": 250,
+  "train": 200,
+  "holdout": 50,
+  "source_noise_sigma": 2,
+  "input_role": "observed",
+  "simulated": true,
+  "predictor_values_removed": true,
+  "real_data_calibration": false,
+  "mutation_policy": "异常案例从冻结观测副本构造，单独命名；不用于估计真实参数。"
+}
