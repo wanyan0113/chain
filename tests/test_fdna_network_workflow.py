@@ -9,7 +9,7 @@ from unittest.mock import patch
 import numpy as np
 
 from fdna.model import ModelError
-from fdna.network_workflow import read_samples,fit_network,validate_samples,analyze_dependencies,recursive,export_outputs,_paths
+from fdna.network_workflow import read_samples,fit_network,validate_samples,analyze_dependencies,recursive,export_outputs,_paths,select_baselines
 from fdna.workflow_common import settings,scalar_forward,write_bundle,csv_text,make_model
 from fdna.multi_input_recovery import truth_geometry,input_design
 
@@ -162,5 +162,56 @@ class NetworkWorkflowTests(unittest.TestCase):
                 self.assertEqual(geometry['rank'],2*n+int(free))
                 bad=truth_geometry(np.random.default_rng(17).uniform(10,35,(192,n)),[0.]*n,b,free,20)
                 self.assertLess(bad['rank'],bad['parameter_count'])
+
+    def test_invalid_analysis_settings_rejected_before_optimization(self):
+        for analysis in ({'retained_fractions':[0.],'max_paths_per_node':0},
+                         {'retained_fractions':[True],'max_paths_per_node':10},
+                         {'retained_fractions':[0.],'max_paths_per_node':10,'baseline_policy':'evenly_spaced_holdout','baseline_count':1},
+                         {'retained_fractions':[0.],'max_paths_per_node':10,'unused':1}):
+            config=deepcopy(self.config);config['analysis']=analysis
+            with self.subTest(analysis=analysis),patch('fdna.network_workflow.fit_parameters',side_effect=AssertionError('must validate first')):
+                with self.assertRaises(ModelError):fit_network(self.network,self.rows,config)
+
+    def test_multibaseline_selection_is_fixed_and_order_invariant(self):
+        held=[r for r in self.rows if r['split']=='holdout']
+        config=dict(baseline_policy='evenly_spaced_holdout',baseline_count=4)
+        selected=select_baselines(held,config)
+        self.assertEqual([r['sample_id'] for r in selected],['s112','s122','s132','s143'])
+        self.assertEqual(selected,select_baselines(list(reversed(held)),config))
+        self.assertEqual(len(select_baselines(held,dict(baseline_policy='all_holdout'))),32)
+
+    def test_multibaseline_replay_preserves_first_result_and_structural_paths(self):
+        config=dict(retained_fractions=[0.,.5],max_paths_per_node=10)
+        single=analyze_dependencies(self.report,self.rows,config)
+        config.update(baseline_policy='evenly_spaced_holdout',baseline_count=4)
+        with patch('fdna.network_workflow.fit_parameters',side_effect=AssertionError('must not refit')):
+            multi=analyze_dependencies(self.report,self.rows,config)
+        self.assertEqual(multi['paths'],single['paths'])
+        self.assertEqual([e for e in multi['effects'] if e['baseline_sample']=='s112'],single['effects'])
+        self.assertEqual(len(multi['effects']),4*len(single['effects']))
+        self.assertTrue(all(e['effect']<=1e-8 for e in multi['effects'] if e['effect'] is not None))
+        self.assertTrue(all(c.get('core_max_difference',0)<1e-9 for c in multi['checks']))
+
+    def test_missing_baseline_is_reported_without_response_based_substitution(self):
+        from fdna.structure import digest
+        rows=deepcopy(self.rows);rows[112]['node_values']['A']=None
+        report=deepcopy(self.report);report['data_sha256']=digest(rows)
+        result=analyze_dependencies(report,rows,dict(retained_fractions=[0.],max_paths_per_node=10,
+            baseline_policy='evenly_spaced_holdout',baseline_count=4))
+        skipped=[c for c in result['checks'] if c['status']=='baseline_missing_or_outside']
+        self.assertTrue(any(c['baseline_sample']=='s112' and c['node']=='A' for c in skipped))
+        self.assertFalse(any(e['baseline_sample']=='s113' for e in result['effects']))
+
+    def test_replay_audit_counts_and_effect_summary_preserve_baselines(self):
+        from fdna.dependency_replay import replay
+        with patch('fdna.network_workflow.fit_parameters',side_effect=AssertionError('must not refit')):
+            analysis,summary,audit=replay(self.report,self.rows,baseline_count=4)
+        self.assertEqual(audit['baseline_job_pairs'],4)
+        self.assertEqual(audit['effects'],len(analysis['effects']))
+        self.assertEqual(audit['core_crosschecks'],32)
+        self.assertEqual(audit['monotonicity_violations'],0)
+        self.assertTrue(audit['non_descendant_invariance'])
+        self.assertTrue(all(r['baseline_records']==4 for r in summary))
+        self.assertTrue(all(r['min_decrease']<=r['p10_decrease']<=r['p90_decrease']<=r['max_decrease'] for r in summary))
 
 if __name__=='__main__': unittest.main()

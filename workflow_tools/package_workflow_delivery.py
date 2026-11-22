@@ -17,12 +17,18 @@ demo=read(reports/'22_11节点完整流程演示/workflow_report.json')
 intervention=read(reports/'22_11节点完整流程演示/dependency_analysis.json')
 core_checks=read(reports/'22_11节点完整流程演示/补充核验.json')
 assert tests['passed']>=297 and tests['skipped']==0 and tests['failures']==tests['errors']==0
+github=read(out/'GitHub提交记录.json') if (out/'GitHub提交记录.json').exists() else {}
+figure_dirs=[reports/name for name in ('21_多输入核心验证','22_11节点完整流程演示','26_多基准退化分析与复核')]
+figure_count=sum(len(list(p.glob('*.png'))) for p in figure_dirs)
+replay_path=reports/'26_多基准退化分析与复核/多基准核验.json'
+replay_audit=read(replay_path) if replay_path.exists() else None
+replay_note=(f"新增多基准分析：{replay_audit['baseline_job_pairs']}个任务与基准组合，{replay_audit['effects']}条响应，{replay_audit['outside']}条输出越界，{replay_audit['extrapolated']}条目标供给外推。见第26包结果说明；这些结果不证明参数唯一或真实干预效应。" if replay_audit else '本地尚未生成多基准补充结果。')
 flags={name:sum(name in l['flags'] for j in demo['jobs'] for l in j['local_fits']) for name in ('LOCAL_RANK_DEFICIENT','DELTA_AT_BOUNDARY','PREDICTION_OUTSIDE_SE_RANGE')}
 errors={k:max(p['absolute_error'] for j in recovery['jobs'] if j['case']=='recovery' and j['noise_sigma']==0 for p in j['parameter_comparison'] if p['parameter']==k) for k in ('alpha','beta','delta')}
 outside_intervention=sum(e['outside'] for e in intervention['effects'])
 notes=f'''# 应用流程主线阶段汇报
 
-截至2026年11月22日，已完成调整后四项近期主线的首版实现与代表性验证：3/5输入核心验证、统一输入接口、11节点18边独立模拟与拟合、依赖关系分析与导出。测试为{tests['passed']}项通过、无失败、无跳过。新增代码位于桌面工程的fdna_workflow目录，来源基线为288f590；原工作树和原有实验保留。
+截至2026年11月22日，已完成调整后四项近期主线的首版实现与代表性验证：3/5输入核心验证、统一输入接口、11节点18边独立模拟与拟合、依赖关系分析与导出。测试为{tests['passed']}项通过、无失败、无跳过。代码来源基线为288f590；应用模块已提交至GitHub分支codex/fdna-network-workflow，提交号见第23包GitHub记录；原有实验保留。
 
 ## 汇报时优先展示
 
@@ -39,7 +45,7 @@ notes=f'''# 应用流程主线阶段汇报
 | 11节点演示样本 | 750组基础网络样本、1500个配对观测版本、16500条节点观测 |
 | 11节点拟合 | 18个整网拟合任务、90次局部拟合全部收敛 |
 | 依赖分析 | 972条下游响应记录；396次核心公式干预交叉核验 |
-| 图表 | 8张PNG，另附同名SVG及绘图数据表；没有PDF |
+| 图表 | {figure_count}张PNG，另附同名SVG及绘图数据表；没有PDF |
 | 独立复核 | {audit['recovery_predictions_checked'] + audit['network_predictions_checked']}条预测、3750个生成值、360组指标；最大差{audit['max_abs_discrepancy']:.3g} |
 | 回归 | {tests['passed']}项通过，无跳过；补齐本地来源文档与审计夹具后来源核验也已执行 |
 
@@ -58,9 +64,13 @@ notes=f'''# 应用流程主线阶段汇报
 - [第21包 结果说明](21_多输入核心验证/结果说明.md)：多输入参数恢复、预测与约束诊断。
 - [第22包 结果说明](22_11节点完整流程演示/结果说明.md)：独立模拟、拟合、整网预测、边参数和传播分析。
 - [第23包 测试与复核](23_统一入口与验收/)：完整测试日志、独立数值复核、接口说明和代码归档。
-- [代码使用说明](../../fdna_workflow/README.md)：统一入口命令、宽/长表字段和模型配置。
+- [第26包 多基准退化分析](26_多基准退化分析与复核/结果说明.md)：按固定规则选取留出基准的退化响应与解释；需另行运行生成。
+- [第27包 本轮检查](27_本轮检查记录/)：更新后的输入警告、独立多基准复核及本轮检查说明。
+- [代码使用说明](../../fdna/NETWORK_WORKFLOW.md)：统一入口命令、宽/长表字段和模型配置。
 
 第22包同时保存输入拓扑、JSON记录、CSV宽表/长表及拟合配置，可作为后续真实数据替换模板。真实数据应明确指标定义、归一化与场景机制，再将input_role设为observed；输入测量误差专项建模仍未开展。
+
+{replay_note}
 
 ## 继续保留的待办
 
@@ -73,13 +83,15 @@ historical=out/'上一阶段进度记录.md'
 if progress.exists() and not historical.exists(): shutil.copy2(progress,historical)
 progress.write_text(f'''# 当前模拟实验进度
 
-2026年11月22日应用流程主线更新。正式基线288f590上的新增实现位于桌面工程fdna_workflow目录；原代码工作树保留，尚未将新增实现提交到原分支。
+2026年11月22日应用流程主线更新。代码来源正式基线288f590，应用模块已提交至GitHub分支codex/fdna-network-workflow，未合并原分支。
 
 近期四项主线已完成首版实现与代表性验证：3/5输入核心验证72次拟合，统一拓扑与JSON/CSV宽表/长表SE输入接口，11节点18边独立生成与90次局部拟合，以及参数/预测/节点退化/传播路径分析。全部{tests['passed']}项FDNA回归通过、无跳过。
 
 本轮独立标量复核86472条预测、3750个独立生成值及360组指标；8张PNG/SVG已检查。汇报材料见第21、22、23包和[应用流程主线汇报索引](24_应用流程主线_汇报索引.md)。
 
 11节点演示为3次独立重复、每次250个基础网络样本、σ=0/2；这是代表性流程演示，不等于原全部模拟矩阵完成。参数约束不足和δ触界仍存在；模型内退化外推可越界，保留原值。数值自检通过不证明真实任务有效或参数全局唯一。
+
+{replay_note}
 
 剩余16组深入诊断保持暂缓；此前22组正式拟合和既有诊断均保留。真实数据校准、输入误差专项实验和更广泛敏感性仍待后续。
 ''',encoding='utf-8')
@@ -92,6 +104,6 @@ with zipfile.ZipFile(archive,'w',compression=zipfile.ZIP_DEFLATED) as z:
     for p in files: z.write(p,Path('fdna_network_workflow')/p.relative_to(root))
 manifest={'baseline_commit':'288f590e60f2ad85b1b1d7985c5bd60a2345289a','code_directory':str(root),
     'archive_sha256':hashlib.sha256(archive.read_bytes()).hexdigest(),'source_hashes':{str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in files},
-    'tests':tests,'numerical_audit':audit,'figure_count_png':8,'figure_count_svg':8,'pdf_created':False,'diagnostics_deferred':16}
+    'tests':tests,'numerical_audit':audit,'figure_count_png':figure_count,'figure_count_svg':sum(len(list(p.glob('*.svg'))) for p in figure_dirs),'github':github,'pdf_created':False,'diagnostics_deferred':16}
 (out/'代码与验收清单.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
 print(json.dumps(dict(source_files=len(files),archive_bytes=archive.stat().st_size,index=str(reports/'24_应用流程主线_汇报索引.md'),intervention_outside=outside_intervention),ensure_ascii=False))

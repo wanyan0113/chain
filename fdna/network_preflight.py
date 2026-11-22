@@ -33,6 +33,7 @@ def inspect_data(network,rows,config):
                 unique_inputs={tuple(predictors(r,config)[p] for p in parents) for r in train}
                 if len(train)<parameter_count: warnings.append('INSUFFICIENT_TRAIN_ROWS')
                 if len(unique_inputs)<parameter_count: warnings.append('INSUFFICIENT_DISTINCT_INPUTS')
+                if len({r['base_case_id'] for r in train})<parameter_count: warnings.append('FEW_INDEPENDENT_TRAIN_BASE_CASES')
                 if not holdout: warnings.append('NO_COMPLETE_HOLDOUT')
                 if any(any(predictors(r,config).get(p) is None for p in roots) for r in selected):
                     warnings.append('MISSING_ROOTS_FOR_RECURSION')
@@ -40,6 +41,8 @@ def inspect_data(network,rows,config):
                     values=[predictors(r,config)[parent] for r in train]
                     lo,hi=(min(values),max(values)) if values else (None,None)
                     if values and hi-lo<1e-10: warnings.append('CONSTANT_PREDICTOR:'+parent)
+                    if any(lo is not None and not lo<=predictors(r,config)[parent]<=hi for r in holdout):
+                        warnings.append('HOLDOUT_OUTSIDE_TRAIN_RANGE:'+parent)
                     coverage.append(dict(fit_group=group,model=mode,node=node,feeder=parent,train_min=lo,train_max=hi,
                         holdout_outside_train=sum(lo is not None and not lo<=predictors(r,config)[parent]<=hi for r in holdout)))
                 complete_count=len(train)+len(holdout)

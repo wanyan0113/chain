@@ -79,6 +79,7 @@ def validate_samples(network,rows,config):
     if config.get('input_role') not in ('observed','clean_predictors_observed_targets'):
         raise ModelError('须声明输入为实测SE或模拟干净供给与观测目标')
     if not isinstance(config.get('pool_scenarios'),bool): raise ModelError('须显式声明是否合并场景拟合')
+    if 'analysis' in config: validate_analysis(config['analysis'])
     keys=set(); splits={}; nodes=set(network['nodes']); groups=defaultdict(set)
     for r in rows:
         if not isinstance(r,dict) or set(r)-set(META)-{'node_values','predictor_values'} or not set(META)<=set(r) or not isinstance(r.get('node_values'),dict):
@@ -264,14 +265,38 @@ def _paths(network,start,max_paths):
     return paths,truncated
 
 
+def validate_analysis(config):
+    if not isinstance(config,dict) or set(config)-{'retained_fractions','max_paths_per_node','baseline_policy','baseline_count'}:
+        raise ModelError('退化分析配置含未知字段')
+    fractions=config.get('retained_fractions');limit=config.get('max_paths_per_node')
+    if not isinstance(limit,int) or isinstance(limit,bool) or limit<1: raise ModelError('路径上限须为正整数')
+    if not isinstance(fractions,list) or not fractions: raise ModelError('保留比例须为非空数组')
+    for f in fractions: number(f,'保留比例',0,1)
+    if len(set(fractions))!=len(fractions): raise ModelError('保留比例不得重复')
+    policy=config.get('baseline_policy','first_holdout')
+    if policy not in ('first_holdout','all_holdout','evenly_spaced_holdout'): raise ModelError('未知基准选择规则')
+    if policy=='evenly_spaced_holdout':
+        count=config.get('baseline_count')
+        if not isinstance(count,int) or isinstance(count,bool) or count<2: raise ModelError('均匀基准个数须为至少2的整数')
+    elif 'baseline_count' in config: raise ModelError('只有均匀基准规则接收baseline_count')
+
+
+def select_baselines(rows,config):
+    ordered=sorted(rows,key=lambda r:r['sample_id'])
+    policy=config.get('baseline_policy','first_holdout')
+    if policy=='first_holdout': return ordered[:1]
+    if policy=='all_holdout': return ordered
+    count=min(config['baseline_count'],len(ordered))
+    if count<2: return ordered
+    return [ordered[i*(len(ordered)-1)//(count-1)] for i in range(count)]
+
+
 def analyze_dependencies(report,rows,config):
+    validate_analysis(config)
     if digest(rows)!=report['data_sha256']:
         raise ModelError('分析数据与拟合报告不一致；不得将不同来源的样本误标为本报告基准')
     network=report['network_snapshot'];result=[];paths=[];checks=[]
     fractions=config['retained_fractions'];limit=config['max_paths_per_node']
-    if not isinstance(limit,int) or isinstance(limit,bool) or limit<1: raise ModelError('路径上限须为正整数')
-    if not fractions or len(set(fractions))!=len(fractions): raise ModelError('保留比例须非空且不重复')
-    for f in fractions: number(f,'保留比例',0,1)
     for j in report['jobs']:
         local={l['node']:l['fit']['receivers'][0] for l in j['local_fits'] if l.get('fit') is not None}
         core_model=make_model(network)
@@ -282,43 +307,44 @@ def analyze_dependencies(report,rows,config):
         selected=sorted((r for r in rows if r['fit_group']==j['fit_group'] and r['split']=='holdout'),key=lambda r:r['sample_id'])
         if not selected:
             checks.append(dict(group=j['fit_group'],model=j['model'],status='no_holdout_baseline'));continue
-        r=selected[0] # Prespecified lexicographically first holdout; no error-based choice.
-        predictor=predictors(r,report['config_snapshot']);roots={n:predictor.get(n) for n in report['topology']['roots']}
-        base,status=recursive(network,local,roots)
-        for node in sorted(network['nodes']):
-            graph_paths,truncated=_paths(network,node,limit)
-            paths.extend(dict(group=j['fit_group'],model=j['model'],intervened_node=node,path=p,truncated=truncated) for p in graph_paths)
-            # Recompute reachability separately so truncation never loses affected nodes.
-            reachable=set();pending=[node]
-            while pending:
-                current=pending.pop()
-                for edge in network['edges']:
-                    if edge['feeder']==current and edge['receiver'] not in reachable:
-                        reachable.add(edge['receiver']);pending.append(edge['receiver'])
-            if base[node] is None or not 0<=base[node]<=100:
-                checks.append(dict(group=j['fit_group'],model=j['model'],node=node,status='baseline_missing_or_outside',baseline=base[node]));continue
-            for fraction in fractions:
-                forced=base[node]*fraction;changed,trace=recursive(network,local,roots,{node:forced})
-                core_error=None
-                if core_ready and all(v is not None for v in roots.values()):
-                    scene=dict(id=r['sample_id'],basis='模型内退化核验',node_values=roots)
-                    clamp=dict(basis='预设保留比例并暂停所干预节点入边',node_values={node:forced})
-                    ext=dict(model=ADDITIVE_MODEL,basis='训练所得或预设δ',delta_values={n:local[n].get('delta') or 0. for n in report['topology']['receivers']},output_policy='no_clipping')
-                    core=evaluate_additive(core_model,scene,ext,intervention=clamp) if report['config_snapshot']['models'][j['model']]['model']==ADDITIVE_MODEL else evaluate(core_model,scene,intervention=clamp)
-                    core_error=max(abs(v['value']-changed[v['id']]) for v in core['nodes'])
-                    if core_error>1e-8: raise ModelError('节点退化重算与核心干预公式不一致')
-                non_descendant_invariant=all(changed[n]==base[n] for n in network['nodes'] if n not in reachable and n!=node)
-                if not non_descendant_invariant: raise ModelError('节点干预改变了非后代节点')
-                checks.append(dict(group=j['fit_group'],model=j['model'],node=node,retained_fraction=fraction,status='checked',non_descendant_invariant=True,paths_truncated=truncated,core_max_difference=core_error))
-                for target in sorted(reachable):
-                    value=changed[target];baseline=base[target]
-                    result.append(dict(group=j['fit_group'],model=j['model'],baseline_sample=r['sample_id'],intervened_node=node,
-                        retained_fraction=fraction,forced_value=forced,target=target,baseline=baseline,intervened=value,
-                        effect=value-baseline if value is not None and baseline is not None else None,
-                        outside=value is not None and not 0<=value<=100,blocked=value is None,paths_truncated=truncated,
-                        extrapolated_inputs=outside_training(changed,next(l.get('training_predictor_ranges',{}) for l in j['local_fits'] if l['node']==target))))
+        for baseline_index,r in enumerate(select_baselines(selected,config)):
+            predictor=predictors(r,report['config_snapshot']);roots={n:predictor.get(n) for n in report['topology']['roots']}
+            base,status=recursive(network,local,roots)
+            for node in sorted(network['nodes']):
+                graph_paths,truncated=_paths(network,node,limit)
+                if baseline_index==0:
+                    paths.extend(dict(group=j['fit_group'],model=j['model'],intervened_node=node,path=p,truncated=truncated) for p in graph_paths)
+                # Recompute reachability separately so truncation never loses affected nodes.
+                reachable=set();pending=[node]
+                while pending:
+                    current=pending.pop()
+                    for edge in network['edges']:
+                        if edge['feeder']==current and edge['receiver'] not in reachable:
+                            reachable.add(edge['receiver']);pending.append(edge['receiver'])
+                if base[node] is None or not 0<=base[node]<=100:
+                    checks.append(dict(group=j['fit_group'],model=j['model'],baseline_sample=r['sample_id'],node=node,status='baseline_missing_or_outside',baseline=base[node]));continue
+                for fraction in fractions:
+                    forced=base[node]*fraction;changed,trace=recursive(network,local,roots,{node:forced})
+                    core_error=None
+                    if core_ready and all(v is not None for v in roots.values()):
+                        scene=dict(id=r['sample_id'],basis='模型内退化核验',node_values=roots)
+                        clamp=dict(basis='预设保留比例并暂停所干预节点入边',node_values={node:forced})
+                        ext=dict(model=ADDITIVE_MODEL,basis='训练所得或预设δ',delta_values={n:local[n].get('delta') or 0. for n in report['topology']['receivers']},output_policy='no_clipping')
+                        core=evaluate_additive(core_model,scene,ext,intervention=clamp) if report['config_snapshot']['models'][j['model']]['model']==ADDITIVE_MODEL else evaluate(core_model,scene,intervention=clamp)
+                        core_error=max(abs(v['value']-changed[v['id']]) for v in core['nodes'])
+                        if core_error>1e-8: raise ModelError('节点退化重算与核心干预公式不一致')
+                    non_descendant_invariant=all(changed[n]==base[n] for n in network['nodes'] if n not in reachable and n!=node)
+                    if not non_descendant_invariant: raise ModelError('节点干预改变了非后代节点')
+                    checks.append(dict(group=j['fit_group'],model=j['model'],baseline_sample=r['sample_id'],node=node,retained_fraction=fraction,status='checked',non_descendant_invariant=True,paths_truncated=truncated,core_max_difference=core_error))
+                    for target in sorted(reachable):
+                        value=changed[target];baseline=base[target]
+                        result.append(dict(group=j['fit_group'],model=j['model'],baseline_sample=r['sample_id'],intervened_node=node,
+                            retained_fraction=fraction,forced_value=forced,target=target,baseline=baseline,intervened=value,
+                            effect=value-baseline if value is not None and baseline is not None else None,
+                            outside=value is not None and not 0<=value<=100,blocked=value is None,paths_truncated=truncated,
+                            extrapolated_inputs=outside_training(changed,next(l.get('training_predictor_ranges',{}) for l in j['local_fits'] if l['node']==target))))
     return dict(stage='model_scenario_dependency_analysis',effects=result,paths=paths,checks=checks,
-        config_snapshot=deepcopy(config),policies=dict(baseline='lexicographically_first_holdout_per_group',refitted=False,intermediate_incoming_suspended=True,
+        config_snapshot=deepcopy(config),policies=dict(baseline=config.get('baseline_policy','first_holdout'),baseline_selection_uses_targets=False,refitted=False,intermediate_incoming_suspended=True,
             path_effects_added=False,causal_effect_established=False,parameter_uniqueness_established=False),
         limits=['节点退化结果是拟合模型中的情景推演，不证明真实干预因果。','结构可达路径不保证实际数值变化，多路径影响不能简单相加。','超出训练供给范围的推演只能视为外推。'])
 

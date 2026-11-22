@@ -22,7 +22,8 @@ class NetworkPreflightTests(unittest.TestCase):
     def test_preflight_reports_counts_without_optimizer(self):
         with patch('fdna.network_workflow.fit_parameters',side_effect=AssertionError('must not fit')):
             report=inspect_data(self.network,self.rows,self.config)
-        self.assertEqual(report['status'],'ready')
+        self.assertEqual(report['status'],'ready_with_warnings')
+        self.assertIn('HOLDOUT_OUTSIDE_TRAIN_RANGE:A',report['local_readiness'][0]['warnings'])
         row=report['local_readiness'][0]
         self.assertEqual((row['train_count'],row['holdout_count'],row['parameter_count']),(8,2,4))
         self.assertFalse(report['policies']['optimizer_called'])
@@ -74,5 +75,12 @@ class NetworkPreflightTests(unittest.TestCase):
         config=deepcopy(self.config);config['models']={'free_delta':settings('free_delta',['T'])}
         report=inspect_data(self.network,self.rows,config)
         self.assertEqual(report['local_readiness'][0]['parameter_count'],5)
+
+    def test_repeated_base_cases_do_not_imply_independent_evidence(self):
+        rows=deepcopy(self.rows)
+        for r in rows:
+            if r['split']=='train': r['base_case_id']='same_train_base'
+        report=inspect_data(self.network,rows,self.config)
+        self.assertIn('FEW_INDEPENDENT_TRAIN_BASE_CASES',report['local_readiness'][0]['warnings'])
 
 if __name__=='__main__':unittest.main()
