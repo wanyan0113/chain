@@ -1,0 +1,55 @@
+{
+  "format_version": "1.0",
+  "id": "bridge_independent_mechanisms",
+  "basis": "与原V1相同的独立加权机制及固定条件乘数；非论文实证公式；不使用FDNA参数生成目标",
+  "nodes": {
+    "B": {
+      "node_id": "B",
+      "parent_nodes": [
+        "A"
+      ],
+      "mechanism_type": "weighted",
+      "configuration_source": "manual",
+      "condition_function": {
+        "type": "product_conditions",
+        "values": {
+          "C": 0.8,
+          "M": 0.7,
+          "E": 0.2
+        },
+        "capability_base": 0.55,
+        "capability_gain": 0.45,
+        "task_base": 0.8,
+        "task_gain": 0.2,
+        "environment_penalty": 0.3
+      },
+      "weights": {
+        "A": 1.0
+      }
+    },
+    "C": {
+      "node_id": "C",
+      "parent_nodes": [
+        "B"
+      ],
+      "mechanism_type": "weighted",
+      "configuration_source": "manual",
+      "condition_function": {
+        "type": "product_conditions",
+        "values": {
+          "C": 0.8,
+          "M": 0.7,
+          "E": 0.2
+        },
+        "capability_base": 0.55,
+        "capability_gain": 0.45,
+        "task_base": 0.8,
+        "task_gain": 0.2,
+        "environment_penalty": 0.3
+      },
+      "weights": {
+        "B": 1.0
+      }
+    }
+  }
+}

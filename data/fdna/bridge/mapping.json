@@ -1,0 +1,111 @@
+{
+  "id": "synthetic_task1_bridge",
+  "chain_ids": [
+    "chain-1-1"
+  ],
+  "activities": [
+    {
+      "id": "A",
+      "chain_id": "chain-1-1",
+      "role": "insight",
+      "subject": "demo-eye",
+      "label": "信息产品质量",
+      "context": "task-1固定条件单次执行；不含跨任务竞争",
+      "state_identity_reason": "按主体、功能与task-1输出产品定义一个状态；不与其他任务自动共享或复制",
+      "inputs": [],
+      "outputs": [
+        "observation_product",
+        "heartbeat"
+      ],
+      "metric": {
+        "definition": "信息产品质量：合成活动产品达到预设质量要求的归一化比例；尚未用真实任务标定",
+        "direction": "higher_is_better",
+        "raw_range": [
+          0,
+          1
+        ],
+        "normalization": "100*x"
+      }
+    },
+    {
+      "id": "B",
+      "chain_id": "chain-1-1",
+      "role": "coordination",
+      "subject": "demo-coordinator",
+      "label": "协调产品质量",
+      "context": "task-1固定条件单次执行；不含跨任务竞争",
+      "state_identity_reason": "按主体、功能与task-1输出产品定义一个状态；不与其他任务自动共享或复制",
+      "inputs": [
+        "observation_product"
+      ],
+      "outputs": [
+        "coordination_product"
+      ],
+      "metric": {
+        "definition": "协调产品质量：合成活动产品达到预设质量要求的归一化比例；尚未用真实任务标定",
+        "direction": "higher_is_better",
+        "raw_range": [
+          0,
+          1
+        ],
+        "normalization": "100*x"
+      }
+    },
+    {
+      "id": "C",
+      "chain_id": "chain-1-1",
+      "role": "manifestation",
+      "subject": "effect-0",
+      "label": "执行结果质量",
+      "context": "task-1固定条件单次执行；不含跨任务竞争",
+      "state_identity_reason": "按主体、功能与task-1输出产品定义一个状态；不与其他任务自动共享或复制",
+      "inputs": [
+        "coordination_product"
+      ],
+      "outputs": [],
+      "metric": {
+        "definition": "执行结果质量：合成活动产品达到预设质量要求的归一化比例；尚未用真实任务标定",
+        "direction": "higher_is_better",
+        "raw_range": [
+          0,
+          1
+        ],
+        "normalization": "100*x"
+      }
+    }
+  ],
+  "reviews": [
+    {
+      "id": "flow_AB",
+      "feeder": "A",
+      "receiver": "B",
+      "product": "observation_product",
+      "status": "approved_assumption",
+      "rationale": "人工工作假设：B活动显式使用A信息产品；连接证据只证明渠道可用，不证明真实效应强度"
+    },
+    {
+      "id": "flow_BC",
+      "feeder": "B",
+      "receiver": "C",
+      "product": "coordination_product",
+      "status": "approved_assumption",
+      "rationale": "人工工作假设：C活动显式使用B协调产品；不根据设备链评分推断SE"
+    },
+    {
+      "id": "heartbeat_AB",
+      "feeder": "A",
+      "receiver": "B",
+      "product": "heartbeat",
+      "status": "pending",
+      "rationale": "有设备通信连接，但B活动未声明消费心跳作为效能输入，不能单独导出依赖"
+    },
+    {
+      "id": "shortcut_AC",
+      "feeder": "A",
+      "receiver": "C",
+      "product": null,
+      "status": "pending",
+      "rationale": "只有A经B到C的间接路径，没有直接产品消费或直接设备连接，不添加传递边"
+    }
+  ]
+}

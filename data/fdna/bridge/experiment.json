@@ -1,0 +1,17 @@
+{
+  "seed": 20261122,
+  "base_cases": 120,
+  "train_count": 90,
+  "root_range": [
+    10,
+    100
+  ],
+  "noise_std": [
+    0,
+    2
+  ],
+  "process_std": 0,
+  "interaction_gamma": 0,
+  "repetitions": 1,
+  "basis": "预先指定的小规模接口演示，不是稳健性重复实验；同基础样本噪声配对与共同划分"
+}
