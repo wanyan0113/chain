@@ -4,9 +4,22 @@
 
 本次新增的主线包括3/5输入核心验证、统一网络与SE数据入口、11节点18边独立生成演示，以及参数、预测、节点退化和传播路径四层分析。代码不会从拓扑推断真实依赖结构，也不会把生成机制系数或表7参数当作待拟合参数真值。
 
+## 数据填写与拟合前检查
+
+先用给定网络生成空白SE长表、宽表和JSON模板，再填写多次实验记录。模板不包含假造的SE，也不会自动归一化原始指标。
+
+```powershell
+python -B -m fdna.network_preflight --network data/fdna/workflow_demo_network.json --templates --output-dir generated/汇报用/25_真实SE输入准备/填写模板
+python -B -m fdna.network_preflight --network 网络拓扑.json --samples 已填写SE.csv --config 基础式拟合配置.json --output-dir generated/汇报用/输入预检查_新运行
+```
+
+预检查不运行优化器，报告每组每节点的有效训练/留出行数、独立基础实验数、不同供给组合数、缺失记录、常数输入和训练范围外的留出输入。ready仅表示满足基本样本条件，不证明参数可辨识；needs_data表示至少一个节点的有效训练行数不足。输出警告仍需在拟合后的分支与约束诊断中继续检查。
+
 ## 使用统一入口
 
 在仓库根目录运行，使用已安装requirements-fdna.txt与matplotlib的Python环境：
+
+可用 `python -m pip install -r requirements-workflow.txt` 安装工作流依赖。新克隆没有本地汇报数据时，先运行 `python -B -m fdna.workflow_demo --output-dir generated/汇报用/22_11节点完整流程演示` 生成演示输入和结果，再使用下列统一入口示例；已有数据目录不会被覆盖。
 
 ```powershell
 # Set-Location 到仓库根目录
