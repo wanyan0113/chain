@@ -3,8 +3,10 @@ from copy import deepcopy
 import json
 from pathlib import Path
 import unittest
+import tempfile
+from unittest.mock import patch
 from fdna.equipment_bridge import bridge
-from fdna.bridge_demo import generate
+from fdna.bridge_demo import generate, run
 from fdna.model import ModelError
 
 
@@ -75,6 +77,23 @@ class EquipmentBridgeTests(unittest.TestCase):
     def test_sampler_rejects_unsupported_settings(self):
         network,_=bridge(self.source,self.mapping);e=self.read('experiment.json');e['process_std']=2
         with self.assertRaises(ValueError):generate(network,self.read('generation_nodes.json'),e)
+
+    def test_sampler_rejects_invalid_noise_counts_and_ranges(self):
+        network,_=bridge(self.source,self.mapping)
+        for key,value in [('noise_std',[-2]),('noise_std',[0,0.0]),('noise_std',[]),
+                          ('root_range',[100,10]),('root_range',[-1,100]),('base_cases',True),
+                          ('seed',-1),('train_count',120),('unknown',1)]:
+            e=self.read('experiment.json');e[key]=value
+            with self.subTest(key=key,value=value),self.assertRaises((ValueError,ModelError)):
+                generate(network,self.read('generation_nodes.json'),e)
+
+    def test_existing_output_is_rejected_before_fitting(self):
+        with tempfile.TemporaryDirectory() as directory:
+            (Path(directory)/'keep.txt').write_text('keep',encoding='utf-8')
+            with patch('fdna.bridge_demo.fit_network') as fitter:
+                with self.assertRaises(ValueError):run('nonexistent_config',directory)
+                fitter.assert_not_called()
+            self.assertEqual((Path(directory)/'keep.txt').read_text(encoding='utf-8'),'keep')
 
 
 if __name__=='__main__':unittest.main()

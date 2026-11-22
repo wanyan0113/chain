@@ -1,6 +1,5 @@
 """Small synthetic bridge acceptance run; no operational equipment optimization."""
 import argparse
-from copy import deepcopy
 import hashlib
 import json
 from pathlib import Path
@@ -8,11 +7,24 @@ import numpy as np
 from .equipment_bridge import bridge
 from .generation_network import NetworkGenerator
 from .network_workflow import fit_network, analyze_dependencies, export_outputs
-from .workflow_common import settings, write_bundle, dumps, csv_text
+from .workflow_common import number, write_bundle, dumps, csv_text
 from .workflow_demo import input_csvs
 
 
 def generate(network, nodes, experiment):
+    allowed={'seed','base_cases','train_count','root_range','noise_std','process_std','interaction_gamma','repetitions','basis','root_coupling'}
+    if set(experiment)-allowed: raise ValueError('采样配置含未知字段')
+    for key in ('base_cases','train_count','seed'):
+        if isinstance(experiment[key],bool) or not isinstance(experiment[key],int) or experiment[key]<0:
+            raise ValueError(key+'须为非负整数')
+    bounds=experiment['root_range']
+    if not isinstance(bounds,list) or len(bounds)!=2: raise ValueError('根节点范围须为两个SE值')
+    for v in bounds: number(v,'根节点范围',0,100)
+    if bounds[0]>=bounds[1]: raise ValueError('根节点范围须严格递增')
+    sigmas=experiment['noise_std']
+    if not isinstance(sigmas,list) or not sigmas: raise ValueError('噪声档位须为非空数组')
+    for v in sigmas: number(v,'观测噪声标准差',0)
+    if len(sigmas)!=len(set(sigmas)): raise ValueError('噪声档位不得重复')
     if experiment['process_std'] != 0 or experiment['interaction_gamma'] != 0 or experiment['repetitions'] != 1:
         raise ValueError('首版采样器仅支持无过程波动、无交互、单次重复；不得静默忽略配置')
     generator = NetworkGenerator(dict(format_version='1.0', basis='已审查的合成活动流假设', **network), nodes)
@@ -72,6 +84,8 @@ def figures(out, network, sidecar, report, analysis):
 
 def run(config_dir, output_dir):
     directory=Path(config_dir); out=Path(output_dir)
+    if out.exists() and (not out.is_dir() or any(out.iterdir())):
+        raise ValueError('输出目录须不存在或为空；在拟合前拒绝覆盖')
     read=lambda name: json.loads((directory/name).read_text(encoding='utf-8'))
     source=read('source_report.json'); mapping=read('mapping.json')
     network, sidecar=bridge(source,mapping)
