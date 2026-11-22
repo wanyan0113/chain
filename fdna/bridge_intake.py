@@ -72,8 +72,9 @@ def draft_bundle(report, output_dir):
 
 
 def compile_bundle(report, mapping, output_dir):
-    network,side=bridge(report,mapping)
     result=inspect_mapping(report,mapping)
+    if result['status']!='ready':raise ModelError('映射不可导出：'+'；'.join(result['issues']))
+    network,side=bridge(report,mapping)
     write_bundle(output_dir,{'source_report.json':dumps(report),'mapping.json':dumps(mapping),
         '输入_拓扑.json':dumps(network),'衔接依据与审查.json':dumps(side),'preflight.json':dumps(result),
         '依赖候选审查.csv':csv_text(side['candidates'])})

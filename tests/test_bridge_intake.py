@@ -93,6 +93,10 @@ class BridgeIntakeTests(unittest.TestCase):
     def test_legacy_mapping_requires_explicit_upgrade_for_new_intake(self):
         self.ready.pop('format_version')
         self.assertEqual(inspect_mapping(self.report,self.ready)['status'],'blocked')
+        with tempfile.TemporaryDirectory() as directory:
+            out=Path(directory)/'legacy'
+            with self.assertRaises(ModelError):compile_bundle(self.report,self.ready,out)
+            self.assertFalse(out.exists())
 
     def test_cli_reports_blocked_status_without_exporting_topology(self):
         with tempfile.TemporaryDirectory() as directory:

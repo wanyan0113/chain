@@ -115,6 +115,12 @@ class EquipmentBridgeTests(unittest.TestCase):
         self.assertEqual((root,target,group),('root','a_leaf','sigma2'))
         self.assertEqual(len(selected),1);self.assertEqual(selected[0]['baseline_sample'],'b1')
 
+    def test_response_skips_isolated_root_when_another_root_has_descendants(self):
+        network=dict(nodes=['isolated','root','leaf'],edges=[dict(feeder='root',receiver='leaf')])
+        effects=[dict(intervened_node='root',target='leaf',group='sigma2',baseline_sample='b1')]
+        root,target,_,selected=select_response(network,dict(topology=dict(roots=['isolated','root'])),dict(effects=effects))
+        self.assertEqual((root,target),('root','leaf'));self.assertEqual(len(selected),1)
+
 
 class FullSelectedBridgeTests(unittest.TestCase):
     @classmethod

@@ -65,7 +65,9 @@ def generate(network, nodes, experiment):
 
 
 def select_response(network, report, analysis):
-    root=report['topology']['roots'][0]
+    roots=report['topology']['roots']
+    active={e['intervened_node'] for e in analysis['effects']}
+    root=next((n for n in roots if n in active),roots[0])
     possible=[e for e in analysis['effects'] if e['intervened_node']==root]
     terminals=set(network['nodes'])-{e['feeder'] for e in network['edges']}
     available={e['target'] for e in possible}
