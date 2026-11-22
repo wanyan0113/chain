@@ -64,6 +64,20 @@ def generate(network, nodes, experiment):
     return rows, clean_states
 
 
+def select_response(network, report, analysis):
+    root=report['topology']['roots'][0]
+    possible=[e for e in analysis['effects'] if e['intervened_node']==root]
+    terminals=set(network['nodes'])-{e['feeder'] for e in network['edges']}
+    available={e['target'] for e in possible}
+    target=next(iter(sorted(available & terminals)),next(iter(sorted(available)),root))
+    group='sigma2' if any(e['group']=='sigma2' for e in possible) else (possible[0]['group'] if possible else '')
+    selected=[e for e in possible if e['target']==target and e['group']==group]
+    if selected:
+        baseline=min(e['baseline_sample'] for e in selected)
+        selected=[e for e in selected if e['baseline_sample']==baseline]
+    return root,target,group,selected
+
+
 def figures(out, network, sidecar, report, analysis):
     import matplotlib
     matplotlib.use('Agg')
@@ -101,14 +115,7 @@ def figures(out, network, sidecar, report, analysis):
         ax.set_xticks(range(len(targets)),targets);ax.legend(fontsize=8);ax.grid(axis='y',alpha=.15)
         ax.set_title('留出局部误差' if kind=='local' else '留出整网递推误差'); ax.set_ylabel('RMSE（SE点）')
     fig.suptitle('独立机制合成数据；模型预测不裁剪');fig.tight_layout();save(fig,'02_留出预测误差')
-    root=report['topology']['roots'][0]
-    possible=[e for e in analysis['effects'] if e['intervened_node']==root]
-    target=sorted({e['target'] for e in possible})[-1] if possible else root
-    group='sigma2' if any(e['group']=='sigma2' for e in possible) else (possible[0]['group'] if possible else '')
-    selected=[e for e in possible if e['target']==target and e['group']==group]
-    if selected:
-        baseline=min(e['baseline_sample'] for e in selected)
-        selected=[e for e in selected if e['baseline_sample']==baseline]
+    root,target,group,selected=select_response(network,report,analysis)
     fig,ax=plt.subplots(figsize=(8,4))
     for mode in report['config_snapshot']['models']:
         own=sorted([e for e in selected if e['model']==mode],key=lambda e:e['retained_fraction'])

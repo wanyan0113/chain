@@ -6,7 +6,7 @@ import unittest
 import tempfile
 from unittest.mock import patch
 from fdna.equipment_bridge import bridge
-from fdna.bridge_demo import generate, run
+from fdna.bridge_demo import generate, run, select_response
 from fdna.model import ModelError
 from fdna.bridge_shared import validate_shared_roots, shared_response
 from fdna.network_workflow import fit_network, recursive
@@ -107,6 +107,13 @@ class EquipmentBridgeTests(unittest.TestCase):
         for key in ('process_std','interaction_gamma','repetitions'):
             e=self.read('experiment.json');e[key]=True
             with self.subTest(key=key),self.assertRaises((ValueError,ModelError)):generate(network,self.read('generation_nodes.json'),e)
+
+    def test_response_target_uses_graph_terminal_not_node_name_sorting(self):
+        network=dict(nodes=['root','z_middle','a_leaf'],edges=[dict(feeder='root',receiver='z_middle'),dict(feeder='z_middle',receiver='a_leaf')])
+        effects=[dict(intervened_node='root',target=n,group='sigma2',baseline_sample=b) for n in ('z_middle','a_leaf') for b in ('b2','b1')]
+        root,target,group,selected=select_response(network,dict(topology=dict(roots=['root'])),dict(effects=effects))
+        self.assertEqual((root,target,group),('root','a_leaf','sigma2'))
+        self.assertEqual(len(selected),1);self.assertEqual(selected[0]['baseline_sample'],'b1')
 
 
 class FullSelectedBridgeTests(unittest.TestCase):
