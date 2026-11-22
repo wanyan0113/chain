@@ -32,6 +32,8 @@ python -m fdna.network_workflow --network generated/intake-compiled/输入_拓�
 
 统一SE格式见 `fdna/NETWORK_WORKFLOW.md`。预测质量、参数约束、边界和外推仍分别报告。
 
+需要保持源报告与映射绑定、直接读取外部观测SE时，使用 [BRIDGE_OBSERVED.md](BRIDGE_OBSERVED.md) 的完整入口；它不调用生成器，也不接收干净供给字段。
+
 ## 本仓库可复跑的合成演示
 
 ```powershell

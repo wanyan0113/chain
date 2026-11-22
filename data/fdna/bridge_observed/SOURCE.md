@@ -1,0 +1,4 @@
+# 外部观测SE入口的合成示例
+
+来自第三阶段冻结的240条模拟观测记录；只保留node_values与划分信息，移除全部predictor_values。不是新采集的真实数据。
+源报告和已登记映射复用data/fdna/bridge_intake/，拟合配置声明data_kind=simulated。JSON和宽表CSV表达同一组记录。
