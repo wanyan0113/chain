@@ -6,21 +6,60 @@ from .structure import digest
 from .workflow_common import make_model, text
 
 
-def bridge(report, config):
+def selected_chain_records(report):
+    """Resolve only the final selected chains; candidate chains never leak in."""
+    if not isinstance(report,dict):raise ModelError('上游报告须为JSON对象')
     if report.get('status') != 'complete':
         raise ModelError('上游报告未完成')
-    selected = report['network']['chains']
+    selected = report.get('network',{}).get('chains')
+    if not isinstance(selected,list) or not selected or any(not isinstance(c,str) or not c.strip() for c in selected):
+        raise ModelError('上游已选链须为非空编号数组')
     if len(selected) != len(set(selected)):
         raise ModelError('上游已选链重复')
     chains = {}
+    if not isinstance(report.get('tasks'),list):raise ModelError('上游任务须为数组')
     for task in report['tasks']:
+        if not isinstance(task,dict) or not isinstance(task.get('chains'),list):raise ModelError('上游任务缺少候选链数组')
         for chain in task['chains']:
+            if not isinstance(chain,dict) or not isinstance(chain.get('id'),str):raise ModelError('候选链缺少编号')
             if chain['id'] in selected:
                 if chain['id'] in chains:
                     raise ModelError('已选链编号不唯一')
+                text(task.get('task'),'任务编号')
+                if chain.get('plan',{}).get('mode')!='single_unit_per_role':raise ModelError('首版仅支持显式单装备角色计划')
+                artifacts=chain.get('artifacts',{})
+                if not isinstance(artifacts,dict) or set(artifacts)!={'insight','coordination','manifestation'}:
+                    raise ModelError('已选链须完整声明三类角色装备')
+                for role,subject in artifacts.items():
+                    text(subject,'装备主体')
+                    if chain['plan'].get('members',{}).get(role)!=[subject]:raise ModelError('链角色装备与活动计划成员不一致')
                 chains[chain['id']] = (task['task'], chain)
     if set(chains) != set(selected):
         raise ModelError('已选链引用不存在')
+    return chains
+
+
+def bridge(report, config):
+    if not isinstance(config,dict):raise ModelError('能力映射须为JSON对象')
+    version=config.get('format_version')
+    if version is not None and version!='bridge-review-1':raise ModelError('未知桥接审查格式')
+    if 'source_report_sha256' in config and config['source_report_sha256']!=digest(report):
+        raise ModelError('映射绑定的上游报告已变化，请重新生成或重新审查映射')
+    if version=='bridge-review-1':
+        if not config.get('source_report_sha256'):raise ModelError('审查映射必须绑定源报告摘要')
+        gate=config.get('review_gate',{})
+        if gate.get('status')!='approved_assumption':raise ModelError('映射草稿尚未完成模拟工作假设审查')
+        for field in ('reviewed_by','note'):text(gate.get(field),'审查登记'+field)
+        for item in config.get('activities',[])+config.get('state_sharing',[]):
+            if item.get('review_status')!='approved_assumption':raise ModelError('能力实例或共享状态尚未完成审查')
+            text(item.get('review_note'),'实例审查说明')
+        for item in config.get('activities',[]):
+            if item.get('metric',{}).get('definition','').startswith('待填写：'):raise ModelError('SE指标定义仍为占位文本')
+            if any(item.get(f,'').startswith('待确认：') for f in ('context','state_identity_reason')):raise ModelError('能力场景或状态身份仍为待确认占位文本')
+        for item in config.get('state_sharing',[]):
+            if any(item.get(f,'').startswith('待确认：') for f in ('rationale','coupling','resource_scope')):raise ModelError('共享状态方案仍为待确认占位文本')
+    chains=selected_chain_records(report)
+    selected=list(chains)
     scope = config['chain_ids']
     if not scope or len(scope) != len(set(scope)) or not set(scope) <= set(chains):
         raise ModelError('分析范围须为已选链的非空子集')
@@ -111,6 +150,7 @@ def bridge(report, config):
     return network, dict(source_report_sha256=digest(report), scope_chain_ids=sorted(scope),
         excluded_selected_chain_ids=sorted(set(selected)-set(scope)), capability_instances=activities,
         candidates=candidates, state_sharing=list(registry.values()),
+        review_gate=deepcopy(config.get('review_gate')),
         upstream_relations_not_exported=deepcopy(report['network'].get('relations', [])),
         policies=dict(topology_from_reviewed_assumptions=True, topology_learned_from_se=False,
                       transitive_edges_added=False, score_used_as_se=False, real_dependencies_verified=False))

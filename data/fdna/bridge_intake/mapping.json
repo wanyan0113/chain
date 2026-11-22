@@ -1,0 +1,384 @@
+{
+  "id": "intake_e4adb8810c6e",
+  "chain_ids": [
+    "chain-1-1",
+    "chain-2-2",
+    "chain-3-3"
+  ],
+  "activities": [
+    {
+      "id": "N_783a8615",
+      "chain_id": "chain-1-1",
+      "role": "insight",
+      "subject": "demo-eye",
+      "label": "信息产品质量·任务1",
+      "context": "task-1的任务产品状态；共同观测场合，不解释为同时占用资源的调度执行",
+      "state_identity_reason": "同一装备的任务特定产品，不是独立物理装备副本；共享主体按state_sharing登记",
+      "inputs": [],
+      "outputs": [
+        "observation_product_1",
+        "heartbeat_1"
+      ],
+      "metric": {
+        "definition": "信息产品质量：合成活动产品达到预设质量要求的归一化比例；尚未用真实任务标定",
+        "direction": "higher_is_better",
+        "raw_range": [
+          0,
+          1
+        ],
+        "normalization": "100*x"
+      },
+      "review_status": "approved_assumption",
+      "review_note": "沿用bridge_full中相同任务、主体、指标和状态假设"
+    },
+    {
+      "id": "N_2816ed31",
+      "chain_id": "chain-1-1",
+      "role": "coordination",
+      "subject": "demo-coordinator",
+      "label": "协调产品质量·任务1",
+      "context": "task-1的任务产品状态；共同观测场合，不解释为同时占用资源的调度执行",
+      "state_identity_reason": "同一装备的任务特定产品，不是独立物理装备副本；共享主体按state_sharing登记",
+      "inputs": [
+        "observation_product_1"
+      ],
+      "outputs": [
+        "coordination_product_1"
+      ],
+      "metric": {
+        "definition": "协调产品质量：合成活动产品达到预设质量要求的归一化比例；尚未用真实任务标定",
+        "direction": "higher_is_better",
+        "raw_range": [
+          0,
+          1
+        ],
+        "normalization": "100*x"
+      },
+      "review_status": "approved_assumption",
+      "review_note": "沿用bridge_full中相同任务、主体、指标和状态假设"
+    },
+    {
+      "id": "N_23cb433b",
+      "chain_id": "chain-1-1",
+      "role": "manifestation",
+      "subject": "effect-0",
+      "label": "执行结果质量·任务1",
+      "context": "task-1的任务产品状态；共同观测场合，不解释为同时占用资源的调度执行",
+      "state_identity_reason": "同一装备的任务特定产品，不是独立物理装备副本；共享主体按state_sharing登记",
+      "inputs": [
+        "coordination_product_1"
+      ],
+      "outputs": [],
+      "metric": {
+        "definition": "执行结果质量：合成活动产品达到预设质量要求的归一化比例；尚未用真实任务标定",
+        "direction": "higher_is_better",
+        "raw_range": [
+          0,
+          1
+        ],
+        "normalization": "100*x"
+      },
+      "review_status": "approved_assumption",
+      "review_note": "沿用bridge_full中相同任务、主体、指标和状态假设"
+    },
+    {
+      "id": "N_53cc5b4a",
+      "chain_id": "chain-2-2",
+      "role": "insight",
+      "subject": "demo-eye",
+      "label": "信息产品质量·任务2",
+      "context": "task-2的任务产品状态；共同观测场合，不解释为同时占用资源的调度执行",
+      "state_identity_reason": "同一装备的任务特定产品，不是独立物理装备副本；共享主体按state_sharing登记",
+      "inputs": [],
+      "outputs": [
+        "observation_product_2",
+        "heartbeat_2"
+      ],
+      "metric": {
+        "definition": "信息产品质量：合成活动产品达到预设质量要求的归一化比例；尚未用真实任务标定",
+        "direction": "higher_is_better",
+        "raw_range": [
+          0,
+          1
+        ],
+        "normalization": "100*x"
+      },
+      "review_status": "approved_assumption",
+      "review_note": "沿用bridge_full中相同任务、主体、指标和状态假设"
+    },
+    {
+      "id": "N_5a5d5d44",
+      "chain_id": "chain-2-2",
+      "role": "coordination",
+      "subject": "demo-coordinator",
+      "label": "协调产品质量·任务2",
+      "context": "task-2的任务产品状态；共同观测场合，不解释为同时占用资源的调度执行",
+      "state_identity_reason": "同一装备的任务特定产品，不是独立物理装备副本；共享主体按state_sharing登记",
+      "inputs": [
+        "observation_product_2"
+      ],
+      "outputs": [
+        "coordination_product_2"
+      ],
+      "metric": {
+        "definition": "协调产品质量：合成活动产品达到预设质量要求的归一化比例；尚未用真实任务标定",
+        "direction": "higher_is_better",
+        "raw_range": [
+          0,
+          1
+        ],
+        "normalization": "100*x"
+      },
+      "review_status": "approved_assumption",
+      "review_note": "沿用bridge_full中相同任务、主体、指标和状态假设"
+    },
+    {
+      "id": "N_d665771a",
+      "chain_id": "chain-2-2",
+      "role": "manifestation",
+      "subject": "effect-1",
+      "label": "执行结果质量·任务2",
+      "context": "task-2的任务产品状态；共同观测场合，不解释为同时占用资源的调度执行",
+      "state_identity_reason": "同一装备的任务特定产品，不是独立物理装备副本；共享主体按state_sharing登记",
+      "inputs": [
+        "coordination_product_2"
+      ],
+      "outputs": [],
+      "metric": {
+        "definition": "执行结果质量：合成活动产品达到预设质量要求的归一化比例；尚未用真实任务标定",
+        "direction": "higher_is_better",
+        "raw_range": [
+          0,
+          1
+        ],
+        "normalization": "100*x"
+      },
+      "review_status": "approved_assumption",
+      "review_note": "沿用bridge_full中相同任务、主体、指标和状态假设"
+    },
+    {
+      "id": "N_3f1ac0cd",
+      "chain_id": "chain-3-3",
+      "role": "insight",
+      "subject": "demo-eye",
+      "label": "信息产品质量·任务3",
+      "context": "task-3的任务产品状态；共同观测场合，不解释为同时占用资源的调度执行",
+      "state_identity_reason": "同一装备的任务特定产品，不是独立物理装备副本；共享主体按state_sharing登记",
+      "inputs": [],
+      "outputs": [
+        "observation_product_3",
+        "heartbeat_3"
+      ],
+      "metric": {
+        "definition": "信息产品质量：合成活动产品达到预设质量要求的归一化比例；尚未用真实任务标定",
+        "direction": "higher_is_better",
+        "raw_range": [
+          0,
+          1
+        ],
+        "normalization": "100*x"
+      },
+      "review_status": "approved_assumption",
+      "review_note": "沿用bridge_full中相同任务、主体、指标和状态假设"
+    },
+    {
+      "id": "N_7d513a3f",
+      "chain_id": "chain-3-3",
+      "role": "coordination",
+      "subject": "demo-coordinator",
+      "label": "协调产品质量·任务3",
+      "context": "task-3的任务产品状态；共同观测场合，不解释为同时占用资源的调度执行",
+      "state_identity_reason": "同一装备的任务特定产品，不是独立物理装备副本；共享主体按state_sharing登记",
+      "inputs": [
+        "observation_product_3"
+      ],
+      "outputs": [
+        "coordination_product_3"
+      ],
+      "metric": {
+        "definition": "协调产品质量：合成活动产品达到预设质量要求的归一化比例；尚未用真实任务标定",
+        "direction": "higher_is_better",
+        "raw_range": [
+          0,
+          1
+        ],
+        "normalization": "100*x"
+      },
+      "review_status": "approved_assumption",
+      "review_note": "沿用bridge_full中相同任务、主体、指标和状态假设"
+    },
+    {
+      "id": "N_8f576c07",
+      "chain_id": "chain-3-3",
+      "role": "manifestation",
+      "subject": "effect-2",
+      "label": "执行结果质量·任务3",
+      "context": "task-3的任务产品状态；共同观测场合，不解释为同时占用资源的调度执行",
+      "state_identity_reason": "同一装备的任务特定产品，不是独立物理装备副本；共享主体按state_sharing登记",
+      "inputs": [
+        "coordination_product_3"
+      ],
+      "outputs": [],
+      "metric": {
+        "definition": "执行结果质量：合成活动产品达到预设质量要求的归一化比例；尚未用真实任务标定",
+        "direction": "higher_is_better",
+        "raw_range": [
+          0,
+          1
+        ],
+        "normalization": "100*x"
+      },
+      "review_status": "approved_assumption",
+      "review_note": "沿用bridge_full中相同任务、主体、指标和状态假设"
+    }
+  ],
+  "reviews": [
+    {
+      "id": "flow_AB_1",
+      "feeder": "N_783a8615",
+      "receiver": "N_2816ed31",
+      "product": "observation_product_1",
+      "status": "approved_assumption",
+      "rationale": "人工工作假设：B活动显式使用A信息产品；连接证据只证明渠道可用，不证明真实效应强度",
+      "origin": "previous_registered_synthetic_example"
+    },
+    {
+      "id": "flow_BC_1",
+      "feeder": "N_2816ed31",
+      "receiver": "N_23cb433b",
+      "product": "coordination_product_1",
+      "status": "approved_assumption",
+      "rationale": "人工工作假设：C活动显式使用B协调产品；不根据设备链评分推断SE",
+      "origin": "previous_registered_synthetic_example"
+    },
+    {
+      "id": "heartbeat_AB_1",
+      "feeder": "N_783a8615",
+      "receiver": "N_2816ed31",
+      "product": "heartbeat_1",
+      "status": "pending",
+      "rationale": "有设备通信连接，但B活动未声明消费心跳作为效能输入，不能单独导出依赖",
+      "origin": "previous_registered_synthetic_example"
+    },
+    {
+      "id": "shortcut_AC_1",
+      "feeder": "N_783a8615",
+      "receiver": "N_23cb433b",
+      "product": null,
+      "status": "pending",
+      "rationale": "只有A经B到C的间接路径，没有直接产品消费或直接设备连接，不添加传递边",
+      "origin": "previous_registered_synthetic_example"
+    },
+    {
+      "id": "flow_AB_2",
+      "feeder": "N_53cc5b4a",
+      "receiver": "N_5a5d5d44",
+      "product": "observation_product_2",
+      "status": "approved_assumption",
+      "rationale": "人工工作假设：B活动显式使用A信息产品；连接证据只证明渠道可用，不证明真实效应强度",
+      "origin": "previous_registered_synthetic_example"
+    },
+    {
+      "id": "flow_BC_2",
+      "feeder": "N_5a5d5d44",
+      "receiver": "N_d665771a",
+      "product": "coordination_product_2",
+      "status": "approved_assumption",
+      "rationale": "人工工作假设：C活动显式使用B协调产品；不根据设备链评分推断SE",
+      "origin": "previous_registered_synthetic_example"
+    },
+    {
+      "id": "heartbeat_AB_2",
+      "feeder": "N_53cc5b4a",
+      "receiver": "N_5a5d5d44",
+      "product": "heartbeat_2",
+      "status": "pending",
+      "rationale": "有设备通信连接，但B活动未声明消费心跳作为效能输入，不能单独导出依赖",
+      "origin": "previous_registered_synthetic_example"
+    },
+    {
+      "id": "shortcut_AC_2",
+      "feeder": "N_53cc5b4a",
+      "receiver": "N_d665771a",
+      "product": null,
+      "status": "pending",
+      "rationale": "只有A经B到C的间接路径，没有直接产品消费或直接设备连接，不添加传递边",
+      "origin": "previous_registered_synthetic_example"
+    },
+    {
+      "id": "flow_AB_3",
+      "feeder": "N_3f1ac0cd",
+      "receiver": "N_7d513a3f",
+      "product": "observation_product_3",
+      "status": "approved_assumption",
+      "rationale": "人工工作假设：B活动显式使用A信息产品；连接证据只证明渠道可用，不证明真实效应强度",
+      "origin": "previous_registered_synthetic_example"
+    },
+    {
+      "id": "flow_BC_3",
+      "feeder": "N_7d513a3f",
+      "receiver": "N_8f576c07",
+      "product": "coordination_product_3",
+      "status": "approved_assumption",
+      "rationale": "人工工作假设：C活动显式使用B协调产品；不根据设备链评分推断SE",
+      "origin": "previous_registered_synthetic_example"
+    },
+    {
+      "id": "heartbeat_AB_3",
+      "feeder": "N_3f1ac0cd",
+      "receiver": "N_7d513a3f",
+      "product": "heartbeat_3",
+      "status": "pending",
+      "rationale": "有设备通信连接，但B活动未声明消费心跳作为效能输入，不能单独导出依赖",
+      "origin": "previous_registered_synthetic_example"
+    },
+    {
+      "id": "shortcut_AC_3",
+      "feeder": "N_3f1ac0cd",
+      "receiver": "N_8f576c07",
+      "product": null,
+      "status": "pending",
+      "rationale": "只有A经B到C的间接路径，没有直接产品消费或直接设备连接，不添加传递边",
+      "origin": "previous_registered_synthetic_example"
+    }
+  ],
+  "state_sharing": [
+    {
+      "subject": "demo-eye",
+      "role": "insight",
+      "instance_ids": [
+        "N_783a8615",
+        "N_53cc5b4a",
+        "N_3f1ac0cd"
+      ],
+      "mode": "task_conditioned_outputs",
+      "rationale": "同主体在三个任务上产生不同产品；不合并任务效能，也不复制物理健康状态",
+      "coupling": "shared_latent_plus_task_offset",
+      "resource_scope": "固定就绪条件的任务产品质量观测；不模拟并发竞争、容量分配或执行调度；上游共享关系保留侧车",
+      "review_status": "approved_assumption",
+      "review_note": "继承相同共同来源与固定条件假设，不声称完成真实资源竞争审查"
+    },
+    {
+      "subject": "demo-coordinator",
+      "role": "coordination",
+      "instance_ids": [
+        "N_2816ed31",
+        "N_5a5d5d44",
+        "N_7d513a3f"
+      ],
+      "mode": "task_conditioned_outputs",
+      "rationale": "同主体在三个任务上产生不同产品；不合并任务效能，也不复制物理健康状态",
+      "coupling": "inherited_from_task_inputs_with_common_fixed_self_condition",
+      "resource_scope": "固定就绪条件的任务产品质量观测；不模拟并发竞争、容量分配或执行调度；上游共享关系保留侧车",
+      "review_status": "approved_assumption",
+      "review_note": "继承相同共同来源与固定条件假设，不声称完成真实资源竞争审查"
+    }
+  ],
+  "format_version": "bridge-review-1",
+  "source_report_sha256": "3fc8e67a27f004f790cb895f604ebc7db2a7f4d6d4345381697782a5ed4a760d",
+  "review_gate": {
+    "status": "approved_assumption",
+    "reviewed_by": "开发者登记的合成示例配置",
+    "note": "复用bridge_full中已登记的模拟工作假设以演示审查入口；不是新增专家实证审查，也不是工具自动批准"
+  }
+}

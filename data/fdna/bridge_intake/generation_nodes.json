@@ -1,0 +1,151 @@
+{
+  "format_version": "1.0",
+  "id": "full_selected_independent_mechanisms",
+  "basis": "与原V1相同的独立加权机制及固定条件乘数；非论文实证公式；不使用FDNA参数生成目标",
+  "nodes": {
+    "N_2816ed31": {
+      "node_id": "N_2816ed31",
+      "parent_nodes": [
+        "N_783a8615"
+      ],
+      "mechanism_type": "weighted",
+      "configuration_source": "manual",
+      "condition_function": {
+        "type": "product_conditions",
+        "values": {
+          "C": 0.8,
+          "M": 0.6,
+          "E": 0.2
+        },
+        "capability_base": 0.55,
+        "capability_gain": 0.45,
+        "task_base": 0.8,
+        "task_gain": 0.2,
+        "environment_penalty": 0.3
+      },
+      "weights": {
+        "N_783a8615": 1.0
+      }
+    },
+    "N_23cb433b": {
+      "node_id": "N_23cb433b",
+      "parent_nodes": [
+        "N_2816ed31"
+      ],
+      "mechanism_type": "weighted",
+      "configuration_source": "manual",
+      "condition_function": {
+        "type": "product_conditions",
+        "values": {
+          "C": 0.8,
+          "M": 0.6,
+          "E": 0.2
+        },
+        "capability_base": 0.55,
+        "capability_gain": 0.45,
+        "task_base": 0.8,
+        "task_gain": 0.2,
+        "environment_penalty": 0.3
+      },
+      "weights": {
+        "N_2816ed31": 1.0
+      }
+    },
+    "N_5a5d5d44": {
+      "node_id": "N_5a5d5d44",
+      "parent_nodes": [
+        "N_53cc5b4a"
+      ],
+      "mechanism_type": "weighted",
+      "configuration_source": "manual",
+      "condition_function": {
+        "type": "product_conditions",
+        "values": {
+          "C": 0.8,
+          "M": 0.7,
+          "E": 0.2
+        },
+        "capability_base": 0.55,
+        "capability_gain": 0.45,
+        "task_base": 0.8,
+        "task_gain": 0.2,
+        "environment_penalty": 0.3
+      },
+      "weights": {
+        "N_53cc5b4a": 1.0
+      }
+    },
+    "N_d665771a": {
+      "node_id": "N_d665771a",
+      "parent_nodes": [
+        "N_5a5d5d44"
+      ],
+      "mechanism_type": "weighted",
+      "configuration_source": "manual",
+      "condition_function": {
+        "type": "product_conditions",
+        "values": {
+          "C": 0.8,
+          "M": 0.7,
+          "E": 0.2
+        },
+        "capability_base": 0.55,
+        "capability_gain": 0.45,
+        "task_base": 0.8,
+        "task_gain": 0.2,
+        "environment_penalty": 0.3
+      },
+      "weights": {
+        "N_5a5d5d44": 1.0
+      }
+    },
+    "N_7d513a3f": {
+      "node_id": "N_7d513a3f",
+      "parent_nodes": [
+        "N_3f1ac0cd"
+      ],
+      "mechanism_type": "weighted",
+      "configuration_source": "manual",
+      "condition_function": {
+        "type": "product_conditions",
+        "values": {
+          "C": 0.8,
+          "M": 0.8,
+          "E": 0.2
+        },
+        "capability_base": 0.55,
+        "capability_gain": 0.45,
+        "task_base": 0.8,
+        "task_gain": 0.2,
+        "environment_penalty": 0.3
+      },
+      "weights": {
+        "N_3f1ac0cd": 1.0
+      }
+    },
+    "N_8f576c07": {
+      "node_id": "N_8f576c07",
+      "parent_nodes": [
+        "N_7d513a3f"
+      ],
+      "mechanism_type": "weighted",
+      "configuration_source": "manual",
+      "condition_function": {
+        "type": "product_conditions",
+        "values": {
+          "C": 0.8,
+          "M": 0.8,
+          "E": 0.2
+        },
+        "capability_base": 0.55,
+        "capability_gain": 0.45,
+        "task_base": 0.8,
+        "task_gain": 0.2,
+        "environment_penalty": 0.3
+      },
+      "weights": {
+        "N_7d513a3f": 1.0
+      }
+    }
+  }
+}
