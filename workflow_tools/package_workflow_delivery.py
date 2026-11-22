@@ -18,11 +18,14 @@ intervention=read(reports/'22_11节点完整流程演示/dependency_analysis.jso
 core_checks=read(reports/'22_11节点完整流程演示/补充核验.json')
 assert tests['passed']>=297 and tests['skipped']==0 and tests['failures']==tests['errors']==0
 github=read(out/'GitHub提交记录.json') if (out/'GitHub提交记录.json').exists() else {}
-figure_dirs=[reports/name for name in ('21_多输入核心验证','22_11节点完整流程演示','26_多基准退化分析与复核')]
+figure_dirs=[reports/name for name in ('21_多输入核心验证','22_11节点完整流程演示','26_多基准退化分析与复核','28_限制分支与传播解释')]
 figure_count=sum(len(list(p.glob('*.png'))) for p in figure_dirs)
 replay_path=reports/'26_多基准退化分析与复核/多基准核验.json'
 replay_audit=read(replay_path) if replay_path.exists() else None
 replay_note=(f"新增多基准分析：{replay_audit['baseline_job_pairs']}个任务与基准组合，{replay_audit['effects']}条响应，{replay_audit['outside']}条输出越界，{replay_audit['extrapolated']}条目标供给外推。见第26包结果说明；这些结果不证明参数唯一或真实干预效应。" if replay_audit else '本地尚未生成多基准补充结果。')
+branch_path=reports/'28_限制分支与传播解释/分支核验.json'
+branch_audit=read(branch_path) if branch_path.exists() else None
+branch_note=(f"新增限制分支解释：{branch_audit['baseline_receiver_records']}条基准节点、{branch_audit['baseline_edge_records']}条边局部斜率、{branch_audit['response_records']}条响应；{branch_audit['branch_changes']}条候选分支集合变化，{branch_audit['zero_responses']}条近零响应。见第28包图文及第29包独立复核。" if branch_audit else '本地尚未生成限制分支解释结果。')
 flags={name:sum(name in l['flags'] for j in demo['jobs'] for l in j['local_fits']) for name in ('LOCAL_RANK_DEFICIENT','DELTA_AT_BOUNDARY','PREDICTION_OUTSIDE_SE_RANGE')}
 errors={k:max(p['absolute_error'] for j in recovery['jobs'] if j['case']=='recovery' and j['noise_sigma']==0 for p in j['parameter_comparison'] if p['parameter']==k) for k in ('alpha','beta','delta')}
 outside_intervention=sum(e['outside'] for e in intervention['effects'])
@@ -66,11 +69,15 @@ notes=f'''# 应用流程主线阶段汇报
 - [第23包 测试与复核](23_统一入口与验收/)：完整测试日志、独立数值复核、接口说明和代码归档。
 - [第26包 多基准退化分析](26_多基准退化分析与复核/结果说明.md)：按固定规则选取留出基准的退化响应与解释；需另行运行生成。
 - [第27包 本轮检查](27_本轮检查记录/)：更新后的输入警告、独立多基准复核及本轮检查说明。
+- [第28包 限制分支与传播解释](28_限制分支与传播解释/可直接用于汇报的分支解读.md)：分支构成、退化前后约束及例子。
+- [第29包 分支解释验收](29_本轮分支解释验收/)：完整回归与独立复核。
 - [代码使用说明](../../fdna/NETWORK_WORKFLOW.md)：统一入口命令、宽/长表字段和模型配置。
 
 第22包同时保存输入拓扑、JSON记录、CSV宽表/长表及拟合配置，可作为后续真实数据替换模板。真实数据应明确指标定义、归一化与场景机制，再将input_role设为observed；输入测量误差专项建模仍未开展。
 
 {replay_note}
+
+{branch_note}
 
 ## 继续保留的待办
 
@@ -93,6 +100,8 @@ progress.write_text(f'''# 当前模拟实验进度
 
 {replay_note}
 
+{branch_note}
+
 剩余16组深入诊断保持暂缓；此前22组正式拟合和既有诊断均保留。真实数据校准、输入误差专项实验和更广泛敏感性仍待后续。
 ''',encoding='utf-8')
 
@@ -104,6 +113,6 @@ with zipfile.ZipFile(archive,'w',compression=zipfile.ZIP_DEFLATED) as z:
     for p in files: z.write(p,Path('fdna_network_workflow')/p.relative_to(root))
 manifest={'baseline_commit':'288f590e60f2ad85b1b1d7985c5bd60a2345289a','code_directory':str(root),
     'archive_sha256':hashlib.sha256(archive.read_bytes()).hexdigest(),'source_hashes':{str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in files},
-    'tests':tests,'numerical_audit':audit,'figure_count_png':figure_count,'figure_count_svg':sum(len(list(p.glob('*.svg'))) for p in figure_dirs),'github':github,'pdf_created':False,'diagnostics_deferred':16}
+    'tests':tests,'numerical_audit':audit,'figure_count_png':figure_count,'figure_count_svg':sum(len(list(p.glob('*.svg'))) for p in figure_dirs),'github':github,'branch_audit':branch_audit,'pdf_created':False,'diagnostics_deferred':16}
 (out/'代码与验收清单.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2),encoding='utf-8')
 print(json.dumps(dict(source_files=len(files),archive_bytes=archive.stat().st_size,index=str(reports/'24_应用流程主线_汇报索引.md'),intervention_outside=outside_intervention),ensure_ascii=False))

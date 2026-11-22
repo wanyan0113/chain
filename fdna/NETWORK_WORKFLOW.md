@@ -79,6 +79,21 @@ python -B -m fdna.dependency_replay --report generated/汇报用/22_11节点完�
 
 输入预检查现在对留出供给超出训练范围、独立基础训练实验数少于参数个数给出显式警告；历史第25包保留为当时版本的记录，新检查输出到新目录。所有分析配置在运行优化器前校验，避免拟合后才发现设置无效。
 
+### 限制分支与传播解释
+
+多基准响应生成后，可核对每个目标的SOD均值、各条COD候选、加δ前的最小值和退化前后分支变化，并输出3张PNG/SVG及文字说明：
+
+```powershell
+python -B -m fdna.branch_explanation --report generated/汇报用/22_11节点完整流程演示/workflow_report.json --samples generated/汇报用/22_11节点完整流程演示/输入_SE记录.json --replay-dir generated/汇报用/26_多基准退化分析与复核 --figure-group-suffix sigma0 --output-dir generated/汇报用/28_限制分支与传播解释
+python -B workflow_tools/verify_branch_explanation.py --report generated/汇报用/22_11节点完整流程演示/workflow_report.json --samples generated/汇报用/22_11节点完整流程演示/输入_SE记录.json --branch-dir generated/汇报用/28_限制分支与传播解释 --output generated/汇报用/29_本轮分支解释验收/独立分支复核.json
+```
+
+只在唯一候选分支时报告局部导数：SOD分支为αᵢ/n；单条COD限制时对应输入为1、其他输入为0。容差内并列或近并列保存全部候选，仅列候选斜率范围，不挑一个唯一导数。容差单位为SE点，默认1e-8，参数可用`--tolerance`调整；不同容差的计数须分别报告。
+
+局部零斜率不等于大幅退化无效，分支可切换；这些斜率不用于拆分有限干预的路径贡献。目标δ固定时只加到最小值之后，但上游δ可通过输入改变下游分支。COD候选超过100也不等于最终输出越界。
+
+新模块检查拟合报告、SE数据、多基准结果的来源，复算每条响应及越界/外推标记；对分支不明或受阻的情况保留状态。基准节点表保留拟合诊断，不能把分支唯一解释成参数唯一。图中例子按首个末端、首组、首基准及最多两个直接供给节点的固定规则选取，不按误差或响应挑例子。没有有效响应的图表位置明确标注，不当作零。
+
 现阶段完整流程能运行，不表示拟合误差、参数识别或输出范围问题已经全部解决。剩余16组诊断仍暂缓，真实数据校准待数据可用后开展。
 
 开发时使用的本地来源Word与审计夹具不随新增功能提交；缺少该夹具的克隆环境会按既有规则跳过1项来源核验。方法与应用测试仍执行。正式结果与图表通过workflow_demo和workflow_reports命令重建。
