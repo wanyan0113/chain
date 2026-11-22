@@ -1,0 +1,153 @@
+{
+  "format_version": "1.0",
+  "id": "manual_independent_11_node_mechanisms",
+  "basis": "独立任务生成假设；系数不解释为FDNA真值",
+  "nodes": {
+    "F11": {
+      "node_id": "F11",
+      "parent_nodes": [
+        "S10",
+        "S3",
+        "S5",
+        "S6",
+        "S8"
+      ],
+      "mechanism_type": "weighted",
+      "configuration_source": "manual",
+      "condition_function": {
+        "type": "product_conditions",
+        "values": {
+          "C": 0.8,
+          "M": 0.7,
+          "E": 0.2
+        },
+        "capability_base": 0.55,
+        "capability_gain": 0.45,
+        "task_base": 0.8,
+        "task_gain": 0.2,
+        "environment_penalty": 0.3
+      },
+      "weights": {
+        "S10": 0.1,
+        "S3": 0.2,
+        "S5": 0.25,
+        "S6": 0.2,
+        "S8": 0.25
+      }
+    },
+    "F7": {
+      "node_id": "F7",
+      "parent_nodes": [
+        "S5",
+        "S6"
+      ],
+      "mechanism_type": "weighted",
+      "configuration_source": "manual",
+      "condition_function": {
+        "type": "product_conditions",
+        "values": {
+          "C": 0.8,
+          "M": 0.7,
+          "E": 0.2
+        },
+        "capability_base": 0.55,
+        "capability_gain": 0.45,
+        "task_base": 0.8,
+        "task_gain": 0.2,
+        "environment_penalty": 0.3
+      },
+      "weights": {
+        "S5": 0.62,
+        "S6": 0.38
+      }
+    },
+    "F9": {
+      "node_id": "F9",
+      "parent_nodes": [
+        "S10",
+        "S3",
+        "S5",
+        "S6",
+        "S8"
+      ],
+      "mechanism_type": "geometric",
+      "configuration_source": "manual",
+      "condition_function": {
+        "type": "product_conditions",
+        "values": {
+          "C": 0.8,
+          "M": 0.7,
+          "E": 0.2
+        },
+        "capability_base": 0.55,
+        "capability_gain": 0.45,
+        "task_base": 0.8,
+        "task_gain": 0.2,
+        "environment_penalty": 0.3
+      },
+      "weights": {
+        "S10": 0.2,
+        "S3": 0.2,
+        "S5": 0.2,
+        "S6": 0.2,
+        "S8": 0.2
+      }
+    },
+    "S5": {
+      "node_id": "S5",
+      "parent_nodes": [
+        "D2",
+        "D4",
+        "S1"
+      ],
+      "mechanism_type": "complementary",
+      "configuration_source": "manual",
+      "condition_function": {
+        "type": "product_conditions",
+        "values": {
+          "C": 0.8,
+          "M": 0.7,
+          "E": 0.2
+        },
+        "capability_base": 0.55,
+        "capability_gain": 0.45,
+        "task_base": 0.8,
+        "task_gain": 0.2,
+        "environment_penalty": 0.3
+      },
+      "support_coefficients": {
+        "D2": 0.9,
+        "D4": 0.78,
+        "S1": 0.65
+      }
+    },
+    "S6": {
+      "node_id": "S6",
+      "parent_nodes": [
+        "D2",
+        "D4",
+        "S1"
+      ],
+      "mechanism_type": "geometric",
+      "configuration_source": "manual",
+      "condition_function": {
+        "type": "product_conditions",
+        "values": {
+          "C": 0.8,
+          "M": 0.7,
+          "E": 0.2
+        },
+        "capability_base": 0.55,
+        "capability_gain": 0.45,
+        "task_base": 0.8,
+        "task_gain": 0.2,
+        "environment_penalty": 0.3
+      },
+      "weights": {
+        "D2": 0.3333333333333333,
+        "D4": 0.3333333333333333,
+        "S1": 0.3333333333333333
+      }
+    }
+  }
+}

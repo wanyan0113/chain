@@ -1,0 +1,19 @@
+{
+  "id": "multi_input_core_validation_20261122",
+  "seed": 20261122,
+  "solver_seed": 20261122,
+  "input_sizes": [3, 5],
+  "repetitions": 3,
+  "train_count": 384,
+  "holdout_count": 192,
+  "noise_std": [0, 2],
+  "starts": 12,
+  "max_nfev": 4000,
+  "delta": -3,
+  "delta_bounds": [-10, 10],
+  "alpha": [0.35, 0.55, 0.45, 0.65, 0.25],
+  "beta": [14, 18, 22, 26, 30],
+  "design": {"high": [85, 98], "single_low": [10, 35], "probe": [10, 35]},
+  "acceptance": {"alpha_absolute_error": 0.0001, "beta_absolute_error": 0.001, "delta_absolute_error": 0.001, "prediction_rmse": 0.00001, "forward_absolute_error": 1e-10},
+  "policy": "实验前冻结；每种输入规模同时保留恢复组与CoD控制诊断组。3次独立重复、代表性σ=0/2验证核心流程，不重做全部敏感性矩阵。真值不作初值；基础式使用δ=0目标，固定与自由δ使用相同δ=-3目标；不跨不同目标作模型优劣结论。"
+}

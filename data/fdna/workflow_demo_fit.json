@@ -1,0 +1,78 @@
+{
+  "input_role": "clean_predictors_observed_targets",
+  "pool_scenarios": false,
+  "data_kind": "simulated",
+  "models": {
+    "base": {
+      "format_version": "1.0",
+      "id": "workflow_base",
+      "basis": "中性与固定种子随机起点；只按训练损失选择；不读取生成真值。",
+      "model": "fdna_base_eq1_eq2",
+      "solver": "L-BFGS-B",
+      "seed": 20261122,
+      "starts": 12,
+      "max_nfev": 4000,
+      "delta_policy": "excluded_for_base_check"
+    },
+    "fixed_delta": {
+      "format_version": "1.0",
+      "id": "workflow_fixed_delta",
+      "basis": "中性与固定种子随机起点；只按训练损失选择；不读取生成真值。",
+      "model": "fdna_additive_delta",
+      "solver": "L-BFGS-B",
+      "seed": 20261122,
+      "starts": 12,
+      "max_nfev": 4000,
+      "delta_policy": "per_receiver_fixed",
+      "delta_values": {
+        "F11": -5,
+        "F7": -5,
+        "F9": -5,
+        "S5": -5,
+        "S6": -5
+      },
+      "output_policy": "no_clipping"
+    },
+    "free_delta": {
+      "format_version": "1.0",
+      "id": "workflow_free_delta",
+      "basis": "中性与固定种子随机起点；只按训练损失选择；不读取生成真值。",
+      "model": "fdna_additive_delta",
+      "solver": "L-BFGS-B",
+      "seed": 20261122,
+      "starts": 12,
+      "max_nfev": 4000,
+      "delta_policy": "per_receiver_bounded",
+      "delta_bounds": {
+        "F11": [
+          -10,
+          10
+        ],
+        "F7": [
+          -10,
+          10
+        ],
+        "F9": [
+          -10,
+          10
+        ],
+        "S5": [
+          -10,
+          10
+        ],
+        "S6": [
+          -10,
+          10
+        ]
+      },
+      "output_policy": "no_clipping"
+    }
+  },
+  "analysis": {
+    "retained_fractions": [
+      0.0,
+      0.5
+    ],
+    "max_paths_per_node": 1000
+  }
+}

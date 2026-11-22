@@ -1,0 +1,39 @@
+{
+  "format_version": "1.0",
+  "id": "workflow_11_node_generation",
+  "basis": "三次独立重复的代表性完整流程演示；表7只提供拓扑，不提供生成或拟合真值。",
+  "seed": 20261122,
+  "repetitions": 3,
+  "base_cases": 250,
+  "train_count": 200,
+  "noise_std": [
+    0,
+    2
+  ],
+  "process_std": 0.0,
+  "interaction_gamma": 0.0,
+  "groups": {
+    "fixed": {
+      "C": 0.8,
+      "M": 0.7,
+      "E": 0.2
+    }
+  },
+  "root_sampling": {
+    "normal": [
+      0.65,
+      0.98
+    ],
+    "degraded": [
+      0.2,
+      0.6
+    ],
+    "shared_factor_weight": 0.15,
+    "fractions": {
+      "normal": 0.5,
+      "single": 0.2,
+      "double": 0.2,
+      "all": 0.1
+    }
+  }
+}
