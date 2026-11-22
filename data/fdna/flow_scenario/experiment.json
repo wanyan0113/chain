@@ -1,0 +1,56 @@
+{
+  "format_version": "1.0",
+  "seed": 20261122,
+  "base_cases": 120,
+  "train_count": 90,
+  "trials": 200,
+  "environments": [
+    0,
+    0.3,
+    0.6
+  ],
+  "state_range": [
+    0.2,
+    1.0
+  ],
+  "task_coefficients": {
+    "T1": 1,
+    "T2": 0.9,
+    "T3": 0.8
+  },
+  "probabilities": {
+    "command_good": 0.95,
+    "command_bad": 0.25,
+    "receipt_good": 0.9,
+    "receipt_bad": 0.2
+  },
+  "penalties": {
+    "information": 0.2,
+    "command": 0.1,
+    "receipt": 0.15
+  },
+  "expected": {
+    "candidate_chains": 8,
+    "combinations": 16,
+    "feasible_networks": 4,
+    "capability_nodes": 9,
+    "dependency_edges": 6,
+    "observations": 360,
+    "local_fits": 36
+  },
+  "fit": {
+    "starts": 6,
+    "max_nfev": 1500,
+    "delta_bounds": [
+      -10,
+      10
+    ]
+  },
+  "retained_fractions": [
+    0,
+    0.25,
+    0.5,
+    0.75,
+    1
+  ]
+}

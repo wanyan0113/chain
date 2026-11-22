@@ -1,0 +1,68 @@
+{
+  "task_rules": [],
+  "artifact_rules": [
+    {
+      "id": "support_insight",
+      "role": "insight",
+      "capability": "urn:fdna:synthetic-flow:v1:InformationQuality",
+      "when": [
+        {
+          "field": "artifact.ontology_capabilities",
+          "op": "contains",
+          "value": "urn:fdna:synthetic-flow:v1:InformationQuality"
+        },
+        {
+          "field": "artifact.target_types",
+          "op": "contains",
+          "ref": "task.target_type"
+        }
+      ],
+      "source_refs": [
+        "preregistered-md:abstract-flow-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "support_coordination",
+      "role": "coordination",
+      "capability": "urn:fdna:synthetic-flow:v1:InstructionQuality",
+      "when": [
+        {
+          "field": "artifact.ontology_capabilities",
+          "op": "contains",
+          "value": "urn:fdna:synthetic-flow:v1:InstructionQuality"
+        },
+        {
+          "field": "artifact.target_types",
+          "op": "contains",
+          "ref": "task.target_type"
+        }
+      ],
+      "source_refs": [
+        "preregistered-md:abstract-flow-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "support_manifestation",
+      "role": "manifestation",
+      "capability": "urn:fdna:synthetic-flow:v1:ReceiptQuality",
+      "when": [
+        {
+          "field": "artifact.ontology_capabilities",
+          "op": "contains",
+          "value": "urn:fdna:synthetic-flow:v1:ReceiptQuality"
+        },
+        {
+          "field": "artifact.target_types",
+          "op": "contains",
+          "ref": "task.target_type"
+        }
+      ],
+      "source_refs": [
+        "preregistered-md:abstract-flow-v1"
+      ],
+      "blocking_issue_ids": []
+    }
+  ]
+}

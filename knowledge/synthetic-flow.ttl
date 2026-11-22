@@ -1,0 +1,24 @@
+@prefix sf: <urn:fdna:synthetic-flow:v1:> .
+@prefix base: <http://example.org/arcaneweb#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+sf:Ontology a owl:Ontology ; rdfs:label "抽象三任务信息流程场景"@zh ;
+  owl:versionInfo "1.0" ; rdfs:comment "虚构链网结构与产品合格事件验证；不表示实际装备性能。"@zh .
+sf:InformationQuality a owl:NamedIndividual, base:InsightCapability ; rdfs:label "侦察信息产品能力"@zh .
+sf:InstructionQuality a owl:NamedIndividual, base:CoordinationCapability ; rdfs:label "指挥信息产品能力"@zh .
+sf:ReceiptQuality a owl:NamedIndividual, base:ManifestationCapability ; rdfs:label "抽象效应回执能力"@zh .
+sf:AbstractTask a owl:Class ; rdfs:label "抽象甲乙丙任务"@zh ;
+  rdfs:subClassOf base:ArcaneMission,
+    [ a owl:Restriction ; owl:onProperty base:requiresCapability ; owl:hasValue sf:InformationQuality ],
+    [ a owl:Restriction ; owl:onProperty base:requiresCapability ; owl:hasValue sf:InstructionQuality ],
+    [ a owl:Restriction ; owl:onProperty base:requiresCapability ; owl:hasValue sf:ReceiptQuality ] .
+sf:ReconUnit a owl:Class ; rdfs:label "虚构侦察节点"@zh ;
+  rdfs:subClassOf base:InsightArtifact,
+    [ a owl:Restriction ; owl:onProperty base:hasCapability ; owl:hasValue sf:InformationQuality ] .
+sf:CommandUnit a owl:Class ; rdfs:label "虚构指挥节点"@zh ;
+  rdfs:subClassOf base:CoordinationArtifact,
+    [ a owl:Restriction ; owl:onProperty base:hasCapability ; owl:hasValue sf:InstructionQuality ] .
+sf:EffectUnit a owl:Class ; rdfs:label "虚构效应回执节点"@zh ;
+  rdfs:subClassOf base:ManifestationArtifact,
+    [ a owl:Restriction ; owl:onProperty base:hasCapability ; owl:hasValue sf:ReceiptQuality ] .

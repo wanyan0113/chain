@@ -1,0 +1,354 @@
+{
+  "format_version": "1.0",
+  "scope": "MD抽象杀伤链/网结构场景；数据仅为信息、指令与回执质量；同值指标为旧接口占位，不是时间成本或作战性能。",
+  "knowledge": {
+    "ontology_files": [
+      "synthetic-flow.ttl"
+    ],
+    "rules_file": "synthetic-flow.rules.json",
+    "source_refs": [
+      "preregistered-md:abstract-flow-v1"
+    ]
+  },
+  "policies": {
+    "equal_metric_score": 0.5,
+    "cost_unit": "interface-placeholder",
+    "max_chain_combinations": 100,
+    "max_network_combinations": 100,
+    "max_network_search_nodes": 1000,
+    "network_search_method": "exhaustive",
+    "article_table10": false
+  },
+  "weights": {
+    "time": 1,
+    "accuracy": 0,
+    "cost": 0
+  },
+  "tasks": [
+    {
+      "id": "T1",
+      "target": "record-甲",
+      "start_s": 0,
+      "ontology_types": [
+        "urn:fdna:synthetic-flow:v1:AbstractTask"
+      ],
+      "attributes": {
+        "target_type": "甲"
+      },
+      "source_refs": [
+        "preregistered-md:abstract-flow-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "T2",
+      "target": "record-乙",
+      "start_s": 0,
+      "ontology_types": [
+        "urn:fdna:synthetic-flow:v1:AbstractTask"
+      ],
+      "attributes": {
+        "target_type": "乙"
+      },
+      "source_refs": [
+        "preregistered-md:abstract-flow-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "T3",
+      "target": "record-丙",
+      "start_s": 0,
+      "ontology_types": [
+        "urn:fdna:synthetic-flow:v1:AbstractTask"
+      ],
+      "attributes": {
+        "target_type": "丙"
+      },
+      "source_refs": [
+        "preregistered-md:abstract-flow-v1"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "R1",
+      "role": "insight",
+      "ontology_types": [
+        "urn:fdna:synthetic-flow:v1:ReconUnit"
+      ],
+      "available": true,
+      "attributes": {
+        "target_types": [
+          "甲",
+          "乙"
+        ]
+      },
+      "metrics": {
+        "duration_s": 1,
+        "accuracy": 1,
+        "cost": {
+          "value": 0,
+          "unit": "interface-placeholder"
+        }
+      },
+      "capacity": 2,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "preregistered-md:abstract-flow-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "R2",
+      "role": "insight",
+      "ontology_types": [
+        "urn:fdna:synthetic-flow:v1:ReconUnit"
+      ],
+      "available": true,
+      "attributes": {
+        "target_types": [
+          "乙",
+          "丙"
+        ]
+      },
+      "metrics": {
+        "duration_s": 1,
+        "accuracy": 1,
+        "cost": {
+          "value": 0,
+          "unit": "interface-placeholder"
+        }
+      },
+      "capacity": 2,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "preregistered-md:abstract-flow-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "C1",
+      "role": "coordination",
+      "ontology_types": [
+        "urn:fdna:synthetic-flow:v1:CommandUnit"
+      ],
+      "available": true,
+      "attributes": {
+        "target_types": [
+          "甲",
+          "乙",
+          "丙"
+        ]
+      },
+      "metrics": {
+        "duration_s": 1,
+        "accuracy": 1,
+        "cost": {
+          "value": 0,
+          "unit": "interface-placeholder"
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "preregistered-md:abstract-flow-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "E1",
+      "role": "manifestation",
+      "ontology_types": [
+        "urn:fdna:synthetic-flow:v1:EffectUnit"
+      ],
+      "available": true,
+      "attributes": {
+        "target_types": [
+          "甲",
+          "丙"
+        ]
+      },
+      "metrics": {
+        "duration_s": 1,
+        "accuracy": 1,
+        "cost": {
+          "value": 0,
+          "unit": "interface-placeholder"
+        }
+      },
+      "capacity": 1,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "preregistered-md:abstract-flow-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "E2",
+      "role": "manifestation",
+      "ontology_types": [
+        "urn:fdna:synthetic-flow:v1:EffectUnit"
+      ],
+      "available": true,
+      "attributes": {
+        "target_types": [
+          "甲",
+          "乙"
+        ]
+      },
+      "metrics": {
+        "duration_s": 1,
+        "accuracy": 1,
+        "cost": {
+          "value": 0,
+          "unit": "interface-placeholder"
+        }
+      },
+      "capacity": 1,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "preregistered-md:abstract-flow-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "E3",
+      "role": "manifestation",
+      "ontology_types": [
+        "urn:fdna:synthetic-flow:v1:EffectUnit"
+      ],
+      "available": true,
+      "attributes": {
+        "target_types": [
+          "乙",
+          "丙"
+        ]
+      },
+      "metrics": {
+        "duration_s": 1,
+        "accuracy": 1,
+        "cost": {
+          "value": 0,
+          "unit": "interface-placeholder"
+        }
+      },
+      "capacity": 1,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "preregistered-md:abstract-flow-v1"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "task_rules": [],
+  "artifact_rules": [],
+  "links": [
+    {
+      "from": "R1",
+      "to": "C1",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 0,
+        "unit": "logical-slot"
+      },
+      "max_distance": {
+        "value": 1,
+        "unit": "logical-slot"
+      },
+      "source_refs": [
+        "preregistered-md:abstract-flow-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R2",
+      "to": "C1",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 0,
+        "unit": "logical-slot"
+      },
+      "max_distance": {
+        "value": 1,
+        "unit": "logical-slot"
+      },
+      "source_refs": [
+        "preregistered-md:abstract-flow-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "C1",
+      "to": "E1",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 0,
+        "unit": "logical-slot"
+      },
+      "max_distance": {
+        "value": 1,
+        "unit": "logical-slot"
+      },
+      "source_refs": [
+        "preregistered-md:abstract-flow-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "C1",
+      "to": "E2",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 0,
+        "unit": "logical-slot"
+      },
+      "max_distance": {
+        "value": 1,
+        "unit": "logical-slot"
+      },
+      "source_refs": [
+        "preregistered-md:abstract-flow-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "C1",
+      "to": "E3",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 0,
+        "unit": "logical-slot"
+      },
+      "max_distance": {
+        "value": 1,
+        "unit": "logical-slot"
+      },
+      "source_refs": [
+        "preregistered-md:abstract-flow-v1"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "contexts": [],
+  "dependencies": [],
+  "resource_groups": []
+}
