@@ -46,6 +46,28 @@ try{
     assert.equal(downloaded.mode,'full');assert.equal(downloaded.status,'passed');
     await screenshot(client,'04_本次网页完整复核.png');
   }
+  let historyInspection=null;
+  if(options['--inspect-history']==='true'){
+    await until(()=>evaluate(client,`${iframeExpression}.querySelectorAll('#local-history-rows tr').length>0&&!${iframeExpression}.querySelector('#refresh-job-history').disabled`),'persisted history rendered');
+    const before=await evaluate(client,"fetch('/fdna-results/recheck/status').then(r=>r.json())");
+    assert.equal(before.status,'idle','History inspection must start in a fresh idle session');
+    const history=await evaluate(client,"fetch('/fdna-results/recheck/history').then(r=>r.json())");
+    assert.equal(history.read_only,true);
+    const row=history.records.find(r=>r.status==='passed'&&r.report_available);assert(row,'Persisted passed report required');
+    const downloaded=await evaluate(client,`fetch(${JSON.stringify(row.json_url)}).then(r=>r.json())`);
+    assert.equal(downloaded.mode,'full');assert.equal(downloaded.status,'passed');assert.equal(downloaded.full_verifiers_invoked,10);
+    const requestCount=()=>client.events.filter(e=>e.method==='Network.requestWillBeSent'&&e.params.request.url.includes('/fdna-results/recheck/history')).length;
+    const prior=requestCount();
+    await evaluate(client,`${iframeExpression}.querySelector('#refresh-job-history').click()`);
+    await until(async()=>requestCount()>prior&&await evaluate(client,`!${iframeExpression}.querySelector('#refresh-job-history').disabled`),'history refreshed');
+    await evaluate(client,`(()=>{const d=${iframeExpression};const section=d.querySelector('#local-recheck-history');section.scrollIntoView({block:'start'});})()`);
+    await screenshot(client,'05_重启后历史记录.png');
+    const after=await evaluate(client,"fetch('/fdna-results/recheck/status').then(r=>r.json())");
+    assert.equal(after.status,'idle');assert.equal(after.id,null);
+    const postStarts=client.events.filter(e=>e.method==='Network.requestWillBeSent'&&e.params.request.method==='POST'&&e.params.request.url.endsWith('/fdna-results/recheck')).length;
+    assert.equal(postStarts,0,'Reading history must not start a numerical task');
+    historyInspection={id:row.id,recorded_status:row.recorded_status,report_status:downloaded.status,json_url:row.json_url,report_url:row.report_url,session_before:before.status,session_after:after.status,history_refresh_created_request:true,new_task_posts:postStarts};
+  }
   const reading=await evaluate(client,`(()=>{const a=${iframeExpression}.querySelector('.card a');const href=a.href;a.click();return href;})()`);
   const readingTarget=await until(async()=>{const list=await targetList();return list.find(t=>t.url===reading);},'report opened in new tab');
   const reader=await connect(readingTarget.webSocketDebuggerUrl);await reader.send('Page.enable');await reader.send('Emulation.setDeviceMetricsOverride',{width:1440,height:1100,deviceScaleFactor:1,mobile:false});
@@ -59,7 +81,7 @@ try{
   assert(mobile.scrollWidth<=mobile.width+1,'Mobile page must not overflow horizontally');assert.match(mobile.history,/历史记录/);
   await screenshot(client,'03_手机宽度布局.png');
   report={status:'passed',method:'local_headless_Edge_CDP',url:base.href,checked_at_utc:new Date().toISOString(),
-    workspace,refresh_created_new_material_request:true,report_opened_new_tab:true,reportView,mobile,fullRecheck,
+    workspace,refresh_created_new_material_request:true,report_opened_new_tab:true,reportView,mobile,fullRecheck,historyInspection,
     limitation:'automated browser checks; native UI helper failed to initialize; no manual UI acceptance claimed'};
   await fs.writeFile(path.join(output,'browser_check.json'),JSON.stringify(report,null,2)+'\n');
   console.log(JSON.stringify(report,null,2));

@@ -5,9 +5,11 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 import sys
 import threading
+import time
 import uuid
 
 from fdna.evidence_review import TASKS,read
@@ -41,11 +43,77 @@ class RecheckJobs:
             if not result['enabled']:result['message']='未配置完整复核来源；启动服务时设置 --review-project-root。'
             return result
 
+    @staticmethod
+    def _urls(ident):
+        base='/fdna-results/recheck/jobs/'+ident
+        return dict(report_url=base+'/report',json_url=base+'/report.json')
+
+    def _record(self,ident):
+        with self._lock:return self._read_record(ident)
+
+    def _read_record(self,ident):
+        if not self._state['enabled'] or not isinstance(ident,str) or not re.fullmatch('[0-9a-f]{32}',ident):
+            raise RecheckError(404,'未知任务编号')
+        directory=self._base/ident
+        if not directory.is_dir() or directory.is_symlink() or directory.resolve().parent!=self._base:
+            raise RecheckError(404,'任务目录不存在或不在已配置运行范围')
+        file=directory/'job_status.json'
+        if file.is_symlink():raise RecheckError(409,'任务状态文件不能为符号链接')
+        try:state=read(file)
+        except (ValueError,OSError) as exc:raise RecheckError(409,'任务状态记录缺失或不可读取') from exc
+        if not isinstance(state,dict) or state.get('id')!=ident or state.get('status') not in ('running','passed','failed'):
+            raise RecheckError(409,'任务状态记录的编号或格式不一致')
+        return directory,state
+
+    def history(self,limit=20):
+        """Inspect persisted records; do not resume jobs or rewrite their recorded state."""
+        if not isinstance(limit,int) or isinstance(limit,bool) or not 1<=limit<=100:raise RecheckError(400,'记录条数须为1至100')
+        with self._lock:current=deepcopy(self._state)
+        if not current['enabled']:return dict(enabled=False,records=[],limit=limit,read_only=True)
+        candidates=[]
+        if self._base.is_dir():
+            for p in self._base.iterdir():
+                if re.fullmatch('[0-9a-f]{32}',p.name) and p.is_dir() and not p.is_symlink():
+                    candidates.append(p)
+        candidates.sort(key=lambda p:p.stat().st_mtime_ns,reverse=True)
+        rows=[]
+        for directory in candidates[:limit]:
+            ident=directory.name;row=dict(id=ident,status='invalid',recorded_status=None,started_at_utc=None,
+                finished_at_utc=None,report_available=False,report_status=None,report_url=None,json_url=None,message=None)
+            try:
+                directory,state=self._record(ident);raw=state['status']
+                active=current.get('id')==ident and current['status']=='running'
+                row.update(recorded_status=raw,status='running' if active else 'unconfirmed' if raw=='running' else raw,
+                    started_at_utc=state.get('started_at_utc'),finished_at_utc=state.get('finished_at_utc'))
+                if active:row['message']='本服务会话正在运行，完成前不提供报告。'
+                else:
+                    try:
+                        report_dir=directory/'report'
+                        if not report_dir.resolve().is_relative_to(directory.resolve()):raise ValueError('报告目录越出该任务范围')
+                        report=self._read_report(report_dir)
+                        if raw=='passed' and (report['status']!='passed' or state.get('completed_tasks')!=len(TASKS)
+                                or not state.get('numerical_rechecks_completed')):raise ValueError('任务状态与完整报告不一致')
+                        row.update(report_available=True,report_status=report['status'],**self._urls(ident))
+                    except (ValueError,OSError,KeyError,TypeError) as exc:
+                        if raw=='passed':row.update(status='invalid',message='报告检查未通过：'+str(exc))
+                        elif raw=='failed':row['message']=state.get('error') or '任务失败且没有完整报告。'
+                        else:row['message']='非本会话的运行记录，状态未确认；未自动续跑。'
+                    if raw=='running':row['message']='非本会话的运行状态未确认；即使留有可校验报告，也不自动认定任务完成或重新执行。'
+                    elif raw=='failed' and row['report_available']:row['message']=state.get('error') or '失败任务的完整诊断报告仍可读取。'
+            except (ValueError,OSError,KeyError,TypeError) as exc:row['message']=str(exc)
+            rows.append(row)
+        return dict(enabled=True,records=rows,limit=limit,total_records=len(candidates),read_only=True)
+
     def _save(self):
         if self._job_dir is None:return
         temporary=self._job_dir/'job_status.tmp'
         temporary.write_text(json.dumps(self._state,ensure_ascii=False,indent=2)+'\n',encoding='utf-8',newline='\n')
-        temporary.replace(self._job_dir/'job_status.json')
+        for attempt in range(3):
+            try:
+                temporary.replace(self._job_dir/'job_status.json');break
+            except PermissionError:
+                if attempt==2:raise
+                time.sleep(.01*(attempt+1))
 
     def start(self):
         with self._lock:
@@ -118,7 +186,7 @@ class RecheckJobs:
                     failed_checks=report['failed_checks'],full_verifiers_invoked=report['full_verifiers_invoked'],
                     numerical_rechecks_completed=report['numerical_rechecks_completed'],
                     error=None if report['status']=='passed' else '材料或独立核验未全部通过，请查看本次报告。',
-                    report_url='/fdna-results/recheck/report',json_url='/fdna-results/recheck/report.json')
+                    **self._urls(ident))
                 self._save()
         except Exception as exc:
             with self._lock:
@@ -128,14 +196,21 @@ class RecheckJobs:
         finally:
             if process is not None and process.poll() is None:process.terminate();process.wait()
 
-    def report(self,kind):
+    def report(self,kind,job_id=None):
         if kind not in ('json','markdown'):raise RecheckError(404,'未知报告类型')
         with self._lock:
-            if self._state['status'] not in ('passed','failed') or not self._state.get('report_url'):
-                raise RecheckError(409,'本次任务还没有可用的完整报告。')
-            directory=self._job_dir/'report'
-            if not directory.resolve().is_relative_to(self._base):raise RecheckError(409,'报告目录已越出本次运行范围')
-            self._read_report(directory)
+            if job_id is None:
+                if self._state['status'] not in ('passed','failed') or not self._state.get('report_url'):
+                    raise RecheckError(409,'本次任务还没有可用的完整报告。')
+                job_id=self._state['id']
+            job_dir,state=self._record(job_id)
+            if self._state.get('id')==job_id and self._state['status']=='running':
+                raise RecheckError(409,'任务仍在运行，尚未提供最终报告。')
+            directory=job_dir/'report'
+            if not directory.resolve().is_relative_to(job_dir.resolve()):raise RecheckError(409,'报告目录已越出该任务范围')
+            report=self._read_report(directory)
+            if state['status']=='passed' and (report['status']!='passed' or state.get('completed_tasks')!=len(TASKS)
+                    or not state.get('numerical_rechecks_completed')):raise RecheckError(409,'任务状态与完整报告不一致')
             name='review_report.json' if kind=='json' else '成果复核与阅读入口.md'
             return directory/name,(directory/name).read_bytes()
 

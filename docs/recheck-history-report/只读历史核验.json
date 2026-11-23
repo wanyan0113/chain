@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-11-23T13:44:48.447845+00:00",
+  "job_id": "cbffbd35a3b84ce597cd5aed65e01f10",
+  "session_before": "idle",
+  "session_after": "idle",
+  "subprocess_starts": 0,
+  "all_run_files_unchanged": true,
+  "files_checked": 6,
+  "historical_report_sha256": "9dfd8b91b9e40fb17aa8a434aa17b6219b5b1c24a1b3a79e785fce50174236ac",
+  "historical_report_status": "passed",
+  "historical_full_verifiers_invoked": 10,
+  "new_numerical_recheck": false,
+  "history": {
+    "enabled": true,
+    "records": [
+      {
+        "id": "cbffbd35a3b84ce597cd5aed65e01f10",
+        "status": "passed",
+        "recorded_status": "passed",
+        "started_at_utc": "2026-11-23T13:14:22.024018+00:00",
+        "finished_at_utc": "2026-11-23T13:14:51.392918+00:00",
+        "report_available": true,
+        "report_status": "passed",
+        "report_url": "/fdna-results/recheck/jobs/cbffbd35a3b84ce597cd5aed65e01f10/report",
+        "json_url": "/fdna-results/recheck/jobs/cbffbd35a3b84ce597cd5aed65e01f10/report.json",
+        "message": null
+      }
+    ],
+    "limit": 20,
+    "total_records": 1,
+    "read_only": true
+  },
+  "file_sha256_before_and_after": {
+    "cbffbd35a3b84ce597cd5aed65e01f10/job_status.json": "cb3504eb0b6d4e1c424d26e14e2c02a223ffccdb18a144c71b67d7422334ed1a",
+    "cbffbd35a3b84ce597cd5aed65e01f10/report/manifest.json": "c8bf48e9739f445edb41a97dc1ee0b955231f7d2e91d4388d0d8a82f60af0139",
+    "cbffbd35a3b84ce597cd5aed65e01f10/report/review_report.json": "9dfd8b91b9e40fb17aa8a434aa17b6219b5b1c24a1b3a79e785fce50174236ac",
+    "cbffbd35a3b84ce597cd5aed65e01f10/report/成果复核与阅读入口.md": "3a0bc5ab3ed4cd86b77e4b216e973066a8914eb8eca124697110c34c8b5de920",
+    "cbffbd35a3b84ce597cd5aed65e01f10/report/目录版本.json": "57b8cd127524d15cb4abb1334a859d7c20c046f382e3d1835d998dc544bd5aee",
+    "cbffbd35a3b84ce597cd5aed65e01f10/worker.log": "0563b6293f2031e74e0188d6b38f21a0340a942add85677d649a11972d57d79f"
+  }
+}

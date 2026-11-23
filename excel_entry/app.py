@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import subprocess
 import sys
 import uuid
@@ -176,14 +177,19 @@ class Handler(BaseHTTPRequestHandler):
                     jobs=getattr(self.server,'review_jobs',None)
                     result=jobs.snapshot() if jobs else dict(enabled=False,status='idle',message='未配置完整复核来源；启动服务时设置 --review-project-root。')
                     return self.send(200,json.dumps(result,ensure_ascii=False).encode('utf-8'),'application/json; charset=utf-8',headers=policy)
-                if path in ('/fdna-results/recheck/report','/fdna-results/recheck/report.json'):
+                if path=='/fdna-results/recheck/history':
+                    jobs=getattr(self.server,'review_jobs',None)
+                    result=jobs.history() if jobs else dict(enabled=False,records=[],read_only=True)
+                    return self.send(200,json.dumps(result,ensure_ascii=False).encode('utf-8'),'application/json; charset=utf-8',headers=policy)
+                matched=re.fullmatch(r'/fdna-results/recheck/jobs/([0-9a-f]{32})/(report|report\.json)',path)
+                if path in ('/fdna-results/recheck/report','/fdna-results/recheck/report.json') or matched:
                     jobs=getattr(self.server,'review_jobs',None)
                     if jobs is None:raise evidence_web.EvidenceError(409,'本次服务会话没有可用的网页复核报告')
-                    source,data=jobs.report('json' if path.endswith('.json') else 'markdown')
+                    source,data=jobs.report('json' if path.endswith('.json') else 'markdown',matched[1] if matched else None)
                     if path.endswith('.json'):
                         return self.send(200,data,'application/json; charset=utf-8',headers=dict(policy,**{'Content-Disposition':'attachment; filename="review_report.json"'}))
                     body=evidence_web.markdown_body(data.decode('utf-8'),ROOT,source)
-                    content='<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>本次网页完整复核</title><style>'+evidence_web.READER_STYLE+'</style><main><nav><a href="/fdna-results">返回优化成果</a></nav><p class="notice">这是本次网页任务的执行报告；以报告中的时间、逐项状态与未完成事项为准。</p>'+body+'</main></html>'
+                    content='<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>网页完整复核报告</title><style>'+evidence_web.READER_STYLE+'</style><main><nav><a href="/fdna-results">返回优化成果</a></nav><p class="notice">这是指定网页任务的报告；访问记录不会重新执行复核，以报告的时间与状态为准。</p>'+body+'</main></html>'
                     return self.send(200,content.encode('utf-8'),'text/html; charset=utf-8',headers=policy)
                 if path.startswith('/fdna-results/read/') or path.startswith('/fdna-results/documents/'):
                     return self.send(200,evidence_web.reading_page(ROOT,path).encode('utf-8'),'text/html; charset=utf-8',headers=policy)

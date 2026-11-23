@@ -17,7 +17,7 @@ function render(data){
 }
 async function refresh(){const button=$('refresh');button.disabled=true;$('banner').className='banner';$('banner').textContent='正在检查发布材料…';try{const response=await fetch('/fdna-results/status',{cache:'no-store'});const data=await response.json();if(!response.ok)throw Error(data.error||'无法读取检查结果');render(data);}catch(error){$('banner').className='banner bad';$('banner').textContent='本次检查未完成：'+error.message+'。下方若有内容，是上次载入的结果。';}finally{button.disabled=false;}}
 $('refresh').addEventListener('click',refresh);refresh();
-let recheckTimer;
+let recheckTimer,lastHistoryKey='';
 function renderRecheck(data){
   $('start-recheck').disabled=!data.enabled||data.status==='running';
   $('recheck-config').textContent=data.enabled?'来源已由服务端配置。点击后在后台逐项复核，页面仍可查看材料。报告保留在新运行目录。':(data.message||'服务未配置完整复核来源。');
@@ -28,8 +28,18 @@ function renderRecheck(data){
   $('recheck-tasks').replaceChildren();for(const t of data.tasks||[]){const state={pending:'等待',running:'运行中',passed:'通过',failed:'失败'}[t.status]||t.status;$('recheck-tasks').append(node('li',t.title+'：'+state+(t.error?'；'+t.error:'')));}
   $('recheck-links').replaceChildren();if(data.report_url){$('recheck-links').append(link('打开本次完整报告',data.report_url),document.createTextNode('　'),link('下载本次JSON报告',data.json_url));}
   if(data.status==='running')recheckTimer=setTimeout(pollRecheck,1000);
+  const historyKey=String(data.id)+':'+data.status;if(historyKey!==lastHistoryKey){lastHistoryKey=historyKey;loadJobHistory();}
 }
 async function pollRecheck(){clearTimeout(recheckTimer);try{const response=await fetch('/fdna-results/recheck/status',{cache:'no-store'});const data=await response.json();if(!response.ok)throw Error(data.error||'状态读取失败');renderRecheck(data);}catch(error){$('recheck-status').textContent='无法确认任务状态：'+error.message+'。刷新页面重试不会自动启动新任务。';$('start-recheck').disabled=true;}}
 $('start-recheck').addEventListener('click',async()=>{clearTimeout(recheckTimer);$('start-recheck').disabled=true;try{const response=await fetch('/fdna-results/recheck',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});const data=await response.json();if(!response.ok)throw Error(data.error||'启动失败');renderRecheck(data);}catch(error){await pollRecheck();$('recheck-status').textContent+='；启动请求未能确认：'+error.message;}});
 $('refresh-recheck').addEventListener('click',pollRecheck);
 pollRecheck();
+async function loadJobHistory(){
+  const button=$('refresh-job-history');button.disabled=true;
+  try{const response=await fetch('/fdna-results/recheck/history',{cache:'no-store'});const data=await response.json();if(!response.ok)throw Error(data.error||'记录读取失败');
+    $('local-history-status').textContent=!data.enabled?'服务未配置本地复核来源。':data.records.length?`已读取${data.records.length}条记录。记录时间与状态不代表本次重新运行。`:'暂无本地网页复核记录。';
+    $('local-history-rows').replaceChildren();const labels={passed:'通过',failed:'失败',running:'本会话运行中',unconfirmed:'运行状态未确认',invalid:'记录检查未通过'};
+    for(const r of data.records){const tr=node('tr');const id=node('td',r.id.slice(0,8));id.title=r.id;const state=node('td');state.append(node('span',labels[r.status]||r.status,'badge '+(r.status==='passed'?'':r.status==='failed'||r.status==='invalid'?'failed':'partial')));const report=node('td');if(r.report_available){report.append(link('打开',r.report_url),document.createTextNode(' / '),link('JSON',r.json_url));}else report.textContent='无可用报告';tr.append(id,node('td',r.started_at_utc?time(r.started_at_utc):'未记录'),state,node('td',r.message||'报告摘要已核对'),report);$('local-history-rows').append(tr);}
+  }catch(error){$('local-history-status').textContent='记录读取失败：'+error.message+'。下方若有记录，是上次载入的内容。';}finally{button.disabled=false;}
+}
+$('refresh-job-history').addEventListener('click',loadJobHistory);
