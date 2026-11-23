@@ -1,0 +1,210 @@
+"""python -m design run INPUT --output-dir generated/design"""
+import argparse
+import hashlib
+import json
+from pathlib import Path
+import sys
+
+from check_ontology import analyze_graph
+from rdflib import Graph
+from source_data.common import read_json, write_outputs
+from source_data.ingest import ingest
+from source_data.validate import validate_bundle
+
+from .engine import DesignError, SearchLimitError, design
+from .rdf import design_to_rdf
+from .knowledge import ontology_for_document, knowledge_outputs, knowledge_sources
+
+ROOT = Path(__file__).resolve().parent.parent
+
+
+def render_summary(result):
+    lines = ["# 法术链设计报告", "", f"状态：{result['status']}", "", f"数据范围：{result['scope']}", ""]
+    mapping = result['ontology_mapping']
+    if 'sequence_model' in result:
+        lines += ['顺序序列模式：至少三个环节，每环节一个执行对象，可重复角色；末尾评估仅在模板显式配置时参与，不表示并行联合执行。',
+                  '评价配置：' + json.dumps(result['sequence_model']['evaluation'], ensure_ascii=False),
+                  'sequential_product是显式工程假设，并非新文章给出的联合效果公式；feasible_trajectories仅表示逐目标轨迹生成完成。', '']
+    if 'owl_reasoning' in result:
+        owl = result['owl_reasoning']
+        lines += ['## 外置知识与OWL推导', '', f"实际推理器：{owl['engine']}；状态：{owl['status']}。", '',
+                  '知识版本：' + result['knowledge']['sha256'],
+                  '知识文件：' + '、'.join(file['path'] for file in result['knowledge']['files']), '', owl['scope'], '']
+        for task in result['tasks']:
+            evidence = task.get('owl_evidence', {})
+            lines += [f"任务 {task['task']} 的OWL类别：{'、'.join(evidence.get('types', []))}",
+                      'OWL能力需求：' + json.dumps(evidence.get('required_capabilities', {}), ensure_ascii=False), '']
+    if 'ontology_inference' in result:
+        inference = result['ontology_inference']
+        lines += ['## 本体分类推导', '', inference['scope'], '',
+                  '| 法器 | 输入方式 | 推导角色 | 分类路径 |', '| --- | --- | --- | --- |']
+        for item in inference['artifacts']:
+            basis = ' → '.join(item['role_path']) or 'HermiT根据类定义推导'
+            lines.append(f"| {item['artifact']} | {item['input_kind']} | {item['role']} | {basis} |")
+        lines += ['', '分类结果已用于候选筛选；业务条件与资源优化由规则及设计引擎继续执行。', '']
+        relations = inference.get('relations', {})
+        lines += ['### 本体关系推导', '', relations.get('scope', ''), '',
+                  f"输入关系 {len(relations.get('assertions', []))} 项；可用关系事实 {len(relations.get('facts', []))} 项。", '',
+                  '| 主体 | 关系 | 客体 | 依据 | 来源 |', '| --- | --- | --- | --- | --- |']
+        for fact in relations.get('facts', []):
+            proof = fact['derivation']
+            lines.append(f"| {fact['subject']['id']} | {fact['predicate']} | {fact['object']['id']} | {proof['rule']} | {'；'.join(proof['source_refs'])} |")
+        lines += ['', '缺少能力或协同事实保持未知；能力声明不替代距离、目标类型及资源核验。', '']
+    if 'article_table10' in result:
+        lines += [f"表10原文条件已启用；组网核验：{result['article_table10']['status']}。逐项筛选与组合依据见JSON报告。", '']
+        search = result['network_search']
+        if search.get('score_bound_enabled') is False:
+            lines += [f"表10提前剪除 {search['pruned_table10']} 个确定失败的部分组合；组合依据仅列实际访问的完整组合。评分上界剪枝关闭，未知条件仍须核验。", '']
+    lines += [f"本体映射：{mapping['status']}；已映射 {mapping['mapped']}／{mapping['total']}；未映射 {mapping['unmapped']}",
+              f"规范URI导出就绪：{'是' if result['canonical_export_ready'] else '否'}", ""]
+    for task in result["tasks"]:
+        lines += [f"## {task['task']}", "", f"目标：{task['target']}", "",
+                  "| 候选链 | 顺序执行对象 | 时间（秒） | 精度乘积 | 使用成本 | 评分 |", "| --- | --- | ---: | ---: | ---: | ---: |"]
+        for chain in task["chains"]:
+            metrics = chain["metrics"] or {}
+            score = "未评分" if chain["score"] is None else f"{chain['score']:.6f}"
+            values = [f"{metrics[key]:.8g}" if key in metrics else "缺失" for key in ("time", "accuracy", "cost")]
+            lines.append(f"| {chain['id']} | {' → '.join(chain['artifacts'].values())} | {' | '.join(values)} | {score} |")
+        lines += ["", f"阻塞项：{json.dumps(task['blockers'], ensure_ascii=False)}", ""]
+        if 'sequence_generation' in task:
+            lines += ['序列生成：' + json.dumps(task['sequence_generation'], ensure_ascii=False), '']
+            for candidate in task['chains']:
+                lines += [candidate['id'] + '：' + ' → '.join(
+                    f"{step['id']}[{step['activity']}]={step['artifact']}" for step in candidate['plan']['steps']), '']
+        for binding in task['ontology_bindings']:
+            lines.append(f"- 能力对应 {binding['role']}／{binding['capability']}："
+                         + (binding['canonical_uri'] or '未映射；默认导出仅使用局部个体')
+                         + f"；{binding['reason']}")
+    network = result["network"]
+    if network:
+        lines += ["## 选中奥术网", "", f"链：{', '.join(network['chains'])}", "",
+                  f"目标函数：每个任务内归一化评分的算术平均；最优值 {network['score']:.6f}。", "",
+                  f"计划跨度：{network['makespan_s']} 秒；按次使用成本合计：{network['cost_per_execution']} {network['cost_unit']}。", "",
+                  "这是给定规则、资源和固定开始时间下的确定性计划；不表示动态场景仿真或实测效果。", ""]
+        lines += ["| 任务 | 选中链 | 闭合路径 |", "| --- | --- | --- |"]
+        for task in result['tasks']:
+            for chain in task['chains']:
+                if chain['id'] in network['chains']:
+                    lines.append(f"| {task['task']} | {chain['id']} | {' → '.join(chain['closed_path'])} |")
+        search = result['network_search']
+        lines += ["", f"搜索方式：{search.get('algorithm', 'exhaustive')}；最优性状态：{search.get('optimality', 'not_proven')}。",
+                  (f"网络组合：检查 {search['evaluated']} 组，可行 {search['feasible']} 组。"
+                   if search.get('algorithm') == 'exhaustive' else
+                   f"已检查完整组合 {search['evaluated']} 组，其中可行 {search['feasible']} 组。"),
+                  (f"访问搜索节点 {search['nodes']}；约束剪枝 {search['pruned_constraints']}；评分上界剪枝 {search['pruned_bound']}。剪枝模式下计数不是全部可行方案数。"
+                   if search.get('algorithm') == 'branch_and_bound' else '穷举计数覆盖全部完整组合。'),
+                  "资源冲突计数（同一组合可同时违反多项约束）：", ""]
+        for rejection in search['rejections']:
+            lines.append(f"- {rejection['code']}／{rejection['resource']}：{rejection['count']}")
+    lines += ["完整规则命中、排除原因、资源冲突及来源记录见 design_report.json。", ""]
+    return "\n".join(lines)
+
+
+def audit_case(input_path, mapping_path):
+    bundle = ingest(input_path, mapping_path)
+    validation = validate_bundle(bundle, original_path=input_path)
+    if validation["counts"]["ERROR"]:
+        raise DesignError(str(validation["errors"]))
+    return {"status": "blocked", "scope": "来源层就绪性检查；未将案例值自动转换为完整设计输入", "counts": validation["counts"],
+            "issues": [{"id": issue["id"], "code": issue["code"], "description": issue["description"], "status": issue["status"]} for issue in bundle["issues"]],
+            "gaps": bundle["gaps"], "network": None,
+            "required_inputs": ["确认目标坐标与每个法器到目标的距离", "补充协调法器及明确的传讯、统筹边和传讯距离",
+                                "确认每项能力的条件、阈值和单位", "补充三阶段耗时、[0,1]精度和同口径使用成本",
+                                "提供任务相对开始时间、资源容量、库存和冷却时间", "将确认数据填写为 design/schema.json 契约；保留来源与阻塞疑点"],
+            "corrections": [{"rule": "目标近 → 近程具现能力", "basis": "用户于2026-10-27明确更正原文笔误", "distance_threshold": None}]}
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    sub = parser.add_subparsers(dest="command", required=True)
+    run = sub.add_parser("run")
+    run.add_argument("input", type=Path)
+    run.add_argument("--output-dir", type=Path, required=True)
+    run.add_argument("--overwrite", action="store_true")
+    run.add_argument("--require-canonical", action="store_true",
+                     help="链网完整且能力全部对应规范URI时才导出RDF，否则保存报告并返回1")
+    capabilities = sub.add_parser("infer-capabilities", help="独立执行任务→能力推理，不要求法器或评分数据")
+    capabilities.add_argument("input", type=Path)
+    capabilities.add_argument("--output-dir", type=Path, required=True)
+    capabilities.add_argument("--overwrite", action="store_true")
+    capabilities.add_argument("--require-canonical", action="store_true",
+                              help="仅在推理完整且能力全部对应规范URI时导出RDF，否则保存报告并返回1")
+    audit = sub.add_parser("audit-case")
+    audit.add_argument("--input", type=Path, default=ROOT / "data/article_source/case_records.json")
+    audit.add_argument("--mapping", type=Path, default=ROOT / "source_mappings/case_fields.json")
+    audit.add_argument("--output-dir", type=Path)
+    audit.add_argument("--overwrite", action="store_true")
+    reference = sub.add_parser("reference-case", aliases=['reproduce-case'], help="记录文章原始数据、原文评分和链结构，不推算指标")
+    reference.add_argument("--output-dir", type=Path, required=True)
+    reference.add_argument("--overwrite", action="store_true")
+    args = parser.parse_args(argv)
+    try:
+        if args.command == "infer-capabilities":
+            from .capabilities import infer_capabilities, capability_rdf, capability_summary
+            doc = read_json(args.input)
+            result = infer_capabilities(doc)
+            outputs = {}
+            if result["status"] == "complete" and (not args.require_canonical or result['canonical_export_ready']):
+                graph = capability_rdf(doc, result, require_canonical=args.require_canonical)
+                review = analyze_graph(ontology_for_document(doc) + graph)
+                if review.counts()["ERROR"] or review.counts()["WARN"]:
+                    raise DesignError(f"能力实例未通过主本体静态检查：{review.items}")
+                outputs["capabilities.ttl"] = graph.serialize(format="turtle")
+            elif (args.output_dir / "capabilities.ttl").exists():
+                raise DesignError("输出目录含既有 capabilities.ttl；请为未满足本次导出条件的报告使用新目录，避免混淆旧结果")
+            outputs["capability_report.json"] = json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n"
+            outputs["capability_summary.md"] = capability_summary(result)
+            outputs.update(knowledge_outputs(doc, result))
+            write_outputs(args.output_dir, outputs, overwrite=args.overwrite, protected=[args.input] + knowledge_sources(doc))
+        elif args.command in ("reference-case", "reproduce-case"):
+            from .reference import REFERENCE_PATH, reference_summary, reference_to_rdf, load_reference, reference_view_html
+            result = load_reference()
+            graph = reference_to_rdf(result)
+            review = analyze_graph(Graph().parse(ROOT / "arcane_ontology.ttl", format="turtle") + graph)
+            if review.counts()["ERROR"] or review.counts()["WARN"]:
+                raise DesignError(f"文章方案结构检查失败：{review.items}")
+            result["validation"]["rdf_structure"] = review.counts()
+            write_outputs(args.output_dir, {
+                "reference_chain.ttl": graph.serialize(format="turtle"),
+                "reference_view.html": reference_view_html(result),
+                "reference_report.json": json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n",
+                "reference_chain.md": reference_summary(result)}, overwrite=args.overwrite, protected=[REFERENCE_PATH])
+        elif args.command == "audit-case":
+            result = audit_case(args.input, args.mapping)
+            if args.output_dir:
+                write_outputs(args.output_dir, {"case_readiness.json": json.dumps(result, ensure_ascii=False, indent=2) + "\n"},
+                              overwrite=args.overwrite, protected=[args.input, args.mapping])
+        else:
+            doc = read_json(args.input)
+            result = design(doc)
+            result["input_file_sha256"] = hashlib.sha256(args.input.read_bytes()).hexdigest()
+            outputs = {}
+            if result["status"] == "complete" and (not args.require_canonical or result['canonical_export_ready']):
+                graph = design_to_rdf(doc, result, require_canonical=args.require_canonical)
+                combined = ontology_for_document(doc) + graph
+                review = analyze_graph(combined)
+                if review.counts()["ERROR"] or review.counts()["WARN"]:
+                    raise DesignError(f"生成实例未通过主本体静态检查：{review.items}")
+                result["rdf_validation"] = review.counts()
+                outputs["design.ttl"] = graph.serialize(format="turtle")
+            # An old successful RDF must never survive beside a blocked report.
+            target = args.output_dir / "design.ttl"
+            if 'design.ttl' not in outputs and target.exists():
+                raise DesignError("输出目录含既有 design.ttl；请为未满足导出条件的报告使用新目录，避免混淆旧方案")
+            outputs["design_report.json"] = json.dumps(result, ensure_ascii=False, indent=2, allow_nan=False) + "\n"
+            outputs["design_summary.md"] = render_summary(result)
+            outputs.update(knowledge_outputs(doc, result))
+            write_outputs(args.output_dir, outputs, overwrite=args.overwrite, protected=[args.input] + knowledge_sources(doc))
+        print(json.dumps(result, ensure_ascii=False, allow_nan=False))
+        if args.command in ('infer-capabilities', 'run') and args.require_canonical and not result['canonical_export_ready']:
+            return 1
+        return 0 if result["status"] in {"complete", "reference_recorded", "feasible_trajectories"} else 1
+    except (ValueError, OSError) as exc:
+        result = {"status": "search_limit" if isinstance(exc, SearchLimitError) else "invalid", "error": str(exc), "network": None}
+        print(json.dumps(result, ensure_ascii=False))
+        print(str(exc), file=sys.stderr)
+        return 2
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

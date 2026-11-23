@@ -1,0 +1,105 @@
+{
+  "format_version": "1.0",
+  "id": "arcane_dependency_annotations",
+  "basis": "仅将文稿中的交互叙述和效能判断登记为审查样例，不代表从原始推演记录独立识别了完整网络。",
+  "data_kind": "source_annotation",
+  "case_sha256": "f2fd995e116794e1cdf56c4034523d496be594d1f10ff37421969c9deb1f2ed8",
+  "structure_sha256": "dc51b3661bd4bd52422addb4e0512dae1d3d901c2d75c313764db1fcdfb00270",
+  "focus_receivers": [
+    "D2",
+    "D4",
+    "S5",
+    "F11"
+  ],
+  "evidence": [
+    {
+      "id": "initial_exchange",
+      "kind": "interaction",
+      "locator": "文稿5.1节，表4后关于S1与D2、D4的叙述",
+      "basis": "文稿记载初始感知信息交互。",
+      "source_refs": [
+        "fantasy:table4"
+      ]
+    },
+    {
+      "id": "initial_effect",
+      "kind": "effect",
+      "locator": "文稿5.1节，表4后效能影响判断",
+      "basis": "文稿称该处直接效能影响不明显，归结为对浮游探知单元探知效果的影响；不表示普遍不存在影响。",
+      "source_refs": [
+        "fantasy:table4"
+      ]
+    },
+    {
+      "id": "coordination_exchange",
+      "kind": "interaction",
+      "locator": "文稿5.4.2节，感知魔像统筹与浮游探知灵体",
+      "basis": "文稿描述统筹活动与有效跟踪之间的协同。",
+      "source_refs": [
+        "fantasy:section5_4"
+      ]
+    },
+    {
+      "id": "coordination_effect",
+      "kind": "effect",
+      "locator": "文稿5.4.2节，对D4与S5、S6的解释",
+      "basis": "文稿指出浮游探知灵体有效跟踪受到感知魔像统筹效能影响。仅登记原文定性判断。",
+      "source_refs": [
+        "fantasy:section5_4"
+      ]
+    }
+  ],
+  "interactions": [
+    {
+      "id": "S1_D2",
+      "context": "文稿初始感知交互",
+      "feeder_activity": "Act_KC1_1",
+      "receiver_activity": "Act_KC1_2",
+      "feeder": "S1",
+      "receiver": "D2",
+      "interaction_evidence": [
+        "initial_exchange"
+      ],
+      "effect": "not_obvious",
+      "effect_evidence": [
+        "initial_effect"
+      ],
+      "review": "exclude",
+      "review_basis": "在本文关注的能力网络中不单独纳入该直接边。"
+    },
+    {
+      "id": "S1_D4",
+      "context": "文稿初始感知交互",
+      "feeder_activity": "Act_KC1_1",
+      "receiver_activity": "Act_KC1_3",
+      "feeder": "S1",
+      "receiver": "D4",
+      "interaction_evidence": [
+        "initial_exchange"
+      ],
+      "effect": "not_obvious",
+      "effect_evidence": [
+        "initial_effect"
+      ],
+      "review": "exclude",
+      "review_basis": "依文稿将影响归结到后续浮游探知单元，不从信息交互直接补边。"
+    },
+    {
+      "id": "D4_S5",
+      "context": "文稿对统筹与有效跟踪的解释",
+      "feeder_activity": "Act_KC1_3",
+      "receiver_activity": "Act_KC1_4",
+      "feeder": "D4",
+      "receiver": "S5",
+      "interaction_evidence": [
+        "coordination_exchange"
+      ],
+      "effect": "supported",
+      "effect_evidence": [
+        "coordination_effect"
+      ],
+      "review": "include",
+      "review_basis": "纳入原文定性说明支持的候选边，不声称已经重新验证因果效果或估计参数。"
+    }
+  ]
+}

@@ -3,7 +3,7 @@
   "id": "arcane_indicator_records_check",
   "data_kind": "method_check",
   "reference": "Artificial table5 extraction check only; explicitly paired KC1 and KC2 observations, not original records.",
-  "plan_sha256": "d9dba88136c0cbc09866c11fa26f835fc94f2e8967da4e49d0f6ccd41c360b3f",
+  "plan_sha256": "79b632ac8cdb60ff1b51da4ec8577fa4bb2123879d6e367636ee66828b802452",
   "time_unit": "time_scale",
   "runs": [
     {

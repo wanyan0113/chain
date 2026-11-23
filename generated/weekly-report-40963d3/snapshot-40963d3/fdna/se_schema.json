@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "text": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "rule": {"type": ["object", "null"], "additionalProperties": false,
+      "required": ["method", "measure", "direction", "lower", "upper", "unit", "basis"],
+      "properties": {"method": {"const": "linear_minmax"}, "measure": {"enum": ["value", "elapsed"]},
+        "direction": {"enum": ["cost", "benefit"]}, "lower": {"type": "number", "minimum": 0},
+        "upper": {"type": "number", "minimum": 0}, "unit": {"$ref": "#/$defs/text"}, "basis": {"$ref": "#/$defs/text"}}},
+    "observation": {"oneOf": [{"type": "null"},
+      {"type": "object", "additionalProperties": false, "required": ["value", "unit"],
+       "properties": {"value": {"type": ["number", "null"], "minimum": 0}, "unit": {"$ref": "#/$defs/text"}}},
+      {"type": "object", "additionalProperties": false, "required": ["start", "end", "unit"],
+       "properties": {"start": {"type": ["number", "null"], "minimum": 0}, "end": {"type": ["number", "null"], "minimum": 0},
+                      "unit": {"$ref": "#/$defs/text"}}}]}
+  },
+  "oneOf": [
+    {"type": "object", "additionalProperties": false, "required": ["format_version", "id", "basis", "rules"],
+     "properties": {"format_version": {"const": "1.0"}, "id": {"$ref": "#/$defs/text"}, "basis": {"$ref": "#/$defs/text"},
+       "rules": {"type": "object", "minProperties": 1, "additionalProperties": {"$ref": "#/$defs/rule"}}}},
+    {"type": "object", "additionalProperties": false, "required": ["format_version", "id", "data_kind", "reference", "records"],
+     "properties": {"format_version": {"const": "1.0"}, "id": {"$ref": "#/$defs/text"},
+       "data_kind": {"enum": ["user_supplied_measurements", "method_check"]}, "reference": {"$ref": "#/$defs/text"},
+       "records": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false,
+         "required": ["id", "observations"], "properties": {"id": {"$ref": "#/$defs/text"},
+           "observations": {"type": "object", "additionalProperties": {"$ref": "#/$defs/observation"}}}}}}}
+  ]
+}

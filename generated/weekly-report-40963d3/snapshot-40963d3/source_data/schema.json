@@ -1,0 +1,530 @@
+{
+  "type": "object",
+  "required": [
+    "format_version",
+    "metadata",
+    "materials",
+    "tables",
+    "fields",
+    "records",
+    "values",
+    "issues",
+    "gaps",
+    "statements"
+  ],
+  "properties": {
+    "format_version": {
+      "const": "1.0"
+    },
+    "metadata": {
+      "type": "object",
+      "required": [
+        "input_filename",
+        "input_sha256",
+        "mapping",
+        "raw_document"
+      ],
+      "properties": {
+        "input_filename": {
+          "type": "string",
+          "minLength": 1
+        },
+        "input_sha256": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mapping": {
+          "type": "object"
+        },
+        "raw_document": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "materials": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/material"
+      }
+    },
+    "tables": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/table"
+      }
+    },
+    "fields": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/field"
+      }
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/record"
+      }
+    },
+    "values": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/value"
+      }
+    },
+    "issues": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/issue"
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/gap"
+      }
+    },
+    "statements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/statement"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "material": {
+      "type": "object",
+      "required": [
+        "id",
+        "filename",
+        "locator",
+        "transcription_sha256",
+        "checked_on"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "filename": {
+          "type": "string",
+          "minLength": 1
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transcription_sha256": {
+          "type": "string",
+          "minLength": 1
+        },
+        "checked_on": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "table": {
+      "type": "object",
+      "required": [
+        "id",
+        "material_ids",
+        "name",
+        "input_path"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "material_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "input_path": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "field": {
+      "type": "object",
+      "required": [
+        "id",
+        "table_id",
+        "key",
+        "header",
+        "types",
+        "cardinality",
+        "unit"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "table_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "header": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "types": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "cardinality": {
+          "enum": [
+            "single",
+            "multiple",
+            "mixed"
+          ]
+        },
+        "unit": {
+          "type": "object",
+          "required": [
+            "description",
+            "status"
+          ],
+          "properties": {
+            "description": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "enum": [
+                "confirmed",
+                "unconfirmed",
+                "unknown",
+                "not_applicable",
+                "dimensionless"
+              ]
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "record": {
+      "type": "object",
+      "required": [
+        "id",
+        "table_id",
+        "row_number",
+        "input_path",
+        "original_code",
+        "raw_object"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "table_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "row_number": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "input_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "original_code": {},
+        "raw_object": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "value": {
+      "type": "object",
+      "required": [
+        "id",
+        "record_id",
+        "field_id",
+        "input_path",
+        "raw_value",
+        "raw_type",
+        "missing_status",
+        "normalized_value",
+        "normalization_basis",
+        "issue_ids"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "record_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "field_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "input_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "raw_value": {},
+        "raw_type": {
+          "enum": [
+            "null",
+            "boolean",
+            "integer",
+            "number",
+            "string",
+            "array",
+            "object"
+          ]
+        },
+        "missing_status": {
+          "enum": [
+            "present",
+            "null",
+            "missing",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "normalized_value": {},
+        "normalization_basis": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "issue_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "issue": {
+      "type": "object",
+      "required": [
+        "id",
+        "code",
+        "category",
+        "description",
+        "status",
+        "record_ids",
+        "field_ids",
+        "value_ids",
+        "table_ids",
+        "statement_ids",
+        "gap_ids",
+        "material_ids",
+        "input_path",
+        "raw",
+        "basis"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "category": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "open",
+            "resolved",
+            "deferred"
+          ]
+        },
+        "record_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "field_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "value_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "table_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "statement_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "gap_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "material_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "input_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "raw": {
+          "type": "object"
+        },
+        "basis": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "gap": {
+      "type": "object",
+      "required": [
+        "id",
+        "description",
+        "status",
+        "input_path",
+        "raw"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "open",
+            "resolved",
+            "deferred"
+          ]
+        },
+        "input_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "raw": {}
+      },
+      "additionalProperties": false
+    },
+    "statement": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "input_path",
+        "material_ids",
+        "raw"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "input_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "material_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "raw": {}
+      },
+      "additionalProperties": false
+    }
+  }
+}

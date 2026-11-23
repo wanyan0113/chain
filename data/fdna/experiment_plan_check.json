@@ -99,7 +99,7 @@
     },
     {
       "id": "ark_speed",
-      "label": "浮空方舟逃逸速度",
+      "label": "浮空方舟离场速度",
       "category": "environment",
       "target_kind": "target",
       "targets": [

@@ -1,0 +1,24 @@
+{
+  "scope": "虚构双链并行组，仅验证表10协同规则，不是文章案例",
+  "mode": "declared_parallel_group",
+  "blocking_issue_ids": [],
+  "artifacts": [
+    {"id":"eye","role":"insight","detection_range":{"value":20,"unit":"nmi"},"max_tracks":3,"source_refs":["technical-fixture"]},
+    {"id":"coordinator","role":"coordination","max_processing_targets":3,"source_refs":["technical-fixture"]},
+    {"id":"action-1","role":"manifestation","source_refs":["technical-fixture"]},
+    {"id":"action-2","role":"manifestation","source_refs":["technical-fixture"]}
+  ],
+  "chains": [
+    {"id":"chain-1","task":"task-1","target_count":1,"insight":"eye","coordination":"coordinator","manifestation":"action-1","source_refs":["technical-fixture"]},
+    {"id":"chain-2","task":"task-2","target_count":1,"insight":"eye","coordination":"coordinator","manifestation":"action-2","source_refs":["technical-fixture"]}
+  ],
+  "links": [
+    {"from":"eye","to":"coordinator","communicates":true,"distance":{"value":1,"unit":"nmi"},"max_distance":{"value":10,"unit":"nmi"},"source_refs":["technical-fixture"]},
+    {"from":"coordinator","to":"action-1","communicates":true,"controls":true,"distance":{"value":1,"unit":"nmi"},"max_distance":{"value":10,"unit":"nmi"},"source_refs":["technical-fixture"]},
+    {"from":"coordinator","to":"action-2","communicates":true,"controls":true,"distance":{"value":1,"unit":"nmi"},"max_distance":{"value":10,"unit":"nmi"},"source_refs":["technical-fixture"]}
+  ],
+  "contexts": [
+    {"task":"task-1","artifact":"eye","target_distance":{"value":5,"unit":"nmi"},"source_refs":["technical-fixture"]},
+    {"task":"task-2","artifact":"eye","target_distance":{"value":6,"unit":"nmi"},"source_refs":["technical-fixture"]}
+  ]
+}

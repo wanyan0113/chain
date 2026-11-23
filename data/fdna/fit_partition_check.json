@@ -3,8 +3,8 @@
   "id": "arcane_prepared_fit_method_check",
   "basis": "Artificial one-run handoff check only. The sole run is assigned to training; no holdout is fabricated and the sample is insufficient for fitting.",
   "data_kind": "method_check",
-  "batch_sha256": "85df9496df3dbf9c21b926d37891cdefb35679b8966e1e2ad85f250a921e009c",
-  "extraction_sha256": "263521a1431414191f4e66d49e6f2448424ee092133db5e99d13af6854892504",
+  "batch_sha256": "80f62a5aab6c2b53c42de53ae7f459dd5e87ecb5c03990e603aabb3e4b732b0d",
+  "extraction_sha256": "ca54a0ed1c1cb9979dd4391ea0d637d405a3642ae928e1be620f98303d9454b4",
   "run_splits": {
     "run_check": "train"
   }

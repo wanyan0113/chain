@@ -1,0 +1,32 @@
+@prefix src: <urn:source-data:> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:source-data> a owl:Ontology ; owl:versionInfo "1.0" ; rdfs:comment "Lossless source archive; no domain inference." .
+src:Bundle a owl:Class .
+src:Material a owl:Class .
+src:Table a owl:Class .
+src:Field a owl:Class .
+src:Record a owl:Class .
+src:FieldValue a owl:Class .
+src:Issue a owl:Class .
+src:Gap a owl:Class .
+src:SourceStatement a owl:Class .
+src:id a owl:DatatypeProperty ; rdfs:range xsd:string .
+src:payload a owl:DatatypeProperty ; rdfs:range xsd:string .
+src:contains a owl:ObjectProperty .
+src:basis a owl:ObjectProperty .
+src:field_id a owl:ObjectProperty .
+src:field_ids a owl:ObjectProperty .
+src:gap_ids a owl:ObjectProperty .
+src:issue_ids a owl:ObjectProperty .
+src:material_ids a owl:ObjectProperty .
+src:normalization_basis a owl:ObjectProperty .
+src:record_id a owl:ObjectProperty .
+src:record_ids a owl:ObjectProperty .
+src:statement_ids a owl:ObjectProperty .
+src:table_id a owl:ObjectProperty .
+src:table_ids a owl:ObjectProperty .
+src:value_ids a owl:ObjectProperty .

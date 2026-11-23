@@ -1,0 +1,29 @@
+{
+  "scope": "表10任务—法器直接筛选规则；不推导任务所需能力，不证明可成链或可组网",
+  "source": "联想截图_20261027151000.png：表10前两类规则",
+  "rules": [
+    {
+      "id": "table10-insight",
+      "role": "insight",
+      "conditions": [
+        {"id": "I1", "quote": "灵视探知法器目标类型需要包含任务目标类型", "field": "artifact.target_types", "op": "contains", "ref": "task.target_type"},
+        {"id": "I2", "quote": "灵视探知距离需要大于任务目标距离", "field": "artifact.detection_range", "op": "gt", "ref": "context.target_distance"}
+      ]
+    },
+    {
+      "id": "table10-manifestation",
+      "role": "manifestation",
+      "conditions": [
+        {"id": "M1", "quote": "具现法器目标类型需要包含任务目标类型", "field": "artifact.target_types", "op": "contains", "ref": "task.target_type"},
+        {"id": "M2", "quote": "最大魔力触及距离需要大于任务目标距离", "field": "artifact.max_range", "op": "gt", "ref": "context.target_distance"},
+        {"id": "M3", "quote": "最小魔力触及距离需要小于目标距离", "field": "artifact.min_range", "op": "lt", "ref": "context.target_distance"},
+        {"id": "M4", "quote": "共鸣效值需要大于目标阻抗阈值", "field": "artifact.resonance", "op": "gt", "ref": "task.impedance"},
+        {"id": "M5", "quote": "目标飞行极速需要大于任务目标速度", "field": "artifact.max_target_speed", "op": "gt", "ref": "task.target_speed"},
+        {"id": "M6", "quote": "目标低位弦长需要小于任务目标高度", "field": "artifact.min_target_altitude", "op": "lt", "ref": "task.target_altitude"},
+        {"id": "M7", "quote": "目标高位弦长需要大于任务目标高度", "field": "artifact.max_target_altitude", "op": "gt", "ref": "task.target_altitude"},
+        {"id": "M8", "quote": "最小激发基准需要小于承载平台浮空势位", "field": "artifact.min_activation_altitude", "op": "lt", "ref": "context.platform_altitude"},
+        {"id": "M9", "quote": "最大激发基准需要大于承载平台浮空势位", "field": "artifact.max_activation_altitude", "op": "gt", "ref": "context.platform_altitude"}
+      ]
+    }
+  ]
+}

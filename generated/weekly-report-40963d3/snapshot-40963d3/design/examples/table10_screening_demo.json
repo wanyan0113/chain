@@ -1,0 +1,6 @@
+{
+  "role": "insight",
+  "task": {"target_type": "法球"},
+  "artifact": {"target_types": ["法球"], "detection_range": {"value": 20, "unit": "nmi"}},
+  "context": {"target_distance": {"value": 10, "unit": "nmi"}}
+}

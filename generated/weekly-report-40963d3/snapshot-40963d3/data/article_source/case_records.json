@@ -1,0 +1,465 @@
+{
+  "checked_on": "2026-10-26",
+  "scope": "案例资料的结构化记录，用于来源追溯、查询与一致性校验。",
+  "source_files": {
+    "table7": "联想截图_20261024172115.png",
+    "table8_table9": "联想截图_20261024172129.png",
+    "table11": "联想截图_20261024172151.png",
+    "case_text": "联想截图_20261024172101.png、联想截图_20261024172115.png",
+    "table10": "联想截图_20261024172142.png",
+    "resource_count_text": "联想截图_20261024172156.png"
+  },
+  "units": {
+    "coordinates": "原图度分秒字符串；保留N/E及原列名，未纠正方向疑点",
+    "altitude": "ft",
+    "distance": "n mile",
+    "speed": "kn",
+    "attunement_probability": "%",
+    "insight_precision": "原表未标单位；后文表13按百分比使用",
+    "resonance_value": "原表未给物理单位",
+    "impedance_threshold": "原表未给物理单位"
+  },
+  "identity_mapping": {
+    "R-Golem": "R-Golem",
+    "R-Spire": "R-Spire",
+    "R-Rune": "R-Rune",
+    "R-Gryphon": "R-Gryphon",
+    "R-Gryphon#1": "R-Gryphon#1",
+    "R-Gryphon#2": "R-Gryphon#2",
+    "B-Mirror": "B-Mirror",
+    "B-Eidolon": "B-Eidolon",
+    "B-Eidolon#1": "B-Eidolon#1",
+    "B-Orb": "B-Orb",
+    "R-Eye-A": "R-Eye-A",
+    "R-Eye-B": "R-Eye-B",
+    "R-Eye-C": "R-Eye-C",
+    "R-Eye-D": "R-Eye-D",
+    "R-Sigil-A": "R-Sigil-A",
+    "R-Sigil-B": "R-Sigil-B",
+    "R-Sigil-C": "R-Sigil-C",
+    "R-Sigil-D": "R-Sigil-D",
+    "R-Sigil-E": "R-Sigil-E",
+    "R-Sigil-F": "R-Sigil-F"
+  },
+  "table7": [
+    {
+      "side": "暮影学会",
+      "name": "星界观照镜",
+      "id": "B-Mirror",
+      "count": 1
+    },
+    {
+      "side": "暮影学会",
+      "name": "幻影魔",
+      "id": "B-Eidolon",
+      "count": 2
+    },
+    {
+      "side": "暮影学会",
+      "name": "幽光法球",
+      "id": "B-Orb",
+      "count": 4
+    },
+    {
+      "side": "圣光同盟",
+      "name": "浮空锚地",
+      "id": "R-Spire",
+      "count": 2
+    },
+    {
+      "side": "圣光同盟",
+      "name": "苍穹符文塔",
+      "id": "R-Rune",
+      "count": 1
+    },
+    {
+      "side": "圣光同盟",
+      "name": "感知魔像",
+      "id": "R-Golem",
+      "count": 1
+    },
+    {
+      "side": "圣光同盟",
+      "name": "御风灵骑",
+      "id": "R-Gryphon",
+      "count": 2
+    }
+  ],
+  "table8": [
+    {
+      "platform": "R-Golem",
+      "longitude_column_raw": "N70°58′08″",
+      "latitude_column_raw": "E40°25′06″",
+      "altitude_ft": 36000,
+      "insight_artifact": "R-Eye-A",
+      "target_types": [
+        "空中",
+        "海面"
+      ],
+      "detection_range_nm": 350,
+      "precision_raw": 90
+    },
+    {
+      "platform": "R-Gryphon#1",
+      "longitude_column_raw": "N72°47′54″",
+      "latitude_column_raw": "E45°39′48″",
+      "altitude_ft": 36000,
+      "insight_artifact": "R-Eye-B",
+      "target_types": [
+        "空中"
+      ],
+      "detection_range_nm": 160,
+      "precision_raw": 80
+    },
+    {
+      "platform": "R-Gryphon#2",
+      "longitude_column_raw": "N73°35′32″",
+      "latitude_column_raw": "E51°18′20″",
+      "altitude_ft": 40000,
+      "insight_artifact": "R-Eye-C",
+      "target_types": [
+        "空中"
+      ],
+      "detection_range_nm": 160,
+      "precision_raw": 80
+    },
+    {
+      "platform": "R-Rune",
+      "longitude_column_raw": "N68°47′48″",
+      "latitude_column_raw": "E36°07′42″",
+      "altitude_ft": 0,
+      "insight_artifact": "R-Eye-D",
+      "target_types": [
+        "空中"
+      ],
+      "detection_range_nm": 220,
+      "precision_raw": 75
+    }
+  ],
+  "table9": [
+    {
+      "platform": "R-Gryphon#1",
+      "manifestation_artifact": "R-Sigil-A",
+      "target_types": [
+        "飞行灵体",
+        "悬浮生物",
+        "幽光法球"
+      ],
+      "max_range_nm": 10,
+      "min_range_nm": 0.2,
+      "resonance_value": 2.62,
+      "max_target_speed_kn": 1350,
+      "min_target_altitude_ft": 30,
+      "max_target_altitude_ft": 65000,
+      "min_activation_altitude_ft": 200,
+      "max_activation_altitude_ft": 65000,
+      "attunement_probability_percent": 95
+    },
+    {
+      "platform": "R-Gryphon#1",
+      "manifestation_artifact": "R-Sigil-B",
+      "target_types": [
+        "飞行灵体",
+        "幽光法球"
+      ],
+      "max_range_nm": 160,
+      "min_range_nm": 4,
+      "resonance_value": 21,
+      "max_target_speed_kn": 1950,
+      "min_target_altitude_ft": 30,
+      "max_target_altitude_ft": 80000,
+      "min_activation_altitude_ft": 200,
+      "max_activation_altitude_ft": 65000,
+      "attunement_probability_percent": 85
+    },
+    {
+      "platform": "R-Gryphon#2",
+      "manifestation_artifact": "R-Sigil-C",
+      "target_types": [
+        "飞行灵体",
+        "幽光法球"
+      ],
+      "max_range_nm": 90,
+      "min_range_nm": 4,
+      "resonance_value": 14,
+      "max_target_speed_kn": 1950,
+      "min_target_altitude_ft": 150,
+      "max_target_altitude_ft": 90000,
+      "min_activation_altitude_ft": 200,
+      "max_activation_altitude_ft": 65000,
+      "attunement_probability_percent": 85
+    },
+    {
+      "platform": "R-Rune",
+      "manifestation_artifact": "R-Sigil-D",
+      "target_types": [
+        "飞行灵体",
+        "悬浮生物"
+      ],
+      "max_range_nm": 0.2,
+      "min_range_nm": 3,
+      "resonance_value": 0.7,
+      "max_target_speed_kn": 700,
+      "min_target_altitude_ft": 30,
+      "max_target_altitude_ft": 12000,
+      "min_activation_altitude_ft": 0,
+      "max_activation_altitude_ft": 0,
+      "attunement_probability_percent": 50
+    },
+    {
+      "platform": "R-Rune",
+      "manifestation_artifact": "R-Sigil-E",
+      "target_types": [
+        "飞行灵体",
+        "悬浮生物",
+        "幽光法球"
+      ],
+      "max_range_nm": 2,
+      "min_range_nm": 215,
+      "resonance_value": 123,
+      "max_target_speed_kn": 4500,
+      "min_target_altitude_ft": 30,
+      "max_target_altitude_ft": 150000,
+      "min_activation_altitude_ft": 0,
+      "max_activation_altitude_ft": 0,
+      "attunement_probability_percent": 90
+    },
+    {
+      "platform": "R-Rune",
+      "manifestation_artifact": "R-Sigil-F",
+      "target_types": [
+        "飞行灵体",
+        "悬浮生物",
+        "幽光法球"
+      ],
+      "max_range_nm": 2,
+      "min_range_nm": 80,
+      "resonance_value": 52.5,
+      "max_target_speed_kn": 2300,
+      "min_target_altitude_ft": 80,
+      "max_target_altitude_ft": 82000,
+      "min_activation_altitude_ft": 0,
+      "max_activation_altitude_ft": 0,
+      "attunement_probability_percent": 80
+    }
+  ],
+  "table11": {
+    "mission": "魔力消解 B-Eidolon#1",
+    "target_type": "飞行灵体",
+    "longitude_column_raw": "N73°29′30″",
+    "latitude_column_raw": "E37°28′17″",
+    "target_altitude_ft": 36000,
+    "target_speed_kn": 350,
+    "target_impedance_threshold": 10
+  },
+  "explicit_facts": [
+    {
+      "subject": "联合统筹中枢",
+      "relation": "位于",
+      "object": "R-Golem",
+      "source": "3.2正文；172115"
+    },
+    {
+      "subject": "B-Eidolon群组",
+      "relation": "释放",
+      "object": "4枚B-Orb",
+      "source": "3.1正文；172101"
+    }
+  ],
+  "missing_facts": [
+    "未提供图13—18的实际图形，无法逐边转录传讯关系或协调关系。",
+    "表9没有完整给出飞行速度、成本、具体魔晶载体库存；表13的方案值不能反填为实测输入。",
+    "表7的数量不是每个实体的唯一标识；缺少编号时不自行编成原文给定事实。"
+  ],
+  "issues": [
+    {
+      "code": "COORDINATE_HEADER_DIRECTION",
+      "record": "R-Golem",
+      "detail": "经度列N、纬度列E；列名与方向符号不符，原样保留，未自动交换。",
+      "source_alignment": "reference_values_preserved",
+      "status": "原文自身疑点；按原文保留，不作为转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png"
+      ],
+      "field_paths": [
+        "table8[0].longitude_column_raw",
+        "table8[0].latitude_column_raw"
+      ]
+    },
+    {
+      "code": "COORDINATE_HEADER_DIRECTION",
+      "record": "R-Gryphon#1",
+      "detail": "经度列N、纬度列E；列名与方向符号不符，原样保留，未自动交换。",
+      "source_alignment": "reference_values_preserved",
+      "status": "原文自身疑点；按原文保留，不作为转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png"
+      ],
+      "field_paths": [
+        "table8[1].longitude_column_raw",
+        "table8[1].latitude_column_raw"
+      ]
+    },
+    {
+      "code": "COORDINATE_HEADER_DIRECTION",
+      "record": "R-Gryphon#2",
+      "detail": "经度列N、纬度列E；列名与方向符号不符，原样保留，未自动交换。",
+      "source_alignment": "reference_values_preserved",
+      "status": "原文自身疑点；按原文保留，不作为转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png"
+      ],
+      "field_paths": [
+        "table8[2].longitude_column_raw",
+        "table8[2].latitude_column_raw"
+      ]
+    },
+    {
+      "code": "COORDINATE_HEADER_DIRECTION",
+      "record": "R-Rune",
+      "detail": "经度列N、纬度列E；列名与方向符号不符，原样保留，未自动交换。",
+      "source_alignment": "reference_values_preserved",
+      "status": "原文自身疑点；按原文保留，不作为转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png"
+      ],
+      "field_paths": [
+        "table8[3].longitude_column_raw",
+        "table8[3].latitude_column_raw"
+      ]
+    },
+    {
+      "code": "COORDINATE_HEADER_DIRECTION",
+      "record": "魔力消解 B-Eidolon#1",
+      "detail": "经度列N、纬度列E；列名与方向符号不符，原样保留，未自动交换。",
+      "source_alignment": "reference_values_preserved",
+      "status": "原文自身疑点；按原文保留，不作为转录错误",
+      "source_files": [
+        "联想截图_20261024172151.png"
+      ],
+      "field_paths": [
+        "table11.longitude_column_raw",
+        "table11.latitude_column_raw"
+      ]
+    },
+    {
+      "code": "RANGE_ORDER",
+      "record": "R-Sigil-D",
+      "detail": "最小3大于最大0.2 n mile；原样保留。",
+      "source_alignment": "reference_values_preserved",
+      "status": "原文自身疑点；按原文保留，不作为转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png"
+      ],
+      "field_paths": [
+        "table9[3].min_range_nm",
+        "table9[3].max_range_nm"
+      ]
+    },
+    {
+      "code": "STRICT_ACTIVATION_BOUNDARY",
+      "record": "R-Sigil-D",
+      "detail": "表10要求最小释放高度<平台高度<最大释放高度；本行0/0且平台高度0，无解。待核实边界政策。",
+      "source_alignment": "reference_values_preserved",
+      "status": "原文自身疑点；按原文保留，不作为转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png",
+        "联想截图_20261024172142.png"
+      ],
+      "field_paths": [
+        "table9[3].min_activation_altitude_ft",
+        "table9[3].max_activation_altitude_ft",
+        "table8[3].altitude_ft"
+      ]
+    },
+    {
+      "code": "RANGE_ORDER",
+      "record": "R-Sigil-E",
+      "detail": "最小215大于最大2 n mile；原样保留。",
+      "source_alignment": "reference_values_preserved",
+      "status": "原文自身疑点；按原文保留，不作为转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png"
+      ],
+      "field_paths": [
+        "table9[4].min_range_nm",
+        "table9[4].max_range_nm"
+      ]
+    },
+    {
+      "code": "STRICT_ACTIVATION_BOUNDARY",
+      "record": "R-Sigil-E",
+      "detail": "表10要求最小释放高度<平台高度<最大释放高度；本行0/0且平台高度0，无解。待核实边界政策。",
+      "source_alignment": "reference_values_preserved",
+      "status": "原文自身疑点；按原文保留，不作为转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png",
+        "联想截图_20261024172142.png"
+      ],
+      "field_paths": [
+        "table9[4].min_activation_altitude_ft",
+        "table9[4].max_activation_altitude_ft",
+        "table8[3].altitude_ft"
+      ]
+    },
+    {
+      "code": "RANGE_ORDER",
+      "record": "R-Sigil-F",
+      "detail": "最小80大于最大2 n mile；原样保留。",
+      "source_alignment": "reference_values_preserved",
+      "status": "原文自身疑点；按原文保留，不作为转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png"
+      ],
+      "field_paths": [
+        "table9[5].min_range_nm",
+        "table9[5].max_range_nm"
+      ]
+    },
+    {
+      "code": "STRICT_ACTIVATION_BOUNDARY",
+      "record": "R-Sigil-F",
+      "detail": "表10要求最小释放高度<平台高度<最大释放高度；本行0/0且平台高度0，无解。待核实边界政策。",
+      "source_alignment": "reference_values_preserved",
+      "status": "原文自身疑点；按原文保留，不作为转录错误",
+      "source_files": [
+        "联想截图_20261024172129.png",
+        "联想截图_20261024172142.png"
+      ],
+      "field_paths": [
+        "table9[5].min_activation_altitude_ft",
+        "table9[5].max_activation_altitude_ft",
+        "table8[3].altitude_ft"
+      ]
+    },
+    {
+      "code": "RESOURCE_INSTANCE_ALLOCATION",
+      "record": "表9六行编号与正文12个具现资源",
+      "field_paths": [
+        "table9",
+        "table7"
+      ],
+      "detail": "正文明确提到12个具现资源，表9只列6行编号；不能由此确定12个具体个体的身份及数量分配，不复制成12件。",
+      "source_files": [
+        "联想截图_20261024172129.png",
+        "联想截图_20261024172156.png"
+      ],
+      "status": "来源材料完整性缺口；未补造实例"
+    },
+    {
+      "code": "RELATION_FACTS_MISSING",
+      "record": "传讯与协调实际关系",
+      "field_paths": [
+        "explicit_facts",
+        "missing_facts"
+      ],
+      "detail": "表10列出关系要求，图形实际连边未包含在现有核对材料中；已知协调中枢位于R-Golem不能推出全部传讯或协调关系。",
+      "source_files": [
+        "联想截图_20261024172115.png",
+        "联想截图_20261024172142.png"
+      ],
+      "status": "来源材料完整性缺口；未补造关系"
+    }
+  ],
+  "source_alignment_policy": "仅迁移对象名称和整理字段；保留参考截图中的数值、单位及关系含义。身份历史对应见命名对照表；identity_mapping现登记当前代号，不建立OWL同一关系。"
+}

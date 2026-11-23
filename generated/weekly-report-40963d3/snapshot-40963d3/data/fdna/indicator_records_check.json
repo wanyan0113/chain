@@ -1,0 +1,288 @@
+{
+  "format_version": "1.0",
+  "id": "arcane_indicator_records_check",
+  "data_kind": "method_check",
+  "reference": "Artificial table5 extraction check only; explicitly paired KC1 and KC2 observations, not original records.",
+  "plan_sha256": "d9dba88136c0cbc09866c11fa26f835fc94f2e8967da4e49d0f6ccd41c360b3f",
+  "time_unit": "time_scale",
+  "runs": [
+    {
+      "id": "run_check",
+      "assignments": {
+        "mirror_start": {
+          "value": 10,
+          "unit": "time_scale"
+        },
+        "golem_path": {
+          "value": "path_A",
+          "unit": "path_code"
+        },
+        "golem_range": {
+          "value": 10,
+          "unit": "distance_scale"
+        },
+        "spirit_range": {
+          "value": 10,
+          "unit": "distance_scale"
+        },
+        "golem_processing": {
+          "value": 10,
+          "unit": "processing_scale"
+        },
+        "ark_ward": {
+          "value": 10,
+          "unit": "ward_scale"
+        },
+        "ark_speed": {
+          "value": 10,
+          "unit": "speed_scale"
+        }
+      },
+      "source_locator": "artificial:run_check",
+      "closures": [
+        {
+          "id": "closure_check",
+          "attempt": "1",
+          "task": "Task_KC1",
+          "target": "T2",
+          "status": "closed",
+          "start": 0,
+          "end": 100,
+          "source_locator": "artificial:closure_check",
+          "events": [
+            {
+              "id": "event_S1",
+              "activity": "Act_KC1_1",
+              "capability": "S1",
+              "subject": "U1",
+              "start": 0,
+              "end": 100,
+              "time_unit": "time_scale",
+              "outcome": "completed",
+              "facts": [
+                {
+                  "name": "discovery_time",
+                  "value": 25,
+                  "unit": "time_scale"
+                }
+              ],
+              "source_locator": "artificial:S1"
+            },
+            {
+              "id": "event_D2",
+              "activity": "Act_KC1_2",
+              "capability": "D2",
+              "subject": "U2",
+              "start": 0,
+              "end": 100,
+              "time_unit": "time_scale",
+              "outcome": "completed",
+              "facts": [
+                {
+                  "name": "fusion_start",
+                  "value": 10,
+                  "unit": "time_scale"
+                },
+                {
+                  "name": "fusion_end",
+                  "value": 15,
+                  "unit": "time_scale"
+                }
+              ],
+              "source_locator": "artificial:D2"
+            },
+            {
+              "id": "event_D4",
+              "activity": "Act_KC1_3",
+              "capability": "D4",
+              "subject": "U3",
+              "start": 0,
+              "end": 100,
+              "time_unit": "time_scale",
+              "outcome": "completed",
+              "facts": [
+                {
+                  "name": "fusion_start",
+                  "value": 10,
+                  "unit": "time_scale"
+                },
+                {
+                  "name": "fusion_end",
+                  "value": 20,
+                  "unit": "time_scale"
+                }
+              ],
+              "source_locator": "artificial:D4"
+            },
+            {
+              "id": "event_S5",
+              "activity": "Act_KC1_4",
+              "capability": "S5",
+              "subject": "U4",
+              "start": 0,
+              "end": 100,
+              "time_unit": "time_scale",
+              "outcome": "completed",
+              "facts": [
+                {
+                  "name": "tracking_start",
+                  "value": 0,
+                  "unit": "time_scale"
+                },
+                {
+                  "name": "tracking_end",
+                  "value": 80,
+                  "unit": "time_scale"
+                }
+              ],
+              "source_locator": "artificial:S5"
+            },
+            {
+              "id": "event_S6",
+              "activity": "Act_KC1_4",
+              "capability": "S6",
+              "subject": "U5",
+              "start": 0,
+              "end": 100,
+              "time_unit": "time_scale",
+              "outcome": "completed",
+              "facts": [
+                {
+                  "name": "tracking_start",
+                  "value": 0,
+                  "unit": "time_scale"
+                },
+                {
+                  "name": "tracking_end",
+                  "value": 60,
+                  "unit": "time_scale"
+                }
+              ],
+              "source_locator": "artificial:S6"
+            },
+            {
+              "id": "event_F7",
+              "activity": "Act_KC1_5",
+              "capability": "F7",
+              "subject": "U6",
+              "start": 0,
+              "end": 100,
+              "time_unit": "time_scale",
+              "outcome": "completed",
+              "facts": [
+                {
+                  "name": "effectiveness",
+                  "value": 0.5,
+                  "unit": "ratio"
+                }
+              ],
+              "source_locator": "artificial:F7"
+            }
+          ]
+        },
+        {
+          "id": "closure_check_KC2",
+          "attempt": "1",
+          "task": "Task_KC2",
+          "target": "T1",
+          "status": "closed",
+          "start": 0,
+          "end": 100,
+          "source_locator": "artificial:KC2",
+          "events": [
+            {
+              "id": "event_S8",
+              "activity": "Act_KC2_1",
+              "capability": "S8",
+              "subject": "U7",
+              "start": 0,
+              "end": 100,
+              "time_unit": "time_scale",
+              "outcome": "completed",
+              "facts": [
+                {
+                  "name": "discovery_count",
+                  "value": 4,
+                  "unit": "count"
+                }
+              ],
+              "source_locator": "artificial:S8"
+            },
+            {
+              "id": "event_S10",
+              "activity": "Act_KC2_1",
+              "capability": "S10",
+              "subject": "U8",
+              "start": 0,
+              "end": 100,
+              "time_unit": "time_scale",
+              "outcome": "completed",
+              "facts": [
+                {
+                  "name": "discovery_count",
+                  "value": 8,
+                  "unit": "count"
+                }
+              ],
+              "source_locator": "artificial:S10"
+            },
+            {
+              "id": "event_S3",
+              "activity": "Act_KC2_1",
+              "capability": "S3",
+              "subject": "U3",
+              "start": 0,
+              "end": 100,
+              "time_unit": "time_scale",
+              "outcome": "completed",
+              "facts": [
+                {
+                  "name": "discovery_count",
+                  "value": 3,
+                  "unit": "count"
+                }
+              ],
+              "source_locator": "artificial:S3"
+            },
+            {
+              "id": "event_F9",
+              "activity": "Act_KC2_2",
+              "capability": "F9",
+              "subject": "U7",
+              "start": 0,
+              "end": 100,
+              "time_unit": "time_scale",
+              "outcome": "completed",
+              "facts": [
+                {
+                  "name": "effectiveness",
+                  "value": 0.25,
+                  "unit": "ratio"
+                }
+              ],
+              "source_locator": "artificial:F9"
+            },
+            {
+              "id": "event_F11",
+              "activity": "Act_KC2_2",
+              "capability": "F11",
+              "subject": "U8",
+              "start": 0,
+              "end": 100,
+              "time_unit": "time_scale",
+              "outcome": "completed",
+              "facts": [
+                {
+                  "name": "effectiveness",
+                  "value": 0.75,
+                  "unit": "ratio"
+                }
+              ],
+              "source_locator": "artificial:F11"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

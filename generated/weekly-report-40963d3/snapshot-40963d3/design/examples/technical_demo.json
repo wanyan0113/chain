@@ -1,0 +1,41 @@
+{
+  "format_version": "1.0",
+  "scope": "仅技术演示：虚构数据，用于验证六步设计流程，不是文章案例或真实环境观测",
+  "policies": {"equal_metric_score": 0.5, "cost_unit": "demo-credit/use", "max_chain_combinations": 10000, "max_network_combinations": 10000},
+  "weights": {"time": 0.4, "accuracy": 0.4, "cost": 0.2},
+  "tasks": [
+    {"id": "demo-task-1", "target": "demo-target-1", "start_s": 0, "attributes": {"target_type": "幽光法球", "distance_class": "near"}, "source_refs": ["technical-fixture"], "blocking_issue_ids": []},
+    {"id": "demo-task-2", "target": "demo-target-2", "start_s": 0, "attributes": {"target_type": "幽光法球", "distance_class": "near"}, "source_refs": ["technical-fixture"], "blocking_issue_ids": []}
+  ],
+  "artifacts": [
+    {"id": "demo-eye", "role": "insight", "available": true, "attributes": {"target_types": ["幽光法球"], "max_range": {"value": 100, "unit": "nmi"}}, "metrics": {"duration_s": 1, "accuracy": 0.99, "cost": {"value": 1, "unit": "demo-credit/use"}}, "capacity": 2, "consumable": false, "inventory": 0, "cooldown_s": 0, "source_refs": ["technical-fixture"], "blocking_issue_ids": []},
+    {"id": "demo-coordinator", "role": "coordination", "available": true, "attributes": {"supported": "yes"}, "metrics": {"duration_s": 1, "accuracy": 0.95, "cost": {"value": 1, "unit": "demo-credit/use"}}, "capacity": 2, "consumable": false, "inventory": 0, "cooldown_s": 0, "source_refs": ["technical-fixture"], "blocking_issue_ids": []},
+    {"id": "demo-fast", "role": "manifestation", "available": true, "attributes": {"target_types": ["幽光法球"], "min_range": {"value": 0, "unit": "nmi"}, "max_range": {"value": 10, "unit": "nmi"}}, "metrics": {"duration_s": 1, "accuracy": 0.9, "cost": {"value": 1, "unit": "demo-credit/use"}}, "capacity": 1, "consumable": true, "inventory": 1, "cooldown_s": 0, "source_refs": ["technical-fixture"], "blocking_issue_ids": []},
+    {"id": "demo-slow", "role": "manifestation", "available": true, "attributes": {"target_types": ["幽光法球"], "min_range": {"value": 0, "unit": "nmi"}, "max_range": {"value": 10, "unit": "nmi"}}, "metrics": {"duration_s": 3, "accuracy": 0.8, "cost": {"value": 4, "unit": "demo-credit/use"}}, "capacity": 2, "consumable": false, "inventory": 0, "cooldown_s": 0, "source_refs": ["technical-fixture"], "blocking_issue_ids": []}
+  ],
+  "task_rules": [
+    {"id": "need-insight", "role": "insight", "capability": "detect-target", "when": [], "source_refs": ["截图2.3步骤2；技术演示配置"], "blocking_issue_ids": []},
+    {"id": "need-coordination", "role": "coordination", "capability": "coordinate", "when": [], "source_refs": ["截图2.3步骤2；技术演示配置"], "blocking_issue_ids": []},
+    {"id": "near-needs-near", "role": "manifestation", "capability": "near-manifestation", "when": [{"field": "task.distance_class", "op": "eq", "value": "near"}], "source_refs": ["用户2026-10-27更正：目标近需要近程能力"], "blocking_issue_ids": []}
+  ],
+  "artifact_rules": [
+    {"id": "insight-range", "role": "insight", "capability": "detect-target", "when": [{"field": "artifact.max_range", "op": "ge", "ref": "context.target_distance"}], "source_refs": ["technical-fixture"], "blocking_issue_ids": []},
+    {"id": "coordination-supported", "role": "coordination", "capability": "coordinate", "when": [{"field": "artifact.supported", "op": "eq", "value": "yes"}], "source_refs": ["technical-fixture"], "blocking_issue_ids": []},
+    {"id": "near-artifact", "role": "manifestation", "capability": "near-manifestation", "when": [{"field": "artifact.min_range", "op": "lt", "ref": "context.target_distance"}, {"field": "artifact.max_range", "op": "gt", "ref": "context.target_distance"}], "source_refs": ["technical-fixture；距离边界为本演示显式配置"], "blocking_issue_ids": []}
+  ],
+  "contexts": [
+    {"task": "demo-task-1", "artifact": "demo-eye", "attributes": {"target_distance": {"value": 5, "unit": "nmi"}}, "source_refs": ["technical-fixture"], "blocking_issue_ids": []},
+    {"task": "demo-task-1", "artifact": "demo-fast", "attributes": {"target_distance": {"value": 5, "unit": "nmi"}}, "source_refs": ["technical-fixture"], "blocking_issue_ids": []},
+    {"task": "demo-task-1", "artifact": "demo-slow", "attributes": {"target_distance": {"value": 5, "unit": "nmi"}}, "source_refs": ["technical-fixture"], "blocking_issue_ids": []},
+    {"task": "demo-task-2", "artifact": "demo-eye", "attributes": {"target_distance": {"value": 5, "unit": "nmi"}}, "source_refs": ["technical-fixture"], "blocking_issue_ids": []},
+    {"task": "demo-task-2", "artifact": "demo-fast", "attributes": {"target_distance": {"value": 5, "unit": "nmi"}}, "source_refs": ["technical-fixture"], "blocking_issue_ids": []},
+    {"task": "demo-task-2", "artifact": "demo-slow", "attributes": {"target_distance": {"value": 5, "unit": "nmi"}}, "source_refs": ["technical-fixture"], "blocking_issue_ids": []}
+  ],
+  "links": [
+    {"from": "demo-eye", "to": "demo-coordinator", "communicates": true, "controls": false, "distance": {"value": 2, "unit": "nmi"}, "max_distance": {"value": 20, "unit": "nmi"}, "source_refs": ["technical-fixture"], "blocking_issue_ids": []},
+    {"from": "demo-coordinator", "to": "demo-fast", "communicates": true, "controls": true, "distance": {"value": 2, "unit": "nmi"}, "max_distance": {"value": 20, "unit": "nmi"}, "source_refs": ["technical-fixture"], "blocking_issue_ids": []},
+    {"from": "demo-coordinator", "to": "demo-slow", "communicates": true, "controls": true, "distance": {"value": 2, "unit": "nmi"}, "max_distance": {"value": 20, "unit": "nmi"}, "source_refs": ["technical-fixture"], "blocking_issue_ids": []}
+  ],
+  "dependencies": [],
+  "resource_groups": []
+}

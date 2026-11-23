@@ -1,0 +1,148 @@
+{
+  "templates": [
+    {
+      "id": "ordinary-flow",
+      "when": [
+        {
+          "field": "task.confirmation_required",
+          "op": "eq",
+          "value": false
+        }
+      ],
+      "allow_nonadjacent_reuse": true,
+      "source_refs": [
+        "presentation:具现前复核需求规则"
+      ],
+      "steps": [
+        {
+          "id": "s1",
+          "activity": "observe",
+          "role": "insight",
+          "capabilities": [
+            "http://example.org/arcaneweb#AirInsightCapability"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "presentation:显式流程能力要求"
+          ]
+        },
+        {
+          "id": "s2",
+          "activity": "decide",
+          "role": "coordination",
+          "capabilities": [
+            "http://example.org/arcaneweb#RapidResponseCoordinationCapability"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "presentation:显式流程能力要求"
+          ],
+          "incoming_relation": "communication"
+        },
+        {
+          "id": "s3",
+          "activity": "act",
+          "role": "manifestation",
+          "capabilities": [
+            "http://example.org/arcaneweb#ShortRangeManifestationCapability"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "presentation:显式流程能力要求"
+          ],
+          "incoming_relation": "control"
+        }
+      ]
+    },
+    {
+      "id": "confirmation-flow",
+      "when": [
+        {
+          "field": "task.confirmation_required",
+          "op": "eq",
+          "value": true
+        }
+      ],
+      "allow_nonadjacent_reuse": true,
+      "source_refs": [
+        "presentation:具现前复核需求规则"
+      ],
+      "steps": [
+        {
+          "id": "s1",
+          "activity": "observe",
+          "role": "insight",
+          "capabilities": [
+            "http://example.org/arcaneweb#AirInsightCapability"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "presentation:显式流程能力要求"
+          ]
+        },
+        {
+          "id": "s2",
+          "activity": "decide",
+          "role": "coordination",
+          "capabilities": [
+            "http://example.org/arcaneweb#RapidResponseCoordinationCapability"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "presentation:显式流程能力要求"
+          ],
+          "incoming_relation": "communication"
+        },
+        {
+          "id": "s3",
+          "activity": "observe",
+          "role": "insight",
+          "capabilities": [
+            "http://example.org/arcaneweb#AirInsightCapability"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "presentation:显式流程能力要求"
+          ],
+          "incoming_relation": "communication"
+        },
+        {
+          "id": "s4",
+          "activity": "decide",
+          "role": "coordination",
+          "capabilities": [
+            "http://example.org/arcaneweb#RapidResponseCoordinationCapability"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "presentation:显式流程能力要求"
+          ],
+          "incoming_relation": "communication"
+        },
+        {
+          "id": "s5",
+          "activity": "act",
+          "role": "manifestation",
+          "capabilities": [
+            "http://example.org/arcaneweb#ShortRangeManifestationCapability"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "presentation:显式流程能力要求"
+          ],
+          "incoming_relation": "control"
+        }
+      ]
+    }
+  ],
+  "communication_model": "directed",
+  "evaluation": {
+    "mode": "sequential_product",
+    "source_refs": [
+      "presentation:环节指标计算约定"
+    ]
+  },
+  "source_refs": [
+    "presentation:任务需求到流程的显式规则"
+  ]
+}

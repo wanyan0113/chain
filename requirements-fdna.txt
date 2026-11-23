@@ -1,2 +1,4 @@
 -r requirements.txt
 scipy>=1.17,<2
+# Data-frame dependency for the optional fdna_sim simulator.
+pandas>=2.3,<4

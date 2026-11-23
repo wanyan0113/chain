@@ -1,0 +1,482 @@
+"""Six-step design over explicit facts and user-supplied conjunctive rules.
+
+Network selection uses bounded exhaustive or exact branch-and-bound search.
+Unknown conditions never count as satisfied. Inputs are not mutated.
+"""
+from __future__ import annotations
+
+from collections import Counter
+from copy import deepcopy
+from itertools import combinations, product
+import json
+import hashlib
+import math
+from pathlib import Path
+
+from jsonschema import Draft202012Validator
+from .vocabulary import ROLES
+from .capability_identity import annotate_design_mapping
+from .plans import attach_plan, member_ids, resource_conflicts
+
+
+
+class DesignError(ValueError):
+    pass
+
+
+class SearchLimitError(DesignError):
+    pass
+
+
+def require_finite(value):
+    # jsonschema accepts Python NaN/Infinity as numbers; reject these recursively.
+    if isinstance(value, float) and not math.isfinite(value):
+        raise DesignError("数值必须有限")
+    if isinstance(value, dict):
+        for item in value.values():
+            require_finite(item)
+    elif isinstance(value, list):
+        for item in value:
+            require_finite(item)
+
+
+def validate_document(doc):
+    require_finite(doc)
+    schema = json.loads(Path(__file__).with_name("schema.json").read_text(encoding="utf-8"))
+    errors = sorted(Draft202012Validator(schema).iter_errors(doc), key=lambda e: str(list(e.path)))
+    if errors:
+        raise DesignError("; ".join(f"{list(e.path)}: {e.message}" for e in errors[:8]))
+    if 'knowledge' not in doc and any('ontology_types' in task or 'target_ontology_types' in task for task in doc['tasks']):
+        raise DesignError('任务本体类型须通过knowledge配置启用实际HermiT推导')
+    if not math.isclose(sum(doc["weights"].values()), 1, rel_tol=0, abs_tol=1e-9):
+        raise DesignError("时间、精度、成本权重和必须为 1")
+    for collection in ("tasks", "artifacts", "task_rules", "artifact_rules", "resource_groups"):
+        ids = [item["id"] for item in doc.get(collection, [])]
+        if len(ids) != len(set(ids)):
+            raise DesignError(f"{collection} 包含重复 ID")
+    tasks = {item["id"] for item in doc["tasks"]}
+    artifacts = {item["id"]: item for item in doc["artifacts"]}
+    for collection, keys in (("links", ("from", "to")), ("contexts", ("task", "artifact"))):
+        seen = set()
+        for item in doc.get(collection, []):
+            pair = tuple(item[key] for key in keys)
+            allowed = (artifacts, artifacts) if collection == "links" else (tasks, artifacts)
+            if pair in seen or any(value not in options for value, options in zip(pair, allowed)):
+                raise DesignError(f"{collection} 重复或悬空引用：{pair}")
+            seen.add(pair)
+            if collection == "links":
+                if pair[0] == pair[1]:
+                    raise DesignError("协同边必须连接不同法器")
+                if item["distance"]["unit"] != item["max_distance"]["unit"]:
+                    raise DesignError("传讯距离与最大距离单位不一致")
+                if item["distance"]["value"] < 0 or item["max_distance"]["value"] <= 0:
+                    raise DesignError("传讯距离必须非负，最大距离必须大于零")
+    for item in artifacts.values():
+        metrics = item["metrics"]
+        if metrics and (metrics["cost"]["unit"] != doc["policies"]["cost_unit"] or metrics["cost"]["value"] < 0):
+            raise DesignError(f"{item['id']} 成本单位不一致或成本为负")
+        for activity, metric in item.get('activity_metrics', {}).items():
+            if metric and (metric['cost']['unit'] != doc['policies']['cost_unit'] or metric['cost']['value'] < 0):
+                raise DesignError(f"{item['id']} 的{activity}活动成本单位不一致或成本为负")
+    for rule in doc["task_rules"]:
+        if any(not c["field"].startswith("task.") or ("ref" in c and not c["ref"].startswith("task.")) for c in rule["when"]):
+            raise DesignError("任务—能力规则只能引用 task 字段")
+    for group in doc.get("resource_groups", []):
+        if any(a not in artifacts for a in group["artifacts"]):
+            raise DesignError(f"资源组 {group['id']} 含悬空法器")
+    edges = set()
+    for dep in doc.get("dependencies", []):
+        pair = dep["before"], dep["after"]
+        if any(t not in tasks for t in pair) or pair[0] == pair[1] or pair in edges:
+            raise DesignError("任务依赖重复、自指或引用不存在的任务")
+        edges.add(pair)
+    pending = set(tasks)
+    while pending:
+        roots = {t for t in pending if not any(b == t and a in pending for a, b in edges)}
+        if not roots:
+            raise DesignError("任务依赖存在环")
+        pending -= roots
+
+
+def condition_result(condition, scopes):
+    def lookup(path):
+        scope, key = path.split(".", 1)
+        return scopes.get(scope, {}).get(key)
+    left = lookup(condition["field"])
+    right = lookup(condition["ref"]) if "ref" in condition else condition["value"]
+    if left is None or right is None:
+        return "unknown", "字段缺失或值为 null"
+    op = condition["op"]
+    if op == "contains":
+        if not isinstance(left, list) or not isinstance(right, str):
+            return "unknown", "contains 要求字符串数组和字符串"
+        passed = right in left
+        if condition['field'] in ('artifact.ontology_capabilities', 'task.ontology_types', 'artifact.ontology_types') and not passed:
+            return 'unknown', '尚未推导出该本体类型或能力关系；开放世界下不将缺失当作否定'
+    elif op == "eq":
+        if isinstance(left, dict) or isinstance(right, dict):
+            if not isinstance(left, dict) or not isinstance(right, dict) or left["unit"] != right["unit"]:
+                return "unknown", "数值单位不一致"
+        if type(left) is not type(right):
+            return "unknown", "类型不一致"
+        passed = left == right
+    else:
+        if not isinstance(left, dict) or not isinstance(right, dict):
+            return "unknown", "数值比较必须显式提供 value 和 unit"
+        if left["unit"] != right["unit"]:
+            return "unknown", "数值单位不一致，不自动换算"
+        a, b = left["value"], right["value"]
+        passed = {"lt": a < b, "le": a <= b, "gt": a > b, "ge": a >= b}[op]
+    return ("pass", "条件成立") if passed else ("fail", "条件不成立")
+
+
+def evaluate(rule, scopes):
+    checks = [{"condition": condition, "status": status, "reason": reason}
+              for condition in rule["when"]
+              for status, reason in [condition_result(condition, scopes)]]
+    statuses = {check["status"] for check in checks}
+    status = "fail" if "fail" in statuses else "unknown" if "unknown" in statuses or rule["blocking_issue_ids"] else "pass"
+    # Freeze the evidence at evaluation time, including nested quantity values.
+    return deepcopy({"rule": rule["id"], "capability": rule["capability"], "role": rule["role"],
+            "status": status, "checks": checks, "source_refs": rule["source_refs"],
+            "blocking_issue_ids": rule["blocking_issue_ids"]})
+
+
+def infer_task_capabilities(task, rules, required_roles=ROLES, ontology_requirements=None):
+    """Step 2, shared by standalone inference and the complete design pipeline.
+
+    Matched capabilities are a lower bound while any blocker remains.
+    Callers must check status before using the result as a complete requirement.
+    """
+    task_facts = task['attributes']
+    if ontology_requirements is not None:
+        if 'ontology_types' in task_facts:
+            raise DesignError('task.ontology_types 是推导保留字段，不能在属性中手填')
+        task_facts = {**task_facts, 'ontology_types': ontology_requirements['types']}
+    inference = [evaluate(rule, {"task": task_facts}) for rule in rules]
+    if ontology_requirements is not None:
+        for role, capabilities in ontology_requirements['required_capabilities'].items():
+            for capability in capabilities:
+                inference.append({'rule': 'owl:' + capability, 'role': role, 'capability': capability,
+                    'status': 'pass', 'source_refs': list(ontology_requirements['source_refs']), 'blocking_issue_ids': [],
+                    'checks': [{'condition': {'owl_requires_capability': capability}, 'status': 'pass',
+                                'reason': 'HermiT根据任务实例与外置本体公理得出的具名能力需求'}]})
+    required = {role: sorted({r["capability"] for r in inference
+                             if r["role"] == role and r["status"] == "pass"})
+                for role in ROLES}
+    blockers = []
+    if ontology_requirements is not None:
+        blockers.extend({'code': 'UNKNOWN_OWL_FACT', 'mapping': item['mapping'], 'reason': item['reason']}
+                        for item in ontology_requirements.get('projection_issues', []))
+    if task["blocking_issue_ids"]:
+        blockers.append({"code": "TASK_ISSUES", "issues": list(task["blocking_issue_ids"])})
+    unknown = [r["rule"] for r in inference if r["status"] == "unknown"]
+    if unknown:
+        blockers.append({"code": "UNKNOWN_TASK_RULE", "rules": unknown})
+    for role in required_roles:
+        if not required[role]:
+            blockers.append({"code": "NO_CAPABILITY", "role": role})
+    result = {"task": task["id"], "status": "blocked" if blockers else "complete",
+            "source_refs": list(task["source_refs"]), "inference": inference,
+            "required_capabilities": required, "blockers": blockers}
+    if ontology_requirements is not None:
+        result['owl_evidence'] = deepcopy(ontology_requirements)
+    return result
+
+
+def rank_chains(chains, weights, equal_score):
+    """Normalize within one task's complete feasible comparison set (eq. 7–10)."""
+    for key in ("time", "accuracy", "cost"):
+        low = min(c["metrics"][key] for c in chains)
+        high = max(c["metrics"][key] for c in chains)
+        for chain in chains:
+            raw = chain["metrics"][key]
+            value = equal_score if high == low else (raw - low) / (high - low)
+            if high != low and key != "accuracy":
+                value = 1 - value
+            chain.setdefault("normalized", {})[key] = value
+    for chain in chains:
+        chain["score"] = sum(weights[key] * value for key, value in chain["normalized"].items())
+    chains.sort(key=lambda c: (-c["score"], c["id"]))
+
+
+def bounded_product(groups, limit, label):
+    count = math.prod(len(group) for group in groups)
+    if count > limit:
+        raise SearchLimitError(f"{label}组合数 {count} 超过显式上限 {limit}；未截断后宣称最优")
+    return product(*groups)
+
+
+def network_conflicts(chains, doc):
+    selected = {c["task"]: c for c in chains}
+    conflicts = []
+    for dep in doc.get("dependencies", []):
+        if dep["before"] not in selected or dep["after"] not in selected:
+            continue
+        if selected[dep["after"]]["start_s"] < selected[dep["before"]]["end_s"] + dep["gap_s"]:
+            conflicts.append({"code": "PRECEDENCE", **dep})
+    return conflicts + resource_conflicts(chains, doc)
+
+
+def design(doc):
+    validate_document(doc)
+    input_digest = hashlib.sha256(json.dumps(doc, ensure_ascii=False, sort_keys=True,
+                                            allow_nan=False).encode('utf-8')).hexdigest()
+    from .knowledge import knowledge_context
+    from .owl_scene import reason_scene
+    from .capability_identity import load_capability_ontology
+    with knowledge_context(doc) as (effective, knowledge):
+        if knowledge is not None:
+            validate_document(effective)
+        owl = reason_scene(effective, load_capability_ontology()) if knowledge is not None else None
+        return _design(effective, input_digest, knowledge, owl)
+
+
+def _design(doc, input_digest, knowledge, owl):
+    from .ontology_inference import prepare_artifacts
+    from .owl_scene import task_requirements
+    doc, ontology_inference = prepare_artifacts(doc, owl_result=owl)
+    from .sequences import SEQUENCES, generate_task
+    sequences = SEQUENCES.get()
+    type_evidence = {item['artifact']: item for item in ontology_inference['artifacts']}
+    article_enabled = doc['policies'].get('article_table10', False)
+    if sequences and article_enabled:
+        raise DesignError('顺序序列模式不能套用原三节点表10校验；请分别验证两种模型')
+    if article_enabled:
+        from .article_integration import validate_counts, screening, cooperation
+        validate_counts(doc)
+    artifacts = {a["id"]: a for a in doc["artifacts"]}
+    links = {(e["from"], e["to"]): e for e in doc["links"]}
+    contexts = {(c["task"], c["artifact"]): c for c in doc.get("contexts", [])}
+    report = {"format_version": "1.0", "scope": doc["scope"], "status": "blocked",
+              "input_sha256": input_digest, "ontology_inference": ontology_inference,
+              "policies": dict(doc["policies"]), "weights": dict(doc["weights"]),
+              "tasks": [], "network": None, "network_search": {"evaluated": 0, "feasible": 0, "rejections": []}}
+    if knowledge is not None:
+        report.update(knowledge=knowledge, owl_reasoning=owl,
+                      execution_sha256=hashlib.sha256((input_digest + knowledge['sha256']).encode('ascii')).hexdigest())
+    if sequences:
+        report['sequence_model'] = {'evaluation': sequences['evaluation'], 'communication_model': sequences['communication_model'],
+                                    'scope': '至少三个顺序环节，以observe起始、包含decide并以act结束，可显式选配末尾assess；每环节一个执行对象，评估使用insight角色及单独能力与指标'}
+    comparison_groups = []
+    if article_enabled:
+        report['article_table10'] = {'enabled':True,'status':'not_ready','combinations':[],'selected':None}
+    unresolved = False
+    for ti, task in enumerate(doc["tasks"], 1):
+        if sequences:
+            result = generate_task(task, doc, ontology_inference, owl, ti)
+            report['tasks'].append(result)
+            if result['blockers']:
+                unresolved = True
+                comparison_groups.append([])
+            elif sequences['evaluation']['mode'] == 'sequential_product':
+                if result['chains']:
+                    rank_chains(result['chains'], doc['weights'], doc['policies']['equal_metric_score'])
+                comparison_groups.append(result['chains'])
+            else:
+                comparison_groups.append(result['chains'])
+            continue
+        capability_result = infer_task_capabilities(task, doc["task_rules"], ontology_requirements=task_requirements(task, owl))
+        inference = capability_result["inference"]
+        required = capability_result["required_capabilities"]
+        result = {"task": task["id"], "target": task["target"], "inference": inference,
+                  "required_capabilities": required, "selection": [], "chains": [], "rejected_chains": [],
+                  "blockers": capability_result["blockers"]}
+        report["tasks"].append(result)
+        if 'owl_evidence' in capability_result:
+            result['owl_evidence'] = capability_result['owl_evidence']
+        candidates = {role: [] for role in ROLES}
+        for artifact in doc["artifacts"]:
+            role = artifact["role"]
+            context = contexts.get((task["id"], artifact["id"]), {})
+            if 'ontology_capabilities' in artifact['attributes']:
+                raise DesignError('ontology_capabilities 是推导保留字段，不能在属性中手填')
+            artifact_facts = {**artifact['attributes'], 'ontology_types': type_evidence[artifact['id']]['inferred_types'],
+                              'ontology_capabilities': ontology_inference['relations']['capabilities'][artifact['id']]}
+            scopes = {"task": task["attributes"], "artifact": artifact_facts, "context": context.get("attributes", {})}
+            checks = [evaluate(rule, scopes) for rule in doc["artifact_rules"]
+                      if rule["role"] == role and rule["capability"] in required[role]]
+            # Multiple rules for the same capability are alternatives; each rule
+            # is a conjunction. All distinct required capabilities must hold.
+            supported = {r["capability"] for r in checks if r["status"] == "pass"}
+            missing = sorted(set(required[role]) - supported)
+            target_status = "pass"
+            if role != "coordination":
+                target_type = task["attributes"].get("target_type")
+                target_types = artifact["attributes"].get("target_types")
+                target_status = ("unknown" if not isinstance(target_type, str) or not isinstance(target_types, list)
+                                 else "pass" if target_type in target_types else "fail")
+            issues = artifact["blocking_issue_ids"] + context.get("blocking_issue_ids", [])
+            if owl is not None:
+                issues += ['owl-mapping:' + item['mapping'] for item in owl.get('data_projection', [])
+                           if item['kind'] == 'artifact' and item['owner'] == artifact['id']
+                           and item['required'] and item['status'] == 'unknown']
+            article_check = screening(task, artifact, context) if article_enabled else None
+            article_status = article_check['status'] if article_check else 'pass'
+            uncertain = bool(issues) or target_status == "unknown" or any(
+                not any(r["capability"] == cap for r in checks)
+                or any(r["capability"] == cap and r["status"] == "unknown" for r in checks)
+                for cap in missing)
+            if artifact["available"] and required[role] and target_status != "fail" and article_status != 'fail' and uncertain:
+                result["blockers"].append({"code": "UNKNOWN_ARTIFACT", "artifact": artifact["id"]})
+            accepted = bool(required[role]) and not missing and artifact["available"] and not issues and target_status == "pass"
+            if accepted and article_status == 'unknown':
+                result['blockers'].append({'code':'UNKNOWN_TABLE10_SCREENING','artifact':artifact['id']})
+            accepted = accepted and article_status == 'pass'
+            result["selection"].append({"artifact": artifact["id"], "accepted": bool(accepted),
+                                        "ontology_evidence": type_evidence[artifact['id']],
+                                        "ontology_capabilities": artifact_facts['ontology_capabilities'],
+                                        "missing_capabilities": missing, "rules": checks,
+                                        "target_type_check": target_status,
+                                        "available": artifact["available"],
+                                        "blocking_issue_ids": issues})
+            if article_check:
+                result['selection'][-1]['table10'] = article_check
+            if accepted:
+                candidates[role].append(artifact["id"])
+        if result["blockers"]:
+            unresolved = True
+            comparison_groups.append([])
+            continue
+        combinations_iter = bounded_product([candidates[r] for r in ROLES], doc["policies"]["max_chain_combinations"], "法术链")
+        for ci, ids in enumerate(combinations_iter, 1):
+            reasons, evidence = [], []
+            for index, (a, b) in enumerate(zip(ids, ids[1:])):
+                edge = links.get((a, b))
+                if edge is None:
+                    reasons.append({"code": "MISSING_LINK", "from": a, "to": b})
+                    continue
+                evidence.append(edge)
+                if edge["blocking_issue_ids"]:
+                    reasons.append({"code": "LINK_ISSUES", "from": a, "to": b})
+                if edge['communicates'] is None:
+                    reasons.append({'code': 'UNKNOWN_COMMUNICATION', 'from': a, 'to': b})
+                elif not edge["communicates"]:
+                    reasons.append({"code": "NO_COMMUNICATION", "from": a, "to": b})
+                if edge["distance"]["value"] >= edge["max_distance"]["value"]:
+                    reasons.append({"code": "COMMUNICATION_RANGE", "from": a, "to": b})
+                if index == 1:
+                    if edge['controls'] is None:
+                        reasons.append({'code': 'UNKNOWN_CONTROL', 'from': a, 'to': b})
+                    elif not edge['controls']:
+                        reasons.append({"code": "NO_CONTROL", "from": a, "to": b})
+            if reasons:
+                result["rejected_chains"].append({"artifacts": dict(zip(ROLES, ids)), "reasons": reasons})
+                if all(reason["code"] in {"MISSING_LINK", "LINK_ISSUES", "UNKNOWN_COMMUNICATION", "UNKNOWN_CONTROL"} for reason in reasons):
+                    result["blockers"].append({"code": "UNKNOWN_COOPERATION", "artifacts": list(ids)})
+                    unresolved = True
+                continue
+            chain = {"id": f"chain-{ti}-{ci}", "task": task["id"], "target": task["target"],
+                     "artifacts": dict(zip(ROLES, ids)), "closed_path": [task["target"], *ids, task["target"]],
+                     "link_evidence": evidence, "metrics": None, "score": None, "start_s": task["start_s"]}
+            metrics = [artifacts[a]["metrics"] for a in ids]
+            if all(m is not None for m in metrics):
+                chain["metrics"] = {"time": sum(m["duration_s"] for m in metrics),
+                                    "accuracy": math.prod(m["accuracy"] for m in metrics),
+                                    "cost": sum(m["cost"]["value"] for m in metrics),
+                                    "cost_unit": doc["policies"]["cost_unit"]}
+                chain["end_s"] = chain["start_s"] + chain["metrics"]["time"]
+                if not all(math.isfinite(chain["metrics"][k]) for k in ("time", "accuracy", "cost")) or not math.isfinite(chain["end_s"]):
+                    raise DesignError("指标计算溢出")
+            attach_plan(chain, artifacts)
+            result["chains"].append(chain)
+        if any(c["metrics"] is None for c in result["chains"]):
+            result["blockers"].append({"code": "MISSING_METRICS", "chains": [c["id"] for c in result["chains"] if c["metrics"] is None]})
+        if result["blockers"]:
+            unresolved = True
+            comparison_groups.append([])
+        else:
+            if result["chains"]:
+                rank_chains(result["chains"], doc["weights"], doc["policies"]["equal_metric_score"])
+            comparison_groups.append(result["chains"])
+    if sequences and sequences['evaluation']['mode'] == 'feasibility_only':
+        report['status'] = ('blocked' if unresolved else 'feasible_trajectories' if all(comparison_groups) else 'no_feasible_design')
+        return annotate_design_mapping(deepcopy(report))
+    if not all(comparison_groups):
+        report["status"] = "blocked" if unresolved else "no_feasible_design"
+        return annotate_design_mapping(deepcopy(report))
+    best = None
+    unknown_article = False
+    rejection_counts = Counter()
+    combination_count = math.prod(map(len, comparison_groups))
+    method = doc['policies'].get('network_search_method', 'auto')
+    use_branch = (method == 'branch_and_bound' or
+                  (method == 'auto' and combination_count > doc['policies']['max_network_combinations']))
+    if use_branch:
+        from .search import branch_and_bound
+        def audit_cooperation(chosen, document):
+            if len(chosen) != len(comparison_groups):
+                from .article_integration import cooperation_prefix
+                return cooperation_prefix(chosen, document)
+            result = cooperation(chosen, document)
+            report['article_table10']['combinations'].append({
+                'chains': [c['id'] for c in chosen],
+                'engineering_conflicts': deepcopy(network_conflicts(chosen, document)), **result})
+            return result
+        best, report['network_search'] = branch_and_bound(
+            comparison_groups, doc, network_conflicts,
+            cooperation_check=audit_cooperation if article_enabled else None)
+        unknown_article = report['network_search']['optimality'] == 'not_proven'
+        if article_enabled:
+            report['network_search']['method_reason'] = 'Table-10 definite failures prune prefixes; score bounds disabled for unknown auditing.'
+    else:
+        report['network_search'].update(algorithm='exhaustive', candidate_combinations=combination_count,
+                                        counts_scope='all_complete_combinations', optimality='not_proven')
+        for chosen in bounded_product(comparison_groups, doc["policies"]["max_network_combinations"], "奥术网"):
+            report["network_search"]["evaluated"] += 1
+            conflicts = network_conflicts(chosen, doc)
+            article_result = cooperation(chosen, doc) if article_enabled else None
+            if article_result:
+                report['article_table10']['combinations'].append({'chains':[c['id'] for c in chosen],
+                    'engineering_conflicts':deepcopy(conflicts),**article_result})
+                if not conflicts and article_result['status'] == 'unknown':
+                    unknown_article = True
+                if article_result['status'] != 'pass':
+                    conflicts.append({'code':'TABLE10_' + article_result['status'].upper(),'resource':'parallel-groups'})
+            if conflicts:
+                rejection_counts.update((c["code"], c.get("resource", f"{c.get('before')}->{c.get('after')}")) for c in conflicts)
+                continue
+            report["network_search"]["feasible"] += 1
+            score = sum(c["score"] for c in chosen) / len(chosen)
+            key = (-score, tuple(c["id"] for c in chosen))
+            if best is None or key < best[0]:
+                best = key, chosen, score, article_result
+        report["network_search"]["rejections"] = [{"code": code, "resource": resource, "count": count}
+                                                   for (code, resource), count in sorted(rejection_counts.items())]
+        report['network_search']['optimality'] = ('not_proven' if unknown_article else
+                                                  'proven' if best else 'proven_infeasible')
+    if article_enabled:
+        report['article_table10']['status'] = 'unknown' if unknown_article else 'pass' if best else 'fail'
+    if unknown_article:
+        report['status'] = 'blocked'
+        return annotate_design_mapping(deepcopy(report))
+    if best is None:
+        report["status"] = "no_feasible_design"
+        return annotate_design_mapping(deepcopy(report))
+    _, chosen, score, article_result = best
+    if article_enabled:
+        report['article_table10']['selected'] = article_result
+    selected = {c["task"]: c for c in chosen}
+    deps = {(d["before"], d["after"]) for d in doc.get("dependencies", [])}
+    relations = []
+    for a, b in combinations(chosen, 2):
+        if (a["task"], b["task"]) in deps or (b["task"], a["task"]) in deps:
+            before, after = (a, b) if (a["task"], b["task"]) in deps else (b, a)
+            relations.append({"kind": "serial", "from": before["id"], "to": after["id"]})
+        elif max(a["start_s"], b["start_s"]) < min(a["end_s"], b["end_s"]):
+            relations.append({"kind": "parallel", "chains": [a["id"], b["id"]]})
+        shared = sorted(member_ids(a) & member_ids(b))
+        if shared:
+            relations.append({"kind": "resource_sharing", "chains": [a["id"], b["id"]], "artifacts": shared})
+    for before in selected:
+        successors = sorted(after for first, after in deps if first == before)
+        if len(successors) > 1:
+            relations.append({"kind": "branch", "from": selected[before]["id"], "to": [selected[s]["id"] for s in successors]})
+    report["status"] = "complete"
+    report["network"] = {"id": "web-1", "chains": [c["id"] for c in chosen], "score": score,
+                         "objective": "mean_of_per_task_normalized_chain_scores",
+                         "relations": relations, "makespan_s": max(c["end_s"] for c in chosen) - min(c["start_s"] for c in chosen),
+                         "cost_per_execution": sum(c["metrics"]["cost"] for c in chosen),
+                         "cost_unit": doc["policies"]["cost_unit"]}
+    # Link evidence also contains nested input objects; detach the whole report.
+    return annotate_design_mapping(deepcopy(report))

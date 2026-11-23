@@ -1,0 +1,36 @@
+{
+  "format_version": "1.0",
+  "namespace": "urn:source-data:",
+  "references": {
+    "materials": {},
+    "tables": {
+      "material_ids": "materials"
+    },
+    "fields": {
+      "table_id": "tables"
+    },
+    "records": {
+      "table_id": "tables"
+    },
+    "values": {
+      "record_id": "records",
+      "field_id": "fields",
+      "issue_ids": "issues",
+      "normalization_basis": "statements"
+    },
+    "issues": {
+      "record_ids": "records",
+      "field_ids": "fields",
+      "value_ids": "values",
+      "table_ids": "tables",
+      "statement_ids": "statements",
+      "gap_ids": "gaps",
+      "material_ids": "materials",
+      "basis": "statements"
+    },
+    "gaps": {},
+    "statements": {
+      "material_ids": "materials"
+    }
+  }
+}

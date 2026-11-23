@@ -1,0 +1,123 @@
+{
+  "format_version": "1.0",
+  "id": "arcane_extraction_method_check",
+  "basis": "Artificial extraction check; explicitly groups two task closures in one run for arithmetic verification only.",
+  "data_kind": "method_check",
+  "batch_sha256": "85df9496df3dbf9c21b926d37891cdefb35679b8966e1e2ad85f250a921e009c",
+  "rules": {
+    "S1": {
+      "indicator": "发现目标时间",
+      "method": "first_value",
+      "fields": [
+        "discovery_time"
+      ],
+      "unit": "time_scale",
+      "basis": "Artificial extraction convention; fact meaning and aggregation must be justified for real records."
+    },
+    "D2": {
+      "indicator": "感知信息融合开始时间和结束时间",
+      "method": "single_interval",
+      "fields": [
+        "fusion_start",
+        "fusion_end"
+      ],
+      "unit": "time_scale",
+      "basis": "Artificial extraction convention; fact meaning and aggregation must be justified for real records."
+    },
+    "S3": {
+      "indicator": "发现目标次数",
+      "method": "sum_counts",
+      "fields": [
+        "discovery_count"
+      ],
+      "unit": "count",
+      "basis": "Artificial extraction convention; fact meaning and aggregation must be justified for real records."
+    },
+    "D4": {
+      "indicator": "感知信息融合开始时间和结束时间",
+      "method": "single_interval",
+      "fields": [
+        "fusion_start",
+        "fusion_end"
+      ],
+      "unit": "time_scale",
+      "basis": "Artificial extraction convention; fact meaning and aggregation must be justified for real records."
+    },
+    "S5": {
+      "indicator": "有效跟踪目标时长",
+      "method": "union_intervals",
+      "fields": [
+        "tracking_start",
+        "tracking_end"
+      ],
+      "unit": "time_scale",
+      "basis": "Artificial extraction convention; fact meaning and aggregation must be justified for real records."
+    },
+    "S6": {
+      "indicator": "有效跟踪目标时长",
+      "method": "union_intervals",
+      "fields": [
+        "tracking_start",
+        "tracking_end"
+      ],
+      "unit": "time_scale",
+      "basis": "Artificial extraction convention; fact meaning and aggregation must be justified for real records."
+    },
+    "F7": {
+      "indicator": "对目标有效消解程度",
+      "method": "single_value",
+      "fields": [
+        "effectiveness"
+      ],
+      "unit": "ratio",
+      "basis": "Artificial extraction convention; fact meaning and aggregation must be justified for real records."
+    },
+    "S8": {
+      "indicator": "有效发现并灵性锁定目标的次数",
+      "method": "sum_counts",
+      "fields": [
+        "discovery_count"
+      ],
+      "unit": "count",
+      "basis": "Artificial extraction convention; fact meaning and aggregation must be justified for real records."
+    },
+    "F9": {
+      "indicator": "对目标有效消解程度",
+      "method": "single_value",
+      "fields": [
+        "effectiveness"
+      ],
+      "unit": "ratio",
+      "basis": "Artificial extraction convention; fact meaning and aggregation must be justified for real records."
+    },
+    "S10": {
+      "indicator": "有效发现并灵性锁定目标的次数",
+      "method": "sum_counts",
+      "fields": [
+        "discovery_count"
+      ],
+      "unit": "count",
+      "basis": "Artificial extraction convention; fact meaning and aggregation must be justified for real records."
+    },
+    "F11": {
+      "indicator": "对目标有效消解程度",
+      "method": "single_value",
+      "fields": [
+        "effectiveness"
+      ],
+      "unit": "ratio",
+      "basis": "Artificial extraction convention; fact meaning and aggregation must be justified for real records."
+    }
+  },
+  "groups": [
+    {
+      "id": "paired_check",
+      "run": "run_check",
+      "closures": [
+        "closure_check",
+        "closure_check_KC2"
+      ],
+      "basis": "Artificial paired sample, not an inferred original pairing."
+    }
+  ]
+}

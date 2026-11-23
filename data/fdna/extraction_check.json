@@ -3,7 +3,7 @@
   "id": "arcane_extraction_method_check",
   "basis": "Artificial extraction check; explicitly groups two task closures in one run for arithmetic verification only.",
   "data_kind": "method_check",
-  "batch_sha256": "85df9496df3dbf9c21b926d37891cdefb35679b8966e1e2ad85f250a921e009c",
+  "batch_sha256": "80f62a5aab6c2b53c42de53ae7f459dd5e87ecb5c03990e603aabb3e4b732b0d",
   "rules": {
     "S1": {
       "indicator": "发现目标时间",
