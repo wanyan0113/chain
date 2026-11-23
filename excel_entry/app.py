@@ -145,12 +145,13 @@ def run_import(data, filename, *, output_root=None, bindings=None, reasoner=Fals
 class Handler(BaseHTTPRequestHandler):
     bindings = None
     reasoner = False
-    def send(self, status, content, mime):
+    def send(self, status, content, mime, *, headers=None):
         self.send_response(status)
         self.send_header('Content-Type', mime)
         self.send_header('Content-Length', str(len(content)))
         self.send_header('Cache-Control', 'no-store')
         self.send_header('X-Content-Type-Options', 'nosniff')
+        for name,value in (headers or {}).items():self.send_header(name,value)
         self.end_headers()
         self.wfile.write(content)
 
@@ -161,6 +162,26 @@ class Handler(BaseHTTPRequestHandler):
             if embedded:
                 content = content.replace('</style>', '</style><style>nav,.workspace-nav{display:none!important}</style>', 1)
             return self.send(200, content.encode('utf-8'), 'text/html; charset=utf-8')
+        if path.startswith('/fdna-results'):
+            from . import evidence_web
+            policy={'Content-Security-Policy':"default-src 'none'; base-uri 'none'; style-src 'unsafe-inline'; script-src 'self'; img-src 'self'; connect-src 'self'; frame-ancestors 'self'; form-action 'none'"}
+            try:
+                if path=='/fdna-results':
+                    content=(ROOT/'excel_entry/evidence.html').read_text(encoding='utf-8')
+                    if embedded:content=content.replace('</style>','</style><style>.workspace-nav{display:none!important}</style>',1)
+                    return self.send(200,content.encode('utf-8'),'text/html; charset=utf-8',headers=policy)
+                if path=='/fdna-results.js':return self.send(200,(ROOT/'excel_entry/evidence.js').read_bytes(),'text/javascript; charset=utf-8',headers=policy)
+                if path=='/fdna-results/status':return self.send(200,json.dumps(evidence_web.status_data(ROOT),ensure_ascii=False).encode('utf-8'),'application/json; charset=utf-8',headers=policy)
+                if path.startswith('/fdna-results/read/') or path.startswith('/fdna-results/documents/'):
+                    return self.send(200,evidence_web.reading_page(ROOT,path).encode('utf-8'),'text/html; charset=utf-8',headers=policy)
+                if path.startswith('/fdna-results/files/'):
+                    parts=path[len('/fdna-results/files/'):].split('/',1)
+                    if len(parts)!=2:raise evidence_web.EvidenceError(404,'缺少成果文件')
+                    _,data,mime=evidence_web.artifact(ROOT,unquote(parts[0]),unquote(parts[1]))
+                    return self.send(200,data,mime,headers=policy)
+                return self.send(404,b'Not found','text/plain',headers=policy)
+            except (ValueError,OSError,KeyError) as exc:
+                return self.send(getattr(exc,'status',409),json.dumps({'error':str(exc)},ensure_ascii=False).encode('utf-8'),'application/json; charset=utf-8',headers=policy)
         if path == '/article-case':
             from design.reference import load_reference, reference_view_html
             return page(reference_view_html(load_reference()))

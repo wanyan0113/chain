@@ -12,7 +12,6 @@ import sys
 from urllib.parse import quote
 
 from .model import ModelError
-from .workflow_common import dumps, write_bundle
 
 
 REPOSITORY=Path(__file__).resolve().parents[1]
@@ -205,5 +204,6 @@ def run(repository,project_root,output_dir,mode='published',catalog_path=DEFAULT
         numerical_rechecks_executed=any(r['verifier_invoked'] and r['check_kind'] in ('scalar_numerical','timing_arithmetic_and_scalar_regression') for r in checks),
         numerical_rechecks_completed=mode=='full' and all(r['status']=='passed' for r in checks),
         performance_remeasured=False,scientific_validity_established=False)
+    from .workflow_common import dumps,write_bundle
     write_bundle(out,{'review_report.json':dumps(report),'成果复核与阅读入口.md':report_markdown(report,repo,out),'目录版本.json':dumps(catalog)})
     return report

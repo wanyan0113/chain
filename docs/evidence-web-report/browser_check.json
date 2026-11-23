@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "method": "local_headless_Edge_CDP",
+  "url": "http://127.0.0.1:8897/",
+  "checked_at_utc": "2026-11-23T12:40:04.286Z",
+  "workspace": {
+    "selected": "true",
+    "banner": "当前发布材料检查通过：7组、95个文件；2026/11/23 20:40:03（北京时间）。本次没有执行数值重算。",
+    "cards": 7
+  },
+  "refresh_created_new_material_request": true,
+  "report_opened_new_tab": true,
+  "reportView": {
+    "title": "P1诊断、审计、基线与冻结稳定性汇报",
+    "images": 6,
+    "firstImageWidth": 3840,
+    "hasParagraphs": true
+  },
+  "mobile": {
+    "width": 390,
+    "scrollWidth": 390,
+    "cards": 7,
+    "history": "记录时间：2026/11/23 20:16:25（北京时间）当次状态：通过；独立脚本已调用10项。该记录登记的材料版本与当前发布材料一致；本页没有重新执行这些数值任务。查看当次任务列表06原始场景完整包：通过六图汇报与来源：通过训练均值与OLS基线：通过冻结预测重采样：通过冻结模型传播：通过训练成组重拟合：通过重估模型传播：通过重估模型分支：通过同信息依赖消融：通过性能记录及全量回放：通过阅读该次完整复核记录 →"
+  },
+  "limitation": "automated browser checks; native UI helper failed to initialize; no manual UI acceptance claimed"
+}

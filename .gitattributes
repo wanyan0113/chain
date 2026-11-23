@@ -18,3 +18,4 @@ docs/edge-ablation-report/ablation_report.json -diff
 docs/prepared-prediction-report/** -text
 docs/prepared-prediction-report/*.svg -diff
 docs/evidence-review-report/** -text
+docs/evidence-web-report/** -text
