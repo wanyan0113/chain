@@ -1,0 +1,15 @@
+{
+  "01_删边后同目标递推误差变化.png": "541e63174751eff21b45d35f0f8b8e4de2e45c4103425c5763a81039801d1f29",
+  "01_删边后同目标递推误差变化.svg": "3d64a3900bd44db57a211048110cd0e7731781533dafca443cbe177bc86ce896",
+  "02_删边后固定示例置零传播.png": "257c247ecea447cdb50e4efaeff6dbaaa294d23f94e2c8039deee18f7dc3bda5",
+  "02_删边后固定示例置零传播.svg": "5a8415102e35f32cec8be11aa07d8ef16faa3c60e4f1c1bf943f01a37ada55be",
+  "ablation_report.json": "369a8dbd62c5fb9693d56381140ccd09d1fd7ef79149acc28f12e976f07fe740",
+  "README.md": "e767343cd53b1f19008e7d8a64db6e0cf1de651d46d349c4b150b734a7f1951f",
+  "同关系传播对照.csv": "47bef840ad9e3e03891ec136ae8f6cba69dc4b47b73197fec350c6ab4de7aec8",
+  "同目标误差对照.csv": "c5673bb8e7f4671fb28f05a2f10b009eaefa9ec6d9fa4d5a74c122a2a9b1e282",
+  "固定方案.json": "38677d3836dc813e108eea3efe75c153ff28920cab1d2b5abbee9f500a36ffeb",
+  "独立标量复核.json": "d5a99ba152eb3c417c7ae4d802b27877b5dc3f12c09496f96bcede7cd78ca3d9",
+  "结果说明.md": "ecd9a437d44cea26df1a95e3f1a2fd0e607ebf342d07ce0ef4de7812a28fa6d7",
+  "训练常数与参数维度.json": "eabe5292f325c19581aac8bbea88409469ea2263dd8066c094d8839e08989d11",
+  "逐样本预测与传播.npz": "446d17c687406bdc0194ef764e14ed096d1d62297ba6fa07507eec65a0ce5d0b"
+}

@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "source_files_verified": 94,
+  "training_constants_checked": 18,
+  "prediction_values_checked": 69120,
+  "propagation_responses_checked": 64800,
+  "removed_path_zero_checks": 18900,
+  "metric_rows_checked": 1152,
+  "response_summary_rows_checked": 2160,
+  "maximum_absolute_difference": 2.842170943040401e-14,
+  "source_manifest_sha256": "3b5a931069ca41e6e860c6991ecbe2079091a962f61793a14d91f0d63039ce6e",
+  "report_sha256": "369a8dbd62c5fb9693d56381140ccd09d1fd7ef79149acc28f12e976f07fe740"
+}

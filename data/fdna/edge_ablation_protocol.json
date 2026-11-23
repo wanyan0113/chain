@@ -1,0 +1,17 @@
+{
+  "id": "flow06_registered_edge_ablation_training_mean_v1",
+  "individual_cuts": [["A1", "B1"], ["A2", "B2"], ["A3", "B3"], ["B1", "F1"], ["B2", "F2"], ["B3", "F3"]],
+  "include_all_edges_cut": true,
+  "new_root_policy": "target_mean_from_original_training_only_never_observed_holdout",
+  "remaining_equations": "frozen_original_local_observed_input_fits",
+  "evaluation_targets": "all_original_receivers_even_if_new_roots",
+  "external_observed_inputs": "original_roots_only",
+  "retained_fractions": [0, 0.25, 0.5, 0.75, 1],
+  "propagation_pairs": "all_original_reachable_pairs_keep_removed_paths_as_zero_checks",
+  "intervention_reference": "each_scenarios_own_predicted_baseline",
+  "output_clipping": false,
+  "fdna_refitting": false,
+  "holdout_role": "previously_examined_descriptive_only_no_topology_selection",
+  "mapping_approval": false,
+  "interpretation": "training_mean_null_hypothesis_ablation_not_true_dependency_identification_or_full_T_Refit"
+}
