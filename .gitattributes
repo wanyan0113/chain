@@ -15,3 +15,5 @@ docs/refit-branch-report/传播分支逐模型条件.csv -diff
 docs/edge-ablation-report/** -text
 docs/edge-ablation-report/*.svg -diff
 docs/edge-ablation-report/ablation_report.json -diff
+docs/prepared-prediction-report/** -text
+docs/prepared-prediction-report/*.svg -diff

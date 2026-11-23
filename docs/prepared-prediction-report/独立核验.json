@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "timing_rows_checked": 10,
+  "bitwise_numeric_values_compared": 1296000,
+  "bitwise_mask_values_compared": 1215000,
+  "scalar_responses_checked": 405000,
+  "maximum_difference": 0.0,
+  "median_speedup": 42.48024568805066,
+  "source_manifest_sha256": "28b2ec596520b5b08f79075b635175ad3ea6534fb7e2d6a36aa4d92db4e70dcb",
+  "report_sha256": "3226af231fbb37dd3502030f0cd556b49736a108b8bb11991c75144b6f078869",
+  "limitation": "verifies_recorded_timing_arithmetic_not_independent_remeasurement"
+}

@@ -1,0 +1,161 @@
+{
+  "protocol": {
+    "id": "flow06_prepared_prediction_runtime_v1",
+    "reference_commit": "19d31b88baa5f09f8620c96dd6fd7798f7ed2e69",
+    "panel": "08_full_training_control_six_jobs_all_30_original_holdout_cases",
+    "trials": 5,
+    "warmup_per_implementation": 1,
+    "order": "alternate_reference_first_and_prepared_first",
+    "timed_scope": "in_memory_complete_replay_including_validation_and_parameter_preparation",
+    "excluded": [
+      "file_loading",
+      "independent_verification",
+      "fitting",
+      "plotting"
+    ],
+    "cache_scope": "one_model_job_within_one_replay_only",
+    "comparison": "all_saved_arrays_and_missing_masks",
+    "full_regression": "replay_all_50_existing_refitted_models_and_compare_original_09",
+    "interpretation": "local_runtime_measurement_not_universal_or_end_to_end_solver_speedup"
+  },
+  "timings": [
+    {
+      "trial": 1,
+      "position": 1,
+      "implementation": "reference",
+      "seconds": 1.1633480999989843
+    },
+    {
+      "trial": 1,
+      "position": 2,
+      "implementation": "prepared",
+      "seconds": 0.02773220000017318
+    },
+    {
+      "trial": 2,
+      "position": 1,
+      "implementation": "prepared",
+      "seconds": 0.025602000001526903
+    },
+    {
+      "trial": 2,
+      "position": 2,
+      "implementation": "reference",
+      "seconds": 1.123230400000466
+    },
+    {
+      "trial": 3,
+      "position": 1,
+      "implementation": "reference",
+      "seconds": 1.1729056000003766
+    },
+    {
+      "trial": 3,
+      "position": 2,
+      "implementation": "prepared",
+      "seconds": 0.03653110000232118
+    },
+    {
+      "trial": 4,
+      "position": 1,
+      "implementation": "prepared",
+      "seconds": 0.026733399998192908
+    },
+    {
+      "trial": 4,
+      "position": 2,
+      "implementation": "reference",
+      "seconds": 1.1356414000001678
+    },
+    {
+      "trial": 5,
+      "position": 1,
+      "implementation": "reference",
+      "seconds": 1.110460800002329
+    },
+    {
+      "trial": 5,
+      "position": 2,
+      "implementation": "prepared",
+      "seconds": 0.023339100000157487
+    }
+  ],
+  "timing_summary": {
+    "reference": {
+      "minimum_seconds": 1.110460800002329,
+      "median_seconds": 1.1356414000001678,
+      "maximum_seconds": 1.1729056000003766,
+      "trials": 5
+    },
+    "prepared": {
+      "minimum_seconds": 0.023339100000157487,
+      "median_seconds": 0.026733399998192908,
+      "maximum_seconds": 0.03653110000232118,
+      "trials": 5
+    }
+  },
+  "median_speedup": 42.48024568805066,
+  "call_counts": {
+    "reference": {
+      "topology_validations": 277,
+      "dag_evaluations": 276
+    },
+    "prepared": {
+      "topology_validations": 1,
+      "dag_evaluations": 186
+    }
+  },
+  "control_array_comparison": {
+    "numeric_values_compared": 25920,
+    "mask_values_compared": 24300,
+    "maximum_difference": 0.0,
+    "bitwise_equal_including_missing": true
+  },
+  "all_50_models_comparison": {
+    "numeric_values_compared": 1296000,
+    "mask_values_compared": 1215000,
+    "maximum_difference": 0.0,
+    "bitwise_equal_including_missing": true
+  },
+  "independent_verification": {
+    "status": "passed",
+    "responses_checked": 405000,
+    "summary_rows_checked": 270,
+    "summary_csv_rows_checked": 270,
+    "focus_csv_rows_checked": 50,
+    "source_manifest_sha256": "ffa59f8b39bff5e41b26668f7cd2ecaa585a4e32fc11d733c2ac9e77eb2824e9",
+    "report_sha256": "86a764182d540d445bc017f284eaa1a83bab5512cdc25de954a472b563f7764e",
+    "arrays_sha256": "adb38b60f36689180a33440e6fc84b91686c7e134f5eeb9e9f4b4b11e7947f2e",
+    "outside_responses": 0,
+    "target_extrapolated_responses": 199146,
+    "max_difference": 0.0
+  },
+  "full_replay_seconds_including_io_verification_and_figures": 6.58101539999916,
+  "source_directory": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\关于优化\\09_重估模型传播敏感性",
+  "source_manifest_sha256": "e48b5b710b05993830a0b49c34591b6121a698cc1a3718b39693e3a4f4ec3f2a",
+  "source_verification": {
+    "status": "passed",
+    "responses_checked": 405000,
+    "summary_rows_checked": 270,
+    "summary_csv_rows_checked": 270,
+    "focus_csv_rows_checked": 50,
+    "source_manifest_sha256": "e48b5b710b05993830a0b49c34591b6121a698cc1a3718b39693e3a4f4ec3f2a",
+    "report_sha256": "86a764182d540d445bc017f284eaa1a83bab5512cdc25de954a472b563f7764e",
+    "arrays_sha256": "adb38b60f36689180a33440e6fc84b91686c7e134f5eeb9e9f4b4b11e7947f2e",
+    "outside_responses": 0,
+    "target_extrapolated_responses": 199146,
+    "max_difference": 0.0
+  },
+  "reference_file_sha256": "ccc5d455f11eea474a1ef5724de9b2c975f781ea59c5f0febe23a8ce50ca16dd",
+  "original_reference_source_sha256": "f87e31dbacb70d915f079cb1c56cb83cc97c23d3cf9abe5742a50c8428c65c24",
+  "optimized_files_sha256": {
+    "fdna/prepared_prediction.py": "ac28ccf384318225fbb5a966913496c0be7919d0f204412f6dd6fcc29ce05693",
+    "fdna/refit_propagation.py": "8a7d6a3fbcf34ca6da7df8153d9e8c788ca67bf6a479ae9f89ae3ce2dc5e1202"
+  },
+  "environment": {
+    "python": "3.14.0",
+    "numpy": "2.5.4",
+    "platform": "Windows-11-10.0.22631-SP0"
+  },
+  "source_code_hash_policy": "normalize_CRLF_to_LF"
+}

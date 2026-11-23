@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "responses_checked": 405000,
+  "summary_rows_checked": 270,
+  "summary_csv_rows_checked": 270,
+  "focus_csv_rows_checked": 50,
+  "source_manifest_sha256": "ffa59f8b39bff5e41b26668f7cd2ecaa585a4e32fc11d733c2ac9e77eb2824e9",
+  "report_sha256": "86a764182d540d445bc017f284eaa1a83bab5512cdc25de954a472b563f7764e",
+  "arrays_sha256": "adb38b60f36689180a33440e6fc84b91686c7e134f5eeb9e9f4b4b11e7947f2e",
+  "outside_responses": 0,
+  "target_extrapolated_responses": 199146,
+  "max_difference": 0.0
+}

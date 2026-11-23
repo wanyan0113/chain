@@ -9,8 +9,9 @@ import numpy as np
 
 from .model import ModelError
 from .propagation_stability import reachable_pairs, FIELDS
+from .prepared_prediction import PreparedTopology, layout
 from .structure import digest
-from .workflow_common import csv_text, dumps, make_model, write_bundle
+from .workflow_common import csv_text, dumps, write_bundle
 
 
 def read(path):
@@ -21,47 +22,14 @@ def sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
-def layout(network):
-    make_model(network)  # Validate nodes, duplicate edges and DAG before compiling.
-    nodes=sorted(network['nodes'])
-    parents={n:sorted(e['feeder'] for e in network['edges'] if e['receiver']==n) for n in nodes}
-    order=[]
-    while len(order)<len(nodes):
-        ready=[n for n in nodes if n not in order and all(p in order for p in parents[n])]
-        if not ready: raise ModelError('网络存在环')
-        order.extend(ready)
-    return nodes,parents,order
-
-
 def predict(network, fits, roots, forced=None):
-    """Batch DAG evaluation. Missing values propagate; internal observations are rejected."""
-    nodes,parents,order=layout(network)
-    if set(roots)!={n for n in nodes if not parents[n]}: raise ModelError('只接受全部根节点观测')
-    values={n:np.asarray(v,dtype=float) for n,v in roots.items()}
-    shapes={v.shape for v in values.values()}
-    if len(shapes)!=1 or len(next(iter(shapes)))!=1: raise ModelError('根观测须为等长一维数组')
-    shape=next(iter(shapes))
-    if set(fits)!={n for n in nodes if parents[n]}: raise ModelError('接受节点模型不完整')
-    if forced is not None:
-        node,vector=forced
-        vector=np.asarray(vector,dtype=float)
-        if node not in nodes or vector.shape!=shape: raise ModelError('干预节点或维度错误')
-    for n in order:
-        if parents[n]:
-            f=fits[n];params=f['parameters']
-            if (len(params)!=len(parents[n]) or sorted(p['feeder'] for p in params)!=parents[n]
-                    or f['status']!='fitted'): raise ModelError('参数供给关系或拟合状态错误')
-            a=np.array([p['alpha'] for p in params]);b=np.array([p['beta'] for p in params]);d=f['delta'] or 0.
-            if (not np.isfinite(a).all() or not np.isfinite(b).all() or not np.isfinite(d)
-                    or np.any((a<0)|(a>1)) or np.any((b<0)|(b>100))): raise ModelError('参数非有限或越界')
-            x=np.array([values[p['feeder']] for p in params])
-            values[n]=np.minimum(np.mean(100-a[:,None]*(100-x),axis=0),np.min(x+b[:,None],axis=0))+d
-        if forced is not None and forced[0]==n: values[n]=vector.copy()
-    return np.stack([values[n] for n in nodes],axis=1)
+    """One-shot compatibility entry; repeated callers can explicitly prepare once."""
+    return PreparedTopology.from_network(network).bind(fits).predict(roots,forced)
 
 
 def replay(network, record, rows, jobs, cases, pairs, fractions, ranges):
-    nodes,parents,_=layout(network);index={n:i for i,n in enumerate(nodes)}
+    topology=PreparedTopology.from_network(network)
+    nodes=list(topology.nodes);parents=dict(topology.parent_items);index={n:i for i,n in enumerate(nodes)}
     shape=(len(jobs),len(pairs),len(fractions),len(cases))
     arrays={name:np.full(shape,np.nan) for name in ('decrease','changed','forced')}
     arrays.update({name:np.zeros(shape,dtype=bool) for name in ('valid','outside','extrapolated')})
@@ -76,14 +44,20 @@ def replay(network, record, rows, jobs, cases, pairs, fractions, ranges):
         if any(f['status']!='fitted' for f in entries): continue
         roots={n:np.array([lookup.get((group,c),{}).get('node_values',{}).get(n,np.nan) for c in cases])
                for n in nodes if not parents[n]}
-        baseline=predict(network,fits,roots);arrays['baseline'][j]=baseline
+        prepared=topology.bind(fits)
+        baseline=prepared.predict(roots);arrays['baseline'][j]=baseline
+        # Same model, roots, start and fraction: multiple targets share one DAG evaluation.
+        intervention_states={}
         root_valid=np.all(np.isfinite(np.array(list(roots.values()))),axis=0)
         for k,(start,target) in enumerate(pairs):
             own=baseline[:,index[start]]
             valid=root_valid & np.isfinite(own) & (own>=0) & (own<=100)
             for fi,fraction in enumerate(fractions):
                 forced=np.where(valid,own*fraction,np.nan)
-                changed=predict(network,fits,roots,(start,forced))
+                state_key=start,fraction
+                if state_key not in intervention_states:
+                    intervention_states[state_key]=prepared.predict(roots,(start,forced))
+                changed=intervention_states[state_key]
                 y=changed[:,index[target]];old=baseline[:,index[target]]
                 mask=valid & np.isfinite(y) & np.isfinite(old)
                 key=j,k,fi
