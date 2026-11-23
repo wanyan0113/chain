@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "pdf_pages_rendered": 6,
+  "renderer": "Windows.Data.Pdf.PdfDocument",
+  "reviewed_page": "all_six_pages_rendered; updated_page_03_visually_reviewed",
+  "review_changes": [
+    "图3明确比较对象为OLS",
+    "补充近等阈值1e-8",
+    "明确已有留出不构成新的独立测试"
+  ],
+  "numeric_verification": "数值复核.json",
+  "fdna_refitted": false,
+  "se_generated": false
+}

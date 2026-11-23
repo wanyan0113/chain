@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "figures": 6,
+  "source_fingerprints_verified": 18,
+  "source_package_files_verified": 94,
+  "csv_fields_compared": 3770,
+  "common_holdout_rows": 144,
+  "delta_pairs": 18,
+  "stability_rows": 36,
+  "pdf_sha256": "d22ad33fbdaf2a6befcf69ab004900b17bc3c4caf70da4222c222f3300aa0999",
+  "fdna_refitted": false,
+  "se_generated": false
+}
