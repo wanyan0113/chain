@@ -1,0 +1,13 @@
+{
+  "id": "flow06_refitted_training_to_propagation_branch_audit_v1",
+  "tie_tolerance": 1e-8,
+  "scope": "validated_single_feeder_receivers_only",
+  "training_inputs": "observed_feeders_in_each_original_resampled_training_draw",
+  "holdout_inputs": "each_models_recursive_feeders_not_internal_observations",
+  "response_panel": "all_saved_09_responses_including_retained_one",
+  "strict_training_beta_inactive": "all_training_rows_unique_SOD_no_COD_no_near_tie",
+  "activation": "unique_COD_in_saved_intervention_response",
+  "missing": "code_zero_unavailable_not_SOD",
+  "fit_or_change_parameters": false,
+  "interpretation": "local_piecewise_formula_explanation_not_parameter_identification_or_causality"
+}

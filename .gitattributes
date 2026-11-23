@@ -9,3 +9,6 @@ docs/training-refit-report/** -text
 docs/training-refit-report/*.svg -diff
 docs/refit-propagation-report/** -text
 docs/refit-propagation-report/*.svg -diff
+docs/refit-branch-report/** -text
+docs/refit-branch-report/*.svg -diff
+docs/refit-branch-report/传播分支逐模型条件.csv -diff

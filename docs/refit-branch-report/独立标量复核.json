@@ -1,0 +1,11 @@
+{
+  "status": "passed",
+  "training_fit_rows_checked": 1800,
+  "scalar_training_inputs_checked": 162000,
+  "scalar_responses_checked": 405000,
+  "model_conditions_checked": 13500,
+  "summary_rows_checked": 270,
+  "maximum_response_difference": 0.0,
+  "source_manifest_sha256": "0c43811d651133bd25574b061146f258ea7c470aa70f9c1aed14f39fae38eecc",
+  "report_sha256": "8a93de431c7978013baba1af48c2e9b1bdadf985d12b3aae1f7e51bd7d5e9e43"
+}
