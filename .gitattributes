@@ -3,3 +3,5 @@ data/fdna/v1_acceptance/** -text
 # Preserve the byte hashes in the reviewed figure snapshot on every platform.
 docs/optimization-report/** -text
 docs/optimization-report/图表/*.svg -diff
+docs/propagation-report/** -text
+docs/propagation-report/*.svg -diff

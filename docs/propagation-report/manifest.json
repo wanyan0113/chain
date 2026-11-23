@@ -1,0 +1,14 @@
+{
+  "01_多基准末端平均响应.png": "1f264b9de19d6fce6bbab4cb1fa855488fa7fa81d37b01779e9d80ca2249c231",
+  "01_多基准末端平均响应.svg": "35f6efc08b4a4f4c5f871c6c2419b94d1e3f2e3df0019fabb274057bbd96ecd5",
+  "02_基准差异与均值稳定性分开.png": "b995d1e4e8b37b4b565634b9bde708de08756ea0372263f696e24126bc588699",
+  "02_基准差异与均值稳定性分开.svg": "6bf151d15b11fb929ee17fab06e17c92a02776133f1937db471285925c81f78f",
+  "03_退化响应越界与外推.png": "139651218fa04eb5273bfe71c54d8307f049761fbbcbe2cd16f768141eaa37d5",
+  "03_退化响应越界与外推.svg": "026065c27742cb32abc08a2510fd0b7bcde0c76a3da316ce2bb70b08602d89b6",
+  "README.md": "f8b5fe905c2244fa8ffda06ff2e76fd15211cde92735c2cc6aaa94965f73368d",
+  "固定传播方案.json": "33f3ff012ee2ea7db42330659c770cf71ebc55fb85343b0e1a365cf2ba840b7e",
+  "多基准响应摘要.csv": "47d2ea44cf93d07f894d0dfbe70f42f6f2cb31101d898f067131e9773ebc8a3e",
+  "独立标量复核.json": "ec38a83a8c2abf8864f9debb49275f6b41729b36bc43e92f133251268f787dcb",
+  "结果说明.md": "724ceda8f818c46a1016faf6a4fe5ad902ddfaec334bcb3cb2e65fe529aa4d0a",
+  "运行审计.json": "429070ed4bc9e0af97e6f2954fab66f7d93ab95f723f62b387bb82c5691cee29"
+}

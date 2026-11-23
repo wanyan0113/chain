@@ -1,0 +1,39 @@
+{
+  "audit": {
+    "original_responses_compared": 270,
+    "original_max_difference": 0.0,
+    "core_crosschecks": 8100,
+    "core_max_difference": 2.842170943040401e-14,
+    "non_descendants_invariant": true,
+    "baseline_job_pairs": 180,
+    "responses": 8100,
+    "response_summaries": 270,
+    "base_cases": 30,
+    "resamples": 2000,
+    "outside_responses": 0,
+    "target_predictor_extrapolated_responses": 3819
+  },
+  "source": {
+    "directory": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\关于两篇连接\\06_完整场景全流程运行",
+    "draw_directory": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\关于优化\\04_冻结预测成组稳定性",
+    "verified_files": 94,
+    "draw_sha256": "f5395b32be86268ddd3453c7e78eb8bfd0507dad0c67f9dcf473fd774df76c0f",
+    "fit_sha256": "fe1e0e7bb54b9584e76c55f9337fb4614640d285e091aa5e1132178825236641"
+  },
+  "policies": {
+    "refitted": false,
+    "se_generated": false,
+    "topology_changed": false,
+    "output_clipped": false,
+    "parameter_uncertainty_included": false,
+    "training_resampled": false,
+    "causal_effect_established": false
+  },
+  "data_sha256": "c2598ff589c509aa1863999540b27b850abbc2599d00ebd426f3cae104d39727",
+  "input_sha256": "7b4cfad183bd553bfe8635a5ebf1fdc192fb18d78aa950945379a729567db040",
+  "limits": [
+    "基准P10/P90描述具体基准间差异；均值重采样范围描述冻结模型下的样本构成波动。",
+    "不包括训练数据、参数或求解器不确定性，不作为参数置信区间。",
+    "目标直接供给外推标记不表示整条路径的覆盖已验证；模型内干预不等于真实因果。"
+  ]
+}

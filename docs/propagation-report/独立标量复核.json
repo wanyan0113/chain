@@ -1,0 +1,10 @@
+{
+  "status": "passed",
+  "source_files_verified": 94,
+  "response_values_checked": 32400,
+  "non_descendant_values_checked": 56700,
+  "resampled_means_checked": 540000,
+  "summary_values_checked": 2160,
+  "maximum_absolute_difference": 4.263256414560601e-14,
+  "refitted": false
+}
