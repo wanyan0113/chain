@@ -172,6 +172,19 @@ class Handler(BaseHTTPRequestHandler):
                     return self.send(200,content.encode('utf-8'),'text/html; charset=utf-8',headers=policy)
                 if path=='/fdna-results.js':return self.send(200,(ROOT/'excel_entry/evidence.js').read_bytes(),'text/javascript; charset=utf-8',headers=policy)
                 if path=='/fdna-results/status':return self.send(200,json.dumps(evidence_web.status_data(ROOT),ensure_ascii=False).encode('utf-8'),'application/json; charset=utf-8',headers=policy)
+                if path=='/fdna-results/recheck/status':
+                    jobs=getattr(self.server,'review_jobs',None)
+                    result=jobs.snapshot() if jobs else dict(enabled=False,status='idle',message='未配置完整复核来源；启动服务时设置 --review-project-root。')
+                    return self.send(200,json.dumps(result,ensure_ascii=False).encode('utf-8'),'application/json; charset=utf-8',headers=policy)
+                if path in ('/fdna-results/recheck/report','/fdna-results/recheck/report.json'):
+                    jobs=getattr(self.server,'review_jobs',None)
+                    if jobs is None:raise evidence_web.EvidenceError(409,'本次服务会话没有可用的网页复核报告')
+                    source,data=jobs.report('json' if path.endswith('.json') else 'markdown')
+                    if path.endswith('.json'):
+                        return self.send(200,data,'application/json; charset=utf-8',headers=dict(policy,**{'Content-Disposition':'attachment; filename="review_report.json"'}))
+                    body=evidence_web.markdown_body(data.decode('utf-8'),ROOT,source)
+                    content='<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>本次网页完整复核</title><style>'+evidence_web.READER_STYLE+'</style><main><nav><a href="/fdna-results">返回优化成果</a></nav><p class="notice">这是本次网页任务的执行报告；以报告中的时间、逐项状态与未完成事项为准。</p>'+body+'</main></html>'
+                    return self.send(200,content.encode('utf-8'),'text/html; charset=utf-8',headers=policy)
                 if path.startswith('/fdna-results/read/') or path.startswith('/fdna-results/documents/'):
                     return self.send(200,evidence_web.reading_page(ROOT,path).encode('utf-8'),'text/html; charset=utf-8',headers=policy)
                 if path.startswith('/fdna-results/files/'):
@@ -212,6 +225,17 @@ class Handler(BaseHTTPRequestHandler):
         if self.headers.get('Host') != expected_origin.removeprefix('http://') or (origin and origin != expected_origin):
             return self.send(403, b'Forbidden', 'text/plain')
         path = urlsplit(self.path).path
+        if path=='/fdna-results/recheck':
+            try:
+                size=int(self.headers.get('Content-Length','0'))
+                if not 0<=size<=64:raise ValueError('该操作不接受上传文件或来源路径')
+                payload=self.rfile.read(size)
+                if payload and json.loads(payload)!={}:raise ValueError('来源只能由服务启动参数配置，网页不接受复核参数')
+                jobs=getattr(self.server,'review_jobs',None)
+                if jobs is None:raise ValueError('尚未配置完整复核来源，请用 --review-project-root 启动服务')
+                return self.send(202,json.dumps(jobs.start(),ensure_ascii=False).encode('utf-8'),'application/json; charset=utf-8')
+            except (ValueError,OSError) as exc:
+                return self.send(getattr(exc,'status',400),json.dumps({'error':str(exc)},ensure_ascii=False).encode('utf-8'),'application/json; charset=utf-8')
         if path not in ('/import', '/review-rules', '/design-run'):
             return self.send(404, b'Not found', 'text/plain')
         try:
@@ -239,6 +263,7 @@ def main(argv=None):
     parser.add_argument('--port', type=int, default=8765)
     parser.add_argument('--bindings', type=Path, help='已核实且附来源的实例关系JSON配置')
     parser.add_argument('--reasoner', action='store_true', help='导入时执行HermiT检查')
+    parser.add_argument('--review-project-root',type=Path,help='显式启用网页完整复核，指向包含generated来源的项目根目录')
     args = parser.parse_args(argv)
     if args.design_file:
         try:
@@ -263,12 +288,16 @@ def main(argv=None):
     Handler.bindings = bindings
     Handler.reasoner = args.reasoner
     server = HTTPServer(('127.0.0.1', args.port), Handler)
+    from .recheck_jobs import RecheckJobs
+    try:server.review_jobs=RecheckJobs(ROOT,args.review_project_root)
+    except ValueError as exc:server.server_close();parser.error(str(exc))
     print(f'请在浏览器打开 http://127.0.0.1:{args.port} ，按 Ctrl+C 停止。', flush=True)
     try:
         server.serve_forever()
     except KeyboardInterrupt:
         pass
     finally:
+        server.review_jobs.close()
         server.server_close()
 
 

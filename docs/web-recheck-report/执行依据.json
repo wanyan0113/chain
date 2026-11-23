@@ -1,0 +1,12 @@
+{
+  "source_report_sha256": "9dfd8b91b9e40fb17aa8a434aa17b6219b5b1c24a1b3a79e785fce50174236ac",
+  "source_manifest_sha256": "c8bf48e9739f445edb41a97dc1ee0b955231f7d2e91d4388d0d8a82f60af0139",
+  "source_job_sha256": "cb3504eb0b6d4e1c424d26e14e2c02a223ffccdb18a144c71b67d7422334ed1a",
+  "unique_related_tests": 209,
+  "full_verifiers_invoked": 10,
+  "published_files_checked": 95,
+  "scientific_validity_established": false,
+  "model_refitted": false,
+  "se_generated": false,
+  "performance_remeasured": false
+}

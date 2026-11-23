@@ -1,0 +1,88 @@
+{
+  "enabled": true,
+  "status": "passed",
+  "id": "cbffbd35a3b84ce597cd5aed65e01f10",
+  "started_at_utc": "2026-11-23T13:14:22.024018+00:00",
+  "finished_at_utc": "2026-11-23T13:14:51.392918+00:00",
+  "completed_tasks": 10,
+  "total_tasks": 10,
+  "tasks": [
+    {
+      "id": "source06",
+      "title": "06原始场景完整包",
+      "status": "passed",
+      "verifier_invoked": true,
+      "error": null
+    },
+    {
+      "id": "figures",
+      "title": "六图汇报与来源",
+      "status": "passed",
+      "verifier_invoked": true,
+      "error": null
+    },
+    {
+      "id": "baselines",
+      "title": "训练均值与OLS基线",
+      "status": "passed",
+      "verifier_invoked": true,
+      "error": null
+    },
+    {
+      "id": "frozen_predictions",
+      "title": "冻结预测重采样",
+      "status": "passed",
+      "verifier_invoked": true,
+      "error": null
+    },
+    {
+      "id": "frozen_propagation",
+      "title": "冻结模型传播",
+      "status": "passed",
+      "verifier_invoked": true,
+      "error": null
+    },
+    {
+      "id": "training_refit",
+      "title": "训练成组重拟合",
+      "status": "passed",
+      "verifier_invoked": true,
+      "error": null
+    },
+    {
+      "id": "refit_propagation",
+      "title": "重估模型传播",
+      "status": "passed",
+      "verifier_invoked": true,
+      "error": null
+    },
+    {
+      "id": "refit_branches",
+      "title": "重估模型分支",
+      "status": "passed",
+      "verifier_invoked": true,
+      "error": null
+    },
+    {
+      "id": "edge_ablation",
+      "title": "同信息依赖消融",
+      "status": "passed",
+      "verifier_invoked": true,
+      "error": null
+    },
+    {
+      "id": "performance",
+      "title": "性能记录及全量回放",
+      "status": "passed",
+      "verifier_invoked": true,
+      "error": null
+    }
+  ],
+  "numerical_rechecks_completed": true,
+  "performance_remeasured": false,
+  "error": null,
+  "report_url": "/fdna-results/recheck/report",
+  "json_url": "/fdna-results/recheck/report.json",
+  "failed_checks": 0,
+  "full_verifiers_invoked": 10
+}

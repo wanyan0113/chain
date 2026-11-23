@@ -19,3 +19,4 @@ docs/prepared-prediction-report/** -text
 docs/prepared-prediction-report/*.svg -diff
 docs/evidence-review-report/** -text
 docs/evidence-web-report/** -text
+docs/web-recheck-report/** -text

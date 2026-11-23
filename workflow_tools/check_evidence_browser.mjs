@@ -16,7 +16,7 @@ const browser=spawn(options['--browser'],['--headless=new','--disable-gpu','--no
   '--disable-background-networking','--remote-debugging-port=0',`--user-data-dir=${path.resolve(options['--profile'])}`,'about:blank'],{windowsHide:true,stdio:['ignore','ignore','pipe']});
 let endpoint='';let stderr='';browser.stderr.on('data',data=>{stderr+=String(data);const match=stderr.match(/DevTools listening on (ws:\/\/[^\s]+)/);if(match)endpoint=match[1];});
 const sockets=[];
-async function until(fn,label){const deadline=Date.now()+20000;while(Date.now()<deadline){const result=await fn();if(result)return result;await new Promise(r=>setTimeout(r,100));}throw Error('Timed out: '+label);}
+async function until(fn,label,timeout=20000){const deadline=Date.now()+timeout;while(Date.now()<deadline){const result=await fn();if(result)return result;await new Promise(r=>setTimeout(r,100));}throw Error('Timed out: '+label);}
 async function connect(url){const ws=new WebSocket(url);await new Promise((resolve,reject)=>{ws.addEventListener('open',resolve,{once:true});ws.addEventListener('error',reject,{once:true});});sockets.push(ws);let id=0;const pending=new Map();const events=[];ws.addEventListener('message',event=>{const message=JSON.parse(event.data);if(message.id){const pair=pending.get(message.id);if(pair){pending.delete(message.id);clearTimeout(pair.timer);message.error?pair.reject(Error(JSON.stringify(message.error))):pair.resolve(message.result);}}else events.push(message);});ws.addEventListener('close',event=>{for(const pair of pending.values()){clearTimeout(pair.timer);pair.reject(Error('CDP connection closed: '+event.code+' '+event.reason));}pending.clear();});return {events,send(method,params={}){return new Promise((resolve,reject)=>{const current=++id;const timer=setTimeout(()=>{pending.delete(current);reject(Error('CDP timeout: '+method));},15000);pending.set(current,{resolve,reject,timer});ws.send(JSON.stringify({id:current,method,params}));});}};}
 async function evaluate(client,expression){const reply=await client.send('Runtime.evaluate',{expression,returnByValue:true,awaitPromise:true,userGesture:true});if(reply.exceptionDetails)throw Error(JSON.stringify(reply.exceptionDetails));return reply.result.value;}
 async function screenshot(client,name){const reply=await client.send('Page.captureScreenshot',{format:'png',captureBeyondViewport:false});await fs.writeFile(path.join(output,name),Buffer.from(reply.data,'base64'));}
@@ -35,6 +35,17 @@ try{
   const requestsBefore=client.events.filter(e=>e.method==='Network.requestWillBeSent'&&e.params.request.url.includes('/fdna-results/status')).length;
   await evaluate(client,`${iframeExpression}.querySelector('#refresh').click()`);
   await until(async()=>{const count=client.events.filter(e=>e.method==='Network.requestWillBeSent'&&e.params.request.url.includes('/fdna-results/status')).length;return count>requestsBefore&&await evaluate(client,`!${iframeExpression}.querySelector('#refresh').disabled`);},'material refresh');
+  let fullRecheck=null;
+  if(options['--run-recheck']==='true'){
+    await until(()=>evaluate(client,`!${iframeExpression}.querySelector('#start-recheck').disabled`),'full review configured');
+    await evaluate(client,`${iframeExpression}.querySelector('#start-recheck').click()`);
+    await until(async()=>{const text=await evaluate(client,`${iframeExpression}.querySelector('#recheck-status').textContent`);if(text.includes('未全部通过')||text.includes('未能启动'))throw Error(text);return text.includes('本次完整复核通过');},'real full numerical recheck',120000);
+    fullRecheck=await evaluate(client,`fetch('/fdna-results/recheck/status').then(r=>r.json())`);
+    assert.equal(fullRecheck.completed_tasks,10);assert.equal(fullRecheck.full_verifiers_invoked,10);assert.equal(fullRecheck.numerical_rechecks_completed,true);
+    const downloaded=await evaluate(client,`fetch('/fdna-results/recheck/report.json').then(r=>r.json())`);
+    assert.equal(downloaded.mode,'full');assert.equal(downloaded.status,'passed');
+    await screenshot(client,'04_本次网页完整复核.png');
+  }
   const reading=await evaluate(client,`(()=>{const a=${iframeExpression}.querySelector('.card a');const href=a.href;a.click();return href;})()`);
   const readingTarget=await until(async()=>{const list=await targetList();return list.find(t=>t.url===reading);},'report opened in new tab');
   const reader=await connect(readingTarget.webSocketDebuggerUrl);await reader.send('Page.enable');await reader.send('Emulation.setDeviceMetricsOverride',{width:1440,height:1100,deviceScaleFactor:1,mobile:false});
@@ -45,10 +56,10 @@ try{
   await client.send('Emulation.setDeviceMetricsOverride',{width:390,height:844,deviceScaleFactor:1,mobile:true});
   await until(()=>evaluate(client,"document.querySelector('#count-done')?.textContent==='5'&&!document.querySelector('#refresh').disabled"),'mobile result page');
   const mobile=await evaluate(client,"({width:innerWidth,scrollWidth:document.documentElement.scrollWidth,cards:document.querySelectorAll('.card').length,history:document.querySelector('#history').textContent})");
-  assert(mobile.scrollWidth<=mobile.width+1,'Mobile page must not overflow horizontally');assert.match(mobile.history,/没有重新执行/);
+  assert(mobile.scrollWidth<=mobile.width+1,'Mobile page must not overflow horizontally');assert.match(mobile.history,/历史记录/);
   await screenshot(client,'03_手机宽度布局.png');
   report={status:'passed',method:'local_headless_Edge_CDP',url:base.href,checked_at_utc:new Date().toISOString(),
-    workspace,refresh_created_new_material_request:true,report_opened_new_tab:true,reportView,mobile,
+    workspace,refresh_created_new_material_request:true,report_opened_new_tab:true,reportView,mobile,fullRecheck,
     limitation:'automated browser checks; native UI helper failed to initialize; no manual UI acceptance claimed'};
   await fs.writeFile(path.join(output,'browser_check.json'),JSON.stringify(report,null,2)+'\n');
   console.log(JSON.stringify(report,null,2));

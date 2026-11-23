@@ -1,0 +1,427 @@
+{
+  "stage": "unified_optimization_evidence_review",
+  "mode": "full",
+  "status": "passed",
+  "checked_at_utc": "2026-11-23T13:14:51.283469+00:00",
+  "repository": "C:\\Users\\Lenovo\\Desktop\\链\\.publish\\fdna-bridge",
+  "project_root": "C:\\Users\\Lenovo\\Desktop\\链",
+  "catalog_id": "flow06_optimization_evidence_catalog_v1",
+  "catalog_sha256": "57b8cd127524d15cb4abb1334a859d7c20c046f382e3d1835d998dc544bd5aee",
+  "packages": [
+    {
+      "id": "overview",
+      "title": "P1诊断、审计、基线与冻结稳定性汇报",
+      "directory": "docs/optimization-report",
+      "entrypoint": "汇报图文说明.md",
+      "status": "passed",
+      "files_checked": 24,
+      "bytes_checked": 4328827,
+      "manifest_sha256": "5d4327cb2d9d3865a9ed7f0fc8fe105bc422f78890999195754992ff356ec5e7",
+      "errors": [],
+      "check_kind": "published_exact_bytes_only"
+    },
+    {
+      "id": "frozen_propagation",
+      "title": "全留出基准冻结传播",
+      "directory": "docs/propagation-report",
+      "entrypoint": "结果说明.md",
+      "status": "passed",
+      "files_checked": 12,
+      "bytes_checked": 998948,
+      "manifest_sha256": "0b4b1e86994f245df317b44f11868d307cfb9fb52c6140f43b54d36c10a368f6",
+      "errors": [],
+      "check_kind": "published_exact_bytes_only"
+    },
+    {
+      "id": "training_refit",
+      "title": "50轮训练成组重拟合",
+      "directory": "docs/training-refit-report",
+      "entrypoint": "结果说明.md",
+      "status": "passed",
+      "files_checked": 12,
+      "bytes_checked": 709137,
+      "manifest_sha256": "b5da0e5a21e664cfb088a3f520def16b699927d249d588f8d64e1fd48b8c21a5",
+      "errors": [],
+      "check_kind": "published_exact_bytes_only"
+    },
+    {
+      "id": "refit_propagation",
+      "title": "重估模型传播敏感性",
+      "directory": "docs/refit-propagation-report",
+      "entrypoint": "结果说明.md",
+      "status": "passed",
+      "files_checked": 12,
+      "bytes_checked": 5183416,
+      "manifest_sha256": "8029b12115d47956780d41f34cf95b54773a3045a51a589ba13e8f2c8eda4a69",
+      "errors": [],
+      "check_kind": "published_exact_bytes_only"
+    },
+    {
+      "id": "refit_branches",
+      "title": "训练不活跃参数的分支启用",
+      "directory": "docs/refit-branch-report",
+      "entrypoint": "结果说明.md",
+      "status": "passed",
+      "files_checked": 13,
+      "bytes_checked": 1404432,
+      "manifest_sha256": "2343c32d6b014e93938affd9edf577590b0a34a987cc9dc061c8c0683a7e7c0f",
+      "errors": [],
+      "check_kind": "published_exact_bytes_only"
+    },
+    {
+      "id": "edge_ablation",
+      "title": "同信息同目标的依赖消融",
+      "directory": "docs/edge-ablation-report",
+      "entrypoint": "结果说明.md",
+      "status": "passed",
+      "files_checked": 13,
+      "bytes_checked": 3336359,
+      "manifest_sha256": "f4b151875e7f9ffef2e65080d2079f4bde21a27d67ccc87ef29e0bafd565bcab",
+      "errors": [],
+      "check_kind": "published_exact_bytes_only"
+    },
+    {
+      "id": "performance",
+      "title": "重复传播运行效率",
+      "directory": "docs/prepared-prediction-report",
+      "entrypoint": "结果说明.md",
+      "status": "passed",
+      "files_checked": 9,
+      "bytes_checked": 247970,
+      "manifest_sha256": "1ab07b938132a0bd5e01e482ea286f9169a8e3daab80b7de446e68cdfb1b07a2",
+      "errors": [],
+      "check_kind": "published_exact_bytes_only"
+    }
+  ],
+  "documents": [
+    {
+      "id": "interface_boundary",
+      "title": "两篇方法与软件接口边界",
+      "path": "docs/method-interface-boundary.md",
+      "status": "passed",
+      "normalized_sha256": "2f6f0e8e16430ab43f2db940cee7be641446cec3796739fd986eddc9ccc82528",
+      "errors": []
+    },
+    {
+      "id": "diagnostic_usage",
+      "title": "诊断卡片使用说明",
+      "path": "docs/diagnostic-card-reporting.md",
+      "status": "passed",
+      "normalized_sha256": "63fd57c86d2d3b9abe5881585bd98fbe539425d57fd54f1e2e76da50741e4216",
+      "errors": []
+    }
+  ],
+  "full_checks": [
+    {
+      "id": "source06",
+      "title": "06原始场景完整包",
+      "status": "passed",
+      "check_kind": "source_integrity",
+      "source": "generated/关于两篇连接/06_完整场景全流程运行",
+      "result": {
+        "status": "passed",
+        "source_files_verified": 94
+      },
+      "verifier_log": "{\n  \"status\": \"passed\",\n  \"verified_files\": 94\n}\n\n",
+      "verifier_invoked": true
+    },
+    {
+      "id": "figures",
+      "title": "六图汇报与来源",
+      "status": "passed",
+      "check_kind": "source_csv_comparison",
+      "source": "generated/关于优化/06_汇报图表与说明_复核版",
+      "result": {
+        "status": "passed",
+        "figures": 6,
+        "source_fingerprints_verified": 18,
+        "source_package_files_verified": 94,
+        "csv_fields_compared": 3770,
+        "common_holdout_rows": 144,
+        "delta_pairs": 18,
+        "stability_rows": 36,
+        "pdf_sha256": "d22ad33fbdaf2a6befcf69ab004900b17bc3c4caf70da4222c222f3300aa0999",
+        "fdna_refitted": false,
+        "se_generated": false
+      },
+      "verifier_invoked": true
+    },
+    {
+      "id": "baselines",
+      "title": "训练均值与OLS基线",
+      "status": "passed",
+      "check_kind": "scalar_numerical",
+      "source": "generated/关于优化/03_同条件简单预测基线_核验版",
+      "result": {
+        "status": "passed",
+        "verified_source_files": 94,
+        "baseline_fits": 36,
+        "coefficient_values_checked": 54,
+        "prediction_values_checked": 17280,
+        "metric_values_checked": 2880,
+        "maximum_absolute_difference": 3.907985046680551e-14,
+        "descriptive_holdout_rmse_comparison": {
+          "local": {
+            "ols_lower": 13,
+            "equal_within_1e-8": 4,
+            "free_delta_lower": 1
+          },
+          "recursive": {
+            "ols_lower": 12,
+            "equal_within_1e-8": 4,
+            "free_delta_lower": 2
+          }
+        },
+        "fdna_refitted": false,
+        "se_generated": false
+      },
+      "verifier_invoked": true
+    },
+    {
+      "id": "frozen_predictions",
+      "title": "冻结预测重采样",
+      "status": "passed",
+      "check_kind": "scalar_numerical",
+      "source": "generated/关于优化/04_冻结预测成组稳定性",
+      "result": {
+        "status": "passed",
+        "base_cases": 30,
+        "resamples": 2000,
+        "loss_values_checked": 576000,
+        "paired_difference_values_checked": 288000,
+        "quantile_and_sd_values_checked": 1728,
+        "maximum_absolute_difference": 7.105427357601002e-15,
+        "source_baseline_sha256": "98304c5341b545635b9a25bbe1a476465202e90d8ce3205bf11916b09311e606",
+        "model_refitted": false,
+        "parameter_confidence_interval": false
+      },
+      "verifier_invoked": true
+    },
+    {
+      "id": "frozen_propagation",
+      "title": "冻结模型传播",
+      "status": "passed",
+      "check_kind": "scalar_numerical",
+      "source": "generated/关于优化/07_冻结模型多基准传播_核验版",
+      "result": {
+        "status": "passed",
+        "source_files_verified": 94,
+        "response_values_checked": 32400,
+        "non_descendant_values_checked": 56700,
+        "resampled_means_checked": 540000,
+        "summary_values_checked": 2160,
+        "maximum_absolute_difference": 4.263256414560601e-14,
+        "refitted": false
+      },
+      "verifier_invoked": true
+    },
+    {
+      "id": "training_refit",
+      "title": "训练成组重拟合",
+      "status": "passed",
+      "check_kind": "scalar_numerical",
+      "source": "generated/关于优化/08_训练成组重拟合",
+      "result": {
+        "status": "passed",
+        "source_files_verified": 94,
+        "repetitions": 50,
+        "local_fits": 1800,
+        "all_start_training_losses_checked": 10800,
+        "selected_parameter_values_checked": 4500,
+        "holdout_prediction_values_checked": 108000,
+        "summary_values_checked": 486,
+        "maximum_absolute_difference": 2.842170943040401e-14,
+        "parameter_confidence_interval": false
+      },
+      "verifier_invoked": true
+    },
+    {
+      "id": "refit_propagation",
+      "title": "重估模型传播",
+      "status": "passed",
+      "check_kind": "scalar_numerical",
+      "source": "generated/关于优化/09_重估模型传播敏感性",
+      "result": {
+        "status": "passed",
+        "responses_checked": 405000,
+        "summary_rows_checked": 270,
+        "summary_csv_rows_checked": 270,
+        "focus_csv_rows_checked": 50,
+        "source_manifest_sha256": "e48b5b710b05993830a0b49c34591b6121a698cc1a3718b39693e3a4f4ec3f2a",
+        "report_sha256": "86a764182d540d445bc017f284eaa1a83bab5512cdc25de954a472b563f7764e",
+        "arrays_sha256": "adb38b60f36689180a33440e6fc84b91686c7e134f5eeb9e9f4b4b11e7947f2e",
+        "outside_responses": 0,
+        "target_extrapolated_responses": 199146,
+        "max_difference": 0.0
+      },
+      "verifier_invoked": true
+    },
+    {
+      "id": "refit_branches",
+      "title": "重估模型分支",
+      "status": "passed",
+      "check_kind": "scalar_numerical",
+      "source": "generated/关于优化/10_重估模型分支启用诊断_核验版",
+      "result": {
+        "status": "passed",
+        "training_fit_rows_checked": 1800,
+        "scalar_training_inputs_checked": 162000,
+        "scalar_responses_checked": 405000,
+        "model_conditions_checked": 13500,
+        "summary_rows_checked": 270,
+        "maximum_response_difference": 0.0,
+        "source_manifest_sha256": "0c43811d651133bd25574b061146f258ea7c470aa70f9c1aed14f39fae38eecc",
+        "report_sha256": "8a93de431c7978013baba1af48c2e9b1bdadf985d12b3aae1f7e51bd7d5e9e43"
+      },
+      "verifier_invoked": true
+    },
+    {
+      "id": "edge_ablation",
+      "title": "同信息依赖消融",
+      "status": "passed",
+      "check_kind": "scalar_numerical",
+      "source": "generated/关于优化/11_同信息训练均值依赖消融",
+      "result": {
+        "status": "passed",
+        "source_files_verified": 94,
+        "training_constants_checked": 18,
+        "prediction_values_checked": 69120,
+        "propagation_responses_checked": 64800,
+        "removed_path_zero_checks": 18900,
+        "metric_rows_checked": 1152,
+        "response_summary_rows_checked": 2160,
+        "maximum_absolute_difference": 2.842170943040401e-14,
+        "source_manifest_sha256": "3b5a931069ca41e6e860c6991ecbe2079091a962f61793a14d91f0d63039ce6e",
+        "report_sha256": "369a8dbd62c5fb9693d56381140ccd09d1fd7ef79149acc28f12e976f07fe740"
+      },
+      "verifier_invoked": true
+    },
+    {
+      "id": "performance",
+      "title": "性能记录及全量回放",
+      "status": "passed",
+      "check_kind": "timing_arithmetic_and_scalar_regression",
+      "source": "generated/关于优化/12_传播计算效率优化",
+      "result": {
+        "status": "passed",
+        "timing_rows_checked": 10,
+        "bitwise_numeric_values_compared": 1296000,
+        "bitwise_mask_values_compared": 1215000,
+        "scalar_responses_checked": 405000,
+        "maximum_difference": 0.0,
+        "median_speedup": 42.48024568805066,
+        "source_manifest_sha256": "28b2ec596520b5b08f79075b635175ad3ea6534fb7e2d6a36aa4d92db4e70dcb",
+        "report_sha256": "3226af231fbb37dd3502030f0cd556b49736a108b8bb11991c75144b6f078869",
+        "limitation": "verifies_recorded_timing_arithmetic_not_independent_remeasurement"
+      },
+      "verifier_invoked": true
+    }
+  ],
+  "priorities": [
+    {
+      "number": 1,
+      "title": "参数诊断集中解释",
+      "state": "implemented_scoped",
+      "evidence": [
+        "overview",
+        "refit_branches"
+      ],
+      "scope": "36份条件化卡片、集中总览、约束与分支解释",
+      "remaining": "无应用容许误差时不自动判定预测可用"
+    },
+    {
+      "number": 2,
+      "title": "δ作用与解释边界",
+      "state": "implemented_scoped",
+      "evidence": [
+        "overview",
+        "training_refit"
+      ],
+      "scope": "基础式与自由δ对照、触界、重估稳定性及解释限制",
+      "remaining": "06固定δ组未补跑，δ唯一物理意义未验证"
+    },
+    {
+      "number": 3,
+      "title": "能力指标与依赖依据审计",
+      "state": "implemented_scoped",
+      "evidence": [
+        "overview",
+        "edge_ablation"
+      ],
+      "scope": "9状态、12候选、6导出边审计及变更预览",
+      "remaining": "人工依据仍需确认，真实依赖需外部证据"
+    },
+    {
+      "number": 4,
+      "title": "同条件简单预测基线",
+      "state": "implemented_scoped",
+      "evidence": [
+        "overview"
+      ],
+      "scope": "06训练均值、OLS与FDNA公平比较",
+      "remaining": "当前06未显示FDNA优于OLS，不作跨场景泛化"
+    },
+    {
+      "number": 5,
+      "title": "不确定性与稳定性",
+      "state": "partial",
+      "evidence": [
+        "overview",
+        "frozen_propagation",
+        "training_refit",
+        "refit_propagation",
+        "refit_branches"
+      ],
+      "scope": "冻结重采样、50轮实际重拟合与传播敏感性",
+      "remaining": "有效参数/传播置信区间、更多求解器与真实验证"
+    },
+    {
+      "number": 6,
+      "title": "测量误差与真实数据校准",
+      "state": "deferred",
+      "evidence": [],
+      "scope": "观测输入入口已存在",
+      "remaining": "测量误差校正和真实装备数据校准尚未开展"
+    },
+    {
+      "number": 7,
+      "title": "通用桥接结构扩展",
+      "state": "deferred",
+      "evidence": [],
+      "scope": "已有特定三角色链网衔接；数值引擎已有多输入验证",
+      "remaining": "同角色多装备、复杂跨链等新增桥接结构端到端验证"
+    },
+    {
+      "number": 8,
+      "title": "拓扑假设敏感性",
+      "state": "partial",
+      "evidence": [
+        "edge_ablation"
+      ],
+      "scope": "结构预览及训练均值替代的受限数值消融",
+      "remaining": "完整替代结构重估、多输入拓扑与真实依赖验证"
+    },
+    {
+      "number": 9,
+      "title": "方法与软件接口边界",
+      "state": "implemented_scoped",
+      "evidence": [
+        "interface_boundary"
+      ],
+      "scope": "论文方法、软件能力、06实际验证与未覆盖范围集中说明",
+      "remaining": "不声称任意网转换或两篇论文全部复现"
+    }
+  ],
+  "declared_progress_counts": {
+    "implemented_scoped": 5,
+    "partial": 2,
+    "deferred": 2
+  },
+  "package_files_checked": 95,
+  "failed_checks": 0,
+  "full_verifiers_invoked": 10,
+  "numerical_rechecks_executed": true,
+  "numerical_rechecks_completed": true,
+  "performance_remeasured": false,
+  "scientific_validity_established": false
+}

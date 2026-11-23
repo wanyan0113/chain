@@ -134,7 +134,7 @@ def full_checks(project_root,progress=None,runner=None):
         if log.getvalue():item['verifier_log']=log.getvalue()
         item['verifier_invoked']=invoked
         results.append(item)
-        if progress:progress(dict(stage='finished',task=ident,status=item['status']))
+        if progress:progress(dict(stage='finished',task=ident,status=item['status'],verifier_invoked=invoked))
     return results
 
 

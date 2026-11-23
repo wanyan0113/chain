@@ -1,0 +1,20 @@
+{"stage": "started", "task": "source06", "title": "06原始场景完整包"}
+{"stage": "finished", "task": "source06", "status": "passed", "verifier_invoked": true}
+{"stage": "started", "task": "figures", "title": "六图汇报与来源"}
+{"stage": "finished", "task": "figures", "status": "passed", "verifier_invoked": true}
+{"stage": "started", "task": "baselines", "title": "训练均值与OLS基线"}
+{"stage": "finished", "task": "baselines", "status": "passed", "verifier_invoked": true}
+{"stage": "started", "task": "frozen_predictions", "title": "冻结预测重采样"}
+{"stage": "finished", "task": "frozen_predictions", "status": "passed", "verifier_invoked": true}
+{"stage": "started", "task": "frozen_propagation", "title": "冻结模型传播"}
+{"stage": "finished", "task": "frozen_propagation", "status": "passed", "verifier_invoked": true}
+{"stage": "started", "task": "training_refit", "title": "训练成组重拟合"}
+{"stage": "finished", "task": "training_refit", "status": "passed", "verifier_invoked": true}
+{"stage": "started", "task": "refit_propagation", "title": "重估模型传播"}
+{"stage": "finished", "task": "refit_propagation", "status": "passed", "verifier_invoked": true}
+{"stage": "started", "task": "refit_branches", "title": "重估模型分支"}
+{"stage": "finished", "task": "refit_branches", "status": "passed", "verifier_invoked": true}
+{"stage": "started", "task": "edge_ablation", "title": "同信息依赖消融"}
+{"stage": "finished", "task": "edge_ablation", "status": "passed", "verifier_invoked": true}
+{"stage": "started", "task": "performance", "title": "性能记录及全量回放"}
+{"stage": "finished", "task": "performance", "status": "passed", "verifier_invoked": true}
