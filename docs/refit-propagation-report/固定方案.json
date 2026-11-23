@@ -1,0 +1,30 @@
+{
+  "id": "flow06_refitted_models_fixed_holdout_propagation_v1",
+  "source_training_repetitions": 50,
+  "holdout_baselines": "all_unchanged_original_holdout",
+  "retained_fractions": [
+    0,
+    0.25,
+    0.5,
+    0.75,
+    1
+  ],
+  "intervention_reference": "each_refitted_models_own_baseline",
+  "failed_job": "retain_as_unavailable_no_parameter_substitution",
+  "incomplete_baseline_panel": "do_not_compare_partial_model_means",
+  "summary_statistics": [
+    "minimum",
+    "median",
+    "maximum"
+  ],
+  "additional_fitting": false,
+  "output_clipping": false,
+  "focus_plot": {
+    "group": "env_0",
+    "model": "free_delta",
+    "intervened_node": "B1",
+    "target": "F1",
+    "retained_fraction": 0
+  },
+  "interpretation": "finite_relative_degradation_sensitivity_of_refitted_experimental_models_not_confidence_or_true_causality"
+}

@@ -7,3 +7,5 @@ docs/propagation-report/** -text
 docs/propagation-report/*.svg -diff
 docs/training-refit-report/** -text
 docs/training-refit-report/*.svg -diff
+docs/refit-propagation-report/** -text
+docs/refit-propagation-report/*.svg -diff
