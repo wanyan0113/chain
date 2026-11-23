@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "source_files_verified": 94,
+  "repetitions": 50,
+  "local_fits": 1800,
+  "all_start_training_losses_checked": 10800,
+  "selected_parameter_values_checked": 4500,
+  "holdout_prediction_values_checked": 108000,
+  "summary_values_checked": 486,
+  "maximum_absolute_difference": 2.842170943040401e-14,
+  "parameter_confidence_interval": false
+}

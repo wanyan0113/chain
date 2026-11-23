@@ -1,0 +1,42 @@
+{
+  "audit": {
+    "repetitions": 50,
+    "local_fits": 1800,
+    "failed_local_fits": 0,
+    "flag_counts": {
+      "LOCAL_RANK_DEFICIENT": 1588,
+      "INACTIVE_PARAMETERS": 1588,
+      "MULTISTART_PARAMETER_SPREAD": 1745,
+      "PREDICTOR_COVERAGE_EXTRAPOLATION": 1513,
+      "DELTA_AT_BOUNDARY": 545,
+      "EDGE_PARAMETER_AT_BOUNDARY": 159
+    },
+    "distinct_training_cases_min": 49,
+    "distinct_training_cases_max": 65,
+    "control": {
+      "status": "passed",
+      "parameter_values_compared": 90,
+      "prediction_values_compared": 8640,
+      "max_difference": 0.0
+    },
+    "source_files_verified": 94
+  },
+  "source": {
+    "directory": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\关于两篇连接\\06_完整场景全流程运行",
+    "fit_sha256": "fe1e0e7bb54b9584e76c55f9337fb4614640d285e091aa5e1132178825236641",
+    "data_sha256": "c2598ff589c509aa1863999540b27b850abbc2599d00ebd426f3cae104d39727",
+    "input_sha256": "7b4cfad183bd553bfe8635a5ebf1fdc192fb18d78aa950945379a729567db040"
+  },
+  "policies": {
+    "original_fit_overwritten": false,
+    "se_generated": false,
+    "training_resampled": true,
+    "models_refitted": true,
+    "solver_seed_changed": false,
+    "holdout_changed": false,
+    "holdout_used_for_optimization": false,
+    "parameter_confidence_interval": false,
+    "model_selected": false
+  },
+  "protocol_sha256": "00b438877a59777d4aab2dc288bc038df066034bdc2d5000f3216830a27dbec0"
+}

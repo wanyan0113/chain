@@ -1,0 +1,15 @@
+{
+  "id": "flow06_training_cluster_refit_v1",
+  "repetitions": 50,
+  "bootstrap_seed": 2026112308,
+  "resampling_unit": "training_base_case_id",
+  "pairing": "same_draw_across_environments_and_models",
+  "replacement": true,
+  "holdout": "unchanged_original_holdout",
+  "solver_settings": "exact_original_settings_including_starts_seed_and_bounds",
+  "initialization_from_previous_fit": false,
+  "model_selection": false,
+  "output_clipping": false,
+  "summary_statistics": ["minimum", "median", "maximum"],
+  "interpretation": "finite_training_composition_sensitivity_not_parameter_confidence_interval"
+}

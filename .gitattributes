@@ -5,3 +5,5 @@ docs/optimization-report/** -text
 docs/optimization-report/图表/*.svg -diff
 docs/propagation-report/** -text
 docs/propagation-report/*.svg -diff
+docs/training-refit-report/** -text
+docs/training-refit-report/*.svg -diff
