@@ -1,0 +1,222 @@
+{
+  "stage": "unified_optimization_evidence_review",
+  "mode": "published",
+  "status": "passed",
+  "checked_at_utc": "2026-11-23T12:16:00.625269+00:00",
+  "repository": "C:\\Users\\Lenovo\\Desktop\\链\\.publish\\fdna-bridge",
+  "project_root": null,
+  "catalog_id": "flow06_optimization_evidence_catalog_v1",
+  "catalog_sha256": "57b8cd127524d15cb4abb1334a859d7c20c046f382e3d1835d998dc544bd5aee",
+  "packages": [
+    {
+      "id": "overview",
+      "title": "P1诊断、审计、基线与冻结稳定性汇报",
+      "directory": "docs/optimization-report",
+      "entrypoint": "汇报图文说明.md",
+      "status": "passed",
+      "files_checked": 24,
+      "bytes_checked": 4328827,
+      "manifest_sha256": "5d4327cb2d9d3865a9ed7f0fc8fe105bc422f78890999195754992ff356ec5e7",
+      "errors": [],
+      "check_kind": "published_exact_bytes_only"
+    },
+    {
+      "id": "frozen_propagation",
+      "title": "全留出基准冻结传播",
+      "directory": "docs/propagation-report",
+      "entrypoint": "结果说明.md",
+      "status": "passed",
+      "files_checked": 12,
+      "bytes_checked": 998948,
+      "manifest_sha256": "0b4b1e86994f245df317b44f11868d307cfb9fb52c6140f43b54d36c10a368f6",
+      "errors": [],
+      "check_kind": "published_exact_bytes_only"
+    },
+    {
+      "id": "training_refit",
+      "title": "50轮训练成组重拟合",
+      "directory": "docs/training-refit-report",
+      "entrypoint": "结果说明.md",
+      "status": "passed",
+      "files_checked": 12,
+      "bytes_checked": 709137,
+      "manifest_sha256": "b5da0e5a21e664cfb088a3f520def16b699927d249d588f8d64e1fd48b8c21a5",
+      "errors": [],
+      "check_kind": "published_exact_bytes_only"
+    },
+    {
+      "id": "refit_propagation",
+      "title": "重估模型传播敏感性",
+      "directory": "docs/refit-propagation-report",
+      "entrypoint": "结果说明.md",
+      "status": "passed",
+      "files_checked": 12,
+      "bytes_checked": 5183416,
+      "manifest_sha256": "8029b12115d47956780d41f34cf95b54773a3045a51a589ba13e8f2c8eda4a69",
+      "errors": [],
+      "check_kind": "published_exact_bytes_only"
+    },
+    {
+      "id": "refit_branches",
+      "title": "训练不活跃参数的分支启用",
+      "directory": "docs/refit-branch-report",
+      "entrypoint": "结果说明.md",
+      "status": "passed",
+      "files_checked": 13,
+      "bytes_checked": 1404432,
+      "manifest_sha256": "2343c32d6b014e93938affd9edf577590b0a34a987cc9dc061c8c0683a7e7c0f",
+      "errors": [],
+      "check_kind": "published_exact_bytes_only"
+    },
+    {
+      "id": "edge_ablation",
+      "title": "同信息同目标的依赖消融",
+      "directory": "docs/edge-ablation-report",
+      "entrypoint": "结果说明.md",
+      "status": "passed",
+      "files_checked": 13,
+      "bytes_checked": 3336359,
+      "manifest_sha256": "f4b151875e7f9ffef2e65080d2079f4bde21a27d67ccc87ef29e0bafd565bcab",
+      "errors": [],
+      "check_kind": "published_exact_bytes_only"
+    },
+    {
+      "id": "performance",
+      "title": "重复传播运行效率",
+      "directory": "docs/prepared-prediction-report",
+      "entrypoint": "结果说明.md",
+      "status": "passed",
+      "files_checked": 9,
+      "bytes_checked": 247970,
+      "manifest_sha256": "1ab07b938132a0bd5e01e482ea286f9169a8e3daab80b7de446e68cdfb1b07a2",
+      "errors": [],
+      "check_kind": "published_exact_bytes_only"
+    }
+  ],
+  "documents": [
+    {
+      "id": "interface_boundary",
+      "title": "两篇方法与软件接口边界",
+      "path": "docs/method-interface-boundary.md",
+      "status": "passed",
+      "normalized_sha256": "2f6f0e8e16430ab43f2db940cee7be641446cec3796739fd986eddc9ccc82528",
+      "errors": []
+    },
+    {
+      "id": "diagnostic_usage",
+      "title": "诊断卡片使用说明",
+      "path": "docs/diagnostic-card-reporting.md",
+      "status": "passed",
+      "normalized_sha256": "63fd57c86d2d3b9abe5881585bd98fbe539425d57fd54f1e2e76da50741e4216",
+      "errors": []
+    }
+  ],
+  "full_checks": [],
+  "priorities": [
+    {
+      "number": 1,
+      "title": "参数诊断集中解释",
+      "state": "implemented_scoped",
+      "evidence": [
+        "overview",
+        "refit_branches"
+      ],
+      "scope": "36份条件化卡片、集中总览、约束与分支解释",
+      "remaining": "无应用容许误差时不自动判定预测可用"
+    },
+    {
+      "number": 2,
+      "title": "δ作用与解释边界",
+      "state": "implemented_scoped",
+      "evidence": [
+        "overview",
+        "training_refit"
+      ],
+      "scope": "基础式与自由δ对照、触界、重估稳定性及解释限制",
+      "remaining": "06固定δ组未补跑，δ唯一物理意义未验证"
+    },
+    {
+      "number": 3,
+      "title": "能力指标与依赖依据审计",
+      "state": "implemented_scoped",
+      "evidence": [
+        "overview",
+        "edge_ablation"
+      ],
+      "scope": "9状态、12候选、6导出边审计及变更预览",
+      "remaining": "人工依据仍需确认，真实依赖需外部证据"
+    },
+    {
+      "number": 4,
+      "title": "同条件简单预测基线",
+      "state": "implemented_scoped",
+      "evidence": [
+        "overview"
+      ],
+      "scope": "06训练均值、OLS与FDNA公平比较",
+      "remaining": "当前06未显示FDNA优于OLS，不作跨场景泛化"
+    },
+    {
+      "number": 5,
+      "title": "不确定性与稳定性",
+      "state": "partial",
+      "evidence": [
+        "overview",
+        "frozen_propagation",
+        "training_refit",
+        "refit_propagation",
+        "refit_branches"
+      ],
+      "scope": "冻结重采样、50轮实际重拟合与传播敏感性",
+      "remaining": "有效参数/传播置信区间、更多求解器与真实验证"
+    },
+    {
+      "number": 6,
+      "title": "测量误差与真实数据校准",
+      "state": "deferred",
+      "evidence": [],
+      "scope": "观测输入入口已存在",
+      "remaining": "测量误差校正和真实装备数据校准尚未开展"
+    },
+    {
+      "number": 7,
+      "title": "通用桥接结构扩展",
+      "state": "deferred",
+      "evidence": [],
+      "scope": "已有特定三角色链网衔接；数值引擎已有多输入验证",
+      "remaining": "同角色多装备、复杂跨链等新增桥接结构端到端验证"
+    },
+    {
+      "number": 8,
+      "title": "拓扑假设敏感性",
+      "state": "partial",
+      "evidence": [
+        "edge_ablation"
+      ],
+      "scope": "结构预览及训练均值替代的受限数值消融",
+      "remaining": "完整替代结构重估、多输入拓扑与真实依赖验证"
+    },
+    {
+      "number": 9,
+      "title": "方法与软件接口边界",
+      "state": "implemented_scoped",
+      "evidence": [
+        "interface_boundary"
+      ],
+      "scope": "论文方法、软件能力、06实际验证与未覆盖范围集中说明",
+      "remaining": "不声称任意网转换或两篇论文全部复现"
+    }
+  ],
+  "declared_progress_counts": {
+    "implemented_scoped": 5,
+    "partial": 2,
+    "deferred": 2
+  },
+  "package_files_checked": 95,
+  "failed_checks": 0,
+  "full_verifiers_invoked": 0,
+  "numerical_rechecks_executed": false,
+  "numerical_rechecks_completed": false,
+  "performance_remeasured": false,
+  "scientific_validity_established": false
+}

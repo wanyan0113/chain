@@ -52,6 +52,10 @@ def render_summary(report):
 def main(argv=None):
     parser = argparse.ArgumentParser(description='奥术网能力依赖核验')
     commands = parser.add_subparsers(dest='command', required=True)
+    review = commands.add_parser('review-results', help='统一检查已发布优化成果，或重新执行本地独立复核')
+    review.add_argument('--mode', choices=['published','full'], default='published')
+    review.add_argument('--project-root', type=Path, help='full模式须显式提供包含generated的项目根目录')
+    review.add_argument('--output-dir', type=Path, required=True)
     recovery = commands.add_parser('recovery', help='双供给节点的已知参数恢复与独立验证')
     recovery.add_argument('--config', type=Path, required=True)
     recovery.add_argument('--output-dir', type=Path, required=True)
@@ -154,6 +158,12 @@ def main(argv=None):
     fitted_application.add_argument('--output-dir', type=Path, required=True)
     args = parser.parse_args(argv)
     try:
+        if args.command == 'review-results':
+            from .evidence_review import REPOSITORY, run as review_results
+            result = review_results(REPOSITORY,args.project_root,args.output_dir,args.mode,
+                progress=lambda value:print(json.dumps(value,ensure_ascii=False),flush=True))
+            print(json.dumps({k:result[k] for k in ('status','mode','package_files_checked','failed_checks','numerical_rechecks_executed','declared_progress_counts')},ensure_ascii=False,indent=2))
+            return 0 if result['status']=='passed' else 1
         if args.command == 'recovery':
             result = run_recovery(read_json(args.config))
             write_outputs(args.output_dir, {

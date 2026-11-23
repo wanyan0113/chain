@@ -17,3 +17,4 @@ docs/edge-ablation-report/*.svg -diff
 docs/edge-ablation-report/ablation_report.json -diff
 docs/prepared-prediction-report/** -text
 docs/prepared-prediction-report/*.svg -diff
+docs/evidence-review-report/** -text
