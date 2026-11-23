@@ -1,0 +1,13 @@
+{
+  "id": "flow06_simple_prediction_v1",
+  "methods": ["training_mean", "ols_intercept"],
+  "training_rows": "complete_local_training_rows",
+  "ols_solver": "numpy.linalg.lstsq",
+  "ols_rcond": null,
+  "ols_rank_deficiency": "retain_minimum_norm_and_flag",
+  "prediction_clipping": false,
+  "evaluation": ["all_available", "common_records"],
+  "holdout_role": "descriptive_comparison_only_no_selection",
+  "recursive_inputs": "original_roots_only",
+  "frozen_fdna": "reuse_and_recompute_predictions_no_refit"
+}
