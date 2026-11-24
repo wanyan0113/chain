@@ -1,0 +1,15 @@
+{
+  "id": "flow06_solver_seed_sensitivity_v1",
+  "seeds": [20261122, 2026112401, 2026112402, 2026112403, 2026112404],
+  "control_seed": 20261122,
+  "starts": 6,
+  "solver": "L-BFGS-B",
+  "max_nfev": 1500,
+  "data_and_split": "unchanged_original_90_training_30_holdout_base_cases",
+  "changed_factor": "random_start_seed_only_neutral_start_retained",
+  "warm_start": false,
+  "select_seed_using_holdout": false,
+  "output_clipping": false,
+  "numerical_comparison_tolerance": 1e-8,
+  "summary": "finite_minimum_median_maximum_not_confidence_interval"
+}

@@ -21,3 +21,5 @@ docs/evidence-review-report/** -text
 docs/evidence-web-report/** -text
 docs/web-recheck-report/** -text
 docs/recheck-history-report/** -text
+docs/solver-seed-report/** -text
+docs/solver-seed-report/*.svg -diff

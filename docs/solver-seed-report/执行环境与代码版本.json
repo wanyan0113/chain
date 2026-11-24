@@ -1,0 +1,19 @@
+{
+  "python": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "matplotlib": "3.11.2",
+  "base_git_commit": "28983e73a746834393f971da9c855cc8aa7063b6",
+  "code_fingerprints_normalized_lf": {
+    "fdna/solver_seed_sensitivity.py": "b9bdd092deedd2fd4849e61b1618480882178808761bee7dac34f6bdbee4f82c",
+    "fdna/fitting.py": "c89d9c2af0d1bc888e1c2b5dfcd25df796ffd2c722b02252df669c64040bea0e",
+    "fdna/network_workflow.py": "833f5a37d00c0886ee4a3043d1023106fac939ce544ea21b6dc79f5b12a25beb",
+    "fdna/workflow_common.py": "eab72684fc62d767f000b2c7d0f2e7aae969edba131cea217df4839846a8fcc0",
+    "fdna/training_refit.py": "fe9f915bfe1795a6894b1b468580863b0ec48ada31d4f00829947ff1af24083e",
+    "fdna/generation_delta_diagnostics.py": "a618c17e5de9c60478fc1e7c6632ff65324e43603dbf7a071d7a846572a6b54e",
+    "workflow_tools/verify_solver_seed_sensitivity.py": "0ed877adffad1542e3da166caa53ae5f4de9c862267ff4a58db0f65c28d62c71",
+    "data/fdna/solver_seed_protocol.json": "4a3ab6e07d578b65172096dbb797ae18375581438248b56b379a981ccc8ec236"
+  },
+  "note": "Code fingerprints include the uncommitted new implementation; base commit alone does not identify it. Figures were rendered again to add a legend; numerical fits were not rerun."
+}

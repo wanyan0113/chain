@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "seeds_verified": 5,
+  "local_fits_verified": 180,
+  "source_files_verified": 94,
+  "checks": {
+    "attempt_training_losses": 1080,
+    "selected_parameter_values": 450,
+    "holdout_prediction_values": 10800,
+    "training_holdout_rmse": 720,
+    "summary_values": 9720,
+    "csv_fields": 26820
+  },
+  "maximum_absolute_difference": 2.842170943040401e-14,
+  "interpretation": "scalar_numerical_recheck_not_new_fitting_or_real_validation"
+}
