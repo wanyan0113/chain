@@ -23,3 +23,5 @@ docs/web-recheck-report/** -text
 docs/recheck-history-report/** -text
 docs/solver-seed-report/** -text
 docs/solver-seed-report/*.svg -diff
+docs/seed-propagation-report/** -text
+docs/seed-propagation-report/*.svg -diff

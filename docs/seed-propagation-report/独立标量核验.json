@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "responses_checked": 40500,
+  "non_descendant_checks": 256500,
+  "condition_summaries": 270,
+  "seed_means": 1350,
+  "focus_records": 10,
+  "control_responses": 8100,
+  "outside": 0,
+  "target_extrapolated": 19080,
+  "maximum_absolute_difference": 4.263256414560601e-14,
+  "additional_fitting": false,
+  "interpretation": "independent_scalar_verification_not_real_intervention_validation"
+}

@@ -1,0 +1,8 @@
+{
+  "status": "passed",
+  "arrays_equal": true,
+  "numeric_report_and_csv_exact_bytes_equal": true,
+  "source": "same_registered_5_seeds",
+  "additional_fitting": false,
+  "note": "Final code includes failure-record presentation and source-protection checks. Its replay matches the first saved numerical outputs; reruns are not counted as new experiments."
+}

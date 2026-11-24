@@ -1,0 +1,20 @@
+{
+  "id": "flow06_solver_seed_relative_propagation_v1",
+  "seeds": [20261122, 2026112401, 2026112402, 2026112403, 2026112404],
+  "control_seed": 20261122,
+  "retained_fractions": [0, 0.25, 0.5, 0.75, 1],
+  "holdout": "same_original_30_base_cases",
+  "intervention_reference": "each_seed_models_own_baseline",
+  "failed_job": "unavailable_without_parameter_substitution",
+  "incomplete_panel": "exclude_mean_but_keep_planned_denominator",
+  "summary": "minimum_median_maximum_not_confidence_interval",
+  "additional_fitting": false,
+  "output_clipping": false,
+  "seed_selection": false,
+  "comparison_tolerance": 1e-8,
+  "focus": [
+    {"group": "env_0", "model": "free_delta", "intervened_node": "B1", "target": "F1", "retained_fraction": 0},
+    {"group": "env_0.3", "model": "free_delta", "intervened_node": "B3", "target": "F3", "retained_fraction": 0}
+  ],
+  "focus_basis": "first_inherited_from_09_second_selected_using_17_beta_spread_before_this_propagation_run"
+}

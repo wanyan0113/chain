@@ -1,0 +1,19 @@
+{
+  "python": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "matplotlib": "3.11.2",
+  "base_git_commit": "2d7e4bdc00ec541bfa4691fb17a71d54074b8c65",
+  "prior_remote_commit_verified": "2d7e4bdc00ec541bfa4691fb17a71d54074b8c65",
+  "prior_remote_query": "git ls-remote ch refs/heads/codex/fdna-bridge",
+  "code_sha256_normalized_lf": {
+    "fdna/seed_propagation.py": "f3324cedc24ca1c781ef385e261ce409e6c4caae061e160e84bde87cc7b9ba76",
+    "fdna/refit_propagation.py": "8a7d6a3fbcf34ca6da7df8153d9e8c788ca67bf6a479ae9f89ae3ce2dc5e1202",
+    "fdna/prepared_prediction.py": "ac28ccf384318225fbb5a966913496c0be7919d0f204412f6dd6fcc29ce05693",
+    "fdna/propagation_stability.py": "906bb71b3ee9fc7402b1f11271717dbca03f713e4db2465bd7e0069aa701dd32",
+    "workflow_tools/verify_seed_propagation.py": "edf4c6be72fb3f74201240d01ebe2f3d057bb63c4ce666b61b9abda6da7d6469",
+    "data/fdna/seed_propagation_protocol.json": "cc83c8e516e3047dd28626245d9845a5914eafe4081aa469359b2840e7887a75"
+  },
+  "note": "Base commit precedes the new code; use the code content fingerprints to identify this calculation."
+}
