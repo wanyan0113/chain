@@ -25,3 +25,5 @@ docs/solver-seed-report/** -text
 docs/solver-seed-report/*.svg -diff
 docs/seed-propagation-report/** -text
 docs/seed-propagation-report/*.svg -diff
+docs/absolute-seed-report/** -text
+docs/absolute-seed-report/*.svg -diff

@@ -1,0 +1,35 @@
+{
+  "id": "flow06_seed_common_absolute_input_v1",
+  "reference_seed": 20261122,
+  "seeds": [
+    20261122,
+    2026112401,
+    2026112402,
+    2026112403,
+    2026112404
+  ],
+  "fractions": [
+    0,
+    0.25,
+    0.5,
+    0.75,
+    1
+  ],
+  "reference": "original_seed_predicted_start_baseline_times_fraction_per_group_model_base_case",
+  "comparison": "same_absolute_clamp_across_seeds_within_group_model_base_case",
+  "signed_decrease": "own_target_baseline_minus_common_clamp_target_output",
+  "fraction_one": "not_assumed_identity_for_non_reference_seed",
+  "negative_decreases": "retain_do_not_clip_or_exclude",
+  "complete_panel": "all_same_30_holdout_base_cases_or_no_mean",
+  "additional_fitting": false,
+  "model_selection": false,
+  "confidence_interval": false,
+  "tolerance": 1e-08,
+  "focus": {
+    "group": "env_0",
+    "model": "free_delta",
+    "intervened_node": "B1",
+    "target": "F1"
+  },
+  "focus_basis": "inherited_from_09_and_18_before_current_run"
+}

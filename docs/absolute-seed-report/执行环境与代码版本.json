@@ -1,0 +1,17 @@
+{
+  "python": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "matplotlib": "3.11.2",
+  "base_git_commit": "2bf8ce759f0a4de19b16ec3e9399011fa8a74874",
+  "prior_remote_verified": "2bf8ce759f0a4de19b16ec3e9399011fa8a74874",
+  "code_sha256_normalized_lf": {
+    "fdna/absolute_seed_propagation.py": "fa5e60a1434ec2ee4a5164a418ccb3a6ada2255b3f14548ecf602c48ed62ad1a",
+    "fdna/prepared_prediction.py": "ac28ccf384318225fbb5a966913496c0be7919d0f204412f6dd6fcc29ce05693",
+    "fdna/refit_propagation.py": "8a7d6a3fbcf34ca6da7df8153d9e8c788ca67bf6a479ae9f89ae3ce2dc5e1202",
+    "workflow_tools/verify_absolute_seed_propagation.py": "16ea53a2d4b03bbc3e7bf6e2449c1d16196f51dd891f706f60b7c26de2cd5f9d",
+    "data/fdna/absolute_seed_protocol.json": "31837ae08fdc332ce7a203358712783a247aca0bb3a876bf43db040a907211c0"
+  },
+  "note": "Base commit precedes this new code. Figure-only updates add a numerical tolerance label and avoid magnifying near-zero preset results; numerical records were not refitted or altered."
+}

@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "absolute_responses": 40500,
+  "paired_relative_responses": 40500,
+  "non_descendant_checks": 256500,
+  "reference_seed_controls": 8100,
+  "zero_controls": 8100,
+  "root_controls": 27000,
+  "condition_summaries": 270,
+  "seed_means": 1350,
+  "negative_decreases": 103,
+  "reference_exceeds_own": 104,
+  "outside": 0,
+  "extrapolated": 19080,
+  "maximum_absolute_difference": 2.1316282072803006e-14,
+  "additional_fitting": false,
+  "interpretation": "model_algebra_and_shared_input_comparison_not_real_causality"
+}
