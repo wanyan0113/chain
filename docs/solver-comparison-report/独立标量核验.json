@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "source_files": 94,
+  "control_parameter_prediction_maximum_difference": 0.0,
+  "solvers": 2,
+  "local_fits": 72,
+  "initial_vectors": 432,
+  "attempt_losses": 432,
+  "selected_parameter_values": 180,
+  "holdout_points": 2160,
+  "metric_rows_checked": 288,
+  "maximum_absolute_difference": 2.842170943040401e-14,
+  "counts": {
+    "starts": 432,
+    "attempt_losses": 432,
+    "parameters": 180,
+    "local_predictions": 2160,
+    "recursive_predictions": 2160,
+    "metrics": 288,
+    "csv_fields": 22374
+  },
+  "interpretation": "scalar_recheck_of_fixed_configuration_solver_pipelines_not_algorithm_wide_benchmark"
+}

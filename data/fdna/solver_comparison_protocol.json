@@ -1,0 +1,22 @@
+{
+  "id": "flow06_fixed_starts_solver_pipeline_comparison_v1",
+  "solvers": [
+    "L-BFGS-B",
+    "least_squares"
+  ],
+  "seed": 20261122,
+  "starts": 6,
+  "max_nfev": 1500,
+  "changed_config_field": "solver_only",
+  "data": "unchanged_original_90_training_30_holdout_base_cases",
+  "initialization": "same_neutral_plus_five_seeded_random_scaled_vectors",
+  "selection": "existing_training_loss_only_rule_within_each_solver_no_cross_solver_selection",
+  "budget_interpretation": "same_numeric_limit_not_equal_function_gradient_or_time_budget",
+  "pipeline_interpretation": "existing_analytic_gradient_lbfgsb_vs_finite_difference_least_squares_including_their_existing_tolerances",
+  "warm_start": false,
+  "output_clipping": false,
+  "holdout_selection": false,
+  "comparison_tolerance": 1e-08,
+  "propagation_recomputed": false,
+  "confidence_interval": false
+}

@@ -1,0 +1,17 @@
+{
+  "python": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "numpy": "2.5.4",
+  "scipy": "1.18.1",
+  "matplotlib": "3.11.2",
+  "base_git_commit": "56e69781968cbb0b59865bb3357e489ff79b1137",
+  "previous_remote_commit": "56e69781968cbb0b59865bb3357e489ff79b1137",
+  "normalized_lf_code_sha256": {
+    "fdna/fitting.py": "c89d9c2af0d1bc888e1c2b5dfcd25df796ffd2c722b02252df669c64040bea0e",
+    "fdna/network_workflow.py": "833f5a37d00c0886ee4a3043d1023106fac939ce544ea21b6dc79f5b12a25beb",
+    "fdna/solver_comparison.py": "12b4d2b330b43fcbfaec2635ef1d148cd0568f5e57d6d497e143d0d5c06f8ac5",
+    "workflow_tools/verify_solver_comparison.py": "0bcce9ac81238ec31954b70a15017781dd17676b506bc262fd8f99cd395f3f30",
+    "data/fdna/solver_comparison_protocol.json": "cc656c24c67214fb99ca96025117de05fbae9a50d60c391bc69b5de235868715"
+  },
+  "note": "Base commit predates this comparison implementation; chart was regenerated after disk space recovery without rerunning fits."
+}
