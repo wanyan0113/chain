@@ -1,0 +1,11 @@
+{
+  "baseline_commit": "9e3635a47c1a13a0e2de9221f10ce6f31d5157d6",
+  "source_export": "complete tracked Git tree at pinned commit; frozen scoped archive contains only declared subset",
+  "source_modified": false,
+  "requirements_sha256": "e810942cae0607d00e25bb69fd14b473107fb40e3347ec9d4a760aed8d7c33d9",
+  "full_archive_sha256": "a913ddd416da8e815d439e2dffc4d50adddb6c8d87f73a56f44349a2b25a875b",
+  "run_directory": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1",
+  "venv_created_from": "C:/Python314/python.exe; no system site packages",
+  "old_runtime_lock_used": false,
+  "note": "frozen environment snapshot is authoritative; historical requirements-v1.lock has different numpy pin"
+}

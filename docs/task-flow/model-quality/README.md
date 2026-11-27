@@ -23,7 +23,7 @@ subprocess.run(['git', 'archive', '--format=zip', '-o', str(out),
                 b['baseline_commit'], '--', *b['scope_paths']], check=True)
 ```
 
-环境清单是已运行环境的版本快照，尚未在全新环境中重建验证；不能把保存版本号称为跨环境复现已经完成。归档字节摘要对应本机Git生成文件，其他Git压缩实现可能影响ZIP字节，Git提交中的内容身份保持独立。
+本清单冻结时仅是版本快照；后续已完成[同机干净虚拟环境重建](../rebuild/README.md)，跨平台重建仍未建立。原baseline.json作为历史冻结记录保持不变。归档字节摘要对应本机Git生成文件，其他Git压缩实现可能影响ZIP字节，Git提交中的内容身份保持独立。
 
 ## 2. 只读模型审查方法
 

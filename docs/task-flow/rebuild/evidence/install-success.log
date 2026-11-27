@@ -1,0 +1,83 @@
+Collecting attrs==26.1.0 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 1))
+  Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+Collecting contourpy==1.4.0 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 2))
+  Downloading contourpy-1.4.0-cp314-cp314-win_amd64.whl.metadata (3.8 kB)
+Collecting cycler==0.12.1 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 3))
+  Downloading cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting fonttools==4.68.0 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 4))
+  Downloading fonttools-4.68.0-cp314-cp314-win_amd64.whl.metadata (142 kB)
+Collecting jsonschema==4.26.0 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 5))
+  Downloading jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+Collecting jsonschema-specifications==2025.9.1 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 6))
+  Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+Collecting kiwisolver==1.5.1 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 7))
+  Downloading kiwisolver-1.5.1-cp314-cp314-win_amd64.whl.metadata (5.2 kB)
+Collecting matplotlib==3.11.2 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 8))
+  Downloading matplotlib-3.11.2-cp314-cp314-win_amd64.whl.metadata (80 kB)
+Collecting numpy==2.5.4 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 9))
+  Downloading numpy-2.5.4-cp314-cp314-win_amd64.whl.metadata (6.6 kB)
+Collecting owlready2==0.51 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 10))
+  Downloading owlready2-0.51.tar.gz (27.4 MB)
+     ---------------------------------------- 27.4/27.4 MB 8.2 MB/s  0:00:03
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting packaging==26.3 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 11))
+  Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting pandas==3.1.1 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 12))
+  Downloading pandas-3.1.1-cp314-cp314-win_amd64.whl.metadata (16 kB)
+Collecting pillow==13.0.0 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 13))
+  Downloading pillow-13.0.0-cp314-cp314-win_amd64.whl.metadata (9.3 kB)
+Requirement already satisfied: pip==25.2 in c:\users\lenovo\desktop\链\generated\rebuild-baseline-9e3635a-1\venv\lib\site-packages (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 14)) (25.2)
+Collecting pyparsing==3.3.3 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 15))
+  Downloading pyparsing-3.3.3-py3-none-any.whl.metadata (5.9 kB)
+Collecting python-dateutil==4.0.0 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 16))
+  Downloading python_dateutil-4.0.0-py3-none-any.whl.metadata (7.3 kB)
+Collecting rdflib==7.6.0 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 17))
+  Downloading rdflib-7.6.0-py3-none-any.whl.metadata (12 kB)
+Collecting referencing==0.37.0 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 18))
+  Downloading referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+Collecting rpds-py==2026.9.1 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 19))
+  Downloading rpds_py-2026.9.1-cp314-cp314-win_amd64.whl.metadata (4.2 kB)
+Collecting scipy==1.18.1 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 20))
+  Downloading scipy-1.18.1-cp314-cp314-win_amd64.whl.metadata (61 kB)
+Collecting tzdata==2026.6 (from -r .\generated\rebuild-baseline-9e3635a-1\requirements-frozen.txt (line 21))
+  Downloading tzdata-2026.6-py2.py3-none-any.whl.metadata (1.4 kB)
+Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+Downloading contourpy-1.4.0-cp314-cp314-win_amd64.whl (240 kB)
+Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Downloading fonttools-4.68.0-cp314-cp314-win_amd64.whl (2.5 MB)
+   ---------------------------------------- 2.5/2.5 MB 6.7 MB/s  0:00:00
+Downloading jsonschema-4.26.0-py3-none-any.whl (90 kB)
+Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+Downloading kiwisolver-1.5.1-cp314-cp314-win_amd64.whl (72 kB)
+Downloading matplotlib-3.11.2-cp314-cp314-win_amd64.whl (9.5 MB)
+   ---------------------------------------- 9.5/9.5 MB 10.2 MB/s  0:00:00
+Downloading numpy-2.5.4-cp314-cp314-win_amd64.whl (12.7 MB)
+   ---------------------------------------- 12.7/12.7 MB 9.6 MB/s  0:00:01
+Downloading packaging-26.3-py3-none-any.whl (129 kB)
+Downloading pandas-3.1.1-cp314-cp314-win_amd64.whl (10.9 MB)
+   ---------------------------------------- 10.9/10.9 MB 7.6 MB/s  0:00:01
+Downloading pillow-13.0.0-cp314-cp314-win_amd64.whl (7.3 MB)
+   ---------------------------------------- 7.3/7.3 MB 6.5 MB/s  0:00:01
+Downloading pyparsing-3.3.3-py3-none-any.whl (126 kB)
+Downloading python_dateutil-4.0.0-py3-none-any.whl (92 kB)
+Downloading rdflib-7.6.0-py3-none-any.whl (615 kB)
+   ---------------------------------------- 615.4/615.4 kB 7.7 MB/s  0:00:00
+Downloading referencing-0.37.0-py3-none-any.whl (26 kB)
+Downloading rpds_py-2026.9.1-cp314-cp314-win_amd64.whl (222 kB)
+Downloading scipy-1.18.1-cp314-cp314-win_amd64.whl (37.4 MB)
+   ---------------------------------------- 37.4/37.4 MB 2.9 MB/s  0:00:12
+Downloading tzdata-2026.6-py2.py3-none-any.whl (348 kB)
+Building wheels for collected packages: owlready2
+  Building wheel for owlready2 (pyproject.toml): started
+  Building wheel for owlready2 (pyproject.toml): finished with status 'done'
+  Created wheel for owlready2: filename=owlready2-0.51-py3-none-any.whl size=23892678 sha256=450d155e7186d39478f84c5511d7b147eab5d27274514067571a01fdef462bb9
+  Stored in directory: C:\Users\Lenovo\AppData\Local\Temp\pip-ephem-wheel-cache-8a5iacgf\wheels\a6\6a\3d\7979322ffd1d6a3679b3726d219443de234b5da3ed29e69ab4
+Successfully built owlready2
+Installing collected packages: tzdata, rpds-py, pyparsing, pillow, packaging, owlready2, numpy, kiwisolver, fonttools, cycler, attrs, scipy, referencing, rdflib, python-dateutil, contourpy, pandas, matplotlib, jsonschema-specifications, jsonschema
+
+Successfully installed attrs-26.1.0 contourpy-1.4.0 cycler-0.12.1 fonttools-4.68.0 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 kiwisolver-1.5.1 matplotlib-3.11.2 numpy-2.5.4 owlready2-0.51 packaging-26.3 pandas-3.1.1 pillow-13.0.0 pyparsing-3.3.3 python-dateutil-4.0.0 rdflib-7.6.0 referencing-0.37.0 rpds-py-2026.9.1 scipy-1.18.1 tzdata-2026.6

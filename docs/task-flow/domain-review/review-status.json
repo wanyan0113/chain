@@ -1,0 +1,11 @@
+{
+  "status": "pending_human_review",
+  "baseline_commit": "9e3635a47c1a13a0e2de9221f10ce6f31d5157d6",
+  "materials_prepared_by": "original_development_assistant",
+  "independent_reviewer": null,
+  "reviewer_assignment": "deferred_by_user",
+  "independent_first_pass_requirements_received": false,
+  "review_completed": false,
+  "real_business_policy_provided": false,
+  "scope": "consistency_with_declared_synthetic_requirements_only"
+}

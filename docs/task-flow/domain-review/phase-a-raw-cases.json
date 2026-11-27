@@ -1,0 +1,166 @@
+{
+  "source_commit": "9e3635a47c1a13a0e2de9221f10ce6f31d5157d6",
+  "scope": "synthetic_inputs_without_expected_workflows_or_test_outcomes",
+  "cases": [
+    {
+      "format_version": "expense-approval-1.0",
+      "case_id": "threshold_exact",
+      "currency": "CNY",
+      "claims": [
+        {
+          "claim_id": "claim-a",
+          "amount_cents": 100000,
+          "receipt_valid": true,
+          "state": {
+            "submitted": false,
+            "screened": false,
+            "manager_approved": false,
+            "authorized": false,
+            "archived": false
+          },
+          "source_refs": [
+            "synthetic-expense-row-a"
+          ]
+        }
+      ],
+      "goal": {
+        "claim_ids": [
+          "claim-a"
+        ],
+        "require_archive": true
+      },
+      "search": {
+        "max_length": 4,
+        "max_nodes": 20000,
+        "timeout_ms": 30000
+      },
+      "source_refs": [
+        "synthetic-expense-application-examples-v1"
+      ]
+    },
+    {
+      "format_version": "expense-approval-1.0",
+      "case_id": "above_threshold",
+      "currency": "CNY",
+      "claims": [
+        {
+          "claim_id": "claim-a",
+          "amount_cents": 100001,
+          "receipt_valid": true,
+          "state": {
+            "submitted": false,
+            "screened": false,
+            "manager_approved": false,
+            "authorized": false,
+            "archived": false
+          },
+          "source_refs": [
+            "synthetic-expense-row-a"
+          ]
+        }
+      ],
+      "goal": {
+        "claim_ids": [
+          "claim-a"
+        ],
+        "require_archive": true
+      },
+      "search": {
+        "max_length": 5,
+        "max_nodes": 20000,
+        "timeout_ms": 30000
+      },
+      "source_refs": [
+        "synthetic-expense-application-examples-v1"
+      ]
+    },
+    {
+      "format_version": "expense-approval-1.0",
+      "case_id": "two_reviewed_claims",
+      "currency": "CNY",
+      "claims": [
+        {
+          "claim_id": "claim-a",
+          "amount_cents": 50000,
+          "receipt_valid": true,
+          "state": {
+            "submitted": true,
+            "screened": true,
+            "manager_approved": false,
+            "authorized": false,
+            "archived": false
+          },
+          "source_refs": [
+            "synthetic-expense-row-a"
+          ]
+        },
+        {
+          "claim_id": "claim-b",
+          "amount_cents": 200000,
+          "receipt_valid": true,
+          "state": {
+            "submitted": true,
+            "screened": true,
+            "manager_approved": true,
+            "authorized": false,
+            "archived": false
+          },
+          "source_refs": [
+            "synthetic-expense-row-b"
+          ]
+        }
+      ],
+      "goal": {
+        "claim_ids": [
+          "claim-a",
+          "claim-b"
+        ],
+        "require_archive": true
+      },
+      "search": {
+        "max_length": 4,
+        "max_nodes": 20000,
+        "timeout_ms": 30000
+      },
+      "source_refs": [
+        "synthetic-expense-application-examples-v1"
+      ]
+    },
+    {
+      "format_version": "expense-approval-1.0",
+      "case_id": "receipt_unknown",
+      "currency": "CNY",
+      "claims": [
+        {
+          "claim_id": "claim-a",
+          "amount_cents": 50000,
+          "receipt_valid": null,
+          "state": {
+            "submitted": false,
+            "screened": false,
+            "manager_approved": false,
+            "authorized": false,
+            "archived": false
+          },
+          "source_refs": [
+            "synthetic-expense-row-a"
+          ]
+        }
+      ],
+      "goal": {
+        "claim_ids": [
+          "claim-a"
+        ],
+        "require_archive": true
+      },
+      "search": {
+        "max_length": 4,
+        "max_nodes": 20000,
+        "timeout_ms": 30000
+      },
+      "source_refs": [
+        "synthetic-expense-application-examples-v1"
+      ]
+    }
+  ]
+}

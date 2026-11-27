@@ -1,0 +1,161 @@
+{
+  "status": "passed",
+  "baseline_commit": "9e3635a47c1a13a0e2de9221f10ce6f31d5157d6",
+  "scope": "fresh_venv_same_host_and_python_build",
+  "generic_tests": 159,
+  "baseline_audit": "passed_with_scope_limits",
+  "reference_comparisons": 59,
+  "semantic_results_equal": true,
+  "source_inventory_before": {
+    "files_checked": 892,
+    "mismatches": [],
+    "passed": true
+  },
+  "source_inventory_after": {
+    "files_checked": 892,
+    "mismatches": [],
+    "passed": true
+  },
+  "commands": [
+    {
+      "label": "packages",
+      "args": [
+        "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Scripts\\python.exe",
+        "-E",
+        "-s",
+        "-B",
+        "-m",
+        "pip",
+        "list",
+        "--isolated",
+        "--format=json",
+        "--disable-pip-version-check"
+      ],
+      "returncode": 0,
+      "wall_ms": 1100.673,
+      "log": "packages.log"
+    },
+    {
+      "label": "pip-check",
+      "args": [
+        "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Scripts\\python.exe",
+        "-E",
+        "-s",
+        "-B",
+        "-m",
+        "pip",
+        "check",
+        "--isolated",
+        "--disable-pip-version-check"
+      ],
+      "returncode": 0,
+      "wall_ms": 975.987,
+      "log": "pip-check.log"
+    },
+    {
+      "label": "isolation",
+      "args": [
+        "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Scripts\\python.exe",
+        "-E",
+        "-s",
+        "-B",
+        "-c",
+        "import sys,site,json,importlib,importlib.metadata\nnames=['task_flow.contracts','workflow_tools.task_flow_study','tests.test_task_flow_contracts','workflow_tools.expense_workflow','jsonschema','numpy','owlready2']\nprint(json.dumps({'executable':sys.executable,'prefix':sys.prefix,'base_prefix':sys.base_prefix,'python':sys.version,'user_site_enabled':site.ENABLE_USER_SITE,'sys_path':sys.path,'modules':{n:importlib.import_module(n).__file__ for n in names},'distribution_roots':{d.metadata['Name']:str(d.locate_file('')) for d in importlib.metadata.distributions()}},ensure_ascii=False))"
+      ],
+      "returncode": 0,
+      "wall_ms": 1975.724,
+      "log": "isolation.log"
+    },
+    {
+      "label": "generic-tests",
+      "args": [
+        "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Scripts\\python.exe",
+        "-E",
+        "-s",
+        "-B",
+        "-m",
+        "unittest",
+        "tests.test_task_flow_contracts",
+        "tests.test_task_flow_state",
+        "tests.test_task_flow_planner",
+        "tests.test_task_flow_validator",
+        "tests.test_task_flow_external",
+        "tests.test_task_flow_research_audit",
+        "tests.test_task_flow_study",
+        "tests.test_expense_workflow"
+      ],
+      "returncode": 0,
+      "wall_ms": 22907.374,
+      "log": "generic-tests.log"
+    },
+    {
+      "label": "audit",
+      "args": [
+        "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Scripts\\python.exe",
+        "-E",
+        "-s",
+        "-B",
+        "-m",
+        "workflow_tools.task_flow_research_audit",
+        "run",
+        "--output-dir",
+        "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\experiments\\audit"
+      ],
+      "returncode": 0,
+      "wall_ms": 111649.998,
+      "log": "audit.log"
+    },
+    {
+      "label": "phase5",
+      "args": [
+        "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Scripts\\python.exe",
+        "-E",
+        "-s",
+        "-B",
+        "-m",
+        "workflow_tools.task_flow_integration_checks",
+        "--output-dir",
+        "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\experiments\\phase5"
+      ],
+      "returncode": 0,
+      "wall_ms": 1514.148,
+      "log": "phase5.log"
+    },
+    {
+      "label": "phase6",
+      "args": [
+        "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Scripts\\python.exe",
+        "-E",
+        "-s",
+        "-B",
+        "-m",
+        "workflow_tools.task_flow_study",
+        "run",
+        "--output-dir",
+        "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\experiments\\phase6"
+      ],
+      "returncode": 0,
+      "wall_ms": 3718.245,
+      "log": "phase6.log"
+    },
+    {
+      "label": "expense",
+      "args": [
+        "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Scripts\\python.exe",
+        "-E",
+        "-s",
+        "-B",
+        "-m",
+        "workflow_tools.expense_evaluation",
+        "run",
+        "--output-dir",
+        "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\experiments\\expense"
+      ],
+      "returncode": 0,
+      "wall_ms": 2067.456,
+      "log": "expense.log"
+    }
+  ],
+  "independent_human_review_status": "pending",
+  "cross_platform_reproduction_established": false
+}

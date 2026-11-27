@@ -1,0 +1,26 @@
+{
+  "status": "passed_with_scope_limits",
+  "plan_sha256": "0cd462efae170f9b3f3a6d3b0448db4be32d4600d56f1e64984acb71ef60b84b",
+  "correctness_models": 8,
+  "raw_sequences": 6808,
+  "accepted_sequences": 34,
+  "template_cases": 9,
+  "known_feasible_cases": 8,
+  "planner_solved": 8,
+  "template_solved": 4,
+  "model_risk_cases": 6,
+  "efficiency_configurations": 10,
+  "efficiency_runs": 30,
+  "legacy_integration_status": "not_implemented",
+  "interpretation": "finite_synthetic_model_evidence_not_general_proof_or_algorithm_superiority",
+  "environment": {
+    "python": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.22631-SP0",
+    "clock": "perf_counter",
+    "processor": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+    "logical_cpu_count": 12,
+    "jsonschema": "4.26.0",
+    "warmup": "none; repeats run sequentially in one process",
+    "date_policy": "client study date 2026-11-27; raw timing is host measured"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "initial_install": {
+    "returncode": 1,
+    "reason": "sandbox socket connection blocked, WinError 10013; not a package availability conclusion"
+  },
+  "retried_install": {
+    "returncode": 0,
+    "execution": "approved network access outside sandbox",
+    "requirements": "exact frozen environment snapshot, no version substitutions",
+    "pip_options": [
+      "-I",
+      "--isolated",
+      "--no-cache-dir",
+      "--disable-pip-version-check"
+    ]
+  },
+  "log_acquisition": [
+    {
+      "source": "generic-tests.log",
+      "published_as": "generic-tests.log",
+      "original_sha256": "96cf00501f117e2cdc7a45e81d3fc03e8f933a99ab13230c20951c1bc5c38f73",
+      "published_log_encoding": "UTF-8 LF",
+      "original_log_encoding": "utf-8-sig"
+    },
+    {
+      "source": "pip-check.log",
+      "published_as": "pip-check.log",
+      "original_sha256": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09",
+      "published_log_encoding": "UTF-8 LF",
+      "original_log_encoding": "utf-8-sig"
+    },
+    {
+      "source": "install.log",
+      "published_as": "install-sandbox-failure.log",
+      "original_sha256": "7d31c988f23dac0685cd1029ca751f09db8cd097ad44e28aa748c4bc8624e7aa",
+      "published_log_encoding": "UTF-8 LF",
+      "original_log_encoding": "utf-16"
+    },
+    {
+      "source": "install-escalated.log",
+      "published_as": "install-success.log",
+      "original_sha256": "48e10257fac7a3ff941507f0fde05d15652806555d3af1e185f61095d3fff6c7",
+      "published_log_encoding": "UTF-8 LF",
+      "original_log_encoding": "utf-16"
+    },
+    {
+      "source": "experiments/audit/baseline-tests.log",
+      "published_as": "audit-regression-tests.log",
+      "original_sha256": "68c36f744d90deef7d7466f5cfd024e582632027a05953b4c2374c4cf88edabd",
+      "published_log_encoding": "UTF-8 LF",
+      "original_log_encoding": "utf-8-sig"
+    }
+  ],
+  "full_local_results": "generated/rebuild-baseline-9e3635a-1",
+  "source_commit": "9e3635a47c1a13a0e2de9221f10ce6f31d5157d6",
+  "human_review_completed": false
+}

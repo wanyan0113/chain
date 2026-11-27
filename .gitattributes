@@ -44,3 +44,10 @@ docs/task-flow/model-quality/evidence/** -text
 docs/task-flow/model-quality/baseline.json -text
 docs/task-flow/model-quality/environment-requirements.txt -text
 docs/task-flow/model-quality/*.log -text
+docs/task-flow/rebuild/evidence/** -text
+# Preserve the shell-captured failure log's original trailing spaces.
+docs/task-flow/rebuild/evidence/install-sandbox-failure.log whitespace=-blank-at-eol
+docs/task-flow/rebuild/*.log -text
+docs/task-flow/domain-review/phase-a-raw-cases.json -text
+docs/task-flow/domain-review/phase-b-models/** -text
+docs/task-flow/domain-review/materials-manifest.json -text

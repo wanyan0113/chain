@@ -1,0 +1,138 @@
+{
+  "packages_match_frozen_snapshot": true,
+  "packages": [
+    {
+      "name": "attrs",
+      "version": "26.1.0"
+    },
+    {
+      "name": "contourpy",
+      "version": "1.4.0"
+    },
+    {
+      "name": "cycler",
+      "version": "0.12.1"
+    },
+    {
+      "name": "fonttools",
+      "version": "4.68.0"
+    },
+    {
+      "name": "jsonschema",
+      "version": "4.26.0"
+    },
+    {
+      "name": "jsonschema-specifications",
+      "version": "2025.9.1"
+    },
+    {
+      "name": "kiwisolver",
+      "version": "1.5.1"
+    },
+    {
+      "name": "matplotlib",
+      "version": "3.11.2"
+    },
+    {
+      "name": "numpy",
+      "version": "2.5.4"
+    },
+    {
+      "name": "owlready2",
+      "version": "0.51"
+    },
+    {
+      "name": "packaging",
+      "version": "26.3"
+    },
+    {
+      "name": "pandas",
+      "version": "3.1.1"
+    },
+    {
+      "name": "pillow",
+      "version": "13.0.0"
+    },
+    {
+      "name": "pip",
+      "version": "25.2"
+    },
+    {
+      "name": "pyparsing",
+      "version": "3.3.3"
+    },
+    {
+      "name": "python-dateutil",
+      "version": "4.0.0"
+    },
+    {
+      "name": "rdflib",
+      "version": "7.6.0"
+    },
+    {
+      "name": "referencing",
+      "version": "0.37.0"
+    },
+    {
+      "name": "rpds-py",
+      "version": "2026.9.1"
+    },
+    {
+      "name": "scipy",
+      "version": "1.18.1"
+    },
+    {
+      "name": "tzdata",
+      "version": "2026.6"
+    }
+  ],
+  "isolation": {
+    "executable": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Scripts\\python.exe",
+    "prefix": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv",
+    "base_prefix": "C:\\Python314",
+    "python": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+    "user_site_enabled": false,
+    "sys_path": [
+      "",
+      "C:\\Python314\\python314.zip",
+      "C:\\Python314\\DLLs",
+      "C:\\Python314\\Lib",
+      "C:\\Python314",
+      "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv",
+      "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages"
+    ],
+    "modules": {
+      "task_flow.contracts": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\source\\task_flow\\contracts.py",
+      "workflow_tools.task_flow_study": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\source\\workflow_tools\\task_flow_study.py",
+      "tests.test_task_flow_contracts": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\source\\tests\\test_task_flow_contracts.py",
+      "workflow_tools.expense_workflow": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\source\\workflow_tools\\expense_workflow.py",
+      "jsonschema": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages\\jsonschema\\__init__.py",
+      "numpy": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages\\numpy\\__init__.py",
+      "owlready2": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages\\owlready2\\__init__.py"
+    },
+    "distribution_roots": {
+      "attrs": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "contourpy": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "cycler": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "fonttools": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "jsonschema": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "jsonschema-specifications": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "kiwisolver": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "matplotlib": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "numpy": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "owlready2": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "packaging": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "pandas": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "pillow": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "pip": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "pyparsing": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "python-dateutil": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "rdflib": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "referencing": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "rpds-py": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "scipy": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages",
+      "tzdata": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Lib\\site-packages"
+    }
+  },
+  "venv_config": "home = C:\\Python314\ninclude-system-site-packages = false\nversion = 3.14.0\nexecutable = C:\\Python314\\python.exe\ncommand = C:\\Python314\\python.exe -m venv C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\n"
+}

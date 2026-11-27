@@ -1,0 +1,23 @@
+python.exe : WARNING: Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection b
+roken by 'NewConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0x000001E850614D70>: Failed to 
+establish a new connection: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。')': /simple/attrs/
+At line:2 char:1
++ & '.\generated\rebuild-baseline-9e3635a-1\venv\Scripts\python.exe' -I ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (WARNING: Retryi... /simple/attrs/:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+WARNING: Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by 'New
+ConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0x000001E8505DD950>: Failed to establish a n
+ew connection: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。')': /simple/attrs/
+WARNING: Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'New
+ConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0x000001E8505DDBD0>: Failed to establish a n
+ew connection: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。')': /simple/attrs/
+WARNING: Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'New
+ConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0x000001E8505DDD10>: Failed to establish a n
+ew connection: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。')': /simple/attrs/
+WARNING: Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'New
+ConnectionError('<pip._vendor.urllib3.connection.HTTPSConnection object at 0x000001E8505DDE50>: Failed to establish a n
+ew connection: [WinError 10013] 以一种访问权限不允许的方式做了一个访问套接字的尝试。')': /simple/attrs/
+ERROR: Could not find a version that satisfies the requirement attrs==26.1.0 (from versions: none)
+ERROR: No matching distribution found for attrs==26.1.0

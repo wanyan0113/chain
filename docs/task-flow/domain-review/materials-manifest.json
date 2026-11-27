@@ -1,0 +1,13 @@
+{
+  "source_commit": "9e3635a47c1a13a0e2de9221f10ce6f31d5157d6",
+  "generator": "frozen workflow_tools.expense_workflow.adapt; no search or expected answers",
+  "interpreter": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\rebuild-baseline-9e3635a-1\\venv\\Scripts\\python.exe",
+  "independent_human_review_completed": false,
+  "artifact_sha256": {
+    "phase-a-raw-cases.json": "dcf6b486bb9197df1770177109aa562b4593004a10c4e0da0ade49c9ae56742d",
+    "phase-b-models/above_threshold.json": "a1d3d8f6f742cc3df51858db21935e60427813c19e0f48615cdfddfe26587483",
+    "phase-b-models/receipt_unknown.json": "ec3937eca074480b2c39804d8e2a36eaa9700ce2112ea6c3081f6ed33d301041",
+    "phase-b-models/threshold_exact.json": "09f7f1df2ccb5809e4d1eb35003ad45751a0e9aab92ad46e47c8b9d7c193ad7d",
+    "phase-b-models/two_reviewed_claims.json": "dce6474bc334f6d4491b38e8525a689760ccda358a5296b685da74ad8fec84d1"
+  }
+}

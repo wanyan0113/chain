@@ -1,0 +1,24 @@
+{
+  "source_sha256_lf_normalized": {
+    "workflow_tools/rebuild_frozen_baseline.py": "8c669af8dd4f06fb16aca6014d0cceea790f79c6fe9b48beb72e9a179da7aedb",
+    "tests/test_rebuild_frozen_baseline.py": "d1b2e54cda2b504cf5b10e4530b6d555f8f35a448af92336c733b841d8835e75",
+    "docs/task-flow/model-quality/baseline.json": "637ca1652313bd9a4d08948cef13c94db7e0358c83f27029abf3b2f207166626",
+    "docs/task-flow/model-quality/environment-requirements.txt": "e810942cae0607d00e25bb69fd14b473107fb40e3347ec9d4a760aed8d7c33d9"
+  },
+  "artifact_sha256": {
+    "acquisition.json": "95332870eaaeb53c95d61f5b69130dfc6664938e96c57b5065c401bcef5f1ea3",
+    "audit-regression-tests.log": "68c36f744d90deef7d7466f5cfd024e582632027a05953b4c2374c4cf88edabd",
+    "audit-summary.json": "b9c67be2112c24d917e4437f0f0d0f9d3d872b398c5a97fabefa729cbcd96937",
+    "environment-proof.json": "a3663bc84e9dcab3de0695705b76c87e6457636a40841d77ae55d7088e6b8c21",
+    "expense-summary.json": "22037eee744683d4fe634b5e11dea881fca2db79e3856c2b58ad9eddd60d52b9",
+    "generic-tests.log": "96cf00501f117e2cdc7a45e81d3fc03e8f933a99ab13230c20951c1bc5c38f73",
+    "install-sandbox-failure.log": "9b17cbaebe1a8737571588b5fd11c799d7ab15bd34d0f44b1beee17abf29151b",
+    "install-success.log": "1f0da110220c813ee561b36239a57ff1c390371906bc12087776b4b7141d8bf3",
+    "phase5-summary.json": "e5099c2f67a1b49657cb32908a1e46e4a36588e02898e462a1c07940ac629e02",
+    "phase6-summary.json": "d505a14ddfe5726cab5fbed0f2a0d9f4ee26de15eda2dfe143a21f679bd00ef3",
+    "pip-check.log": "9261363b733079a641c2e4cc9bc46ffa1d8336945a87f807b6cf68847dbc9b09",
+    "rebuild-summary.json": "3595456fd95d3d99604f63cd855a6ddf0420c5be604c77855fc561f876e111e7",
+    "semantic-comparison.json": "f2ca3be0ac7b164e9da6314dceb00475e9db254ea65c0b1b22c5fe0027c4b0f0",
+    "setup.json": "21c19f0d3e6236e9ed613e78b6e4641777a1d12cc32817d6b35bebaaee7b8cce"
+  }
+}

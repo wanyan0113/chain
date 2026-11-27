@@ -1,0 +1,118 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "name": "fallback",
+      "file": "fallback.json",
+      "passed": true
+    },
+    {
+      "name": "already_done",
+      "file": "already_done.json",
+      "passed": true
+    },
+    {
+      "name": "mandatory_verify",
+      "file": "mandatory_verify.json",
+      "passed": true
+    },
+    {
+      "name": "collected",
+      "file": "collected.json",
+      "passed": true
+    },
+    {
+      "name": "basic",
+      "file": "basic.json",
+      "passed": true
+    },
+    {
+      "name": "verified",
+      "file": "verified.json",
+      "passed": true
+    },
+    {
+      "name": "unsupported_legacy",
+      "file": "unsupported_legacy.json",
+      "passed": true
+    },
+    {
+      "name": "unknown_services",
+      "file": "unknown_services.json",
+      "passed": true
+    },
+    {
+      "name": "too_short",
+      "file": "too_short.json",
+      "passed": true
+    },
+    {
+      "name": "unknown_source",
+      "file": "unknown_source.json",
+      "passed": true
+    },
+    {
+      "name": "analysis_limit",
+      "file": "analysis_limit.json",
+      "passed": true
+    },
+    {
+      "name": "search_limit",
+      "file": "search_limit.json",
+      "passed": true
+    },
+    {
+      "name": "all_rejected",
+      "file": "all_rejected.json",
+      "passed": true
+    },
+    {
+      "name": "feedback_first",
+      "file": "feedback_first.json",
+      "passed": true
+    },
+    {
+      "name": "feedback_repeat",
+      "file": "feedback_repeat.json",
+      "passed": true
+    },
+    {
+      "name": "context_changed",
+      "file": "context_changed.json",
+      "passed": true
+    }
+  ],
+  "source_sha256_lf_normalized": {
+    "task_flow/__init__.py": "8a4706e67aa06cc5c0031dcc2f0d43854d17932bc4b94d9d988d9886f41bf857",
+    "task_flow/__main__.py": "06c0fb1826b84613c2cac89706819c970c0df45c1132885eb0bd67d1ea580b0b",
+    "task_flow/contracts.py": "0a29419ac43f491fb8b4aae8a3edb8109c2209d403cd0811fb9ec16a45f3f1ab",
+    "task_flow/examples/counter_transfer/catalog.json": "fce14f374d332163797abaa7a8387b016dc6e57cfbc0d77ebb2f4f4728fe5b7d",
+    "task_flow/examples/counter_transfer/request.json": "1a637f975ea1687ebb49243b3ba735e5c43c9c634f089c7fe5de32741a26e135",
+    "task_flow/examples/document_workflow/already_done.json": "7a8b3122309733d19a52682359637d229323f8162da49542f295db1a1380ddc7",
+    "task_flow/examples/document_workflow/basic.json": "dbfdd537b82f544085917d3dc62d2e45c8f54e204dd7dc8fee65b998d2e94a02",
+    "task_flow/examples/document_workflow/catalog.json": "fd52ffe2c91adec9a926f1bc4d9e3e281b6de5bf3ea6b4b989deb575ecd5fee4",
+    "task_flow/examples/document_workflow/collected.json": "51855dc635b7d886c627f0c4cd19c0ffeee1be1221ab92cadde270e727fe8401",
+    "task_flow/examples/document_workflow/feedback_fallback.json": "3d21da799134740e47d55e9def3a9c3e3468e7c5a8dd1ff7946bfe7da21be558",
+    "task_flow/examples/document_workflow/mandatory_verify.json": "0964b3641c5c77e834c372ce2948c545619a7e37d4664531b1c76a14acd88bd5",
+    "task_flow/examples/document_workflow/manual_cases.json": "8fdedae75048312a1343f0e252177fdfdcadbc6772fc00bbfe157b9d586ee6ed",
+    "task_flow/examples/document_workflow/sequence-basic.json": "87ff02d8310ab4683db5d2650a844b18863c4fce557c07a4b7877e6b9d61928d",
+    "task_flow/examples/document_workflow/service_mapping.json": "3aedfbe6c557782f4d27c70689a4e0533a084228216837065f2e7f5b93aed8f5",
+    "task_flow/examples/document_workflow/services_backup_offline.json": "c2c69e2db3a8728c014dd35396c24c60f084701532447c4ec2c254c1f35f3c4f",
+    "task_flow/examples/document_workflow/too_short.json": "2e3fc7893ae7f5379cebf26a82843c26802952043db71468701e367742bfd3d3",
+    "task_flow/examples/document_workflow/unknown_source.json": "eae32c7f153ae8f2fda16d7c4004b0bdb8ffa46c4f7e709909194d5d2fa3f832",
+    "task_flow/examples/document_workflow/verified.json": "22c34f14e5dd39fb07dc39ff8ea496a64f85e935390baf3e406fbd4f6b48ae93",
+    "task_flow/examples/expense_workflow/cases.json": "b4b89d025132bc0b2fbb65e2f7a8315b43a60be20464ef1bf92987f2c2b1c846",
+    "task_flow/examples/expense_workflow/sample.json": "2c8678c19dea946ece722b6506fb59ccfb23a02f43bc8c36c4d3b7a51d6d3436",
+    "task_flow/external.py": "e84c59beb9548a8ebf2ffd649b60e1c9455aae77ee5c1c15d9e7496ef37e54c0",
+    "task_flow/integrate.py": "aff664dc95ea57d046a305bf0b09891f69aea036e022b0bfbd6a22bd3d380378",
+    "task_flow/planner.py": "3f7fb53243391c56c5fdf565eb90b7224c69ee15d907a615debec5bdbe427d2b",
+    "task_flow/schema.json": "e66c1bfafff1652ba8ae045e27f3ab4d5a11692ea8e5f9f98fc39b1f520129c3",
+    "task_flow/state.py": "c0ad87a5ef37002357cf790481ac2b1ada5e96bc47f1da79444fdab8c5560091",
+    "task_flow/validator.py": "5599caa5897c86462301d084d2a32779db1ceb7df34eeb94874a21e39c16ebda",
+    "tests/test_task_flow_external.py": "b40e5d5e4c167815205ce8a286753509acb81550f6b3677eb5e0138fb965a432",
+    "workflow_tools/task_flow_integration_checks.py": "64d8723a3bc3aecc780fab19bd0f87f5607f80c94f692bd251e3faa423aa97c6"
+  },
+  "scope": "finite_synthetic_document_examples_only",
+  "legacy_integration_status": "not_implemented",
+  "performance_evaluated": false
+}
