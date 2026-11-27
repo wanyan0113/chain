@@ -1,0 +1,1851 @@
+{
+  "name": "collected",
+  "expected": {
+    "status": "selected",
+    "lengths": [
+      2
+    ],
+    "external_statuses": [
+      "passed"
+    ]
+  },
+  "actual": {
+    "status": "selected",
+    "conclusion": "declared_external_conditions_satisfied",
+    "external_statuses": [
+      "passed"
+    ],
+    "lengths": [
+      2
+    ],
+    "cache_hits": [
+      false
+    ]
+  },
+  "passed": true,
+  "criterion": "exact equality for every declared expected field",
+  "report": {
+    "format_version": "task-flow-integration-1.0",
+    "integration_status": "selected",
+    "conclusion": "declared_external_conditions_satisfied",
+    "selected_candidate_id": "flow-3681f1c3d5afc3d5a656b0baa31b9753594215709e6f874c898b9c4e6c5d4431",
+    "catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+    "request_sha256": "e3065f2ad784e5f504c0c90e6cb367deb0bfeccade3e865d19ecbe3ccb37549f",
+    "input_snapshot": {
+      "mapping": {
+        "format_version": "task-flow-mapping-1.0",
+        "mapping_id": "document-services",
+        "version": "1.0",
+        "backend": "document-service-availability",
+        "entries": [
+          {
+            "capability_uri": "urn:task-flow:demo:CollectDocument",
+            "service_id": "CollectDocument",
+            "source_refs": [
+              "synthetic-phase5-service-mapping"
+            ]
+          },
+          {
+            "capability_uri": "urn:task-flow:demo:ApproveDocument",
+            "service_id": "ApproveDocument",
+            "source_refs": [
+              "synthetic-phase5-service-mapping"
+            ]
+          },
+          {
+            "capability_uri": "urn:task-flow:demo:PublishStandard",
+            "service_id": "PublishStandard",
+            "source_refs": [
+              "synthetic-phase5-service-mapping"
+            ]
+          },
+          {
+            "capability_uri": "urn:task-flow:demo:PublishBackup",
+            "service_id": "PublishBackup",
+            "source_refs": [
+              "synthetic-phase5-service-mapping"
+            ]
+          },
+          {
+            "capability_uri": "urn:task-flow:demo:VerifyDocument",
+            "service_id": "VerifyDocument",
+            "source_refs": [
+              "synthetic-phase5-service-mapping"
+            ]
+          }
+        ],
+        "source_refs": [
+          "synthetic-phase5-service-mapping"
+        ]
+      },
+      "context": {
+        "format_version": "task-flow-context-1.0",
+        "context_id": "backup-offline",
+        "version": "1.0",
+        "services": [
+          {
+            "service_id": "CollectDocument",
+            "available": true,
+            "source_refs": [
+              "synthetic-phase5-availability"
+            ]
+          },
+          {
+            "service_id": "ApproveDocument",
+            "available": true,
+            "source_refs": [
+              "synthetic-phase5-availability"
+            ]
+          },
+          {
+            "service_id": "PublishStandard",
+            "available": true,
+            "source_refs": [
+              "synthetic-phase5-availability"
+            ]
+          },
+          {
+            "service_id": "PublishBackup",
+            "available": true,
+            "source_refs": [
+              "synthetic-phase5-availability"
+            ]
+          },
+          {
+            "service_id": "VerifyDocument",
+            "available": true,
+            "source_refs": [
+              "synthetic-phase5-availability"
+            ]
+          }
+        ],
+        "source_refs": [
+          "synthetic-phase5-availability"
+        ]
+      }
+    },
+    "search": {
+      "format_version": "task-flow-search-1.0",
+      "algorithm": "iterative_deepening_depth_first",
+      "catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+      "request_sha256": "e3065f2ad784e5f504c0c90e6cb367deb0bfeccade3e865d19ecbe3ccb37549f",
+      "search_status": "candidate_found",
+      "termination_reason": "first_feasible_pause",
+      "conclusion": "candidates_available",
+      "coverage": "partial",
+      "coverage_scope": "certified_executable_sequences_within_declared_bounds",
+      "unknown_conditions_seen": false,
+      "unknown_examples": [],
+      "candidates": [
+        {
+          "candidate_id": "flow-3681f1c3d5afc3d5a656b0baa31b9753594215709e6f874c898b9c4e6c5d4431",
+          "sequence": {
+            "format_version": "task-flow-1.0",
+            "catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+            "request_sha256": "e3065f2ad784e5f504c0c90e6cb367deb0bfeccade3e865d19ecbe3ccb37549f",
+            "steps": [
+              {
+                "activity_id": "approve",
+                "activity_version": "1.0",
+                "parameters": {
+                  "document": "doc-1"
+                }
+              },
+              {
+                "activity_id": "publish_backup",
+                "activity_version": "1.0",
+                "parameters": {
+                  "document": "doc-1"
+                }
+              }
+            ]
+          },
+          "capability_demands": [
+            {
+              "step_index": 0,
+              "activity_id": "approve",
+              "required_capabilities": [
+                "urn:task-flow:demo:ApproveDocument"
+              ],
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "step_index": 1,
+              "activity_id": "publish_backup",
+              "required_capabilities": [
+                "urn:task-flow:demo:PublishBackup"
+              ],
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            }
+          ],
+          "final_state": [
+            {
+              "fact": {
+                "predicate": "approved",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "collected",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "published",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "ready",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "value": true,
+              "kind": "derived"
+            },
+            {
+              "fact": {
+                "predicate": "source_available",
+                "args": []
+              },
+              "value": true,
+              "kind": "static"
+            },
+            {
+              "fact": {
+                "predicate": "verified",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "value": false,
+              "kind": "mutable"
+            }
+          ],
+          "generation_goal_satisfied": true,
+          "verification_status": "not_run",
+          "external_status": "not_run"
+        }
+      ],
+      "statistics": {
+        "nodes": 9,
+        "prefixes_checked": 8,
+        "transitions_applied": 5,
+        "rejected_prefixes": 0,
+        "rejected_occurrences": 1,
+        "rejected_transitions": 3,
+        "unknown_branches": 0,
+        "unknown_goal_checks": 0,
+        "candidate_count": 1,
+        "elapsed_ms": 1.282
+      },
+      "rejections": [
+        {
+          "reason": "preconditions is false",
+          "count": 3
+        }
+      ],
+      "limits": {
+        "max_nodes": 1000,
+        "timeout_ms": 5000,
+        "max_candidates": 10000,
+        "max_length": 4
+      },
+      "current_depth_limit": 2,
+      "resume_supported": true,
+      "planning_executed": true,
+      "independent_verification_executed": false,
+      "input_snapshot": {
+        "catalog": {
+          "format_version": "task-flow-1.0",
+          "catalog_id": "document-workflow",
+          "version": "1.0",
+          "objects": {
+            "document": [
+              "doc-1"
+            ]
+          },
+          "facts": [
+            {
+              "id": "source_available",
+              "arguments": [],
+              "kind": "static",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "id": "collected",
+              "arguments": [
+                "document"
+              ],
+              "kind": "mutable",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "id": "approved",
+              "arguments": [
+                "document"
+              ],
+              "kind": "mutable",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "id": "published",
+              "arguments": [
+                "document"
+              ],
+              "kind": "mutable",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "id": "verified",
+              "arguments": [
+                "document"
+              ],
+              "kind": "mutable",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "id": "ready",
+              "arguments": [
+                "document"
+              ],
+              "kind": "derived",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            }
+          ],
+          "derived_rules": [
+            {
+              "id": "ready-if-collected-and-approved",
+              "parameters": {
+                "document": "document"
+              },
+              "head": {
+                "predicate": "ready",
+                "args": [
+                  {
+                    "param": "document"
+                  }
+                ]
+              },
+              "when": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "collected",
+                        "args": [
+                          {
+                            "param": "document"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "approved",
+                        "args": [
+                          {
+                            "param": "document"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  }
+                ]
+              },
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            }
+          ],
+          "activities": [
+            {
+              "id": "collect",
+              "version": "1.0",
+              "type": "collection",
+              "parameters": {
+                "document": "document"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "source_available",
+                        "args": []
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "collected",
+                    "args": [
+                      {
+                        "param": "document"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:task-flow:demo:CollectDocument"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "id": "approve",
+              "version": "1.0",
+              "type": "approval",
+              "parameters": {
+                "document": "document"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "collected",
+                        "args": [
+                          {
+                            "param": "document"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "approved",
+                    "args": [
+                      {
+                        "param": "document"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:task-flow:demo:ApproveDocument"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "id": "publish_standard",
+              "version": "1.0",
+              "type": "publication",
+              "parameters": {
+                "document": "document"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "ready",
+                        "args": [
+                          {
+                            "param": "document"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "published",
+                    "args": [
+                      {
+                        "param": "document"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:task-flow:demo:PublishStandard"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "id": "publish_backup",
+              "version": "1.0",
+              "type": "publication",
+              "parameters": {
+                "document": "document"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "ready",
+                        "args": [
+                          {
+                            "param": "document"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "published",
+                    "args": [
+                      {
+                        "param": "document"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:task-flow:demo:PublishBackup"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "id": "verify",
+              "version": "1.0",
+              "type": "verification",
+              "parameters": {
+                "document": "document"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "published",
+                        "args": [
+                          {
+                            "param": "document"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "verified",
+                    "args": [
+                      {
+                        "param": "document"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:task-flow:demo:VerifyDocument"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            }
+          ],
+          "capabilities": [
+            {
+              "uri": "urn:task-flow:demo:CollectDocument",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "uri": "urn:task-flow:demo:ApproveDocument",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "uri": "urn:task-flow:demo:PublishStandard",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "uri": "urn:task-flow:demo:PublishBackup",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "uri": "urn:task-flow:demo:VerifyDocument",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            }
+          ],
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        },
+        "request": {
+          "format_version": "task-flow-1.0",
+          "request_id": "collected",
+          "catalog_id": "document-workflow",
+          "catalog_version": "1.0",
+          "catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+          "static_facts": [
+            {
+              "fact": {
+                "predicate": "source_available",
+                "args": []
+              },
+              "value": true
+            }
+          ],
+          "initial_state": [
+            {
+              "fact": {
+                "predicate": "collected",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "value": true
+            },
+            {
+              "fact": {
+                "predicate": "approved",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "value": false
+            },
+            {
+              "fact": {
+                "predicate": "published",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "value": false
+            },
+            {
+              "fact": {
+                "predicate": "verified",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "value": false
+            }
+          ],
+          "ontology_evidence": [],
+          "goal": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "published",
+                    "args": [
+                      "doc-1"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              }
+            ]
+          },
+          "required_activities": [],
+          "forbidden_conditions": [],
+          "activity_limits": {},
+          "search": {
+            "mode": "first_feasible",
+            "max_length": 4,
+            "max_nodes": 1000,
+            "timeout_ms": 5000
+          },
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        }
+      }
+    },
+    "attempts": [
+      {
+        "candidate": {
+          "candidate_id": "flow-3681f1c3d5afc3d5a656b0baa31b9753594215709e6f874c898b9c4e6c5d4431",
+          "sequence": {
+            "format_version": "task-flow-1.0",
+            "catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+            "request_sha256": "e3065f2ad784e5f504c0c90e6cb367deb0bfeccade3e865d19ecbe3ccb37549f",
+            "steps": [
+              {
+                "activity_id": "approve",
+                "activity_version": "1.0",
+                "parameters": {
+                  "document": "doc-1"
+                }
+              },
+              {
+                "activity_id": "publish_backup",
+                "activity_version": "1.0",
+                "parameters": {
+                  "document": "doc-1"
+                }
+              }
+            ]
+          },
+          "capability_demands": [
+            {
+              "step_index": 0,
+              "activity_id": "approve",
+              "required_capabilities": [
+                "urn:task-flow:demo:ApproveDocument"
+              ],
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "step_index": 1,
+              "activity_id": "publish_backup",
+              "required_capabilities": [
+                "urn:task-flow:demo:PublishBackup"
+              ],
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            }
+          ],
+          "final_state": [
+            {
+              "fact": {
+                "predicate": "approved",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "collected",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "published",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "ready",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "value": true,
+              "kind": "derived"
+            },
+            {
+              "fact": {
+                "predicate": "source_available",
+                "args": []
+              },
+              "value": true,
+              "kind": "static"
+            },
+            {
+              "fact": {
+                "predicate": "verified",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "value": false,
+              "kind": "mutable"
+            }
+          ],
+          "generation_goal_satisfied": true,
+          "verification_status": "not_run",
+          "external_status": "not_run"
+        },
+        "analysis": {
+          "format_version": "task-flow-external-1.0",
+          "verification": {
+            "format_version": "task-flow-verification-1.0",
+            "verification_status": "passed",
+            "catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+            "request_sha256": "e3065f2ad784e5f504c0c90e6cb367deb0bfeccade3e865d19ecbe3ccb37549f",
+            "sequence_sha256": "3681f1c3d5afc3d5a656b0baa31b9753594215709e6f874c898b9c4e6c5d4431",
+            "trace": [
+              {
+                "step_index": 0,
+                "instance": {
+                  "activity_id": "approve",
+                  "activity_version": "1.0",
+                  "parameters": {
+                    "document": "doc-1"
+                  }
+                },
+                "status": "passed",
+                "before_state": [
+                  {
+                    "fact": {
+                      "predicate": "approved",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": false,
+                    "kind": "mutable"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "collected",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": true,
+                    "kind": "mutable"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "published",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": false,
+                    "kind": "mutable"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "ready",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": false,
+                    "kind": "derived"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "source_available",
+                      "args": []
+                    },
+                    "value": true,
+                    "kind": "static"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "verified",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": false,
+                    "kind": "mutable"
+                  }
+                ],
+                "after_state": [
+                  {
+                    "fact": {
+                      "predicate": "approved",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": true,
+                    "kind": "mutable"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "collected",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": true,
+                    "kind": "mutable"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "published",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": false,
+                    "kind": "mutable"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "ready",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": true,
+                    "kind": "derived"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "source_available",
+                      "args": []
+                    },
+                    "value": true,
+                    "kind": "static"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "verified",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": false,
+                    "kind": "mutable"
+                  }
+                ],
+                "committed": true,
+                "applicability": {
+                  "expression": {
+                    "all": []
+                  },
+                  "value": true,
+                  "evidence": []
+                },
+                "preconditions": {
+                  "expression": {
+                    "all": [
+                      {
+                        "test": {
+                          "fact": {
+                            "predicate": "collected",
+                            "args": [
+                              {
+                                "param": "document"
+                              }
+                            ]
+                          },
+                          "op": "eq",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "value": true,
+                  "evidence": [
+                    {
+                      "fact": {
+                        "predicate": "collected",
+                        "args": [
+                          "doc-1"
+                        ]
+                      },
+                      "actual": true,
+                      "op": "eq",
+                      "expected": true,
+                      "derived_rule_id": null
+                    }
+                  ]
+                },
+                "effects": [
+                  {
+                    "target": {
+                      "predicate": "approved",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "old_value": false,
+                    "proposed_value": true,
+                    "definition": {
+                      "fact": {
+                        "predicate": "approved",
+                        "args": [
+                          {
+                            "param": "document"
+                          }
+                        ]
+                      },
+                      "set": {
+                        "value": true
+                      }
+                    }
+                  }
+                ],
+                "state_delta": [
+                  {
+                    "fact": {
+                      "predicate": "approved",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "before": false,
+                    "after": true
+                  },
+                  {
+                    "fact": {
+                      "predicate": "ready",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "before": false,
+                    "after": true
+                  }
+                ],
+                "derived_checks": [
+                  {
+                    "rule_id": "ready-if-collected-and-approved",
+                    "head": {
+                      "predicate": "ready",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "parameters": {
+                      "document": "doc-1"
+                    },
+                    "check": {
+                      "expression": {
+                        "all": [
+                          {
+                            "test": {
+                              "fact": {
+                                "predicate": "collected",
+                                "args": [
+                                  {
+                                    "param": "document"
+                                  }
+                                ]
+                              },
+                              "op": "eq",
+                              "value": true
+                            }
+                          },
+                          {
+                            "test": {
+                              "fact": {
+                                "predicate": "approved",
+                                "args": [
+                                  {
+                                    "param": "document"
+                                  }
+                                ]
+                              },
+                              "op": "eq",
+                              "value": true
+                            }
+                          }
+                        ]
+                      },
+                      "value": true,
+                      "evidence": [
+                        {
+                          "fact": {
+                            "predicate": "collected",
+                            "args": [
+                              "doc-1"
+                            ]
+                          },
+                          "actual": true,
+                          "op": "eq",
+                          "expected": true,
+                          "derived_rule_id": null
+                        },
+                        {
+                          "fact": {
+                            "predicate": "approved",
+                            "args": [
+                              "doc-1"
+                            ]
+                          },
+                          "actual": true,
+                          "op": "eq",
+                          "expected": true,
+                          "derived_rule_id": null
+                        }
+                      ]
+                    },
+                    "source_refs": [
+                      "synthetic-phase2-document-workflow"
+                    ]
+                  }
+                ],
+                "invariants_after": [],
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              },
+              {
+                "step_index": 1,
+                "instance": {
+                  "activity_id": "publish_backup",
+                  "activity_version": "1.0",
+                  "parameters": {
+                    "document": "doc-1"
+                  }
+                },
+                "status": "passed",
+                "before_state": [
+                  {
+                    "fact": {
+                      "predicate": "approved",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": true,
+                    "kind": "mutable"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "collected",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": true,
+                    "kind": "mutable"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "published",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": false,
+                    "kind": "mutable"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "ready",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": true,
+                    "kind": "derived"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "source_available",
+                      "args": []
+                    },
+                    "value": true,
+                    "kind": "static"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "verified",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": false,
+                    "kind": "mutable"
+                  }
+                ],
+                "after_state": [
+                  {
+                    "fact": {
+                      "predicate": "approved",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": true,
+                    "kind": "mutable"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "collected",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": true,
+                    "kind": "mutable"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "published",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": true,
+                    "kind": "mutable"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "ready",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": true,
+                    "kind": "derived"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "source_available",
+                      "args": []
+                    },
+                    "value": true,
+                    "kind": "static"
+                  },
+                  {
+                    "fact": {
+                      "predicate": "verified",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "value": false,
+                    "kind": "mutable"
+                  }
+                ],
+                "committed": true,
+                "applicability": {
+                  "expression": {
+                    "all": []
+                  },
+                  "value": true,
+                  "evidence": []
+                },
+                "preconditions": {
+                  "expression": {
+                    "all": [
+                      {
+                        "test": {
+                          "fact": {
+                            "predicate": "ready",
+                            "args": [
+                              {
+                                "param": "document"
+                              }
+                            ]
+                          },
+                          "op": "eq",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "value": true,
+                  "evidence": [
+                    {
+                      "fact": {
+                        "predicate": "ready",
+                        "args": [
+                          "doc-1"
+                        ]
+                      },
+                      "actual": true,
+                      "op": "eq",
+                      "expected": true,
+                      "derived_rule_id": "ready-if-collected-and-approved"
+                    }
+                  ]
+                },
+                "effects": [
+                  {
+                    "target": {
+                      "predicate": "published",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "old_value": false,
+                    "proposed_value": true,
+                    "definition": {
+                      "fact": {
+                        "predicate": "published",
+                        "args": [
+                          {
+                            "param": "document"
+                          }
+                        ]
+                      },
+                      "set": {
+                        "value": true
+                      }
+                    }
+                  }
+                ],
+                "state_delta": [
+                  {
+                    "fact": {
+                      "predicate": "published",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "before": false,
+                    "after": true
+                  }
+                ],
+                "derived_checks": [
+                  {
+                    "rule_id": "ready-if-collected-and-approved",
+                    "head": {
+                      "predicate": "ready",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "parameters": {
+                      "document": "doc-1"
+                    },
+                    "check": {
+                      "expression": {
+                        "all": [
+                          {
+                            "test": {
+                              "fact": {
+                                "predicate": "collected",
+                                "args": [
+                                  {
+                                    "param": "document"
+                                  }
+                                ]
+                              },
+                              "op": "eq",
+                              "value": true
+                            }
+                          },
+                          {
+                            "test": {
+                              "fact": {
+                                "predicate": "approved",
+                                "args": [
+                                  {
+                                    "param": "document"
+                                  }
+                                ]
+                              },
+                              "op": "eq",
+                              "value": true
+                            }
+                          }
+                        ]
+                      },
+                      "value": true,
+                      "evidence": [
+                        {
+                          "fact": {
+                            "predicate": "collected",
+                            "args": [
+                              "doc-1"
+                            ]
+                          },
+                          "actual": true,
+                          "op": "eq",
+                          "expected": true,
+                          "derived_rule_id": null
+                        },
+                        {
+                          "fact": {
+                            "predicate": "approved",
+                            "args": [
+                              "doc-1"
+                            ]
+                          },
+                          "actual": true,
+                          "op": "eq",
+                          "expected": true,
+                          "derived_rule_id": null
+                        }
+                      ]
+                    },
+                    "source_refs": [
+                      "synthetic-phase2-document-workflow"
+                    ]
+                  }
+                ],
+                "invariants_after": [],
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              }
+            ],
+            "initial_state": [
+              {
+                "fact": {
+                  "predicate": "approved",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "value": false,
+                "kind": "mutable"
+              },
+              {
+                "fact": {
+                  "predicate": "collected",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "value": true,
+                "kind": "mutable"
+              },
+              {
+                "fact": {
+                  "predicate": "published",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "value": false,
+                "kind": "mutable"
+              },
+              {
+                "fact": {
+                  "predicate": "ready",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "value": false,
+                "kind": "derived"
+              },
+              {
+                "fact": {
+                  "predicate": "source_available",
+                  "args": []
+                },
+                "value": true,
+                "kind": "static"
+              },
+              {
+                "fact": {
+                  "predicate": "verified",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "value": false,
+                "kind": "mutable"
+              }
+            ],
+            "final_state": [
+              {
+                "fact": {
+                  "predicate": "approved",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "value": true,
+                "kind": "mutable"
+              },
+              {
+                "fact": {
+                  "predicate": "collected",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "value": true,
+                "kind": "mutable"
+              },
+              {
+                "fact": {
+                  "predicate": "published",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "value": true,
+                "kind": "mutable"
+              },
+              {
+                "fact": {
+                  "predicate": "ready",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "value": true,
+                "kind": "derived"
+              },
+              {
+                "fact": {
+                  "predicate": "source_available",
+                  "args": []
+                },
+                "value": true,
+                "kind": "static"
+              },
+              {
+                "fact": {
+                  "predicate": "verified",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "value": false,
+                "kind": "mutable"
+              }
+            ],
+            "initial_derivations": [
+              {
+                "rule_id": "ready-if-collected-and-approved",
+                "head": {
+                  "predicate": "ready",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "parameters": {
+                  "document": "doc-1"
+                },
+                "check": {
+                  "expression": {
+                    "all": [
+                      {
+                        "test": {
+                          "fact": {
+                            "predicate": "collected",
+                            "args": [
+                              {
+                                "param": "document"
+                              }
+                            ]
+                          },
+                          "op": "eq",
+                          "value": true
+                        }
+                      },
+                      {
+                        "test": {
+                          "fact": {
+                            "predicate": "approved",
+                            "args": [
+                              {
+                                "param": "document"
+                              }
+                            ]
+                          },
+                          "op": "eq",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "value": false,
+                  "evidence": [
+                    {
+                      "fact": {
+                        "predicate": "collected",
+                        "args": [
+                          "doc-1"
+                        ]
+                      },
+                      "actual": true,
+                      "op": "eq",
+                      "expected": true,
+                      "derived_rule_id": null
+                    },
+                    {
+                      "fact": {
+                        "predicate": "approved",
+                        "args": [
+                          "doc-1"
+                        ]
+                      },
+                      "actual": false,
+                      "op": "eq",
+                      "expected": true,
+                      "derived_rule_id": null
+                    }
+                  ]
+                },
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              }
+            ],
+            "initial_invariants": [],
+            "final_checks": {
+              "goal": {
+                "expression": {
+                  "all": [
+                    {
+                      "test": {
+                        "fact": {
+                          "predicate": "published",
+                          "args": [
+                            "doc-1"
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  ]
+                },
+                "value": true,
+                "evidence": [
+                  {
+                    "fact": {
+                      "predicate": "published",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "actual": true,
+                    "op": "eq",
+                    "expected": true,
+                    "derived_rule_id": null
+                  }
+                ]
+              },
+              "missing_required_activities": []
+            },
+            "input_sources": {
+              "catalog": [
+                "synthetic-phase2-document-workflow"
+              ],
+              "request": [
+                "synthetic-phase2-document-workflow"
+              ],
+              "imported_static_evidence": []
+            },
+            "failure": null,
+            "independent_verification_executed": true,
+            "external_status": "not_run"
+          },
+          "external_status": "passed",
+          "binding": {
+            "candidate_id": "flow-3681f1c3d5afc3d5a656b0baa31b9753594215709e6f874c898b9c4e6c5d4431",
+            "catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+            "request_sha256": "e3065f2ad784e5f504c0c90e6cb367deb0bfeccade3e865d19ecbe3ccb37549f",
+            "mapping_sha256": "90b4b19602ff4b652facb8e6ae4ab9370048fc9bc2b091d932a2ade1f100a7c2",
+            "context_sha256": "ee6d141149726463210cf5bc59e68437882f4fc61c1d844d38bf085812009eea",
+            "analyzer": {
+              "id": "document-service-availability",
+              "version": "1.0"
+            }
+          },
+          "steps": [
+            {
+              "step_index": 0,
+              "instance": {
+                "activity_id": "approve",
+                "activity_version": "1.0",
+                "parameters": {
+                  "document": "doc-1"
+                }
+              },
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ],
+              "demands": [
+                {
+                  "capability_uri": "urn:task-flow:demo:ApproveDocument",
+                  "capability_source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ],
+                  "mapping": {
+                    "capability_uri": "urn:task-flow:demo:ApproveDocument",
+                    "service_id": "ApproveDocument",
+                    "source_refs": [
+                      "synthetic-phase5-service-mapping"
+                    ]
+                  },
+                  "service_snapshot": {
+                    "service_id": "ApproveDocument",
+                    "available": true,
+                    "source_refs": [
+                      "synthetic-phase5-availability"
+                    ]
+                  },
+                  "status": "passed",
+                  "reason": "service explicitly available in supplied context"
+                }
+              ]
+            },
+            {
+              "step_index": 1,
+              "instance": {
+                "activity_id": "publish_backup",
+                "activity_version": "1.0",
+                "parameters": {
+                  "document": "doc-1"
+                }
+              },
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ],
+              "demands": [
+                {
+                  "capability_uri": "urn:task-flow:demo:PublishBackup",
+                  "capability_source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ],
+                  "mapping": {
+                    "capability_uri": "urn:task-flow:demo:PublishBackup",
+                    "service_id": "PublishBackup",
+                    "source_refs": [
+                      "synthetic-phase5-service-mapping"
+                    ]
+                  },
+                  "service_snapshot": {
+                    "service_id": "PublishBackup",
+                    "available": true,
+                    "source_refs": [
+                      "synthetic-phase5-availability"
+                    ]
+                  },
+                  "status": "passed",
+                  "reason": "service explicitly available in supplied context"
+                }
+              ]
+            }
+          ],
+          "failures": [],
+          "scope": "exact_candidate_in_exact_context",
+          "external_check_executed": true,
+          "claim_scope": "declared_document_service_availability_only",
+          "execution_confirmed": false,
+          "legacy_integration_status": "not_implemented"
+        },
+        "feedback_reused": false
+      }
+    ],
+    "max_checks": 100,
+    "legacy_integration_status": "not_implemented",
+    "execution_confirmed": false
+  }
+}

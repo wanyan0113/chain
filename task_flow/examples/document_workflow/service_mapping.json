@@ -1,0 +1,46 @@
+{
+  "format_version": "task-flow-mapping-1.0",
+  "mapping_id": "document-services",
+  "version": "1.0",
+  "backend": "document-service-availability",
+  "entries": [
+    {
+      "capability_uri": "urn:task-flow:demo:CollectDocument",
+      "service_id": "CollectDocument",
+      "source_refs": [
+        "synthetic-phase5-service-mapping"
+      ]
+    },
+    {
+      "capability_uri": "urn:task-flow:demo:ApproveDocument",
+      "service_id": "ApproveDocument",
+      "source_refs": [
+        "synthetic-phase5-service-mapping"
+      ]
+    },
+    {
+      "capability_uri": "urn:task-flow:demo:PublishStandard",
+      "service_id": "PublishStandard",
+      "source_refs": [
+        "synthetic-phase5-service-mapping"
+      ]
+    },
+    {
+      "capability_uri": "urn:task-flow:demo:PublishBackup",
+      "service_id": "PublishBackup",
+      "source_refs": [
+        "synthetic-phase5-service-mapping"
+      ]
+    },
+    {
+      "capability_uri": "urn:task-flow:demo:VerifyDocument",
+      "service_id": "VerifyDocument",
+      "source_refs": [
+        "synthetic-phase5-service-mapping"
+      ]
+    }
+  ],
+  "source_refs": [
+    "synthetic-phase5-service-mapping"
+  ]
+}

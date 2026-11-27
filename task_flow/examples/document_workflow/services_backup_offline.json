@@ -1,0 +1,45 @@
+{
+  "format_version": "task-flow-context-1.0",
+  "context_id": "backup-offline",
+  "version": "1.0",
+  "services": [
+    {
+      "service_id": "CollectDocument",
+      "available": true,
+      "source_refs": [
+        "synthetic-phase5-availability"
+      ]
+    },
+    {
+      "service_id": "ApproveDocument",
+      "available": true,
+      "source_refs": [
+        "synthetic-phase5-availability"
+      ]
+    },
+    {
+      "service_id": "PublishStandard",
+      "available": true,
+      "source_refs": [
+        "synthetic-phase5-availability"
+      ]
+    },
+    {
+      "service_id": "PublishBackup",
+      "available": false,
+      "source_refs": [
+        "synthetic-phase5-availability"
+      ]
+    },
+    {
+      "service_id": "VerifyDocument",
+      "available": true,
+      "source_refs": [
+        "synthetic-phase5-availability"
+      ]
+    }
+  ],
+  "source_refs": [
+    "synthetic-phase5-availability"
+  ]
+}
