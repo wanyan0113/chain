@@ -29,3 +29,5 @@ docs/absolute-seed-report/** -text
 docs/absolute-seed-report/*.svg -diff
 docs/solver-comparison-report/** -text
 docs/solver-comparison-report/*.svg -diff
+# Preserve the original task-book bytes used by the phase-one source digest.
+扩展链任务书.txt -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

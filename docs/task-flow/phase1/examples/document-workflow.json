@@ -1,0 +1,102 @@
+{
+  "format_version": "task-flow-draft-0.1",
+  "artifact_role": "phase1_design_example_not_runtime_input",
+  "catalog_id": "document-workflow",
+  "version": "0.1",
+  "source_refs": ["synthetic-phase1-design"],
+  "scope": "通用文档业务；以下流程均为人工预期见证，不是规划器运行结果。",
+  "objects": {"document": ["doc-1"]},
+  "state_encoding": "ground_boolean_facts; absent_or_null_is_unknown",
+  "facts": [
+    {"id": "source_available", "kind": "static", "type": "boolean"},
+    {"id": "collected", "kind": "mutable", "type": "boolean"},
+    {"id": "approved", "kind": "mutable", "type": "boolean"},
+    {"id": "published", "kind": "mutable", "type": "boolean"},
+    {"id": "verified", "kind": "mutable", "type": "boolean"},
+    {"id": "ready", "kind": "derived", "type": "boolean"}
+  ],
+  "derived_rules": [
+    {"id": "ready-if-collected-and-approved", "head": "ready", "all": {"collected": true, "approved": true}}
+  ],
+  "activities": [
+    {
+      "id": "collect", "version": "0.1", "type": "collection", "parameters": {},
+      "applicable_when": {}, "preconditions": {"source_available": true},
+      "effects": {"collected": true}, "max_occurrences": 1,
+      "required_capabilities": ["urn:task-flow:demo:CollectDocument"],
+      "source_refs": ["synthetic-phase1-design"]
+    },
+    {
+      "id": "approve", "version": "0.1", "type": "approval", "parameters": {},
+      "applicable_when": {}, "preconditions": {"collected": true},
+      "effects": {"approved": true}, "max_occurrences": 1,
+      "required_capabilities": ["urn:task-flow:demo:ApproveDocument"],
+      "source_refs": ["synthetic-phase1-design"]
+    },
+    {
+      "id": "publish_standard", "version": "0.1", "type": "publication", "parameters": {},
+      "applicable_when": {}, "preconditions": {"ready": true},
+      "effects": {"published": true}, "max_occurrences": 1,
+      "required_capabilities": ["urn:task-flow:demo:PublishStandard"],
+      "source_refs": ["synthetic-phase1-design"]
+    },
+    {
+      "id": "publish_backup", "version": "0.1", "type": "publication", "parameters": {},
+      "applicable_when": {}, "preconditions": {"ready": true},
+      "effects": {"published": true}, "max_occurrences": 1,
+      "required_capabilities": ["urn:task-flow:demo:PublishBackup"],
+      "source_refs": ["synthetic-phase1-design"]
+    },
+    {
+      "id": "verify", "version": "0.1", "type": "verification", "parameters": {},
+      "applicable_when": {}, "preconditions": {"published": true},
+      "effects": {"verified": true}, "max_occurrences": 1,
+      "required_capabilities": ["urn:task-flow:demo:VerifyDocument"],
+      "source_refs": ["synthetic-phase1-design"]
+    }
+  ],
+  "capability_mapping_status": "unmapped_demo_uris_not_declared_in_existing_ontology",
+  "base_request": {
+    "catalog_version": "0.1",
+    "initial_state": {"source_available": true, "collected": false, "approved": false, "published": false, "verified": false},
+    "goal": {"published": true}, "required_activities": [], "forbidden_conditions": [],
+    "search": {"mode": "first_feasible", "max_length": 4, "max_nodes": 1000, "timeout_s": 5}
+  },
+  "case_override_policy": "initial_state_overrides与goal_overrides分别合并到base_request对应字段；其他显式字段替换。",
+  "cases": [
+    {
+      "id": "basic", "expected": "witness_exists",
+      "manual_witnesses": [["collect", "approve", "publish_standard"], ["collect", "approve", "publish_backup"]]
+    },
+    {
+      "id": "verified", "goal_overrides": {"verified": true}, "expected": "witness_exists",
+      "manual_witnesses": [["collect", "approve", "publish_standard", "verify"]]
+    },
+    {
+      "id": "collected", "initial_state_overrides": {"collected": true}, "expected": "witness_exists",
+      "manual_witnesses": [["approve", "publish_standard"]]
+    },
+    {
+      "id": "already_done", "initial_state_overrides": {"published": true}, "expected": "witness_exists",
+      "manual_witnesses": [[]]
+    },
+    {
+      "id": "mandatory_verify", "initial_state_overrides": {"published": true, "verified": true},
+      "required_activities": ["verify"], "expected": "witness_exists", "manual_witnesses": [["verify"]]
+    },
+    {
+      "id": "too_short", "max_length": 2, "expected": "bounded_no_solution",
+      "manual_reason": "发布需要ready；ready依赖collected和approved，初始两者均false，至少collect、approve、publish三步。"
+    },
+    {
+      "id": "unknown_source", "initial_state_overrides": {"source_available": null},
+      "expected": "blocked_unknown", "manual_reason": "唯一收集活动需要source_available明确为true；未知不能作为执行依据。"
+    },
+    {
+      "id": "feedback_fallback", "expected": "witness_exists",
+      "external_context_id": "synthetic-context-1",
+      "external_rejected_sequences": [["collect", "approve", "publish_standard"]],
+      "manual_witnesses": [["collect", "approve", "publish_backup"]]
+    }
+  ]
+}
