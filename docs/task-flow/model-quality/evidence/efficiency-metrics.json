@@ -1,0 +1,282 @@
+[
+  {
+    "id": "activities-3",
+    "repeats": 3,
+    "search_nodes": [
+      15,
+      15,
+      15
+    ],
+    "mean_search_call_wall_ms": 1.8258333341994633,
+    "median_search_call_wall_ms": 1.602899999852525,
+    "candidate_counts": [
+      1,
+      1,
+      1
+    ],
+    "first_solution_depths": [
+      3,
+      3,
+      3
+    ],
+    "search_statuses": [
+      "candidate_found",
+      "candidate_found",
+      "candidate_found"
+    ],
+    "enumeration_completion_rate": null,
+    "enumeration_reason": "not_applicable_to_first_feasible_mode"
+  },
+  {
+    "id": "activities-6",
+    "repeats": 3,
+    "search_nodes": [
+      33,
+      33,
+      33
+    ],
+    "mean_search_call_wall_ms": 3.7431333330459893,
+    "median_search_call_wall_ms": 3.7901999967289157,
+    "candidate_counts": [
+      1,
+      1,
+      1
+    ],
+    "first_solution_depths": [
+      3,
+      3,
+      3
+    ],
+    "search_statuses": [
+      "candidate_found",
+      "candidate_found",
+      "candidate_found"
+    ],
+    "enumeration_completion_rate": null,
+    "enumeration_reason": "not_applicable_to_first_feasible_mode"
+  },
+  {
+    "id": "activities-12",
+    "repeats": 3,
+    "search_nodes": [
+      87,
+      87,
+      87
+    ],
+    "mean_search_call_wall_ms": 14.47333333271672,
+    "median_search_call_wall_ms": 12.967999999091262,
+    "candidate_counts": [
+      1,
+      1,
+      1
+    ],
+    "first_solution_depths": [
+      3,
+      3,
+      3
+    ],
+    "search_statuses": [
+      "candidate_found",
+      "candidate_found",
+      "candidate_found"
+    ],
+    "enumeration_completion_rate": null,
+    "enumeration_reason": "not_applicable_to_first_feasible_mode"
+  },
+  {
+    "id": "length-2",
+    "repeats": 3,
+    "search_nodes": [
+      16,
+      16,
+      16
+    ],
+    "mean_search_call_wall_ms": 2.9320333342184313,
+    "median_search_call_wall_ms": 2.922800002124859,
+    "candidate_counts": [
+      1,
+      1,
+      1
+    ],
+    "first_solution_depths": [
+      2,
+      2,
+      2
+    ],
+    "search_statuses": [
+      "candidate_found",
+      "candidate_found",
+      "candidate_found"
+    ],
+    "enumeration_completion_rate": null,
+    "enumeration_reason": "not_applicable_to_first_feasible_mode"
+  },
+  {
+    "id": "length-4",
+    "repeats": 3,
+    "search_nodes": [
+      148,
+      148,
+      148
+    ],
+    "mean_search_call_wall_ms": 23.26606666489776,
+    "median_search_call_wall_ms": 21.457799997733673,
+    "candidate_counts": [
+      1,
+      1,
+      1
+    ],
+    "first_solution_depths": [
+      4,
+      4,
+      4
+    ],
+    "search_statuses": [
+      "candidate_found",
+      "candidate_found",
+      "candidate_found"
+    ],
+    "enumeration_completion_rate": null,
+    "enumeration_reason": "not_applicable_to_first_feasible_mode"
+  },
+  {
+    "id": "length-6",
+    "repeats": 3,
+    "search_nodes": [
+      720,
+      720,
+      720
+    ],
+    "mean_search_call_wall_ms": 82.19386666678474,
+    "median_search_call_wall_ms": 79.35600000200793,
+    "candidate_counts": [
+      1,
+      1,
+      1
+    ],
+    "first_solution_depths": [
+      6,
+      6,
+      6
+    ],
+    "search_statuses": [
+      "candidate_found",
+      "candidate_found",
+      "candidate_found"
+    ],
+    "enumeration_completion_rate": null,
+    "enumeration_reason": "not_applicable_to_first_feasible_mode"
+  },
+  {
+    "id": "constraints-0",
+    "repeats": 3,
+    "search_nodes": [
+      33,
+      33,
+      33
+    ],
+    "mean_search_call_wall_ms": 3.9099000011143894,
+    "median_search_call_wall_ms": 3.998899999714922,
+    "candidate_counts": [
+      1,
+      1,
+      1
+    ],
+    "first_solution_depths": [
+      3,
+      3,
+      3
+    ],
+    "search_statuses": [
+      "candidate_found",
+      "candidate_found",
+      "candidate_found"
+    ],
+    "enumeration_completion_rate": null,
+    "enumeration_reason": "not_applicable_to_first_feasible_mode"
+  },
+  {
+    "id": "constraints-8",
+    "repeats": 3,
+    "search_nodes": [
+      33,
+      33,
+      33
+    ],
+    "mean_search_call_wall_ms": 4.982066666949929,
+    "median_search_call_wall_ms": 4.9825999994936865,
+    "candidate_counts": [
+      1,
+      1,
+      1
+    ],
+    "first_solution_depths": [
+      3,
+      3,
+      3
+    ],
+    "search_statuses": [
+      "candidate_found",
+      "candidate_found",
+      "candidate_found"
+    ],
+    "enumeration_completion_rate": null,
+    "enumeration_reason": "not_applicable_to_first_feasible_mode"
+  },
+  {
+    "id": "constraints-32",
+    "repeats": 3,
+    "search_nodes": [
+      33,
+      33,
+      33
+    ],
+    "mean_search_call_wall_ms": 7.566700000703956,
+    "median_search_call_wall_ms": 7.3831000008794945,
+    "candidate_counts": [
+      1,
+      1,
+      1
+    ],
+    "first_solution_depths": [
+      3,
+      3,
+      3
+    ],
+    "search_statuses": [
+      "candidate_found",
+      "candidate_found",
+      "candidate_found"
+    ],
+    "enumeration_completion_rate": null,
+    "enumeration_reason": "not_applicable_to_first_feasible_mode"
+  },
+  {
+    "id": "node-limit-control",
+    "repeats": 3,
+    "search_nodes": [
+      2000,
+      2000,
+      2000
+    ],
+    "mean_search_call_wall_ms": 221.22783333300808,
+    "median_search_call_wall_ms": 221.06999999959953,
+    "candidate_counts": [
+      0,
+      0,
+      0
+    ],
+    "first_solution_depths": [
+      null,
+      null,
+      null
+    ],
+    "search_statuses": [
+      "limit_reached",
+      "limit_reached",
+      "limit_reached"
+    ],
+    "enumeration_completion_rate": null,
+    "enumeration_reason": "not_applicable_to_first_feasible_mode"
+  }
+]

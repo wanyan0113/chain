@@ -1,0 +1,125 @@
+{
+  "baseline_commit": "9e3635a47c1a13a0e2de9221f10ce6f31d5157d6",
+  "git_remote": "https://github.com/wanyan0113/chain",
+  "branch": "codex/task-flow-planning",
+  "scope_paths": [
+    "task_flow",
+    "docs/task-flow",
+    "workflow_tools/task_flow_research_audit.py",
+    "workflow_tools/task_flow_integration_checks.py",
+    "workflow_tools/task_flow_study.py",
+    "workflow_tools/expense_workflow.py",
+    "workflow_tools/expense_evaluation.py",
+    "tests/task_flow_oracle.py",
+    "tests/expense_policy_reference.py",
+    "tests/test_task_flow_contracts.py",
+    "tests/test_task_flow_state.py",
+    "tests/test_task_flow_planner.py",
+    "tests/test_task_flow_validator.py",
+    "tests/test_task_flow_external.py",
+    "tests/test_task_flow_research_audit.py",
+    "tests/test_task_flow_study.py",
+    "tests/test_expense_workflow.py",
+    "requirements.txt",
+    "requirements-fdna.txt",
+    "requirements-reasoner.txt",
+    "requirements-workflow.txt",
+    "requirements-v1.lock",
+    ".gitattributes"
+  ],
+  "archive_relative_path": "generated/task-flow-baseline-9e3635a.zip",
+  "archive_sha256": "5cfbc5f9d66598e20d7f8734f10afc0d1eb063cac4b1e96ff310844edd6ba902",
+  "archive_bytes": 933984,
+  "environment": {
+    "python": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.22631-SP0",
+    "packages": [
+      {
+        "name": "attrs",
+        "version": "26.1.0"
+      },
+      {
+        "name": "contourpy",
+        "version": "1.4.0"
+      },
+      {
+        "name": "cycler",
+        "version": "0.12.1"
+      },
+      {
+        "name": "fonttools",
+        "version": "4.68.0"
+      },
+      {
+        "name": "jsonschema",
+        "version": "4.26.0"
+      },
+      {
+        "name": "jsonschema-specifications",
+        "version": "2025.9.1"
+      },
+      {
+        "name": "kiwisolver",
+        "version": "1.5.1"
+      },
+      {
+        "name": "matplotlib",
+        "version": "3.11.2"
+      },
+      {
+        "name": "numpy",
+        "version": "2.5.4"
+      },
+      {
+        "name": "owlready2",
+        "version": "0.51"
+      },
+      {
+        "name": "packaging",
+        "version": "26.3"
+      },
+      {
+        "name": "pandas",
+        "version": "3.1.1"
+      },
+      {
+        "name": "pillow",
+        "version": "13.0.0"
+      },
+      {
+        "name": "pip",
+        "version": "25.2"
+      },
+      {
+        "name": "pyparsing",
+        "version": "3.3.3"
+      },
+      {
+        "name": "python-dateutil",
+        "version": "4.0.0"
+      },
+      {
+        "name": "rdflib",
+        "version": "7.6.0"
+      },
+      {
+        "name": "referencing",
+        "version": "0.37.0"
+      },
+      {
+        "name": "rpds-py",
+        "version": "2026.9.1"
+      },
+      {
+        "name": "scipy",
+        "version": "1.18.1"
+      },
+      {
+        "name": "tzdata",
+        "version": "2026.6"
+      }
+    ]
+  },
+  "verification_scope": "version_and_environment_snapshot_not_fresh_environment_rebuild",
+  "archive_distribution": "local_ignored_generated_file; reproducible from pinned Git commit and scope_paths"
+}

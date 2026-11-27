@@ -1,0 +1,15 @@
+{
+  "status": "expectations_met_with_scope_limits",
+  "baseline_commit": "9e3635a47c1a13a0e2de9221f10ce6f31d5157d6",
+  "probe_count": 13,
+  "status_counts": {
+    "no_counterexample_within_bounds": 2,
+    "counterexample_found": 5,
+    "invalid_model_contract": 3,
+    "inconclusive": 3
+  },
+  "capability_probe_expectation_met": true,
+  "efficiency_configurations_summarized": 10,
+  "model_quality_proven": false,
+  "legacy_integration_status": "not_implemented"
+}
