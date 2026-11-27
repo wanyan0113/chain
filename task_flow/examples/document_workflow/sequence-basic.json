@@ -1,0 +1,28 @@
+{
+  "format_version": "task-flow-1.0",
+  "catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+  "request_sha256": "a7db5f63641b23dafc2e9df5640b505c2416286ab3b3b258b28d8aa0d9e5d847",
+  "steps": [
+    {
+      "activity_id": "collect",
+      "activity_version": "1.0",
+      "parameters": {
+        "document": "doc-1"
+      }
+    },
+    {
+      "activity_id": "approve",
+      "activity_version": "1.0",
+      "parameters": {
+        "document": "doc-1"
+      }
+    },
+    {
+      "activity_id": "publish_standard",
+      "activity_version": "1.0",
+      "parameters": {
+        "document": "doc-1"
+      }
+    }
+  ]
+}

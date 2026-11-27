@@ -1,0 +1,83 @@
+{
+  "scope": "independent logical verification of synthetic candidates; no resource matching",
+  "catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+  "cases": [
+    {
+      "case": "basic",
+      "candidate_count": 6,
+      "verification_status": "passed",
+      "counts": {
+        "passed": 6
+      },
+      "search_claims_verified": false,
+      "external_status": "not_run"
+    },
+    {
+      "case": "verified",
+      "candidate_count": 2,
+      "verification_status": "passed",
+      "counts": {
+        "passed": 2
+      },
+      "search_claims_verified": false,
+      "external_status": "not_run"
+    },
+    {
+      "case": "collected",
+      "candidate_count": 32,
+      "verification_status": "passed",
+      "counts": {
+        "passed": 32
+      },
+      "search_claims_verified": false,
+      "external_status": "not_run"
+    },
+    {
+      "case": "already_done",
+      "candidate_count": 21,
+      "verification_status": "passed",
+      "counts": {
+        "passed": 21
+      },
+      "search_claims_verified": false,
+      "external_status": "not_run"
+    },
+    {
+      "case": "mandatory_verify",
+      "candidate_count": 14,
+      "verification_status": "passed",
+      "counts": {
+        "passed": 14
+      },
+      "search_claims_verified": false,
+      "external_status": "not_run"
+    },
+    {
+      "case": "too_short",
+      "candidate_count": 0,
+      "verification_status": "not_run",
+      "counts": {},
+      "search_claims_verified": false,
+      "external_status": "not_run"
+    },
+    {
+      "case": "unknown_source",
+      "candidate_count": 0,
+      "verification_status": "not_run",
+      "counts": {},
+      "search_claims_verified": false,
+      "external_status": "not_run"
+    },
+    {
+      "case": "feedback_fallback",
+      "candidate_count": 6,
+      "verification_status": "passed",
+      "counts": {
+        "passed": 6
+      },
+      "search_claims_verified": false,
+      "external_status": "not_run"
+    }
+  ],
+  "passed_candidates": 81
+}

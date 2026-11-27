@@ -1,0 +1,1139 @@
+{
+  "format_version": "task-flow-verification-1.0",
+  "verification_status": "passed",
+  "catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+  "request_sha256": "a7db5f63641b23dafc2e9df5640b505c2416286ab3b3b258b28d8aa0d9e5d847",
+  "sequence_sha256": "f7a04e9e4bd3d374ee686dd24aa8d5fe0af1ee6131234dfdf1596b5370c0aab8",
+  "trace": [
+    {
+      "step_index": 0,
+      "instance": {
+        "activity_id": "collect",
+        "activity_version": "1.0",
+        "parameters": {
+          "document": "doc-1"
+        }
+      },
+      "status": "passed",
+      "before_state": [
+        {
+          "fact": {
+            "predicate": "approved",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "collected",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "published",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "ready",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false,
+          "kind": "derived"
+        },
+        {
+          "fact": {
+            "predicate": "source_available",
+            "args": []
+          },
+          "value": true,
+          "kind": "static"
+        },
+        {
+          "fact": {
+            "predicate": "verified",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        }
+      ],
+      "after_state": [
+        {
+          "fact": {
+            "predicate": "approved",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "collected",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": true,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "published",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "ready",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false,
+          "kind": "derived"
+        },
+        {
+          "fact": {
+            "predicate": "source_available",
+            "args": []
+          },
+          "value": true,
+          "kind": "static"
+        },
+        {
+          "fact": {
+            "predicate": "verified",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        }
+      ],
+      "committed": true,
+      "applicability": {
+        "expression": {
+          "all": []
+        },
+        "value": true,
+        "evidence": []
+      },
+      "preconditions": {
+        "expression": {
+          "all": [
+            {
+              "test": {
+                "fact": {
+                  "predicate": "source_available",
+                  "args": []
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          ]
+        },
+        "value": true,
+        "evidence": [
+          {
+            "fact": {
+              "predicate": "source_available",
+              "args": []
+            },
+            "actual": true,
+            "op": "eq",
+            "expected": true,
+            "derived_rule_id": null
+          }
+        ]
+      },
+      "effects": [
+        {
+          "target": {
+            "predicate": "collected",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "old_value": false,
+          "proposed_value": true,
+          "definition": {
+            "fact": {
+              "predicate": "collected",
+              "args": [
+                {
+                  "param": "document"
+                }
+              ]
+            },
+            "set": {
+              "value": true
+            }
+          }
+        }
+      ],
+      "state_delta": [
+        {
+          "fact": {
+            "predicate": "collected",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "before": false,
+          "after": true
+        }
+      ],
+      "derived_checks": [
+        {
+          "rule_id": "ready-if-collected-and-approved",
+          "head": {
+            "predicate": "ready",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "parameters": {
+            "document": "doc-1"
+          },
+          "check": {
+            "expression": {
+              "all": [
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "collected",
+                      "args": [
+                        {
+                          "param": "document"
+                        }
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                },
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "approved",
+                      "args": [
+                        {
+                          "param": "document"
+                        }
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              ]
+            },
+            "value": false,
+            "evidence": [
+              {
+                "fact": {
+                  "predicate": "collected",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "actual": true,
+                "op": "eq",
+                "expected": true,
+                "derived_rule_id": null
+              },
+              {
+                "fact": {
+                  "predicate": "approved",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "actual": false,
+                "op": "eq",
+                "expected": true,
+                "derived_rule_id": null
+              }
+            ]
+          },
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        }
+      ],
+      "invariants_after": [],
+      "source_refs": [
+        "synthetic-phase2-document-workflow"
+      ]
+    },
+    {
+      "step_index": 1,
+      "instance": {
+        "activity_id": "approve",
+        "activity_version": "1.0",
+        "parameters": {
+          "document": "doc-1"
+        }
+      },
+      "status": "passed",
+      "before_state": [
+        {
+          "fact": {
+            "predicate": "approved",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "collected",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": true,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "published",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "ready",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false,
+          "kind": "derived"
+        },
+        {
+          "fact": {
+            "predicate": "source_available",
+            "args": []
+          },
+          "value": true,
+          "kind": "static"
+        },
+        {
+          "fact": {
+            "predicate": "verified",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        }
+      ],
+      "after_state": [
+        {
+          "fact": {
+            "predicate": "approved",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": true,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "collected",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": true,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "published",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "ready",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": true,
+          "kind": "derived"
+        },
+        {
+          "fact": {
+            "predicate": "source_available",
+            "args": []
+          },
+          "value": true,
+          "kind": "static"
+        },
+        {
+          "fact": {
+            "predicate": "verified",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        }
+      ],
+      "committed": true,
+      "applicability": {
+        "expression": {
+          "all": []
+        },
+        "value": true,
+        "evidence": []
+      },
+      "preconditions": {
+        "expression": {
+          "all": [
+            {
+              "test": {
+                "fact": {
+                  "predicate": "collected",
+                  "args": [
+                    {
+                      "param": "document"
+                    }
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          ]
+        },
+        "value": true,
+        "evidence": [
+          {
+            "fact": {
+              "predicate": "collected",
+              "args": [
+                "doc-1"
+              ]
+            },
+            "actual": true,
+            "op": "eq",
+            "expected": true,
+            "derived_rule_id": null
+          }
+        ]
+      },
+      "effects": [
+        {
+          "target": {
+            "predicate": "approved",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "old_value": false,
+          "proposed_value": true,
+          "definition": {
+            "fact": {
+              "predicate": "approved",
+              "args": [
+                {
+                  "param": "document"
+                }
+              ]
+            },
+            "set": {
+              "value": true
+            }
+          }
+        }
+      ],
+      "state_delta": [
+        {
+          "fact": {
+            "predicate": "approved",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "before": false,
+          "after": true
+        },
+        {
+          "fact": {
+            "predicate": "ready",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "before": false,
+          "after": true
+        }
+      ],
+      "derived_checks": [
+        {
+          "rule_id": "ready-if-collected-and-approved",
+          "head": {
+            "predicate": "ready",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "parameters": {
+            "document": "doc-1"
+          },
+          "check": {
+            "expression": {
+              "all": [
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "collected",
+                      "args": [
+                        {
+                          "param": "document"
+                        }
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                },
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "approved",
+                      "args": [
+                        {
+                          "param": "document"
+                        }
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              ]
+            },
+            "value": true,
+            "evidence": [
+              {
+                "fact": {
+                  "predicate": "collected",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "actual": true,
+                "op": "eq",
+                "expected": true,
+                "derived_rule_id": null
+              },
+              {
+                "fact": {
+                  "predicate": "approved",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "actual": true,
+                "op": "eq",
+                "expected": true,
+                "derived_rule_id": null
+              }
+            ]
+          },
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        }
+      ],
+      "invariants_after": [],
+      "source_refs": [
+        "synthetic-phase2-document-workflow"
+      ]
+    },
+    {
+      "step_index": 2,
+      "instance": {
+        "activity_id": "publish_standard",
+        "activity_version": "1.0",
+        "parameters": {
+          "document": "doc-1"
+        }
+      },
+      "status": "passed",
+      "before_state": [
+        {
+          "fact": {
+            "predicate": "approved",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": true,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "collected",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": true,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "published",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "ready",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": true,
+          "kind": "derived"
+        },
+        {
+          "fact": {
+            "predicate": "source_available",
+            "args": []
+          },
+          "value": true,
+          "kind": "static"
+        },
+        {
+          "fact": {
+            "predicate": "verified",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        }
+      ],
+      "after_state": [
+        {
+          "fact": {
+            "predicate": "approved",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": true,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "collected",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": true,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "published",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": true,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "ready",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": true,
+          "kind": "derived"
+        },
+        {
+          "fact": {
+            "predicate": "source_available",
+            "args": []
+          },
+          "value": true,
+          "kind": "static"
+        },
+        {
+          "fact": {
+            "predicate": "verified",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        }
+      ],
+      "committed": true,
+      "applicability": {
+        "expression": {
+          "all": []
+        },
+        "value": true,
+        "evidence": []
+      },
+      "preconditions": {
+        "expression": {
+          "all": [
+            {
+              "test": {
+                "fact": {
+                  "predicate": "ready",
+                  "args": [
+                    {
+                      "param": "document"
+                    }
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          ]
+        },
+        "value": true,
+        "evidence": [
+          {
+            "fact": {
+              "predicate": "ready",
+              "args": [
+                "doc-1"
+              ]
+            },
+            "actual": true,
+            "op": "eq",
+            "expected": true,
+            "derived_rule_id": "ready-if-collected-and-approved"
+          }
+        ]
+      },
+      "effects": [
+        {
+          "target": {
+            "predicate": "published",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "old_value": false,
+          "proposed_value": true,
+          "definition": {
+            "fact": {
+              "predicate": "published",
+              "args": [
+                {
+                  "param": "document"
+                }
+              ]
+            },
+            "set": {
+              "value": true
+            }
+          }
+        }
+      ],
+      "state_delta": [
+        {
+          "fact": {
+            "predicate": "published",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "before": false,
+          "after": true
+        }
+      ],
+      "derived_checks": [
+        {
+          "rule_id": "ready-if-collected-and-approved",
+          "head": {
+            "predicate": "ready",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "parameters": {
+            "document": "doc-1"
+          },
+          "check": {
+            "expression": {
+              "all": [
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "collected",
+                      "args": [
+                        {
+                          "param": "document"
+                        }
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                },
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "approved",
+                      "args": [
+                        {
+                          "param": "document"
+                        }
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              ]
+            },
+            "value": true,
+            "evidence": [
+              {
+                "fact": {
+                  "predicate": "collected",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "actual": true,
+                "op": "eq",
+                "expected": true,
+                "derived_rule_id": null
+              },
+              {
+                "fact": {
+                  "predicate": "approved",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "actual": true,
+                "op": "eq",
+                "expected": true,
+                "derived_rule_id": null
+              }
+            ]
+          },
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        }
+      ],
+      "invariants_after": [],
+      "source_refs": [
+        "synthetic-phase2-document-workflow"
+      ]
+    }
+  ],
+  "initial_state": [
+    {
+      "fact": {
+        "predicate": "approved",
+        "args": [
+          "doc-1"
+        ]
+      },
+      "value": false,
+      "kind": "mutable"
+    },
+    {
+      "fact": {
+        "predicate": "collected",
+        "args": [
+          "doc-1"
+        ]
+      },
+      "value": false,
+      "kind": "mutable"
+    },
+    {
+      "fact": {
+        "predicate": "published",
+        "args": [
+          "doc-1"
+        ]
+      },
+      "value": false,
+      "kind": "mutable"
+    },
+    {
+      "fact": {
+        "predicate": "ready",
+        "args": [
+          "doc-1"
+        ]
+      },
+      "value": false,
+      "kind": "derived"
+    },
+    {
+      "fact": {
+        "predicate": "source_available",
+        "args": []
+      },
+      "value": true,
+      "kind": "static"
+    },
+    {
+      "fact": {
+        "predicate": "verified",
+        "args": [
+          "doc-1"
+        ]
+      },
+      "value": false,
+      "kind": "mutable"
+    }
+  ],
+  "final_state": [
+    {
+      "fact": {
+        "predicate": "approved",
+        "args": [
+          "doc-1"
+        ]
+      },
+      "value": true,
+      "kind": "mutable"
+    },
+    {
+      "fact": {
+        "predicate": "collected",
+        "args": [
+          "doc-1"
+        ]
+      },
+      "value": true,
+      "kind": "mutable"
+    },
+    {
+      "fact": {
+        "predicate": "published",
+        "args": [
+          "doc-1"
+        ]
+      },
+      "value": true,
+      "kind": "mutable"
+    },
+    {
+      "fact": {
+        "predicate": "ready",
+        "args": [
+          "doc-1"
+        ]
+      },
+      "value": true,
+      "kind": "derived"
+    },
+    {
+      "fact": {
+        "predicate": "source_available",
+        "args": []
+      },
+      "value": true,
+      "kind": "static"
+    },
+    {
+      "fact": {
+        "predicate": "verified",
+        "args": [
+          "doc-1"
+        ]
+      },
+      "value": false,
+      "kind": "mutable"
+    }
+  ],
+  "initial_derivations": [
+    {
+      "rule_id": "ready-if-collected-and-approved",
+      "head": {
+        "predicate": "ready",
+        "args": [
+          "doc-1"
+        ]
+      },
+      "parameters": {
+        "document": "doc-1"
+      },
+      "check": {
+        "expression": {
+          "all": [
+            {
+              "test": {
+                "fact": {
+                  "predicate": "collected",
+                  "args": [
+                    {
+                      "param": "document"
+                    }
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            },
+            {
+              "test": {
+                "fact": {
+                  "predicate": "approved",
+                  "args": [
+                    {
+                      "param": "document"
+                    }
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          ]
+        },
+        "value": false,
+        "evidence": [
+          {
+            "fact": {
+              "predicate": "collected",
+              "args": [
+                "doc-1"
+              ]
+            },
+            "actual": false,
+            "op": "eq",
+            "expected": true,
+            "derived_rule_id": null
+          },
+          {
+            "fact": {
+              "predicate": "approved",
+              "args": [
+                "doc-1"
+              ]
+            },
+            "actual": false,
+            "op": "eq",
+            "expected": true,
+            "derived_rule_id": null
+          }
+        ]
+      },
+      "source_refs": [
+        "synthetic-phase2-document-workflow"
+      ]
+    }
+  ],
+  "initial_invariants": [],
+  "final_checks": {
+    "goal": {
+      "expression": {
+        "all": [
+          {
+            "test": {
+              "fact": {
+                "predicate": "published",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          }
+        ]
+      },
+      "value": true,
+      "evidence": [
+        {
+          "fact": {
+            "predicate": "published",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "actual": true,
+          "op": "eq",
+          "expected": true,
+          "derived_rule_id": null
+        }
+      ]
+    },
+    "missing_required_activities": []
+  },
+  "input_sources": {
+    "catalog": [
+      "synthetic-phase2-document-workflow"
+    ],
+    "request": [
+      "synthetic-phase2-document-workflow"
+    ],
+    "imported_static_evidence": []
+  },
+  "failure": null,
+  "independent_verification_executed": true,
+  "external_status": "not_run"
+}

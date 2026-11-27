@@ -16,8 +16,9 @@ SCHEMA = json.loads(Path(__file__).with_name('schema.json').read_text(encoding='
 
 
 class ContractError(ValueError):
-    def __init__(self, message, *, code='invalid_input'):
+    def __init__(self, message, *, code='invalid_input', path=()):
         self.code = code
+        self.path = tuple(path)
         super().__init__(message)
 
 
@@ -26,18 +27,18 @@ def require(condition, message, *, code='invalid_input'):
         raise ContractError(message, code=code)
 
 
-def _check_tree(value, depth=0, counter=None):
+def _check_tree(value, depth=0, counter=None, *, allow_finite_floats=False):
     counter = [0] if counter is None else counter
     counter[0] += 1
-    require(counter[0] <= 100000 and depth <= 48, 'input exceeds structural bounds')
+    require(counter[0] <= (1000000 if allow_finite_floats else 100000) and depth <= 48, 'input exceeds structural bounds')
     if isinstance(value, dict):
         for key, child in value.items():
             require(type(key) is str, 'JSON keys must be strings')
-            _check_tree(key, depth + 1, counter)
-            _check_tree(child, depth + 1, counter)
+            _check_tree(key, depth + 1, counter, allow_finite_floats=allow_finite_floats)
+            _check_tree(child, depth + 1, counter, allow_finite_floats=allow_finite_floats)
     elif isinstance(value, list):
         for child in value:
-            _check_tree(child, depth + 1, counter)
+            _check_tree(child, depth + 1, counter, allow_finite_floats=allow_finite_floats)
     elif type(value) is str:
         require(unicodedata.normalize('NFC', value) == value, 'strings must be NFC normalized')
         try:
@@ -46,11 +47,13 @@ def _check_tree(value, depth=0, counter=None):
             raise ContractError('invalid Unicode string') from exc
     elif type(value) is int:
         require(abs(value) <= SAFE_INTEGER, 'integer exceeds exact interoperability range')
+    elif type(value) is float and allow_finite_floats:
+        require(math.isfinite(value), 'non-finite report number')
     elif value is not None and type(value) is not bool:
         raise ContractError('only JSON objects, arrays, strings, booleans, null and bounded integers are supported')
 
 
-def read_json(path):
+def read_json(path, *, allow_finite_floats=False):
     def pairs(items):
         result = {}
         for key, value in items:
@@ -66,7 +69,7 @@ def read_json(path):
                           object_pairs_hook=pairs, parse_constant=constant)
     except (json.JSONDecodeError, UnicodeError, RecursionError) as exc:
         raise ContractError(f'invalid JSON: {exc}') from exc
-    _check_tree(data)
+    _check_tree(data, allow_finite_floats=allow_finite_floats)
     return data
 
 
@@ -84,7 +87,8 @@ def validate_shape(data, kind):
     error = next(Draft202012Validator(schema).iter_errors(data), None)
     if error is not None:
         raise ContractError(f'{kind} {list(error.absolute_path)}: {error.message}',
-                            code='input_incomplete' if error.validator == 'required' else 'invalid_input')
+                            code='input_incomplete' if error.validator == 'required' else 'invalid_input',
+                            path=error.absolute_path)
 
 
 def _unique(items, key, label):

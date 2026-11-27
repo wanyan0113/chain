@@ -2,7 +2,7 @@
 
 任务流程扩展依据[扩展链任务书](扩展链任务书.txt)，[第一阶段需求分析与总体设计](docs/task-flow/phase1/README.md)保留最初的设计与验收边界。
 
-[第二阶段活动与状态模型](docs/task-flow/phase2/README.md)提供正式JSON契约、有限实例化、三值状态语义及`python -m task_flow check`预检查。[第三阶段有界流程搜索](docs/task-flow/phase3/README.md)提供`python -m task_flow plan`、首解恢复及边界内枚举。独立重放验证器与后续能力/资源适配尚未实现；旧链网设计和FDNA流程保持原接口。
+[第二阶段活动与状态模型](docs/task-flow/phase2/README.md)提供正式JSON契约、有限实例化、三值状态语义及`python -m task_flow check`预检查。[第三阶段有界流程搜索](docs/task-flow/phase3/README.md)提供`python -m task_flow plan`、首解恢复及边界内枚举。[第四阶段独立验证](docs/task-flow/phase4/README.md)提供`verify`与`plan --verify`。后续能力/资源适配尚未实现；旧链网设计和FDNA流程保持原接口。[当前阶段总览](docs/task-flow/STATUS.md)。
 
 本地运行：外置OWL知识 → HermiT分类与具名关系推理 → JSON业务规则 → 成链、评分及资源约束下组网。无需AI API。
 
