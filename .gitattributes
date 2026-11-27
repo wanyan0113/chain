@@ -38,3 +38,5 @@ docs/task-flow/phase5/evidence/** -text
 docs/task-flow/phase5/*.log -text
 docs/task-flow/phase6/evidence/** -text
 docs/task-flow/phase6/*.log -text
+docs/task-flow/application-expense/evidence/** -text
+docs/task-flow/application-expense/*.log -text

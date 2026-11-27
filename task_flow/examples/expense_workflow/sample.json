@@ -1,0 +1,36 @@
+{
+  "format_version": "expense-approval-1.0",
+  "case_id": "above_threshold",
+  "currency": "CNY",
+  "claims": [
+    {
+      "claim_id": "claim-a",
+      "amount_cents": 100001,
+      "receipt_valid": true,
+      "state": {
+        "submitted": false,
+        "screened": false,
+        "manager_approved": false,
+        "authorized": false,
+        "archived": false
+      },
+      "source_refs": [
+        "synthetic-expense-row-a"
+      ]
+    }
+  ],
+  "goal": {
+    "claim_ids": [
+      "claim-a"
+    ],
+    "require_archive": true
+  },
+  "search": {
+    "max_length": 5,
+    "max_nodes": 20000,
+    "timeout_ms": 30000
+  },
+  "source_refs": [
+    "synthetic-expense-application-examples-v1"
+  ]
+}

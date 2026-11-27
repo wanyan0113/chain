@@ -1,0 +1,2101 @@
+{
+  "id": "too_short",
+  "raw": {
+    "format_version": "expense-approval-1.0",
+    "case_id": "too_short",
+    "currency": "CNY",
+    "claims": [
+      {
+        "claim_id": "claim-a",
+        "amount_cents": 50000,
+        "receipt_valid": true,
+        "state": {
+          "submitted": false,
+          "screened": false,
+          "manager_approved": false,
+          "authorized": false,
+          "archived": false
+        },
+        "source_refs": [
+          "synthetic-expense-row-a"
+        ]
+      }
+    ],
+    "goal": {
+      "claim_ids": [
+        "claim-a"
+      ],
+      "require_archive": true
+    },
+    "search": {
+      "max_length": 2,
+      "max_nodes": 20000,
+      "timeout_ms": 30000
+    },
+    "source_refs": [
+      "synthetic-expense-application-examples-v1"
+    ]
+  },
+  "expected": {
+    "integration_status": "search_exhausted",
+    "search_conclusion": "bounded_no_solution",
+    "attempt_count": 0,
+    "selected_length": null
+  },
+  "actual": {
+    "integration_status": "search_exhausted",
+    "conclusion": "no_supported_flow_in_declared_bounds_and_context",
+    "search_conclusion": "bounded_no_solution",
+    "attempt_count": 0,
+    "selected_length": null,
+    "manager_seen": null,
+    "domain_checks_executed": 0
+  },
+  "criterion": "exact typed equality of expected fields, plus all executed independent domain checks pass",
+  "prepared": {
+    "catalog": {
+      "format_version": "task-flow-1.0",
+      "catalog_id": "synthetic-expense-approval",
+      "version": "1.0",
+      "objects": {
+        "claim": [
+          "claim-a"
+        ]
+      },
+      "facts": [
+        {
+          "id": "submitted",
+          "arguments": [
+            "claim"
+          ],
+          "kind": "mutable",
+          "type": "boolean",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "id": "screened",
+          "arguments": [
+            "claim"
+          ],
+          "kind": "mutable",
+          "type": "boolean",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "id": "manager_approved",
+          "arguments": [
+            "claim"
+          ],
+          "kind": "mutable",
+          "type": "boolean",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "id": "authorized",
+          "arguments": [
+            "claim"
+          ],
+          "kind": "mutable",
+          "type": "boolean",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "id": "archived",
+          "arguments": [
+            "claim"
+          ],
+          "kind": "mutable",
+          "type": "boolean",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "id": "receipt_valid",
+          "arguments": [
+            "claim"
+          ],
+          "kind": "static",
+          "type": "boolean",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "id": "amount_cents",
+          "arguments": [
+            "claim"
+          ],
+          "kind": "static",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100000000,
+          "unit": "CNY_cent",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "id": "eligible",
+          "arguments": [
+            "claim"
+          ],
+          "kind": "derived",
+          "type": "boolean",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        }
+      ],
+      "derived_rules": [
+        {
+          "id": "expense_eligibility",
+          "parameters": {
+            "claim": "claim"
+          },
+          "head": {
+            "predicate": "eligible",
+            "args": [
+              {
+                "param": "claim"
+              }
+            ]
+          },
+          "when": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "screened",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "any": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "amount_cents",
+                        "args": [
+                          {
+                            "param": "claim"
+                          }
+                        ]
+                      },
+                      "op": "le",
+                      "value": 100000,
+                      "unit": "CNY_cent"
+                    }
+                  },
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "manager_approved",
+                        "args": [
+                          {
+                            "param": "claim"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        }
+      ],
+      "activities": [
+        {
+          "id": "submit",
+          "version": "1.0",
+          "type": "expense_approval",
+          "parameters": {
+            "claim": "claim"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "receipt_valid",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "submitted",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": false
+                }
+              }
+            ]
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "submitted",
+                "args": [
+                  {
+                    "param": "claim"
+                  }
+                ]
+              },
+              "set": {
+                "value": true
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:expense:Submit"
+          ],
+          "max_occurrences": 2,
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "id": "screen_auto",
+          "version": "1.0",
+          "type": "expense_approval",
+          "parameters": {
+            "claim": "claim"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "submitted",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "screened",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": false
+                }
+              }
+            ]
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "screened",
+                "args": [
+                  {
+                    "param": "claim"
+                  }
+                ]
+              },
+              "set": {
+                "value": true
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:expense:AutomaticReview"
+          ],
+          "max_occurrences": 2,
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "id": "screen_manual",
+          "version": "1.0",
+          "type": "expense_approval",
+          "parameters": {
+            "claim": "claim"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "submitted",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "screened",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": false
+                }
+              }
+            ]
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "screened",
+                "args": [
+                  {
+                    "param": "claim"
+                  }
+                ]
+              },
+              "set": {
+                "value": true
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:expense:ManualReview"
+          ],
+          "max_occurrences": 2,
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "id": "approve_manager",
+          "version": "1.0",
+          "type": "expense_approval",
+          "parameters": {
+            "claim": "claim"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "screened",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "amount_cents",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "op": "gt",
+                  "value": 100000,
+                  "unit": "CNY_cent"
+                }
+              },
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "manager_approved",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": false
+                }
+              }
+            ]
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "manager_approved",
+                "args": [
+                  {
+                    "param": "claim"
+                  }
+                ]
+              },
+              "set": {
+                "value": true
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:expense:ManagerApproval"
+          ],
+          "max_occurrences": 2,
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "id": "authorize",
+          "version": "1.0",
+          "type": "expense_approval",
+          "parameters": {
+            "claim": "claim"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "eligible",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "authorized",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": false
+                }
+              }
+            ]
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "authorized",
+                "args": [
+                  {
+                    "param": "claim"
+                  }
+                ]
+              },
+              "set": {
+                "value": true
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:expense:RecordAuthorization"
+          ],
+          "max_occurrences": 2,
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "id": "archive",
+          "version": "1.0",
+          "type": "expense_approval",
+          "parameters": {
+            "claim": "claim"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "authorized",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "archived",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": false
+                }
+              }
+            ]
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "archived",
+                "args": [
+                  {
+                    "param": "claim"
+                  }
+                ]
+              },
+              "set": {
+                "value": true
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:expense:Archive"
+          ],
+          "max_occurrences": 2,
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "uri": "urn:expense:Archive",
+          "mapping_status": "unmapped",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "uri": "urn:expense:AutomaticReview",
+          "mapping_status": "unmapped",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "uri": "urn:expense:ManagerApproval",
+          "mapping_status": "unmapped",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "uri": "urn:expense:ManualReview",
+          "mapping_status": "unmapped",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "uri": "urn:expense:RecordAuthorization",
+          "mapping_status": "unmapped",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "uri": "urn:expense:Submit",
+          "mapping_status": "unmapped",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        }
+      ],
+      "source_refs": [
+        "synthetic-expense-policy-v1-not-real-financial-policy"
+      ]
+    },
+    "request": {
+      "format_version": "task-flow-1.0",
+      "request_id": "too_short",
+      "catalog_id": "synthetic-expense-approval",
+      "catalog_version": "1.0",
+      "catalog_sha256": "7f48c4f0c13d08ab9a5a3543c64d79707e1e15f41f980b179689b5132682fdf2",
+      "static_facts": [
+        {
+          "fact": {
+            "predicate": "receipt_valid",
+            "args": [
+              "claim-a"
+            ]
+          },
+          "value": true
+        },
+        {
+          "fact": {
+            "predicate": "amount_cents",
+            "args": [
+              "claim-a"
+            ]
+          },
+          "value": 50000,
+          "unit": "CNY_cent"
+        }
+      ],
+      "initial_state": [
+        {
+          "fact": {
+            "predicate": "submitted",
+            "args": [
+              "claim-a"
+            ]
+          },
+          "value": false
+        },
+        {
+          "fact": {
+            "predicate": "screened",
+            "args": [
+              "claim-a"
+            ]
+          },
+          "value": false
+        },
+        {
+          "fact": {
+            "predicate": "manager_approved",
+            "args": [
+              "claim-a"
+            ]
+          },
+          "value": false
+        },
+        {
+          "fact": {
+            "predicate": "authorized",
+            "args": [
+              "claim-a"
+            ]
+          },
+          "value": false
+        },
+        {
+          "fact": {
+            "predicate": "archived",
+            "args": [
+              "claim-a"
+            ]
+          },
+          "value": false
+        }
+      ],
+      "ontology_evidence": [],
+      "goal": {
+        "all": [
+          {
+            "test": {
+              "fact": {
+                "predicate": "archived",
+                "args": [
+                  "claim-a"
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          }
+        ]
+      },
+      "required_activities": [],
+      "forbidden_conditions": [
+        {
+          "all": [
+            {
+              "test": {
+                "fact": {
+                  "predicate": "screened",
+                  "args": [
+                    "claim-a"
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            },
+            {
+              "not": {
+                "test": {
+                  "fact": {
+                    "predicate": "submitted",
+                    "args": [
+                      "claim-a"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "all": [
+            {
+              "test": {
+                "fact": {
+                  "predicate": "manager_approved",
+                  "args": [
+                    "claim-a"
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            },
+            {
+              "not": {
+                "test": {
+                  "fact": {
+                    "predicate": "screened",
+                    "args": [
+                      "claim-a"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "all": [
+            {
+              "test": {
+                "fact": {
+                  "predicate": "authorized",
+                  "args": [
+                    "claim-a"
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            },
+            {
+              "not": {
+                "test": {
+                  "fact": {
+                    "predicate": "eligible",
+                    "args": [
+                      "claim-a"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              }
+            }
+          ]
+        },
+        {
+          "all": [
+            {
+              "test": {
+                "fact": {
+                  "predicate": "archived",
+                  "args": [
+                    "claim-a"
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            },
+            {
+              "not": {
+                "test": {
+                  "fact": {
+                    "predicate": "authorized",
+                    "args": [
+                      "claim-a"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "activity_limits": {},
+      "search": {
+        "max_length": 2,
+        "max_nodes": 20000,
+        "timeout_ms": 30000,
+        "mode": "first_feasible"
+      },
+      "source_refs": [
+        "synthetic-expense-application-examples-v1",
+        "raw-sha256:d784cc17c4251e97496c2bf64139e16c6fd123f78edc72da086ec94a3f8015b9"
+      ]
+    },
+    "mapping": {
+      "format_version": "task-flow-mapping-1.0",
+      "mapping_id": "synthetic-expense-services",
+      "version": "1.0",
+      "backend": "document-service-availability",
+      "entries": [
+        {
+          "capability_uri": "urn:expense:Archive",
+          "service_id": "Archive",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "capability_uri": "urn:expense:AutomaticReview",
+          "service_id": "AutomaticReview",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "capability_uri": "urn:expense:ManagerApproval",
+          "service_id": "ManagerApproval",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "capability_uri": "urn:expense:ManualReview",
+          "service_id": "ManualReview",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "capability_uri": "urn:expense:RecordAuthorization",
+          "service_id": "RecordAuthorization",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "capability_uri": "urn:expense:Submit",
+          "service_id": "Submit",
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        }
+      ],
+      "source_refs": [
+        "synthetic-expense-policy-v1-not-real-financial-policy"
+      ]
+    },
+    "context": {
+      "format_version": "task-flow-context-1.0",
+      "context_id": "synthetic-expense-services",
+      "version": "1.0",
+      "services": [
+        {
+          "service_id": "Archive",
+          "available": true,
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "service_id": "AutomaticReview",
+          "available": true,
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "service_id": "ManagerApproval",
+          "available": true,
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "service_id": "ManualReview",
+          "available": true,
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "service_id": "RecordAuthorization",
+          "available": true,
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        {
+          "service_id": "Submit",
+          "available": true,
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        }
+      ],
+      "source_refs": [
+        "synthetic-expense-policy-v1-not-real-financial-policy"
+      ]
+    },
+    "raw_sha256": "d784cc17c4251e97496c2bf64139e16c6fd123f78edc72da086ec94a3f8015b9",
+    "field_mapping": [
+      {
+        "claim_id": "claim-a",
+        "field": "state.submitted",
+        "predicate": "submitted",
+        "source_refs": [
+          "synthetic-expense-row-a"
+        ],
+        "raw_sha256": "d784cc17c4251e97496c2bf64139e16c6fd123f78edc72da086ec94a3f8015b9"
+      },
+      {
+        "claim_id": "claim-a",
+        "field": "state.screened",
+        "predicate": "screened",
+        "source_refs": [
+          "synthetic-expense-row-a"
+        ],
+        "raw_sha256": "d784cc17c4251e97496c2bf64139e16c6fd123f78edc72da086ec94a3f8015b9"
+      },
+      {
+        "claim_id": "claim-a",
+        "field": "state.manager_approved",
+        "predicate": "manager_approved",
+        "source_refs": [
+          "synthetic-expense-row-a"
+        ],
+        "raw_sha256": "d784cc17c4251e97496c2bf64139e16c6fd123f78edc72da086ec94a3f8015b9"
+      },
+      {
+        "claim_id": "claim-a",
+        "field": "state.authorized",
+        "predicate": "authorized",
+        "source_refs": [
+          "synthetic-expense-row-a"
+        ],
+        "raw_sha256": "d784cc17c4251e97496c2bf64139e16c6fd123f78edc72da086ec94a3f8015b9"
+      },
+      {
+        "claim_id": "claim-a",
+        "field": "state.archived",
+        "predicate": "archived",
+        "source_refs": [
+          "synthetic-expense-row-a"
+        ],
+        "raw_sha256": "d784cc17c4251e97496c2bf64139e16c6fd123f78edc72da086ec94a3f8015b9"
+      },
+      {
+        "claim_id": "claim-a",
+        "field": "receipt_valid",
+        "predicate": "receipt_valid",
+        "source_refs": [
+          "synthetic-expense-row-a"
+        ],
+        "raw_sha256": "d784cc17c4251e97496c2bf64139e16c6fd123f78edc72da086ec94a3f8015b9"
+      },
+      {
+        "claim_id": "claim-a",
+        "field": "amount_cents",
+        "predicate": "amount_cents",
+        "source_refs": [
+          "synthetic-expense-row-a"
+        ],
+        "raw_sha256": "d784cc17c4251e97496c2bf64139e16c6fd123f78edc72da086ec94a3f8015b9"
+      }
+    ],
+    "real_payment_executed": false
+  },
+  "integration": {
+    "format_version": "task-flow-integration-1.0",
+    "integration_status": "search_exhausted",
+    "conclusion": "no_supported_flow_in_declared_bounds_and_context",
+    "selected_candidate_id": null,
+    "catalog_sha256": "7f48c4f0c13d08ab9a5a3543c64d79707e1e15f41f980b179689b5132682fdf2",
+    "request_sha256": "5b856e0854be9fc91b78def85007357d01a961ad37efbfe5cea3398a91bcf16c",
+    "input_snapshot": {
+      "mapping": {
+        "format_version": "task-flow-mapping-1.0",
+        "mapping_id": "synthetic-expense-services",
+        "version": "1.0",
+        "backend": "document-service-availability",
+        "entries": [
+          {
+            "capability_uri": "urn:expense:Archive",
+            "service_id": "Archive",
+            "source_refs": [
+              "synthetic-expense-policy-v1-not-real-financial-policy"
+            ]
+          },
+          {
+            "capability_uri": "urn:expense:AutomaticReview",
+            "service_id": "AutomaticReview",
+            "source_refs": [
+              "synthetic-expense-policy-v1-not-real-financial-policy"
+            ]
+          },
+          {
+            "capability_uri": "urn:expense:ManagerApproval",
+            "service_id": "ManagerApproval",
+            "source_refs": [
+              "synthetic-expense-policy-v1-not-real-financial-policy"
+            ]
+          },
+          {
+            "capability_uri": "urn:expense:ManualReview",
+            "service_id": "ManualReview",
+            "source_refs": [
+              "synthetic-expense-policy-v1-not-real-financial-policy"
+            ]
+          },
+          {
+            "capability_uri": "urn:expense:RecordAuthorization",
+            "service_id": "RecordAuthorization",
+            "source_refs": [
+              "synthetic-expense-policy-v1-not-real-financial-policy"
+            ]
+          },
+          {
+            "capability_uri": "urn:expense:Submit",
+            "service_id": "Submit",
+            "source_refs": [
+              "synthetic-expense-policy-v1-not-real-financial-policy"
+            ]
+          }
+        ],
+        "source_refs": [
+          "synthetic-expense-policy-v1-not-real-financial-policy"
+        ]
+      },
+      "context": {
+        "format_version": "task-flow-context-1.0",
+        "context_id": "synthetic-expense-services",
+        "version": "1.0",
+        "services": [
+          {
+            "service_id": "Archive",
+            "available": true,
+            "source_refs": [
+              "synthetic-expense-policy-v1-not-real-financial-policy"
+            ]
+          },
+          {
+            "service_id": "AutomaticReview",
+            "available": true,
+            "source_refs": [
+              "synthetic-expense-policy-v1-not-real-financial-policy"
+            ]
+          },
+          {
+            "service_id": "ManagerApproval",
+            "available": true,
+            "source_refs": [
+              "synthetic-expense-policy-v1-not-real-financial-policy"
+            ]
+          },
+          {
+            "service_id": "ManualReview",
+            "available": true,
+            "source_refs": [
+              "synthetic-expense-policy-v1-not-real-financial-policy"
+            ]
+          },
+          {
+            "service_id": "RecordAuthorization",
+            "available": true,
+            "source_refs": [
+              "synthetic-expense-policy-v1-not-real-financial-policy"
+            ]
+          },
+          {
+            "service_id": "Submit",
+            "available": true,
+            "source_refs": [
+              "synthetic-expense-policy-v1-not-real-financial-policy"
+            ]
+          }
+        ],
+        "source_refs": [
+          "synthetic-expense-policy-v1-not-real-financial-policy"
+        ]
+      }
+    },
+    "search": {
+      "format_version": "task-flow-search-1.0",
+      "algorithm": "iterative_deepening_depth_first",
+      "catalog_sha256": "7f48c4f0c13d08ab9a5a3543c64d79707e1e15f41f980b179689b5132682fdf2",
+      "request_sha256": "5b856e0854be9fc91b78def85007357d01a961ad37efbfe5cea3398a91bcf16c",
+      "search_status": "exhausted",
+      "termination_reason": "frontier_exhausted",
+      "conclusion": "bounded_no_solution",
+      "coverage": "complete",
+      "coverage_scope": "certified_executable_sequences_within_declared_bounds",
+      "unknown_conditions_seen": false,
+      "unknown_examples": [],
+      "candidates": [],
+      "statistics": {
+        "nodes": 18,
+        "prefixes_checked": 7,
+        "transitions_applied": 4,
+        "rejected_prefixes": 0,
+        "rejected_occurrences": 0,
+        "rejected_transitions": 14,
+        "unknown_branches": 0,
+        "unknown_goal_checks": 0,
+        "candidate_count": 0,
+        "elapsed_ms": 3.719
+      },
+      "rejections": [
+        {
+          "reason": "preconditions is false",
+          "count": 14
+        }
+      ],
+      "limits": {
+        "max_nodes": 20000,
+        "timeout_ms": 30000,
+        "max_candidates": 10000,
+        "max_length": 2
+      },
+      "current_depth_limit": 2,
+      "resume_supported": false,
+      "planning_executed": true,
+      "independent_verification_executed": false,
+      "input_snapshot": {
+        "catalog": {
+          "format_version": "task-flow-1.0",
+          "catalog_id": "synthetic-expense-approval",
+          "version": "1.0",
+          "objects": {
+            "claim": [
+              "claim-a"
+            ]
+          },
+          "facts": [
+            {
+              "id": "submitted",
+              "arguments": [
+                "claim"
+              ],
+              "kind": "mutable",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            },
+            {
+              "id": "screened",
+              "arguments": [
+                "claim"
+              ],
+              "kind": "mutable",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            },
+            {
+              "id": "manager_approved",
+              "arguments": [
+                "claim"
+              ],
+              "kind": "mutable",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            },
+            {
+              "id": "authorized",
+              "arguments": [
+                "claim"
+              ],
+              "kind": "mutable",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            },
+            {
+              "id": "archived",
+              "arguments": [
+                "claim"
+              ],
+              "kind": "mutable",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            },
+            {
+              "id": "receipt_valid",
+              "arguments": [
+                "claim"
+              ],
+              "kind": "static",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            },
+            {
+              "id": "amount_cents",
+              "arguments": [
+                "claim"
+              ],
+              "kind": "static",
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100000000,
+              "unit": "CNY_cent",
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            },
+            {
+              "id": "eligible",
+              "arguments": [
+                "claim"
+              ],
+              "kind": "derived",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            }
+          ],
+          "derived_rules": [
+            {
+              "id": "expense_eligibility",
+              "parameters": {
+                "claim": "claim"
+              },
+              "head": {
+                "predicate": "eligible",
+                "args": [
+                  {
+                    "param": "claim"
+                  }
+                ]
+              },
+              "when": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "screened",
+                        "args": [
+                          {
+                            "param": "claim"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "any": [
+                      {
+                        "test": {
+                          "fact": {
+                            "predicate": "amount_cents",
+                            "args": [
+                              {
+                                "param": "claim"
+                              }
+                            ]
+                          },
+                          "op": "le",
+                          "value": 100000,
+                          "unit": "CNY_cent"
+                        }
+                      },
+                      {
+                        "test": {
+                          "fact": {
+                            "predicate": "manager_approved",
+                            "args": [
+                              {
+                                "param": "claim"
+                              }
+                            ]
+                          },
+                          "op": "eq",
+                          "value": true
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            }
+          ],
+          "activities": [
+            {
+              "id": "submit",
+              "version": "1.0",
+              "type": "expense_approval",
+              "parameters": {
+                "claim": "claim"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "receipt_valid",
+                        "args": [
+                          {
+                            "param": "claim"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "submitted",
+                        "args": [
+                          {
+                            "param": "claim"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": false
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "submitted",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:expense:Submit"
+              ],
+              "max_occurrences": 2,
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            },
+            {
+              "id": "screen_auto",
+              "version": "1.0",
+              "type": "expense_approval",
+              "parameters": {
+                "claim": "claim"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "submitted",
+                        "args": [
+                          {
+                            "param": "claim"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "screened",
+                        "args": [
+                          {
+                            "param": "claim"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": false
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "screened",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:expense:AutomaticReview"
+              ],
+              "max_occurrences": 2,
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            },
+            {
+              "id": "screen_manual",
+              "version": "1.0",
+              "type": "expense_approval",
+              "parameters": {
+                "claim": "claim"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "submitted",
+                        "args": [
+                          {
+                            "param": "claim"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "screened",
+                        "args": [
+                          {
+                            "param": "claim"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": false
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "screened",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:expense:ManualReview"
+              ],
+              "max_occurrences": 2,
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            },
+            {
+              "id": "approve_manager",
+              "version": "1.0",
+              "type": "expense_approval",
+              "parameters": {
+                "claim": "claim"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "screened",
+                        "args": [
+                          {
+                            "param": "claim"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "amount_cents",
+                        "args": [
+                          {
+                            "param": "claim"
+                          }
+                        ]
+                      },
+                      "op": "gt",
+                      "value": 100000,
+                      "unit": "CNY_cent"
+                    }
+                  },
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "manager_approved",
+                        "args": [
+                          {
+                            "param": "claim"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": false
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "manager_approved",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:expense:ManagerApproval"
+              ],
+              "max_occurrences": 2,
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            },
+            {
+              "id": "authorize",
+              "version": "1.0",
+              "type": "expense_approval",
+              "parameters": {
+                "claim": "claim"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "eligible",
+                        "args": [
+                          {
+                            "param": "claim"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "authorized",
+                        "args": [
+                          {
+                            "param": "claim"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": false
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "authorized",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:expense:RecordAuthorization"
+              ],
+              "max_occurrences": 2,
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            },
+            {
+              "id": "archive",
+              "version": "1.0",
+              "type": "expense_approval",
+              "parameters": {
+                "claim": "claim"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "authorized",
+                        "args": [
+                          {
+                            "param": "claim"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "archived",
+                        "args": [
+                          {
+                            "param": "claim"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": false
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "archived",
+                    "args": [
+                      {
+                        "param": "claim"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:expense:Archive"
+              ],
+              "max_occurrences": 2,
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            }
+          ],
+          "capabilities": [
+            {
+              "uri": "urn:expense:Archive",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            },
+            {
+              "uri": "urn:expense:AutomaticReview",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            },
+            {
+              "uri": "urn:expense:ManagerApproval",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            },
+            {
+              "uri": "urn:expense:ManualReview",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            },
+            {
+              "uri": "urn:expense:RecordAuthorization",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            },
+            {
+              "uri": "urn:expense:Submit",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-expense-policy-v1-not-real-financial-policy"
+              ]
+            }
+          ],
+          "source_refs": [
+            "synthetic-expense-policy-v1-not-real-financial-policy"
+          ]
+        },
+        "request": {
+          "format_version": "task-flow-1.0",
+          "request_id": "too_short",
+          "catalog_id": "synthetic-expense-approval",
+          "catalog_version": "1.0",
+          "catalog_sha256": "7f48c4f0c13d08ab9a5a3543c64d79707e1e15f41f980b179689b5132682fdf2",
+          "static_facts": [
+            {
+              "fact": {
+                "predicate": "receipt_valid",
+                "args": [
+                  "claim-a"
+                ]
+              },
+              "value": true
+            },
+            {
+              "fact": {
+                "predicate": "amount_cents",
+                "args": [
+                  "claim-a"
+                ]
+              },
+              "value": 50000,
+              "unit": "CNY_cent"
+            }
+          ],
+          "initial_state": [
+            {
+              "fact": {
+                "predicate": "submitted",
+                "args": [
+                  "claim-a"
+                ]
+              },
+              "value": false
+            },
+            {
+              "fact": {
+                "predicate": "screened",
+                "args": [
+                  "claim-a"
+                ]
+              },
+              "value": false
+            },
+            {
+              "fact": {
+                "predicate": "manager_approved",
+                "args": [
+                  "claim-a"
+                ]
+              },
+              "value": false
+            },
+            {
+              "fact": {
+                "predicate": "authorized",
+                "args": [
+                  "claim-a"
+                ]
+              },
+              "value": false
+            },
+            {
+              "fact": {
+                "predicate": "archived",
+                "args": [
+                  "claim-a"
+                ]
+              },
+              "value": false
+            }
+          ],
+          "ontology_evidence": [],
+          "goal": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "archived",
+                    "args": [
+                      "claim-a"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              }
+            ]
+          },
+          "required_activities": [],
+          "forbidden_conditions": [
+            {
+              "all": [
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "screened",
+                      "args": [
+                        "claim-a"
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                },
+                {
+                  "not": {
+                    "test": {
+                      "fact": {
+                        "predicate": "submitted",
+                        "args": [
+                          "claim-a"
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "all": [
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "manager_approved",
+                      "args": [
+                        "claim-a"
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                },
+                {
+                  "not": {
+                    "test": {
+                      "fact": {
+                        "predicate": "screened",
+                        "args": [
+                          "claim-a"
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "all": [
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "authorized",
+                      "args": [
+                        "claim-a"
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                },
+                {
+                  "not": {
+                    "test": {
+                      "fact": {
+                        "predicate": "eligible",
+                        "args": [
+                          "claim-a"
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "all": [
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "archived",
+                      "args": [
+                        "claim-a"
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                },
+                {
+                  "not": {
+                    "test": {
+                      "fact": {
+                        "predicate": "authorized",
+                        "args": [
+                          "claim-a"
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  }
+                }
+              ]
+            }
+          ],
+          "activity_limits": {},
+          "search": {
+            "max_length": 2,
+            "max_nodes": 20000,
+            "timeout_ms": 30000,
+            "mode": "first_feasible"
+          },
+          "source_refs": [
+            "synthetic-expense-application-examples-v1",
+            "raw-sha256:d784cc17c4251e97496c2bf64139e16c6fd123f78edc72da086ec94a3f8015b9"
+          ]
+        }
+      }
+    },
+    "attempts": [],
+    "max_checks": 100,
+    "legacy_integration_status": "not_implemented",
+    "execution_confirmed": false
+  },
+  "domain_checks": [],
+  "passed": true,
+  "real_payment_executed": false
+}

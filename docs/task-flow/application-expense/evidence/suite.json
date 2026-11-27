@@ -1,0 +1,720 @@
+{
+  "format_version": "expense-study-cases-1.0",
+  "cases": [
+    {
+      "id": "low_authorized",
+      "input": {
+        "format_version": "expense-approval-1.0",
+        "case_id": "low_authorized",
+        "currency": "CNY",
+        "claims": [
+          {
+            "claim_id": "claim-a",
+            "amount_cents": 50000,
+            "receipt_valid": true,
+            "state": {
+              "submitted": false,
+              "screened": false,
+              "manager_approved": false,
+              "authorized": false,
+              "archived": false
+            },
+            "source_refs": [
+              "synthetic-expense-row-a"
+            ]
+          }
+        ],
+        "goal": {
+          "claim_ids": [
+            "claim-a"
+          ],
+          "require_archive": false
+        },
+        "search": {
+          "max_length": 4,
+          "max_nodes": 20000,
+          "timeout_ms": 30000
+        },
+        "source_refs": [
+          "synthetic-expense-application-examples-v1"
+        ]
+      },
+      "service_overrides": {},
+      "expected": {
+        "integration_status": "selected",
+        "selected_length": 3,
+        "manager_seen": false,
+        "attempt_count": 1
+      }
+    },
+    {
+      "id": "low_archived",
+      "input": {
+        "format_version": "expense-approval-1.0",
+        "case_id": "low_archived",
+        "currency": "CNY",
+        "claims": [
+          {
+            "claim_id": "claim-a",
+            "amount_cents": 50000,
+            "receipt_valid": true,
+            "state": {
+              "submitted": false,
+              "screened": false,
+              "manager_approved": false,
+              "authorized": false,
+              "archived": false
+            },
+            "source_refs": [
+              "synthetic-expense-row-a"
+            ]
+          }
+        ],
+        "goal": {
+          "claim_ids": [
+            "claim-a"
+          ],
+          "require_archive": true
+        },
+        "search": {
+          "max_length": 4,
+          "max_nodes": 20000,
+          "timeout_ms": 30000
+        },
+        "source_refs": [
+          "synthetic-expense-application-examples-v1"
+        ]
+      },
+      "service_overrides": {},
+      "expected": {
+        "integration_status": "selected",
+        "selected_length": 4,
+        "manager_seen": false,
+        "attempt_count": 1
+      }
+    },
+    {
+      "id": "threshold_exact",
+      "input": {
+        "format_version": "expense-approval-1.0",
+        "case_id": "threshold_exact",
+        "currency": "CNY",
+        "claims": [
+          {
+            "claim_id": "claim-a",
+            "amount_cents": 100000,
+            "receipt_valid": true,
+            "state": {
+              "submitted": false,
+              "screened": false,
+              "manager_approved": false,
+              "authorized": false,
+              "archived": false
+            },
+            "source_refs": [
+              "synthetic-expense-row-a"
+            ]
+          }
+        ],
+        "goal": {
+          "claim_ids": [
+            "claim-a"
+          ],
+          "require_archive": true
+        },
+        "search": {
+          "max_length": 4,
+          "max_nodes": 20000,
+          "timeout_ms": 30000
+        },
+        "source_refs": [
+          "synthetic-expense-application-examples-v1"
+        ]
+      },
+      "service_overrides": {},
+      "expected": {
+        "integration_status": "selected",
+        "selected_length": 4,
+        "manager_seen": false,
+        "attempt_count": 1
+      }
+    },
+    {
+      "id": "above_threshold",
+      "input": {
+        "format_version": "expense-approval-1.0",
+        "case_id": "above_threshold",
+        "currency": "CNY",
+        "claims": [
+          {
+            "claim_id": "claim-a",
+            "amount_cents": 100001,
+            "receipt_valid": true,
+            "state": {
+              "submitted": false,
+              "screened": false,
+              "manager_approved": false,
+              "authorized": false,
+              "archived": false
+            },
+            "source_refs": [
+              "synthetic-expense-row-a"
+            ]
+          }
+        ],
+        "goal": {
+          "claim_ids": [
+            "claim-a"
+          ],
+          "require_archive": true
+        },
+        "search": {
+          "max_length": 5,
+          "max_nodes": 20000,
+          "timeout_ms": 30000
+        },
+        "source_refs": [
+          "synthetic-expense-application-examples-v1"
+        ]
+      },
+      "service_overrides": {},
+      "expected": {
+        "integration_status": "selected",
+        "selected_length": 5,
+        "manager_seen": true,
+        "attempt_count": 1
+      }
+    },
+    {
+      "id": "reviewed_low",
+      "input": {
+        "format_version": "expense-approval-1.0",
+        "case_id": "reviewed_low",
+        "currency": "CNY",
+        "claims": [
+          {
+            "claim_id": "claim-a",
+            "amount_cents": 50000,
+            "receipt_valid": true,
+            "state": {
+              "submitted": true,
+              "screened": true,
+              "manager_approved": false,
+              "authorized": false,
+              "archived": false
+            },
+            "source_refs": [
+              "synthetic-expense-row-a"
+            ]
+          }
+        ],
+        "goal": {
+          "claim_ids": [
+            "claim-a"
+          ],
+          "require_archive": true
+        },
+        "search": {
+          "max_length": 4,
+          "max_nodes": 20000,
+          "timeout_ms": 30000
+        },
+        "source_refs": [
+          "synthetic-expense-application-examples-v1"
+        ]
+      },
+      "service_overrides": {},
+      "expected": {
+        "integration_status": "selected",
+        "selected_length": 2,
+        "manager_seen": false,
+        "attempt_count": 1
+      }
+    },
+    {
+      "id": "reviewed_high",
+      "input": {
+        "format_version": "expense-approval-1.0",
+        "case_id": "reviewed_high",
+        "currency": "CNY",
+        "claims": [
+          {
+            "claim_id": "claim-a",
+            "amount_cents": 200000,
+            "receipt_valid": true,
+            "state": {
+              "submitted": true,
+              "screened": true,
+              "manager_approved": false,
+              "authorized": false,
+              "archived": false
+            },
+            "source_refs": [
+              "synthetic-expense-row-a"
+            ]
+          }
+        ],
+        "goal": {
+          "claim_ids": [
+            "claim-a"
+          ],
+          "require_archive": true
+        },
+        "search": {
+          "max_length": 5,
+          "max_nodes": 20000,
+          "timeout_ms": 30000
+        },
+        "source_refs": [
+          "synthetic-expense-application-examples-v1"
+        ]
+      },
+      "service_overrides": {},
+      "expected": {
+        "integration_status": "selected",
+        "selected_length": 3,
+        "manager_seen": true,
+        "attempt_count": 1
+      }
+    },
+    {
+      "id": "two_reviewed_claims",
+      "input": {
+        "format_version": "expense-approval-1.0",
+        "case_id": "two_reviewed_claims",
+        "currency": "CNY",
+        "claims": [
+          {
+            "claim_id": "claim-a",
+            "amount_cents": 50000,
+            "receipt_valid": true,
+            "state": {
+              "submitted": true,
+              "screened": true,
+              "manager_approved": false,
+              "authorized": false,
+              "archived": false
+            },
+            "source_refs": [
+              "synthetic-expense-row-a"
+            ]
+          },
+          {
+            "claim_id": "claim-b",
+            "amount_cents": 200000,
+            "receipt_valid": true,
+            "state": {
+              "submitted": true,
+              "screened": true,
+              "manager_approved": true,
+              "authorized": false,
+              "archived": false
+            },
+            "source_refs": [
+              "synthetic-expense-row-b"
+            ]
+          }
+        ],
+        "goal": {
+          "claim_ids": [
+            "claim-a",
+            "claim-b"
+          ],
+          "require_archive": true
+        },
+        "search": {
+          "max_length": 4,
+          "max_nodes": 20000,
+          "timeout_ms": 30000
+        },
+        "source_refs": [
+          "synthetic-expense-application-examples-v1"
+        ]
+      },
+      "service_overrides": {},
+      "expected": {
+        "integration_status": "selected",
+        "selected_length": 4,
+        "manager_seen": false,
+        "attempt_count": 1
+      }
+    },
+    {
+      "id": "already_archived",
+      "input": {
+        "format_version": "expense-approval-1.0",
+        "case_id": "already_archived",
+        "currency": "CNY",
+        "claims": [
+          {
+            "claim_id": "claim-a",
+            "amount_cents": 50000,
+            "receipt_valid": true,
+            "state": {
+              "submitted": true,
+              "screened": true,
+              "manager_approved": false,
+              "authorized": true,
+              "archived": true
+            },
+            "source_refs": [
+              "synthetic-expense-row-a"
+            ]
+          }
+        ],
+        "goal": {
+          "claim_ids": [
+            "claim-a"
+          ],
+          "require_archive": true
+        },
+        "search": {
+          "max_length": 4,
+          "max_nodes": 20000,
+          "timeout_ms": 30000
+        },
+        "source_refs": [
+          "synthetic-expense-application-examples-v1"
+        ]
+      },
+      "service_overrides": {},
+      "expected": {
+        "integration_status": "selected",
+        "selected_length": 0,
+        "manager_seen": false,
+        "attempt_count": 1
+      }
+    },
+    {
+      "id": "automatic_service_offline",
+      "input": {
+        "format_version": "expense-approval-1.0",
+        "case_id": "automatic_service_offline",
+        "currency": "CNY",
+        "claims": [
+          {
+            "claim_id": "claim-a",
+            "amount_cents": 50000,
+            "receipt_valid": true,
+            "state": {
+              "submitted": false,
+              "screened": false,
+              "manager_approved": false,
+              "authorized": false,
+              "archived": false
+            },
+            "source_refs": [
+              "synthetic-expense-row-a"
+            ]
+          }
+        ],
+        "goal": {
+          "claim_ids": [
+            "claim-a"
+          ],
+          "require_archive": true
+        },
+        "search": {
+          "max_length": 4,
+          "max_nodes": 20000,
+          "timeout_ms": 30000
+        },
+        "source_refs": [
+          "synthetic-expense-application-examples-v1"
+        ]
+      },
+      "service_overrides": {
+        "AutomaticReview": false
+      },
+      "expected": {
+        "integration_status": "selected",
+        "selected_length": 4,
+        "manager_seen": false,
+        "attempt_count": 2
+      }
+    },
+    {
+      "id": "receipt_unknown",
+      "input": {
+        "format_version": "expense-approval-1.0",
+        "case_id": "receipt_unknown",
+        "currency": "CNY",
+        "claims": [
+          {
+            "claim_id": "claim-a",
+            "amount_cents": 50000,
+            "receipt_valid": null,
+            "state": {
+              "submitted": false,
+              "screened": false,
+              "manager_approved": false,
+              "authorized": false,
+              "archived": false
+            },
+            "source_refs": [
+              "synthetic-expense-row-a"
+            ]
+          }
+        ],
+        "goal": {
+          "claim_ids": [
+            "claim-a"
+          ],
+          "require_archive": true
+        },
+        "search": {
+          "max_length": 4,
+          "max_nodes": 20000,
+          "timeout_ms": 30000
+        },
+        "source_refs": [
+          "synthetic-expense-application-examples-v1"
+        ]
+      },
+      "service_overrides": {},
+      "expected": {
+        "integration_status": "search_exhausted",
+        "search_conclusion": "blocked_unknown",
+        "conclusion": "undetermined",
+        "attempt_count": 0,
+        "selected_length": null
+      }
+    },
+    {
+      "id": "receipt_invalid",
+      "input": {
+        "format_version": "expense-approval-1.0",
+        "case_id": "receipt_invalid",
+        "currency": "CNY",
+        "claims": [
+          {
+            "claim_id": "claim-a",
+            "amount_cents": 50000,
+            "receipt_valid": false,
+            "state": {
+              "submitted": false,
+              "screened": false,
+              "manager_approved": false,
+              "authorized": false,
+              "archived": false
+            },
+            "source_refs": [
+              "synthetic-expense-row-a"
+            ]
+          }
+        ],
+        "goal": {
+          "claim_ids": [
+            "claim-a"
+          ],
+          "require_archive": true
+        },
+        "search": {
+          "max_length": 4,
+          "max_nodes": 20000,
+          "timeout_ms": 30000
+        },
+        "source_refs": [
+          "synthetic-expense-application-examples-v1"
+        ]
+      },
+      "service_overrides": {},
+      "expected": {
+        "integration_status": "search_exhausted",
+        "search_conclusion": "bounded_no_solution",
+        "attempt_count": 0,
+        "selected_length": null
+      }
+    },
+    {
+      "id": "search_limit",
+      "input": {
+        "format_version": "expense-approval-1.0",
+        "case_id": "search_limit",
+        "currency": "CNY",
+        "claims": [
+          {
+            "claim_id": "claim-a",
+            "amount_cents": 50000,
+            "receipt_valid": true,
+            "state": {
+              "submitted": false,
+              "screened": false,
+              "manager_approved": false,
+              "authorized": false,
+              "archived": false
+            },
+            "source_refs": [
+              "synthetic-expense-row-a"
+            ]
+          }
+        ],
+        "goal": {
+          "claim_ids": [
+            "claim-a"
+          ],
+          "require_archive": true
+        },
+        "search": {
+          "max_length": 4,
+          "max_nodes": 1,
+          "timeout_ms": 30000
+        },
+        "source_refs": [
+          "synthetic-expense-application-examples-v1"
+        ]
+      },
+      "service_overrides": {},
+      "expected": {
+        "integration_status": "search_limit",
+        "conclusion": "undetermined",
+        "attempt_count": 0,
+        "selected_length": null
+      }
+    },
+    {
+      "id": "too_short",
+      "input": {
+        "format_version": "expense-approval-1.0",
+        "case_id": "too_short",
+        "currency": "CNY",
+        "claims": [
+          {
+            "claim_id": "claim-a",
+            "amount_cents": 50000,
+            "receipt_valid": true,
+            "state": {
+              "submitted": false,
+              "screened": false,
+              "manager_approved": false,
+              "authorized": false,
+              "archived": false
+            },
+            "source_refs": [
+              "synthetic-expense-row-a"
+            ]
+          }
+        ],
+        "goal": {
+          "claim_ids": [
+            "claim-a"
+          ],
+          "require_archive": true
+        },
+        "search": {
+          "max_length": 2,
+          "max_nodes": 20000,
+          "timeout_ms": 30000
+        },
+        "source_refs": [
+          "synthetic-expense-application-examples-v1"
+        ]
+      },
+      "service_overrides": {},
+      "expected": {
+        "integration_status": "search_exhausted",
+        "search_conclusion": "bounded_no_solution",
+        "attempt_count": 0,
+        "selected_length": null
+      }
+    },
+    {
+      "id": "both_review_services_offline",
+      "input": {
+        "format_version": "expense-approval-1.0",
+        "case_id": "both_review_services_offline",
+        "currency": "CNY",
+        "claims": [
+          {
+            "claim_id": "claim-a",
+            "amount_cents": 50000,
+            "receipt_valid": true,
+            "state": {
+              "submitted": false,
+              "screened": false,
+              "manager_approved": false,
+              "authorized": false,
+              "archived": false
+            },
+            "source_refs": [
+              "synthetic-expense-row-a"
+            ]
+          }
+        ],
+        "goal": {
+          "claim_ids": [
+            "claim-a"
+          ],
+          "require_archive": true
+        },
+        "search": {
+          "max_length": 4,
+          "max_nodes": 20000,
+          "timeout_ms": 30000
+        },
+        "source_refs": [
+          "synthetic-expense-application-examples-v1"
+        ]
+      },
+      "service_overrides": {
+        "AutomaticReview": false,
+        "ManualReview": false
+      },
+      "expected": {
+        "integration_status": "search_exhausted",
+        "conclusion": "no_supported_flow_in_declared_bounds_and_context",
+        "attempt_count": 2,
+        "selected_length": null
+      }
+    },
+    {
+      "id": "review_services_unknown",
+      "input": {
+        "format_version": "expense-approval-1.0",
+        "case_id": "review_services_unknown",
+        "currency": "CNY",
+        "claims": [
+          {
+            "claim_id": "claim-a",
+            "amount_cents": 50000,
+            "receipt_valid": true,
+            "state": {
+              "submitted": false,
+              "screened": false,
+              "manager_approved": false,
+              "authorized": false,
+              "archived": false
+            },
+            "source_refs": [
+              "synthetic-expense-row-a"
+            ]
+          }
+        ],
+        "goal": {
+          "claim_ids": [
+            "claim-a"
+          ],
+          "require_archive": true
+        },
+        "search": {
+          "max_length": 4,
+          "max_nodes": 20000,
+          "timeout_ms": 30000
+        },
+        "source_refs": [
+          "synthetic-expense-application-examples-v1"
+        ]
+      },
+      "service_overrides": {
+        "AutomaticReview": "unknown",
+        "ManualReview": "unknown"
+      },
+      "expected": {
+        "integration_status": "search_exhausted",
+        "conclusion": "undetermined",
+        "attempt_count": 2,
+        "selected_length": null
+      }
+    }
+  ]
+}

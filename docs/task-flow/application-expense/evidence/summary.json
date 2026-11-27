@@ -1,0 +1,11 @@
+{
+  "status": "passed_with_scope_limits",
+  "suite_sha256": "0432d13d845043549fcfbc5ca3d364a52eeb6385e902fbd62995e4f7d4931663",
+  "case_count": 15,
+  "selected_case_count": 9,
+  "independent_domain_checks": 14,
+  "mutation_control_passed": true,
+  "scope": "synthetic_expense_approval_no_real_financial_actions",
+  "legacy_integration_status": "not_implemented",
+  "real_payment_executed": false
+}

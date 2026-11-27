@@ -30,3 +30,5 @@
 ## 更新原则
 
 修改需求、协议或执行语义时，同步更新实现位置、测试选择器和实际审查记录。不得只增加“支持”描述而无输入/预期/实际证据。第五阶段已补R09及R10/R12通用部分，旧接口完整性与系统效果仍须另行验收。
+
+第六阶段的[报销审批应用补充](../application-expense/README.md)增加原始业务字段映射、双对象身份与独立领域规则负例；对应`tests.test_expense_workflow.ExpenseWorkflowTests.test_prepared_files_work_through_existing_integration_cli`及`test_omitted_numeric_policy_passes_formal_model_but_not_independent_monitor`。它补充R10/R12通用数据链路证据，不改变旧接口尚未验收的结论。
