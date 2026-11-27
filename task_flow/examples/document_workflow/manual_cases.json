@@ -1,0 +1,184 @@
+{
+  "scope": "manual positive witnesses; negative expectations not executed as search",
+  "cases": [
+    {
+      "request": "basic.json",
+      "expected": "witness_exists",
+      "manual_witnesses": [
+        [
+          {
+            "activity_id": "collect",
+            "activity_version": "1.0",
+            "parameters": {
+              "document": "doc-1"
+            }
+          },
+          {
+            "activity_id": "approve",
+            "activity_version": "1.0",
+            "parameters": {
+              "document": "doc-1"
+            }
+          },
+          {
+            "activity_id": "publish_standard",
+            "activity_version": "1.0",
+            "parameters": {
+              "document": "doc-1"
+            }
+          }
+        ],
+        [
+          {
+            "activity_id": "collect",
+            "activity_version": "1.0",
+            "parameters": {
+              "document": "doc-1"
+            }
+          },
+          {
+            "activity_id": "approve",
+            "activity_version": "1.0",
+            "parameters": {
+              "document": "doc-1"
+            }
+          },
+          {
+            "activity_id": "publish_backup",
+            "activity_version": "1.0",
+            "parameters": {
+              "document": "doc-1"
+            }
+          }
+        ]
+      ],
+      "expectation_source": "phase1_manual_design_not_planner_output"
+    },
+    {
+      "request": "verified.json",
+      "expected": "witness_exists",
+      "manual_witnesses": [
+        [
+          {
+            "activity_id": "collect",
+            "activity_version": "1.0",
+            "parameters": {
+              "document": "doc-1"
+            }
+          },
+          {
+            "activity_id": "approve",
+            "activity_version": "1.0",
+            "parameters": {
+              "document": "doc-1"
+            }
+          },
+          {
+            "activity_id": "publish_standard",
+            "activity_version": "1.0",
+            "parameters": {
+              "document": "doc-1"
+            }
+          },
+          {
+            "activity_id": "verify",
+            "activity_version": "1.0",
+            "parameters": {
+              "document": "doc-1"
+            }
+          }
+        ]
+      ],
+      "expectation_source": "phase1_manual_design_not_planner_output"
+    },
+    {
+      "request": "collected.json",
+      "expected": "witness_exists",
+      "manual_witnesses": [
+        [
+          {
+            "activity_id": "approve",
+            "activity_version": "1.0",
+            "parameters": {
+              "document": "doc-1"
+            }
+          },
+          {
+            "activity_id": "publish_standard",
+            "activity_version": "1.0",
+            "parameters": {
+              "document": "doc-1"
+            }
+          }
+        ]
+      ],
+      "expectation_source": "phase1_manual_design_not_planner_output"
+    },
+    {
+      "request": "already_done.json",
+      "expected": "witness_exists",
+      "manual_witnesses": [
+        []
+      ],
+      "expectation_source": "phase1_manual_design_not_planner_output"
+    },
+    {
+      "request": "mandatory_verify.json",
+      "expected": "witness_exists",
+      "manual_witnesses": [
+        [
+          {
+            "activity_id": "verify",
+            "activity_version": "1.0",
+            "parameters": {
+              "document": "doc-1"
+            }
+          }
+        ]
+      ],
+      "expectation_source": "phase1_manual_design_not_planner_output"
+    },
+    {
+      "request": "too_short.json",
+      "expected": "bounded_no_solution",
+      "manual_witnesses": [],
+      "expectation_source": "phase1_manual_design_not_planner_output"
+    },
+    {
+      "request": "unknown_source.json",
+      "expected": "blocked_unknown",
+      "manual_witnesses": [],
+      "expectation_source": "phase1_manual_design_not_planner_output"
+    },
+    {
+      "request": "feedback_fallback.json",
+      "expected": "witness_exists",
+      "manual_witnesses": [
+        [
+          {
+            "activity_id": "collect",
+            "activity_version": "1.0",
+            "parameters": {
+              "document": "doc-1"
+            }
+          },
+          {
+            "activity_id": "approve",
+            "activity_version": "1.0",
+            "parameters": {
+              "document": "doc-1"
+            }
+          },
+          {
+            "activity_id": "publish_backup",
+            "activity_version": "1.0",
+            "parameters": {
+              "document": "doc-1"
+            }
+          }
+        ]
+      ],
+      "expectation_source": "phase1_manual_design_not_planner_output"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "oneOf": [{"$ref": "#/$defs/catalog"}, {"$ref": "#/$defs/request"}, {"$ref": "#/$defs/sequence"}],
+  "$defs": {
+    "id": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_.:-]*$"},
+    "version": {"type": "string", "minLength": 1},
+    "sha": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "parameters": {"type": "object", "propertyNames": {"$ref": "#/$defs/id"}, "additionalProperties": {"$ref": "#/$defs/id"}},
+    "argument": {"oneOf": [{"$ref": "#/$defs/id"}, {"type": "object", "additionalProperties": false, "required": ["param"], "properties": {"param": {"$ref": "#/$defs/id"}}}]},
+    "fact_ref": {"type": "object", "additionalProperties": false, "required": ["predicate", "args"], "properties": {"predicate": {"$ref": "#/$defs/id"}, "args": {"type": "array", "items": {"$ref": "#/$defs/argument"}}}},
+    "condition": {
+      "oneOf": [
+        {"type": "object", "additionalProperties": false, "required": ["all"], "properties": {"all": {"type": "array", "items": {"$ref": "#/$defs/condition"}}}},
+        {"type": "object", "additionalProperties": false, "required": ["any"], "properties": {"any": {"type": "array", "items": {"$ref": "#/$defs/condition"}}}},
+        {"type": "object", "additionalProperties": false, "required": ["not"], "properties": {"not": {"$ref": "#/$defs/condition"}}},
+        {"type": "object", "additionalProperties": false, "required": ["test"], "properties": {"test": {"type": "object", "additionalProperties": false, "required": ["fact", "op", "value"], "properties": {"fact": {"$ref": "#/$defs/fact_ref"}, "op": {"enum": ["eq", "ne", "lt", "le", "gt", "ge"]}, "value": {"type": ["boolean", "integer"]}, "unit": {"type": "string", "minLength": 1}}}}}
+      ]
+    },
+    "value_expr": {"oneOf": [
+      {"type": "object", "additionalProperties": false, "required": ["value"], "properties": {"value": {"type": ["boolean", "integer"]}, "unit": {"type": "string", "minLength": 1}}},
+      {"type": "object", "additionalProperties": false, "required": ["read", "offset", "unit"], "properties": {"read": {"$ref": "#/$defs/fact_ref"}, "offset": {"type": "integer"}, "unit": {"type": "string", "minLength": 1}}}
+    ]},
+    "effect": {"oneOf": [
+      {"type": "object", "additionalProperties": false, "required": ["fact", "set"], "properties": {"fact": {"$ref": "#/$defs/fact_ref"}, "set": {"$ref": "#/$defs/value_expr"}}},
+      {"type": "object", "additionalProperties": false, "required": ["fact", "forget"], "properties": {"fact": {"$ref": "#/$defs/fact_ref"}, "forget": {"const": true}}}
+    ]},
+    "fact_decl": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "arguments", "kind", "type", "source_refs"],
+      "properties": {"id": {"$ref": "#/$defs/id"}, "arguments": {"type": "array", "items": {"$ref": "#/$defs/id"}}, "kind": {"enum": ["static", "mutable", "derived"]}, "type": {"enum": ["boolean", "integer"]}, "minimum": {"type": "integer"}, "maximum": {"type": "integer"}, "unit": {"type": "string", "minLength": 1}, "source_refs": {"$ref": "#/$defs/refs"}},
+      "allOf": [{"if": {"properties": {"type": {"const": "integer"}}}, "then": {"required": ["minimum", "maximum", "unit"]}, "else": {"not": {"anyOf": [{"required": ["minimum"]}, {"required": ["maximum"]}, {"required": ["unit"]}]}}}]
+    },
+    "activity": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "version", "type", "parameters", "applicable_when", "preconditions", "effects", "required_capabilities", "max_occurrences", "source_refs"],
+      "properties": {"id": {"$ref": "#/$defs/id"}, "version": {"$ref": "#/$defs/version"}, "type": {"$ref": "#/$defs/id"}, "parameters": {"$ref": "#/$defs/parameters"}, "applicable_when": {"$ref": "#/$defs/condition"}, "preconditions": {"$ref": "#/$defs/condition"}, "effects": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/effect"}}, "required_capabilities": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"}}, "max_occurrences": {"type": "integer", "minimum": 1}, "source_refs": {"$ref": "#/$defs/refs"}}
+    },
+    "rule": {"type": "object", "additionalProperties": false, "required": ["id", "parameters", "head", "when", "source_refs"], "properties": {"id": {"$ref": "#/$defs/id"}, "parameters": {"$ref": "#/$defs/parameters"}, "head": {"$ref": "#/$defs/fact_ref"}, "when": {"$ref": "#/$defs/condition"}, "source_refs": {"$ref": "#/$defs/refs"}}},
+    "catalog": {
+      "type": "object", "additionalProperties": false,
+      "required": ["format_version", "catalog_id", "version", "objects", "facts", "derived_rules", "activities", "capabilities", "source_refs"],
+      "properties": {"format_version": {"const": "task-flow-1.0"}, "catalog_id": {"$ref": "#/$defs/id"}, "version": {"$ref": "#/$defs/version"}, "objects": {"type": "object", "propertyNames": {"$ref": "#/$defs/id"}, "additionalProperties": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/id"}}}, "facts": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/fact_decl"}}, "derived_rules": {"type": "array", "items": {"$ref": "#/$defs/rule"}}, "activities": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/activity"}}, "capabilities": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["uri", "mapping_status", "source_refs"], "properties": {"uri": {"type": "string", "pattern": "^[A-Za-z][A-Za-z0-9+.-]*:[^\\s]+$"}, "mapping_status": {"const": "unmapped"}, "source_refs": {"$ref": "#/$defs/refs"}}}}, "source_refs": {"$ref": "#/$defs/refs"}}
+    },
+    "assignment": {"type": "object", "additionalProperties": false, "required": ["fact", "value"], "properties": {"fact": {"$ref": "#/$defs/fact_ref"}, "value": {"type": ["boolean", "integer", "null"]}, "unit": {"type": "string", "minLength": 1}}},
+    "evidence": {"type": "object", "additionalProperties": false, "required": ["fact", "value", "source_ref", "knowledge_sha256", "rule_ref"], "properties": {"fact": {"$ref": "#/$defs/fact_ref"}, "value": {"type": ["boolean", "integer"]}, "unit": {"type": "string", "minLength": 1}, "source_ref": {"type": "string", "minLength": 1}, "knowledge_sha256": {"$ref": "#/$defs/sha"}, "rule_ref": {"type": "string", "minLength": 1}}},
+    "request": {
+      "type": "object", "additionalProperties": false,
+      "required": ["format_version", "request_id", "catalog_id", "catalog_version", "catalog_sha256", "static_facts", "initial_state", "ontology_evidence", "goal", "required_activities", "forbidden_conditions", "activity_limits", "search", "source_refs"],
+      "properties": {"format_version": {"const": "task-flow-1.0"}, "request_id": {"$ref": "#/$defs/id"}, "catalog_id": {"$ref": "#/$defs/id"}, "catalog_version": {"$ref": "#/$defs/version"}, "catalog_sha256": {"$ref": "#/$defs/sha"}, "static_facts": {"type": "array", "items": {"$ref": "#/$defs/assignment"}}, "initial_state": {"type": "array", "items": {"$ref": "#/$defs/assignment"}}, "ontology_evidence": {"type": "array", "items": {"$ref": "#/$defs/evidence"}}, "goal": {"$ref": "#/$defs/condition"}, "required_activities": {"type": "array", "uniqueItems": true, "items": {"$ref": "#/$defs/id"}}, "forbidden_conditions": {"type": "array", "items": {"$ref": "#/$defs/condition"}}, "activity_limits": {"type": "object", "propertyNames": {"$ref": "#/$defs/id"}, "additionalProperties": {"type": "integer", "minimum": 0}}, "search": {"type": "object", "additionalProperties": false, "required": ["mode", "max_length", "max_nodes", "timeout_ms"], "properties": {"mode": {"enum": ["first_feasible", "enumerate_bounded"]}, "max_length": {"type": "integer", "minimum": 0, "maximum": 100}, "max_nodes": {"type": "integer", "minimum": 1}, "timeout_ms": {"type": "integer", "minimum": 1}}}, "source_refs": {"$ref": "#/$defs/refs"}}
+    },
+    "instance": {"type": "object", "additionalProperties": false, "required": ["activity_id", "activity_version", "parameters"], "properties": {"activity_id": {"$ref": "#/$defs/id"}, "activity_version": {"$ref": "#/$defs/version"}, "parameters": {"type": "object", "propertyNames": {"$ref": "#/$defs/id"}, "additionalProperties": {"$ref": "#/$defs/id"}}}},
+    "sequence": {"type": "object", "additionalProperties": false, "required": ["format_version", "catalog_sha256", "request_sha256", "steps"], "properties": {"format_version": {"const": "task-flow-1.0"}, "catalog_sha256": {"$ref": "#/$defs/sha"}, "request_sha256": {"$ref": "#/$defs/sha"}, "steps": {"type": "array", "items": {"$ref": "#/$defs/instance"}}}}
+  }
+}
