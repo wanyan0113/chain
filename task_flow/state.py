@@ -58,12 +58,12 @@ def initial_state(problem):
 
 
 def check_invariants(problem, view):
-    for index, condition in enumerate(problem.request['forbidden_conditions']):
-        status = evaluate_condition(problem, condition, view)
-        if status is True:
-            raise TransitionError(f'forbidden condition {index} holds')
-        if status is None:
-            raise TransitionError(f'forbidden condition {index} is unknown', status='blocked_unknown')
+    statuses = [evaluate_condition(problem, condition, view)
+                for condition in problem.request['forbidden_conditions']]
+    if True in statuses:
+        raise TransitionError(f'forbidden condition {statuses.index(True)} holds')
+    if None in statuses:
+        raise TransitionError(f'forbidden condition {statuses.index(None)} is unknown', status='blocked_unknown')
 
 
 def apply_activity(problem, base, instance):
@@ -74,11 +74,13 @@ def apply_activity(problem, base, instance):
     parameters = instance['parameters']
     before = state_view(problem, base)
     check_invariants(problem, before)
-    for name in ('applicable_when', 'preconditions'):
-        status = evaluate_condition(problem, activity[name], before, parameters)
-        if status is not True:
-            raise TransitionError(name + (' is unknown' if status is None else ' is false'),
-                                  status='blocked_unknown' if status is None else 'rejected')
+    checks = [(name, evaluate_condition(problem, activity[name], before, parameters))
+              for name in ('applicable_when', 'preconditions')]
+    # A known failure settles the conjunction even when another condition is unknown.
+    for expected, outcome in ((False, 'rejected'), (None, 'blocked_unknown')):
+        for name, status in checks:
+            if status is expected:
+                raise TransitionError(name + (' is unknown' if status is None else ' is false'), status=outcome)
     updates = {}
     for effect in activity['effects']:
         key = resolve_fact(problem, effect['fact'], parameters)

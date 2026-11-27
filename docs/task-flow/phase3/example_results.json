@@ -1,0 +1,103 @@
+{
+  "scope": "eight synthetic bounded examples; certified sequence sets only",
+  "oracle": "tests/task_flow_oracle.py",
+  "source_catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+  "cases": [
+    {
+      "case": "basic",
+      "first_status": "candidate_found",
+      "first_length": 3,
+      "enumeration_status": "exhausted",
+      "conclusion": "candidates_available",
+      "certified_candidates": 6,
+      "reference_candidates": 6,
+      "unknown_conditions_seen": false,
+      "set_equality": true,
+      "independent_verifier_executed": false
+    },
+    {
+      "case": "verified",
+      "first_status": "candidate_found",
+      "first_length": 4,
+      "enumeration_status": "exhausted",
+      "conclusion": "candidates_available",
+      "certified_candidates": 2,
+      "reference_candidates": 2,
+      "unknown_conditions_seen": false,
+      "set_equality": true,
+      "independent_verifier_executed": false
+    },
+    {
+      "case": "collected",
+      "first_status": "candidate_found",
+      "first_length": 2,
+      "enumeration_status": "exhausted",
+      "conclusion": "candidates_available",
+      "certified_candidates": 32,
+      "reference_candidates": 32,
+      "unknown_conditions_seen": false,
+      "set_equality": true,
+      "independent_verifier_executed": false
+    },
+    {
+      "case": "already_done",
+      "first_status": "candidate_found",
+      "first_length": 0,
+      "enumeration_status": "exhausted",
+      "conclusion": "candidates_available",
+      "certified_candidates": 21,
+      "reference_candidates": 21,
+      "unknown_conditions_seen": false,
+      "set_equality": true,
+      "independent_verifier_executed": false
+    },
+    {
+      "case": "mandatory_verify",
+      "first_status": "candidate_found",
+      "first_length": 1,
+      "enumeration_status": "exhausted",
+      "conclusion": "candidates_available",
+      "certified_candidates": 14,
+      "reference_candidates": 14,
+      "unknown_conditions_seen": false,
+      "set_equality": true,
+      "independent_verifier_executed": false
+    },
+    {
+      "case": "too_short",
+      "first_status": "exhausted",
+      "first_length": null,
+      "enumeration_status": "exhausted",
+      "conclusion": "bounded_no_solution",
+      "certified_candidates": 0,
+      "reference_candidates": 0,
+      "unknown_conditions_seen": false,
+      "set_equality": true,
+      "independent_verifier_executed": false
+    },
+    {
+      "case": "unknown_source",
+      "first_status": "exhausted",
+      "first_length": null,
+      "enumeration_status": "exhausted",
+      "conclusion": "blocked_unknown",
+      "certified_candidates": 0,
+      "reference_candidates": 0,
+      "unknown_conditions_seen": true,
+      "set_equality": true,
+      "independent_verifier_executed": false
+    },
+    {
+      "case": "feedback_fallback",
+      "first_status": "candidate_found",
+      "first_length": 3,
+      "enumeration_status": "exhausted",
+      "conclusion": "candidates_available",
+      "certified_candidates": 6,
+      "reference_candidates": 6,
+      "unknown_conditions_seen": false,
+      "set_equality": true,
+      "independent_verifier_executed": false
+    }
+  ]
+}
