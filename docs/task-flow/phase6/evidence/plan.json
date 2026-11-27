@@ -1,0 +1,235 @@
+{
+  "format_version": "task-flow-study-1.0",
+  "model_family": "synthetic_service_ticket_progress_v1",
+  "repeats": 3,
+  "correctness": [
+    {
+      "depth": 1,
+      "width": 1,
+      "constraints": 0,
+      "max_length": 2
+    },
+    {
+      "depth": 1,
+      "width": 2,
+      "constraints": 2,
+      "max_length": 2
+    },
+    {
+      "depth": 2,
+      "width": 1,
+      "constraints": 0,
+      "max_length": 3
+    },
+    {
+      "depth": 2,
+      "width": 2,
+      "constraints": 2,
+      "max_length": 3
+    },
+    {
+      "depth": 3,
+      "width": 1,
+      "constraints": 0,
+      "max_length": 4
+    },
+    {
+      "depth": 3,
+      "width": 2,
+      "constraints": 2,
+      "max_length": 4
+    },
+    {
+      "depth": 4,
+      "width": 1,
+      "constraints": 0,
+      "max_length": 4
+    },
+    {
+      "depth": 4,
+      "width": 2,
+      "constraints": 2,
+      "max_length": 4
+    }
+  ],
+  "efficiency": [
+    {
+      "id": "activities-3",
+      "axis": "activity_instances",
+      "depth": 3,
+      "width": 1,
+      "constraints": 0,
+      "max_nodes": 20000
+    },
+    {
+      "id": "activities-6",
+      "axis": "activity_instances",
+      "depth": 3,
+      "width": 2,
+      "constraints": 0,
+      "max_nodes": 20000
+    },
+    {
+      "id": "activities-12",
+      "axis": "activity_instances",
+      "depth": 3,
+      "width": 4,
+      "constraints": 0,
+      "max_nodes": 20000
+    },
+    {
+      "id": "length-2",
+      "axis": "required_length",
+      "depth": 2,
+      "width": 2,
+      "constraints": 0,
+      "max_nodes": 20000
+    },
+    {
+      "id": "length-4",
+      "axis": "required_length",
+      "depth": 4,
+      "width": 2,
+      "constraints": 0,
+      "max_nodes": 20000
+    },
+    {
+      "id": "length-6",
+      "axis": "required_length",
+      "depth": 6,
+      "width": 2,
+      "constraints": 0,
+      "max_nodes": 20000
+    },
+    {
+      "id": "constraints-0",
+      "axis": "invariant_count",
+      "depth": 3,
+      "width": 2,
+      "constraints": 0,
+      "max_nodes": 20000
+    },
+    {
+      "id": "constraints-8",
+      "axis": "invariant_count",
+      "depth": 3,
+      "width": 2,
+      "constraints": 8,
+      "max_nodes": 20000
+    },
+    {
+      "id": "constraints-32",
+      "axis": "invariant_count",
+      "depth": 3,
+      "width": 2,
+      "constraints": 32,
+      "max_nodes": 20000
+    },
+    {
+      "id": "node-limit-control",
+      "axis": "budget_control",
+      "depth": 8,
+      "width": 4,
+      "constraints": 0,
+      "max_nodes": 2000
+    }
+  ],
+  "fixed_templates": [
+    [],
+    [
+      "stage_1_v0",
+      "stage_2_v0"
+    ],
+    [
+      "stage_0_v0",
+      "stage_1_v0",
+      "stage_2_v0"
+    ],
+    [
+      "stage_0_v0",
+      "stage_1_v0",
+      "stage_2_v0",
+      "stage_3_v0"
+    ]
+  ],
+  "template_cases": [
+    {
+      "id": "standard",
+      "initial": 0,
+      "goal": 3,
+      "required": [],
+      "planner_feasible": true,
+      "template_feasible": true
+    },
+    {
+      "id": "confirmed",
+      "initial": 0,
+      "goal": 4,
+      "required": [],
+      "planner_feasible": true,
+      "template_feasible": true
+    },
+    {
+      "id": "partly_done",
+      "initial": 1,
+      "goal": 3,
+      "required": [],
+      "planner_feasible": true,
+      "template_feasible": true
+    },
+    {
+      "id": "already_done",
+      "initial": 3,
+      "goal": 3,
+      "required": [],
+      "planner_feasible": true,
+      "template_feasible": true
+    },
+    {
+      "id": "short_goal",
+      "initial": 0,
+      "goal": 2,
+      "required": [],
+      "planner_feasible": true,
+      "template_feasible": false
+    },
+    {
+      "id": "later_initial",
+      "initial": 2,
+      "goal": 3,
+      "required": [],
+      "planner_feasible": true,
+      "template_feasible": false
+    },
+    {
+      "id": "mandatory_variant",
+      "initial": 0,
+      "goal": 3,
+      "required": [
+        "stage_1_v1"
+      ],
+      "planner_feasible": true,
+      "template_feasible": false
+    },
+    {
+      "id": "confirmed_variant",
+      "initial": 0,
+      "goal": 4,
+      "required": [
+        "stage_2_v1"
+      ],
+      "planner_feasible": true,
+      "template_feasible": false
+    },
+    {
+      "id": "impossible_mandatory",
+      "initial": 2,
+      "goal": 3,
+      "required": [
+        "stage_0_v0"
+      ],
+      "planner_feasible": false,
+      "template_feasible": false
+    }
+  ]
+}

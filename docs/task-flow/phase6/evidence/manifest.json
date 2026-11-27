@@ -1,0 +1,25 @@
+{
+  "source_sha256_lf_normalized": {
+    "docs/task-flow/phase6/experiment-plan.json": "2012b15233577328762839635a4403c2da75d01ad783a1c693e1f5fa121b7585",
+    "task_flow/__init__.py": "8a4706e67aa06cc5c0031dcc2f0d43854d17932bc4b94d9d988d9886f41bf857",
+    "task_flow/__main__.py": "06c0fb1826b84613c2cac89706819c970c0df45c1132885eb0bd67d1ea580b0b",
+    "task_flow/contracts.py": "0a29419ac43f491fb8b4aae8a3edb8109c2209d403cd0811fb9ec16a45f3f1ab",
+    "task_flow/external.py": "e84c59beb9548a8ebf2ffd649b60e1c9455aae77ee5c1c15d9e7496ef37e54c0",
+    "task_flow/integrate.py": "aff664dc95ea57d046a305bf0b09891f69aea036e022b0bfbd6a22bd3d380378",
+    "task_flow/planner.py": "3f7fb53243391c56c5fdf565eb90b7224c69ee15d907a615debec5bdbe427d2b",
+    "task_flow/schema.json": "e66c1bfafff1652ba8ae045e27f3ab4d5a11692ea8e5f9f98fc39b1f520129c3",
+    "task_flow/state.py": "c0ad87a5ef37002357cf790481ac2b1ada5e96bc47f1da79444fdab8c5560091",
+    "task_flow/validator.py": "5599caa5897c86462301d084d2a32779db1ceb7df34eeb94874a21e39c16ebda",
+    "tests/task_flow_oracle.py": "1f62b9c7e4d144af35b8afb3b320b4a38ad6ef8e0e225dbad6363e8098dd755f",
+    "tests/test_task_flow_study.py": "439afa0fe4470d723ceb8824092a8526c9306f846d37a5ae507dcdf3883f8c79",
+    "workflow_tools/task_flow_study.py": "34d17b799d1f4606692306d8a8d35bfd26f42d3e116aaf58ab4de289f9521175"
+  },
+  "artifact_sha256": {
+    "correctness.json": "e259b52aa4d58d8d21924ceae76f986d50b591d5ed60e9d857b5cc090f64589e",
+    "efficiency.json": "aef193f96447b3d33b9956857778bc29502daf2960550a318f15e2fc34630cca",
+    "model-risks.json": "f1194035537a624d2974b5c6dce1f3b46253067d7bccfcda5437a9fe58474bde",
+    "plan.json": "14e95af315170c8777dd6271211d275ee8cd13261dad02c63a8dca92b5c9ec40",
+    "summary.json": "d505a14ddfe5726cab5fbed0f2a0d9f4ee26de15eda2dfe143a21f679bd00ef3",
+    "templates.json": "a3131e960e446e7186eb7012d0880e07970be1399a13c13c5e8fe3b2bb3ee49b"
+  }
+}

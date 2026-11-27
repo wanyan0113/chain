@@ -36,3 +36,5 @@ docs/task-flow/audit/phase1-4/** -text
 docs/task-flow/audit/tool-tests.log -text
 docs/task-flow/phase5/evidence/** -text
 docs/task-flow/phase5/*.log -text
+docs/task-flow/phase6/evidence/** -text
+docs/task-flow/phase6/*.log -text

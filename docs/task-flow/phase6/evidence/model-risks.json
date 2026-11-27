@@ -1,0 +1,2838 @@
+[
+  {
+    "name": "conflicting_effects",
+    "catalog": {
+      "format_version": "task-flow-1.0",
+      "catalog_id": "service-ticket",
+      "version": "1.0",
+      "objects": {
+        "ticket": [
+          "t1"
+        ]
+      },
+      "facts": [
+        {
+          "id": "progress",
+          "arguments": [
+            "ticket"
+          ],
+          "kind": "mutable",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "unit": "stage",
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      ],
+      "derived_rules": [],
+      "activities": [
+        {
+          "id": "stage_0_v0",
+          "version": "1.0",
+          "type": "ticket_processing",
+          "parameters": {
+            "ticket": "ticket"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "test": {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": 0,
+              "unit": "stage"
+            }
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "set": {
+                "value": 1,
+                "unit": "stage"
+              }
+            },
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "set": {
+                "value": 1,
+                "unit": "stage"
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:ticket:Process"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        },
+        {
+          "id": "stage_1_v0",
+          "version": "1.0",
+          "type": "ticket_processing",
+          "parameters": {
+            "ticket": "ticket"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "test": {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": 1,
+              "unit": "stage"
+            }
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "set": {
+                "value": 2,
+                "unit": "stage"
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:ticket:Process"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        },
+        {
+          "id": "stage_2_v0",
+          "version": "1.0",
+          "type": "ticket_processing",
+          "parameters": {
+            "ticket": "ticket"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "test": {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": 2,
+              "unit": "stage"
+            }
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "set": {
+                "value": 3,
+                "unit": "stage"
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:ticket:Process"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "uri": "urn:ticket:Process",
+          "mapping_status": "unmapped",
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      ],
+      "source_refs": [
+        "synthetic-phase6-service-ticket-model"
+      ]
+    },
+    "request": {
+      "format_version": "task-flow-1.0",
+      "request_id": "ticket-study",
+      "catalog_id": "service-ticket",
+      "catalog_version": "1.0",
+      "catalog_sha256": "356145531f7799a1baf11f2114f667178191ec0e4f3bb1cefd93737462d253cd",
+      "static_facts": [],
+      "initial_state": [
+        {
+          "fact": {
+            "predicate": "progress",
+            "args": [
+              "t1"
+            ]
+          },
+          "value": 0,
+          "unit": "stage"
+        }
+      ],
+      "ontology_evidence": [],
+      "goal": {
+        "test": {
+          "fact": {
+            "predicate": "progress",
+            "args": [
+              "t1"
+            ]
+          },
+          "op": "eq",
+          "value": 3,
+          "unit": "stage"
+        }
+      },
+      "required_activities": [],
+      "forbidden_conditions": [],
+      "activity_limits": {},
+      "search": {
+        "mode": "first_feasible",
+        "max_length": 3,
+        "max_nodes": 20000,
+        "timeout_ms": 30000
+      },
+      "source_refs": [
+        "synthetic-phase6-service-ticket-model"
+      ]
+    },
+    "schema_valid": true,
+    "error": {
+      "code": "invalid_input",
+      "reason": "duplicate/conflicting writes after parameter binding"
+    },
+    "outcome": "semantic_contract_rejected",
+    "expected": "semantic_contract_rejected",
+    "passed": true
+  },
+  {
+    "name": "static_write",
+    "catalog": {
+      "format_version": "task-flow-1.0",
+      "catalog_id": "service-ticket",
+      "version": "1.0",
+      "objects": {
+        "ticket": [
+          "t1"
+        ]
+      },
+      "facts": [
+        {
+          "id": "progress",
+          "arguments": [
+            "ticket"
+          ],
+          "kind": "static",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "unit": "stage",
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      ],
+      "derived_rules": [],
+      "activities": [
+        {
+          "id": "stage_0_v0",
+          "version": "1.0",
+          "type": "ticket_processing",
+          "parameters": {
+            "ticket": "ticket"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "test": {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": 0,
+              "unit": "stage"
+            }
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "set": {
+                "value": 1,
+                "unit": "stage"
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:ticket:Process"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        },
+        {
+          "id": "stage_1_v0",
+          "version": "1.0",
+          "type": "ticket_processing",
+          "parameters": {
+            "ticket": "ticket"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "test": {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": 1,
+              "unit": "stage"
+            }
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "set": {
+                "value": 2,
+                "unit": "stage"
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:ticket:Process"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        },
+        {
+          "id": "stage_2_v0",
+          "version": "1.0",
+          "type": "ticket_processing",
+          "parameters": {
+            "ticket": "ticket"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "test": {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": 2,
+              "unit": "stage"
+            }
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "set": {
+                "value": 3,
+                "unit": "stage"
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:ticket:Process"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "uri": "urn:ticket:Process",
+          "mapping_status": "unmapped",
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      ],
+      "source_refs": [
+        "synthetic-phase6-service-ticket-model"
+      ]
+    },
+    "request": {
+      "format_version": "task-flow-1.0",
+      "request_id": "ticket-study",
+      "catalog_id": "service-ticket",
+      "catalog_version": "1.0",
+      "catalog_sha256": "c54a962d5a5e274c92486dd8a6e543c26aa05f462bf894b9cc75db80f0ffbc2d",
+      "static_facts": [],
+      "initial_state": [
+        {
+          "fact": {
+            "predicate": "progress",
+            "args": [
+              "t1"
+            ]
+          },
+          "value": 0,
+          "unit": "stage"
+        }
+      ],
+      "ontology_evidence": [],
+      "goal": {
+        "test": {
+          "fact": {
+            "predicate": "progress",
+            "args": [
+              "t1"
+            ]
+          },
+          "op": "eq",
+          "value": 3,
+          "unit": "stage"
+        }
+      },
+      "required_activities": [],
+      "forbidden_conditions": [],
+      "activity_limits": {},
+      "search": {
+        "mode": "first_feasible",
+        "max_length": 3,
+        "max_nodes": 20000,
+        "timeout_ms": 30000
+      },
+      "source_refs": [
+        "synthetic-phase6-service-ticket-model"
+      ]
+    },
+    "schema_valid": true,
+    "error": {
+      "code": "invalid_input",
+      "reason": "activity cannot write static or derived facts"
+    },
+    "outcome": "semantic_contract_rejected",
+    "expected": "semantic_contract_rejected",
+    "passed": true
+  },
+  {
+    "name": "derived_cycle",
+    "catalog": {
+      "format_version": "task-flow-1.0",
+      "catalog_id": "service-ticket",
+      "version": "1.0",
+      "objects": {
+        "ticket": [
+          "t1"
+        ]
+      },
+      "facts": [
+        {
+          "id": "progress",
+          "arguments": [
+            "ticket"
+          ],
+          "kind": "mutable",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "unit": "stage",
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        },
+        {
+          "id": "loop",
+          "arguments": [],
+          "kind": "derived",
+          "type": "boolean",
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      ],
+      "derived_rules": [
+        {
+          "id": "loop_rule",
+          "parameters": {},
+          "head": {
+            "predicate": "loop",
+            "args": []
+          },
+          "when": {
+            "test": {
+              "fact": {
+                "predicate": "loop",
+                "args": []
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      ],
+      "activities": [
+        {
+          "id": "stage_0_v0",
+          "version": "1.0",
+          "type": "ticket_processing",
+          "parameters": {
+            "ticket": "ticket"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "test": {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": 0,
+              "unit": "stage"
+            }
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "set": {
+                "value": 1,
+                "unit": "stage"
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:ticket:Process"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        },
+        {
+          "id": "stage_1_v0",
+          "version": "1.0",
+          "type": "ticket_processing",
+          "parameters": {
+            "ticket": "ticket"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "test": {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": 1,
+              "unit": "stage"
+            }
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "set": {
+                "value": 2,
+                "unit": "stage"
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:ticket:Process"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        },
+        {
+          "id": "stage_2_v0",
+          "version": "1.0",
+          "type": "ticket_processing",
+          "parameters": {
+            "ticket": "ticket"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "test": {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": 2,
+              "unit": "stage"
+            }
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "set": {
+                "value": 3,
+                "unit": "stage"
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:ticket:Process"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "uri": "urn:ticket:Process",
+          "mapping_status": "unmapped",
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      ],
+      "source_refs": [
+        "synthetic-phase6-service-ticket-model"
+      ]
+    },
+    "request": {
+      "format_version": "task-flow-1.0",
+      "request_id": "ticket-study",
+      "catalog_id": "service-ticket",
+      "catalog_version": "1.0",
+      "catalog_sha256": "14b8be88746911e6f4f67fa8475315a9039acc1fb1184d2c102601a10cf90952",
+      "static_facts": [],
+      "initial_state": [
+        {
+          "fact": {
+            "predicate": "progress",
+            "args": [
+              "t1"
+            ]
+          },
+          "value": 0,
+          "unit": "stage"
+        }
+      ],
+      "ontology_evidence": [],
+      "goal": {
+        "test": {
+          "fact": {
+            "predicate": "progress",
+            "args": [
+              "t1"
+            ]
+          },
+          "op": "eq",
+          "value": 3,
+          "unit": "stage"
+        }
+      },
+      "required_activities": [],
+      "forbidden_conditions": [],
+      "activity_limits": {},
+      "search": {
+        "mode": "first_feasible",
+        "max_length": 3,
+        "max_nodes": 20000,
+        "timeout_ms": 30000
+      },
+      "source_refs": [
+        "synthetic-phase6-service-ticket-model"
+      ]
+    },
+    "schema_valid": true,
+    "error": {
+      "code": "invalid_input",
+      "reason": "cyclic derived rules are not supported"
+    },
+    "outcome": "semantic_contract_rejected",
+    "expected": "semantic_contract_rejected",
+    "passed": true
+  },
+  {
+    "name": "contradictory_precondition",
+    "catalog": {
+      "format_version": "task-flow-1.0",
+      "catalog_id": "service-ticket",
+      "version": "1.0",
+      "objects": {
+        "ticket": [
+          "t1"
+        ]
+      },
+      "facts": [
+        {
+          "id": "progress",
+          "arguments": [
+            "ticket"
+          ],
+          "kind": "mutable",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "unit": "stage",
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      ],
+      "derived_rules": [],
+      "activities": [
+        {
+          "id": "stage_0_v0",
+          "version": "1.0",
+          "type": "ticket_processing",
+          "parameters": {
+            "ticket": "ticket"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": 0,
+                  "unit": "stage"
+                }
+              },
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": 1,
+                  "unit": "stage"
+                }
+              }
+            ]
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "set": {
+                "value": 1,
+                "unit": "stage"
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:ticket:Process"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        },
+        {
+          "id": "stage_1_v0",
+          "version": "1.0",
+          "type": "ticket_processing",
+          "parameters": {
+            "ticket": "ticket"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "test": {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": 1,
+              "unit": "stage"
+            }
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "set": {
+                "value": 2,
+                "unit": "stage"
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:ticket:Process"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        },
+        {
+          "id": "stage_2_v0",
+          "version": "1.0",
+          "type": "ticket_processing",
+          "parameters": {
+            "ticket": "ticket"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "test": {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": 2,
+              "unit": "stage"
+            }
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "set": {
+                "value": 3,
+                "unit": "stage"
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:ticket:Process"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "uri": "urn:ticket:Process",
+          "mapping_status": "unmapped",
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      ],
+      "source_refs": [
+        "synthetic-phase6-service-ticket-model"
+      ]
+    },
+    "request": {
+      "format_version": "task-flow-1.0",
+      "request_id": "ticket-study",
+      "catalog_id": "service-ticket",
+      "catalog_version": "1.0",
+      "catalog_sha256": "73f5cf7f966653cdd278ce3a0bc2105e847702fe21215d96028b541f1ccaacf6",
+      "static_facts": [],
+      "initial_state": [
+        {
+          "fact": {
+            "predicate": "progress",
+            "args": [
+              "t1"
+            ]
+          },
+          "value": 0,
+          "unit": "stage"
+        }
+      ],
+      "ontology_evidence": [],
+      "goal": {
+        "test": {
+          "fact": {
+            "predicate": "progress",
+            "args": [
+              "t1"
+            ]
+          },
+          "op": "eq",
+          "value": 3,
+          "unit": "stage"
+        }
+      },
+      "required_activities": [],
+      "forbidden_conditions": [],
+      "activity_limits": {},
+      "search": {
+        "mode": "first_feasible",
+        "max_length": 3,
+        "max_nodes": 20000,
+        "timeout_ms": 30000
+      },
+      "source_refs": [
+        "synthetic-phase6-service-ticket-model"
+      ]
+    },
+    "schema_valid": true,
+    "search": {
+      "format_version": "task-flow-search-1.0",
+      "algorithm": "iterative_deepening_depth_first",
+      "catalog_sha256": "73f5cf7f966653cdd278ce3a0bc2105e847702fe21215d96028b541f1ccaacf6",
+      "request_sha256": "c1a99aecf188ffb8e70882bb70a5dc116f27c04d5c10073fb169ddc9ea3983eb",
+      "search_status": "exhausted",
+      "termination_reason": "frontier_exhausted",
+      "conclusion": "bounded_no_solution",
+      "coverage": "complete",
+      "coverage_scope": "certified_executable_sequences_within_declared_bounds",
+      "unknown_conditions_seen": false,
+      "unknown_examples": [],
+      "candidates": [],
+      "statistics": {
+        "nodes": 9,
+        "prefixes_checked": 4,
+        "transitions_applied": 0,
+        "rejected_prefixes": 0,
+        "rejected_occurrences": 0,
+        "rejected_transitions": 9,
+        "unknown_branches": 0,
+        "unknown_goal_checks": 0,
+        "candidate_count": 0,
+        "elapsed_ms": 1.062
+      },
+      "rejections": [
+        {
+          "reason": "preconditions is false",
+          "count": 9
+        }
+      ],
+      "limits": {
+        "max_nodes": 20000,
+        "timeout_ms": 30000,
+        "max_candidates": 10000,
+        "max_length": 3
+      },
+      "current_depth_limit": 3,
+      "resume_supported": false,
+      "planning_executed": true,
+      "independent_verification_executed": false,
+      "input_snapshot": {
+        "catalog": {
+          "format_version": "task-flow-1.0",
+          "catalog_id": "service-ticket",
+          "version": "1.0",
+          "objects": {
+            "ticket": [
+              "t1"
+            ]
+          },
+          "facts": [
+            {
+              "id": "progress",
+              "arguments": [
+                "ticket"
+              ],
+              "kind": "mutable",
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "unit": "stage",
+              "source_refs": [
+                "synthetic-phase6-service-ticket-model"
+              ]
+            }
+          ],
+          "derived_rules": [],
+          "activities": [
+            {
+              "id": "stage_0_v0",
+              "version": "1.0",
+              "type": "ticket_processing",
+              "parameters": {
+                "ticket": "ticket"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "progress",
+                        "args": [
+                          {
+                            "param": "ticket"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": 0,
+                      "unit": "stage"
+                    }
+                  },
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "progress",
+                        "args": [
+                          {
+                            "param": "ticket"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": 1,
+                      "unit": "stage"
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": 1,
+                    "unit": "stage"
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:ticket:Process"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-phase6-service-ticket-model"
+              ]
+            },
+            {
+              "id": "stage_1_v0",
+              "version": "1.0",
+              "type": "ticket_processing",
+              "parameters": {
+                "ticket": "ticket"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "test": {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": 1,
+                  "unit": "stage"
+                }
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": 2,
+                    "unit": "stage"
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:ticket:Process"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-phase6-service-ticket-model"
+              ]
+            },
+            {
+              "id": "stage_2_v0",
+              "version": "1.0",
+              "type": "ticket_processing",
+              "parameters": {
+                "ticket": "ticket"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "test": {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": 2,
+                  "unit": "stage"
+                }
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": 3,
+                    "unit": "stage"
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:ticket:Process"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-phase6-service-ticket-model"
+              ]
+            }
+          ],
+          "capabilities": [
+            {
+              "uri": "urn:ticket:Process",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-phase6-service-ticket-model"
+              ]
+            }
+          ],
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        },
+        "request": {
+          "format_version": "task-flow-1.0",
+          "request_id": "ticket-study",
+          "catalog_id": "service-ticket",
+          "catalog_version": "1.0",
+          "catalog_sha256": "73f5cf7f966653cdd278ce3a0bc2105e847702fe21215d96028b541f1ccaacf6",
+          "static_facts": [],
+          "initial_state": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  "t1"
+                ]
+              },
+              "value": 0,
+              "unit": "stage"
+            }
+          ],
+          "ontology_evidence": [],
+          "goal": {
+            "test": {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  "t1"
+                ]
+              },
+              "op": "eq",
+              "value": 3,
+              "unit": "stage"
+            }
+          },
+          "required_activities": [],
+          "forbidden_conditions": [],
+          "activity_limits": {},
+          "search": {
+            "mode": "first_feasible",
+            "max_length": 3,
+            "max_nodes": 20000,
+            "timeout_ms": 30000
+          },
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      }
+    },
+    "verifications": [],
+    "outcome": "no_flow_without_model_error_diagnosis",
+    "expected": "no_flow_without_model_error_diagnosis",
+    "passed": true
+  },
+  {
+    "name": "skipped_stage",
+    "catalog": {
+      "format_version": "task-flow-1.0",
+      "catalog_id": "service-ticket",
+      "version": "1.0",
+      "objects": {
+        "ticket": [
+          "t1"
+        ]
+      },
+      "facts": [
+        {
+          "id": "progress",
+          "arguments": [
+            "ticket"
+          ],
+          "kind": "mutable",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "unit": "stage",
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      ],
+      "derived_rules": [],
+      "activities": [
+        {
+          "id": "stage_0_v0",
+          "version": "1.0",
+          "type": "ticket_processing",
+          "parameters": {
+            "ticket": "ticket"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "test": {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": 0,
+              "unit": "stage"
+            }
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "set": {
+                "value": 3,
+                "unit": "stage"
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:ticket:Process"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        },
+        {
+          "id": "stage_1_v0",
+          "version": "1.0",
+          "type": "ticket_processing",
+          "parameters": {
+            "ticket": "ticket"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "test": {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": 1,
+              "unit": "stage"
+            }
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "set": {
+                "value": 2,
+                "unit": "stage"
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:ticket:Process"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        },
+        {
+          "id": "stage_2_v0",
+          "version": "1.0",
+          "type": "ticket_processing",
+          "parameters": {
+            "ticket": "ticket"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "test": {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": 2,
+              "unit": "stage"
+            }
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "set": {
+                "value": 3,
+                "unit": "stage"
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:ticket:Process"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "uri": "urn:ticket:Process",
+          "mapping_status": "unmapped",
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      ],
+      "source_refs": [
+        "synthetic-phase6-service-ticket-model"
+      ]
+    },
+    "request": {
+      "format_version": "task-flow-1.0",
+      "request_id": "ticket-study",
+      "catalog_id": "service-ticket",
+      "catalog_version": "1.0",
+      "catalog_sha256": "ed885331049c79fe5cd0d73b066041fd25960197525cb0291d2953bad6299a79",
+      "static_facts": [],
+      "initial_state": [
+        {
+          "fact": {
+            "predicate": "progress",
+            "args": [
+              "t1"
+            ]
+          },
+          "value": 0,
+          "unit": "stage"
+        }
+      ],
+      "ontology_evidence": [],
+      "goal": {
+        "test": {
+          "fact": {
+            "predicate": "progress",
+            "args": [
+              "t1"
+            ]
+          },
+          "op": "eq",
+          "value": 3,
+          "unit": "stage"
+        }
+      },
+      "required_activities": [],
+      "forbidden_conditions": [],
+      "activity_limits": {},
+      "search": {
+        "mode": "first_feasible",
+        "max_length": 3,
+        "max_nodes": 20000,
+        "timeout_ms": 30000
+      },
+      "source_refs": [
+        "synthetic-phase6-service-ticket-model"
+      ]
+    },
+    "schema_valid": true,
+    "search": {
+      "format_version": "task-flow-search-1.0",
+      "algorithm": "iterative_deepening_depth_first",
+      "catalog_sha256": "ed885331049c79fe5cd0d73b066041fd25960197525cb0291d2953bad6299a79",
+      "request_sha256": "15cbfb563850ea505839630511b8294ade9105e652d8448d7f2c994cf1d5b675",
+      "search_status": "candidate_found",
+      "termination_reason": "first_feasible_pause",
+      "conclusion": "candidates_available",
+      "coverage": "partial",
+      "coverage_scope": "certified_executable_sequences_within_declared_bounds",
+      "unknown_conditions_seen": false,
+      "unknown_examples": [],
+      "candidates": [
+        {
+          "candidate_id": "flow-d8e2634fdeb47e67504355e1d6a0b1de98a411dce3ae076bc8d61b6857356646",
+          "sequence": {
+            "format_version": "task-flow-1.0",
+            "catalog_sha256": "ed885331049c79fe5cd0d73b066041fd25960197525cb0291d2953bad6299a79",
+            "request_sha256": "15cbfb563850ea505839630511b8294ade9105e652d8448d7f2c994cf1d5b675",
+            "steps": [
+              {
+                "activity_id": "stage_0_v0",
+                "activity_version": "1.0",
+                "parameters": {
+                  "ticket": "t1"
+                }
+              }
+            ]
+          },
+          "capability_demands": [
+            {
+              "step_index": 0,
+              "activity_id": "stage_0_v0",
+              "required_capabilities": [
+                "urn:ticket:Process"
+              ],
+              "source_refs": [
+                "synthetic-phase6-service-ticket-model"
+              ]
+            }
+          ],
+          "final_state": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  "t1"
+                ]
+              },
+              "value": 3,
+              "kind": "mutable",
+              "unit": "stage"
+            }
+          ],
+          "generation_goal_satisfied": true,
+          "verification_status": "not_run",
+          "external_status": "not_run"
+        }
+      ],
+      "statistics": {
+        "nodes": 1,
+        "prefixes_checked": 3,
+        "transitions_applied": 1,
+        "rejected_prefixes": 0,
+        "rejected_occurrences": 0,
+        "rejected_transitions": 0,
+        "unknown_branches": 0,
+        "unknown_goal_checks": 0,
+        "candidate_count": 1,
+        "elapsed_ms": 0.227
+      },
+      "rejections": [],
+      "limits": {
+        "max_nodes": 20000,
+        "timeout_ms": 30000,
+        "max_candidates": 10000,
+        "max_length": 3
+      },
+      "current_depth_limit": 1,
+      "resume_supported": true,
+      "planning_executed": true,
+      "independent_verification_executed": false,
+      "input_snapshot": {
+        "catalog": {
+          "format_version": "task-flow-1.0",
+          "catalog_id": "service-ticket",
+          "version": "1.0",
+          "objects": {
+            "ticket": [
+              "t1"
+            ]
+          },
+          "facts": [
+            {
+              "id": "progress",
+              "arguments": [
+                "ticket"
+              ],
+              "kind": "mutable",
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "unit": "stage",
+              "source_refs": [
+                "synthetic-phase6-service-ticket-model"
+              ]
+            }
+          ],
+          "derived_rules": [],
+          "activities": [
+            {
+              "id": "stage_0_v0",
+              "version": "1.0",
+              "type": "ticket_processing",
+              "parameters": {
+                "ticket": "ticket"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "test": {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": 0,
+                  "unit": "stage"
+                }
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": 3,
+                    "unit": "stage"
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:ticket:Process"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-phase6-service-ticket-model"
+              ]
+            },
+            {
+              "id": "stage_1_v0",
+              "version": "1.0",
+              "type": "ticket_processing",
+              "parameters": {
+                "ticket": "ticket"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "test": {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": 1,
+                  "unit": "stage"
+                }
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": 2,
+                    "unit": "stage"
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:ticket:Process"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-phase6-service-ticket-model"
+              ]
+            },
+            {
+              "id": "stage_2_v0",
+              "version": "1.0",
+              "type": "ticket_processing",
+              "parameters": {
+                "ticket": "ticket"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "test": {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": 2,
+                  "unit": "stage"
+                }
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": 3,
+                    "unit": "stage"
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:ticket:Process"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-phase6-service-ticket-model"
+              ]
+            }
+          ],
+          "capabilities": [
+            {
+              "uri": "urn:ticket:Process",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-phase6-service-ticket-model"
+              ]
+            }
+          ],
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        },
+        "request": {
+          "format_version": "task-flow-1.0",
+          "request_id": "ticket-study",
+          "catalog_id": "service-ticket",
+          "catalog_version": "1.0",
+          "catalog_sha256": "ed885331049c79fe5cd0d73b066041fd25960197525cb0291d2953bad6299a79",
+          "static_facts": [],
+          "initial_state": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  "t1"
+                ]
+              },
+              "value": 0,
+              "unit": "stage"
+            }
+          ],
+          "ontology_evidence": [],
+          "goal": {
+            "test": {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  "t1"
+                ]
+              },
+              "op": "eq",
+              "value": 3,
+              "unit": "stage"
+            }
+          },
+          "required_activities": [],
+          "forbidden_conditions": [],
+          "activity_limits": {},
+          "search": {
+            "mode": "first_feasible",
+            "max_length": 3,
+            "max_nodes": 20000,
+            "timeout_ms": 30000
+          },
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      }
+    },
+    "verifications": [
+      {
+        "format_version": "task-flow-verification-1.0",
+        "verification_status": "passed",
+        "catalog_sha256": "ed885331049c79fe5cd0d73b066041fd25960197525cb0291d2953bad6299a79",
+        "request_sha256": "15cbfb563850ea505839630511b8294ade9105e652d8448d7f2c994cf1d5b675",
+        "sequence_sha256": "d8e2634fdeb47e67504355e1d6a0b1de98a411dce3ae076bc8d61b6857356646",
+        "trace": [
+          {
+            "step_index": 0,
+            "instance": {
+              "activity_id": "stage_0_v0",
+              "activity_version": "1.0",
+              "parameters": {
+                "ticket": "t1"
+              }
+            },
+            "status": "passed",
+            "before_state": [
+              {
+                "fact": {
+                  "predicate": "progress",
+                  "args": [
+                    "t1"
+                  ]
+                },
+                "value": 0,
+                "kind": "mutable",
+                "unit": "stage"
+              }
+            ],
+            "after_state": [
+              {
+                "fact": {
+                  "predicate": "progress",
+                  "args": [
+                    "t1"
+                  ]
+                },
+                "value": 3,
+                "kind": "mutable",
+                "unit": "stage"
+              }
+            ],
+            "committed": true,
+            "applicability": {
+              "expression": {
+                "all": []
+              },
+              "value": true,
+              "evidence": []
+            },
+            "preconditions": {
+              "expression": {
+                "test": {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": 0,
+                  "unit": "stage"
+                }
+              },
+              "value": true,
+              "evidence": [
+                {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      "t1"
+                    ]
+                  },
+                  "actual": 0,
+                  "op": "eq",
+                  "expected": 0,
+                  "derived_rule_id": null
+                }
+              ]
+            },
+            "effects": [
+              {
+                "target": {
+                  "predicate": "progress",
+                  "args": [
+                    "t1"
+                  ]
+                },
+                "old_value": 0,
+                "proposed_value": 3,
+                "definition": {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": 3,
+                    "unit": "stage"
+                  }
+                }
+              }
+            ],
+            "state_delta": [
+              {
+                "fact": {
+                  "predicate": "progress",
+                  "args": [
+                    "t1"
+                  ]
+                },
+                "before": 0,
+                "after": 3
+              }
+            ],
+            "derived_checks": [],
+            "invariants_after": [],
+            "source_refs": [
+              "synthetic-phase6-service-ticket-model"
+            ]
+          }
+        ],
+        "initial_state": [
+          {
+            "fact": {
+              "predicate": "progress",
+              "args": [
+                "t1"
+              ]
+            },
+            "value": 0,
+            "kind": "mutable",
+            "unit": "stage"
+          }
+        ],
+        "final_state": [
+          {
+            "fact": {
+              "predicate": "progress",
+              "args": [
+                "t1"
+              ]
+            },
+            "value": 3,
+            "kind": "mutable",
+            "unit": "stage"
+          }
+        ],
+        "initial_derivations": [],
+        "initial_invariants": [],
+        "final_checks": {
+          "goal": {
+            "expression": {
+              "test": {
+                "fact": {
+                  "predicate": "progress",
+                  "args": [
+                    "t1"
+                  ]
+                },
+                "op": "eq",
+                "value": 3,
+                "unit": "stage"
+              }
+            },
+            "value": true,
+            "evidence": [
+              {
+                "fact": {
+                  "predicate": "progress",
+                  "args": [
+                    "t1"
+                  ]
+                },
+                "actual": 3,
+                "op": "eq",
+                "expected": 3,
+                "derived_rule_id": null
+              }
+            ]
+          },
+          "missing_required_activities": []
+        },
+        "input_sources": {
+          "catalog": [
+            "synthetic-phase6-service-ticket-model"
+          ],
+          "request": [
+            "synthetic-phase6-service-ticket-model"
+          ],
+          "imported_static_evidence": []
+        },
+        "failure": null,
+        "independent_verification_executed": true,
+        "external_status": "not_run"
+      }
+    ],
+    "external_manual_domain_check": [
+      {
+        "before": 0,
+        "after": 3,
+        "increment_is_one": false
+      }
+    ],
+    "outcome": "formal_pass_domain_error_not_detected",
+    "expected": "formal_pass_domain_error_not_detected",
+    "passed": true
+  },
+  {
+    "name": "missing_guard",
+    "catalog": {
+      "format_version": "task-flow-1.0",
+      "catalog_id": "service-ticket",
+      "version": "1.0",
+      "objects": {
+        "ticket": [
+          "t1"
+        ]
+      },
+      "facts": [
+        {
+          "id": "progress",
+          "arguments": [
+            "ticket"
+          ],
+          "kind": "mutable",
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3,
+          "unit": "stage",
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      ],
+      "derived_rules": [],
+      "activities": [
+        {
+          "id": "stage_0_v0",
+          "version": "1.0",
+          "type": "ticket_processing",
+          "parameters": {
+            "ticket": "ticket"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "test": {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": 0,
+              "unit": "stage"
+            }
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "set": {
+                "value": 1,
+                "unit": "stage"
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:ticket:Process"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        },
+        {
+          "id": "stage_1_v0",
+          "version": "1.0",
+          "type": "ticket_processing",
+          "parameters": {
+            "ticket": "ticket"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "test": {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": 1,
+              "unit": "stage"
+            }
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "set": {
+                "value": 2,
+                "unit": "stage"
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:ticket:Process"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        },
+        {
+          "id": "stage_2_v0",
+          "version": "1.0",
+          "type": "ticket_processing",
+          "parameters": {
+            "ticket": "ticket"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "all": []
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  {
+                    "param": "ticket"
+                  }
+                ]
+              },
+              "set": {
+                "value": 3,
+                "unit": "stage"
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:ticket:Process"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "uri": "urn:ticket:Process",
+          "mapping_status": "unmapped",
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      ],
+      "source_refs": [
+        "synthetic-phase6-service-ticket-model"
+      ]
+    },
+    "request": {
+      "format_version": "task-flow-1.0",
+      "request_id": "ticket-study",
+      "catalog_id": "service-ticket",
+      "catalog_version": "1.0",
+      "catalog_sha256": "b57fce21765802df221208b625c68845b612ea2b5af1047c8076e4025e089f79",
+      "static_facts": [],
+      "initial_state": [
+        {
+          "fact": {
+            "predicate": "progress",
+            "args": [
+              "t1"
+            ]
+          },
+          "value": 0,
+          "unit": "stage"
+        }
+      ],
+      "ontology_evidence": [],
+      "goal": {
+        "test": {
+          "fact": {
+            "predicate": "progress",
+            "args": [
+              "t1"
+            ]
+          },
+          "op": "eq",
+          "value": 3,
+          "unit": "stage"
+        }
+      },
+      "required_activities": [],
+      "forbidden_conditions": [],
+      "activity_limits": {},
+      "search": {
+        "mode": "first_feasible",
+        "max_length": 3,
+        "max_nodes": 20000,
+        "timeout_ms": 30000
+      },
+      "source_refs": [
+        "synthetic-phase6-service-ticket-model"
+      ]
+    },
+    "schema_valid": true,
+    "search": {
+      "format_version": "task-flow-search-1.0",
+      "algorithm": "iterative_deepening_depth_first",
+      "catalog_sha256": "b57fce21765802df221208b625c68845b612ea2b5af1047c8076e4025e089f79",
+      "request_sha256": "3b9fc414f522f4654de6a76f36d561d86ec64fb692ee47bed3731f9ae5d57426",
+      "search_status": "candidate_found",
+      "termination_reason": "first_feasible_pause",
+      "conclusion": "candidates_available",
+      "coverage": "partial",
+      "coverage_scope": "certified_executable_sequences_within_declared_bounds",
+      "unknown_conditions_seen": false,
+      "unknown_examples": [],
+      "candidates": [
+        {
+          "candidate_id": "flow-9317f0976aa5df5166a9aae9b37d031244be7b4d1b9e860b5fedfb8171585ab6",
+          "sequence": {
+            "format_version": "task-flow-1.0",
+            "catalog_sha256": "b57fce21765802df221208b625c68845b612ea2b5af1047c8076e4025e089f79",
+            "request_sha256": "3b9fc414f522f4654de6a76f36d561d86ec64fb692ee47bed3731f9ae5d57426",
+            "steps": [
+              {
+                "activity_id": "stage_2_v0",
+                "activity_version": "1.0",
+                "parameters": {
+                  "ticket": "t1"
+                }
+              }
+            ]
+          },
+          "capability_demands": [
+            {
+              "step_index": 0,
+              "activity_id": "stage_2_v0",
+              "required_capabilities": [
+                "urn:ticket:Process"
+              ],
+              "source_refs": [
+                "synthetic-phase6-service-ticket-model"
+              ]
+            }
+          ],
+          "final_state": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  "t1"
+                ]
+              },
+              "value": 3,
+              "kind": "mutable",
+              "unit": "stage"
+            }
+          ],
+          "generation_goal_satisfied": true,
+          "verification_status": "not_run",
+          "external_status": "not_run"
+        }
+      ],
+      "statistics": {
+        "nodes": 3,
+        "prefixes_checked": 4,
+        "transitions_applied": 2,
+        "rejected_prefixes": 0,
+        "rejected_occurrences": 0,
+        "rejected_transitions": 1,
+        "unknown_branches": 0,
+        "unknown_goal_checks": 0,
+        "candidate_count": 1,
+        "elapsed_ms": 0.715
+      },
+      "rejections": [
+        {
+          "reason": "preconditions is false",
+          "count": 1
+        }
+      ],
+      "limits": {
+        "max_nodes": 20000,
+        "timeout_ms": 30000,
+        "max_candidates": 10000,
+        "max_length": 3
+      },
+      "current_depth_limit": 1,
+      "resume_supported": true,
+      "planning_executed": true,
+      "independent_verification_executed": false,
+      "input_snapshot": {
+        "catalog": {
+          "format_version": "task-flow-1.0",
+          "catalog_id": "service-ticket",
+          "version": "1.0",
+          "objects": {
+            "ticket": [
+              "t1"
+            ]
+          },
+          "facts": [
+            {
+              "id": "progress",
+              "arguments": [
+                "ticket"
+              ],
+              "kind": "mutable",
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 3,
+              "unit": "stage",
+              "source_refs": [
+                "synthetic-phase6-service-ticket-model"
+              ]
+            }
+          ],
+          "derived_rules": [],
+          "activities": [
+            {
+              "id": "stage_0_v0",
+              "version": "1.0",
+              "type": "ticket_processing",
+              "parameters": {
+                "ticket": "ticket"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "test": {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": 0,
+                  "unit": "stage"
+                }
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": 1,
+                    "unit": "stage"
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:ticket:Process"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-phase6-service-ticket-model"
+              ]
+            },
+            {
+              "id": "stage_1_v0",
+              "version": "1.0",
+              "type": "ticket_processing",
+              "parameters": {
+                "ticket": "ticket"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "test": {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": 1,
+                  "unit": "stage"
+                }
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": 2,
+                    "unit": "stage"
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:ticket:Process"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-phase6-service-ticket-model"
+              ]
+            },
+            {
+              "id": "stage_2_v0",
+              "version": "1.0",
+              "type": "ticket_processing",
+              "parameters": {
+                "ticket": "ticket"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": []
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": 3,
+                    "unit": "stage"
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:ticket:Process"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-phase6-service-ticket-model"
+              ]
+            }
+          ],
+          "capabilities": [
+            {
+              "uri": "urn:ticket:Process",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-phase6-service-ticket-model"
+              ]
+            }
+          ],
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        },
+        "request": {
+          "format_version": "task-flow-1.0",
+          "request_id": "ticket-study",
+          "catalog_id": "service-ticket",
+          "catalog_version": "1.0",
+          "catalog_sha256": "b57fce21765802df221208b625c68845b612ea2b5af1047c8076e4025e089f79",
+          "static_facts": [],
+          "initial_state": [
+            {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  "t1"
+                ]
+              },
+              "value": 0,
+              "unit": "stage"
+            }
+          ],
+          "ontology_evidence": [],
+          "goal": {
+            "test": {
+              "fact": {
+                "predicate": "progress",
+                "args": [
+                  "t1"
+                ]
+              },
+              "op": "eq",
+              "value": 3,
+              "unit": "stage"
+            }
+          },
+          "required_activities": [],
+          "forbidden_conditions": [],
+          "activity_limits": {},
+          "search": {
+            "mode": "first_feasible",
+            "max_length": 3,
+            "max_nodes": 20000,
+            "timeout_ms": 30000
+          },
+          "source_refs": [
+            "synthetic-phase6-service-ticket-model"
+          ]
+        }
+      }
+    },
+    "verifications": [
+      {
+        "format_version": "task-flow-verification-1.0",
+        "verification_status": "passed",
+        "catalog_sha256": "b57fce21765802df221208b625c68845b612ea2b5af1047c8076e4025e089f79",
+        "request_sha256": "3b9fc414f522f4654de6a76f36d561d86ec64fb692ee47bed3731f9ae5d57426",
+        "sequence_sha256": "9317f0976aa5df5166a9aae9b37d031244be7b4d1b9e860b5fedfb8171585ab6",
+        "trace": [
+          {
+            "step_index": 0,
+            "instance": {
+              "activity_id": "stage_2_v0",
+              "activity_version": "1.0",
+              "parameters": {
+                "ticket": "t1"
+              }
+            },
+            "status": "passed",
+            "before_state": [
+              {
+                "fact": {
+                  "predicate": "progress",
+                  "args": [
+                    "t1"
+                  ]
+                },
+                "value": 0,
+                "kind": "mutable",
+                "unit": "stage"
+              }
+            ],
+            "after_state": [
+              {
+                "fact": {
+                  "predicate": "progress",
+                  "args": [
+                    "t1"
+                  ]
+                },
+                "value": 3,
+                "kind": "mutable",
+                "unit": "stage"
+              }
+            ],
+            "committed": true,
+            "applicability": {
+              "expression": {
+                "all": []
+              },
+              "value": true,
+              "evidence": []
+            },
+            "preconditions": {
+              "expression": {
+                "all": []
+              },
+              "value": true,
+              "evidence": []
+            },
+            "effects": [
+              {
+                "target": {
+                  "predicate": "progress",
+                  "args": [
+                    "t1"
+                  ]
+                },
+                "old_value": 0,
+                "proposed_value": 3,
+                "definition": {
+                  "fact": {
+                    "predicate": "progress",
+                    "args": [
+                      {
+                        "param": "ticket"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": 3,
+                    "unit": "stage"
+                  }
+                }
+              }
+            ],
+            "state_delta": [
+              {
+                "fact": {
+                  "predicate": "progress",
+                  "args": [
+                    "t1"
+                  ]
+                },
+                "before": 0,
+                "after": 3
+              }
+            ],
+            "derived_checks": [],
+            "invariants_after": [],
+            "source_refs": [
+              "synthetic-phase6-service-ticket-model"
+            ]
+          }
+        ],
+        "initial_state": [
+          {
+            "fact": {
+              "predicate": "progress",
+              "args": [
+                "t1"
+              ]
+            },
+            "value": 0,
+            "kind": "mutable",
+            "unit": "stage"
+          }
+        ],
+        "final_state": [
+          {
+            "fact": {
+              "predicate": "progress",
+              "args": [
+                "t1"
+              ]
+            },
+            "value": 3,
+            "kind": "mutable",
+            "unit": "stage"
+          }
+        ],
+        "initial_derivations": [],
+        "initial_invariants": [],
+        "final_checks": {
+          "goal": {
+            "expression": {
+              "test": {
+                "fact": {
+                  "predicate": "progress",
+                  "args": [
+                    "t1"
+                  ]
+                },
+                "op": "eq",
+                "value": 3,
+                "unit": "stage"
+              }
+            },
+            "value": true,
+            "evidence": [
+              {
+                "fact": {
+                  "predicate": "progress",
+                  "args": [
+                    "t1"
+                  ]
+                },
+                "actual": 3,
+                "op": "eq",
+                "expected": 3,
+                "derived_rule_id": null
+              }
+            ]
+          },
+          "missing_required_activities": []
+        },
+        "input_sources": {
+          "catalog": [
+            "synthetic-phase6-service-ticket-model"
+          ],
+          "request": [
+            "synthetic-phase6-service-ticket-model"
+          ],
+          "imported_static_evidence": []
+        },
+        "failure": null,
+        "independent_verification_executed": true,
+        "external_status": "not_run"
+      }
+    ],
+    "external_manual_domain_check": [
+      {
+        "before": 0,
+        "after": 3,
+        "increment_is_one": false
+      }
+    ],
+    "outcome": "formal_pass_domain_error_not_detected",
+    "expected": "formal_pass_domain_error_not_detected",
+    "passed": true
+  }
+]
