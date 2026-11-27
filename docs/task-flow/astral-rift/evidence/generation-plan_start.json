@@ -1,0 +1,5051 @@
+{
+  "case": {
+    "id": "plan_start",
+    "goal_facts": [
+      "stabilized",
+      "result_confirmed"
+    ],
+    "initial_overrides": {
+      "anomaly_known": true,
+      "state_verified": true,
+      "stability_analyzed": true,
+      "plan_defined": true
+    },
+    "search_overrides": {},
+    "delay_budget_seconds": null,
+    "clock_kind": "monotonic",
+    "expected": {
+      "search_status": "candidate_found",
+      "conclusion": "candidates_available",
+      "first_steps": [
+        "A1",
+        "A2"
+      ],
+      "first_delay_seconds": 8,
+      "verification_status": "passed"
+    }
+  },
+  "scenario_sha256": "1dafe3b9d91458068e893938cc57b22399531d4468df200caccc50377b956513",
+  "clock_kind": "monotonic",
+  "catalog": {
+    "format_version": "task-flow-1.0",
+    "catalog_id": "astral-rift",
+    "version": "1.0",
+    "objects": {
+      "rift": [
+        "rift-01"
+      ]
+    },
+    "facts": [
+      {
+        "id": "rift_exists",
+        "arguments": [
+          "rift"
+        ],
+        "kind": "static",
+        "type": "boolean",
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "id": "can_stabilize",
+        "arguments": [
+          "rift"
+        ],
+        "kind": "static",
+        "type": "boolean",
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "id": "anomaly_known",
+        "arguments": [
+          "rift"
+        ],
+        "kind": "mutable",
+        "type": "boolean",
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "id": "state_verified",
+        "arguments": [
+          "rift"
+        ],
+        "kind": "mutable",
+        "type": "boolean",
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "id": "energy_logged",
+        "arguments": [
+          "rift"
+        ],
+        "kind": "mutable",
+        "type": "boolean",
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "id": "stability_analyzed",
+        "arguments": [
+          "rift"
+        ],
+        "kind": "mutable",
+        "type": "boolean",
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "id": "plan_defined",
+        "arguments": [
+          "rift"
+        ],
+        "kind": "mutable",
+        "type": "boolean",
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "id": "observation_assessed",
+        "arguments": [
+          "rift"
+        ],
+        "kind": "mutable",
+        "type": "boolean",
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "id": "stabilized",
+        "arguments": [
+          "rift"
+        ],
+        "kind": "mutable",
+        "type": "boolean",
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "id": "result_confirmed",
+        "arguments": [
+          "rift"
+        ],
+        "kind": "mutable",
+        "type": "boolean",
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "id": "elapsed_seconds",
+        "arguments": [
+          "rift"
+        ],
+        "kind": "mutable",
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 60,
+        "unit": "second",
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      }
+    ],
+    "derived_rules": [],
+    "activities": [
+      {
+        "id": "S1",
+        "version": "1.0",
+        "type": "S",
+        "parameters": {
+          "rift": "rift"
+        },
+        "applicable_when": {
+          "all": []
+        },
+        "preconditions": {
+          "all": [
+            {
+              "test": {
+                "fact": {
+                  "predicate": "rift_exists",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          ]
+        },
+        "effects": [
+          {
+            "fact": {
+              "predicate": "anomaly_known",
+              "args": [
+                {
+                  "param": "rift"
+                }
+              ]
+            },
+            "set": {
+              "value": true
+            }
+          },
+          {
+            "fact": {
+              "predicate": "elapsed_seconds",
+              "args": [
+                {
+                  "param": "rift"
+                }
+              ]
+            },
+            "set": {
+              "read": {
+                "predicate": "elapsed_seconds",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "offset": 2,
+              "unit": "second"
+            }
+          }
+        ],
+        "required_capabilities": [
+          "urn:astral-demo:S1"
+        ],
+        "max_occurrences": 1,
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "id": "S2",
+        "version": "1.0",
+        "type": "S",
+        "parameters": {
+          "rift": "rift"
+        },
+        "applicable_when": {
+          "all": []
+        },
+        "preconditions": {
+          "all": [
+            {
+              "test": {
+                "fact": {
+                  "predicate": "anomaly_known",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          ]
+        },
+        "effects": [
+          {
+            "fact": {
+              "predicate": "state_verified",
+              "args": [
+                {
+                  "param": "rift"
+                }
+              ]
+            },
+            "set": {
+              "value": true
+            }
+          },
+          {
+            "fact": {
+              "predicate": "elapsed_seconds",
+              "args": [
+                {
+                  "param": "rift"
+                }
+              ]
+            },
+            "set": {
+              "read": {
+                "predicate": "elapsed_seconds",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "offset": 3,
+              "unit": "second"
+            }
+          }
+        ],
+        "required_capabilities": [
+          "urn:astral-demo:S2"
+        ],
+        "max_occurrences": 1,
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "id": "S3",
+        "version": "1.0",
+        "type": "S",
+        "parameters": {
+          "rift": "rift"
+        },
+        "applicable_when": {
+          "all": []
+        },
+        "preconditions": {
+          "all": [
+            {
+              "test": {
+                "fact": {
+                  "predicate": "state_verified",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          ]
+        },
+        "effects": [
+          {
+            "fact": {
+              "predicate": "energy_logged",
+              "args": [
+                {
+                  "param": "rift"
+                }
+              ]
+            },
+            "set": {
+              "value": true
+            }
+          },
+          {
+            "fact": {
+              "predicate": "elapsed_seconds",
+              "args": [
+                {
+                  "param": "rift"
+                }
+              ]
+            },
+            "set": {
+              "read": {
+                "predicate": "elapsed_seconds",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "offset": 2,
+              "unit": "second"
+            }
+          }
+        ],
+        "required_capabilities": [
+          "urn:astral-demo:S3"
+        ],
+        "max_occurrences": 1,
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "id": "D1",
+        "version": "1.0",
+        "type": "D",
+        "parameters": {
+          "rift": "rift"
+        },
+        "applicable_when": {
+          "all": []
+        },
+        "preconditions": {
+          "all": [
+            {
+              "test": {
+                "fact": {
+                  "predicate": "state_verified",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          ]
+        },
+        "effects": [
+          {
+            "fact": {
+              "predicate": "stability_analyzed",
+              "args": [
+                {
+                  "param": "rift"
+                }
+              ]
+            },
+            "set": {
+              "value": true
+            }
+          },
+          {
+            "fact": {
+              "predicate": "elapsed_seconds",
+              "args": [
+                {
+                  "param": "rift"
+                }
+              ]
+            },
+            "set": {
+              "read": {
+                "predicate": "elapsed_seconds",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "offset": 4,
+              "unit": "second"
+            }
+          }
+        ],
+        "required_capabilities": [
+          "urn:astral-demo:D1"
+        ],
+        "max_occurrences": 1,
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "id": "D2",
+        "version": "1.0",
+        "type": "D",
+        "parameters": {
+          "rift": "rift"
+        },
+        "applicable_when": {
+          "all": []
+        },
+        "preconditions": {
+          "all": [
+            {
+              "test": {
+                "fact": {
+                  "predicate": "stability_analyzed",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          ]
+        },
+        "effects": [
+          {
+            "fact": {
+              "predicate": "plan_defined",
+              "args": [
+                {
+                  "param": "rift"
+                }
+              ]
+            },
+            "set": {
+              "value": true
+            }
+          },
+          {
+            "fact": {
+              "predicate": "elapsed_seconds",
+              "args": [
+                {
+                  "param": "rift"
+                }
+              ]
+            },
+            "set": {
+              "read": {
+                "predicate": "elapsed_seconds",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "offset": 5,
+              "unit": "second"
+            }
+          }
+        ],
+        "required_capabilities": [
+          "urn:astral-demo:D2"
+        ],
+        "max_occurrences": 1,
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "id": "D3",
+        "version": "1.0",
+        "type": "D",
+        "parameters": {
+          "rift": "rift"
+        },
+        "applicable_when": {
+          "all": []
+        },
+        "preconditions": {
+          "all": [
+            {
+              "test": {
+                "fact": {
+                  "predicate": "energy_logged",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          ]
+        },
+        "effects": [
+          {
+            "fact": {
+              "predicate": "observation_assessed",
+              "args": [
+                {
+                  "param": "rift"
+                }
+              ]
+            },
+            "set": {
+              "value": true
+            }
+          },
+          {
+            "fact": {
+              "predicate": "elapsed_seconds",
+              "args": [
+                {
+                  "param": "rift"
+                }
+              ]
+            },
+            "set": {
+              "read": {
+                "predicate": "elapsed_seconds",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "offset": 3,
+              "unit": "second"
+            }
+          }
+        ],
+        "required_capabilities": [
+          "urn:astral-demo:D3"
+        ],
+        "max_occurrences": 1,
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "id": "A1",
+        "version": "1.0",
+        "type": "A",
+        "parameters": {
+          "rift": "rift"
+        },
+        "applicable_when": {
+          "all": []
+        },
+        "preconditions": {
+          "all": [
+            {
+              "test": {
+                "fact": {
+                  "predicate": "plan_defined",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            },
+            {
+              "test": {
+                "fact": {
+                  "predicate": "can_stabilize",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          ]
+        },
+        "effects": [
+          {
+            "fact": {
+              "predicate": "stabilized",
+              "args": [
+                {
+                  "param": "rift"
+                }
+              ]
+            },
+            "set": {
+              "value": true
+            }
+          },
+          {
+            "fact": {
+              "predicate": "elapsed_seconds",
+              "args": [
+                {
+                  "param": "rift"
+                }
+              ]
+            },
+            "set": {
+              "read": {
+                "predicate": "elapsed_seconds",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "offset": 6,
+              "unit": "second"
+            }
+          }
+        ],
+        "required_capabilities": [
+          "urn:astral-demo:A1"
+        ],
+        "max_occurrences": 1,
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "id": "A2",
+        "version": "1.0",
+        "type": "A",
+        "parameters": {
+          "rift": "rift"
+        },
+        "applicable_when": {
+          "all": []
+        },
+        "preconditions": {
+          "all": [
+            {
+              "test": {
+                "fact": {
+                  "predicate": "stabilized",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          ]
+        },
+        "effects": [
+          {
+            "fact": {
+              "predicate": "result_confirmed",
+              "args": [
+                {
+                  "param": "rift"
+                }
+              ]
+            },
+            "set": {
+              "value": true
+            }
+          },
+          {
+            "fact": {
+              "predicate": "elapsed_seconds",
+              "args": [
+                {
+                  "param": "rift"
+                }
+              ]
+            },
+            "set": {
+              "read": {
+                "predicate": "elapsed_seconds",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "offset": 2,
+              "unit": "second"
+            }
+          }
+        ],
+        "required_capabilities": [
+          "urn:astral-demo:A2"
+        ],
+        "max_occurrences": 1,
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      }
+    ],
+    "capabilities": [
+      {
+        "uri": "urn:astral-demo:S1",
+        "mapping_status": "unmapped",
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "uri": "urn:astral-demo:S2",
+        "mapping_status": "unmapped",
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "uri": "urn:astral-demo:S3",
+        "mapping_status": "unmapped",
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "uri": "urn:astral-demo:D1",
+        "mapping_status": "unmapped",
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "uri": "urn:astral-demo:D2",
+        "mapping_status": "unmapped",
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "uri": "urn:astral-demo:D3",
+        "mapping_status": "unmapped",
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "uri": "urn:astral-demo:A1",
+        "mapping_status": "unmapped",
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      {
+        "uri": "urn:astral-demo:A2",
+        "mapping_status": "unmapped",
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      }
+    ],
+    "source_refs": [
+      "user-astral-rift-revised-example",
+      "docs/task-flow/astral-rift/README.md:v1.0"
+    ]
+  },
+  "request": {
+    "format_version": "task-flow-1.0",
+    "request_id": "plan_start",
+    "catalog_id": "astral-rift",
+    "catalog_version": "1.0",
+    "catalog_sha256": "59530f485c51c0df514139d80de408994b2efd39aeafc265e351638e9e3da117",
+    "static_facts": [
+      {
+        "fact": {
+          "predicate": "rift_exists",
+          "args": [
+            "rift-01"
+          ]
+        },
+        "value": true
+      },
+      {
+        "fact": {
+          "predicate": "can_stabilize",
+          "args": [
+            "rift-01"
+          ]
+        },
+        "value": true
+      }
+    ],
+    "initial_state": [
+      {
+        "fact": {
+          "predicate": "anomaly_known",
+          "args": [
+            "rift-01"
+          ]
+        },
+        "value": true
+      },
+      {
+        "fact": {
+          "predicate": "state_verified",
+          "args": [
+            "rift-01"
+          ]
+        },
+        "value": true
+      },
+      {
+        "fact": {
+          "predicate": "energy_logged",
+          "args": [
+            "rift-01"
+          ]
+        },
+        "value": false
+      },
+      {
+        "fact": {
+          "predicate": "stability_analyzed",
+          "args": [
+            "rift-01"
+          ]
+        },
+        "value": true
+      },
+      {
+        "fact": {
+          "predicate": "plan_defined",
+          "args": [
+            "rift-01"
+          ]
+        },
+        "value": true
+      },
+      {
+        "fact": {
+          "predicate": "observation_assessed",
+          "args": [
+            "rift-01"
+          ]
+        },
+        "value": false
+      },
+      {
+        "fact": {
+          "predicate": "stabilized",
+          "args": [
+            "rift-01"
+          ]
+        },
+        "value": false
+      },
+      {
+        "fact": {
+          "predicate": "result_confirmed",
+          "args": [
+            "rift-01"
+          ]
+        },
+        "value": false
+      },
+      {
+        "fact": {
+          "predicate": "elapsed_seconds",
+          "args": [
+            "rift-01"
+          ]
+        },
+        "value": 0,
+        "unit": "second"
+      }
+    ],
+    "ontology_evidence": [],
+    "goal": {
+      "all": [
+        {
+          "test": {
+            "fact": {
+              "predicate": "stabilized",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "op": "eq",
+            "value": true
+          }
+        },
+        {
+          "test": {
+            "fact": {
+              "predicate": "result_confirmed",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "op": "eq",
+            "value": true
+          }
+        }
+      ]
+    },
+    "required_activities": [],
+    "forbidden_conditions": [
+      {
+        "all": [
+          {
+            "test": {
+              "fact": {
+                "predicate": "state_verified",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          {
+            "not": {
+              "test": {
+                "fact": {
+                  "predicate": "anomaly_known",
+                  "args": [
+                    "rift-01"
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          }
+        ]
+      },
+      {
+        "all": [
+          {
+            "test": {
+              "fact": {
+                "predicate": "energy_logged",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          {
+            "not": {
+              "test": {
+                "fact": {
+                  "predicate": "state_verified",
+                  "args": [
+                    "rift-01"
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          }
+        ]
+      },
+      {
+        "all": [
+          {
+            "test": {
+              "fact": {
+                "predicate": "stability_analyzed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          {
+            "not": {
+              "test": {
+                "fact": {
+                  "predicate": "state_verified",
+                  "args": [
+                    "rift-01"
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          }
+        ]
+      },
+      {
+        "all": [
+          {
+            "test": {
+              "fact": {
+                "predicate": "plan_defined",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          {
+            "not": {
+              "test": {
+                "fact": {
+                  "predicate": "stability_analyzed",
+                  "args": [
+                    "rift-01"
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          }
+        ]
+      },
+      {
+        "all": [
+          {
+            "test": {
+              "fact": {
+                "predicate": "observation_assessed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          {
+            "not": {
+              "test": {
+                "fact": {
+                  "predicate": "energy_logged",
+                  "args": [
+                    "rift-01"
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          }
+        ]
+      },
+      {
+        "all": [
+          {
+            "test": {
+              "fact": {
+                "predicate": "stabilized",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          {
+            "not": {
+              "test": {
+                "fact": {
+                  "predicate": "plan_defined",
+                  "args": [
+                    "rift-01"
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          }
+        ]
+      },
+      {
+        "all": [
+          {
+            "test": {
+              "fact": {
+                "predicate": "result_confirmed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          {
+            "not": {
+              "test": {
+                "fact": {
+                  "predicate": "stabilized",
+                  "args": [
+                    "rift-01"
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "activity_limits": {},
+    "search": {
+      "max_length": 8,
+      "max_nodes": 20000,
+      "timeout_ms": 30000,
+      "mode": "first_feasible"
+    },
+    "source_refs": [
+      "user-astral-rift-revised-example",
+      "docs/task-flow/astral-rift/README.md:v1.0"
+    ]
+  },
+  "initial_values": {
+    "rift_exists": true,
+    "can_stabilize": true,
+    "anomaly_known": true,
+    "state_verified": true,
+    "energy_logged": false,
+    "stability_analyzed": true,
+    "plan_defined": true,
+    "observation_assessed": false,
+    "stabilized": false,
+    "result_confirmed": false,
+    "elapsed_seconds": 0
+  },
+  "search": {
+    "format_version": "task-flow-search-1.0",
+    "algorithm": "iterative_deepening_depth_first",
+    "catalog_sha256": "59530f485c51c0df514139d80de408994b2efd39aeafc265e351638e9e3da117",
+    "request_sha256": "8dcf55d2f123b38333ee1de27ff16ab976ed88ff25b837d834cfd07ecd8caa6a",
+    "search_status": "candidate_found",
+    "termination_reason": "first_feasible_pause",
+    "conclusion": "candidates_available",
+    "coverage": "partial",
+    "coverage_scope": "certified_executable_sequences_within_declared_bounds",
+    "unknown_conditions_seen": false,
+    "unknown_examples": [],
+    "candidates": [
+      {
+        "candidate_id": "flow-75a640c626a30365856460ecc5995252c710414ef5cd8356f972de46fc1bcd23",
+        "sequence": {
+          "format_version": "task-flow-1.0",
+          "catalog_sha256": "59530f485c51c0df514139d80de408994b2efd39aeafc265e351638e9e3da117",
+          "request_sha256": "8dcf55d2f123b38333ee1de27ff16ab976ed88ff25b837d834cfd07ecd8caa6a",
+          "steps": [
+            {
+              "activity_id": "A1",
+              "activity_version": "1.0",
+              "parameters": {
+                "rift": "rift-01"
+              }
+            },
+            {
+              "activity_id": "A2",
+              "activity_version": "1.0",
+              "parameters": {
+                "rift": "rift-01"
+              }
+            }
+          ]
+        },
+        "capability_demands": [
+          {
+            "step_index": 0,
+            "activity_id": "A1",
+            "required_capabilities": [
+              "urn:astral-demo:A1"
+            ],
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "step_index": 1,
+            "activity_id": "A2",
+            "required_capabilities": [
+              "urn:astral-demo:A2"
+            ],
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          }
+        ],
+        "final_state": [
+          {
+            "fact": {
+              "predicate": "anomaly_known",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": true,
+            "kind": "mutable"
+          },
+          {
+            "fact": {
+              "predicate": "can_stabilize",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": true,
+            "kind": "static"
+          },
+          {
+            "fact": {
+              "predicate": "elapsed_seconds",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": 8,
+            "kind": "mutable",
+            "unit": "second"
+          },
+          {
+            "fact": {
+              "predicate": "energy_logged",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": false,
+            "kind": "mutable"
+          },
+          {
+            "fact": {
+              "predicate": "observation_assessed",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": false,
+            "kind": "mutable"
+          },
+          {
+            "fact": {
+              "predicate": "plan_defined",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": true,
+            "kind": "mutable"
+          },
+          {
+            "fact": {
+              "predicate": "result_confirmed",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": true,
+            "kind": "mutable"
+          },
+          {
+            "fact": {
+              "predicate": "rift_exists",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": true,
+            "kind": "static"
+          },
+          {
+            "fact": {
+              "predicate": "stability_analyzed",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": true,
+            "kind": "mutable"
+          },
+          {
+            "fact": {
+              "predicate": "stabilized",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": true,
+            "kind": "mutable"
+          },
+          {
+            "fact": {
+              "predicate": "state_verified",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": true,
+            "kind": "mutable"
+          }
+        ],
+        "generation_goal_satisfied": true,
+        "verification_status": "not_run",
+        "external_status": "not_run"
+      }
+    ],
+    "statistics": {
+      "nodes": 11,
+      "prefixes_checked": 11,
+      "transitions_applied": 8,
+      "rejected_prefixes": 0,
+      "rejected_occurrences": 1,
+      "rejected_transitions": 2,
+      "unknown_branches": 0,
+      "unknown_goal_checks": 0,
+      "candidate_count": 1,
+      "elapsed_ms": 2.29
+    },
+    "rejections": [
+      {
+        "reason": "preconditions is false",
+        "count": 2
+      }
+    ],
+    "limits": {
+      "max_nodes": 20000,
+      "timeout_ms": 30000,
+      "max_candidates": 10000,
+      "max_length": 8
+    },
+    "current_depth_limit": 2,
+    "resume_supported": true,
+    "planning_executed": true,
+    "independent_verification_executed": false,
+    "input_snapshot": {
+      "catalog": {
+        "format_version": "task-flow-1.0",
+        "catalog_id": "astral-rift",
+        "version": "1.0",
+        "objects": {
+          "rift": [
+            "rift-01"
+          ]
+        },
+        "facts": [
+          {
+            "id": "rift_exists",
+            "arguments": [
+              "rift"
+            ],
+            "kind": "static",
+            "type": "boolean",
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "id": "can_stabilize",
+            "arguments": [
+              "rift"
+            ],
+            "kind": "static",
+            "type": "boolean",
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "id": "anomaly_known",
+            "arguments": [
+              "rift"
+            ],
+            "kind": "mutable",
+            "type": "boolean",
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "id": "state_verified",
+            "arguments": [
+              "rift"
+            ],
+            "kind": "mutable",
+            "type": "boolean",
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "id": "energy_logged",
+            "arguments": [
+              "rift"
+            ],
+            "kind": "mutable",
+            "type": "boolean",
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "id": "stability_analyzed",
+            "arguments": [
+              "rift"
+            ],
+            "kind": "mutable",
+            "type": "boolean",
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "id": "plan_defined",
+            "arguments": [
+              "rift"
+            ],
+            "kind": "mutable",
+            "type": "boolean",
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "id": "observation_assessed",
+            "arguments": [
+              "rift"
+            ],
+            "kind": "mutable",
+            "type": "boolean",
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "id": "stabilized",
+            "arguments": [
+              "rift"
+            ],
+            "kind": "mutable",
+            "type": "boolean",
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "id": "result_confirmed",
+            "arguments": [
+              "rift"
+            ],
+            "kind": "mutable",
+            "type": "boolean",
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "id": "elapsed_seconds",
+            "arguments": [
+              "rift"
+            ],
+            "kind": "mutable",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 60,
+            "unit": "second",
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          }
+        ],
+        "derived_rules": [],
+        "activities": [
+          {
+            "id": "S1",
+            "version": "1.0",
+            "type": "S",
+            "parameters": {
+              "rift": "rift"
+            },
+            "applicable_when": {
+              "all": []
+            },
+            "preconditions": {
+              "all": [
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "rift_exists",
+                      "args": [
+                        {
+                          "param": "rift"
+                        }
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              ]
+            },
+            "effects": [
+              {
+                "fact": {
+                  "predicate": "anomaly_known",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "value": true
+                }
+              },
+              {
+                "fact": {
+                  "predicate": "elapsed_seconds",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "read": {
+                    "predicate": "elapsed_seconds",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "offset": 2,
+                  "unit": "second"
+                }
+              }
+            ],
+            "required_capabilities": [
+              "urn:astral-demo:S1"
+            ],
+            "max_occurrences": 1,
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "id": "S2",
+            "version": "1.0",
+            "type": "S",
+            "parameters": {
+              "rift": "rift"
+            },
+            "applicable_when": {
+              "all": []
+            },
+            "preconditions": {
+              "all": [
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "anomaly_known",
+                      "args": [
+                        {
+                          "param": "rift"
+                        }
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              ]
+            },
+            "effects": [
+              {
+                "fact": {
+                  "predicate": "state_verified",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "value": true
+                }
+              },
+              {
+                "fact": {
+                  "predicate": "elapsed_seconds",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "read": {
+                    "predicate": "elapsed_seconds",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "offset": 3,
+                  "unit": "second"
+                }
+              }
+            ],
+            "required_capabilities": [
+              "urn:astral-demo:S2"
+            ],
+            "max_occurrences": 1,
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "id": "S3",
+            "version": "1.0",
+            "type": "S",
+            "parameters": {
+              "rift": "rift"
+            },
+            "applicable_when": {
+              "all": []
+            },
+            "preconditions": {
+              "all": [
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "state_verified",
+                      "args": [
+                        {
+                          "param": "rift"
+                        }
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              ]
+            },
+            "effects": [
+              {
+                "fact": {
+                  "predicate": "energy_logged",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "value": true
+                }
+              },
+              {
+                "fact": {
+                  "predicate": "elapsed_seconds",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "read": {
+                    "predicate": "elapsed_seconds",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "offset": 2,
+                  "unit": "second"
+                }
+              }
+            ],
+            "required_capabilities": [
+              "urn:astral-demo:S3"
+            ],
+            "max_occurrences": 1,
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "id": "D1",
+            "version": "1.0",
+            "type": "D",
+            "parameters": {
+              "rift": "rift"
+            },
+            "applicable_when": {
+              "all": []
+            },
+            "preconditions": {
+              "all": [
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "state_verified",
+                      "args": [
+                        {
+                          "param": "rift"
+                        }
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              ]
+            },
+            "effects": [
+              {
+                "fact": {
+                  "predicate": "stability_analyzed",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "value": true
+                }
+              },
+              {
+                "fact": {
+                  "predicate": "elapsed_seconds",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "read": {
+                    "predicate": "elapsed_seconds",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "offset": 4,
+                  "unit": "second"
+                }
+              }
+            ],
+            "required_capabilities": [
+              "urn:astral-demo:D1"
+            ],
+            "max_occurrences": 1,
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "id": "D2",
+            "version": "1.0",
+            "type": "D",
+            "parameters": {
+              "rift": "rift"
+            },
+            "applicable_when": {
+              "all": []
+            },
+            "preconditions": {
+              "all": [
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "stability_analyzed",
+                      "args": [
+                        {
+                          "param": "rift"
+                        }
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              ]
+            },
+            "effects": [
+              {
+                "fact": {
+                  "predicate": "plan_defined",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "value": true
+                }
+              },
+              {
+                "fact": {
+                  "predicate": "elapsed_seconds",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "read": {
+                    "predicate": "elapsed_seconds",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "offset": 5,
+                  "unit": "second"
+                }
+              }
+            ],
+            "required_capabilities": [
+              "urn:astral-demo:D2"
+            ],
+            "max_occurrences": 1,
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "id": "D3",
+            "version": "1.0",
+            "type": "D",
+            "parameters": {
+              "rift": "rift"
+            },
+            "applicable_when": {
+              "all": []
+            },
+            "preconditions": {
+              "all": [
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "energy_logged",
+                      "args": [
+                        {
+                          "param": "rift"
+                        }
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              ]
+            },
+            "effects": [
+              {
+                "fact": {
+                  "predicate": "observation_assessed",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "value": true
+                }
+              },
+              {
+                "fact": {
+                  "predicate": "elapsed_seconds",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "read": {
+                    "predicate": "elapsed_seconds",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "offset": 3,
+                  "unit": "second"
+                }
+              }
+            ],
+            "required_capabilities": [
+              "urn:astral-demo:D3"
+            ],
+            "max_occurrences": 1,
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "id": "A1",
+            "version": "1.0",
+            "type": "A",
+            "parameters": {
+              "rift": "rift"
+            },
+            "applicable_when": {
+              "all": []
+            },
+            "preconditions": {
+              "all": [
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "plan_defined",
+                      "args": [
+                        {
+                          "param": "rift"
+                        }
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                },
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "can_stabilize",
+                      "args": [
+                        {
+                          "param": "rift"
+                        }
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              ]
+            },
+            "effects": [
+              {
+                "fact": {
+                  "predicate": "stabilized",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "value": true
+                }
+              },
+              {
+                "fact": {
+                  "predicate": "elapsed_seconds",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "read": {
+                    "predicate": "elapsed_seconds",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "offset": 6,
+                  "unit": "second"
+                }
+              }
+            ],
+            "required_capabilities": [
+              "urn:astral-demo:A1"
+            ],
+            "max_occurrences": 1,
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "id": "A2",
+            "version": "1.0",
+            "type": "A",
+            "parameters": {
+              "rift": "rift"
+            },
+            "applicable_when": {
+              "all": []
+            },
+            "preconditions": {
+              "all": [
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "stabilized",
+                      "args": [
+                        {
+                          "param": "rift"
+                        }
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              ]
+            },
+            "effects": [
+              {
+                "fact": {
+                  "predicate": "result_confirmed",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "value": true
+                }
+              },
+              {
+                "fact": {
+                  "predicate": "elapsed_seconds",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "read": {
+                    "predicate": "elapsed_seconds",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "offset": 2,
+                  "unit": "second"
+                }
+              }
+            ],
+            "required_capabilities": [
+              "urn:astral-demo:A2"
+            ],
+            "max_occurrences": 1,
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          }
+        ],
+        "capabilities": [
+          {
+            "uri": "urn:astral-demo:S1",
+            "mapping_status": "unmapped",
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "uri": "urn:astral-demo:S2",
+            "mapping_status": "unmapped",
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "uri": "urn:astral-demo:S3",
+            "mapping_status": "unmapped",
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "uri": "urn:astral-demo:D1",
+            "mapping_status": "unmapped",
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "uri": "urn:astral-demo:D2",
+            "mapping_status": "unmapped",
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "uri": "urn:astral-demo:D3",
+            "mapping_status": "unmapped",
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "uri": "urn:astral-demo:A1",
+            "mapping_status": "unmapped",
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          },
+          {
+            "uri": "urn:astral-demo:A2",
+            "mapping_status": "unmapped",
+            "source_refs": [
+              "user-astral-rift-revised-example",
+              "docs/task-flow/astral-rift/README.md:v1.0"
+            ]
+          }
+        ],
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      },
+      "request": {
+        "format_version": "task-flow-1.0",
+        "request_id": "plan_start",
+        "catalog_id": "astral-rift",
+        "catalog_version": "1.0",
+        "catalog_sha256": "59530f485c51c0df514139d80de408994b2efd39aeafc265e351638e9e3da117",
+        "static_facts": [
+          {
+            "fact": {
+              "predicate": "rift_exists",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": true
+          },
+          {
+            "fact": {
+              "predicate": "can_stabilize",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": true
+          }
+        ],
+        "initial_state": [
+          {
+            "fact": {
+              "predicate": "anomaly_known",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": true
+          },
+          {
+            "fact": {
+              "predicate": "state_verified",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": true
+          },
+          {
+            "fact": {
+              "predicate": "energy_logged",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": false
+          },
+          {
+            "fact": {
+              "predicate": "stability_analyzed",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": true
+          },
+          {
+            "fact": {
+              "predicate": "plan_defined",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": true
+          },
+          {
+            "fact": {
+              "predicate": "observation_assessed",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": false
+          },
+          {
+            "fact": {
+              "predicate": "stabilized",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": false
+          },
+          {
+            "fact": {
+              "predicate": "result_confirmed",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": false
+          },
+          {
+            "fact": {
+              "predicate": "elapsed_seconds",
+              "args": [
+                "rift-01"
+              ]
+            },
+            "value": 0,
+            "unit": "second"
+          }
+        ],
+        "ontology_evidence": [],
+        "goal": {
+          "all": [
+            {
+              "test": {
+                "fact": {
+                  "predicate": "stabilized",
+                  "args": [
+                    "rift-01"
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            },
+            {
+              "test": {
+                "fact": {
+                  "predicate": "result_confirmed",
+                  "args": [
+                    "rift-01"
+                  ]
+                },
+                "op": "eq",
+                "value": true
+              }
+            }
+          ]
+        },
+        "required_activities": [],
+        "forbidden_conditions": [
+          {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "state_verified",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "not": {
+                  "test": {
+                    "fact": {
+                      "predicate": "anomaly_known",
+                      "args": [
+                        "rift-01"
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "energy_logged",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "not": {
+                  "test": {
+                    "fact": {
+                      "predicate": "state_verified",
+                      "args": [
+                        "rift-01"
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "stability_analyzed",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "not": {
+                  "test": {
+                    "fact": {
+                      "predicate": "state_verified",
+                      "args": [
+                        "rift-01"
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "plan_defined",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "not": {
+                  "test": {
+                    "fact": {
+                      "predicate": "stability_analyzed",
+                      "args": [
+                        "rift-01"
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "observation_assessed",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "not": {
+                  "test": {
+                    "fact": {
+                      "predicate": "energy_logged",
+                      "args": [
+                        "rift-01"
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "stabilized",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "not": {
+                  "test": {
+                    "fact": {
+                      "predicate": "plan_defined",
+                      "args": [
+                        "rift-01"
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "result_confirmed",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "not": {
+                  "test": {
+                    "fact": {
+                      "predicate": "stabilized",
+                      "args": [
+                        "rift-01"
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              }
+            ]
+          }
+        ],
+        "activity_limits": {},
+        "search": {
+          "max_length": 8,
+          "max_nodes": 20000,
+          "timeout_ms": 30000,
+          "mode": "first_feasible"
+        },
+        "source_refs": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ]
+      }
+    }
+  },
+  "verifications": [
+    {
+      "format_version": "task-flow-verification-1.0",
+      "verification_status": "passed",
+      "catalog_sha256": "59530f485c51c0df514139d80de408994b2efd39aeafc265e351638e9e3da117",
+      "request_sha256": "8dcf55d2f123b38333ee1de27ff16ab976ed88ff25b837d834cfd07ecd8caa6a",
+      "sequence_sha256": "75a640c626a30365856460ecc5995252c710414ef5cd8356f972de46fc1bcd23",
+      "trace": [
+        {
+          "step_index": 0,
+          "instance": {
+            "activity_id": "A1",
+            "activity_version": "1.0",
+            "parameters": {
+              "rift": "rift-01"
+            }
+          },
+          "status": "passed",
+          "before_state": [
+            {
+              "fact": {
+                "predicate": "anomaly_known",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "can_stabilize",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "static"
+            },
+            {
+              "fact": {
+                "predicate": "elapsed_seconds",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": 0,
+              "kind": "mutable",
+              "unit": "second"
+            },
+            {
+              "fact": {
+                "predicate": "energy_logged",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": false,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "observation_assessed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": false,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "plan_defined",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "result_confirmed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": false,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "rift_exists",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "static"
+            },
+            {
+              "fact": {
+                "predicate": "stability_analyzed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "stabilized",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": false,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "state_verified",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            }
+          ],
+          "after_state": [
+            {
+              "fact": {
+                "predicate": "anomaly_known",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "can_stabilize",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "static"
+            },
+            {
+              "fact": {
+                "predicate": "elapsed_seconds",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": 6,
+              "kind": "mutable",
+              "unit": "second"
+            },
+            {
+              "fact": {
+                "predicate": "energy_logged",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": false,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "observation_assessed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": false,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "plan_defined",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "result_confirmed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": false,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "rift_exists",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "static"
+            },
+            {
+              "fact": {
+                "predicate": "stability_analyzed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "stabilized",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "state_verified",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            }
+          ],
+          "committed": true,
+          "applicability": {
+            "expression": {
+              "all": []
+            },
+            "value": true,
+            "evidence": []
+          },
+          "preconditions": {
+            "expression": {
+              "all": [
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "plan_defined",
+                      "args": [
+                        {
+                          "param": "rift"
+                        }
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                },
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "can_stabilize",
+                      "args": [
+                        {
+                          "param": "rift"
+                        }
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              ]
+            },
+            "value": true,
+            "evidence": [
+              {
+                "fact": {
+                  "predicate": "plan_defined",
+                  "args": [
+                    "rift-01"
+                  ]
+                },
+                "actual": true,
+                "op": "eq",
+                "expected": true,
+                "derived_rule_id": null
+              },
+              {
+                "fact": {
+                  "predicate": "can_stabilize",
+                  "args": [
+                    "rift-01"
+                  ]
+                },
+                "actual": true,
+                "op": "eq",
+                "expected": true,
+                "derived_rule_id": null
+              }
+            ]
+          },
+          "effects": [
+            {
+              "target": {
+                "predicate": "stabilized",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "old_value": false,
+              "proposed_value": true,
+              "definition": {
+                "fact": {
+                  "predicate": "stabilized",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "value": true
+                }
+              }
+            },
+            {
+              "target": {
+                "predicate": "elapsed_seconds",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "old_value": 0,
+              "proposed_value": 6,
+              "definition": {
+                "fact": {
+                  "predicate": "elapsed_seconds",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "read": {
+                    "predicate": "elapsed_seconds",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "offset": 6,
+                  "unit": "second"
+                }
+              }
+            }
+          ],
+          "state_delta": [
+            {
+              "fact": {
+                "predicate": "elapsed_seconds",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "before": 0,
+              "after": 6
+            },
+            {
+              "fact": {
+                "predicate": "stabilized",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "before": false,
+              "after": true
+            }
+          ],
+          "derived_checks": [],
+          "invariants_after": [
+            {
+              "expression": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "state_verified",
+                        "args": [
+                          "rift-01"
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "not": {
+                      "test": {
+                        "fact": {
+                          "predicate": "anomaly_known",
+                          "args": [
+                            "rift-01"
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "value": false,
+              "evidence": [
+                {
+                  "fact": {
+                    "predicate": "state_verified",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                },
+                {
+                  "fact": {
+                    "predicate": "anomaly_known",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                }
+              ]
+            },
+            {
+              "expression": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "energy_logged",
+                        "args": [
+                          "rift-01"
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "not": {
+                      "test": {
+                        "fact": {
+                          "predicate": "state_verified",
+                          "args": [
+                            "rift-01"
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "value": false,
+              "evidence": [
+                {
+                  "fact": {
+                    "predicate": "energy_logged",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": false,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                },
+                {
+                  "fact": {
+                    "predicate": "state_verified",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                }
+              ]
+            },
+            {
+              "expression": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "stability_analyzed",
+                        "args": [
+                          "rift-01"
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "not": {
+                      "test": {
+                        "fact": {
+                          "predicate": "state_verified",
+                          "args": [
+                            "rift-01"
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "value": false,
+              "evidence": [
+                {
+                  "fact": {
+                    "predicate": "stability_analyzed",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                },
+                {
+                  "fact": {
+                    "predicate": "state_verified",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                }
+              ]
+            },
+            {
+              "expression": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "plan_defined",
+                        "args": [
+                          "rift-01"
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "not": {
+                      "test": {
+                        "fact": {
+                          "predicate": "stability_analyzed",
+                          "args": [
+                            "rift-01"
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "value": false,
+              "evidence": [
+                {
+                  "fact": {
+                    "predicate": "plan_defined",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                },
+                {
+                  "fact": {
+                    "predicate": "stability_analyzed",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                }
+              ]
+            },
+            {
+              "expression": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "observation_assessed",
+                        "args": [
+                          "rift-01"
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "not": {
+                      "test": {
+                        "fact": {
+                          "predicate": "energy_logged",
+                          "args": [
+                            "rift-01"
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "value": false,
+              "evidence": [
+                {
+                  "fact": {
+                    "predicate": "observation_assessed",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": false,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                },
+                {
+                  "fact": {
+                    "predicate": "energy_logged",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": false,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                }
+              ]
+            },
+            {
+              "expression": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "stabilized",
+                        "args": [
+                          "rift-01"
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "not": {
+                      "test": {
+                        "fact": {
+                          "predicate": "plan_defined",
+                          "args": [
+                            "rift-01"
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "value": false,
+              "evidence": [
+                {
+                  "fact": {
+                    "predicate": "stabilized",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                },
+                {
+                  "fact": {
+                    "predicate": "plan_defined",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                }
+              ]
+            },
+            {
+              "expression": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "result_confirmed",
+                        "args": [
+                          "rift-01"
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "not": {
+                      "test": {
+                        "fact": {
+                          "predicate": "stabilized",
+                          "args": [
+                            "rift-01"
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "value": false,
+              "evidence": [
+                {
+                  "fact": {
+                    "predicate": "result_confirmed",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": false,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                },
+                {
+                  "fact": {
+                    "predicate": "stabilized",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                }
+              ]
+            }
+          ],
+          "source_refs": [
+            "user-astral-rift-revised-example",
+            "docs/task-flow/astral-rift/README.md:v1.0"
+          ]
+        },
+        {
+          "step_index": 1,
+          "instance": {
+            "activity_id": "A2",
+            "activity_version": "1.0",
+            "parameters": {
+              "rift": "rift-01"
+            }
+          },
+          "status": "passed",
+          "before_state": [
+            {
+              "fact": {
+                "predicate": "anomaly_known",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "can_stabilize",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "static"
+            },
+            {
+              "fact": {
+                "predicate": "elapsed_seconds",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": 6,
+              "kind": "mutable",
+              "unit": "second"
+            },
+            {
+              "fact": {
+                "predicate": "energy_logged",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": false,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "observation_assessed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": false,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "plan_defined",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "result_confirmed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": false,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "rift_exists",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "static"
+            },
+            {
+              "fact": {
+                "predicate": "stability_analyzed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "stabilized",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "state_verified",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            }
+          ],
+          "after_state": [
+            {
+              "fact": {
+                "predicate": "anomaly_known",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "can_stabilize",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "static"
+            },
+            {
+              "fact": {
+                "predicate": "elapsed_seconds",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": 8,
+              "kind": "mutable",
+              "unit": "second"
+            },
+            {
+              "fact": {
+                "predicate": "energy_logged",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": false,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "observation_assessed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": false,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "plan_defined",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "result_confirmed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "rift_exists",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "static"
+            },
+            {
+              "fact": {
+                "predicate": "stability_analyzed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "stabilized",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            },
+            {
+              "fact": {
+                "predicate": "state_verified",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "value": true,
+              "kind": "mutable"
+            }
+          ],
+          "committed": true,
+          "applicability": {
+            "expression": {
+              "all": []
+            },
+            "value": true,
+            "evidence": []
+          },
+          "preconditions": {
+            "expression": {
+              "all": [
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "stabilized",
+                      "args": [
+                        {
+                          "param": "rift"
+                        }
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              ]
+            },
+            "value": true,
+            "evidence": [
+              {
+                "fact": {
+                  "predicate": "stabilized",
+                  "args": [
+                    "rift-01"
+                  ]
+                },
+                "actual": true,
+                "op": "eq",
+                "expected": true,
+                "derived_rule_id": null
+              }
+            ]
+          },
+          "effects": [
+            {
+              "target": {
+                "predicate": "result_confirmed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "old_value": false,
+              "proposed_value": true,
+              "definition": {
+                "fact": {
+                  "predicate": "result_confirmed",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "value": true
+                }
+              }
+            },
+            {
+              "target": {
+                "predicate": "elapsed_seconds",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "old_value": 6,
+              "proposed_value": 8,
+              "definition": {
+                "fact": {
+                  "predicate": "elapsed_seconds",
+                  "args": [
+                    {
+                      "param": "rift"
+                    }
+                  ]
+                },
+                "set": {
+                  "read": {
+                    "predicate": "elapsed_seconds",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "offset": 2,
+                  "unit": "second"
+                }
+              }
+            }
+          ],
+          "state_delta": [
+            {
+              "fact": {
+                "predicate": "elapsed_seconds",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "before": 6,
+              "after": 8
+            },
+            {
+              "fact": {
+                "predicate": "result_confirmed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "before": false,
+              "after": true
+            }
+          ],
+          "derived_checks": [],
+          "invariants_after": [
+            {
+              "expression": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "state_verified",
+                        "args": [
+                          "rift-01"
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "not": {
+                      "test": {
+                        "fact": {
+                          "predicate": "anomaly_known",
+                          "args": [
+                            "rift-01"
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "value": false,
+              "evidence": [
+                {
+                  "fact": {
+                    "predicate": "state_verified",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                },
+                {
+                  "fact": {
+                    "predicate": "anomaly_known",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                }
+              ]
+            },
+            {
+              "expression": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "energy_logged",
+                        "args": [
+                          "rift-01"
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "not": {
+                      "test": {
+                        "fact": {
+                          "predicate": "state_verified",
+                          "args": [
+                            "rift-01"
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "value": false,
+              "evidence": [
+                {
+                  "fact": {
+                    "predicate": "energy_logged",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": false,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                },
+                {
+                  "fact": {
+                    "predicate": "state_verified",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                }
+              ]
+            },
+            {
+              "expression": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "stability_analyzed",
+                        "args": [
+                          "rift-01"
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "not": {
+                      "test": {
+                        "fact": {
+                          "predicate": "state_verified",
+                          "args": [
+                            "rift-01"
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "value": false,
+              "evidence": [
+                {
+                  "fact": {
+                    "predicate": "stability_analyzed",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                },
+                {
+                  "fact": {
+                    "predicate": "state_verified",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                }
+              ]
+            },
+            {
+              "expression": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "plan_defined",
+                        "args": [
+                          "rift-01"
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "not": {
+                      "test": {
+                        "fact": {
+                          "predicate": "stability_analyzed",
+                          "args": [
+                            "rift-01"
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "value": false,
+              "evidence": [
+                {
+                  "fact": {
+                    "predicate": "plan_defined",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                },
+                {
+                  "fact": {
+                    "predicate": "stability_analyzed",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                }
+              ]
+            },
+            {
+              "expression": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "observation_assessed",
+                        "args": [
+                          "rift-01"
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "not": {
+                      "test": {
+                        "fact": {
+                          "predicate": "energy_logged",
+                          "args": [
+                            "rift-01"
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "value": false,
+              "evidence": [
+                {
+                  "fact": {
+                    "predicate": "observation_assessed",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": false,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                },
+                {
+                  "fact": {
+                    "predicate": "energy_logged",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": false,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                }
+              ]
+            },
+            {
+              "expression": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "stabilized",
+                        "args": [
+                          "rift-01"
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "not": {
+                      "test": {
+                        "fact": {
+                          "predicate": "plan_defined",
+                          "args": [
+                            "rift-01"
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "value": false,
+              "evidence": [
+                {
+                  "fact": {
+                    "predicate": "stabilized",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                },
+                {
+                  "fact": {
+                    "predicate": "plan_defined",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                }
+              ]
+            },
+            {
+              "expression": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "result_confirmed",
+                        "args": [
+                          "rift-01"
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "not": {
+                      "test": {
+                        "fact": {
+                          "predicate": "stabilized",
+                          "args": [
+                            "rift-01"
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  }
+                ]
+              },
+              "value": false,
+              "evidence": [
+                {
+                  "fact": {
+                    "predicate": "result_confirmed",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                },
+                {
+                  "fact": {
+                    "predicate": "stabilized",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "actual": true,
+                  "op": "eq",
+                  "expected": true,
+                  "derived_rule_id": null
+                }
+              ]
+            }
+          ],
+          "source_refs": [
+            "user-astral-rift-revised-example",
+            "docs/task-flow/astral-rift/README.md:v1.0"
+          ]
+        }
+      ],
+      "initial_state": [
+        {
+          "fact": {
+            "predicate": "anomaly_known",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": true,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "can_stabilize",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": true,
+          "kind": "static"
+        },
+        {
+          "fact": {
+            "predicate": "elapsed_seconds",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": 0,
+          "kind": "mutable",
+          "unit": "second"
+        },
+        {
+          "fact": {
+            "predicate": "energy_logged",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "observation_assessed",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "plan_defined",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": true,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "result_confirmed",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "rift_exists",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": true,
+          "kind": "static"
+        },
+        {
+          "fact": {
+            "predicate": "stability_analyzed",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": true,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "stabilized",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "state_verified",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": true,
+          "kind": "mutable"
+        }
+      ],
+      "final_state": [
+        {
+          "fact": {
+            "predicate": "anomaly_known",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": true,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "can_stabilize",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": true,
+          "kind": "static"
+        },
+        {
+          "fact": {
+            "predicate": "elapsed_seconds",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": 8,
+          "kind": "mutable",
+          "unit": "second"
+        },
+        {
+          "fact": {
+            "predicate": "energy_logged",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "observation_assessed",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": false,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "plan_defined",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": true,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "result_confirmed",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": true,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "rift_exists",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": true,
+          "kind": "static"
+        },
+        {
+          "fact": {
+            "predicate": "stability_analyzed",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": true,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "stabilized",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": true,
+          "kind": "mutable"
+        },
+        {
+          "fact": {
+            "predicate": "state_verified",
+            "args": [
+              "rift-01"
+            ]
+          },
+          "value": true,
+          "kind": "mutable"
+        }
+      ],
+      "initial_derivations": [],
+      "initial_invariants": [
+        {
+          "expression": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "state_verified",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "not": {
+                  "test": {
+                    "fact": {
+                      "predicate": "anomaly_known",
+                      "args": [
+                        "rift-01"
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              }
+            ]
+          },
+          "value": false,
+          "evidence": [
+            {
+              "fact": {
+                "predicate": "state_verified",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "actual": true,
+              "op": "eq",
+              "expected": true,
+              "derived_rule_id": null
+            },
+            {
+              "fact": {
+                "predicate": "anomaly_known",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "actual": true,
+              "op": "eq",
+              "expected": true,
+              "derived_rule_id": null
+            }
+          ]
+        },
+        {
+          "expression": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "energy_logged",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "not": {
+                  "test": {
+                    "fact": {
+                      "predicate": "state_verified",
+                      "args": [
+                        "rift-01"
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              }
+            ]
+          },
+          "value": false,
+          "evidence": [
+            {
+              "fact": {
+                "predicate": "energy_logged",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "actual": false,
+              "op": "eq",
+              "expected": true,
+              "derived_rule_id": null
+            },
+            {
+              "fact": {
+                "predicate": "state_verified",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "actual": true,
+              "op": "eq",
+              "expected": true,
+              "derived_rule_id": null
+            }
+          ]
+        },
+        {
+          "expression": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "stability_analyzed",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "not": {
+                  "test": {
+                    "fact": {
+                      "predicate": "state_verified",
+                      "args": [
+                        "rift-01"
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              }
+            ]
+          },
+          "value": false,
+          "evidence": [
+            {
+              "fact": {
+                "predicate": "stability_analyzed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "actual": true,
+              "op": "eq",
+              "expected": true,
+              "derived_rule_id": null
+            },
+            {
+              "fact": {
+                "predicate": "state_verified",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "actual": true,
+              "op": "eq",
+              "expected": true,
+              "derived_rule_id": null
+            }
+          ]
+        },
+        {
+          "expression": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "plan_defined",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "not": {
+                  "test": {
+                    "fact": {
+                      "predicate": "stability_analyzed",
+                      "args": [
+                        "rift-01"
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              }
+            ]
+          },
+          "value": false,
+          "evidence": [
+            {
+              "fact": {
+                "predicate": "plan_defined",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "actual": true,
+              "op": "eq",
+              "expected": true,
+              "derived_rule_id": null
+            },
+            {
+              "fact": {
+                "predicate": "stability_analyzed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "actual": true,
+              "op": "eq",
+              "expected": true,
+              "derived_rule_id": null
+            }
+          ]
+        },
+        {
+          "expression": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "observation_assessed",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "not": {
+                  "test": {
+                    "fact": {
+                      "predicate": "energy_logged",
+                      "args": [
+                        "rift-01"
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              }
+            ]
+          },
+          "value": false,
+          "evidence": [
+            {
+              "fact": {
+                "predicate": "observation_assessed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "actual": false,
+              "op": "eq",
+              "expected": true,
+              "derived_rule_id": null
+            },
+            {
+              "fact": {
+                "predicate": "energy_logged",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "actual": false,
+              "op": "eq",
+              "expected": true,
+              "derived_rule_id": null
+            }
+          ]
+        },
+        {
+          "expression": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "stabilized",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "not": {
+                  "test": {
+                    "fact": {
+                      "predicate": "plan_defined",
+                      "args": [
+                        "rift-01"
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              }
+            ]
+          },
+          "value": false,
+          "evidence": [
+            {
+              "fact": {
+                "predicate": "stabilized",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "actual": false,
+              "op": "eq",
+              "expected": true,
+              "derived_rule_id": null
+            },
+            {
+              "fact": {
+                "predicate": "plan_defined",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "actual": true,
+              "op": "eq",
+              "expected": true,
+              "derived_rule_id": null
+            }
+          ]
+        },
+        {
+          "expression": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "result_confirmed",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "not": {
+                  "test": {
+                    "fact": {
+                      "predicate": "stabilized",
+                      "args": [
+                        "rift-01"
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              }
+            ]
+          },
+          "value": false,
+          "evidence": [
+            {
+              "fact": {
+                "predicate": "result_confirmed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "actual": false,
+              "op": "eq",
+              "expected": true,
+              "derived_rule_id": null
+            },
+            {
+              "fact": {
+                "predicate": "stabilized",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "actual": false,
+              "op": "eq",
+              "expected": true,
+              "derived_rule_id": null
+            }
+          ]
+        }
+      ],
+      "final_checks": {
+        "goal": {
+          "expression": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "stabilized",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "result_confirmed",
+                    "args": [
+                      "rift-01"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              }
+            ]
+          },
+          "value": true,
+          "evidence": [
+            {
+              "fact": {
+                "predicate": "stabilized",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "actual": true,
+              "op": "eq",
+              "expected": true,
+              "derived_rule_id": null
+            },
+            {
+              "fact": {
+                "predicate": "result_confirmed",
+                "args": [
+                  "rift-01"
+                ]
+              },
+              "actual": true,
+              "op": "eq",
+              "expected": true,
+              "derived_rule_id": null
+            }
+          ]
+        },
+        "missing_required_activities": []
+      },
+      "input_sources": {
+        "catalog": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ],
+        "request": [
+          "user-astral-rift-revised-example",
+          "docs/task-flow/astral-rift/README.md:v1.0"
+        ],
+        "imported_static_evidence": []
+      },
+      "failure": null,
+      "independent_verification_executed": true,
+      "external_status": "not_run"
+    }
+  ],
+  "independent_domain_checks": [
+    {
+      "passed": true,
+      "failure_step": null,
+      "reason": null,
+      "trace": [
+        {
+          "step_index": 0,
+          "instance": {
+            "activity_id": "A1",
+            "activity_version": "1.0",
+            "parameters": {
+              "rift": "rift-01"
+            }
+          },
+          "before": {
+            "rift_exists": true,
+            "can_stabilize": true,
+            "anomaly_known": true,
+            "state_verified": true,
+            "energy_logged": false,
+            "stability_analyzed": true,
+            "plan_defined": true,
+            "observation_assessed": false,
+            "stabilized": false,
+            "result_confirmed": false,
+            "elapsed_seconds": 0
+          },
+          "after": {
+            "rift_exists": true,
+            "can_stabilize": true,
+            "anomaly_known": true,
+            "state_verified": true,
+            "energy_logged": false,
+            "stability_analyzed": true,
+            "plan_defined": true,
+            "observation_assessed": false,
+            "stabilized": true,
+            "result_confirmed": false,
+            "elapsed_seconds": 6
+          }
+        },
+        {
+          "step_index": 1,
+          "instance": {
+            "activity_id": "A2",
+            "activity_version": "1.0",
+            "parameters": {
+              "rift": "rift-01"
+            }
+          },
+          "before": {
+            "rift_exists": true,
+            "can_stabilize": true,
+            "anomaly_known": true,
+            "state_verified": true,
+            "energy_logged": false,
+            "stability_analyzed": true,
+            "plan_defined": true,
+            "observation_assessed": false,
+            "stabilized": true,
+            "result_confirmed": false,
+            "elapsed_seconds": 6
+          },
+          "after": {
+            "rift_exists": true,
+            "can_stabilize": true,
+            "anomaly_known": true,
+            "state_verified": true,
+            "energy_logged": false,
+            "stability_analyzed": true,
+            "plan_defined": true,
+            "observation_assessed": false,
+            "stabilized": true,
+            "result_confirmed": true,
+            "elapsed_seconds": 8
+          }
+        }
+      ],
+      "final_state": {
+        "rift_exists": true,
+        "can_stabilize": true,
+        "anomaly_known": true,
+        "state_verified": true,
+        "energy_logged": false,
+        "stability_analyzed": true,
+        "plan_defined": true,
+        "observation_assessed": false,
+        "stabilized": true,
+        "result_confirmed": true,
+        "elapsed_seconds": 8
+      },
+      "delay_seconds": 8
+    }
+  ],
+  "actual": {
+    "search_status": "candidate_found",
+    "termination_reason": "first_feasible_pause",
+    "conclusion": "candidates_available",
+    "candidate_count": 1,
+    "first_steps": [
+      "A1",
+      "A2"
+    ],
+    "first_delay_seconds": 8,
+    "verification_status": "passed"
+  },
+  "expectation_met": true
+}

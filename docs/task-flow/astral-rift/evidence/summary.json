@@ -1,0 +1,16 @@
+{
+  "status": "expectations_met_with_scope_limits",
+  "scenario_sha256": "1dafe3b9d91458068e893938cc57b22399531d4468df200caccc50377b956513",
+  "generation_cases": 17,
+  "cases_with_candidates": 10,
+  "verification_probes": 8,
+  "enumeration_tasks": 3,
+  "raw_reference_sequences_checked": 328803,
+  "accepted_sequences": {
+    "T1": 55,
+    "T2": 46,
+    "T3": 21
+  },
+  "legacy_integration_status": "not_run",
+  "external_execution_status": "not_run"
+}

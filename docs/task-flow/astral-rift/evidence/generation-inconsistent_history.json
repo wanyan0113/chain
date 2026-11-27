@@ -1,0 +1,32 @@
+{
+  "case": {
+    "id": "inconsistent_history",
+    "goal_facts": [
+      "stabilized",
+      "result_confirmed"
+    ],
+    "initial_overrides": {
+      "plan_defined": true
+    },
+    "search_overrides": {},
+    "delay_budget_seconds": null,
+    "clock_kind": "monotonic",
+    "expected": {
+      "search_status": "input_rejected",
+      "conclusion": "not_run",
+      "candidate_count": 0
+    }
+  },
+  "scenario_sha256": "1dafe3b9d91458068e893938cc57b22399531d4468df200caccc50377b956513",
+  "clock_kind": "monotonic",
+  "failure": {
+    "code": "invalid_input",
+    "reason": "inconsistent initial history: plan_defined requires stability_analyzed"
+  },
+  "actual": {
+    "search_status": "input_rejected",
+    "conclusion": "not_run",
+    "candidate_count": 0
+  },
+  "expectation_met": true
+}

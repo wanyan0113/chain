@@ -1,0 +1,499 @@
+{
+  "format_version": "astral-rift-1.0",
+  "version": "1.0",
+  "object_id": "rift-01",
+  "activity_definitions": [
+    {
+      "id": "S1",
+      "type": "S",
+      "requires": [
+        "rift_exists"
+      ],
+      "produces": "anomaly_known",
+      "delay_seconds": 2
+    },
+    {
+      "id": "S2",
+      "type": "S",
+      "requires": [
+        "anomaly_known"
+      ],
+      "produces": "state_verified",
+      "delay_seconds": 3
+    },
+    {
+      "id": "S3",
+      "type": "S",
+      "requires": [
+        "state_verified"
+      ],
+      "produces": "energy_logged",
+      "delay_seconds": 2
+    },
+    {
+      "id": "D1",
+      "type": "D",
+      "requires": [
+        "state_verified"
+      ],
+      "produces": "stability_analyzed",
+      "delay_seconds": 4
+    },
+    {
+      "id": "D2",
+      "type": "D",
+      "requires": [
+        "stability_analyzed"
+      ],
+      "produces": "plan_defined",
+      "delay_seconds": 5
+    },
+    {
+      "id": "D3",
+      "type": "D",
+      "requires": [
+        "energy_logged"
+      ],
+      "produces": "observation_assessed",
+      "delay_seconds": 3
+    },
+    {
+      "id": "A1",
+      "type": "A",
+      "requires": [
+        "plan_defined",
+        "can_stabilize"
+      ],
+      "produces": "stabilized",
+      "delay_seconds": 6
+    },
+    {
+      "id": "A2",
+      "type": "A",
+      "requires": [
+        "stabilized"
+      ],
+      "produces": "result_confirmed",
+      "delay_seconds": 2
+    }
+  ],
+  "initial_values": {
+    "rift_exists": true,
+    "can_stabilize": true,
+    "anomaly_known": false,
+    "state_verified": false,
+    "energy_logged": false,
+    "stability_analyzed": false,
+    "plan_defined": false,
+    "observation_assessed": false,
+    "stabilized": false,
+    "result_confirmed": false,
+    "elapsed_seconds": 0
+  },
+  "history_dependencies": [
+    [
+      "state_verified",
+      "anomaly_known"
+    ],
+    [
+      "energy_logged",
+      "state_verified"
+    ],
+    [
+      "stability_analyzed",
+      "state_verified"
+    ],
+    [
+      "plan_defined",
+      "stability_analyzed"
+    ],
+    [
+      "observation_assessed",
+      "energy_logged"
+    ],
+    [
+      "stabilized",
+      "plan_defined"
+    ],
+    [
+      "result_confirmed",
+      "stabilized"
+    ]
+  ],
+  "search_defaults": {
+    "max_length": 8,
+    "max_nodes": 20000,
+    "timeout_ms": 30000
+  },
+  "cases": [
+    {
+      "id": "T1",
+      "goal_facts": [
+        "state_verified"
+      ],
+      "initial_overrides": {},
+      "search_overrides": {},
+      "delay_budget_seconds": null,
+      "clock_kind": "monotonic",
+      "expected": {
+        "search_status": "candidate_found",
+        "conclusion": "candidates_available",
+        "first_steps": [
+          "S1",
+          "S2"
+        ],
+        "first_delay_seconds": 5,
+        "verification_status": "passed"
+      }
+    },
+    {
+      "id": "T2",
+      "goal_facts": [
+        "plan_defined"
+      ],
+      "initial_overrides": {},
+      "search_overrides": {},
+      "delay_budget_seconds": null,
+      "clock_kind": "monotonic",
+      "expected": {
+        "search_status": "candidate_found",
+        "conclusion": "candidates_available",
+        "first_steps": [
+          "S1",
+          "S2",
+          "D1",
+          "D2"
+        ],
+        "first_delay_seconds": 14,
+        "verification_status": "passed"
+      }
+    },
+    {
+      "id": "T3",
+      "goal_facts": [
+        "stabilized",
+        "result_confirmed"
+      ],
+      "initial_overrides": {},
+      "search_overrides": {},
+      "delay_budget_seconds": null,
+      "clock_kind": "monotonic",
+      "expected": {
+        "search_status": "candidate_found",
+        "conclusion": "candidates_available",
+        "first_steps": [
+          "S1",
+          "S2",
+          "D1",
+          "D2",
+          "A1",
+          "A2"
+        ],
+        "first_delay_seconds": 22,
+        "verification_status": "passed"
+      }
+    },
+    {
+      "id": "T4",
+      "goal_facts": [
+        "observation_assessed"
+      ],
+      "initial_overrides": {},
+      "search_overrides": {},
+      "delay_budget_seconds": null,
+      "clock_kind": "monotonic",
+      "expected": {
+        "search_status": "candidate_found",
+        "conclusion": "candidates_available",
+        "first_steps": [
+          "S1",
+          "S2",
+          "S3",
+          "D3"
+        ],
+        "first_delay_seconds": 10,
+        "verification_status": "passed"
+      }
+    },
+    {
+      "id": "info_known",
+      "goal_facts": [
+        "stabilized",
+        "result_confirmed"
+      ],
+      "initial_overrides": {
+        "anomaly_known": true
+      },
+      "search_overrides": {},
+      "delay_budget_seconds": null,
+      "clock_kind": "monotonic",
+      "expected": {
+        "search_status": "candidate_found",
+        "conclusion": "candidates_available",
+        "first_steps": [
+          "S2",
+          "D1",
+          "D2",
+          "A1",
+          "A2"
+        ],
+        "first_delay_seconds": 20,
+        "verification_status": "passed"
+      }
+    },
+    {
+      "id": "verified_start",
+      "goal_facts": [
+        "stabilized",
+        "result_confirmed"
+      ],
+      "initial_overrides": {
+        "anomaly_known": true,
+        "state_verified": true
+      },
+      "search_overrides": {},
+      "delay_budget_seconds": null,
+      "clock_kind": "monotonic",
+      "expected": {
+        "search_status": "candidate_found",
+        "conclusion": "candidates_available",
+        "first_steps": [
+          "D1",
+          "D2",
+          "A1",
+          "A2"
+        ],
+        "first_delay_seconds": 17,
+        "verification_status": "passed"
+      }
+    },
+    {
+      "id": "plan_start",
+      "goal_facts": [
+        "stabilized",
+        "result_confirmed"
+      ],
+      "initial_overrides": {
+        "anomaly_known": true,
+        "state_verified": true,
+        "stability_analyzed": true,
+        "plan_defined": true
+      },
+      "search_overrides": {},
+      "delay_budget_seconds": null,
+      "clock_kind": "monotonic",
+      "expected": {
+        "search_status": "candidate_found",
+        "conclusion": "candidates_available",
+        "first_steps": [
+          "A1",
+          "A2"
+        ],
+        "first_delay_seconds": 8,
+        "verification_status": "passed"
+      }
+    },
+    {
+      "id": "goal_met",
+      "goal_facts": [
+        "stabilized",
+        "result_confirmed"
+      ],
+      "initial_overrides": {
+        "anomaly_known": true,
+        "state_verified": true,
+        "stability_analyzed": true,
+        "plan_defined": true,
+        "stabilized": true,
+        "result_confirmed": true
+      },
+      "search_overrides": {},
+      "delay_budget_seconds": 0,
+      "clock_kind": "monotonic",
+      "expected": {
+        "search_status": "candidate_found",
+        "conclusion": "candidates_available",
+        "first_steps": [],
+        "first_delay_seconds": 0,
+        "verification_status": "passed"
+      }
+    },
+    {
+      "id": "inconsistent_history",
+      "goal_facts": [
+        "stabilized",
+        "result_confirmed"
+      ],
+      "initial_overrides": {
+        "plan_defined": true
+      },
+      "search_overrides": {},
+      "delay_budget_seconds": null,
+      "clock_kind": "monotonic",
+      "expected": {
+        "search_status": "input_rejected",
+        "conclusion": "not_run",
+        "candidate_count": 0
+      }
+    },
+    {
+      "id": "permission_false",
+      "goal_facts": [
+        "stabilized",
+        "result_confirmed"
+      ],
+      "initial_overrides": {
+        "can_stabilize": false
+      },
+      "search_overrides": {},
+      "delay_budget_seconds": null,
+      "clock_kind": "monotonic",
+      "expected": {
+        "search_status": "exhausted",
+        "conclusion": "bounded_no_solution",
+        "candidate_count": 0
+      }
+    },
+    {
+      "id": "permission_unknown",
+      "goal_facts": [
+        "stabilized",
+        "result_confirmed"
+      ],
+      "initial_overrides": {
+        "can_stabilize": null
+      },
+      "search_overrides": {},
+      "delay_budget_seconds": null,
+      "clock_kind": "monotonic",
+      "expected": {
+        "search_status": "exhausted",
+        "conclusion": "blocked_unknown",
+        "candidate_count": 0
+      }
+    },
+    {
+      "id": "T1_permission_false",
+      "goal_facts": [
+        "state_verified"
+      ],
+      "initial_overrides": {
+        "can_stabilize": false
+      },
+      "search_overrides": {},
+      "delay_budget_seconds": null,
+      "clock_kind": "monotonic",
+      "expected": {
+        "search_status": "candidate_found",
+        "conclusion": "candidates_available",
+        "first_steps": [
+          "S1",
+          "S2"
+        ],
+        "first_delay_seconds": 5,
+        "verification_status": "passed"
+      }
+    },
+    {
+      "id": "length_limit",
+      "goal_facts": [
+        "stabilized",
+        "result_confirmed"
+      ],
+      "initial_overrides": {},
+      "search_overrides": {
+        "max_length": 5
+      },
+      "delay_budget_seconds": null,
+      "clock_kind": "monotonic",
+      "expected": {
+        "search_status": "exhausted",
+        "conclusion": "bounded_no_solution",
+        "candidate_count": 0
+      }
+    },
+    {
+      "id": "node_limit",
+      "goal_facts": [
+        "stabilized",
+        "result_confirmed"
+      ],
+      "initial_overrides": {},
+      "search_overrides": {
+        "max_nodes": 1
+      },
+      "delay_budget_seconds": null,
+      "clock_kind": "monotonic",
+      "expected": {
+        "search_status": "limit_reached",
+        "termination_reason": "node_limit",
+        "conclusion": "undetermined",
+        "candidate_count": 0
+      }
+    },
+    {
+      "id": "time_limit",
+      "goal_facts": [
+        "stabilized",
+        "result_confirmed"
+      ],
+      "initial_overrides": {},
+      "search_overrides": {
+        "timeout_ms": 1
+      },
+      "delay_budget_seconds": null,
+      "clock_kind": "deterministic_test_clock",
+      "expected": {
+        "search_status": "limit_reached",
+        "termination_reason": "time_limit",
+        "conclusion": "undetermined",
+        "candidate_count": 0
+      }
+    },
+    {
+      "id": "delay_equal",
+      "goal_facts": [
+        "stabilized",
+        "result_confirmed"
+      ],
+      "initial_overrides": {},
+      "search_overrides": {},
+      "delay_budget_seconds": 22,
+      "clock_kind": "monotonic",
+      "expected": {
+        "search_status": "candidate_found",
+        "conclusion": "candidates_available",
+        "first_steps": [
+          "S1",
+          "S2",
+          "D1",
+          "D2",
+          "A1",
+          "A2"
+        ],
+        "first_delay_seconds": 22,
+        "verification_status": "passed"
+      }
+    },
+    {
+      "id": "delay_insufficient",
+      "goal_facts": [
+        "stabilized",
+        "result_confirmed"
+      ],
+      "initial_overrides": {},
+      "search_overrides": {},
+      "delay_budget_seconds": 21,
+      "clock_kind": "monotonic",
+      "expected": {
+        "search_status": "exhausted",
+        "conclusion": "bounded_no_solution",
+        "candidate_count": 0
+      }
+    }
+  ],
+  "source_refs": [
+    "user-astral-rift-revised-example",
+    "docs/task-flow/astral-rift/README.md:v1.0"
+  ]
+}

@@ -51,3 +51,5 @@ docs/task-flow/rebuild/*.log -text
 docs/task-flow/domain-review/phase-a-raw-cases.json -text
 docs/task-flow/domain-review/phase-b-models/** -text
 docs/task-flow/domain-review/materials-manifest.json -text
+docs/task-flow/astral-rift/evidence/** -text
+docs/task-flow/astral-rift/*.log -text
