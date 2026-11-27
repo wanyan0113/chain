@@ -1,0 +1,296 @@
+{
+  "audit_version": "task-flow-research-audit-1",
+  "review_date": "2026-11-27",
+  "baseline_commit": "4ea1145a63e780b8a910c0b4b783b9cafb047e00",
+  "python": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.22631-SP0",
+  "seed": 2026112704,
+  "mixed_models": 32,
+  "cases": [
+    {
+      "id": "C01",
+      "title": "活动定义与能力结构",
+      "requirements": [
+        "R01"
+      ],
+      "passed": true,
+      "elapsed_ms": 10.248
+    },
+    {
+      "id": "C02",
+      "title": "有限域及实例上限",
+      "requirements": [
+        "R02"
+      ],
+      "passed": true,
+      "elapsed_ms": 21.631
+    },
+    {
+      "id": "C03",
+      "title": "三值事实完整真值表",
+      "requirements": [
+        "R03"
+      ],
+      "passed": true,
+      "elapsed_ms": 482.614
+    },
+    {
+      "id": "C04",
+      "title": "多效果旧值读取及失败原子性",
+      "requirements": [
+        "R03"
+      ],
+      "passed": true,
+      "elapsed_ms": 57.528
+    },
+    {
+      "id": "C05",
+      "title": "派生事实失效重算",
+      "requirements": [
+        "R03"
+      ],
+      "passed": true,
+      "elapsed_ms": 19.301
+    },
+    {
+      "id": "C06",
+      "title": "同一事实冲突写入",
+      "requirements": [
+        "R02",
+        "R03"
+      ],
+      "passed": true,
+      "elapsed_ms": 13.696
+    },
+    {
+      "id": "C07",
+      "title": "版本与输入绑定",
+      "requirements": [
+        "R01",
+        "R06"
+      ],
+      "passed": true,
+      "elapsed_ms": 23.096
+    },
+    {
+      "id": "C08",
+      "title": "目标和初始状态决定活动数量",
+      "requirements": [
+        "R04",
+        "R05"
+      ],
+      "passed": true,
+      "elapsed_ms": 98.998
+    },
+    {
+      "id": "C09",
+      "title": "中途满足不能替代最终目标",
+      "requirements": [
+        "R05"
+      ],
+      "passed": true,
+      "elapsed_ms": 29.027
+    },
+    {
+      "id": "C10",
+      "title": "八场景完整集合独立穷举对照",
+      "requirements": [
+        "R07",
+        "R11"
+      ],
+      "passed": true,
+      "elapsed_ms": 237.967
+    },
+    {
+      "id": "C11",
+      "title": "首解恢复与完整枚举一致",
+      "requirements": [
+        "R07"
+      ],
+      "passed": true,
+      "elapsed_ms": 34.028
+    },
+    {
+      "id": "C12",
+      "title": "节点时间及候选超限不冒充无解",
+      "requirements": [
+        "R08"
+      ],
+      "passed": true,
+      "elapsed_ms": 39.221
+    },
+    {
+      "id": "C13",
+      "title": "同状态不同序列与能力不误去重",
+      "requirements": [
+        "R07",
+        "R10"
+      ],
+      "passed": true,
+      "elapsed_ms": 24.958
+    },
+    {
+      "id": "C14",
+      "title": "同版本同输入重复运行",
+      "requirements": [
+        "R07",
+        "R11"
+      ],
+      "passed": true,
+      "elapsed_ms": 84.175
+    },
+    {
+      "id": "C15",
+      "title": "故意错误流程与伪造候选",
+      "requirements": [
+        "R06",
+        "R11"
+      ],
+      "passed": true,
+      "elapsed_ms": 200.533
+    },
+    {
+      "id": "C16",
+      "title": "验证核心语义执行独立性",
+      "requirements": [
+        "R06"
+      ],
+      "passed": true,
+      "elapsed_ms": 23.483
+    },
+    {
+      "id": "C17",
+      "title": "主动注入生成器语义故障",
+      "requirements": [
+        "R06",
+        "R11"
+      ],
+      "passed": true,
+      "elapsed_ms": 63.105
+    },
+    {
+      "id": "C18",
+      "title": "逐步证据及规则来源完整性",
+      "requirements": [
+        "R06"
+      ],
+      "passed": true,
+      "elapsed_ms": 14.657
+    },
+    {
+      "id": "C19",
+      "title": "逻辑通过不冒充外部落实",
+      "requirements": [
+        "R09",
+        "R10",
+        "R12"
+      ],
+      "passed": true,
+      "elapsed_ms": 42.674
+    },
+    {
+      "id": "C20",
+      "title": "等价输入排列与来源身份区别",
+      "requirements": [
+        "R07",
+        "R11"
+      ],
+      "passed": true,
+      "elapsed_ms": 56.271
+    },
+    {
+      "id": "C21",
+      "title": "未知信息补全与无解结论边界",
+      "requirements": [
+        "R03",
+        "R08"
+      ],
+      "passed": true,
+      "elapsed_ms": 69.723
+    },
+    {
+      "id": "C22",
+      "title": "混合布尔整数模型三方精确对照",
+      "requirements": [
+        "R03",
+        "R07",
+        "R11"
+      ],
+      "passed": true,
+      "elapsed_ms": 9003.849
+    },
+    {
+      "id": "C23",
+      "title": "既有相关回归基线",
+      "requirements": [
+        "R01",
+        "R06",
+        "R11"
+      ],
+      "passed": true,
+      "elapsed_ms": 97124.976
+    }
+  ],
+  "passed": 23,
+  "failed": 0,
+  "sources_unchanged_during_audit": true,
+  "source_sha256": {
+    "requirements-fdna.txt": "bacc7d6adda7e6396698ff1ab444a0ee0ea1f7508a654b9ca5786c82bde178c1",
+    "requirements-reasoner.txt": "38ad27cd9bfe8cb2eab15dbd97f01205948d4aa1cebb11e0e89813c15f4e5319",
+    "requirements-v1.lock": "5789c3d7dccd1f57730ce4dbbf5f134c45dbf923d30933d54fec9be146eb4cfb",
+    "requirements-workflow.txt": "e4b4e88bd93a11398b6664ab27c162d272b6a0468ff25ec8459e59d2cd3c3004",
+    "requirements.txt": "12cff36ed45d4e0e39cc0ac53260feb876956a602296e40b2961d58c4c2441c2",
+    "task_flow/__init__.py": "8a4706e67aa06cc5c0031dcc2f0d43854d17932bc4b94d9d988d9886f41bf857",
+    "task_flow/__main__.py": "06c0fb1826b84613c2cac89706819c970c0df45c1132885eb0bd67d1ea580b0b",
+    "task_flow/contracts.py": "0a29419ac43f491fb8b4aae8a3edb8109c2209d403cd0811fb9ec16a45f3f1ab",
+    "task_flow/examples/counter_transfer/catalog.json": "fce14f374d332163797abaa7a8387b016dc6e57cfbc0d77ebb2f4f4728fe5b7d",
+    "task_flow/examples/counter_transfer/request.json": "1a637f975ea1687ebb49243b3ba735e5c43c9c634f089c7fe5de32741a26e135",
+    "task_flow/examples/document_workflow/already_done.json": "7a8b3122309733d19a52682359637d229323f8162da49542f295db1a1380ddc7",
+    "task_flow/examples/document_workflow/basic.json": "dbfdd537b82f544085917d3dc62d2e45c8f54e204dd7dc8fee65b998d2e94a02",
+    "task_flow/examples/document_workflow/catalog.json": "fd52ffe2c91adec9a926f1bc4d9e3e281b6de5bf3ea6b4b989deb575ecd5fee4",
+    "task_flow/examples/document_workflow/collected.json": "51855dc635b7d886c627f0c4cd19c0ffeee1be1221ab92cadde270e727fe8401",
+    "task_flow/examples/document_workflow/feedback_fallback.json": "3d21da799134740e47d55e9def3a9c3e3468e7c5a8dd1ff7946bfe7da21be558",
+    "task_flow/examples/document_workflow/mandatory_verify.json": "0964b3641c5c77e834c372ce2948c545619a7e37d4664531b1c76a14acd88bd5",
+    "task_flow/examples/document_workflow/manual_cases.json": "8fdedae75048312a1343f0e252177fdfdcadbc6772fc00bbfe157b9d586ee6ed",
+    "task_flow/examples/document_workflow/sequence-basic.json": "87ff02d8310ab4683db5d2650a844b18863c4fce557c07a4b7877e6b9d61928d",
+    "task_flow/examples/document_workflow/too_short.json": "2e3fc7893ae7f5379cebf26a82843c26802952043db71468701e367742bfd3d3",
+    "task_flow/examples/document_workflow/unknown_source.json": "eae32c7f153ae8f2fda16d7c4004b0bdb8ffa46c4f7e709909194d5d2fa3f832",
+    "task_flow/examples/document_workflow/verified.json": "22c34f14e5dd39fb07dc39ff8ea496a64f85e935390baf3e406fbd4f6b48ae93",
+    "task_flow/planner.py": "3f7fb53243391c56c5fdf565eb90b7224c69ee15d907a615debec5bdbe427d2b",
+    "task_flow/schema.json": "e66c1bfafff1652ba8ae045e27f3ab4d5a11692ea8e5f9f98fc39b1f520129c3",
+    "task_flow/state.py": "c0ad87a5ef37002357cf790481ac2b1ada5e96bc47f1da79444fdab8c5560091",
+    "task_flow/validator.py": "5599caa5897c86462301d084d2a32779db1ceb7df34eeb94874a21e39c16ebda",
+    "tests/task_flow_oracle.py": "1f62b9c7e4d144af35b8afb3b320b4a38ad6ef8e0e225dbad6363e8098dd755f",
+    "tests/test_bridge_intake.py": "af3769877b62c94301669410266508a5baa765c9baed3a186f301440b3e4ed04",
+    "tests/test_bridge_observed.py": "5da433d2a47f62a7c7bf84b54ea054780482ad7e5fc1ce80b1b5f3d6c3ceb5a5",
+    "tests/test_design.py": "8f588d84962600a78c2a0a84faedce8f618e5d1de980e0cda375aa7832f1804a",
+    "tests/test_equipment_bridge.py": "2e5777a5d679ddf0512e4db58804ae988c63cb0214df4310314dd4f01ca33cd0",
+    "tests/test_flow_compare.py": "68522460e26253e93b2a91b9d24e4d1be8389e2e344d047d45311573cebec044",
+    "tests/test_flow_scenario.py": "6f7d62720cece34d0c060bf8c1186bace997c1cf6ba4fc41d6254a2c6810039d",
+    "tests/test_network_search.py": "2161233d76c90b240481c0eda7813bf74ba8542f4e292292e498fe826c99fad3",
+    "tests/test_sequences.py": "4de517b3b63054e3fe15fdf8b437954285db454e681d41e988950d08aca670c4",
+    "tests/test_table10_pruning.py": "0b0849f6e044def79bc2d2ea94894fcb2a606c8ea63e8fc73c0dd7c2d41ed410",
+    "tests/test_task_flow_contracts.py": "4c0a4fa625ba2df89fb000d55f02082b6545994db36accbeab6c00e49583a70a",
+    "tests/test_task_flow_planner.py": "97d08d4cc2bac588dada7903f3ea141597e5475182befcdfd772ad5c5f3c899b",
+    "tests/test_task_flow_research_audit.py": "4faf75e84bf9bf7afbbde34304a8f5dcbfb35c0f030bca28834a574275648af2",
+    "tests/test_task_flow_state.py": "2e735fde090b1a412a08b8a48abd90512f4b4a5ecb775016e67782daa95a0a90",
+    "tests/test_task_flow_validator.py": "150569dfbfc095e6ff46f12d673e7fa1277a2cacc6586bb19b9b6f17916b82e6",
+    "workflow_tools/task_flow_research_audit.py": "1d106d93f71c1addf0a72e662300e416d8058b7fa36e280351d5dee0d0fd67a7",
+    "扩展链任务书.txt": "da8efa475ead5594cb052915b17868e24d7c382a3bb966c5320d8b6b97142f4c"
+  },
+  "hash_policy": "source text: CRLF to LF only; artifacts: exact bytes",
+  "scope": "model-relative correctness and evidence for phases 1-4; not external feasibility or system integration",
+  "unimplemented_requirements": [
+    "R09 scoped external feedback",
+    "R10 complete legacy capability/resource adapter",
+    "R12 complete external end-to-end integration"
+  ],
+  "dependencies": {
+    "jsonschema": "4.26.0",
+    "rdflib": "7.6.0",
+    "owlready2": "0.51",
+    "numpy": "2.5.4",
+    "scipy": "1.18.1"
+  },
+  "status": "passed_with_scope_limits"
+}

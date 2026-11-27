@@ -1,0 +1,83 @@
+{
+  "format_version": "task-flow-1.0",
+  "request_id": "feedback_fallback",
+  "catalog_id": "document-workflow",
+  "catalog_version": "1.0",
+  "catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+  "static_facts": [
+    {
+      "fact": {
+        "predicate": "source_available",
+        "args": []
+      },
+      "value": true
+    }
+  ],
+  "initial_state": [
+    {
+      "fact": {
+        "predicate": "collected",
+        "args": [
+          "doc-1"
+        ]
+      },
+      "value": false
+    },
+    {
+      "fact": {
+        "predicate": "approved",
+        "args": [
+          "doc-1"
+        ]
+      },
+      "value": false
+    },
+    {
+      "fact": {
+        "predicate": "published",
+        "args": [
+          "doc-1"
+        ]
+      },
+      "value": false
+    },
+    {
+      "fact": {
+        "predicate": "verified",
+        "args": [
+          "doc-1"
+        ]
+      },
+      "value": false
+    }
+  ],
+  "ontology_evidence": [],
+  "goal": {
+    "all": [
+      {
+        "test": {
+          "fact": {
+            "predicate": "published",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "op": "eq",
+          "value": true
+        }
+      }
+    ]
+  },
+  "required_activities": [],
+  "forbidden_conditions": [],
+  "activity_limits": {},
+  "search": {
+    "mode": "first_feasible",
+    "max_length": 4,
+    "max_nodes": 1000,
+    "timeout_ms": 5000
+  },
+  "source_refs": [
+    "synthetic-phase2-document-workflow"
+  ]
+}

@@ -31,3 +31,6 @@ docs/solver-comparison-report/** -text
 docs/solver-comparison-report/*.svg -diff
 # Preserve the original task-book bytes used by the phase-one source digest.
 扩展链任务书.txt -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Keep the research-audit evidence inventory reproducible on Windows and Unix.
+docs/task-flow/audit/phase1-4/** -text
+docs/task-flow/audit/tool-tests.log -text

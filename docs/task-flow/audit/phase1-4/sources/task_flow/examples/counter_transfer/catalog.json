@@ -1,0 +1,134 @@
+{
+  "format_version": "task-flow-1.0",
+  "catalog_id": "counter-transfer",
+  "version": "1.0",
+  "objects": {
+    "resource": [
+      "r-1"
+    ]
+  },
+  "facts": [
+    {
+      "id": "remaining",
+      "arguments": [
+        "resource"
+      ],
+      "kind": "mutable",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 20,
+      "unit": "count",
+      "source_refs": [
+        "synthetic-phase2-counter"
+      ]
+    },
+    {
+      "id": "processed",
+      "arguments": [
+        "resource"
+      ],
+      "kind": "mutable",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 20,
+      "unit": "count",
+      "source_refs": [
+        "synthetic-phase2-counter"
+      ]
+    }
+  ],
+  "derived_rules": [],
+  "capabilities": [
+    {
+      "uri": "urn:task-flow:demo:TransferCounter",
+      "mapping_status": "unmapped",
+      "source_refs": [
+        "synthetic-phase2-counter"
+      ]
+    }
+  ],
+  "activities": [
+    {
+      "id": "transfer",
+      "version": "1.0",
+      "type": "counter_update",
+      "parameters": {
+        "resource": "resource"
+      },
+      "applicable_when": {
+        "all": []
+      },
+      "preconditions": {
+        "test": {
+          "fact": {
+            "predicate": "remaining",
+            "args": [
+              {
+                "param": "resource"
+              }
+            ]
+          },
+          "op": "ge",
+          "value": 1,
+          "unit": "count"
+        }
+      },
+      "effects": [
+        {
+          "fact": {
+            "predicate": "remaining",
+            "args": [
+              {
+                "param": "resource"
+              }
+            ]
+          },
+          "set": {
+            "read": {
+              "predicate": "remaining",
+              "args": [
+                {
+                  "param": "resource"
+                }
+              ]
+            },
+            "offset": -1,
+            "unit": "count"
+          }
+        },
+        {
+          "fact": {
+            "predicate": "processed",
+            "args": [
+              {
+                "param": "resource"
+              }
+            ]
+          },
+          "set": {
+            "read": {
+              "predicate": "processed",
+              "args": [
+                {
+                  "param": "resource"
+                }
+              ]
+            },
+            "offset": 1,
+            "unit": "count"
+          }
+        }
+      ],
+      "required_capabilities": [
+        "urn:task-flow:demo:TransferCounter"
+      ],
+      "max_occurrences": 10,
+      "source_refs": [
+        "synthetic-phase2-counter"
+      ]
+    }
+  ],
+  "source_refs": [
+    "synthetic-phase2-counter"
+  ]
+}

@@ -1,0 +1,2 @@
+rdflib>=7.1.0,<8
+jsonschema>=4.23,<5

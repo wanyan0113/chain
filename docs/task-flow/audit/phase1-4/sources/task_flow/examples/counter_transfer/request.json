@@ -1,0 +1,56 @@
+{
+  "format_version": "task-flow-1.0",
+  "request_id": "transfer-one",
+  "catalog_id": "counter-transfer",
+  "catalog_version": "1.0",
+  "catalog_sha256": "53dafc26ea0152fc1b491a666924d28388f8ef35b4f117b502e571dcb0976858",
+  "static_facts": [],
+  "initial_state": [
+    {
+      "fact": {
+        "predicate": "remaining",
+        "args": [
+          "r-1"
+        ]
+      },
+      "value": 5,
+      "unit": "count"
+    },
+    {
+      "fact": {
+        "predicate": "processed",
+        "args": [
+          "r-1"
+        ]
+      },
+      "value": 2,
+      "unit": "count"
+    }
+  ],
+  "ontology_evidence": [],
+  "goal": {
+    "test": {
+      "fact": {
+        "predicate": "processed",
+        "args": [
+          "r-1"
+        ]
+      },
+      "op": "ge",
+      "value": 3,
+      "unit": "count"
+    }
+  },
+  "required_activities": [],
+  "forbidden_conditions": [],
+  "activity_limits": {},
+  "search": {
+    "mode": "first_feasible",
+    "max_length": 5,
+    "max_nodes": 1000,
+    "timeout_ms": 5000
+  },
+  "source_refs": [
+    "synthetic-phase2-counter"
+  ]
+}

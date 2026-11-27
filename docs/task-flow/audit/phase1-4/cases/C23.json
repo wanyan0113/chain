@@ -1,0 +1,46 @@
+{
+  "id": "C23",
+  "title": "既有相关回归基线",
+  "requirements": [
+    "R01",
+    "R06",
+    "R11"
+  ],
+  "inputs": {
+    "modules": [
+      "test_task_flow_contracts",
+      "test_task_flow_state",
+      "test_task_flow_planner",
+      "test_task_flow_validator",
+      "test_network_search",
+      "test_design",
+      "test_sequences",
+      "test_table10_pruning",
+      "test_flow_scenario",
+      "test_equipment_bridge",
+      "test_bridge_intake",
+      "test_bridge_observed",
+      "test_flow_compare"
+    ]
+  },
+  "inputs_sha256": "c8a77b72125f943fcb0609815ae0faeb0409c5cd432f3703624cf8f7da7597ab",
+  "expected": {
+    "returncode": 0,
+    "tests": 215,
+    "skipped": false
+  },
+  "actual": {
+    "returncode": 0,
+    "tests": 215,
+    "skipped": false
+  },
+  "effective_inputs_and_calls": {
+    "models": {},
+    "subjects": {},
+    "calls": [],
+    "search_runs": []
+  },
+  "criterion": "exact typed JSON equality; reference sets are computed independently before the production probe",
+  "passed": true,
+  "elapsed_ms": 97124.976
+}

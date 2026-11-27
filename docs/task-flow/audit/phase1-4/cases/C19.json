@@ -1,0 +1,2418 @@
+{
+  "id": "C19",
+  "title": "逻辑通过不冒充外部落实",
+  "requirements": [
+    "R09",
+    "R10",
+    "R12"
+  ],
+  "inputs": {
+    "catalog": {
+      "format_version": "task-flow-1.0",
+      "catalog_id": "document-workflow",
+      "version": "1.0",
+      "objects": {
+        "document": [
+          "doc-1"
+        ]
+      },
+      "facts": [
+        {
+          "id": "source_available",
+          "arguments": [],
+          "kind": "static",
+          "type": "boolean",
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        },
+        {
+          "id": "collected",
+          "arguments": [
+            "document"
+          ],
+          "kind": "mutable",
+          "type": "boolean",
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        },
+        {
+          "id": "approved",
+          "arguments": [
+            "document"
+          ],
+          "kind": "mutable",
+          "type": "boolean",
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        },
+        {
+          "id": "published",
+          "arguments": [
+            "document"
+          ],
+          "kind": "mutable",
+          "type": "boolean",
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        },
+        {
+          "id": "verified",
+          "arguments": [
+            "document"
+          ],
+          "kind": "mutable",
+          "type": "boolean",
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        },
+        {
+          "id": "ready",
+          "arguments": [
+            "document"
+          ],
+          "kind": "derived",
+          "type": "boolean",
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        }
+      ],
+      "derived_rules": [
+        {
+          "id": "ready-if-collected-and-approved",
+          "parameters": {
+            "document": "document"
+          },
+          "head": {
+            "predicate": "ready",
+            "args": [
+              {
+                "param": "document"
+              }
+            ]
+          },
+          "when": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "collected",
+                    "args": [
+                      {
+                        "param": "document"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              },
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "approved",
+                    "args": [
+                      {
+                        "param": "document"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              }
+            ]
+          },
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        }
+      ],
+      "activities": [
+        {
+          "id": "collect",
+          "version": "1.0",
+          "type": "collection",
+          "parameters": {
+            "document": "document"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "source_available",
+                    "args": []
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              }
+            ]
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "collected",
+                "args": [
+                  {
+                    "param": "document"
+                  }
+                ]
+              },
+              "set": {
+                "value": true
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:task-flow:demo:CollectDocument"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        },
+        {
+          "id": "approve",
+          "version": "1.0",
+          "type": "approval",
+          "parameters": {
+            "document": "document"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "collected",
+                    "args": [
+                      {
+                        "param": "document"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              }
+            ]
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "approved",
+                "args": [
+                  {
+                    "param": "document"
+                  }
+                ]
+              },
+              "set": {
+                "value": true
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:task-flow:demo:ApproveDocument"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        },
+        {
+          "id": "publish_standard",
+          "version": "1.0",
+          "type": "publication",
+          "parameters": {
+            "document": "document"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "ready",
+                    "args": [
+                      {
+                        "param": "document"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              }
+            ]
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "published",
+                "args": [
+                  {
+                    "param": "document"
+                  }
+                ]
+              },
+              "set": {
+                "value": true
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:task-flow:demo:PublishStandard"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        },
+        {
+          "id": "publish_backup",
+          "version": "1.0",
+          "type": "publication",
+          "parameters": {
+            "document": "document"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "ready",
+                    "args": [
+                      {
+                        "param": "document"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              }
+            ]
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "published",
+                "args": [
+                  {
+                    "param": "document"
+                  }
+                ]
+              },
+              "set": {
+                "value": true
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:task-flow:demo:PublishBackup"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        },
+        {
+          "id": "verify",
+          "version": "1.0",
+          "type": "verification",
+          "parameters": {
+            "document": "document"
+          },
+          "applicable_when": {
+            "all": []
+          },
+          "preconditions": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "published",
+                    "args": [
+                      {
+                        "param": "document"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              }
+            ]
+          },
+          "effects": [
+            {
+              "fact": {
+                "predicate": "verified",
+                "args": [
+                  {
+                    "param": "document"
+                  }
+                ]
+              },
+              "set": {
+                "value": true
+              }
+            }
+          ],
+          "required_capabilities": [
+            "urn:task-flow:demo:VerifyDocument"
+          ],
+          "max_occurrences": 1,
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        }
+      ],
+      "capabilities": [
+        {
+          "uri": "urn:task-flow:demo:CollectDocument",
+          "mapping_status": "unmapped",
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        },
+        {
+          "uri": "urn:task-flow:demo:ApproveDocument",
+          "mapping_status": "unmapped",
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        },
+        {
+          "uri": "urn:task-flow:demo:PublishStandard",
+          "mapping_status": "unmapped",
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        },
+        {
+          "uri": "urn:task-flow:demo:PublishBackup",
+          "mapping_status": "unmapped",
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        },
+        {
+          "uri": "urn:task-flow:demo:VerifyDocument",
+          "mapping_status": "unmapped",
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        }
+      ],
+      "source_refs": [
+        "synthetic-phase2-document-workflow"
+      ]
+    },
+    "request": {
+      "format_version": "task-flow-1.0",
+      "request_id": "basic",
+      "catalog_id": "document-workflow",
+      "catalog_version": "1.0",
+      "catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+      "static_facts": [
+        {
+          "fact": {
+            "predicate": "source_available",
+            "args": []
+          },
+          "value": true
+        }
+      ],
+      "initial_state": [
+        {
+          "fact": {
+            "predicate": "collected",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false
+        },
+        {
+          "fact": {
+            "predicate": "approved",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false
+        },
+        {
+          "fact": {
+            "predicate": "published",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false
+        },
+        {
+          "fact": {
+            "predicate": "verified",
+            "args": [
+              "doc-1"
+            ]
+          },
+          "value": false
+        }
+      ],
+      "ontology_evidence": [],
+      "goal": {
+        "all": [
+          {
+            "test": {
+              "fact": {
+                "predicate": "published",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          }
+        ]
+      },
+      "required_activities": [],
+      "forbidden_conditions": [],
+      "activity_limits": {},
+      "search": {
+        "mode": "first_feasible",
+        "max_length": 4,
+        "max_nodes": 1000,
+        "timeout_ms": 5000
+      },
+      "source_refs": [
+        "synthetic-phase2-document-workflow"
+      ]
+    }
+  },
+  "inputs_sha256": "05d654fd3af615e8775db1f49824b7e3fb4a2a3c2c0ac95c5091ebd51e586b22",
+  "expected": {
+    "logic": "passed",
+    "external": "not_run",
+    "search_claims_verified": false,
+    "all_capabilities_unmapped": true
+  },
+  "actual": {
+    "logic": "passed",
+    "external": "not_run",
+    "search_claims_verified": false,
+    "all_capabilities_unmapped": true
+  },
+  "effective_inputs_and_calls": {
+    "models": {
+      "05d654fd3af615e8775db1f49824b7e3fb4a2a3c2c0ac95c5091ebd51e586b22": {
+        "catalog": {
+          "format_version": "task-flow-1.0",
+          "catalog_id": "document-workflow",
+          "version": "1.0",
+          "objects": {
+            "document": [
+              "doc-1"
+            ]
+          },
+          "facts": [
+            {
+              "id": "source_available",
+              "arguments": [],
+              "kind": "static",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "id": "collected",
+              "arguments": [
+                "document"
+              ],
+              "kind": "mutable",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "id": "approved",
+              "arguments": [
+                "document"
+              ],
+              "kind": "mutable",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "id": "published",
+              "arguments": [
+                "document"
+              ],
+              "kind": "mutable",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "id": "verified",
+              "arguments": [
+                "document"
+              ],
+              "kind": "mutable",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "id": "ready",
+              "arguments": [
+                "document"
+              ],
+              "kind": "derived",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            }
+          ],
+          "derived_rules": [
+            {
+              "id": "ready-if-collected-and-approved",
+              "parameters": {
+                "document": "document"
+              },
+              "head": {
+                "predicate": "ready",
+                "args": [
+                  {
+                    "param": "document"
+                  }
+                ]
+              },
+              "when": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "collected",
+                        "args": [
+                          {
+                            "param": "document"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "approved",
+                        "args": [
+                          {
+                            "param": "document"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  }
+                ]
+              },
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            }
+          ],
+          "activities": [
+            {
+              "id": "collect",
+              "version": "1.0",
+              "type": "collection",
+              "parameters": {
+                "document": "document"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "source_available",
+                        "args": []
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "collected",
+                    "args": [
+                      {
+                        "param": "document"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:task-flow:demo:CollectDocument"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "id": "approve",
+              "version": "1.0",
+              "type": "approval",
+              "parameters": {
+                "document": "document"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "collected",
+                        "args": [
+                          {
+                            "param": "document"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "approved",
+                    "args": [
+                      {
+                        "param": "document"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:task-flow:demo:ApproveDocument"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "id": "publish_standard",
+              "version": "1.0",
+              "type": "publication",
+              "parameters": {
+                "document": "document"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "ready",
+                        "args": [
+                          {
+                            "param": "document"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "published",
+                    "args": [
+                      {
+                        "param": "document"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:task-flow:demo:PublishStandard"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "id": "publish_backup",
+              "version": "1.0",
+              "type": "publication",
+              "parameters": {
+                "document": "document"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "ready",
+                        "args": [
+                          {
+                            "param": "document"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "published",
+                    "args": [
+                      {
+                        "param": "document"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:task-flow:demo:PublishBackup"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "id": "verify",
+              "version": "1.0",
+              "type": "verification",
+              "parameters": {
+                "document": "document"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "published",
+                        "args": [
+                          {
+                            "param": "document"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "verified",
+                    "args": [
+                      {
+                        "param": "document"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:task-flow:demo:VerifyDocument"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            }
+          ],
+          "capabilities": [
+            {
+              "uri": "urn:task-flow:demo:CollectDocument",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "uri": "urn:task-flow:demo:ApproveDocument",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "uri": "urn:task-flow:demo:PublishStandard",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "uri": "urn:task-flow:demo:PublishBackup",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            {
+              "uri": "urn:task-flow:demo:VerifyDocument",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            }
+          ],
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        },
+        "request": {
+          "format_version": "task-flow-1.0",
+          "request_id": "basic",
+          "catalog_id": "document-workflow",
+          "catalog_version": "1.0",
+          "catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+          "static_facts": [
+            {
+              "fact": {
+                "predicate": "source_available",
+                "args": []
+              },
+              "value": true
+            }
+          ],
+          "initial_state": [
+            {
+              "fact": {
+                "predicate": "collected",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "value": false
+            },
+            {
+              "fact": {
+                "predicate": "approved",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "value": false
+            },
+            {
+              "fact": {
+                "predicate": "published",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "value": false
+            },
+            {
+              "fact": {
+                "predicate": "verified",
+                "args": [
+                  "doc-1"
+                ]
+              },
+              "value": false
+            }
+          ],
+          "ontology_evidence": [],
+          "goal": {
+            "all": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "published",
+                    "args": [
+                      "doc-1"
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              }
+            ]
+          },
+          "required_activities": [],
+          "forbidden_conditions": [],
+          "activity_limits": {},
+          "search": {
+            "mode": "first_feasible",
+            "max_length": 4,
+            "max_nodes": 1000,
+            "timeout_ms": 5000
+          },
+          "source_refs": [
+            "synthetic-phase2-document-workflow"
+          ]
+        }
+      }
+    },
+    "subjects": {
+      "b57cb1a1203016b6994349f5f562a8d6a1b7c7558c31cb9ee6eeccfbdc5cee3c": {
+        "format_version": "task-flow-search-1.0",
+        "algorithm": "iterative_deepening_depth_first",
+        "catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+        "request_sha256": "a7db5f63641b23dafc2e9df5640b505c2416286ab3b3b258b28d8aa0d9e5d847",
+        "search_status": "candidate_found",
+        "termination_reason": "first_feasible_pause",
+        "conclusion": "candidates_available",
+        "coverage": "partial",
+        "coverage_scope": "certified_executable_sequences_within_declared_bounds",
+        "unknown_conditions_seen": false,
+        "unknown_examples": [],
+        "candidates": [
+          {
+            "candidate_id": "flow-f464d06097f25b92ab4e77b1aad5cf260e2afdaa74440ec5b6846ed6ad0a172f",
+            "sequence": {
+              "format_version": "task-flow-1.0",
+              "catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+              "request_sha256": "a7db5f63641b23dafc2e9df5640b505c2416286ab3b3b258b28d8aa0d9e5d847",
+              "steps": [
+                {
+                  "activity_id": "collect",
+                  "activity_version": "1.0",
+                  "parameters": {
+                    "document": "doc-1"
+                  }
+                },
+                {
+                  "activity_id": "approve",
+                  "activity_version": "1.0",
+                  "parameters": {
+                    "document": "doc-1"
+                  }
+                },
+                {
+                  "activity_id": "publish_backup",
+                  "activity_version": "1.0",
+                  "parameters": {
+                    "document": "doc-1"
+                  }
+                }
+              ]
+            },
+            "capability_demands": [
+              {
+                "step_index": 0,
+                "activity_id": "collect",
+                "required_capabilities": [
+                  "urn:task-flow:demo:CollectDocument"
+                ],
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              },
+              {
+                "step_index": 1,
+                "activity_id": "approve",
+                "required_capabilities": [
+                  "urn:task-flow:demo:ApproveDocument"
+                ],
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              },
+              {
+                "step_index": 2,
+                "activity_id": "publish_backup",
+                "required_capabilities": [
+                  "urn:task-flow:demo:PublishBackup"
+                ],
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              }
+            ],
+            "final_state": [
+              {
+                "fact": {
+                  "predicate": "approved",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "value": true,
+                "kind": "mutable"
+              },
+              {
+                "fact": {
+                  "predicate": "collected",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "value": true,
+                "kind": "mutable"
+              },
+              {
+                "fact": {
+                  "predicate": "published",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "value": true,
+                "kind": "mutable"
+              },
+              {
+                "fact": {
+                  "predicate": "ready",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "value": true,
+                "kind": "derived"
+              },
+              {
+                "fact": {
+                  "predicate": "source_available",
+                  "args": []
+                },
+                "value": true,
+                "kind": "static"
+              },
+              {
+                "fact": {
+                  "predicate": "verified",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "value": false,
+                "kind": "mutable"
+              }
+            ],
+            "generation_goal_satisfied": true,
+            "verification_status": "not_run",
+            "external_status": "not_run"
+          }
+        ],
+        "statistics": {
+          "nodes": 21,
+          "prefixes_checked": 10,
+          "transitions_applied": 6,
+          "rejected_prefixes": 0,
+          "rejected_occurrences": 3,
+          "rejected_transitions": 12,
+          "unknown_branches": 0,
+          "unknown_goal_checks": 0,
+          "candidate_count": 1,
+          "elapsed_ms": 3.155
+        },
+        "rejections": [
+          {
+            "reason": "preconditions is false",
+            "count": 12
+          }
+        ],
+        "limits": {
+          "max_nodes": 1000,
+          "timeout_ms": 5000,
+          "max_candidates": 10000,
+          "max_length": 4
+        },
+        "current_depth_limit": 3,
+        "resume_supported": true,
+        "planning_executed": true,
+        "independent_verification_executed": false,
+        "input_snapshot": {
+          "catalog": {
+            "format_version": "task-flow-1.0",
+            "catalog_id": "document-workflow",
+            "version": "1.0",
+            "objects": {
+              "document": [
+                "doc-1"
+              ]
+            },
+            "facts": [
+              {
+                "id": "source_available",
+                "arguments": [],
+                "kind": "static",
+                "type": "boolean",
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              },
+              {
+                "id": "collected",
+                "arguments": [
+                  "document"
+                ],
+                "kind": "mutable",
+                "type": "boolean",
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              },
+              {
+                "id": "approved",
+                "arguments": [
+                  "document"
+                ],
+                "kind": "mutable",
+                "type": "boolean",
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              },
+              {
+                "id": "published",
+                "arguments": [
+                  "document"
+                ],
+                "kind": "mutable",
+                "type": "boolean",
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              },
+              {
+                "id": "verified",
+                "arguments": [
+                  "document"
+                ],
+                "kind": "mutable",
+                "type": "boolean",
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              },
+              {
+                "id": "ready",
+                "arguments": [
+                  "document"
+                ],
+                "kind": "derived",
+                "type": "boolean",
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              }
+            ],
+            "derived_rules": [
+              {
+                "id": "ready-if-collected-and-approved",
+                "parameters": {
+                  "document": "document"
+                },
+                "head": {
+                  "predicate": "ready",
+                  "args": [
+                    {
+                      "param": "document"
+                    }
+                  ]
+                },
+                "when": {
+                  "all": [
+                    {
+                      "test": {
+                        "fact": {
+                          "predicate": "collected",
+                          "args": [
+                            {
+                              "param": "document"
+                            }
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    },
+                    {
+                      "test": {
+                        "fact": {
+                          "predicate": "approved",
+                          "args": [
+                            {
+                              "param": "document"
+                            }
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  ]
+                },
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              }
+            ],
+            "activities": [
+              {
+                "id": "collect",
+                "version": "1.0",
+                "type": "collection",
+                "parameters": {
+                  "document": "document"
+                },
+                "applicable_when": {
+                  "all": []
+                },
+                "preconditions": {
+                  "all": [
+                    {
+                      "test": {
+                        "fact": {
+                          "predicate": "source_available",
+                          "args": []
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  ]
+                },
+                "effects": [
+                  {
+                    "fact": {
+                      "predicate": "collected",
+                      "args": [
+                        {
+                          "param": "document"
+                        }
+                      ]
+                    },
+                    "set": {
+                      "value": true
+                    }
+                  }
+                ],
+                "required_capabilities": [
+                  "urn:task-flow:demo:CollectDocument"
+                ],
+                "max_occurrences": 1,
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              },
+              {
+                "id": "approve",
+                "version": "1.0",
+                "type": "approval",
+                "parameters": {
+                  "document": "document"
+                },
+                "applicable_when": {
+                  "all": []
+                },
+                "preconditions": {
+                  "all": [
+                    {
+                      "test": {
+                        "fact": {
+                          "predicate": "collected",
+                          "args": [
+                            {
+                              "param": "document"
+                            }
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  ]
+                },
+                "effects": [
+                  {
+                    "fact": {
+                      "predicate": "approved",
+                      "args": [
+                        {
+                          "param": "document"
+                        }
+                      ]
+                    },
+                    "set": {
+                      "value": true
+                    }
+                  }
+                ],
+                "required_capabilities": [
+                  "urn:task-flow:demo:ApproveDocument"
+                ],
+                "max_occurrences": 1,
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              },
+              {
+                "id": "publish_standard",
+                "version": "1.0",
+                "type": "publication",
+                "parameters": {
+                  "document": "document"
+                },
+                "applicable_when": {
+                  "all": []
+                },
+                "preconditions": {
+                  "all": [
+                    {
+                      "test": {
+                        "fact": {
+                          "predicate": "ready",
+                          "args": [
+                            {
+                              "param": "document"
+                            }
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  ]
+                },
+                "effects": [
+                  {
+                    "fact": {
+                      "predicate": "published",
+                      "args": [
+                        {
+                          "param": "document"
+                        }
+                      ]
+                    },
+                    "set": {
+                      "value": true
+                    }
+                  }
+                ],
+                "required_capabilities": [
+                  "urn:task-flow:demo:PublishStandard"
+                ],
+                "max_occurrences": 1,
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              },
+              {
+                "id": "publish_backup",
+                "version": "1.0",
+                "type": "publication",
+                "parameters": {
+                  "document": "document"
+                },
+                "applicable_when": {
+                  "all": []
+                },
+                "preconditions": {
+                  "all": [
+                    {
+                      "test": {
+                        "fact": {
+                          "predicate": "ready",
+                          "args": [
+                            {
+                              "param": "document"
+                            }
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  ]
+                },
+                "effects": [
+                  {
+                    "fact": {
+                      "predicate": "published",
+                      "args": [
+                        {
+                          "param": "document"
+                        }
+                      ]
+                    },
+                    "set": {
+                      "value": true
+                    }
+                  }
+                ],
+                "required_capabilities": [
+                  "urn:task-flow:demo:PublishBackup"
+                ],
+                "max_occurrences": 1,
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              },
+              {
+                "id": "verify",
+                "version": "1.0",
+                "type": "verification",
+                "parameters": {
+                  "document": "document"
+                },
+                "applicable_when": {
+                  "all": []
+                },
+                "preconditions": {
+                  "all": [
+                    {
+                      "test": {
+                        "fact": {
+                          "predicate": "published",
+                          "args": [
+                            {
+                              "param": "document"
+                            }
+                          ]
+                        },
+                        "op": "eq",
+                        "value": true
+                      }
+                    }
+                  ]
+                },
+                "effects": [
+                  {
+                    "fact": {
+                      "predicate": "verified",
+                      "args": [
+                        {
+                          "param": "document"
+                        }
+                      ]
+                    },
+                    "set": {
+                      "value": true
+                    }
+                  }
+                ],
+                "required_capabilities": [
+                  "urn:task-flow:demo:VerifyDocument"
+                ],
+                "max_occurrences": 1,
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              }
+            ],
+            "capabilities": [
+              {
+                "uri": "urn:task-flow:demo:CollectDocument",
+                "mapping_status": "unmapped",
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              },
+              {
+                "uri": "urn:task-flow:demo:ApproveDocument",
+                "mapping_status": "unmapped",
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              },
+              {
+                "uri": "urn:task-flow:demo:PublishStandard",
+                "mapping_status": "unmapped",
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              },
+              {
+                "uri": "urn:task-flow:demo:PublishBackup",
+                "mapping_status": "unmapped",
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              },
+              {
+                "uri": "urn:task-flow:demo:VerifyDocument",
+                "mapping_status": "unmapped",
+                "source_refs": [
+                  "synthetic-phase2-document-workflow"
+                ]
+              }
+            ],
+            "source_refs": [
+              "synthetic-phase2-document-workflow"
+            ]
+          },
+          "request": {
+            "format_version": "task-flow-1.0",
+            "request_id": "basic",
+            "catalog_id": "document-workflow",
+            "catalog_version": "1.0",
+            "catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+            "static_facts": [
+              {
+                "fact": {
+                  "predicate": "source_available",
+                  "args": []
+                },
+                "value": true
+              }
+            ],
+            "initial_state": [
+              {
+                "fact": {
+                  "predicate": "collected",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "value": false
+              },
+              {
+                "fact": {
+                  "predicate": "approved",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "value": false
+              },
+              {
+                "fact": {
+                  "predicate": "published",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "value": false
+              },
+              {
+                "fact": {
+                  "predicate": "verified",
+                  "args": [
+                    "doc-1"
+                  ]
+                },
+                "value": false
+              }
+            ],
+            "ontology_evidence": [],
+            "goal": {
+              "all": [
+                {
+                  "test": {
+                    "fact": {
+                      "predicate": "published",
+                      "args": [
+                        "doc-1"
+                      ]
+                    },
+                    "op": "eq",
+                    "value": true
+                  }
+                }
+              ]
+            },
+            "required_activities": [],
+            "forbidden_conditions": [],
+            "activity_limits": {},
+            "search": {
+              "mode": "first_feasible",
+              "max_length": 4,
+              "max_nodes": 1000,
+              "timeout_ms": 5000
+            },
+            "source_refs": [
+              "synthetic-phase2-document-workflow"
+            ]
+          }
+        }
+      }
+    },
+    "calls": [
+      {
+        "operation": "prepare_problem",
+        "model_id": "05d654fd3af615e8775db1f49824b7e3fb4a2a3c2c0ac95c5091ebd51e586b22",
+        "options": {},
+        "outcome": {
+          "ground_facts": 6,
+          "ground_instances": 5
+        }
+      },
+      {
+        "operation": "verify_search_report",
+        "model_id": "05d654fd3af615e8775db1f49824b7e3fb4a2a3c2c0ac95c5091ebd51e586b22",
+        "options": {},
+        "subject_id": "b57cb1a1203016b6994349f5f562a8d6a1b7c7558c31cb9ee6eeccfbdc5cee3c",
+        "outcome": {
+          "verification_status": "passed",
+          "failure": null,
+          "counts": {
+            "passed": 1
+          }
+        }
+      }
+    ],
+    "search_runs": [
+      {
+        "options": {},
+        "report": {
+          "format_version": "task-flow-search-1.0",
+          "algorithm": "iterative_deepening_depth_first",
+          "catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+          "request_sha256": "a7db5f63641b23dafc2e9df5640b505c2416286ab3b3b258b28d8aa0d9e5d847",
+          "search_status": "candidate_found",
+          "termination_reason": "first_feasible_pause",
+          "conclusion": "candidates_available",
+          "coverage": "partial",
+          "coverage_scope": "certified_executable_sequences_within_declared_bounds",
+          "unknown_conditions_seen": false,
+          "unknown_examples": [],
+          "candidates": [
+            {
+              "candidate_id": "flow-f464d06097f25b92ab4e77b1aad5cf260e2afdaa74440ec5b6846ed6ad0a172f",
+              "sequence": {
+                "format_version": "task-flow-1.0",
+                "catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+                "request_sha256": "a7db5f63641b23dafc2e9df5640b505c2416286ab3b3b258b28d8aa0d9e5d847",
+                "steps": [
+                  {
+                    "activity_id": "collect",
+                    "activity_version": "1.0",
+                    "parameters": {
+                      "document": "doc-1"
+                    }
+                  },
+                  {
+                    "activity_id": "approve",
+                    "activity_version": "1.0",
+                    "parameters": {
+                      "document": "doc-1"
+                    }
+                  },
+                  {
+                    "activity_id": "publish_backup",
+                    "activity_version": "1.0",
+                    "parameters": {
+                      "document": "doc-1"
+                    }
+                  }
+                ]
+              },
+              "capability_demands": [
+                {
+                  "step_index": 0,
+                  "activity_id": "collect",
+                  "required_capabilities": [
+                    "urn:task-flow:demo:CollectDocument"
+                  ],
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                },
+                {
+                  "step_index": 1,
+                  "activity_id": "approve",
+                  "required_capabilities": [
+                    "urn:task-flow:demo:ApproveDocument"
+                  ],
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                },
+                {
+                  "step_index": 2,
+                  "activity_id": "publish_backup",
+                  "required_capabilities": [
+                    "urn:task-flow:demo:PublishBackup"
+                  ],
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                }
+              ],
+              "final_state": [
+                {
+                  "fact": {
+                    "predicate": "approved",
+                    "args": [
+                      "doc-1"
+                    ]
+                  },
+                  "value": true,
+                  "kind": "mutable"
+                },
+                {
+                  "fact": {
+                    "predicate": "collected",
+                    "args": [
+                      "doc-1"
+                    ]
+                  },
+                  "value": true,
+                  "kind": "mutable"
+                },
+                {
+                  "fact": {
+                    "predicate": "published",
+                    "args": [
+                      "doc-1"
+                    ]
+                  },
+                  "value": true,
+                  "kind": "mutable"
+                },
+                {
+                  "fact": {
+                    "predicate": "ready",
+                    "args": [
+                      "doc-1"
+                    ]
+                  },
+                  "value": true,
+                  "kind": "derived"
+                },
+                {
+                  "fact": {
+                    "predicate": "source_available",
+                    "args": []
+                  },
+                  "value": true,
+                  "kind": "static"
+                },
+                {
+                  "fact": {
+                    "predicate": "verified",
+                    "args": [
+                      "doc-1"
+                    ]
+                  },
+                  "value": false,
+                  "kind": "mutable"
+                }
+              ],
+              "generation_goal_satisfied": true,
+              "verification_status": "not_run",
+              "external_status": "not_run"
+            }
+          ],
+          "statistics": {
+            "nodes": 21,
+            "prefixes_checked": 10,
+            "transitions_applied": 6,
+            "rejected_prefixes": 0,
+            "rejected_occurrences": 3,
+            "rejected_transitions": 12,
+            "unknown_branches": 0,
+            "unknown_goal_checks": 0,
+            "candidate_count": 1,
+            "elapsed_ms": 3.155
+          },
+          "rejections": [
+            {
+              "reason": "preconditions is false",
+              "count": 12
+            }
+          ],
+          "limits": {
+            "max_nodes": 1000,
+            "timeout_ms": 5000,
+            "max_candidates": 10000,
+            "max_length": 4
+          },
+          "current_depth_limit": 3,
+          "resume_supported": true,
+          "planning_executed": true,
+          "independent_verification_executed": false,
+          "input_snapshot": {
+            "catalog": {
+              "format_version": "task-flow-1.0",
+              "catalog_id": "document-workflow",
+              "version": "1.0",
+              "objects": {
+                "document": [
+                  "doc-1"
+                ]
+              },
+              "facts": [
+                {
+                  "id": "source_available",
+                  "arguments": [],
+                  "kind": "static",
+                  "type": "boolean",
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                },
+                {
+                  "id": "collected",
+                  "arguments": [
+                    "document"
+                  ],
+                  "kind": "mutable",
+                  "type": "boolean",
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                },
+                {
+                  "id": "approved",
+                  "arguments": [
+                    "document"
+                  ],
+                  "kind": "mutable",
+                  "type": "boolean",
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                },
+                {
+                  "id": "published",
+                  "arguments": [
+                    "document"
+                  ],
+                  "kind": "mutable",
+                  "type": "boolean",
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                },
+                {
+                  "id": "verified",
+                  "arguments": [
+                    "document"
+                  ],
+                  "kind": "mutable",
+                  "type": "boolean",
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                },
+                {
+                  "id": "ready",
+                  "arguments": [
+                    "document"
+                  ],
+                  "kind": "derived",
+                  "type": "boolean",
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                }
+              ],
+              "derived_rules": [
+                {
+                  "id": "ready-if-collected-and-approved",
+                  "parameters": {
+                    "document": "document"
+                  },
+                  "head": {
+                    "predicate": "ready",
+                    "args": [
+                      {
+                        "param": "document"
+                      }
+                    ]
+                  },
+                  "when": {
+                    "all": [
+                      {
+                        "test": {
+                          "fact": {
+                            "predicate": "collected",
+                            "args": [
+                              {
+                                "param": "document"
+                              }
+                            ]
+                          },
+                          "op": "eq",
+                          "value": true
+                        }
+                      },
+                      {
+                        "test": {
+                          "fact": {
+                            "predicate": "approved",
+                            "args": [
+                              {
+                                "param": "document"
+                              }
+                            ]
+                          },
+                          "op": "eq",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                }
+              ],
+              "activities": [
+                {
+                  "id": "collect",
+                  "version": "1.0",
+                  "type": "collection",
+                  "parameters": {
+                    "document": "document"
+                  },
+                  "applicable_when": {
+                    "all": []
+                  },
+                  "preconditions": {
+                    "all": [
+                      {
+                        "test": {
+                          "fact": {
+                            "predicate": "source_available",
+                            "args": []
+                          },
+                          "op": "eq",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "effects": [
+                    {
+                      "fact": {
+                        "predicate": "collected",
+                        "args": [
+                          {
+                            "param": "document"
+                          }
+                        ]
+                      },
+                      "set": {
+                        "value": true
+                      }
+                    }
+                  ],
+                  "required_capabilities": [
+                    "urn:task-flow:demo:CollectDocument"
+                  ],
+                  "max_occurrences": 1,
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                },
+                {
+                  "id": "approve",
+                  "version": "1.0",
+                  "type": "approval",
+                  "parameters": {
+                    "document": "document"
+                  },
+                  "applicable_when": {
+                    "all": []
+                  },
+                  "preconditions": {
+                    "all": [
+                      {
+                        "test": {
+                          "fact": {
+                            "predicate": "collected",
+                            "args": [
+                              {
+                                "param": "document"
+                              }
+                            ]
+                          },
+                          "op": "eq",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "effects": [
+                    {
+                      "fact": {
+                        "predicate": "approved",
+                        "args": [
+                          {
+                            "param": "document"
+                          }
+                        ]
+                      },
+                      "set": {
+                        "value": true
+                      }
+                    }
+                  ],
+                  "required_capabilities": [
+                    "urn:task-flow:demo:ApproveDocument"
+                  ],
+                  "max_occurrences": 1,
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                },
+                {
+                  "id": "publish_standard",
+                  "version": "1.0",
+                  "type": "publication",
+                  "parameters": {
+                    "document": "document"
+                  },
+                  "applicable_when": {
+                    "all": []
+                  },
+                  "preconditions": {
+                    "all": [
+                      {
+                        "test": {
+                          "fact": {
+                            "predicate": "ready",
+                            "args": [
+                              {
+                                "param": "document"
+                              }
+                            ]
+                          },
+                          "op": "eq",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "effects": [
+                    {
+                      "fact": {
+                        "predicate": "published",
+                        "args": [
+                          {
+                            "param": "document"
+                          }
+                        ]
+                      },
+                      "set": {
+                        "value": true
+                      }
+                    }
+                  ],
+                  "required_capabilities": [
+                    "urn:task-flow:demo:PublishStandard"
+                  ],
+                  "max_occurrences": 1,
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                },
+                {
+                  "id": "publish_backup",
+                  "version": "1.0",
+                  "type": "publication",
+                  "parameters": {
+                    "document": "document"
+                  },
+                  "applicable_when": {
+                    "all": []
+                  },
+                  "preconditions": {
+                    "all": [
+                      {
+                        "test": {
+                          "fact": {
+                            "predicate": "ready",
+                            "args": [
+                              {
+                                "param": "document"
+                              }
+                            ]
+                          },
+                          "op": "eq",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "effects": [
+                    {
+                      "fact": {
+                        "predicate": "published",
+                        "args": [
+                          {
+                            "param": "document"
+                          }
+                        ]
+                      },
+                      "set": {
+                        "value": true
+                      }
+                    }
+                  ],
+                  "required_capabilities": [
+                    "urn:task-flow:demo:PublishBackup"
+                  ],
+                  "max_occurrences": 1,
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                },
+                {
+                  "id": "verify",
+                  "version": "1.0",
+                  "type": "verification",
+                  "parameters": {
+                    "document": "document"
+                  },
+                  "applicable_when": {
+                    "all": []
+                  },
+                  "preconditions": {
+                    "all": [
+                      {
+                        "test": {
+                          "fact": {
+                            "predicate": "published",
+                            "args": [
+                              {
+                                "param": "document"
+                              }
+                            ]
+                          },
+                          "op": "eq",
+                          "value": true
+                        }
+                      }
+                    ]
+                  },
+                  "effects": [
+                    {
+                      "fact": {
+                        "predicate": "verified",
+                        "args": [
+                          {
+                            "param": "document"
+                          }
+                        ]
+                      },
+                      "set": {
+                        "value": true
+                      }
+                    }
+                  ],
+                  "required_capabilities": [
+                    "urn:task-flow:demo:VerifyDocument"
+                  ],
+                  "max_occurrences": 1,
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                }
+              ],
+              "capabilities": [
+                {
+                  "uri": "urn:task-flow:demo:CollectDocument",
+                  "mapping_status": "unmapped",
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                },
+                {
+                  "uri": "urn:task-flow:demo:ApproveDocument",
+                  "mapping_status": "unmapped",
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                },
+                {
+                  "uri": "urn:task-flow:demo:PublishStandard",
+                  "mapping_status": "unmapped",
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                },
+                {
+                  "uri": "urn:task-flow:demo:PublishBackup",
+                  "mapping_status": "unmapped",
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                },
+                {
+                  "uri": "urn:task-flow:demo:VerifyDocument",
+                  "mapping_status": "unmapped",
+                  "source_refs": [
+                    "synthetic-phase2-document-workflow"
+                  ]
+                }
+              ],
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            },
+            "request": {
+              "format_version": "task-flow-1.0",
+              "request_id": "basic",
+              "catalog_id": "document-workflow",
+              "catalog_version": "1.0",
+              "catalog_sha256": "d63b08f77224bf1db6944fcbf1c467c3bddbf74cc90fa98abb64cf7c506525fd",
+              "static_facts": [
+                {
+                  "fact": {
+                    "predicate": "source_available",
+                    "args": []
+                  },
+                  "value": true
+                }
+              ],
+              "initial_state": [
+                {
+                  "fact": {
+                    "predicate": "collected",
+                    "args": [
+                      "doc-1"
+                    ]
+                  },
+                  "value": false
+                },
+                {
+                  "fact": {
+                    "predicate": "approved",
+                    "args": [
+                      "doc-1"
+                    ]
+                  },
+                  "value": false
+                },
+                {
+                  "fact": {
+                    "predicate": "published",
+                    "args": [
+                      "doc-1"
+                    ]
+                  },
+                  "value": false
+                },
+                {
+                  "fact": {
+                    "predicate": "verified",
+                    "args": [
+                      "doc-1"
+                    ]
+                  },
+                  "value": false
+                }
+              ],
+              "ontology_evidence": [],
+              "goal": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "published",
+                        "args": [
+                          "doc-1"
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  }
+                ]
+              },
+              "required_activities": [],
+              "forbidden_conditions": [],
+              "activity_limits": {},
+              "search": {
+                "mode": "first_feasible",
+                "max_length": 4,
+                "max_nodes": 1000,
+                "timeout_ms": 5000
+              },
+              "source_refs": [
+                "synthetic-phase2-document-workflow"
+              ]
+            }
+          }
+        }
+      }
+    ]
+  },
+  "criterion": "exact typed JSON equality; reference sets are computed independently before the production probe",
+  "passed": true,
+  "elapsed_ms": 42.674
+}
