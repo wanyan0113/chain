@@ -1,0 +1,110 @@
+{
+  "task_rules": [],
+  "artifact_rules": [
+    {
+      "id": "WideSurvey",
+      "role": "insight",
+      "capability": "urn:arcane-rift-demo:WideSurvey",
+      "when": [
+        {
+          "field": "artifact.supported_functions",
+          "op": "contains",
+          "value": "urn:arcane-rift-demo:WideSurvey"
+        },
+        {
+          "field": "artifact.ontology_capabilities",
+          "op": "contains",
+          "value": "urn:arcane-rift-demo:WideSurvey"
+        }
+      ],
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "FineScan",
+      "role": "insight",
+      "capability": "urn:arcane-rift-demo:FineScan",
+      "when": [
+        {
+          "field": "artifact.supported_functions",
+          "op": "contains",
+          "value": "urn:arcane-rift-demo:FineScan"
+        },
+        {
+          "field": "artifact.ontology_capabilities",
+          "op": "contains",
+          "value": "urn:arcane-rift-demo:FineScan"
+        }
+      ],
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "ResonanceAnalysis",
+      "role": "coordination",
+      "capability": "urn:arcane-rift-demo:ResonanceAnalysis",
+      "when": [
+        {
+          "field": "artifact.supported_functions",
+          "op": "contains",
+          "value": "urn:arcane-rift-demo:ResonanceAnalysis"
+        },
+        {
+          "field": "artifact.ontology_capabilities",
+          "op": "contains",
+          "value": "urn:arcane-rift-demo:ResonanceAnalysis"
+        }
+      ],
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "Dispatch",
+      "role": "coordination",
+      "capability": "urn:arcane-rift-demo:Dispatch",
+      "when": [
+        {
+          "field": "artifact.supported_functions",
+          "op": "contains",
+          "value": "urn:arcane-rift-demo:Dispatch"
+        },
+        {
+          "field": "artifact.ontology_capabilities",
+          "op": "contains",
+          "value": "urn:arcane-rift-demo:Dispatch"
+        }
+      ],
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "Stabilize",
+      "role": "manifestation",
+      "capability": "urn:arcane-rift-demo:Stabilize",
+      "when": [
+        {
+          "field": "artifact.supported_functions",
+          "op": "contains",
+          "value": "urn:arcane-rift-demo:Stabilize"
+        },
+        {
+          "field": "artifact.ontology_capabilities",
+          "op": "contains",
+          "value": "urn:arcane-rift-demo:Stabilize"
+        }
+      ],
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    }
+  ]
+}

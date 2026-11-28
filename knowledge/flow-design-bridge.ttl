@@ -1,0 +1,10 @@
+@prefix r: <urn:arcane-rift-demo:> .
+@prefix b: <http://example.org/arcaneweb#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+r:PrimaryChannel a owl:NamedIndividual, b:CoordinationCapability ; rdfs:label "主解析通道"@zh .
+r:BackupChannel a owl:NamedIndividual, b:CoordinationCapability ; rdfs:label "备用解析通道"@zh .
+r:PrimaryAnalysisUnit a owl:Class ; rdfs:label "主解析法器类"@zh ; rdfs:subClassOf r:AnalysisUnit,
+ [ a owl:Restriction ; owl:onProperty b:hasCapability ; owl:hasValue r:PrimaryChannel ] .
+r:BackupAnalysisUnit a owl:Class ; rdfs:label "备用解析法器类"@zh ; rdfs:subClassOf r:AnalysisUnit,
+ [ a owl:Restriction ; owl:onProperty b:hasCapability ; owl:hasValue r:BackupChannel ] .

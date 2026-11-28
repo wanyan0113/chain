@@ -2,9 +2,13 @@
 
 任务流程扩展依据[扩展链任务书](扩展链任务书.txt)，[第一阶段需求分析与总体设计](docs/task-flow/phase1/README.md)保留最初的设计与验收边界。
 
-[第二阶段活动与状态模型](docs/task-flow/phase2/README.md)提供正式JSON契约、有限实例化、三值状态语义及`python -m task_flow check`预检查。[第三阶段有界流程搜索](docs/task-flow/phase3/README.md)提供`python -m task_flow plan`、首解恢复及边界内枚举。[第四阶段独立验证](docs/task-flow/phase4/README.md)提供`verify`与`plan --verify`。后续能力/资源适配尚未实现；旧链网设计和FDNA流程保持原接口。[当前阶段总览](docs/task-flow/STATUS.md)。
+[第二阶段活动与状态模型](docs/task-flow/phase2/README.md)提供正式JSON契约、有限实例化、三值状态语义及`python -m task_flow check`预检查。[第三阶段有界流程搜索](docs/task-flow/phase3/README.md)提供`python -m task_flow plan`、首解恢复及边界内枚举。[第四阶段独立验证](docs/task-flow/phase4/README.md)提供`verify`与`plan --verify`。[活动流程到法器组网桥接](docs/task-flow/design-bridge.md)新增`python -m task_flow.design_bridge`，实际完成规划、独立重放、显式映射、HermiT推理、资源组网及失败后搜索其他流程；支持受限顺序结构，选择首个资源可行流程组合，不宣称所有活动流程全局最优。旧链网入口和FDNA流程保留。[当前阶段总览](docs/task-flow/STATUS.md)。
 
 本地运行：外置OWL知识 → HermiT分类与具名关系推理 → JSON业务规则 → 成链、评分及资源约束下组网。无需AI API。
+
+[多环节最终实验：迷雾裂隙稳定](docs/rift_multistep_demo.md)提供同场景三、四、五环节链网、完整运行命令、独立评分与穷举对照，以及资源/连接/未知数据反例。可运行 `python -B -m workflow_tools.verify_rift_multistep_demo` 一键验收。
+
+[跨流程联合优化实现与验收](docs/task-flow/joint-optimization/implementation-v1.md)已实现TFDO-DESIGN-1.0软件范围。新入口为 `python -m task_flow.design_bridge --mode joint_candidate_optimization`，须显式采用 `sequential_product_v2`。按任务汇总不同流程的候选链，冻结后统一评分，再进行资源约束组网；区分候选集最优、声明边界内最优和超限当前最好解。可运行 `python -B -m workflow_tools.verify_joint_optimization` 重跑实际验收。原始精度模型的业务有效性仍待验证。
 
 ## 启动与验证
 
@@ -87,10 +91,12 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\启动Excel演示.ps1
 
 observe对应insight（探知）、decide对应coordination（协调）、act对应manifestation（具现）。为兼容既有配置保留可选assess（insight角色），只有模板显式填写才会参与执行；不使用评估时无需提供评估能力或指标。资源 `attributes.level_<activity>` 使用 `{"value":0.9,"unit":"1"}`，与环节min_level比较。`SequentialStepMission` 的类型和requiresCapability由HermiT实际推导，随后业务规则核验数值条件。stepTarget与整体任务hasTarget分开，避免把整体多角色能力需求强加给每个环节。
 
-两种评价方式须显式选择：
+评价方式须显式选择：
 
 - `feasibility_only`：只生成逐目标可行轨迹，成功状态为 `feasible_trajectories`；不评分、不选择同时可执行的网络、不导出选中设计RDF。可查看报告及reasoning_input/result。
 - `sequential_product`：显式采用工程假设——环节耗时相加、精度相乘、每次执行成本相加，再接回原归一化、权重及网络搜索。各资源必须单独提供 `activity_metrics.<activity>`（duration_s、accuracy、cost），不沿用旧metrics。重复执行按次计成本和库存，按环节时间及冷却计资源占用。Excel可添加“环节指标”表，列为法器编号、活动、耗时秒、精度0至1、使用成本、成本单位。
+
+新增 `insight_lock_product`：限定一次探知、一个或多个协调、一次具现；综合精度为探知精度×具现锁定率，协调指标只累计时间和成本，不补造协调精度或把它改成概率。时间、成本按所有环节累计，之后沿用原归一化和加权。多次探知/具现或评估环节不适用该模式。自动桥接使用经完整校验并纳入知识哈希的 `knowledge.sequences_inline`，与磁盘 `sequences_file`互斥。
 
 报告中 `plan.steps` 给出顺序、执行对象、能力与时间；`sequence_generation` 记录搜索和剪枝。先筛选环节候选域，再深度优先回溯并即时检查连接，借鉴CPBS-MP；`max_sequence_search_nodes` 默认1000000，生成候选数仍受max_chain_combinations约束，触限报错，不返回截断集合。
 

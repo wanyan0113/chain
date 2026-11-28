@@ -3,7 +3,7 @@ from collections import Counter
 import math
 
 
-def branch_and_bound(groups, doc, conflict_check, *, cooperation_check=None):
+def branch_and_bound(groups, doc, conflict_check, *, cooperation_check=None, allow_incomplete=False):
     """Prune only monotone resource/precedence failures and optimistic bounds.
 
     The callback certifies monotone Table-10 prefix failures. Unknown
@@ -47,6 +47,9 @@ def branch_and_bound(groups, doc, conflict_check, *, cooperation_check=None):
             continue
         stats['nodes'] += 1
         if stats['nodes'] > limit:
+            if allow_incomplete:
+                stats.update(termination_reason='node_limit', search_complete=False)
+                break
             raise SearchLimitError(f'网络分支定界搜索节点超过显式上限 {limit}；未证明最优，不返回完整设计')
         prefix = chosen + [candidate]
         complete = len(prefix) == len(groups)
@@ -98,7 +101,11 @@ def branch_and_bound(groups, doc, conflict_check, *, cooperation_check=None):
         # against the final result, including equal-score deterministic ties.
         unknown_cooperation = unknown_best is not None and (best is None or unknown_best < best[0])
         stats['unresolved_can_improve'] = unknown_cooperation
-    stats['optimality'] = 'not_proven' if unknown_cooperation else 'proven' if best is not None else 'proven_infeasible'
+    interrupted = stats.get('search_complete') is False
+    stats['optimality'] = 'not_proven' if interrupted or unknown_cooperation else 'proven' if best is not None else 'proven_infeasible'
+    if allow_incomplete:
+        stats.setdefault('search_complete', True)
+        stats.setdefault('termination_reason', 'search_exhausted')
     if cooperation_check is not None:
         stats['table10_pruning'] = [dict(table10_reasons[key], count=count)
                                    for key, count in sorted(table10_counts.items())]

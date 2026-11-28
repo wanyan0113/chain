@@ -1,0 +1,251 @@
+{
+  "templates": [
+    {
+      "id": "rift-3-step",
+      "when": [
+        {
+          "field": "task.target_type",
+          "op": "eq",
+          "value": "普通裂隙"
+        }
+      ],
+      "allow_nonadjacent_reuse": false,
+      "steps": [
+        {
+          "id": "WideSurvey",
+          "activity": "observe",
+          "role": "insight",
+          "capabilities": [
+            "urn:arcane-rift-demo:WideSurvey"
+          ],
+          "ontology_types": [
+            "urn:arcane-rift-demo:WideSurveyStep"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ]
+        },
+        {
+          "id": "Dispatch",
+          "activity": "decide",
+          "role": "coordination",
+          "capabilities": [
+            "urn:arcane-rift-demo:Dispatch"
+          ],
+          "ontology_types": [
+            "urn:arcane-rift-demo:DispatchStep"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "incoming_relation": "communication"
+        },
+        {
+          "id": "Stabilize",
+          "activity": "act",
+          "role": "manifestation",
+          "capabilities": [
+            "urn:arcane-rift-demo:Stabilize"
+          ],
+          "ontology_types": [
+            "urn:arcane-rift-demo:StabilizeStep"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "incoming_relation": "control"
+        }
+      ],
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ]
+    },
+    {
+      "id": "rift-4-step",
+      "when": [
+        {
+          "field": "task.target_type",
+          "op": "eq",
+          "value": "共振裂隙"
+        }
+      ],
+      "allow_nonadjacent_reuse": false,
+      "steps": [
+        {
+          "id": "WideSurvey",
+          "activity": "observe",
+          "role": "insight",
+          "capabilities": [
+            "urn:arcane-rift-demo:WideSurvey"
+          ],
+          "ontology_types": [
+            "urn:arcane-rift-demo:WideSurveyStep"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ]
+        },
+        {
+          "id": "ResonanceAnalysis",
+          "activity": "decide",
+          "role": "coordination",
+          "capabilities": [
+            "urn:arcane-rift-demo:ResonanceAnalysis"
+          ],
+          "ontology_types": [
+            "urn:arcane-rift-demo:ResonanceAnalysisStep"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "incoming_relation": "communication"
+        },
+        {
+          "id": "Dispatch",
+          "activity": "decide",
+          "role": "coordination",
+          "capabilities": [
+            "urn:arcane-rift-demo:Dispatch"
+          ],
+          "ontology_types": [
+            "urn:arcane-rift-demo:DispatchStep"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "incoming_relation": "communication"
+        },
+        {
+          "id": "Stabilize",
+          "activity": "act",
+          "role": "manifestation",
+          "capabilities": [
+            "urn:arcane-rift-demo:Stabilize"
+          ],
+          "ontology_types": [
+            "urn:arcane-rift-demo:StabilizeStep"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "incoming_relation": "control"
+        }
+      ],
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ]
+    },
+    {
+      "id": "rift-5-step",
+      "when": [
+        {
+          "field": "task.target_type",
+          "op": "eq",
+          "value": "迷雾裂隙"
+        }
+      ],
+      "allow_nonadjacent_reuse": false,
+      "steps": [
+        {
+          "id": "WideSurvey",
+          "activity": "observe",
+          "role": "insight",
+          "capabilities": [
+            "urn:arcane-rift-demo:WideSurvey"
+          ],
+          "ontology_types": [
+            "urn:arcane-rift-demo:WideSurveyStep"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ]
+        },
+        {
+          "id": "ResonanceAnalysis",
+          "activity": "decide",
+          "role": "coordination",
+          "capabilities": [
+            "urn:arcane-rift-demo:ResonanceAnalysis"
+          ],
+          "ontology_types": [
+            "urn:arcane-rift-demo:ResonanceAnalysisStep"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "incoming_relation": "communication"
+        },
+        {
+          "id": "FineScan",
+          "activity": "observe",
+          "role": "insight",
+          "capabilities": [
+            "urn:arcane-rift-demo:FineScan"
+          ],
+          "ontology_types": [
+            "urn:arcane-rift-demo:FineScanStep"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "incoming_relation": "communication"
+        },
+        {
+          "id": "Dispatch",
+          "activity": "decide",
+          "role": "coordination",
+          "capabilities": [
+            "urn:arcane-rift-demo:Dispatch"
+          ],
+          "ontology_types": [
+            "urn:arcane-rift-demo:DispatchStep"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "incoming_relation": "communication"
+        },
+        {
+          "id": "Stabilize",
+          "activity": "act",
+          "role": "manifestation",
+          "capabilities": [
+            "urn:arcane-rift-demo:Stabilize"
+          ],
+          "ontology_types": [
+            "urn:arcane-rift-demo:StabilizeStep"
+          ],
+          "min_level": 0.8,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "incoming_relation": "control"
+        }
+      ],
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ]
+    }
+  ],
+  "communication_model": "directed",
+  "evaluation": {
+    "mode": "sequential_product",
+    "source_refs": [
+      "docs/rift_multistep_demo.md：虚构实验设定v1"
+    ]
+  },
+  "source_refs": [
+    "docs/rift_multistep_demo.md：虚构实验设定v1"
+  ]
+}

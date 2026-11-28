@@ -232,7 +232,24 @@ def design(doc):
         return _design(effective, input_digest, knowledge, owl)
 
 
-def _design(doc, input_digest, knowledge, owl):
+def generate_candidates(doc, *, allow_partial=False):
+    """Generate unranked sequential candidates; never silently truncate legacy runs."""
+    validate_document(doc)
+    from .knowledge import knowledge_context
+    from .owl_scene import reason_scene
+    from .capability_identity import load_capability_ontology
+    from .sequences import SEQUENCES
+    with knowledge_context(doc) as (effective, knowledge):
+        validate_document(effective)
+        if knowledge is None or SEQUENCES.get() is None:
+            raise DesignError('未评分候选生成需要实际OWL知识及明确的顺序配置')
+        owl = reason_scene(effective, load_capability_ontology())
+        digest = hashlib.sha256(json.dumps(doc, ensure_ascii=False, sort_keys=True,
+                                          allow_nan=False).encode('utf-8')).hexdigest()
+        return _design(effective, digest, knowledge, owl, generation_only=True, allow_partial=allow_partial)
+
+
+def _design(doc, input_digest, knowledge, owl, *, generation_only=False, allow_partial=False):
     from .ontology_inference import prepare_artifacts
     from .owl_scene import task_requirements
     doc, ontology_inference = prepare_artifacts(doc, owl_result=owl)
@@ -240,8 +257,8 @@ def _design(doc, input_digest, knowledge, owl):
     sequences = SEQUENCES.get()
     type_evidence = {item['artifact']: item for item in ontology_inference['artifacts']}
     article_enabled = doc['policies'].get('article_table10', False)
-    if sequences and article_enabled and sequences['evaluation']['mode'] != 'sequential_product':
-        raise DesignError('多环节表10协同检查需要逐活动时间；请使用sequential_product并提供活动指标')
+    if sequences and article_enabled and sequences['evaluation']['mode'] == 'feasibility_only':
+        raise DesignError('多环节表10协同检查需要逐活动时间；请使用sequential_product或insight_lock_product并提供活动指标')
     if article_enabled:
         from .article_integration import validate_counts, screening, cooperation
         validate_counts(doc)
@@ -264,13 +281,13 @@ def _design(doc, input_digest, knowledge, owl):
     unresolved = False
     for ti, task in enumerate(doc["tasks"], 1):
         if sequences:
-            result = generate_task(task, doc, ontology_inference, owl, ti)
+            result = generate_task(task, doc, ontology_inference, owl, ti, allow_partial=allow_partial)
             report['tasks'].append(result)
             if result['blockers']:
                 unresolved = True
                 comparison_groups.append([])
-            elif sequences['evaluation']['mode'] == 'sequential_product':
-                if result['chains']:
+            elif sequences['evaluation']['mode'] != 'feasibility_only':
+                if result['chains'] and not generation_only:
                     rank_chains(result['chains'], doc['weights'], doc['policies']['equal_metric_score'])
                 comparison_groups.append(result['chains'])
             else:
@@ -389,12 +406,25 @@ def _design(doc, input_digest, knowledge, owl):
             if result["chains"]:
                 rank_chains(result["chains"], doc["weights"], doc["policies"]["equal_metric_score"])
             comparison_groups.append(result["chains"])
+    if generation_only:
+        report['status'] = 'candidates_generated'
+        report['candidate_generation_complete'] = all(
+            t['sequence_generation'].get('coverage', 'complete') == 'complete' and not t['blockers']
+            for t in report['tasks'])
+        return annotate_design_mapping(deepcopy(report))
     if sequences and sequences['evaluation']['mode'] == 'feasibility_only':
         report['status'] = ('blocked' if unresolved else 'feasible_trajectories' if all(comparison_groups) else 'no_feasible_design')
         return annotate_design_mapping(deepcopy(report))
     if not all(comparison_groups):
         report["status"] = "blocked" if unresolved else "no_feasible_design"
         return annotate_design_mapping(deepcopy(report))
+    return _optimize_network(doc, report, comparison_groups, article_enabled)
+
+
+def _optimize_network(doc, report, comparison_groups, article_enabled):
+    """Legacy optimization, separated from candidate generation and ranking."""
+    if article_enabled:
+        from .article_integration import cooperation
     best = None
     unknown_article = False
     rejection_counts = Counter()

@@ -1,0 +1,149 @@
+{
+  "implementation": "tfdo-joint-1.0",
+  "baseline": "TFDO-DESIGN-1.0",
+  "date": "2026-11-28",
+  "domain_validity": "pending",
+  "files": [
+    {
+      "path": "design/engine.py",
+      "sha256": "043885ce2636c9f16a8b72b5102ac1d6a1691bdafd560d09fc1f222d1b6cdf98",
+      "sha256_lf_normalized": "afb6f798160fb811c798fe76357c1310c1d22f7840300d705b6d90b80e4b17ce"
+    },
+    {
+      "path": "design/rdf.py",
+      "sha256": "a4219ad36d5d28b38b18bad140379d6a894b4fd9a8966e2e75d40297d3b4b703",
+      "sha256_lf_normalized": "a4219ad36d5d28b38b18bad140379d6a894b4fd9a8966e2e75d40297d3b4b703"
+    },
+    {
+      "path": "design/search.py",
+      "sha256": "cbf44b0450426e459480daa95d4fa4ef0c9642d9ac6d5c44cdd72b47d45d9779",
+      "sha256_lf_normalized": "cbf44b0450426e459480daa95d4fa4ef0c9642d9ac6d5c44cdd72b47d45d9779"
+    },
+    {
+      "path": "design/sequence_schema.json",
+      "sha256": "779e04845a2f248126004adc07efb8fb97c8b37395fcf1ff63c62286ae0781a8",
+      "sha256_lf_normalized": "0e6614c40f5cdf52e451970af0d2577f0d94bd3a9243ee1c84e1b496b8ae2379"
+    },
+    {
+      "path": "design/sequences.py",
+      "sha256": "2f6eb3c5a9b7753fe47bb663030e550a6ca1e65bf16f5712fa2a1fc0cf4a66b3",
+      "sha256_lf_normalized": "86e22fa2399de98ace213daffa5e19842d604cd7f422711ca0d62e14fe8392cd"
+    },
+    {
+      "path": "task_flow/design_bridge.py",
+      "sha256": "81a45403c245af381fee34dbc51c2c896bf0616ff4f28d20b5497de56744346d",
+      "sha256_lf_normalized": "81a45403c245af381fee34dbc51c2c896bf0616ff4f28d20b5497de56744346d"
+    },
+    {
+      "path": "task_flow/examples/joint_optimization/catalog-1.json",
+      "sha256": "794abc3cf9dcb7aaa5ba93ac47254ea3f29971c61f8d113a5cdd3a16b82608f2",
+      "sha256_lf_normalized": "e7a92515c1a5961a285a212e36081f200a9acd27429d4e8864e514f7e73c3042"
+    },
+    {
+      "path": "task_flow/examples/joint_optimization/catalog-2.json",
+      "sha256": "ea587548dd7a4c97ff1026accab9d237f1e3c6c1327f984883c6ff34a523429e",
+      "sha256_lf_normalized": "b9a86a66b6c391d25513601c4ebcdd23199a9bb079cf240604584f88f2a6301e"
+    },
+    {
+      "path": "task_flow/examples/joint_optimization/catalog-3.json",
+      "sha256": "db9de083d03ad7d874123a91e437f66d173c4e228df0822765df4a0958043073",
+      "sha256_lf_normalized": "aa64ccc15886af46177018a5ef9296426d13aeb8cec2908af65c3fd151526ce6"
+    },
+    {
+      "path": "task_flow/examples/joint_optimization/jobs.json",
+      "sha256": "da85314ee6750cdf6e89d6c2d54d24a5e2bdc3f6e3ff0ae41377e3780a05a5b6",
+      "sha256_lf_normalized": "8020052b77b68f23d91d7d8d29b85d1095f254df0fe4fafc60491f8c044a51b5"
+    },
+    {
+      "path": "task_flow/examples/joint_optimization/mapping.json",
+      "sha256": "2e58872acf347d76fa8944e52aa2108dd3e234c3be2f68b5446f356df48a64f9",
+      "sha256_lf_normalized": "35ca74a25e96df052c5a0c24a296a3f2e6a18ed56e72e71b2a5c19023ffb4022"
+    },
+    {
+      "path": "task_flow/examples/joint_optimization/request-1.json",
+      "sha256": "4f4499f800718b9d8b865f12b20e57f390cc587e312bbe1d77628ddc96bd1d43",
+      "sha256_lf_normalized": "000cf725b1f59b2aafac4e71d0bee77d26f317686204fea8f77a32fcf9ab2b3d"
+    },
+    {
+      "path": "task_flow/examples/joint_optimization/request-2.json",
+      "sha256": "2db4e644014b77142bb2ef3777ef812d6fafe33e0102e1a214af367929236449",
+      "sha256_lf_normalized": "166e313c961d8719a6f0812ef8e154725cf19295500b9ba3cdc18898d50610e6"
+    },
+    {
+      "path": "task_flow/examples/joint_optimization/request-3.json",
+      "sha256": "83113c3a3155d83ab5434e2ed9fdc92fdf4f68b9cdbed420cf032f2b2bfcd989",
+      "sha256_lf_normalized": "edc3f20e40feb762438bb6bbd10fca2eb832fdb881c10cc764deb763cb0237ca"
+    },
+    {
+      "path": "task_flow/examples/joint_optimization/scene.json",
+      "sha256": "df7439dc07c8c263078f0b92a119f660a157bbb789d87f2e37eef173d9ebfc22",
+      "sha256_lf_normalized": "8b63fcb1db0d06ce3b4105396b1371f6ffa695a3e0848aa0c64e84396be633f2"
+    },
+    {
+      "path": "task_flow/joint.py",
+      "sha256": "cc675082cbc5a952d30d66b60139268dc69e5b90b3c841a5e699690a10b25fa1",
+      "sha256_lf_normalized": "cc675082cbc5a952d30d66b60139268dc69e5b90b3c841a5e699690a10b25fa1"
+    },
+    {
+      "path": "task_flow/joint_candidates.py",
+      "sha256": "94db6534a12ebf731b04ad5c9323422f7ab349a340bbd1472e875d33607d3784",
+      "sha256_lf_normalized": "94db6534a12ebf731b04ad5c9323422f7ab349a340bbd1472e875d33607d3784"
+    },
+    {
+      "path": "task_flow/joint_identity.py",
+      "sha256": "208ae77e585ce32cd26382a304710e3bf91fd5699203349d7a198d671c2c6d57",
+      "sha256_lf_normalized": "208ae77e585ce32cd26382a304710e3bf91fd5699203349d7a198d671c2c6d57"
+    },
+    {
+      "path": "task_flow/joint_network.py",
+      "sha256": "2aea5a6836f892e5b4fe6b902a0ed6dc238eb4b7890568c68d02d1060f76f250",
+      "sha256_lf_normalized": "2aea5a6836f892e5b4fe6b902a0ed6dc238eb4b7890568c68d02d1060f76f250"
+    },
+    {
+      "path": "task_flow/joint_verify.py",
+      "sha256": "1e438cbe2cc215c0d0be16538efc3f73a12abc421c20b47f6958b60f517ea9cb",
+      "sha256_lf_normalized": "1e438cbe2cc215c0d0be16538efc3f73a12abc421c20b47f6958b60f517ea9cb"
+    },
+    {
+      "path": "tests/joint_reference.py",
+      "sha256": "8c0e7d5ded39dbb8cbbfb50833aaefa15a861a02a8471197dbf53e9bed7a0066",
+      "sha256_lf_normalized": "8c0e7d5ded39dbb8cbbfb50833aaefa15a861a02a8471197dbf53e9bed7a0066"
+    },
+    {
+      "path": "tests/test_joint_candidates.py",
+      "sha256": "517ef67f99324d95165c7482e65efbc4cef42dc24b0570ce4414bd3851b6206a",
+      "sha256_lf_normalized": "517ef67f99324d95165c7482e65efbc4cef42dc24b0570ce4414bd3851b6206a"
+    },
+    {
+      "path": "tests/test_joint_identity.py",
+      "sha256": "737a7c8dbafe35ca298ba096975a4baf96896f39d3aa2eeb4d5808d78d96823d",
+      "sha256_lf_normalized": "737a7c8dbafe35ca298ba096975a4baf96896f39d3aa2eeb4d5808d78d96823d"
+    },
+    {
+      "path": "tests/test_joint_integration.py",
+      "sha256": "99d3525377e18fbb53767d8ab992f0e6f59f723e6b4a5470a03e0b67b1fcbc42",
+      "sha256_lf_normalized": "99d3525377e18fbb53767d8ab992f0e6f59f723e6b4a5470a03e0b67b1fcbc42"
+    },
+    {
+      "path": "tests/test_joint_network.py",
+      "sha256": "eb48571aaeb133cc3a68d297180a1cae7df5bf66d244a188e8f759247aa468d4",
+      "sha256_lf_normalized": "eb48571aaeb133cc3a68d297180a1cae7df5bf66d244a188e8f759247aa468d4"
+    },
+    {
+      "path": "workflow_tools/prepare_joint_optimization_demo.py",
+      "sha256": "adbe94e609e4b29fa18ac117fa4037b118bc140b1d89c3a6849623ac7799ed52",
+      "sha256_lf_normalized": "adbe94e609e4b29fa18ac117fa4037b118bc140b1d89c3a6849623ac7799ed52"
+    },
+    {
+      "path": "workflow_tools/verify_joint_optimization.py",
+      "sha256": "8d263c808c0538e2303f0de229eac2a6e4d73f48dd91caa7c2ad92b57e8b4b88",
+      "sha256_lf_normalized": "8d263c808c0538e2303f0de229eac2a6e4d73f48dd91caa7c2ad92b57e8b4b88"
+    },
+    {
+      "path": ".gitattributes",
+      "sha256": "97df09464319a487dea680a102dc723fbced2a388eb4d277d6734bd7b3fc2684",
+      "sha256_lf_normalized": "d287d59f4322f8c55dbbf7452c2dc64976e7633db24ca05ae4c70a1e888d75a8"
+    }
+  ],
+  "hash_policy": "sha256 is historical raw bytes; verify sha256_lf_normalized for source checkout portability; knowledge runtime snapshots remain exact-byte"
+}

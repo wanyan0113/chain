@@ -1,0 +1,83 @@
+{
+  "format_version": "task-flow-design-1.0",
+  "mapping_id": "rift-bridge-v1",
+  "version": "1.0",
+  "communication_model": "directed",
+  "allow_nonadjacent_reuse": false,
+  "evaluation": {
+    "mode": "insight_lock_product",
+    "source_refs": [
+      "表13口径的顺序多协调扩展：探知精度×锁定率"
+    ]
+  },
+  "entries": [
+    {
+      "catalog_id": "rift-bridge",
+      "activity_id": "observe",
+      "activity_version": "1.0",
+      "target_parameter": "rift",
+      "activity": "observe",
+      "role": "insight",
+      "min_level": 0.8,
+      "incoming_relation": "communication",
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "catalog_id": "rift-bridge",
+      "activity_id": "analyze_primary",
+      "activity_version": "1.0",
+      "target_parameter": "rift",
+      "activity": "decide",
+      "role": "coordination",
+      "min_level": 0.8,
+      "incoming_relation": "communication",
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "catalog_id": "rift-bridge",
+      "activity_id": "analyze_secondary",
+      "activity_version": "1.0",
+      "target_parameter": "rift",
+      "activity": "decide",
+      "role": "coordination",
+      "min_level": 0.8,
+      "incoming_relation": "communication",
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "catalog_id": "rift-bridge",
+      "activity_id": "decide",
+      "activity_version": "1.0",
+      "target_parameter": "rift",
+      "activity": "decide",
+      "role": "coordination",
+      "min_level": 0.8,
+      "incoming_relation": "communication",
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "catalog_id": "rift-bridge",
+      "activity_id": "stabilize",
+      "activity_version": "1.0",
+      "target_parameter": "rift",
+      "activity": "act",
+      "role": "manifestation",
+      "min_level": 0.8,
+      "incoming_relation": "control",
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    }
+  ],
+  "source_refs": [
+    "synthetic-task-flow-design-bridge-v1"
+  ]
+}

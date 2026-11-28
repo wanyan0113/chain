@@ -79,10 +79,17 @@ def knowledge_context(document):
         mappings = validate_mappings(read_knowledge_json(content), graph)
     from .sequences import SEQUENCES, validate_sequences
     sequences = None
+    if 'sequences_file' in config and 'sequences_inline' in config:
+        raise DesignError('sequences_file和sequences_inline不能同时提供')
     if config.get('sequences_file'):
         name = config['sequences_file']
         content = snapshot(knowledge_path(name, '.json'), 'knowledge/' + name)
         sequences = validate_sequences(read_knowledge_json(content), graph)
+    if 'sequences_inline' in config:
+        content = json.dumps(config['sequences_inline'], ensure_ascii=False, sort_keys=True, allow_nan=False)
+        snapshots.append({'path': 'inline:sequences', 'sha256': hashlib.sha256(content.encode('utf-8')).hexdigest(),
+                          'encoding': 'utf-8', 'content': content})
+        sequences = validate_sequences(deepcopy(config['sequences_inline']), graph)
     token = capability_identity.ONTOLOGY_CONTEXT.set(graph)
     mapping_token = SCENE_MAPPINGS.set(mappings)
     sequence_token = SEQUENCES.set(sequences)

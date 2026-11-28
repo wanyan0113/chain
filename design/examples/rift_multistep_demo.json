@@ -1,0 +1,1189 @@
+{
+  "format_version": "1.0",
+  "scope": "虚构迷雾裂隙稳定；三、四、五环节共同组网；指标独立设定，不复算原文表13。",
+  "policies": {
+    "equal_metric_score": 0.5,
+    "cost_unit": "demo-credit/use",
+    "max_chain_combinations": 10000,
+    "max_network_combinations": 10000,
+    "article_table10": true,
+    "network_search_method": "branch_and_bound"
+  },
+  "weights": {
+    "time": 0.3,
+    "accuracy": 0.3,
+    "cost": 0.4
+  },
+  "tasks": [
+    {
+      "id": "T1",
+      "target": "Rift-1",
+      "start_s": 0,
+      "attributes": {
+        "target_type": "普通裂隙",
+        "target_count": {
+          "value": 1,
+          "unit": "1"
+        },
+        "impedance": {
+          "value": 2,
+          "unit": "1"
+        },
+        "target_speed": {
+          "value": 0,
+          "unit": "demo-speed"
+        },
+        "target_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "T2",
+      "target": "Rift-2",
+      "start_s": 0,
+      "attributes": {
+        "target_type": "共振裂隙",
+        "target_count": {
+          "value": 1,
+          "unit": "1"
+        },
+        "impedance": {
+          "value": 2,
+          "unit": "1"
+        },
+        "target_speed": {
+          "value": 0,
+          "unit": "demo-speed"
+        },
+        "target_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "T3",
+      "target": "Rift-3",
+      "start_s": 0,
+      "attributes": {
+        "target_type": "迷雾裂隙",
+        "target_count": {
+          "value": 1,
+          "unit": "1"
+        },
+        "impedance": {
+          "value": 2,
+          "unit": "1"
+        },
+        "target_speed": {
+          "value": 0,
+          "unit": "demo-speed"
+        },
+        "target_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "R-Survey",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:SurveyUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:WideSurvey"
+        ],
+        "level_observe": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "detection_range": {
+          "value": 60,
+          "unit": "demo-range"
+        },
+        "max_tracks": {
+          "value": 4,
+          "unit": "1"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "observe": {
+          "duration_s": 2,
+          "accuracy": 0.99,
+          "cost": {
+            "value": 1,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "R-Review",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:ReviewUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:FineScan"
+        ],
+        "level_observe": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "detection_range": {
+          "value": 40,
+          "unit": "demo-range"
+        },
+        "max_tracks": {
+          "value": 4,
+          "unit": "1"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "observe": {
+          "duration_s": 3,
+          "accuracy": 0.98,
+          "cost": {
+            "value": 2,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "R-Analysis",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:AnalysisUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:ResonanceAnalysis"
+        ],
+        "level_decide": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "max_processing_targets": {
+          "value": 4,
+          "unit": "1"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "decide": {
+          "duration_s": 2,
+          "accuracy": 0.99,
+          "cost": {
+            "value": 1,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "R-Dispatch",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:DispatchUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:Dispatch"
+        ],
+        "level_decide": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "max_processing_targets": {
+          "value": 4,
+          "unit": "1"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "decide": {
+          "duration_s": 1,
+          "accuracy": 0.99,
+          "cost": {
+            "value": 1,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "R-Seal-A",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:StabilizerUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:Stabilize"
+        ],
+        "level_act": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "min_range": {
+          "value": 0,
+          "unit": "demo-range"
+        },
+        "max_range": {
+          "value": 10,
+          "unit": "demo-range"
+        },
+        "resonance": {
+          "value": 10,
+          "unit": "1"
+        },
+        "max_target_speed": {
+          "value": 10,
+          "unit": "demo-speed"
+        },
+        "min_target_altitude": {
+          "value": 0,
+          "unit": "demo-height"
+        },
+        "max_target_altitude": {
+          "value": 100,
+          "unit": "demo-height"
+        },
+        "min_activation_altitude": {
+          "value": 0,
+          "unit": "demo-height"
+        },
+        "max_activation_altitude": {
+          "value": 100,
+          "unit": "demo-height"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "act": {
+          "duration_s": 2,
+          "accuracy": 0.9,
+          "cost": {
+            "value": 9,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 1,
+      "consumable": true,
+      "inventory": 1,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "R-Seal-B",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:StabilizerUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:Stabilize"
+        ],
+        "level_act": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "min_range": {
+          "value": 0,
+          "unit": "demo-range"
+        },
+        "max_range": {
+          "value": 20,
+          "unit": "demo-range"
+        },
+        "resonance": {
+          "value": 10,
+          "unit": "1"
+        },
+        "max_target_speed": {
+          "value": 10,
+          "unit": "demo-speed"
+        },
+        "min_target_altitude": {
+          "value": 0,
+          "unit": "demo-height"
+        },
+        "max_target_altitude": {
+          "value": 100,
+          "unit": "demo-height"
+        },
+        "min_activation_altitude": {
+          "value": 0,
+          "unit": "demo-height"
+        },
+        "max_activation_altitude": {
+          "value": 100,
+          "unit": "demo-height"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "act": {
+          "duration_s": 4,
+          "accuracy": 0.95,
+          "cost": {
+            "value": 6,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 1,
+      "consumable": true,
+      "inventory": 1,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "R-Seal-C",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:StabilizerUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:Stabilize"
+        ],
+        "level_act": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "min_range": {
+          "value": 0,
+          "unit": "demo-range"
+        },
+        "max_range": {
+          "value": 30,
+          "unit": "demo-range"
+        },
+        "resonance": {
+          "value": 10,
+          "unit": "1"
+        },
+        "max_target_speed": {
+          "value": 10,
+          "unit": "demo-speed"
+        },
+        "min_target_altitude": {
+          "value": 0,
+          "unit": "demo-height"
+        },
+        "max_target_altitude": {
+          "value": 100,
+          "unit": "demo-height"
+        },
+        "min_activation_altitude": {
+          "value": 0,
+          "unit": "demo-height"
+        },
+        "max_activation_altitude": {
+          "value": 100,
+          "unit": "demo-height"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "act": {
+          "duration_s": 6,
+          "accuracy": 0.99,
+          "cost": {
+            "value": 3,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 1,
+      "consumable": true,
+      "inventory": 1,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "R-Seal-D",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:StabilizerUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:Stabilize"
+        ],
+        "level_act": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "min_range": {
+          "value": 0,
+          "unit": "demo-range"
+        },
+        "max_range": {
+          "value": 40,
+          "unit": "demo-range"
+        },
+        "resonance": {
+          "value": 10,
+          "unit": "1"
+        },
+        "max_target_speed": {
+          "value": 10,
+          "unit": "demo-speed"
+        },
+        "min_target_altitude": {
+          "value": 0,
+          "unit": "demo-height"
+        },
+        "max_target_altitude": {
+          "value": 100,
+          "unit": "demo-height"
+        },
+        "min_activation_altitude": {
+          "value": 0,
+          "unit": "demo-height"
+        },
+        "max_activation_altitude": {
+          "value": 100,
+          "unit": "demo-height"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "act": {
+          "duration_s": 9,
+          "accuracy": 0.97,
+          "cost": {
+            "value": 5,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 1,
+      "consumable": true,
+      "inventory": 1,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "task_rules": [],
+  "artifact_rules": [],
+  "contexts": [
+    {
+      "task": "T1",
+      "artifact": "R-Survey",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T2",
+      "artifact": "R-Survey",
+      "attributes": {
+        "target_distance": {
+          "value": 15,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T3",
+      "artifact": "R-Survey",
+      "attributes": {
+        "target_distance": {
+          "value": 25,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T1",
+      "artifact": "R-Review",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T2",
+      "artifact": "R-Review",
+      "attributes": {
+        "target_distance": {
+          "value": 15,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T3",
+      "artifact": "R-Review",
+      "attributes": {
+        "target_distance": {
+          "value": 25,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T1",
+      "artifact": "R-Analysis",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T2",
+      "artifact": "R-Analysis",
+      "attributes": {
+        "target_distance": {
+          "value": 15,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T3",
+      "artifact": "R-Analysis",
+      "attributes": {
+        "target_distance": {
+          "value": 25,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T1",
+      "artifact": "R-Dispatch",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T2",
+      "artifact": "R-Dispatch",
+      "attributes": {
+        "target_distance": {
+          "value": 15,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T3",
+      "artifact": "R-Dispatch",
+      "attributes": {
+        "target_distance": {
+          "value": 25,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T1",
+      "artifact": "R-Seal-A",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T2",
+      "artifact": "R-Seal-A",
+      "attributes": {
+        "target_distance": {
+          "value": 15,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T3",
+      "artifact": "R-Seal-A",
+      "attributes": {
+        "target_distance": {
+          "value": 25,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T1",
+      "artifact": "R-Seal-B",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T2",
+      "artifact": "R-Seal-B",
+      "attributes": {
+        "target_distance": {
+          "value": 15,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T3",
+      "artifact": "R-Seal-B",
+      "attributes": {
+        "target_distance": {
+          "value": 25,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T1",
+      "artifact": "R-Seal-C",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T2",
+      "artifact": "R-Seal-C",
+      "attributes": {
+        "target_distance": {
+          "value": 15,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T3",
+      "artifact": "R-Seal-C",
+      "attributes": {
+        "target_distance": {
+          "value": 25,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T1",
+      "artifact": "R-Seal-D",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T2",
+      "artifact": "R-Seal-D",
+      "attributes": {
+        "target_distance": {
+          "value": 15,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T3",
+      "artifact": "R-Seal-D",
+      "attributes": {
+        "target_distance": {
+          "value": 25,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "links": [
+    {
+      "from": "R-Survey",
+      "to": "R-Dispatch",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Survey",
+      "to": "R-Analysis",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis",
+      "to": "R-Dispatch",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis",
+      "to": "R-Review",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Review",
+      "to": "R-Dispatch",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Dispatch",
+      "to": "R-Seal-A",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Dispatch",
+      "to": "R-Seal-B",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Dispatch",
+      "to": "R-Seal-C",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Dispatch",
+      "to": "R-Seal-D",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "dependencies": [],
+  "resource_groups": [],
+  "knowledge": {
+    "ontology_files": [
+      "rift-multistep.ttl"
+    ],
+    "rules_file": "rift-multistep.rules.json",
+    "sequences_file": "rift-multistep.flows.json",
+    "source_refs": [
+      "docs/rift_multistep_demo.md：虚构实验设定v1"
+    ]
+  }
+}

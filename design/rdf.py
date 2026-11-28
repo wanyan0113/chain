@@ -25,6 +25,11 @@ def design_to_rdf(doc, report, *, require_canonical=False):
     report = expected
     if require_canonical and not report['canonical_export_ready']:
         raise DesignError("链网设计含未映射能力，不能按规范URI模式导出")
+    return _design_graph(doc, report)
+
+
+def _design_graph(doc, report):
+    """Render verified structure; callers enforce their own independent gate."""
     graph = Graph()
     graph.bind("kw", KW)
     graph.bind("design", DESIGN)

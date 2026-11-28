@@ -150,7 +150,9 @@
         "mode": {
           "enum": [
             "feasibility_only",
-            "sequential_product"
+            "sequential_product",
+            "insight_lock_product",
+            "sequential_product_v2"
           ]
         },
         "source_refs": {

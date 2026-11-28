@@ -1,0 +1,25 @@
+﻿{
+    "baseline_id":  "TFDO-DESIGN-1.0",
+    "frozen_date":  "2026-11-28",
+    "status":  "design_reviewed_not_implemented",
+    "source":  "User-approved design and final review in this conversation",
+    "files":  [
+                  {
+                      "path":  "design-v1.md",
+                      "sha256":  "84cf8636e17beead3e3625393e887ee2c96547bf80c7d89f039ea210946ab404",
+                      "bytes":  15796
+                  },
+                  {
+                      "path":  "development-v1.md",
+                      "sha256":  "7ca4744274e5c73cc6d66510de1c2065162296dbee231c54c2adb7eb8c2de380",
+                      "bytes":  5152
+                  },
+                  {
+                      "path":  "acceptance-v1.md",
+                      "sha256":  "9a220cf1d345ee9d46b86b55e9d25079cad1c4d373dc35228d0a6857edc1235c",
+                      "bytes":  6876
+                  }
+              ],
+    "scope":  "Design documents only; no production-code changes in this turn",
+    "change_policy":  "Explicit versioned design change required; preserve v1 snapshot"
+}

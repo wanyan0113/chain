@@ -24,7 +24,7 @@ def render_summary(result):
     if 'sequence_model' in result:
         lines += ['顺序序列模式：至少三个环节，每环节一个执行对象，可重复角色；末尾评估仅在模板显式配置时参与，不表示并行联合执行。',
                   '评价配置：' + json.dumps(result['sequence_model']['evaluation'], ensure_ascii=False),
-                  'sequential_product是显式工程假设，并非新文章给出的联合效果公式；feasible_trajectories仅表示逐目标轨迹生成完成。', '']
+                  'sequential_product：所有环节精度连乘；insight_lock_product：一次探知精度×一次具现锁定率，协调指标只累计时间和成本。两者均不表示达标概率；feasible_trajectories仅表示逐目标轨迹生成完成。', '']
     if 'owl_reasoning' in result:
         owl = result['owl_reasoning']
         lines += ['## 外置知识与OWL推导', '', f"实际推理器：{owl['engine']}；状态：{owl['status']}。", '',

@@ -1,0 +1,347 @@
+{
+  "baseline_id": "TFDO-DESIGN-1.0",
+  "implementation": "tfdo-joint-1.0",
+  "date": "2026-11-28",
+  "software_status": "verified",
+  "domain_validity": "pending",
+  "frozen_design_modified": false,
+  "logs": [
+    {
+      "path": "docs/task-flow/joint-optimization/evidence/joint-legacy-regression.log",
+      "tests": 62,
+      "status": "passed"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/evidence/joint-final-tests.log",
+      "tests": 108,
+      "status": "passed"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/evidence/joint-extra-checks.log",
+      "tests": 2,
+      "status": "passed"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/evidence/joint-source-normalization-check.log",
+      "tests": 1,
+      "status": "passed",
+      "note": "Repeated ID-14 after enforcing the existing NFC input contract for the Python API"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/evidence/prepublish-joint-tests.log",
+      "tests": 72,
+      "status": "passed",
+      "note": "Fresh pre-publication run of all joint tests and real bridge tests"
+    }
+  ],
+  "actual_scenarios": {
+    "path": "docs/task-flow/joint-optimization/evidence/joint-verification.json",
+    "cases": 8,
+    "status": "passed",
+    "independent_reference": "tests/joint_reference.py",
+    "network_combinations": 96,
+    "feasible_networks": 32
+  },
+  "source_manifest": "docs/task-flow/joint-optimization/implementation-manifest-v1.json",
+  "test_modules": {
+    "identity": "tests/test_joint_identity.py",
+    "evaluation": "tests/test_joint_candidates.py",
+    "network": "tests/test_joint_network.py",
+    "integration": "tests/test_joint_integration.py"
+  },
+  "traceability": [
+    {
+      "id": "ID-01",
+      "module": "identity",
+      "test": "test_ID01_same_flow_different_binding",
+      "status": "software_verified"
+    },
+    {
+      "id": "ID-02",
+      "module": "identity",
+      "test": "test_ID02_ID07_different_sequence_same_resources",
+      "status": "software_verified"
+    },
+    {
+      "id": "ID-03",
+      "module": "identity",
+      "test": "test_ID03_merge_preserves_all_evidence",
+      "status": "software_verified"
+    },
+    {
+      "id": "ID-04",
+      "module": "identity",
+      "test": "test_ID04_resource_change_without_ontology_change",
+      "status": "software_verified"
+    },
+    {
+      "id": "ID-05",
+      "module": "identity",
+      "test": "test_ID05_display_changes_do_not_change_identity",
+      "status": "software_verified"
+    },
+    {
+      "id": "ID-06",
+      "module": "identity",
+      "test": "test_ID06_same_candidate_new_run_new_evidence",
+      "status": "software_verified"
+    },
+    {
+      "id": "ID-07",
+      "module": "identity",
+      "test": "test_ID02_ID07_different_sequence_same_resources",
+      "status": "software_verified"
+    },
+    {
+      "id": "ID-08",
+      "module": "identity",
+      "test": "test_ID08_same_version_changed_semantics_changes_flow_id",
+      "status": "software_verified"
+    },
+    {
+      "id": "ID-09",
+      "module": "identity",
+      "test": "test_ID09_repeated_occurrences_keep_ordered_bindings",
+      "status": "software_verified"
+    },
+    {
+      "id": "ID-10",
+      "module": "identity",
+      "test": "test_ID10_canonical_objects_sets_and_semantic_arrays",
+      "status": "software_verified"
+    },
+    {
+      "id": "ID-11",
+      "module": "identity",
+      "test": "test_ID11_conflicting_payload_or_metric_is_rejected",
+      "status": "software_verified"
+    },
+    {
+      "id": "ID-12",
+      "module": "identity",
+      "test": "test_ID12_budget_weight_and_output_do_not_change_candidate_context",
+      "status": "software_verified"
+    },
+    {
+      "id": "ID-13",
+      "module": "identity",
+      "test": "test_ID13_mapping_semantics_changes_context",
+      "status": "software_verified"
+    },
+    {
+      "id": "ID-14",
+      "module": "identity",
+      "test": "test_ID14_nonfinite_and_unicode_collision_are_rejected",
+      "status": "software_verified"
+    },
+    {
+      "id": "EV-01",
+      "module": "evaluation",
+      "test": "test_EV01_cross_flow_union",
+      "status": "software_verified"
+    },
+    {
+      "id": "EV-02",
+      "module": "evaluation",
+      "test": "test_EV02_extreme_candidate_requires_new_snapshot_and_rescore",
+      "status": "software_verified"
+    },
+    {
+      "id": "EV-03",
+      "module": "evaluation",
+      "test": "test_EV03_EV04_equal_and_single_values_use_half",
+      "status": "software_verified"
+    },
+    {
+      "id": "EV-04",
+      "module": "evaluation",
+      "test": "test_EV03_EV04_equal_and_single_values_use_half",
+      "status": "software_verified"
+    },
+    {
+      "id": "EV-05",
+      "module": "evaluation",
+      "test": "test_EV05_empty_task_is_not_dropped",
+      "status": "software_verified"
+    },
+    {
+      "id": "EV-06",
+      "module": "integration",
+      "test": "test_EV06_missing_raw_metric_is_blocked_not_filled",
+      "status": "software_verified"
+    },
+    {
+      "id": "EV-07",
+      "module": "evaluation",
+      "test": "test_EV07_generation_is_unranked_and_frozen_store_cannot_append",
+      "status": "software_verified"
+    },
+    {
+      "id": "EV-08",
+      "module": "evaluation",
+      "test": "test_EV08_weights_affect_evaluation_not_identity",
+      "status": "software_verified"
+    },
+    {
+      "id": "EV-09",
+      "module": "evaluation",
+      "test": "test_EV09_explicit_four_step_raw_policy",
+      "status": "software_verified"
+    },
+    {
+      "id": "EV-10",
+      "module": "evaluation",
+      "test": "test_EV10_domain_validity_is_separate_and_pending",
+      "status": "software_guard_verified_domain_review_pending"
+    },
+    {
+      "id": "EV-11",
+      "module": "evaluation",
+      "test": "test_EV11_exact_float_equality_not_isclose",
+      "status": "software_verified"
+    },
+    {
+      "id": "EV-12",
+      "module": "evaluation",
+      "test": "test_EV12_inconsistent_units_not_implicitly_converted",
+      "status": "software_verified"
+    },
+    {
+      "id": "OP-01",
+      "module": "network",
+      "test": "test_OP01_OP02_local_low_score_resolves_resource_conflict",
+      "status": "software_verified"
+    },
+    {
+      "id": "OP-02",
+      "module": "network",
+      "test": "test_OP01_OP02_local_low_score_resolves_resource_conflict",
+      "status": "software_verified"
+    },
+    {
+      "id": "OP-03",
+      "module": "integration",
+      "test": "test_OP03_OP04_new_flow_beats_first_feasible_on_identical_basis",
+      "status": "software_verified"
+    },
+    {
+      "id": "OP-04",
+      "module": "integration",
+      "test": "test_OP03_OP04_new_flow_beats_first_feasible_on_identical_basis",
+      "status": "software_verified"
+    },
+    {
+      "id": "OP-05",
+      "module": "integration",
+      "test": "test_OP05_complete_chain_and_network_oracle",
+      "status": "software_verified"
+    },
+    {
+      "id": "OP-06",
+      "module": "network",
+      "test": "test_OP06_branch_can_certify_without_visiting_all_networks",
+      "status": "software_verified"
+    },
+    {
+      "id": "OP-07",
+      "module": "network",
+      "test": "test_OP07_no_new_metric_only_dominance_pruning",
+      "status": "software_verified"
+    },
+    {
+      "id": "OP-08",
+      "module": "network",
+      "test": "test_OP08_network_objective_and_reported_totals_are_distinct",
+      "status": "software_verified"
+    },
+    {
+      "id": "OP-09",
+      "module": "network",
+      "test": "test_OP09_cooldown_group_and_dependency_constraints",
+      "status": "software_verified"
+    },
+    {
+      "id": "OP-10",
+      "module": "network",
+      "test": "test_OP10_all_candidates_exist_but_network_infeasible",
+      "status": "software_verified"
+    },
+    {
+      "id": "PF-01",
+      "module": "integration",
+      "test": "test_PF01_complete_coverage_and_proof",
+      "status": "software_verified"
+    },
+    {
+      "id": "PF-02",
+      "module": "integration",
+      "test": "test_PF02_partial_chain_generation_retains_known_candidates",
+      "status": "software_verified"
+    },
+    {
+      "id": "PF-03",
+      "module": "integration",
+      "test": "test_PF03_VR03_incumbent_has_separate_rdf_contract",
+      "status": "software_verified"
+    },
+    {
+      "id": "PF-04",
+      "module": "integration",
+      "test": "test_PF04_network_limit_without_incumbent_is_undetermined",
+      "status": "software_verified"
+    },
+    {
+      "id": "PF-05",
+      "module": "integration",
+      "test": "test_PF05_unknown_branch_prevents_global_proof",
+      "status": "software_verified"
+    },
+    {
+      "id": "PF-06",
+      "module": "integration",
+      "test": "test_PF06_running_context_change_stops_before_optimization",
+      "status": "software_verified"
+    },
+    {
+      "id": "PF-07",
+      "module": "integration",
+      "test": "test_PF07_complete_infeasibility_not_merely_search_failure",
+      "status": "software_verified"
+    },
+    {
+      "id": "VR-01",
+      "module": "integration",
+      "test": "test_VR01_tampering_flow_binding_metric_or_proof_is_rejected",
+      "status": "software_verified"
+    },
+    {
+      "id": "VR-02",
+      "module": "integration",
+      "test": "test_VR02_strict_rdf_and_provenance",
+      "status": "software_verified"
+    },
+    {
+      "id": "VR-03",
+      "module": "integration",
+      "test": "test_PF03_VR03_incumbent_has_separate_rdf_contract",
+      "status": "software_verified"
+    },
+    {
+      "id": "VR-04",
+      "test": "legacy_and_final_regression_logs",
+      "status": "software_verified"
+    },
+    {
+      "id": "VR-05",
+      "module": "integration",
+      "test": "test_VR05_repeat_run_identity_stable_evidence_independent",
+      "status": "software_verified"
+    },
+    {
+      "id": "VR-06",
+      "module": "integration",
+      "test": "test_VR06_software_pass_does_not_validate_accuracy_model",
+      "status": "software_guard_verified_domain_review_pending"
+    }
+  ]
+}

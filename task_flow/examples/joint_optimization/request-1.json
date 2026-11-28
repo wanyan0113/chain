@@ -1,0 +1,81 @@
+{
+  "format_version": "task-flow-1.0",
+  "request_id": "request-1",
+  "catalog_id": "rift-bridge",
+  "catalog_version": "1.0",
+  "catalog_sha256": "27d902172129ab788760e8b00eebb29431401815f4e93e0bce5d54b87187df0b",
+  "static_facts": [
+    {
+      "fact": {
+        "predicate": "needs_analysis",
+        "args": [
+          "Rift-1"
+        ]
+      },
+      "value": false
+    }
+  ],
+  "initial_state": [
+    {
+      "fact": {
+        "predicate": "observed",
+        "args": [
+          "Rift-1"
+        ]
+      },
+      "value": false
+    },
+    {
+      "fact": {
+        "predicate": "analyzed",
+        "args": [
+          "Rift-1"
+        ]
+      },
+      "value": false
+    },
+    {
+      "fact": {
+        "predicate": "decided",
+        "args": [
+          "Rift-1"
+        ]
+      },
+      "value": false
+    },
+    {
+      "fact": {
+        "predicate": "stable",
+        "args": [
+          "Rift-1"
+        ]
+      },
+      "value": false
+    }
+  ],
+  "ontology_evidence": [],
+  "goal": {
+    "test": {
+      "fact": {
+        "predicate": "stable",
+        "args": [
+          "Rift-1"
+        ]
+      },
+      "op": "eq",
+      "value": true
+    }
+  },
+  "required_activities": [],
+  "forbidden_conditions": [],
+  "activity_limits": {},
+  "search": {
+    "mode": "first_feasible",
+    "max_length": 5,
+    "max_nodes": 20000,
+    "timeout_ms": 10000
+  },
+  "source_refs": [
+    "synthetic-task-flow-design-bridge-v1"
+  ]
+}

@@ -40,6 +40,11 @@ def validate_sequences(config, ontology):
         if len({step['id'] for step in steps}) != len(steps):
             raise DesignError('同一序列内环节编号重复')
         activities = [s['activity'] for s in steps]
+        if config['evaluation']['mode'] == 'insight_lock_product' and (
+                activities.count('observe') != 1 or activities.count('act') != 1 or
+                activities[0] != 'observe' or activities[-1] != 'act' or
+                any(a != 'decide' for a in activities[1:-1])):
+            raise DesignError('insight_lock_product仅支持一次探知、一个或多个协调、一次具现；不隐式融合多次探知/具现')
         # Keep the insight-coordination-manifestation backbone without fixing the
         # number of instances in each role. Assessment is an optional legacy
         # extension, never an implicitly inserted or required final step.
@@ -98,7 +103,7 @@ def connection(previous, current, incoming, links, model):
     return 'pass', 'CONNECTED', {**edge, 'used_from': previous, 'used_to': current, 'reversed_physical_link': reversed_}
 
 
-def generate_task(task, doc, ontology_inference, owl, task_number):
+def generate_task(task, doc, ontology_inference, owl, task_number, *, allow_partial=False):
     from .engine import infer_task_capabilities, evaluate, DesignError, SearchLimitError
     from .owl_scene import task_requirements
     from .plans import resource_conflicts
@@ -217,7 +222,7 @@ def generate_task(task, doc, ontology_inference, owl, task_number):
             usage = []
             for step, identifier, (node, caps) in zip(template['steps'], ids, requirements):
                 a = artifacts[identifier]
-                metric = a.get('activity_metrics', {}).get(step['activity']) if mode == 'sequential_product' else None
+                metric = a.get('activity_metrics', {}).get(step['activity']) if mode != 'feasibility_only' else None
                 record = {'id': step['id'], 'activity': step['activity'], 'role': step['role'], 'artifact': identifier,
                           'step_uri': node, 'required_capabilities': caps, 'min_level': step['min_level'],
                           'source_refs': template['source_refs'] + step['source_refs'], 'start_s': None, 'end_s': None}
@@ -246,25 +251,36 @@ def generate_task(task, doc, ontology_inference, owl, task_number):
             if any(n > artifacts[i]['inventory'] for i, n in inventory.items()):
                 pruned['INVENTORY'] += 1
                 return
-            if mode == 'sequential_product' and all(m is not None for m in metrics):
+            if mode != 'feasibility_only' and all(m is not None for m in metrics):
                 chain['metrics'] = {'time': sum(m['duration_s'] for m in metrics), 'accuracy': math.prod(m['accuracy'] for m in metrics),
                                     'cost': sum(m['cost']['value'] for m in metrics), 'cost_unit': doc['policies']['cost_unit']}
+                if mode == 'insight_lock_product':
+                    chain['metrics']['accuracy'] = metrics[0]['accuracy'] * metrics[-1]['accuracy']
                 chain['end_s'] = clock
                 if not math.isfinite(clock) or not all(math.isfinite(chain['metrics'][k]) for k in ('time', 'accuracy', 'cost')):
                     raise DesignError('序列指标计算溢出')
                 if resource_conflicts([chain], doc):
                     pruned['INTERNAL_RESOURCE_CONFLICT'] += 1
                     return
-            elif mode == 'sequential_product':
+            elif mode != 'feasibility_only':
                 result['blockers'].append({'code': 'MISSING_ACTIVITY_METRICS', 'template': template['id'], 'artifacts': ids})
-            result['chains'].append(chain)
-            if len(result['chains']) > doc['policies']['max_chain_combinations']:
+            if len(result['chains']) >= doc['policies']['max_chain_combinations']:
                 raise SearchLimitError('序列可行候选数超过链组合上限；未截断后宣称集合完整')
+            result['chains'].append(chain)
 
-        walk([], [])
+        try:
+            walk([], [])
+        except SearchLimitError as exc:
+            if not allow_partial:
+                raise
+            stats.update(coverage='partial', termination_reason=str(exc))
+            break
     if not applicable and not result['blockers']:
         pruned['NO_APPLICABLE_TEMPLATE'] += 1
     stats['pruned'] = dict(pruned)
     stats['feasible_trajectories'] = len(result['chains'])
     stats['status'] = 'blocked' if result['blockers'] else 'complete'
+    if allow_partial:
+        stats.setdefault('coverage', 'complete')
+        stats.setdefault('termination_reason', 'generation_exhausted')
     return result

@@ -1,0 +1,91 @@
+@prefix r: <urn:arcane-rift-demo:> .
+
+@prefix b: <http://example.org/arcaneweb#> .
+
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+r:Ontology a owl:Ontology ; owl:versionInfo "1.0" ; rdfs:label "迷雾裂隙稳定实验"@zh .
+
+r:WideSurvey a owl:NamedIndividual, b:InsightCapability ; rdfs:label "广域探知"@zh .
+
+r:SurveyUnit a owl:Class ; rdfs:label "广域探知法器类"@zh ; rdfs:subClassOf b:InsightArtifact,
+
+  [ a owl:Restriction ; owl:onProperty b:hasCapability ; owl:hasValue r:WideSurvey ] .
+
+r:WideSurveyStep a owl:Class ; rdfs:label "广域探知环节类"@zh ; rdfs:subClassOf b:SequentialStepMission,
+
+  [ a owl:Restriction ; owl:onProperty b:requiresCapability ; owl:hasValue r:WideSurvey ] .
+
+r:FineScan a owl:NamedIndividual, b:InsightCapability ; rdfs:label "精细复核"@zh .
+
+r:ReviewUnit a owl:Class ; rdfs:label "精细复核法器类"@zh ; rdfs:subClassOf b:InsightArtifact,
+
+  [ a owl:Restriction ; owl:onProperty b:hasCapability ; owl:hasValue r:FineScan ] .
+
+r:FineScanStep a owl:Class ; rdfs:label "精细复核环节类"@zh ; rdfs:subClassOf b:SequentialStepMission,
+
+  [ a owl:Restriction ; owl:onProperty b:requiresCapability ; owl:hasValue r:FineScan ] .
+
+r:ResonanceAnalysis a owl:NamedIndividual, b:CoordinationCapability ; rdfs:label "共振解析"@zh .
+
+r:AnalysisUnit a owl:Class ; rdfs:label "共振解析法器类"@zh ; rdfs:subClassOf b:CoordinationArtifact,
+
+  [ a owl:Restriction ; owl:onProperty b:hasCapability ; owl:hasValue r:ResonanceAnalysis ] .
+
+r:ResonanceAnalysisStep a owl:Class ; rdfs:label "共振解析环节类"@zh ; rdfs:subClassOf b:SequentialStepMission,
+
+  [ a owl:Restriction ; owl:onProperty b:requiresCapability ; owl:hasValue r:ResonanceAnalysis ] .
+
+r:Dispatch a owl:NamedIndividual, b:CoordinationCapability ; rdfs:label "稳定术协调"@zh .
+
+r:DispatchUnit a owl:Class ; rdfs:label "稳定术协调法器类"@zh ; rdfs:subClassOf b:CoordinationArtifact,
+
+  [ a owl:Restriction ; owl:onProperty b:hasCapability ; owl:hasValue r:Dispatch ] .
+
+r:DispatchStep a owl:Class ; rdfs:label "稳定术协调环节类"@zh ; rdfs:subClassOf b:SequentialStepMission,
+
+  [ a owl:Restriction ; owl:onProperty b:requiresCapability ; owl:hasValue r:Dispatch ] .
+
+r:Stabilize a owl:NamedIndividual, b:ManifestationCapability ; rdfs:label "裂隙稳定"@zh .
+
+r:StabilizerUnit a owl:Class ; rdfs:label "裂隙稳定法器类"@zh ; rdfs:subClassOf b:ManifestationArtifact,
+
+  [ a owl:Restriction ; owl:onProperty b:hasCapability ; owl:hasValue r:Stabilize ] .
+
+r:StabilizeStep a owl:Class ; rdfs:label "裂隙稳定环节类"@zh ; rdfs:subClassOf b:SequentialStepMission,
+
+  [ a owl:Restriction ; owl:onProperty b:requiresCapability ; owl:hasValue r:Stabilize ] .
+
+r:Target1 a owl:Class ; rdfs:label "普通裂隙目标类"@zh ; owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+
+ b:Target [ a owl:Restriction ; owl:onProperty b:targetType ; owl:hasValue "普通裂隙"^^xsd:string ] ) ] .
+
+r:Mission1 a owl:Class ; rdfs:label "普通裂隙任务类"@zh ; owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+
+ b:ArcaneMission [ a owl:Restriction ; owl:onProperty b:hasTarget ; owl:someValuesFrom r:Target1 ] ) ] ;
+
+ rdfs:subClassOf [ a owl:Restriction ; owl:onProperty b:requiresCapability ; owl:hasValue r:WideSurvey ], [ a owl:Restriction ; owl:onProperty b:requiresCapability ; owl:hasValue r:Dispatch ], [ a owl:Restriction ; owl:onProperty b:requiresCapability ; owl:hasValue r:Stabilize ] .
+
+r:Target2 a owl:Class ; rdfs:label "共振裂隙目标类"@zh ; owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+
+ b:Target [ a owl:Restriction ; owl:onProperty b:targetType ; owl:hasValue "共振裂隙"^^xsd:string ] ) ] .
+
+r:Mission2 a owl:Class ; rdfs:label "共振裂隙任务类"@zh ; owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+
+ b:ArcaneMission [ a owl:Restriction ; owl:onProperty b:hasTarget ; owl:someValuesFrom r:Target2 ] ) ] ;
+
+ rdfs:subClassOf [ a owl:Restriction ; owl:onProperty b:requiresCapability ; owl:hasValue r:WideSurvey ], [ a owl:Restriction ; owl:onProperty b:requiresCapability ; owl:hasValue r:ResonanceAnalysis ], [ a owl:Restriction ; owl:onProperty b:requiresCapability ; owl:hasValue r:Dispatch ], [ a owl:Restriction ; owl:onProperty b:requiresCapability ; owl:hasValue r:Stabilize ] .
+
+r:Target3 a owl:Class ; rdfs:label "迷雾裂隙目标类"@zh ; owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+
+ b:Target [ a owl:Restriction ; owl:onProperty b:targetType ; owl:hasValue "迷雾裂隙"^^xsd:string ] ) ] .
+
+r:Mission3 a owl:Class ; rdfs:label "迷雾裂隙任务类"@zh ; owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+
+ b:ArcaneMission [ a owl:Restriction ; owl:onProperty b:hasTarget ; owl:someValuesFrom r:Target3 ] ) ] ;
+
+ rdfs:subClassOf [ a owl:Restriction ; owl:onProperty b:requiresCapability ; owl:hasValue r:WideSurvey ], [ a owl:Restriction ; owl:onProperty b:requiresCapability ; owl:hasValue r:ResonanceAnalysis ], [ a owl:Restriction ; owl:onProperty b:requiresCapability ; owl:hasValue r:FineScan ], [ a owl:Restriction ; owl:onProperty b:requiresCapability ; owl:hasValue r:Dispatch ], [ a owl:Restriction ; owl:onProperty b:requiresCapability ; owl:hasValue r:Stabilize ] .
