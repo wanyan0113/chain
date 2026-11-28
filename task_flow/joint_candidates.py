@@ -11,6 +11,8 @@ NETWORK_POLICY = 'mean_of_per_task_normalized_chain_scores_v1'
 
 
 def metrics_for_chain(chain, scene):
+    require(chain.get('plan', {}).get('mode') != 'complementary_team_v1',
+            'complementary teams do not support legacy scoring in phase one')
     resources = {a['id']:a for a in scene['artifacts']}
     metrics = []
     for step in chain['plan']['steps']:

@@ -1,0 +1,117 @@
+{
+  "format_version": "task-flow-1.0",
+  "request_id": "observatory-1",
+  "catalog_id": "observatory-stabilization",
+  "catalog_version": "1.0",
+  "catalog_sha256": "a8d6ed7d560856e31fa414daff379a1afa68bcd07987075276e8e43321e41f0e",
+  "static_facts": [
+    {
+      "fact": {
+        "predicate": "needs_analysis",
+        "args": [
+          "North-Rift"
+        ]
+      },
+      "value": true
+    },
+    {
+      "fact": {
+        "predicate": "needs_tune",
+        "args": [
+          "North-Rift"
+        ]
+      },
+      "value": false
+    },
+    {
+      "fact": {
+        "predicate": "needs_audit",
+        "args": [
+          "North-Rift"
+        ]
+      },
+      "value": false
+    }
+  ],
+  "initial_state": [
+    {
+      "fact": {
+        "predicate": "observed",
+        "args": [
+          "North-Rift"
+        ]
+      },
+      "value": false
+    },
+    {
+      "fact": {
+        "predicate": "analyzed",
+        "args": [
+          "North-Rift"
+        ]
+      },
+      "value": false
+    },
+    {
+      "fact": {
+        "predicate": "decided",
+        "args": [
+          "North-Rift"
+        ]
+      },
+      "value": false
+    },
+    {
+      "fact": {
+        "predicate": "stable",
+        "args": [
+          "North-Rift"
+        ]
+      },
+      "value": false
+    },
+    {
+      "fact": {
+        "predicate": "tuned",
+        "args": [
+          "North-Rift"
+        ]
+      },
+      "value": false
+    },
+    {
+      "fact": {
+        "predicate": "audited",
+        "args": [
+          "North-Rift"
+        ]
+      },
+      "value": false
+    }
+  ],
+  "ontology_evidence": [],
+  "goal": {
+    "test": {
+      "fact": {
+        "predicate": "stable",
+        "args": [
+          "North-Rift"
+        ]
+      },
+      "op": "eq",
+      "value": true
+    }
+  },
+  "required_activities": [],
+  "forbidden_conditions": [],
+  "activity_limits": {},
+  "search": {
+    "mode": "first_feasible",
+    "max_length": 7,
+    "max_nodes": 50000,
+    "timeout_ms": 20000
+  },
+  "source_refs": [
+    "observatory-multistage-synthetic-v1"
+  ]
+}

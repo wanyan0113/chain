@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:task-flow:complementary-stage-plan:1.0",
+  "type": "object", "additionalProperties": false,
+  "required": ["step_instance_id", "activity", "role", "required_capabilities", "min_level", "members", "capability_assignments", "hub", "internal_connections"],
+  "properties": {
+    "step_instance_id": {"type": "string", "minLength": 1},
+    "activity": {"enum": ["observe", "decide", "act", "assess"]},
+    "role": {"enum": ["insight", "coordination", "manifestation"]},
+    "required_capabilities": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "min_level": {"type": "number", "minimum": 0, "maximum": 1},
+    "members": {"type": "array", "minItems": 1, "maxItems": 2, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "capability_assignments": {"type": "object", "minProperties": 1, "additionalProperties": {"type": "string", "minLength": 1}},
+    "hub": {"type": "string", "minLength": 1},
+    "internal_connections": {"type": "array", "items": {
+      "type": "object", "additionalProperties": false,
+      "required": ["from_member", "to_member", "relation", "status", "reason", "evidence"],
+      "properties": {
+        "from_member": {"type": "string"}, "to_member": {"type": "string"},
+        "relation": {"const": "communication"}, "status": {"const": "pass"},
+        "reason": {"const": "CONNECTED"}, "evidence": {"type": "object"}
+      }
+    }}
+  }
+}

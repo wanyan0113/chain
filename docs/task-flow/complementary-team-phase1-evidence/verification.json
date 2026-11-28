@@ -1,0 +1,107 @@
+{
+  "status": "passed",
+  "date": "2026-11-28",
+  "new_test_count": 13,
+  "legacy_test_count": 105,
+  "tests_passed": 118,
+  "test_commands": [
+    "python -B -m unittest tests.test_team_feasibility -v",
+    "python -B -m unittest tests.test_sequences tests.test_sequence_table10 tests.test_task_flow_design_bridge tests.test_joint_identity tests.test_joint_candidates tests.test_joint_network tests.test_design_observation_bridge tests.test_observations_v2 tests.test_observation_semantics_reference -v"
+  ],
+  "test_evidence_scope": "Observed local unittest runs; test console transcripts are not included in this archive",
+  "logical_flows": 4,
+  "stage_lengths": [
+    4
+  ],
+  "candidates": 28,
+  "raw_network_combinations": 196,
+  "feasible_networks": 16,
+  "independent_oracle_matches": true,
+  "persisted_report_fresh_owl_verification": {
+    "status": "passed",
+    "scope": "listed_plans_chains_and_networks_with_fresh_OWL_and_flow_replay",
+    "search_coverage_certified": false,
+    "optimality": "not_run"
+  },
+  "stage_schema_validation": "passed",
+  "capability_asserted_in_input": false,
+  "capability_entailed_in_result": true,
+  "candidate_search_complete": true,
+  "network_search_complete": true,
+  "optimality": "not_run",
+  "domain_validity": "pending",
+  "legacy": {
+    "stage_lengths": [
+      4,
+      5,
+      6
+    ],
+    "candidates": 18,
+    "feasible_networks": 64,
+    "best_score": 0.8493957213534583,
+    "rdf_validation": {
+      "ERROR": 0,
+      "WARN": 0,
+      "INFO": 11
+    }
+  },
+  "files": {
+    "generated/task-flow/complementary-team-phase1-delivery/analysis-001-knowledge_snapshot.json": {
+      "sha256": "be19e553bf678a037a0be849727c73b3e5ccfe2096705fb9e4f4f267ea6536e7",
+      "bytes": 126326
+    },
+    "generated/task-flow/complementary-team-phase1-delivery/analysis-001-reasoning_input.ttl": {
+      "sha256": "a9e9667defc9063c5fdaf6ab517ea4c35011d342846580a3203e5ead30586819",
+      "bytes": 69515
+    },
+    "generated/task-flow/complementary-team-phase1-delivery/analysis-001-reasoning_result.ttl": {
+      "sha256": "84fed5abe4272f117a4cdd8434330cb50e793188df8a4ef3e6aa0edffae57d30",
+      "bytes": 9198
+    },
+    "generated/task-flow/complementary-team-phase1-delivery/analysis-002-knowledge_snapshot.json": {
+      "sha256": "be19e553bf678a037a0be849727c73b3e5ccfe2096705fb9e4f4f267ea6536e7",
+      "bytes": 126326
+    },
+    "generated/task-flow/complementary-team-phase1-delivery/analysis-002-reasoning_input.ttl": {
+      "sha256": "a9e9667defc9063c5fdaf6ab517ea4c35011d342846580a3203e5ead30586819",
+      "bytes": 69515
+    },
+    "generated/task-flow/complementary-team-phase1-delivery/analysis-002-reasoning_result.ttl": {
+      "sha256": "84fed5abe4272f117a4cdd8434330cb50e793188df8a4ef3e6aa0edffae57d30",
+      "bytes": 9198
+    },
+    "generated/task-flow/complementary-team-phase1-delivery/analysis-003-knowledge_snapshot.json": {
+      "sha256": "9665dff5231c1bf17fd77572187e5dd4f6b030a19e178602194e82357ba22aa5",
+      "bytes": 126326
+    },
+    "generated/task-flow/complementary-team-phase1-delivery/analysis-003-reasoning_input.ttl": {
+      "sha256": "a9e9667defc9063c5fdaf6ab517ea4c35011d342846580a3203e5ead30586819",
+      "bytes": 69515
+    },
+    "generated/task-flow/complementary-team-phase1-delivery/analysis-003-reasoning_result.ttl": {
+      "sha256": "84fed5abe4272f117a4cdd8434330cb50e793188df8a4ef3e6aa0edffae57d30",
+      "bytes": 9198
+    },
+    "generated/task-flow/complementary-team-phase1-delivery/analysis-004-knowledge_snapshot.json": {
+      "sha256": "9665dff5231c1bf17fd77572187e5dd4f6b030a19e178602194e82357ba22aa5",
+      "bytes": 126326
+    },
+    "generated/task-flow/complementary-team-phase1-delivery/analysis-004-reasoning_input.ttl": {
+      "sha256": "a9e9667defc9063c5fdaf6ab517ea4c35011d342846580a3203e5ead30586819",
+      "bytes": 69515
+    },
+    "generated/task-flow/complementary-team-phase1-delivery/analysis-004-reasoning_result.ttl": {
+      "sha256": "84fed5abe4272f117a4cdd8434330cb50e793188df8a4ef3e6aa0edffae57d30",
+      "bytes": 9198
+    },
+    "generated/task-flow/complementary-team-phase1-delivery/summary.md": {
+      "sha256": "af7c3b262452597485815f2f3ccf59a2ccae856d6eadd8c11c72d950178a6403",
+      "bytes": 2425
+    },
+    "generated/task-flow/complementary-team-phase1-delivery/team_report.json": {
+      "sha256": "809c9021b7b2b2166a80cbb053692a19036b3851f657eebb1bb4df162240c51c",
+      "bytes": 2078870
+    }
+  },
+  "archive_sha256": "12eb7de7090e2d4a88370e359d1f963857e41fb45e22c2f6d566b455d54b1d4b"
+}

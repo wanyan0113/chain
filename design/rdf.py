@@ -13,6 +13,8 @@ DESIGN = Namespace("urn:arcane-design:")
 
 
 def design_to_rdf(doc, report, *, require_canonical=False):
+    if report.get('mode') == 'complementary_team_v1':
+        raise DesignError('能力互补第一阶段不支持业务RDF导出')
     if report["status"] != "complete" or report["network"] is None:
         raise DesignError("只有完整通过约束检查的设计才导出业务实例")
     expected = design(doc)
@@ -30,6 +32,8 @@ def design_to_rdf(doc, report, *, require_canonical=False):
 
 def _design_graph(doc, report):
     """Render verified structure; callers enforce their own independent gate."""
+    if report.get('mode') == 'complementary_team_v1':
+        raise DesignError('能力互补第一阶段不支持业务RDF导出')
     graph = Graph()
     graph.bind("kw", KW)
     graph.bind("design", DESIGN)

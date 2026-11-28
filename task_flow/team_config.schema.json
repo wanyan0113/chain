@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object", "additionalProperties": false,
+  "required": ["format_version", "max_members", "internal_policy", "control_policy", "budgets", "schedules"],
+  "properties": {
+    "format_version": {"const": "task-flow-team-config-1.0"},
+    "max_members": {"type": "integer", "minimum": 1, "maximum": 2},
+    "internal_policy": {"const": "member_to_hub_direct"},
+    "control_policy": {"const": "all_contributing_controllers_to_all_executors_direct"},
+    "budgets": {
+      "type": "object", "additionalProperties": false,
+      "required": ["flows_per_task", "flow_analyses", "team_nodes", "plans_per_stage", "chain_nodes", "chains_per_task", "network_nodes", "networks"],
+      "properties": {
+        "flows_per_task": {"type": "integer", "minimum": 1, "maximum": 10000},
+        "flow_analyses": {"type": "integer", "minimum": 1, "maximum": 10000},
+        "team_nodes": {"type": "integer", "minimum": 1, "maximum": 1000000},
+        "plans_per_stage": {"type": "integer", "minimum": 1, "maximum": 100000},
+        "chain_nodes": {"type": "integer", "minimum": 1, "maximum": 1000000},
+        "chains_per_task": {"type": "integer", "minimum": 1, "maximum": 100000},
+        "network_nodes": {"type": "integer", "minimum": 1, "maximum": 1000000},
+        "networks": {"type": "integer", "minimum": 1, "maximum": 100000}
+      }
+    },
+    "schedules": {
+      "type": "object", "additionalProperties": {
+        "type": "array", "minItems": 3, "items": {
+          "type": "object", "additionalProperties": false, "required": ["start_s", "end_s"],
+          "properties": {"start_s": {"type": "number", "minimum": 0}, "end_s": {"type": "number", "minimum": 0}}
+        }
+      }
+    }
+  }
+}

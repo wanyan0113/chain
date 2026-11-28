@@ -17,6 +17,8 @@ ROSTER_FIELDS=['task_id','observation_flow_id','source_flow_id','candidate_id','
 
 
 def build(report,task_ids=None,artifact_versions=None):
+    require(not isinstance(report, dict) or report.get('mode') != 'complementary_team_v1',
+            'complementary teams do not support legacy observation export in phase one')
     require(type(report) is dict and report.get('format_version')=='tfdo-joint-report-1.0','expected joint report')
     require(report.get('integration_status') in ('selected','feasible') and bool(report.get('selected_candidate_ids')),
             'source report has no selected feasible design')

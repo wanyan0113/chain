@@ -1,0 +1,54 @@
+{
+  "format_version": "task-flow-team-config-1.0",
+  "max_members": 2,
+  "internal_policy": "member_to_hub_direct",
+  "control_policy": "all_contributing_controllers_to_all_executors_direct",
+  "budgets": {
+    "flows_per_task": 100,
+    "flow_analyses": 100,
+    "team_nodes": 10000,
+    "plans_per_stage": 1000,
+    "chain_nodes": 10000,
+    "chains_per_task": 1000,
+    "network_nodes": 10000,
+    "networks": 1000
+  },
+  "schedules": {
+    "T1": [
+      {
+        "start_s": 0,
+        "end_s": 10
+      },
+      {
+        "start_s": 10,
+        "end_s": 20
+      },
+      {
+        "start_s": 20,
+        "end_s": 30
+      },
+      {
+        "start_s": 30,
+        "end_s": 40
+      }
+    ],
+    "T2": [
+      {
+        "start_s": 0,
+        "end_s": 10
+      },
+      {
+        "start_s": 10,
+        "end_s": 20
+      },
+      {
+        "start_s": 20,
+        "end_s": 30
+      },
+      {
+        "start_s": 30,
+        "end_s": 40
+      }
+    ]
+  }
+}
