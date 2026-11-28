@@ -60,6 +60,9 @@ docs/task-flow/joint-optimization/evidence/*.log -text whitespace=-blank-at-eol,
 docs/task-flow/joint-optimization/stage1-audit/evidence/*.log -text whitespace=-blank-at-eol,cr-at-eol
 docs/task-flow/joint-optimization/stage2-performance/**/*.log -text whitespace=-blank-at-eol,cr-at-eol
 docs/task-flow/joint-optimization/stage2b-owl-path/**/*.log -text whitespace=-blank-at-eol,cr-at-eol
+docs/task-flow/joint-optimization/stage3-accuracy/**/*.log -text whitespace=-blank-at-eol,cr-at-eol
+# Matplotlib preserves spaces in generated SVG path commands.
+docs/task-flow/joint-optimization/stage3-accuracy/**/*.svg -text whitespace=-blank-at-eol,cr-at-eol
 knowledge/benchmark-stage2/*.ttl -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 knowledge/rift-multistep.* -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 knowledge/flow-design-bridge.* -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

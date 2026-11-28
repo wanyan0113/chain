@@ -1,0 +1,560 @@
+{
+  "version": "tfdo-accuracy-evidence-1.0",
+  "files": [
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\error-by-length.svg",
+      "sha256": "175110997eb8df03f4cf96a19cfebea3f7da8c98efdad23cf788d3477a5cda58",
+      "sha256_lf_normalized": "fc470b300d5972d06346f44492f31c4860026650c072a376413fa5ae86316d83"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\independent-label-audit.json",
+      "sha256": "18e760a005fd12c93345090b469d23db1a43bf19ecbf193ed214418237d3e0cf",
+      "sha256_lf_normalized": "5728a28a6ad84f41b4ad49544eb39fb3cae2a2276b42e7b30bd7f0f18e068e26"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\protocol.json",
+      "sha256": "15ad1e04d6b83a9202a084669786841fed48f52398ee7c8ca057ce4d17e3a96a",
+      "sha256_lf_normalized": "12a525047a2ca87417bf825056431656b706db017ca3f60c47150ee30808ad28"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw-inventory.json",
+      "sha256": "6eae125427f914b0b53b01e9fa13e9e737f29f722ea2e64c5636f2741b1f4296",
+      "sha256_lf_normalized": "1ca8f8f9f4697d98c8f0c363a658277fe1b9285af181a5dfc05739174ae3a169"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\README.md",
+      "sha256": "f97cce7f2325d812acddcf7bae6681e4490e9fd64afd17044528b65d70ccf3c6",
+      "sha256_lf_normalized": "93caca5ea12842e50f1f1eb5d945dd540fcd509f9cf19b4f58fdff96d366779c"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\results.json",
+      "sha256": "785bc9ef033f5ea55534f6ccaa5373d977a55cf6b31f25b947a8fd6c843c3576",
+      "sha256_lf_normalized": "aec5b9ffde3d81da0642096191e6b0ab2189c20b2664fb45b8e1fa5d6748d972"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\tests.log",
+      "sha256": "75a24bbc44d047c0bfa6a2fa537d3a52110e58d16eb697cad7ed5403edf5afc4",
+      "sha256_lf_normalized": "75a24bbc44d047c0bfa6a2fa537d3a52110e58d16eb697cad7ed5403edf5afc4"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\A-act-1\\seed-1103.csv.gz",
+      "sha256": "9d79273f44ff43bcb391f742643af4b7a66d47c360d0462bc7fe567abc9c1f2c",
+      "sha256_lf_normalized": "9d79273f44ff43bcb391f742643af4b7a66d47c360d0462bc7fe567abc9c1f2c"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\A-act-1\\seed-2207.csv.gz",
+      "sha256": "6e20d6e21cb9498e7b819766d0efa6317a7507b9fd1d80d0ad7926c64da1bb6f",
+      "sha256_lf_normalized": "6e20d6e21cb9498e7b819766d0efa6317a7507b9fd1d80d0ad7926c64da1bb6f"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\A-act-1\\seed-3301.csv.gz",
+      "sha256": "187529e20fd125f08f79ed142df16e8606f5ce148b9a966e80636d6491339809",
+      "sha256_lf_normalized": "187529e20fd125f08f79ed142df16e8606f5ce148b9a966e80636d6491339809"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\A-act-1\\seed-4409.csv.gz",
+      "sha256": "5f20bc44c24f6b9473073b3bfecae1195df2b65696180e7828ec42e177d5f396",
+      "sha256_lf_normalized": "5f20bc44c24f6b9473073b3bfecae1195df2b65696180e7828ec42e177d5f396"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\A-act-1\\seed-5519.csv.gz",
+      "sha256": "80cd8f1e41e91bc49472f2f2d937e1d45a615336112ced6f8074228aa7fd5626",
+      "sha256_lf_normalized": "80cd8f1e41e91bc49472f2f2d937e1d45a615336112ced6f8074228aa7fd5626"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\A-decide-1\\seed-1103.csv.gz",
+      "sha256": "fd84d409a998bd5ec49315fee0872ef60fcf58a7d2b28524ccb4d1b06e11f1a9",
+      "sha256_lf_normalized": "fd84d409a998bd5ec49315fee0872ef60fcf58a7d2b28524ccb4d1b06e11f1a9"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\A-decide-1\\seed-2207.csv.gz",
+      "sha256": "bcfa773ab44b9ecd964e51f7aa23ce54df4409e313595e4a78f0b4848f894aa5",
+      "sha256_lf_normalized": "bcfa773ab44b9ecd964e51f7aa23ce54df4409e313595e4a78f0b4848f894aa5"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\A-decide-1\\seed-3301.csv.gz",
+      "sha256": "749b568df4f0c9e7ba9c07e950799bfbfa580a0461dea50f3c38098c32325ca1",
+      "sha256_lf_normalized": "749b568df4f0c9e7ba9c07e950799bfbfa580a0461dea50f3c38098c32325ca1"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\A-decide-1\\seed-4409.csv.gz",
+      "sha256": "f56e63a141a1cbd8968941958eb81fa8f8c7cd140559eb55886053fed72561e5",
+      "sha256_lf_normalized": "f56e63a141a1cbd8968941958eb81fa8f8c7cd140559eb55886053fed72561e5"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\A-decide-1\\seed-5519.csv.gz",
+      "sha256": "e24988d9884ed173fb8312a484fdb3fe6872ecfdd349653d4305e356c30bc73a",
+      "sha256_lf_normalized": "9c3bbb09ad94c71628537e8b94bf32ed065643458b0aa0ef8fe2d35720059bfa"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\A-observe-1\\seed-1103.csv.gz",
+      "sha256": "50224bd4cd8c6a9396a992c02b0b86745bb1ad0a954942d2452cdb5dda209317",
+      "sha256_lf_normalized": "50224bd4cd8c6a9396a992c02b0b86745bb1ad0a954942d2452cdb5dda209317"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\A-observe-1\\seed-2207.csv.gz",
+      "sha256": "51214291574c01f8b17365377d8483c38f420ff8fc6383eaeac2a8e7cbb10e7e",
+      "sha256_lf_normalized": "51214291574c01f8b17365377d8483c38f420ff8fc6383eaeac2a8e7cbb10e7e"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\A-observe-1\\seed-3301.csv.gz",
+      "sha256": "0c3db02b0e1aa47a856b56523eab675f39a743c04040c29821c9f39693f1bda1",
+      "sha256_lf_normalized": "0c3db02b0e1aa47a856b56523eab675f39a743c04040c29821c9f39693f1bda1"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\A-observe-1\\seed-4409.csv.gz",
+      "sha256": "e68bda1fe8a2c95aa0592b6aee0e7bddc5d40101db626f8631a01201f4d6f71b",
+      "sha256_lf_normalized": "e68bda1fe8a2c95aa0592b6aee0e7bddc5d40101db626f8631a01201f4d6f71b"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\A-observe-1\\seed-5519.csv.gz",
+      "sha256": "1fcc89837307e1e360d28e7b25ddd0f2e7143b7d3b9702108832b91f613d41f4",
+      "sha256_lf_normalized": "1fcc89837307e1e360d28e7b25ddd0f2e7143b7d3b9702108832b91f613d41f4"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\B-independent-2\\seed-1103.csv.gz",
+      "sha256": "cd76af4c5d86159949b10f4c15df644de9be1aeb3fc1b1affe6ed0c6fd55f365",
+      "sha256_lf_normalized": "cd76af4c5d86159949b10f4c15df644de9be1aeb3fc1b1affe6ed0c6fd55f365"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\B-independent-2\\seed-2207.csv.gz",
+      "sha256": "a092bd50d08719559a8091665718fef75321474ffc44ef00f49f060827cf4039",
+      "sha256_lf_normalized": "a092bd50d08719559a8091665718fef75321474ffc44ef00f49f060827cf4039"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\B-independent-2\\seed-3301.csv.gz",
+      "sha256": "953743c269feed2a3bade17c17f2154f41061330083a83e360d68603faf37945",
+      "sha256_lf_normalized": "953743c269feed2a3bade17c17f2154f41061330083a83e360d68603faf37945"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\B-independent-2\\seed-4409.csv.gz",
+      "sha256": "dc005c3d07951b560c4bbf9a198f206377a54fb0f017f32c5195fc2f3b2f8fd3",
+      "sha256_lf_normalized": "dc005c3d07951b560c4bbf9a198f206377a54fb0f017f32c5195fc2f3b2f8fd3"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\B-independent-2\\seed-5519.csv.gz",
+      "sha256": "b1ad82c32ddd1e9d7eb248b0fd7d203327c62e66f4997bf6aa0d0e78f08a52da",
+      "sha256_lf_normalized": "b1ad82c32ddd1e9d7eb248b0fd7d203327c62e66f4997bf6aa0d0e78f08a52da"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\C-independent-3\\seed-1103.csv.gz",
+      "sha256": "4654a6fe3c706ef91308c9836f7cdc342d1463fcf271113db6a2fddcf53693c8",
+      "sha256_lf_normalized": "4654a6fe3c706ef91308c9836f7cdc342d1463fcf271113db6a2fddcf53693c8"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\C-independent-3\\seed-2207.csv.gz",
+      "sha256": "0c8a44efd7f4c2ecdbd34ced8a60983d2d33bcba29479814a41d5455df4189d9",
+      "sha256_lf_normalized": "0c8a44efd7f4c2ecdbd34ced8a60983d2d33bcba29479814a41d5455df4189d9"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\C-independent-3\\seed-3301.csv.gz",
+      "sha256": "868d16aa0cf06401a23907b3418461933db3b3340f4869bc3d7d8785aab73e69",
+      "sha256_lf_normalized": "a8dd274e28c8afaf0516a4967dec5d0226dfa0499e4dd07d3b4fcadd84886909"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\C-independent-3\\seed-4409.csv.gz",
+      "sha256": "9910489723e3ab5ae07ca61bd48a121d6075577b99afadee189e079938a6dbef",
+      "sha256_lf_normalized": "9910489723e3ab5ae07ca61bd48a121d6075577b99afadee189e079938a6dbef"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\C-independent-3\\seed-5519.csv.gz",
+      "sha256": "b2458037a8b972de9ca411dc68a43ac709eef640bd48bf10a0016f6ed2e3bc3e",
+      "sha256_lf_normalized": "b2458037a8b972de9ca411dc68a43ac709eef640bd48bf10a0016f6ed2e3bc3e"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\C-independent-4\\seed-1103.csv.gz",
+      "sha256": "5aac006b94be327416a933460edb654e5af71bd59e406ab8600414c439a4c016",
+      "sha256_lf_normalized": "5aac006b94be327416a933460edb654e5af71bd59e406ab8600414c439a4c016"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\C-independent-4\\seed-2207.csv.gz",
+      "sha256": "82dc722c6059c8cdfca9a86a45de564a3d71e761ad8bf2eed57121d41e1a69a3",
+      "sha256_lf_normalized": "82dc722c6059c8cdfca9a86a45de564a3d71e761ad8bf2eed57121d41e1a69a3"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\C-independent-4\\seed-3301.csv.gz",
+      "sha256": "5183f1fab6e0ad59f20d230e4028f6a3068f4fa0a7ea95fabce200cc10a39ea4",
+      "sha256_lf_normalized": "5183f1fab6e0ad59f20d230e4028f6a3068f4fa0a7ea95fabce200cc10a39ea4"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\C-independent-4\\seed-4409.csv.gz",
+      "sha256": "6a14855efcfa970b189e19ce933106c173df2fb95f3d33e9a25707b21facadf4",
+      "sha256_lf_normalized": "6a14855efcfa970b189e19ce933106c173df2fb95f3d33e9a25707b21facadf4"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\C-independent-4\\seed-5519.csv.gz",
+      "sha256": "d76af8a06712d780f81d132f0d5121667c7348869ac35ab2cf82b0b28730222c",
+      "sha256_lf_normalized": "d76af8a06712d780f81d132f0d5121667c7348869ac35ab2cf82b0b28730222c"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\C-independent-6\\seed-1103.csv.gz",
+      "sha256": "8ad74abe4a281f08cee6b8a7f07b211a04998e81a77bb20347876afb82e3a72e",
+      "sha256_lf_normalized": "8ad74abe4a281f08cee6b8a7f07b211a04998e81a77bb20347876afb82e3a72e"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\C-independent-6\\seed-2207.csv.gz",
+      "sha256": "7dfa001c5082ae0b2e516a6439fcf008006d6b443a391482c7af393600b66b32",
+      "sha256_lf_normalized": "7dfa001c5082ae0b2e516a6439fcf008006d6b443a391482c7af393600b66b32"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\C-independent-6\\seed-3301.csv.gz",
+      "sha256": "0f74bc5bca6e486d4f067f59871a71c034082738b3d21ccd1ac5c29c92483c9b",
+      "sha256_lf_normalized": "0f74bc5bca6e486d4f067f59871a71c034082738b3d21ccd1ac5c29c92483c9b"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\C-independent-6\\seed-4409.csv.gz",
+      "sha256": "610f8c46d9d9dcfbb1b99e61bd83b928d29d2ecf1bf787ced4e163f0fba9199b",
+      "sha256_lf_normalized": "8f503cdc4fda6d8118a29ecf125bdd8bf372c70f80007f1258757691d308e66d"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\C-independent-6\\seed-5519.csv.gz",
+      "sha256": "ef585b2df9c67570541940a04695856cb7b6d0b1c39259e13910218cdd974fed",
+      "sha256_lf_normalized": "ef585b2df9c67570541940a04695856cb7b6d0b1c39259e13910218cdd974fed"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-exclusive-errors-2\\seed-1103.csv.gz",
+      "sha256": "80e9aa5d705204420dcfeb29848987c55cd1f149657f79fca63449da54deb626",
+      "sha256_lf_normalized": "80e9aa5d705204420dcfeb29848987c55cd1f149657f79fca63449da54deb626"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-exclusive-errors-2\\seed-2207.csv.gz",
+      "sha256": "bb536c36065fabc23d2928787cd80ae415f19b07e6f092e2317ddb00c195b764",
+      "sha256_lf_normalized": "bb536c36065fabc23d2928787cd80ae415f19b07e6f092e2317ddb00c195b764"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-exclusive-errors-2\\seed-3301.csv.gz",
+      "sha256": "12530e343d08ee8db6d07bf3a8e8dafb64897d2594288faf4c089e003e4fec97",
+      "sha256_lf_normalized": "12530e343d08ee8db6d07bf3a8e8dafb64897d2594288faf4c089e003e4fec97"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-exclusive-errors-2\\seed-4409.csv.gz",
+      "sha256": "6ffb6486cb5b5e9b15e0d1361e20ee9873876ff7732ebb22cf424cbc0c709120",
+      "sha256_lf_normalized": "6ffb6486cb5b5e9b15e0d1361e20ee9873876ff7732ebb22cf424cbc0c709120"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-exclusive-errors-2\\seed-5519.csv.gz",
+      "sha256": "f6c1d08544fe5704ff1c7ca1f59d50424781be48b545ef89cf16d00d25785a75",
+      "sha256_lf_normalized": "f6c1d08544fe5704ff1c7ca1f59d50424781be48b545ef89cf16d00d25785a75"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-independent-matched-4\\seed-1103.csv.gz",
+      "sha256": "14de7a64163d0bec8d921e6cd0f3eb35bf36357d616719e14495c692ad9a9ba0",
+      "sha256_lf_normalized": "14de7a64163d0bec8d921e6cd0f3eb35bf36357d616719e14495c692ad9a9ba0"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-independent-matched-4\\seed-2207.csv.gz",
+      "sha256": "d51a3dbfab77b9884f86c80c8c01df5d8c802324e03714eafd5016d8cc781abd",
+      "sha256_lf_normalized": "d51a3dbfab77b9884f86c80c8c01df5d8c802324e03714eafd5016d8cc781abd"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-independent-matched-4\\seed-3301.csv.gz",
+      "sha256": "50935fb772143211d372cc60944a9c07303d7bfd3b5ab0f96681bd1e7bb380e0",
+      "sha256_lf_normalized": "50935fb772143211d372cc60944a9c07303d7bfd3b5ab0f96681bd1e7bb380e0"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-independent-matched-4\\seed-4409.csv.gz",
+      "sha256": "c47cda86405cae93c1a39048fd162f3b39f47778d61bb57a75b77f3191cd689d",
+      "sha256_lf_normalized": "12972f0803651ee57d328e474d46fed4db306a1cb2b375efdc22d1d0d32d07a8"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-independent-matched-4\\seed-5519.csv.gz",
+      "sha256": "4c0973838e49450d4dc8b0fbe9e6f6bf618514afafe7b2ac34b1865b9ca60cc8",
+      "sha256_lf_normalized": "4c0973838e49450d4dc8b0fbe9e6f6bf618514afafe7b2ac34b1865b9ca60cc8"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-shared-difficulty-2\\seed-1103.csv.gz",
+      "sha256": "16f5c64391e1e93b1b100464663752424d04c70a8d0c37a2d72f75d7513af2b4",
+      "sha256_lf_normalized": "f66a51b1c0c744a5e40f0c776c7500626d74c65b893af4cfc3eaf64f27badee6"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-shared-difficulty-2\\seed-2207.csv.gz",
+      "sha256": "26d29a56cf96f83d3bd5e9d494f4f062b6c716706f1aa0ef088c52db1715e2be",
+      "sha256_lf_normalized": "26d29a56cf96f83d3bd5e9d494f4f062b6c716706f1aa0ef088c52db1715e2be"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-shared-difficulty-2\\seed-3301.csv.gz",
+      "sha256": "009a2275062397049e73b0976f9c6fb94dd90284cd72edbf0b8ab1e7ec2b2010",
+      "sha256_lf_normalized": "baab21b77308013c59de01afd57ce7c441652a2a0be61a9a4157d6dde47891fe"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-shared-difficulty-2\\seed-4409.csv.gz",
+      "sha256": "91ef69931ba5fe87902e890e029b498ee2eb71d2fc71e58d9a2482ddcb050220",
+      "sha256_lf_normalized": "91ef69931ba5fe87902e890e029b498ee2eb71d2fc71e58d9a2482ddcb050220"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-shared-difficulty-2\\seed-5519.csv.gz",
+      "sha256": "09f53ef95059acde663ac99948653ac05a6a8b0209848e4a927e5629a3dd8188",
+      "sha256_lf_normalized": "09f53ef95059acde663ac99948653ac05a6a8b0209848e4a927e5629a3dd8188"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-shared-difficulty-4\\seed-1103.csv.gz",
+      "sha256": "dad917ad6eff5175fe119b97d3eb556ac4c7b7ebdb14a0ddd07dd834c15e3339",
+      "sha256_lf_normalized": "dad917ad6eff5175fe119b97d3eb556ac4c7b7ebdb14a0ddd07dd834c15e3339"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-shared-difficulty-4\\seed-2207.csv.gz",
+      "sha256": "8680ff90d846befb62f5875d6821a88a0fca247cbe881e635610f068a0cbd5cf",
+      "sha256_lf_normalized": "8680ff90d846befb62f5875d6821a88a0fca247cbe881e635610f068a0cbd5cf"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-shared-difficulty-4\\seed-3301.csv.gz",
+      "sha256": "041e3b3d8f23d36e8231a6ff760213f92c679116a136f2c11683f89a5ebceed9",
+      "sha256_lf_normalized": "041e3b3d8f23d36e8231a6ff760213f92c679116a136f2c11683f89a5ebceed9"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-shared-difficulty-4\\seed-4409.csv.gz",
+      "sha256": "4db99066538b6df28b0b05aacc7baf4529c03fda19f81cd325dc58f34e296d28",
+      "sha256_lf_normalized": "4db99066538b6df28b0b05aacc7baf4529c03fda19f81cd325dc58f34e296d28"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-shared-difficulty-4\\seed-5519.csv.gz",
+      "sha256": "416569ce191830b13a240b572f93da3a3ae9332011ce9c552739b05140418ac0",
+      "sha256_lf_normalized": "416569ce191830b13a240b572f93da3a3ae9332011ce9c552739b05140418ac0"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-shared-difficulty-6\\seed-1103.csv.gz",
+      "sha256": "16217d1499a6d12aed41e2c045d50d47ee612655a15bad86b43d6027ca99129f",
+      "sha256_lf_normalized": "e7166e9359b0ec74d8942adafe5f803f03a9f4a4c6a10ac60dc2dd8d51475802"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-shared-difficulty-6\\seed-2207.csv.gz",
+      "sha256": "006a2be32ecdfb68736dc33f804813e879638683251af5a402459d5ea8e84cbf",
+      "sha256_lf_normalized": "9a8b00d452fb702b0a3025f9dba7e5f34b0c46aabdd1967f5a49305fe993ea3a"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-shared-difficulty-6\\seed-3301.csv.gz",
+      "sha256": "fa927c31cc4419fc23f4b06961dd5fd7110aa63549b2eee09ea97c517d18676d",
+      "sha256_lf_normalized": "2fd172fc273487618e220c381553e0b2bf762aa748fdf53b3a76849647171740"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-shared-difficulty-6\\seed-4409.csv.gz",
+      "sha256": "5373f78fce953bb43dea0348f64a2df54f4d28e522c041b2e78cbce221c69dba",
+      "sha256_lf_normalized": "c484649a7aaa48aaecd9bbfde25c38afce7c81c43ad2d91383054cb5a13da7da"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\D-shared-difficulty-6\\seed-5519.csv.gz",
+      "sha256": "94e3436268f09769c312526e08c12fb37c5fcc8847d5b46c731d0fd792067ba6",
+      "sha256_lf_normalized": "66f2b7d21ebff07ec3c6168720413a516ce8922defde74e31c857bece8758f14"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\E-repeated-2\\seed-1103.csv.gz",
+      "sha256": "e8d46680cfd7a4970f34907afd892f2597e29c01ec00fe3fc989c91375804861",
+      "sha256_lf_normalized": "e8d46680cfd7a4970f34907afd892f2597e29c01ec00fe3fc989c91375804861"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\E-repeated-2\\seed-2207.csv.gz",
+      "sha256": "00a452bc39a88eba99ad19d1be9dba8e5b3684d27702029b8d6160751876036a",
+      "sha256_lf_normalized": "00a452bc39a88eba99ad19d1be9dba8e5b3684d27702029b8d6160751876036a"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\E-repeated-2\\seed-3301.csv.gz",
+      "sha256": "20d1ba423c79c1b8ed54d2c3d9107e152bb14325b7c368e88e2663fc6cea83dc",
+      "sha256_lf_normalized": "20d1ba423c79c1b8ed54d2c3d9107e152bb14325b7c368e88e2663fc6cea83dc"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\E-repeated-2\\seed-4409.csv.gz",
+      "sha256": "f42c5f0f27f1747d463ce6489d497b3dad0dce6d99474fb74843cd328e6037e0",
+      "sha256_lf_normalized": "f42c5f0f27f1747d463ce6489d497b3dad0dce6d99474fb74843cd328e6037e0"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\E-repeated-2\\seed-5519.csv.gz",
+      "sha256": "ea92b269c6ecc9c8e346a27985a8113599801a08e959d946208949a1ca89a234",
+      "sha256_lf_normalized": "ea92b269c6ecc9c8e346a27985a8113599801a08e959d946208949a1ca89a234"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\E-repeated-4\\seed-1103.csv.gz",
+      "sha256": "6f0ad0f299f2b9dfdf4b954974312ac4d68acc4b8776708c96c14386f433d3d8",
+      "sha256_lf_normalized": "6f0ad0f299f2b9dfdf4b954974312ac4d68acc4b8776708c96c14386f433d3d8"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\E-repeated-4\\seed-2207.csv.gz",
+      "sha256": "f6c00e35e5d1d813061b708f2610cb9e51b5698e02a43bdbe54958e7d3f0bad6",
+      "sha256_lf_normalized": "f6c00e35e5d1d813061b708f2610cb9e51b5698e02a43bdbe54958e7d3f0bad6"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\E-repeated-4\\seed-3301.csv.gz",
+      "sha256": "a64380f44d6733fd60922a14f811200a770e2054b94975e2b544fcc023951c87",
+      "sha256_lf_normalized": "a64380f44d6733fd60922a14f811200a770e2054b94975e2b544fcc023951c87"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\E-repeated-4\\seed-4409.csv.gz",
+      "sha256": "dcd680ff74cbf5fb41f7f3526711c87e86d9b511f0eae2a682a8efd22448ae53",
+      "sha256_lf_normalized": "dcd680ff74cbf5fb41f7f3526711c87e86d9b511f0eae2a682a8efd22448ae53"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\E-repeated-4\\seed-5519.csv.gz",
+      "sha256": "4b068d0cff21556fc6495c4a89d6502d3852a06c1f55cca86a0d1d3ef61430e7",
+      "sha256_lf_normalized": "4b068d0cff21556fc6495c4a89d6502d3852a06c1f55cca86a0d1d3ef61430e7"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\E-repeated-6\\seed-1103.csv.gz",
+      "sha256": "6ebe7c713cb3e1d695931e0b349c580f8087b1aee336036ff4c018c42c7cbb6f",
+      "sha256_lf_normalized": "6ebe7c713cb3e1d695931e0b349c580f8087b1aee336036ff4c018c42c7cbb6f"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\E-repeated-6\\seed-2207.csv.gz",
+      "sha256": "0c0425303a6ce640868c5f1197f09df58565a75882490662bb1a9b9ee6372275",
+      "sha256_lf_normalized": "0c0425303a6ce640868c5f1197f09df58565a75882490662bb1a9b9ee6372275"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\E-repeated-6\\seed-3301.csv.gz",
+      "sha256": "02f9058275d9464ad74466e0bd4ad9d5fc0f82cc0045beabde3225c411edc65d",
+      "sha256_lf_normalized": "02f9058275d9464ad74466e0bd4ad9d5fc0f82cc0045beabde3225c411edc65d"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\E-repeated-6\\seed-4409.csv.gz",
+      "sha256": "ba6e063cf6d8b2abe43f1314a943d76cfd981c206d84480fce25f994ebb78386",
+      "sha256_lf_normalized": "ba6e063cf6d8b2abe43f1314a943d76cfd981c206d84480fce25f994ebb78386"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\E-repeated-6\\seed-5519.csv.gz",
+      "sha256": "079fc9d947d162a9dcc06d798ceafa2170c9146de1b06286b89a91b01af2edd2",
+      "sha256_lf_normalized": "b064e107ca7e58c596aab1236e82caa90f3f3658060c8d3c6422e57df0dec755"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\F-flip-2\\seed-1103.csv.gz",
+      "sha256": "ed56ea97d0fbc50d21248421d4fe7b7c9c9f566493f8f94b0066807875bdb98e",
+      "sha256_lf_normalized": "ed56ea97d0fbc50d21248421d4fe7b7c9c9f566493f8f94b0066807875bdb98e"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\F-flip-2\\seed-2207.csv.gz",
+      "sha256": "248b38cf20c1d0b45488ddfaa81f6e228aee152e471f07bd3373594d388afd3c",
+      "sha256_lf_normalized": "07339b1da41db6c5e7b7cc72a39dc09bbcf672b4d9abe7916b4e6716a39fc1a6"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\F-flip-2\\seed-3301.csv.gz",
+      "sha256": "7c48fb6843212e0a0ee320bea3a389e4ed58c87f830ea84d3654cc04850e3fbe",
+      "sha256_lf_normalized": "7c48fb6843212e0a0ee320bea3a389e4ed58c87f830ea84d3654cc04850e3fbe"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\F-flip-2\\seed-4409.csv.gz",
+      "sha256": "e5bd0641dce98061f6b835de9c4ba874be51908c9b55b10b62a1a271c39ac5d9",
+      "sha256_lf_normalized": "e5bd0641dce98061f6b835de9c4ba874be51908c9b55b10b62a1a271c39ac5d9"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\F-flip-2\\seed-5519.csv.gz",
+      "sha256": "b2e63a60767d5560e512ec42dbd25db0ab1460fcb325c09a0b300cb7427270a2",
+      "sha256_lf_normalized": "b2e63a60767d5560e512ec42dbd25db0ab1460fcb325c09a0b300cb7427270a2"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\F-flip-4\\seed-1103.csv.gz",
+      "sha256": "7bb4ab0fb02fcd5d668e059ef39a3a7177340b242b7ee70a8d609de2fdf67dea",
+      "sha256_lf_normalized": "7bb4ab0fb02fcd5d668e059ef39a3a7177340b242b7ee70a8d609de2fdf67dea"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\F-flip-4\\seed-2207.csv.gz",
+      "sha256": "11a4dc4355fc176c23585920b1158140a69a072e0d36be4240944a95ae16b1b3",
+      "sha256_lf_normalized": "c3e1d68f5dc671486d5f1daab9ed9ed1ead0ba721d924e302def23a081b5b309"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\F-flip-4\\seed-3301.csv.gz",
+      "sha256": "84802ccba9a6a0e8edf43e09dc7519a22f9ea097bfa158f9dd1502dc3d6973c2",
+      "sha256_lf_normalized": "84802ccba9a6a0e8edf43e09dc7519a22f9ea097bfa158f9dd1502dc3d6973c2"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\F-flip-4\\seed-4409.csv.gz",
+      "sha256": "0907e481e9073567a41088744461574a53d8c5bc77008894a8a5f9c05efb4d78",
+      "sha256_lf_normalized": "0907e481e9073567a41088744461574a53d8c5bc77008894a8a5f9c05efb4d78"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\F-flip-4\\seed-5519.csv.gz",
+      "sha256": "a2c43106230c4b951742a3245bb25f8d4d45ae4529c835ce7d92c5d61f1d4587",
+      "sha256_lf_normalized": "a2c43106230c4b951742a3245bb25f8d4d45ae4529c835ce7d92c5d61f1d4587"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\F-repair-2\\seed-1103.csv.gz",
+      "sha256": "11f75e175e231c1e7e01a376933f21c2b6bc0ae1b6862612f77ff8c2b51c9e65",
+      "sha256_lf_normalized": "11f75e175e231c1e7e01a376933f21c2b6bc0ae1b6862612f77ff8c2b51c9e65"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\F-repair-2\\seed-2207.csv.gz",
+      "sha256": "36d52591d2369268b81314b2efcc55a7b11745f39eb0f76d34d9f152c1b2356a",
+      "sha256_lf_normalized": "36d52591d2369268b81314b2efcc55a7b11745f39eb0f76d34d9f152c1b2356a"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\F-repair-2\\seed-3301.csv.gz",
+      "sha256": "c84dbb420a4aae0470bd4c4b658c2a8a426495d6d6bccb501157ccdc9fd51a3f",
+      "sha256_lf_normalized": "c84dbb420a4aae0470bd4c4b658c2a8a426495d6d6bccb501157ccdc9fd51a3f"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\F-repair-2\\seed-4409.csv.gz",
+      "sha256": "0b31a8198189955ba5b3bacfe51914d47b860c3c150838219679578f09e93ec9",
+      "sha256_lf_normalized": "0b31a8198189955ba5b3bacfe51914d47b860c3c150838219679578f09e93ec9"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\F-repair-2\\seed-5519.csv.gz",
+      "sha256": "3d566f524924db6893dbb8dc4d98bc0f46cb306f078aa94408dc88fcf0a78406",
+      "sha256_lf_normalized": "3d566f524924db6893dbb8dc4d98bc0f46cb306f078aa94408dc88fcf0a78406"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\M-population-shift-4\\seed-1103.csv.gz",
+      "sha256": "14a30a8b5e8187327e6ef4af4d1dabfe3308898f4db0964b17ebe452e87fa7e8",
+      "sha256_lf_normalized": "14a30a8b5e8187327e6ef4af4d1dabfe3308898f4db0964b17ebe452e87fa7e8"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\M-population-shift-4\\seed-2207.csv.gz",
+      "sha256": "b83718e2ee171099a153172245e298ac4dbb5ed23dd7c8a0593263d904f2c517",
+      "sha256_lf_normalized": "b83718e2ee171099a153172245e298ac4dbb5ed23dd7c8a0593263d904f2c517"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\M-population-shift-4\\seed-3301.csv.gz",
+      "sha256": "40b9b1c25b6431fcff557ce4bbc9041c01daad4a4ae3ad1d0e4e9a4744f04c78",
+      "sha256_lf_normalized": "40b9b1c25b6431fcff557ce4bbc9041c01daad4a4ae3ad1d0e4e9a4744f04c78"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\M-population-shift-4\\seed-4409.csv.gz",
+      "sha256": "20437c71aff7a384855c146353b4a46aed2019f6bc3478f916c1a14e08e7cae7",
+      "sha256_lf_normalized": "20437c71aff7a384855c146353b4a46aed2019f6bc3478f916c1a14e08e7cae7"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\raw\\M-population-shift-4\\seed-5519.csv.gz",
+      "sha256": "fdd6e9f9656d068e97a87b7320885177eb34a115734101c767b61bd5562724bc",
+      "sha256_lf_normalized": "fdd6e9f9656d068e97a87b7320885177eb34a115734101c767b61bd5562724bc"
+    },
+    {
+      "path": "workflow_tools\\accuracy_validation.py",
+      "sha256": "7ccbe5d0d8a3bdd89cddbdef3c2c89ebd087c552f102cd3d76377e451c1ba143",
+      "sha256_lf_normalized": "7ccbe5d0d8a3bdd89cddbdef3c2c89ebd087c552f102cd3d76377e451c1ba143"
+    },
+    {
+      "path": "workflow_tools\\validate_accuracy_model.py",
+      "sha256": "bf6b09ac8f8a1bd624b751cbdb2d1b552da43e62385138c8f2c6fed4d8a65479",
+      "sha256_lf_normalized": "bf6b09ac8f8a1bd624b751cbdb2d1b552da43e62385138c8f2c6fed4d8a65479"
+    },
+    {
+      "path": "workflow_tools\\audit_accuracy_data.py",
+      "sha256": "ec46d2132128a2c1064bc14b009507da60d48a44a3cb4958002dd50d51ef1c95",
+      "sha256_lf_normalized": "ec46d2132128a2c1064bc14b009507da60d48a44a3cb4958002dd50d51ef1c95"
+    },
+    {
+      "path": "workflow_tools\\report_accuracy_validation.py",
+      "sha256": "251fcdfacf5f2d4f1865f86167f58ab7ed25afa8cdcc8e99db919d0a586b5ee6",
+      "sha256_lf_normalized": "251fcdfacf5f2d4f1865f86167f58ab7ed25afa8cdcc8e99db919d0a586b5ee6"
+    },
+    {
+      "path": "tests\\test_accuracy_validation.py",
+      "sha256": "06e65bdf685ff4ad38093720828e151960617db03bef1ca5d9391774b794da82",
+      "sha256_lf_normalized": "06e65bdf685ff4ad38093720828e151960617db03bef1ca5d9391774b794da82"
+    },
+    {
+      "path": "task_flow\\joint_candidates.py",
+      "sha256": "94db6534a12ebf731b04ad5c9323422f7ab349a340bbd1472e875d33607d3784",
+      "sha256_lf_normalized": "94db6534a12ebf731b04ad5c9323422f7ab349a340bbd1472e875d33607d3784"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\protocol.md",
+      "sha256": "4e8de6365877e44d5bee0b2abab509b0dc571d5d31341fd2e36f96e9346b9321",
+      "sha256_lf_normalized": "4e8de6365877e44d5bee0b2abab509b0dc571d5d31341fd2e36f96e9346b9321"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\README.md",
+      "sha256": "e74c3cd273d37949f83b9ff1948e40944e3d69aa1e2be38f23c341891fc63f31",
+      "sha256_lf_normalized": "e74c3cd273d37949f83b9ff1948e40944e3d69aa1e2be38f23c341891fc63f31"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-accuracy\\results-v1\\regression-tests.log",
+      "sha256": "1bd45b039fad37335fba29ab22288aa51d83c520865eae796506adcef2ebf029",
+      "sha256_lf_normalized": "1bd45b039fad37335fba29ab22288aa51d83c520865eae796506adcef2ebf029"
+    }
+  ]
+}

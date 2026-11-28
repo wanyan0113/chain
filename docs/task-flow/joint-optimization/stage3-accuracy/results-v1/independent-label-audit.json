@@ -1,0 +1,673 @@
+{
+  "status": "passed",
+  "files": 95,
+  "rows": 1425000,
+  "records": [
+    {
+      "path": "A-observe-1/seed-1103.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9017,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "A-observe-1/seed-2207.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 8973,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "A-observe-1/seed-3301.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 8967,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "A-observe-1/seed-4409.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9047,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "A-observe-1/seed-5519.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 8999,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "A-decide-1/seed-1103.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 8518,
+      "reference_probability": 0.85,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "A-decide-1/seed-2207.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 8484,
+      "reference_probability": 0.85,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "A-decide-1/seed-3301.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 8553,
+      "reference_probability": 0.85,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "A-decide-1/seed-4409.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 8499,
+      "reference_probability": 0.85,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "A-decide-1/seed-5519.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 8451,
+      "reference_probability": 0.85,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "A-act-1/seed-1103.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9505,
+      "reference_probability": 0.95,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "A-act-1/seed-2207.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9474,
+      "reference_probability": 0.95,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "A-act-1/seed-3301.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9531,
+      "reference_probability": 0.95,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "A-act-1/seed-4409.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9495,
+      "reference_probability": 0.95,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "A-act-1/seed-5519.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9481,
+      "reference_probability": 0.95,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "B-independent-2/seed-1103.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 7663,
+      "reference_probability": 0.765,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "B-independent-2/seed-2207.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 7721,
+      "reference_probability": 0.765,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "B-independent-2/seed-3301.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 7679,
+      "reference_probability": 0.765,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "B-independent-2/seed-4409.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 7678,
+      "reference_probability": 0.765,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "B-independent-2/seed-5519.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 7560,
+      "reference_probability": 0.765,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "C-independent-3/seed-1103.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 7190,
+      "reference_probability": 0.72675,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "C-independent-3/seed-2207.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 7245,
+      "reference_probability": 0.72675,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "C-independent-3/seed-3301.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 7230,
+      "reference_probability": 0.72675,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "C-independent-3/seed-4409.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 7227,
+      "reference_probability": 0.72675,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "C-independent-3/seed-5519.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 7290,
+      "reference_probability": 0.72675,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "C-independent-4/seed-1103.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 6127,
+      "reference_probability": 0.6177374999999999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "C-independent-4/seed-2207.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 6106,
+      "reference_probability": 0.6177374999999999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "C-independent-4/seed-3301.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 6152,
+      "reference_probability": 0.6177374999999999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "C-independent-4/seed-4409.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 6242,
+      "reference_probability": 0.6177374999999999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "C-independent-4/seed-5519.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 6206,
+      "reference_probability": 0.6177374999999999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "C-independent-6/seed-1103.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 4466,
+      "reference_probability": 0.4463153437499999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "C-independent-6/seed-2207.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 4414,
+      "reference_probability": 0.4463153437499999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "C-independent-6/seed-3301.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 4353,
+      "reference_probability": 0.4463153437499999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "C-independent-6/seed-4409.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 4526,
+      "reference_probability": 0.4463153437499999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "C-independent-6/seed-5519.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 4442,
+      "reference_probability": 0.4463153437499999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-shared-difficulty-2/seed-1103.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 5694,
+      "reference_probability": 0.5683999999999999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-shared-difficulty-2/seed-2207.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 5832,
+      "reference_probability": 0.5683999999999999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-shared-difficulty-2/seed-3301.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 5715,
+      "reference_probability": 0.5683999999999999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-shared-difficulty-2/seed-4409.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 5741,
+      "reference_probability": 0.5683999999999999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-shared-difficulty-2/seed-5519.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 5708,
+      "reference_probability": 0.5683999999999999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-shared-difficulty-4/seed-1103.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 4856,
+      "reference_probability": 0.4767425599999999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-shared-difficulty-4/seed-2207.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 4770,
+      "reference_probability": 0.4767425599999999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-shared-difficulty-4/seed-3301.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 4770,
+      "reference_probability": 0.4767425599999999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-shared-difficulty-4/seed-4409.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 4760,
+      "reference_probability": 0.4767425599999999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-shared-difficulty-4/seed-5519.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 4891,
+      "reference_probability": 0.4767425599999999,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-shared-difficulty-6/seed-1103.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 4504,
+      "reference_probability": 0.44566570630399993,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-shared-difficulty-6/seed-2207.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 4519,
+      "reference_probability": 0.44566570630399993,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-shared-difficulty-6/seed-3301.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 4357,
+      "reference_probability": 0.44566570630399993,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-shared-difficulty-6/seed-4409.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 4453,
+      "reference_probability": 0.44566570630399993,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-shared-difficulty-6/seed-5519.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 4552,
+      "reference_probability": 0.44566570630399993,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-independent-matched-4/seed-1103.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 2410,
+      "reference_probability": 0.24009999999999992,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-independent-matched-4/seed-2207.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 2305,
+      "reference_probability": 0.24009999999999992,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-independent-matched-4/seed-3301.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 2427,
+      "reference_probability": 0.24009999999999992,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-independent-matched-4/seed-4409.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 2354,
+      "reference_probability": 0.24009999999999992,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-independent-matched-4/seed-5519.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 2402,
+      "reference_probability": 0.24009999999999992,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-exclusive-errors-2/seed-1103.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 3065,
+      "reference_probability": 0.3,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-exclusive-errors-2/seed-2207.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 2955,
+      "reference_probability": 0.3,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-exclusive-errors-2/seed-3301.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 3047,
+      "reference_probability": 0.3,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-exclusive-errors-2/seed-4409.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 3047,
+      "reference_probability": 0.3,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "D-exclusive-errors-2/seed-5519.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 3010,
+      "reference_probability": 0.3,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "E-repeated-2/seed-1103.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 8951,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "E-repeated-2/seed-2207.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 8978,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "E-repeated-2/seed-3301.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9004,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "E-repeated-2/seed-4409.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9016,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "E-repeated-2/seed-5519.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 8979,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "E-repeated-4/seed-1103.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9038,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "E-repeated-4/seed-2207.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9006,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "E-repeated-4/seed-3301.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 8968,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "E-repeated-4/seed-4409.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9029,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "E-repeated-4/seed-5519.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9045,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "E-repeated-6/seed-1103.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9001,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "E-repeated-6/seed-2207.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9011,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "E-repeated-6/seed-3301.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 8967,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "E-repeated-6/seed-4409.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9012,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "E-repeated-6/seed-5519.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 8963,
+      "reference_probability": 0.9,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "F-repair-2/seed-1103.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9598,
+      "reference_probability": 0.96,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "F-repair-2/seed-2207.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9628,
+      "reference_probability": 0.96,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "F-repair-2/seed-3301.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9560,
+      "reference_probability": 0.96,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "F-repair-2/seed-4409.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9604,
+      "reference_probability": 0.96,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "F-repair-2/seed-5519.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 9577,
+      "reference_probability": 0.96,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "F-flip-2/seed-1103.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 5768,
+      "reference_probability": 0.58,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "F-flip-2/seed-2207.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 5767,
+      "reference_probability": 0.58,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "F-flip-2/seed-3301.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 5820,
+      "reference_probability": 0.58,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "F-flip-2/seed-4409.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 5803,
+      "reference_probability": 0.58,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "F-flip-2/seed-5519.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 5856,
+      "reference_probability": 0.58,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "F-flip-4/seed-1103.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 5175,
+      "reference_probability": 0.5128,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "F-flip-4/seed-2207.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 5124,
+      "reference_probability": 0.5128,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "F-flip-4/seed-3301.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 5096,
+      "reference_probability": 0.5128,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "F-flip-4/seed-4409.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 5102,
+      "reference_probability": 0.5128,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "F-flip-4/seed-5519.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 5100,
+      "reference_probability": 0.5128,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "M-population-shift-4/seed-1103.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 1210,
+      "reference_probability": 0.12024207999999997,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "M-population-shift-4/seed-2207.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 1144,
+      "reference_probability": 0.12024207999999997,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "M-population-shift-4/seed-3301.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 1184,
+      "reference_probability": 0.12024207999999997,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "M-population-shift-4/seed-4409.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 1232,
+      "reference_probability": 0.12024207999999997,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    },
+    {
+      "path": "M-population-shift-4/seed-5519.csv.gz",
+      "rows_checked": 15000,
+      "endpoint_correct": 1174,
+      "reference_probability": 0.12024207999999997,
+      "scope": "replay declared synthetic operators, not independent real-domain labels"
+    }
+  ],
+  "scope": "declared synthetic mechanics and label counts; not real-domain truth validation"
+}

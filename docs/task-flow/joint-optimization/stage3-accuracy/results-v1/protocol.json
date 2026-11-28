@@ -1,0 +1,811 @@
+{
+  "version": "tfdo-controlled-accuracy-1.0",
+  "raw_policy": "sequential_product_v2",
+  "interpretation": "binary_correctness_with_abstention_v1",
+  "provenance": "controlled_synthetic_labels_and_explicit_fault_injection_not_real_domain_observations",
+  "seeds": [
+    1103,
+    2207,
+    3301,
+    4409,
+    5519
+  ],
+  "n_calibration_per_seed": 5000,
+  "n_evaluation_per_seed": 10000,
+  "acceptance": {
+    "alpha": 0.05,
+    "absolute_error_tolerance": 0.05,
+    "minimum_stratum_class_samples": 100,
+    "primary_decision": "pooled_within_identical_scenario; per-seed sensitivity reported",
+    "systematic_direction_rule": "pooled interval outside tolerance and all five seeds have same error sign",
+    "interval_method": "Wilson + Bonferroni simultaneous envelope for L calibration marginals and endpoint",
+    "multiplicity": "per-scenario 95%; no family-wide confidence claim across scenarios",
+    "tolerance_scope": "first controlled screening threshold, not a domain/business acceptance threshold"
+  },
+  "cases": [
+    {
+      "id": "A-observe-1",
+      "group": "A",
+      "mechanism": "absorbing",
+      "stages": [
+        {
+          "id": "step-1",
+          "version": "1.0",
+          "activity_type": "observe",
+          "artifact": "operator-1",
+          "clean_pass_probability": 0.9
+        }
+      ],
+      "population_calibration": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "population_evaluation": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "expected_strata": [
+        "all"
+      ]
+    },
+    {
+      "id": "A-decide-1",
+      "group": "A",
+      "mechanism": "absorbing",
+      "stages": [
+        {
+          "id": "step-1",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-1",
+          "clean_pass_probability": 0.85
+        }
+      ],
+      "population_calibration": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "population_evaluation": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "expected_strata": [
+        "all"
+      ]
+    },
+    {
+      "id": "A-act-1",
+      "group": "A",
+      "mechanism": "absorbing",
+      "stages": [
+        {
+          "id": "step-1",
+          "version": "1.0",
+          "activity_type": "act",
+          "artifact": "operator-1",
+          "clean_pass_probability": 0.95
+        }
+      ],
+      "population_calibration": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "population_evaluation": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "expected_strata": [
+        "all"
+      ]
+    },
+    {
+      "id": "B-independent-2",
+      "group": "B",
+      "mechanism": "absorbing",
+      "stages": [
+        {
+          "id": "step-1",
+          "version": "1.0",
+          "activity_type": "observe",
+          "artifact": "operator-1",
+          "clean_pass_probability": 0.9
+        },
+        {
+          "id": "step-2",
+          "version": "1.0",
+          "activity_type": "act",
+          "artifact": "operator-2",
+          "clean_pass_probability": 0.85
+        }
+      ],
+      "population_calibration": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "population_evaluation": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "expected_strata": [
+        "all"
+      ]
+    },
+    {
+      "id": "C-independent-3",
+      "group": "C",
+      "mechanism": "absorbing",
+      "stages": [
+        {
+          "id": "step-1",
+          "version": "1.0",
+          "activity_type": "observe",
+          "artifact": "operator-1",
+          "clean_pass_probability": 0.9
+        },
+        {
+          "id": "step-2",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-2",
+          "clean_pass_probability": 0.85
+        },
+        {
+          "id": "step-3",
+          "version": "1.0",
+          "activity_type": "act",
+          "artifact": "operator-3",
+          "clean_pass_probability": 0.95
+        }
+      ],
+      "population_calibration": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "population_evaluation": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "expected_strata": [
+        "all"
+      ]
+    },
+    {
+      "id": "C-independent-4",
+      "group": "C",
+      "mechanism": "absorbing",
+      "stages": [
+        {
+          "id": "step-1",
+          "version": "1.0",
+          "activity_type": "observe",
+          "artifact": "operator-1",
+          "clean_pass_probability": 0.9
+        },
+        {
+          "id": "step-2",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-2",
+          "clean_pass_probability": 0.85
+        },
+        {
+          "id": "step-3",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-3",
+          "clean_pass_probability": 0.85
+        },
+        {
+          "id": "step-4",
+          "version": "1.0",
+          "activity_type": "act",
+          "artifact": "operator-4",
+          "clean_pass_probability": 0.95
+        }
+      ],
+      "population_calibration": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "population_evaluation": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "expected_strata": [
+        "all"
+      ]
+    },
+    {
+      "id": "C-independent-6",
+      "group": "C",
+      "mechanism": "absorbing",
+      "stages": [
+        {
+          "id": "step-1",
+          "version": "1.0",
+          "activity_type": "observe",
+          "artifact": "operator-1",
+          "clean_pass_probability": 0.9
+        },
+        {
+          "id": "step-2",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-2",
+          "clean_pass_probability": 0.85
+        },
+        {
+          "id": "step-3",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-3",
+          "clean_pass_probability": 0.85
+        },
+        {
+          "id": "step-4",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-4",
+          "clean_pass_probability": 0.85
+        },
+        {
+          "id": "step-5",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-5",
+          "clean_pass_probability": 0.85
+        },
+        {
+          "id": "step-6",
+          "version": "1.0",
+          "activity_type": "act",
+          "artifact": "operator-6",
+          "clean_pass_probability": 0.95
+        }
+      ],
+      "population_calibration": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "population_evaluation": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "expected_strata": [
+        "all"
+      ]
+    },
+    {
+      "id": "D-shared-difficulty-2",
+      "group": "D",
+      "mechanism": "shared_difficulty",
+      "stages": [
+        {
+          "id": "step-1",
+          "version": "1.0",
+          "activity_type": "observe",
+          "artifact": "operator-1",
+          "clean_pass_probability": 0.7
+        },
+        {
+          "id": "step-2",
+          "version": "1.0",
+          "activity_type": "act",
+          "artifact": "operator-2",
+          "clean_pass_probability": 0.7
+        }
+      ],
+      "population_calibration": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.5
+      },
+      "population_evaluation": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.5
+      },
+      "expected_strata": [
+        "easy",
+        "hard"
+      ],
+      "easy_pass": 0.98,
+      "hard_pass": 0.42
+    },
+    {
+      "id": "D-shared-difficulty-4",
+      "group": "D",
+      "mechanism": "shared_difficulty",
+      "stages": [
+        {
+          "id": "step-1",
+          "version": "1.0",
+          "activity_type": "observe",
+          "artifact": "operator-1",
+          "clean_pass_probability": 0.7
+        },
+        {
+          "id": "step-2",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-2",
+          "clean_pass_probability": 0.7
+        },
+        {
+          "id": "step-3",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-3",
+          "clean_pass_probability": 0.7
+        },
+        {
+          "id": "step-4",
+          "version": "1.0",
+          "activity_type": "act",
+          "artifact": "operator-4",
+          "clean_pass_probability": 0.7
+        }
+      ],
+      "population_calibration": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.5
+      },
+      "population_evaluation": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.5
+      },
+      "expected_strata": [
+        "easy",
+        "hard"
+      ],
+      "easy_pass": 0.98,
+      "hard_pass": 0.42
+    },
+    {
+      "id": "D-shared-difficulty-6",
+      "group": "D",
+      "mechanism": "shared_difficulty",
+      "stages": [
+        {
+          "id": "step-1",
+          "version": "1.0",
+          "activity_type": "observe",
+          "artifact": "operator-1",
+          "clean_pass_probability": 0.7
+        },
+        {
+          "id": "step-2",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-2",
+          "clean_pass_probability": 0.7
+        },
+        {
+          "id": "step-3",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-3",
+          "clean_pass_probability": 0.7
+        },
+        {
+          "id": "step-4",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-4",
+          "clean_pass_probability": 0.7
+        },
+        {
+          "id": "step-5",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-5",
+          "clean_pass_probability": 0.7
+        },
+        {
+          "id": "step-6",
+          "version": "1.0",
+          "activity_type": "act",
+          "artifact": "operator-6",
+          "clean_pass_probability": 0.7
+        }
+      ],
+      "population_calibration": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.5
+      },
+      "population_evaluation": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.5
+      },
+      "expected_strata": [
+        "easy",
+        "hard"
+      ],
+      "easy_pass": 0.98,
+      "hard_pass": 0.42
+    },
+    {
+      "id": "D-independent-matched-4",
+      "group": "D",
+      "mechanism": "absorbing",
+      "stages": [
+        {
+          "id": "step-1",
+          "version": "1.0",
+          "activity_type": "observe",
+          "artifact": "operator-1",
+          "clean_pass_probability": 0.7
+        },
+        {
+          "id": "step-2",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-2",
+          "clean_pass_probability": 0.7
+        },
+        {
+          "id": "step-3",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-3",
+          "clean_pass_probability": 0.7
+        },
+        {
+          "id": "step-4",
+          "version": "1.0",
+          "activity_type": "act",
+          "artifact": "operator-4",
+          "clean_pass_probability": 0.7
+        }
+      ],
+      "population_calibration": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "population_evaluation": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "expected_strata": [
+        "all"
+      ]
+    },
+    {
+      "id": "D-exclusive-errors-2",
+      "group": "D",
+      "mechanism": "exclusive",
+      "stages": [
+        {
+          "id": "step-1",
+          "version": "1.0",
+          "activity_type": "observe",
+          "artifact": "operator-1",
+          "clean_pass_probability": 0.65
+        },
+        {
+          "id": "step-2",
+          "version": "1.0",
+          "activity_type": "act",
+          "artifact": "operator-2",
+          "clean_pass_probability": 0.65
+        }
+      ],
+      "population_calibration": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "population_evaluation": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "expected_strata": [
+        "all"
+      ]
+    },
+    {
+      "id": "E-repeated-2",
+      "group": "E",
+      "mechanism": "repeated",
+      "stages": [
+        {
+          "id": "step-1",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "repeated-operator",
+          "clean_pass_probability": 0.9
+        },
+        {
+          "id": "step-2",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "repeated-operator",
+          "clean_pass_probability": 0.9
+        }
+      ],
+      "population_calibration": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "population_evaluation": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "expected_strata": [
+        "all"
+      ]
+    },
+    {
+      "id": "E-repeated-4",
+      "group": "E",
+      "mechanism": "repeated",
+      "stages": [
+        {
+          "id": "step-1",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "repeated-operator",
+          "clean_pass_probability": 0.9
+        },
+        {
+          "id": "step-2",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "repeated-operator",
+          "clean_pass_probability": 0.9
+        },
+        {
+          "id": "step-3",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "repeated-operator",
+          "clean_pass_probability": 0.9
+        },
+        {
+          "id": "step-4",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "repeated-operator",
+          "clean_pass_probability": 0.9
+        }
+      ],
+      "population_calibration": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "population_evaluation": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "expected_strata": [
+        "all"
+      ]
+    },
+    {
+      "id": "E-repeated-6",
+      "group": "E",
+      "mechanism": "repeated",
+      "stages": [
+        {
+          "id": "step-1",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "repeated-operator",
+          "clean_pass_probability": 0.9
+        },
+        {
+          "id": "step-2",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "repeated-operator",
+          "clean_pass_probability": 0.9
+        },
+        {
+          "id": "step-3",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "repeated-operator",
+          "clean_pass_probability": 0.9
+        },
+        {
+          "id": "step-4",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "repeated-operator",
+          "clean_pass_probability": 0.9
+        },
+        {
+          "id": "step-5",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "repeated-operator",
+          "clean_pass_probability": 0.9
+        },
+        {
+          "id": "step-6",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "repeated-operator",
+          "clean_pass_probability": 0.9
+        }
+      ],
+      "population_calibration": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "population_evaluation": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "expected_strata": [
+        "all"
+      ]
+    },
+    {
+      "id": "F-repair-2",
+      "group": "F",
+      "mechanism": "repair",
+      "stages": [
+        {
+          "id": "step-1",
+          "version": "1.0",
+          "activity_type": "observe",
+          "artifact": "operator-1",
+          "clean_pass_probability": 0.8
+        },
+        {
+          "id": "step-2",
+          "version": "1.0",
+          "activity_type": "act",
+          "artifact": "operator-2",
+          "clean_pass_probability": 1.0
+        }
+      ],
+      "population_calibration": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "population_evaluation": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "expected_strata": [
+        "all"
+      ],
+      "repair_probability": 0.8
+    },
+    {
+      "id": "F-flip-2",
+      "group": "F",
+      "mechanism": "flip",
+      "stages": [
+        {
+          "id": "step-1",
+          "version": "1.0",
+          "activity_type": "observe",
+          "artifact": "operator-1",
+          "clean_pass_probability": 0.7
+        },
+        {
+          "id": "step-2",
+          "version": "1.0",
+          "activity_type": "act",
+          "artifact": "operator-2",
+          "clean_pass_probability": 0.7
+        }
+      ],
+      "population_calibration": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "population_evaluation": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "expected_strata": [
+        "all"
+      ]
+    },
+    {
+      "id": "F-flip-4",
+      "group": "F",
+      "mechanism": "flip",
+      "stages": [
+        {
+          "id": "step-1",
+          "version": "1.0",
+          "activity_type": "observe",
+          "artifact": "operator-1",
+          "clean_pass_probability": 0.7
+        },
+        {
+          "id": "step-2",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-2",
+          "clean_pass_probability": 0.7
+        },
+        {
+          "id": "step-3",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-3",
+          "clean_pass_probability": 0.7
+        },
+        {
+          "id": "step-4",
+          "version": "1.0",
+          "activity_type": "act",
+          "artifact": "operator-4",
+          "clean_pass_probability": 0.7
+        }
+      ],
+      "population_calibration": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "population_evaluation": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.0
+      },
+      "expected_strata": [
+        "all"
+      ]
+    },
+    {
+      "id": "M-population-shift-4",
+      "group": "M",
+      "mechanism": "shared_difficulty",
+      "stages": [
+        {
+          "id": "step-1",
+          "version": "1.0",
+          "activity_type": "observe",
+          "artifact": "operator-1",
+          "clean_pass_probability": 0.7
+        },
+        {
+          "id": "step-2",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-2",
+          "clean_pass_probability": 0.7
+        },
+        {
+          "id": "step-3",
+          "version": "1.0",
+          "activity_type": "decide",
+          "artifact": "operator-3",
+          "clean_pass_probability": 0.7
+        },
+        {
+          "id": "step-4",
+          "version": "1.0",
+          "activity_type": "act",
+          "artifact": "operator-4",
+          "clean_pass_probability": 0.7
+        }
+      ],
+      "population_calibration": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.1
+      },
+      "population_evaluation": {
+        "id": "balanced_binary_controlled_v1",
+        "hard_probability": 0.9
+      },
+      "expected_strata": [
+        "easy",
+        "hard"
+      ],
+      "easy_pass": 0.98,
+      "hard_pass": 0.42
+    }
+  ],
+  "software": {
+    "python": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.22631-SP0"
+  },
+  "source_hashes": {
+    "workflow_tools/accuracy_validation.py": "7ccbe5d0d8a3bdd89cddbdef3c2c89ebd087c552f102cd3d76377e451c1ba143",
+    "workflow_tools/validate_accuracy_model.py": "bf6b09ac8f8a1bd624b751cbdb2d1b552da43e62385138c8f2c6fed4d8a65479",
+    "task_flow/joint_candidates.py": "94db6534a12ebf731b04ad5c9323422f7ab349a340bbd1472e875d33607d3784"
+  }
+}
