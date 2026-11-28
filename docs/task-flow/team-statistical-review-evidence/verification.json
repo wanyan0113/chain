@@ -1,0 +1,55 @@
+{
+  "status": "software_review_passed_with_open_domain_findings",
+  "date": "2026-11-28",
+  "base_commit": "6543ecd",
+  "probes": 9,
+  "open_findings": 5,
+  "distinct_tests_passed": 49,
+  "test_runs": [
+    {
+      "command": "python -B -m unittest tests.test_team_statistics -v",
+      "tests": 12,
+      "status": "passed"
+    },
+    {
+      "command": "python -B -m unittest tests.test_team_feasibility tests.test_observations_v2 tests.test_observation_semantics_reference -v",
+      "tests": 37,
+      "status": "passed"
+    }
+  ],
+  "test_evidence_scope": "Observed local unittest results; console transcripts are not archived.",
+  "source_report_hash": "000f4d7af78632833f7b733d33010caf4d1fb8ddf8338458f1d98fa5023b637d",
+  "source_verification": {
+    "status": "passed",
+    "scope": "metrics_scores_and_resource_feasibility_with_bounded_independent_reference",
+    "reference_complete": true,
+    "reference_combinations": 196,
+    "reference_feasible": 16,
+    "reference_best_score": 0.6,
+    "selected_matches_reference": true,
+    "optimality_verified": true,
+    "production_optimality": "candidate_set_optimum"
+  },
+  "formula_changed": false,
+  "collection_interface_implemented": false,
+  "domain_validity": "pending",
+  "draft_design_id": "team-study-draft-c19fec6c35b4834d6a0d2fd70544ea84e7173ae7d770ee67fc967835b4b23783",
+  "source_artifact": "docs/task-flow/team-quality-semantics-evidence/full-run.zip:delivery/team-optimization.json",
+  "source_archive_sha256": "36e31a3a0d5b64672ccb0e718ee8a5162d6972ac97a8f9b1ec3dd72bf1e4bdaa",
+  "code_sha256": {
+    "workflow_tools/team_statistics_reference.py": "3af5bc83345e1483b2cb59f96c0fba259324fb471417d4e2b0ba1dc18d23254a",
+    "workflow_tools/audit_team_statistics.py": "7666ae95a0490437721f34d6373132dc5f06b2caacd9daf04d31123eadd6a60e",
+    "tests/test_team_statistics.py": "d75dc8aba09550a794af1dbe403dfb234f09839b7afa106d80419ec91c7cefc7"
+  },
+  "files": {
+    "audit.json": "1c37b107d962f1d30a12f0468f10b4ffeb67d2fcc34877c5e626df83c265f699",
+    "enrollments.draft.csv": "fbdc2b38034ac147f3f30294735aa5c9b9198b1c202ba02395271f554e5c6e30",
+    "group_outputs.draft.csv": "8bfea7959133a0315261561145e7d1e06a8ec21290608a35071043d496f43a9f",
+    "manifest.json": "835d385e1dcf051067141ee3f2b6687964a4174130abedebfeb714926e312801",
+    "member_observations.draft.csv": "a1d667aab7abd4584c0464cf6d0d62991454028516b449f3ad24f61a8e837548",
+    "protocol-draft.json": "b35e602831387b5a9e95d131dad4ce87a18b4ca0fd6d4fa1e39410284c10b02a",
+    "synthetic-fixtures.json": "1b03203d9802d554513bab7bceb1ca3af4ebe5e3bfc1af0a6e3f95902bda0642",
+    "task_endpoints.draft.csv": "e0c293d4631b37b296cb00011bf8cd3fb99f09dd8b3c0a523a658038244cc3cc"
+  },
+  "archive_sha256": "7b82b931dff0be44c8158bdda061a2acb2b71068b272f078d61c87a59dc766ab"
+}

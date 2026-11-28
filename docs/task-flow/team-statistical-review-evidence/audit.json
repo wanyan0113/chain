@@ -1,0 +1,300 @@
+{
+  "version": "team-statistical-semantics-audit-1.0",
+  "status": "software_review_passed_with_open_domain_findings",
+  "source_report_hash": "000f4d7af78632833f7b733d33010caf4d1fb8ddf8338458f1d98fa5023b637d",
+  "source_verification": {
+    "status": "passed",
+    "scope": "metrics_scores_and_resource_feasibility_with_bounded_independent_reference",
+    "reference_complete": true,
+    "reference_combinations": 196,
+    "reference_feasible": 16,
+    "reference_best_score": 0.6,
+    "selected_matches_reference": true,
+    "optimality_verified": true,
+    "production_optimality": "candidate_set_optimum"
+  },
+  "cases": [
+    {
+      "case": "member_group_endpoint_separation",
+      "result": {
+        "n": 10,
+        "member_counts": {
+          "A": 8,
+          "B": 8
+        },
+        "member_rates": {
+          "A": 0.8,
+          "B": 0.8
+        },
+        "member_rate_product": 0.6400000000000001,
+        "group_correct": 9,
+        "group_rate": 0.9,
+        "endpoint_correct": 7,
+        "endpoint_rate": 0.7,
+        "group_correct_despite_member_failure": 1,
+        "member_scores_used_as_group_truth": false,
+        "causal_correction_proven": false
+      }
+    },
+    {
+      "case": "correlated_marginals_vs_full_prefix_conditionals",
+      "result": {
+        "n": 10,
+        "marginals": [
+          {
+            "stage_instance_id": "s1",
+            "numerator": 8,
+            "denominator": 10,
+            "value": 0.8
+          },
+          {
+            "stage_instance_id": "s2",
+            "numerator": 8,
+            "denominator": 10,
+            "value": 0.8
+          },
+          {
+            "stage_instance_id": "s3",
+            "numerator": 8,
+            "denominator": 10,
+            "value": 0.8
+          }
+        ],
+        "conditionals": [
+          {
+            "stage_instance_id": "s1",
+            "conditioned_on": [],
+            "numerator": 8,
+            "denominator": 10,
+            "value": 0.8
+          },
+          {
+            "stage_instance_id": "s2",
+            "conditioned_on": [
+              "s1"
+            ],
+            "numerator": 8,
+            "denominator": 8,
+            "value": 1.0
+          },
+          {
+            "stage_instance_id": "s3",
+            "conditioned_on": [
+              "s1",
+              "s2"
+            ],
+            "numerator": 8,
+            "denominator": 8,
+            "value": 1.0
+          }
+        ],
+        "marginal_product": 0.5120000000000001,
+        "conditional_product": 0.8,
+        "joint_event_rate": 0.8,
+        "endpoint_rate": 0.8,
+        "endpoint_joint_disagreements": 0,
+        "zero_support_stages": [],
+        "independence_tested": false,
+        "endpoint_equivalence_proven": false
+      }
+    },
+    {
+      "case": "correction_breaks_endpoint_conjunction_equivalence",
+      "result": {
+        "n": 10,
+        "marginals": [
+          {
+            "stage_instance_id": "s1",
+            "numerator": 8,
+            "denominator": 10,
+            "value": 0.8
+          },
+          {
+            "stage_instance_id": "s2",
+            "numerator": 8,
+            "denominator": 10,
+            "value": 0.8
+          },
+          {
+            "stage_instance_id": "s3",
+            "numerator": 8,
+            "denominator": 10,
+            "value": 0.8
+          }
+        ],
+        "conditionals": [
+          {
+            "stage_instance_id": "s1",
+            "conditioned_on": [],
+            "numerator": 8,
+            "denominator": 10,
+            "value": 0.8
+          },
+          {
+            "stage_instance_id": "s2",
+            "conditioned_on": [
+              "s1"
+            ],
+            "numerator": 8,
+            "denominator": 8,
+            "value": 1.0
+          },
+          {
+            "stage_instance_id": "s3",
+            "conditioned_on": [
+              "s1",
+              "s2"
+            ],
+            "numerator": 8,
+            "denominator": 8,
+            "value": 1.0
+          }
+        ],
+        "marginal_product": 0.5120000000000001,
+        "conditional_product": 0.8,
+        "joint_event_rate": 0.8,
+        "endpoint_rate": 0.9,
+        "endpoint_joint_disagreements": 1,
+        "zero_support_stages": [],
+        "independence_tested": false,
+        "endpoint_equivalence_proven": false
+      }
+    },
+    {
+      "case": "zero_support_conditional_not_filled",
+      "result": {
+        "n": 1,
+        "marginals": [
+          {
+            "stage_instance_id": "s1",
+            "numerator": 0,
+            "denominator": 1,
+            "value": 0.0
+          },
+          {
+            "stage_instance_id": "s2",
+            "numerator": 1,
+            "denominator": 1,
+            "value": 1.0
+          }
+        ],
+        "conditionals": [
+          {
+            "stage_instance_id": "s1",
+            "conditioned_on": [],
+            "numerator": 0,
+            "denominator": 1,
+            "value": 0.0
+          },
+          {
+            "stage_instance_id": "s2",
+            "conditioned_on": [
+              "s1"
+            ],
+            "numerator": 0,
+            "denominator": 0,
+            "value": null
+          }
+        ],
+        "marginal_product": 0.0,
+        "conditional_product": null,
+        "joint_event_rate": 0.0,
+        "endpoint_rate": 0.0,
+        "endpoint_joint_disagreements": 0,
+        "zero_support_stages": [
+          "s2"
+        ],
+        "independence_tested": false,
+        "endpoint_equivalence_proven": false
+      }
+    },
+    {
+      "case": "paired_same_sample_population",
+      "result": {
+        "n_enrolled": 10,
+        "n_complete_pairs": 10,
+        "missing_pairs": [],
+        "short_correct_in_complete_pairs": 8,
+        "long_correct_in_complete_pairs": 9,
+        "complete_pair_rate_difference": 0.1,
+        "pair_populations": [
+          "same-enrolled-population"
+        ],
+        "coverage_complete": true,
+        "causal_effect_proven": false
+      }
+    },
+    {
+      "case": "missing_pair_retains_enrolled_denominator",
+      "result": {
+        "n_enrolled": 10,
+        "n_complete_pairs": 9,
+        "missing_pairs": [
+          "p-9"
+        ],
+        "short_correct_in_complete_pairs": 8,
+        "long_correct_in_complete_pairs": 9,
+        "complete_pair_rate_difference": 0.1111111111111111,
+        "pair_populations": [
+          "same-enrolled-population"
+        ],
+        "coverage_complete": false,
+        "causal_effect_proven": false
+      }
+    },
+    {
+      "case": "changed_population_rejected",
+      "result": {
+        "rejected": true,
+        "reason": "paired comparison changed sample/population"
+      }
+    },
+    {
+      "case": "conditional_basis_does_not_require_independence",
+      "result": {
+        "accepted_as_declaration": true,
+        "probability_validated": false
+      }
+    },
+    {
+      "case": "same_scale_different_construct",
+      "result": {
+        "declaration_accepted": true,
+        "measurement_validity": "pending",
+        "domain_review_required": true
+      }
+    }
+  ],
+  "findings": [
+    {
+      "id": "TEAM-STAT-001",
+      "topic": "Measurement constructs, directions and scales require domain comparability review",
+      "status": "pending"
+    },
+    {
+      "id": "TEAM-STAT-002",
+      "topic": "Member contributions, independent group output and endpoint require separate observations",
+      "status": "pending"
+    },
+    {
+      "id": "TEAM-STAT-003",
+      "topic": "Conditional/marginal denominators and endpoint/conjunction equivalence need evidence",
+      "status": "pending"
+    },
+    {
+      "id": "TEAM-STAT-004",
+      "topic": "Paired enrollment, baseline difficulty, order and carryover controls need prospective design",
+      "status": "pending"
+    },
+    {
+      "id": "TEAM-STAT-005",
+      "topic": "Current single-equipment observation intake does not support teams",
+      "status": "not_implemented"
+    }
+  ],
+  "draft_design_id": "team-study-draft-c19fec6c35b4834d6a0d2fd70544ea84e7173ae7d770ee67fc967835b4b23783",
+  "collection_interface_implemented": false,
+  "domain_validity": "pending",
+  "probability_calibrated": false,
+  "formula_changed": false
+}
