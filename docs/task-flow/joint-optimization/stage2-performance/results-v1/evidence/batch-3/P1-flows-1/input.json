@@ -1,0 +1,1545 @@
+{
+  "case": {
+    "id": "P1-flows-1",
+    "group": "P1",
+    "value": 1
+  },
+  "inputs": [
+    [
+      {
+        "task_id": "T1",
+        "catalog": {
+          "format_version": "task-flow-1.0",
+          "catalog_id": "rift-bridge",
+          "version": "1.0",
+          "objects": {
+            "rift": [
+              "Rift-1"
+            ]
+          },
+          "facts": [
+            {
+              "id": "needs_analysis",
+              "arguments": [
+                "rift"
+              ],
+              "kind": "static",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-task-flow-design-bridge-v1"
+              ]
+            },
+            {
+              "id": "observed",
+              "arguments": [
+                "rift"
+              ],
+              "kind": "mutable",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-task-flow-design-bridge-v1"
+              ]
+            },
+            {
+              "id": "analyzed",
+              "arguments": [
+                "rift"
+              ],
+              "kind": "mutable",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-task-flow-design-bridge-v1"
+              ]
+            },
+            {
+              "id": "decided",
+              "arguments": [
+                "rift"
+              ],
+              "kind": "mutable",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-task-flow-design-bridge-v1"
+              ]
+            },
+            {
+              "id": "stable",
+              "arguments": [
+                "rift"
+              ],
+              "kind": "mutable",
+              "type": "boolean",
+              "source_refs": [
+                "synthetic-task-flow-design-bridge-v1"
+              ]
+            }
+          ],
+          "derived_rules": [],
+          "activities": [
+            {
+              "id": "observe",
+              "version": "1.0",
+              "type": "observe",
+              "parameters": {
+                "rift": "rift"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "observed",
+                        "args": [
+                          {
+                            "param": "rift"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": false
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "observed",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:arcane-rift-demo:WideSurvey"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-task-flow-design-bridge-v1"
+              ]
+            },
+            {
+              "id": "decide",
+              "version": "1.0",
+              "type": "decide",
+              "parameters": {
+                "rift": "rift"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "observed",
+                        "args": [
+                          {
+                            "param": "rift"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "decided",
+                        "args": [
+                          {
+                            "param": "rift"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": false
+                    }
+                  },
+                  {
+                    "any": [
+                      {
+                        "test": {
+                          "fact": {
+                            "predicate": "needs_analysis",
+                            "args": [
+                              {
+                                "param": "rift"
+                              }
+                            ]
+                          },
+                          "op": "eq",
+                          "value": false
+                        }
+                      },
+                      {
+                        "test": {
+                          "fact": {
+                            "predicate": "analyzed",
+                            "args": [
+                              {
+                                "param": "rift"
+                              }
+                            ]
+                          },
+                          "op": "eq",
+                          "value": true
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "decided",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:arcane-rift-demo:Dispatch"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-task-flow-design-bridge-v1"
+              ]
+            },
+            {
+              "id": "stabilize",
+              "version": "1.0",
+              "type": "act",
+              "parameters": {
+                "rift": "rift"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "decided",
+                        "args": [
+                          {
+                            "param": "rift"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "stable",
+                        "args": [
+                          {
+                            "param": "rift"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": false
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "stable",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:arcane-rift-demo:Stabilize"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-task-flow-design-bridge-v1"
+              ]
+            },
+            {
+              "id": "analyze_variant_1",
+              "version": "1.0",
+              "type": "decide",
+              "parameters": {
+                "rift": "rift"
+              },
+              "applicable_when": {
+                "all": []
+              },
+              "preconditions": {
+                "all": [
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "observed",
+                        "args": [
+                          {
+                            "param": "rift"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "needs_analysis",
+                        "args": [
+                          {
+                            "param": "rift"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": true
+                    }
+                  },
+                  {
+                    "test": {
+                      "fact": {
+                        "predicate": "analyzed",
+                        "args": [
+                          {
+                            "param": "rift"
+                          }
+                        ]
+                      },
+                      "op": "eq",
+                      "value": false
+                    }
+                  }
+                ]
+              },
+              "effects": [
+                {
+                  "fact": {
+                    "predicate": "analyzed",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "set": {
+                    "value": true
+                  }
+                }
+              ],
+              "required_capabilities": [
+                "urn:arcane-rift-demo:ResonanceAnalysis",
+                "urn:arcane-rift-demo:BackupChannel"
+              ],
+              "max_occurrences": 1,
+              "source_refs": [
+                "synthetic-task-flow-design-bridge-v1"
+              ]
+            }
+          ],
+          "capabilities": [
+            {
+              "uri": "urn:arcane-rift-demo:BackupChannel",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-task-flow-design-bridge-v1"
+              ]
+            },
+            {
+              "uri": "urn:arcane-rift-demo:Dispatch",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-task-flow-design-bridge-v1"
+              ]
+            },
+            {
+              "uri": "urn:arcane-rift-demo:PrimaryChannel",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-task-flow-design-bridge-v1"
+              ]
+            },
+            {
+              "uri": "urn:arcane-rift-demo:ResonanceAnalysis",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-task-flow-design-bridge-v1"
+              ]
+            },
+            {
+              "uri": "urn:arcane-rift-demo:Stabilize",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-task-flow-design-bridge-v1"
+              ]
+            },
+            {
+              "uri": "urn:arcane-rift-demo:WideSurvey",
+              "mapping_status": "unmapped",
+              "source_refs": [
+                "synthetic-task-flow-design-bridge-v1"
+              ]
+            }
+          ],
+          "source_refs": [
+            "synthetic-task-flow-design-bridge-v1"
+          ]
+        },
+        "request": {
+          "format_version": "task-flow-1.0",
+          "request_id": "request-1",
+          "catalog_id": "rift-bridge",
+          "catalog_version": "1.0",
+          "catalog_sha256": "bb468b6338e733fbaac3f5ea30d92abcf10c8665fadec2a2820c9b159c186199",
+          "static_facts": [
+            {
+              "fact": {
+                "predicate": "needs_analysis",
+                "args": [
+                  "Rift-1"
+                ]
+              },
+              "value": true
+            }
+          ],
+          "initial_state": [
+            {
+              "fact": {
+                "predicate": "observed",
+                "args": [
+                  "Rift-1"
+                ]
+              },
+              "value": false
+            },
+            {
+              "fact": {
+                "predicate": "analyzed",
+                "args": [
+                  "Rift-1"
+                ]
+              },
+              "value": false
+            },
+            {
+              "fact": {
+                "predicate": "decided",
+                "args": [
+                  "Rift-1"
+                ]
+              },
+              "value": false
+            },
+            {
+              "fact": {
+                "predicate": "stable",
+                "args": [
+                  "Rift-1"
+                ]
+              },
+              "value": false
+            }
+          ],
+          "ontology_evidence": [],
+          "goal": {
+            "test": {
+              "fact": {
+                "predicate": "stable",
+                "args": [
+                  "Rift-1"
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          "required_activities": [],
+          "forbidden_conditions": [],
+          "activity_limits": {},
+          "search": {
+            "mode": "first_feasible",
+            "max_length": 5,
+            "max_nodes": 20000,
+            "timeout_ms": 10000
+          },
+          "source_refs": [
+            "synthetic-task-flow-design-bridge-v1"
+          ]
+        }
+      }
+    ],
+    {
+      "format_version": "1.0",
+      "scope": "跨流程联合优化合成验收：主解析可用但耗时高，备用解析更快、更准且成本更低。",
+      "policies": {
+        "equal_metric_score": 0.5,
+        "cost_unit": "demo-credit/use",
+        "max_chain_combinations": 10000,
+        "max_network_combinations": 10000,
+        "article_table10": true,
+        "network_search_method": "branch_and_bound"
+      },
+      "weights": {
+        "time": 0.3,
+        "accuracy": 0.3,
+        "cost": 0.4
+      },
+      "tasks": [
+        {
+          "id": "T1",
+          "target": "Rift-1",
+          "start_s": 0,
+          "attributes": {
+            "target_type": "普通裂隙",
+            "target_count": {
+              "value": 1,
+              "unit": "1"
+            },
+            "impedance": {
+              "value": 2,
+              "unit": "1"
+            },
+            "target_speed": {
+              "value": 0,
+              "unit": "demo-speed"
+            },
+            "target_altitude": {
+              "value": 50,
+              "unit": "demo-height"
+            }
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        }
+      ],
+      "artifacts": [
+        {
+          "id": "R-Survey",
+          "available": true,
+          "ontology_types": [
+            "urn:arcane-rift-demo:SurveyUnit"
+          ],
+          "attributes": {
+            "target_types": [
+              "普通裂隙",
+              "共振裂隙",
+              "迷雾裂隙"
+            ],
+            "supported_functions": [
+              "urn:arcane-rift-demo:WideSurvey"
+            ],
+            "level_observe": {
+              "value": 0.9,
+              "unit": "1"
+            },
+            "detection_range": {
+              "value": 60,
+              "unit": "demo-range"
+            },
+            "max_tracks": {
+              "value": 4,
+              "unit": "1"
+            }
+          },
+          "metrics": null,
+          "activity_metrics": {
+            "observe": {
+              "duration_s": 2,
+              "accuracy": 0.99,
+              "cost": {
+                "value": 1,
+                "unit": "demo-credit/use"
+              }
+            }
+          },
+          "capacity": 3,
+          "consumable": false,
+          "inventory": 0,
+          "cooldown_s": 0,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "id": "R-Review",
+          "available": true,
+          "ontology_types": [
+            "urn:arcane-rift-demo:ReviewUnit"
+          ],
+          "attributes": {
+            "target_types": [
+              "普通裂隙",
+              "共振裂隙",
+              "迷雾裂隙"
+            ],
+            "supported_functions": [
+              "urn:arcane-rift-demo:FineScan"
+            ],
+            "level_observe": {
+              "value": 0.9,
+              "unit": "1"
+            },
+            "detection_range": {
+              "value": 40,
+              "unit": "demo-range"
+            },
+            "max_tracks": {
+              "value": 4,
+              "unit": "1"
+            }
+          },
+          "metrics": null,
+          "activity_metrics": {
+            "observe": {
+              "duration_s": 3,
+              "accuracy": 0.98,
+              "cost": {
+                "value": 2,
+                "unit": "demo-credit/use"
+              }
+            }
+          },
+          "capacity": 3,
+          "consumable": false,
+          "inventory": 0,
+          "cooldown_s": 0,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "id": "R-Analysis",
+          "available": true,
+          "ontology_types": [
+            "urn:arcane-rift-demo:PrimaryAnalysisUnit"
+          ],
+          "attributes": {
+            "target_types": [
+              "普通裂隙",
+              "共振裂隙",
+              "迷雾裂隙"
+            ],
+            "supported_functions": [
+              "urn:arcane-rift-demo:ResonanceAnalysis",
+              "urn:arcane-rift-demo:PrimaryChannel"
+            ],
+            "level_decide": {
+              "value": 0.9,
+              "unit": "1"
+            },
+            "max_processing_targets": {
+              "value": 4,
+              "unit": "1"
+            }
+          },
+          "metrics": null,
+          "activity_metrics": {
+            "decide": {
+              "duration_s": 8,
+              "accuracy": 0.8,
+              "cost": {
+                "value": 8,
+                "unit": "demo-credit/use"
+              }
+            }
+          },
+          "capacity": 3,
+          "consumable": false,
+          "inventory": 0,
+          "cooldown_s": 0,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "id": "R-Dispatch",
+          "available": true,
+          "ontology_types": [
+            "urn:arcane-rift-demo:DispatchUnit"
+          ],
+          "attributes": {
+            "target_types": [
+              "普通裂隙",
+              "共振裂隙",
+              "迷雾裂隙"
+            ],
+            "supported_functions": [
+              "urn:arcane-rift-demo:Dispatch"
+            ],
+            "level_decide": {
+              "value": 0.9,
+              "unit": "1"
+            },
+            "max_processing_targets": {
+              "value": 4,
+              "unit": "1"
+            }
+          },
+          "metrics": null,
+          "activity_metrics": {
+            "decide": {
+              "duration_s": 1,
+              "accuracy": 0.99,
+              "cost": {
+                "value": 1,
+                "unit": "demo-credit/use"
+              }
+            }
+          },
+          "capacity": 3,
+          "consumable": false,
+          "inventory": 0,
+          "cooldown_s": 0,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "id": "R-Seal-A",
+          "available": true,
+          "ontology_types": [
+            "urn:arcane-rift-demo:StabilizerUnit"
+          ],
+          "attributes": {
+            "target_types": [
+              "普通裂隙",
+              "共振裂隙",
+              "迷雾裂隙"
+            ],
+            "supported_functions": [
+              "urn:arcane-rift-demo:Stabilize"
+            ],
+            "level_act": {
+              "value": 0.9,
+              "unit": "1"
+            },
+            "min_range": {
+              "value": 0,
+              "unit": "demo-range"
+            },
+            "max_range": {
+              "value": 10,
+              "unit": "demo-range"
+            },
+            "resonance": {
+              "value": 10,
+              "unit": "1"
+            },
+            "max_target_speed": {
+              "value": 10,
+              "unit": "demo-speed"
+            },
+            "min_target_altitude": {
+              "value": 0,
+              "unit": "demo-height"
+            },
+            "max_target_altitude": {
+              "value": 100,
+              "unit": "demo-height"
+            },
+            "min_activation_altitude": {
+              "value": 0,
+              "unit": "demo-height"
+            },
+            "max_activation_altitude": {
+              "value": 100,
+              "unit": "demo-height"
+            }
+          },
+          "metrics": null,
+          "activity_metrics": {
+            "act": {
+              "duration_s": 2,
+              "accuracy": 0.9,
+              "cost": {
+                "value": 9,
+                "unit": "demo-credit/use"
+              }
+            }
+          },
+          "capacity": 1,
+          "consumable": true,
+          "inventory": 1,
+          "cooldown_s": 0,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "id": "R-Seal-B",
+          "available": true,
+          "ontology_types": [
+            "urn:arcane-rift-demo:StabilizerUnit"
+          ],
+          "attributes": {
+            "target_types": [
+              "普通裂隙",
+              "共振裂隙",
+              "迷雾裂隙"
+            ],
+            "supported_functions": [
+              "urn:arcane-rift-demo:Stabilize"
+            ],
+            "level_act": {
+              "value": 0.9,
+              "unit": "1"
+            },
+            "min_range": {
+              "value": 0,
+              "unit": "demo-range"
+            },
+            "max_range": {
+              "value": 20,
+              "unit": "demo-range"
+            },
+            "resonance": {
+              "value": 10,
+              "unit": "1"
+            },
+            "max_target_speed": {
+              "value": 10,
+              "unit": "demo-speed"
+            },
+            "min_target_altitude": {
+              "value": 0,
+              "unit": "demo-height"
+            },
+            "max_target_altitude": {
+              "value": 100,
+              "unit": "demo-height"
+            },
+            "min_activation_altitude": {
+              "value": 0,
+              "unit": "demo-height"
+            },
+            "max_activation_altitude": {
+              "value": 100,
+              "unit": "demo-height"
+            }
+          },
+          "metrics": null,
+          "activity_metrics": {
+            "act": {
+              "duration_s": 4,
+              "accuracy": 0.95,
+              "cost": {
+                "value": 6,
+                "unit": "demo-credit/use"
+              }
+            }
+          },
+          "capacity": 1,
+          "consumable": true,
+          "inventory": 1,
+          "cooldown_s": 0,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "id": "R-Seal-C",
+          "available": true,
+          "ontology_types": [
+            "urn:arcane-rift-demo:StabilizerUnit"
+          ],
+          "attributes": {
+            "target_types": [
+              "普通裂隙",
+              "共振裂隙",
+              "迷雾裂隙"
+            ],
+            "supported_functions": [
+              "urn:arcane-rift-demo:Stabilize"
+            ],
+            "level_act": {
+              "value": 0.9,
+              "unit": "1"
+            },
+            "min_range": {
+              "value": 0,
+              "unit": "demo-range"
+            },
+            "max_range": {
+              "value": 30,
+              "unit": "demo-range"
+            },
+            "resonance": {
+              "value": 10,
+              "unit": "1"
+            },
+            "max_target_speed": {
+              "value": 10,
+              "unit": "demo-speed"
+            },
+            "min_target_altitude": {
+              "value": 0,
+              "unit": "demo-height"
+            },
+            "max_target_altitude": {
+              "value": 100,
+              "unit": "demo-height"
+            },
+            "min_activation_altitude": {
+              "value": 0,
+              "unit": "demo-height"
+            },
+            "max_activation_altitude": {
+              "value": 100,
+              "unit": "demo-height"
+            }
+          },
+          "metrics": null,
+          "activity_metrics": {
+            "act": {
+              "duration_s": 6,
+              "accuracy": 0.99,
+              "cost": {
+                "value": 3,
+                "unit": "demo-credit/use"
+              }
+            }
+          },
+          "capacity": 1,
+          "consumable": true,
+          "inventory": 1,
+          "cooldown_s": 0,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "id": "R-Seal-D",
+          "available": true,
+          "ontology_types": [
+            "urn:arcane-rift-demo:StabilizerUnit"
+          ],
+          "attributes": {
+            "target_types": [
+              "普通裂隙",
+              "共振裂隙",
+              "迷雾裂隙"
+            ],
+            "supported_functions": [
+              "urn:arcane-rift-demo:Stabilize"
+            ],
+            "level_act": {
+              "value": 0.9,
+              "unit": "1"
+            },
+            "min_range": {
+              "value": 0,
+              "unit": "demo-range"
+            },
+            "max_range": {
+              "value": 40,
+              "unit": "demo-range"
+            },
+            "resonance": {
+              "value": 10,
+              "unit": "1"
+            },
+            "max_target_speed": {
+              "value": 10,
+              "unit": "demo-speed"
+            },
+            "min_target_altitude": {
+              "value": 0,
+              "unit": "demo-height"
+            },
+            "max_target_altitude": {
+              "value": 100,
+              "unit": "demo-height"
+            },
+            "min_activation_altitude": {
+              "value": 0,
+              "unit": "demo-height"
+            },
+            "max_activation_altitude": {
+              "value": 100,
+              "unit": "demo-height"
+            }
+          },
+          "metrics": null,
+          "activity_metrics": {
+            "act": {
+              "duration_s": 9,
+              "accuracy": 0.97,
+              "cost": {
+                "value": 5,
+                "unit": "demo-credit/use"
+              }
+            }
+          },
+          "capacity": 1,
+          "consumable": true,
+          "inventory": 1,
+          "cooldown_s": 0,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "id": "R-Analysis-Backup",
+          "available": true,
+          "ontology_types": [
+            "urn:arcane-rift-demo:BackupAnalysisUnit"
+          ],
+          "attributes": {
+            "target_types": [
+              "普通裂隙",
+              "共振裂隙",
+              "迷雾裂隙"
+            ],
+            "supported_functions": [
+              "urn:arcane-rift-demo:ResonanceAnalysis",
+              "urn:arcane-rift-demo:BackupChannel"
+            ],
+            "level_decide": {
+              "value": 0.9,
+              "unit": "1"
+            },
+            "max_processing_targets": {
+              "value": 4,
+              "unit": "1"
+            }
+          },
+          "metrics": null,
+          "activity_metrics": {
+            "decide": {
+              "duration_s": 3,
+              "accuracy": 0.99,
+              "cost": {
+                "value": 2,
+                "unit": "demo-credit/use"
+              }
+            }
+          },
+          "capacity": 3,
+          "consumable": false,
+          "inventory": 0,
+          "cooldown_s": 0,
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        }
+      ],
+      "task_rules": [],
+      "artifact_rules": [],
+      "contexts": [
+        {
+          "task": "T1",
+          "artifact": "R-Survey",
+          "attributes": {
+            "target_distance": {
+              "value": 5,
+              "unit": "demo-range"
+            },
+            "platform_altitude": {
+              "value": 50,
+              "unit": "demo-height"
+            }
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "task": "T1",
+          "artifact": "R-Review",
+          "attributes": {
+            "target_distance": {
+              "value": 5,
+              "unit": "demo-range"
+            },
+            "platform_altitude": {
+              "value": 50,
+              "unit": "demo-height"
+            }
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "task": "T1",
+          "artifact": "R-Analysis",
+          "attributes": {
+            "target_distance": {
+              "value": 5,
+              "unit": "demo-range"
+            },
+            "platform_altitude": {
+              "value": 50,
+              "unit": "demo-height"
+            }
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "task": "T1",
+          "artifact": "R-Dispatch",
+          "attributes": {
+            "target_distance": {
+              "value": 5,
+              "unit": "demo-range"
+            },
+            "platform_altitude": {
+              "value": 50,
+              "unit": "demo-height"
+            }
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "task": "T1",
+          "artifact": "R-Seal-A",
+          "attributes": {
+            "target_distance": {
+              "value": 5,
+              "unit": "demo-range"
+            },
+            "platform_altitude": {
+              "value": 50,
+              "unit": "demo-height"
+            }
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "task": "T1",
+          "artifact": "R-Seal-B",
+          "attributes": {
+            "target_distance": {
+              "value": 5,
+              "unit": "demo-range"
+            },
+            "platform_altitude": {
+              "value": 50,
+              "unit": "demo-height"
+            }
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "task": "T1",
+          "artifact": "R-Seal-C",
+          "attributes": {
+            "target_distance": {
+              "value": 5,
+              "unit": "demo-range"
+            },
+            "platform_altitude": {
+              "value": 50,
+              "unit": "demo-height"
+            }
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "task": "T1",
+          "artifact": "R-Seal-D",
+          "attributes": {
+            "target_distance": {
+              "value": 5,
+              "unit": "demo-range"
+            },
+            "platform_altitude": {
+              "value": 50,
+              "unit": "demo-height"
+            }
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "task": "T1",
+          "artifact": "R-Analysis-Backup",
+          "attributes": {
+            "target_distance": {
+              "value": 5,
+              "unit": "demo-range"
+            },
+            "platform_altitude": {
+              "value": 50,
+              "unit": "demo-height"
+            }
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        }
+      ],
+      "links": [
+        {
+          "from": "R-Survey",
+          "to": "R-Dispatch",
+          "communicates": true,
+          "controls": false,
+          "distance": {
+            "value": 1,
+            "unit": "demo-range"
+          },
+          "max_distance": {
+            "value": 50,
+            "unit": "demo-range"
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "from": "R-Survey",
+          "to": "R-Analysis",
+          "communicates": true,
+          "controls": false,
+          "distance": {
+            "value": 1,
+            "unit": "demo-range"
+          },
+          "max_distance": {
+            "value": 50,
+            "unit": "demo-range"
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "from": "R-Analysis",
+          "to": "R-Dispatch",
+          "communicates": true,
+          "controls": false,
+          "distance": {
+            "value": 1,
+            "unit": "demo-range"
+          },
+          "max_distance": {
+            "value": 50,
+            "unit": "demo-range"
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "from": "R-Analysis",
+          "to": "R-Review",
+          "communicates": true,
+          "controls": false,
+          "distance": {
+            "value": 1,
+            "unit": "demo-range"
+          },
+          "max_distance": {
+            "value": 50,
+            "unit": "demo-range"
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "from": "R-Review",
+          "to": "R-Dispatch",
+          "communicates": true,
+          "controls": false,
+          "distance": {
+            "value": 1,
+            "unit": "demo-range"
+          },
+          "max_distance": {
+            "value": 50,
+            "unit": "demo-range"
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "from": "R-Dispatch",
+          "to": "R-Seal-A",
+          "communicates": true,
+          "controls": true,
+          "distance": {
+            "value": 1,
+            "unit": "demo-range"
+          },
+          "max_distance": {
+            "value": 50,
+            "unit": "demo-range"
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "from": "R-Dispatch",
+          "to": "R-Seal-B",
+          "communicates": true,
+          "controls": true,
+          "distance": {
+            "value": 1,
+            "unit": "demo-range"
+          },
+          "max_distance": {
+            "value": 50,
+            "unit": "demo-range"
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "from": "R-Dispatch",
+          "to": "R-Seal-C",
+          "communicates": true,
+          "controls": true,
+          "distance": {
+            "value": 1,
+            "unit": "demo-range"
+          },
+          "max_distance": {
+            "value": 50,
+            "unit": "demo-range"
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "from": "R-Dispatch",
+          "to": "R-Seal-D",
+          "communicates": true,
+          "controls": true,
+          "distance": {
+            "value": 1,
+            "unit": "demo-range"
+          },
+          "max_distance": {
+            "value": 50,
+            "unit": "demo-range"
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "from": "R-Survey",
+          "to": "R-Analysis-Backup",
+          "communicates": true,
+          "controls": false,
+          "distance": {
+            "value": 1,
+            "unit": "demo-range"
+          },
+          "max_distance": {
+            "value": 50,
+            "unit": "demo-range"
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "from": "R-Analysis-Backup",
+          "to": "R-Dispatch",
+          "communicates": true,
+          "controls": false,
+          "distance": {
+            "value": 1,
+            "unit": "demo-range"
+          },
+          "max_distance": {
+            "value": 50,
+            "unit": "demo-range"
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        },
+        {
+          "from": "R-Analysis-Backup",
+          "to": "R-Review",
+          "communicates": true,
+          "controls": false,
+          "distance": {
+            "value": 1,
+            "unit": "demo-range"
+          },
+          "max_distance": {
+            "value": 50,
+            "unit": "demo-range"
+          },
+          "source_refs": [
+            "docs/rift_multistep_demo.md：虚构实验设定v1"
+          ],
+          "blocking_issue_ids": []
+        }
+      ],
+      "dependencies": [],
+      "resource_groups": [],
+      "knowledge": {
+        "ontology_files": [
+          "rift-multistep.ttl",
+          "flow-design-bridge.ttl"
+        ],
+        "rules_file": "flow-design-bridge.rules.json",
+        "source_refs": [
+          "synthetic-task-flow-design-bridge-v1"
+        ]
+      }
+    },
+    {
+      "format_version": "task-flow-design-1.0",
+      "mapping_id": "rift-bridge-v1",
+      "version": "1.0",
+      "communication_model": "directed",
+      "allow_nonadjacent_reuse": false,
+      "evaluation": {
+        "mode": "sequential_product_v2",
+        "source_refs": [
+          "TFDO-DESIGN-1.0 explicit raw metric policy"
+        ]
+      },
+      "entries": [
+        {
+          "catalog_id": "rift-bridge",
+          "activity_id": "observe",
+          "activity_version": "1.0",
+          "target_parameter": "rift",
+          "activity": "observe",
+          "role": "insight",
+          "min_level": 0.8,
+          "incoming_relation": "communication",
+          "source_refs": [
+            "synthetic-task-flow-design-bridge-v1"
+          ]
+        },
+        {
+          "catalog_id": "rift-bridge",
+          "activity_id": "decide",
+          "activity_version": "1.0",
+          "target_parameter": "rift",
+          "activity": "decide",
+          "role": "coordination",
+          "min_level": 0.8,
+          "incoming_relation": "communication",
+          "source_refs": [
+            "synthetic-task-flow-design-bridge-v1"
+          ]
+        },
+        {
+          "catalog_id": "rift-bridge",
+          "activity_id": "stabilize",
+          "activity_version": "1.0",
+          "target_parameter": "rift",
+          "activity": "act",
+          "role": "manifestation",
+          "min_level": 0.8,
+          "incoming_relation": "control",
+          "source_refs": [
+            "synthetic-task-flow-design-bridge-v1"
+          ]
+        },
+        {
+          "catalog_id": "rift-bridge",
+          "activity_id": "analyze_variant_1",
+          "activity_version": "1.0",
+          "target_parameter": "rift",
+          "activity": "decide",
+          "role": "coordination",
+          "min_level": 0.8,
+          "incoming_relation": "communication",
+          "source_refs": [
+            "synthetic-task-flow-design-bridge-v1"
+          ]
+        }
+      ],
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {}
+  ],
+  "knowledge_hashes": {
+    "rift-multistep.ttl": "b543f88bde2d7c32b0c5b27a0ff676a80801f79c6fe0263cabff1ac217088d09",
+    "flow-design-bridge.ttl": "7d3d8cb7a6d29ea576a7899d66b87bd171857cd5ddb69fcf1dab97f00cc052b7",
+    "flow-design-bridge.rules.json": "2bbef40017f49ce9d6b27231d8146a5292374fbde142899dd20fbb12518dca5f"
+  },
+  "input_hash": "49061e6c33b3a56a3945dcdf86e672c391defcd23d695a5b7962d869e0cf1e1d"
+}

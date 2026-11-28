@@ -1,0 +1,225 @@
+{
+  "format_version": "tfdo-performance-evidence-1.0",
+  "files": [
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\README.md",
+      "sha256": "fddfe5930e6b4c2e24262016cdd9ab0365311b4a8f5f87a83431a10c1c8ee4c5",
+      "sha256_lf_normalized": "c16901dc07277b96248e8b3ebb149e6760c12e822488f04b33e90b755f69855f"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\results.json",
+      "sha256": "95b79cd017a86a9b5f556d6de999092ec3190c28fb50672d1260bb689c259791",
+      "sha256_lf_normalized": "00103068dfc786ca6d61873ceb6a56fc695ffe8a9909dd1e2e9d3dd7ffa7cf03"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\benchmark-tests.log",
+      "sha256": "8257756e5aa79bf1a4c8445caeaf3c5425be701b8cc00673efc0bd0b8c60d05a",
+      "sha256_lf_normalized": "8257756e5aa79bf1a4c8445caeaf3c5425be701b8cc00673efc0bd0b8c60d05a"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\benchmark.json",
+      "sha256": "ed569028a7e220e186edc1336075605e2cb510a4837f09ab5e2bd8151cfb41f3",
+      "sha256_lf_normalized": "a00438af86819d28346e9da56f704080683e6577ad79db52489eb03a1b2b1492"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\environment.json",
+      "sha256": "de9fb90b1acb758ae560b50d37bd3baffe449dc102f04374acb9805459a1fc61",
+      "sha256_lf_normalized": "3250dd692ccf3270155efbdcf7d3c065e68c7d73bbbcaa03a56d91220bb80c32"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\hardware.json",
+      "sha256": "650217af9466cfeee1239e3bf433a0ec47dde64c371665540f33b06f9b812111",
+      "sha256_lf_normalized": "c5fdd7215cfbb6c5c5ae62787979c6f8d4e257e675828a51adcd87629410b086"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\harness-source.py",
+      "sha256": "f9b1c6048b7287d88d2353a57540c261739ba3b3061af8082a3f89500a5112f5",
+      "sha256_lf_normalized": "f9b1c6048b7287d88d2353a57540c261739ba3b3061af8082a3f89500a5112f5"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\P1-flows-1-first-failure.log",
+      "sha256": "a02b8ea613553928d5f93ad6058f0b902d5b8800a0a88a65cbb891ffde2e596a",
+      "sha256_lf_normalized": "9212c145d5b996d54c7dbf0a595c783edd87eca2f91d63cbd91a61902a36847e"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\P1-flows-2-first-failure.log",
+      "sha256": "a02b8ea613553928d5f93ad6058f0b902d5b8800a0a88a65cbb891ffde2e596a",
+      "sha256_lf_normalized": "9212c145d5b996d54c7dbf0a595c783edd87eca2f91d63cbd91a61902a36847e"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\P1-flows-4-first-failure.log",
+      "sha256": "a02b8ea613553928d5f93ad6058f0b902d5b8800a0a88a65cbb891ffde2e596a",
+      "sha256_lf_normalized": "9212c145d5b996d54c7dbf0a595c783edd87eca2f91d63cbd91a61902a36847e"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\protocol.json",
+      "sha256": "f4fd40ed6a0774def9fd456871f6dff7f6fa324d313e1f8c934cd39a70b5f456",
+      "sha256_lf_normalized": "dddd857c44af51d558aff7dd824fda92a2abcfeb317fcd49db014cc8edbaaa62"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-2\\benchmark.json",
+      "sha256": "73d6f47e6129d13d012579a57509f76de96e831fffbd165db65d2446fc40ee08",
+      "sha256_lf_normalized": "1064c30a5669e320cfd8e0d60c650085136788bc9b0c74a5e66f30b8e997f012"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-2\\environment.json",
+      "sha256": "5aafd6a2aa675244547c3142d6d8193768ccc097741c53e024a03e71c1ce298f",
+      "sha256_lf_normalized": "cd5aa6cae3dbc6454e949f1a3c356af503c705b0f707b799b25bcc3512382ea4"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-2\\harness-source.py",
+      "sha256": "ab368c8d1b1c0ee17ff07d33f1a22ba5cd7b9e5e3bcf42379883cb029b3e710a",
+      "sha256_lf_normalized": "ab368c8d1b1c0ee17ff07d33f1a22ba5cd7b9e5e3bcf42379883cb029b3e710a"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-2\\protocol.json",
+      "sha256": "d56638d74a8a5868e507f110afa5eff245b2f940d3707f77a6138b6a42ce4c35",
+      "sha256_lf_normalized": "ecbfde699a86c0f756fd0b9cf5601737db3bd81e2d4353777c6b65504cedf7a0"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-3\\benchmark.json",
+      "sha256": "c41e0fb7daa277a84a43eade00d58231b6a981e4482d108523699817472867fe",
+      "sha256_lf_normalized": "80d481608b6b76e7c5bdf2c87cdb43a594d724be56a9a1cb53c470837be8aa32"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-3\\environment.json",
+      "sha256": "8914b20fed658314fb28e2ac31f2c1b52b1a0b1cc99119d2546f7bef5ed54ba9",
+      "sha256_lf_normalized": "af89702d13c95034a7da93b650d1544ff827b26550417c90a2edab73dee2b0b2"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-3\\protocol.json",
+      "sha256": "d56638d74a8a5868e507f110afa5eff245b2f940d3707f77a6138b6a42ce4c35",
+      "sha256_lf_normalized": "ecbfde699a86c0f756fd0b9cf5601737db3bd81e2d4353777c6b65504cedf7a0"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-3\\P1-flows-1\\input.json",
+      "sha256": "f543f0e48c088722dc174e763ccaef16ef48ad6af85105c55c4b00503b486659",
+      "sha256_lf_normalized": "39b2802e3efa7b4cedd9817d64575cbd864b45116a77a98c27e351d30f255e33"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-3\\P1-flows-2\\input.json",
+      "sha256": "b21a84e51b1795d2701f0cfbb7650125f55903ab2bfd112d74bdd585ac4d54dc",
+      "sha256_lf_normalized": "a1886c62d41cb253a2f8819733375e8789845ebd320d1b44c1ceaa8bc28dd622"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-3\\P1-flows-4\\input.json",
+      "sha256": "677f1034e52659cc6df41138d5d06821d4d58a6bfc30a113dc1dad0cefeb93fd",
+      "sha256_lf_normalized": "402eaa08c7e975e58a4d8089acde42fe35bb14b29c7909a6ebed20844b319c7e"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\P2-artifacts-1\\input.json",
+      "sha256": "d5c3b6af9a2b1cc6b95a1a89493e16c933231e7f963af6e13b99fbdb7432ebbc",
+      "sha256_lf_normalized": "b1ce8550a7e59822bca2485fb4beddebaa1252b908024c5111f6541ca62b7737"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\P2-artifacts-2\\input.json",
+      "sha256": "22fcc9535716049e9f41ee956661413db89dc8a1d022833089eba2dfa36df2d6",
+      "sha256_lf_normalized": "5c5d94705cf9ba6acdca62bc2c94fce6b15619c0502e2cae120f75842cc2db58"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\P2-artifacts-3\\input.json",
+      "sha256": "67ece927ba4b504f183dfeeaae070d3e672889ac801f290773d6a616c2221178",
+      "sha256_lf_normalized": "8dea2e49ae2b566e8d85d6f378598c731ef4140f45557e27676c90492a650b6e"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\P3-classes-0\\input.json",
+      "sha256": "b46add220b8bce9648526378d972a70bbebe42ee409dad502d8678853964aea7",
+      "sha256_lf_normalized": "5a7e7a3c22eeb1ad0b0c42dac7357b9318537d067b579c03e850c1e70a6b6f8d"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\P3-classes-128\\input.json",
+      "sha256": "cb4145626fda66b3328fea9799d4a54df7a9e44d0ec7c3a7aa74d9ae6ec9d10c",
+      "sha256_lf_normalized": "049a66e0db092cea1167ce3721a692b044c7c707178a2d1737287c29c739209c"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\P3-classes-32\\input.json",
+      "sha256": "7e23cbbe029e949dcb5f1523280bda694c5e2403879f4029113795faf2fe8c31",
+      "sha256_lf_normalized": "3511d83dfb1ac8e434fabc9f8117e2f33be59479e3c47f6b9fe7529717c4528f"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\P4-capacity-1\\input.json",
+      "sha256": "46d83677c94ec1b8923658cdabc868769b1b2d84037a58328142cb089192381b",
+      "sha256_lf_normalized": "764a1b3d6f7aa78dee1ee577f85d0fa0f1e74a9da330e1c8f8c2e4a3390f79da"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\P4-tasks-1\\input.json",
+      "sha256": "0eb7036b2b5e8d275958ae13c4e40b1623421283a4b6a5239f3f4a1c89369fc9",
+      "sha256_lf_normalized": "a91443ddfc3652735a24d2f5a4c1fc8209986918d3b1ea1da899643a83de6a5d"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\P4-tasks-3\\input.json",
+      "sha256": "970ce908b24b029edad4c62741bd57aab1c063ed4d089835a5776e6889641d7c",
+      "sha256_lf_normalized": "c2b8be60a5fbd1a7589a263cea98ea5bd7ef0d5db6979bf43f1d0ccee90287b0"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\P4-tasks-5\\input.json",
+      "sha256": "28c432962cb07ae8c3ed327dfcb5a43bc61dda0a1619e530673cd1f7fa2f68c0",
+      "sha256_lf_normalized": "73d3c0cec02f3d6478b8bd39adfefd3669b6030341504892356cfb5c051a7fb1"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\P5-analysis-1\\input.json",
+      "sha256": "1d4d85851055cb180cc3b2374dc47214b20fd9a013e7ccef8f2bc088186ca333",
+      "sha256_lf_normalized": "609335fd62040ac2d3f39c772d4c0043728e925a9a8af3432848ab694ea093a1"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\P5-chain-1\\input.json",
+      "sha256": "0b6ef4bd65031e90a88cb7e6147f3d1ccfe8d2e532e9a9a721ea377f8f46add1",
+      "sha256_lf_normalized": "583c5786fc148088e03bfbc003d518447633a824f3d594efb6eaa4b5dc0e61be"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\P5-flow-1\\input.json",
+      "sha256": "bc0a3439653b184b79b413517fb5e3f52a592489f17a731227e0807622653fe0",
+      "sha256_lf_normalized": "a3d3982618beb4bff3946e78ac801efb3f611fde139d7cb68605e5d4d9757949"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\P5-network-1\\input.json",
+      "sha256": "2a12ea4cab49b5d1035cdacc4cbfabc19777e63862da2c6e5e06897baeb69aac",
+      "sha256_lf_normalized": "c0b5895bae8b8cce9435c313839267ac8c503c5490c6d0a87d89e163df295638"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\results-v1\\evidence\\batch-1\\P5-network-8\\input.json",
+      "sha256": "86e2e458ec1b6837c1dc5d69f4d714f173f89f700da3451ffcd3f4509a62ec22",
+      "sha256_lf_normalized": "ba6da3478994e7e35db0b91f85dee83e2adf5ae5a1ef5f61c6e7f96a3fb6b895"
+    },
+    {
+      "path": "workflow_tools\\benchmark_joint.py",
+      "sha256": "435ea2b89d7efb9df57f58d8ef71c30090e5f6990af1696250e74abfdde997a9",
+      "sha256_lf_normalized": "435ea2b89d7efb9df57f58d8ef71c30090e5f6990af1696250e74abfdde997a9"
+    },
+    {
+      "path": "workflow_tools\\report_joint_benchmark.py",
+      "sha256": "9c00b645fdb4707e6840eabd577f8437510f7aa9a31f1c350af3b0d441a6b256",
+      "sha256_lf_normalized": "9c00b645fdb4707e6840eabd577f8437510f7aa9a31f1c350af3b0d441a6b256"
+    },
+    {
+      "path": "tests\\test_joint_benchmark.py",
+      "sha256": "168e16027504ec1d68efe759a420ea99c7d4d0d913fb740e0fd87fe924dd7138",
+      "sha256_lf_normalized": "168e16027504ec1d68efe759a420ea99c7d4d0d913fb740e0fd87fe924dd7138"
+    },
+    {
+      "path": "tests\\joint_reference.py",
+      "sha256": "8c0e7d5ded39dbb8cbbfb50833aaefa15a861a02a8471197dbf53e9bed7a0066",
+      "sha256_lf_normalized": "8c0e7d5ded39dbb8cbbfb50833aaefa15a861a02a8471197dbf53e9bed7a0066"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\protocol.md",
+      "sha256": "930d36cf89b0c336934f296eff63795d3e4168906502d1b4bb359591c540f25b",
+      "sha256_lf_normalized": "930d36cf89b0c336934f296eff63795d3e4168906502d1b4bb359591c540f25b"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2-performance\\README.md",
+      "sha256": "996d7d00f2cf84fff4523b2bb08e05262490f4cb3bd4722a63f45a9365578ac2",
+      "sha256_lf_normalized": "996d7d00f2cf84fff4523b2bb08e05262490f4cb3bd4722a63f45a9365578ac2"
+    },
+    {
+      "path": "knowledge\\benchmark-stage2\\hierarchy-128.ttl",
+      "sha256": "4c171f67ac410771196a4979d75be870fb7098a709cfe3ab318f800cb7f3f7b7",
+      "sha256_lf_normalized": "b8f2f45308e214b27c26c2b80230497fd70bd80b73aca617c1b37fe6dbf42ac1"
+    },
+    {
+      "path": "knowledge\\benchmark-stage2\\hierarchy-32.ttl",
+      "sha256": "0d7cc4cc2b63cb67ae66d13c6ec221c4ddfe3b67a9f275bf5acfee9f2c441b4e",
+      "sha256_lf_normalized": "45ac3bba0343bbf802bd2e902a21882730dd00e6060d453ffab121d6dd61602c"
+    }
+  ]
+}

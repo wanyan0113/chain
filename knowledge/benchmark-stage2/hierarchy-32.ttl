@@ -1,0 +1,36 @@
+@prefix b: <urn:tfdo-benchmark:> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+b:C0 a owl:Class .
+b:C1 a owl:Class; rdfs:subClassOf b:C0 .
+b:C2 a owl:Class; rdfs:subClassOf b:C1 .
+b:C3 a owl:Class; rdfs:subClassOf b:C2 .
+b:C4 a owl:Class; rdfs:subClassOf b:C3 .
+b:C5 a owl:Class; rdfs:subClassOf b:C4 .
+b:C6 a owl:Class; rdfs:subClassOf b:C5 .
+b:C7 a owl:Class; rdfs:subClassOf b:C6 .
+b:C8 a owl:Class; rdfs:subClassOf b:C7 .
+b:C9 a owl:Class; rdfs:subClassOf b:C8 .
+b:C10 a owl:Class; rdfs:subClassOf b:C9 .
+b:C11 a owl:Class; rdfs:subClassOf b:C10 .
+b:C12 a owl:Class; rdfs:subClassOf b:C11 .
+b:C13 a owl:Class; rdfs:subClassOf b:C12 .
+b:C14 a owl:Class; rdfs:subClassOf b:C13 .
+b:C15 a owl:Class; rdfs:subClassOf b:C14 .
+b:C16 a owl:Class; rdfs:subClassOf b:C15 .
+b:C17 a owl:Class; rdfs:subClassOf b:C16 .
+b:C18 a owl:Class; rdfs:subClassOf b:C17 .
+b:C19 a owl:Class; rdfs:subClassOf b:C18 .
+b:C20 a owl:Class; rdfs:subClassOf b:C19 .
+b:C21 a owl:Class; rdfs:subClassOf b:C20 .
+b:C22 a owl:Class; rdfs:subClassOf b:C21 .
+b:C23 a owl:Class; rdfs:subClassOf b:C22 .
+b:C24 a owl:Class; rdfs:subClassOf b:C23 .
+b:C25 a owl:Class; rdfs:subClassOf b:C24 .
+b:C26 a owl:Class; rdfs:subClassOf b:C25 .
+b:C27 a owl:Class; rdfs:subClassOf b:C26 .
+b:C28 a owl:Class; rdfs:subClassOf b:C27 .
+b:C29 a owl:Class; rdfs:subClassOf b:C28 .
+b:C30 a owl:Class; rdfs:subClassOf b:C29 .
+b:C31 a owl:Class; rdfs:subClassOf b:C30 .
+b:sample a owl:NamedIndividual, b:C31 .

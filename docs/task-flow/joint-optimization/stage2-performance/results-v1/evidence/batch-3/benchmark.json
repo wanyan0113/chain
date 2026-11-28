@@ -1,0 +1,5217 @@
+{
+  "benchmark_version": "tfdo-benchmark-1.0",
+  "cases": [
+    {
+      "case": {
+        "id": "P1-flows-1",
+        "group": "P1",
+        "value": 1
+      },
+      "repetitions": [
+        {
+          "repetition": 1,
+          "status": "completed",
+          "exit_code": 0,
+          "worker_wall_seconds": 4.230071899997711,
+          "pipeline_seconds": 3.3533434999990277,
+          "stage_metrics": {
+            "flow_search": {
+              "calls": 2,
+              "seconds": 0.013496300001861528,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 47128576,
+                  "seconds": 0.005023100002290448,
+                  "rss_before": 47116288,
+                  "rss_after": 47128576,
+                  "rss_delta": 12288
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 64606208,
+                  "seconds": 0.00847319999957108,
+                  "rss_before": 63770624,
+                  "rss_after": 63770624,
+                  "rss_delta": 0
+                }
+              ]
+            },
+            "flow_replay": {
+              "calls": 1,
+              "seconds": 0.009752399997523753,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 47235072,
+                  "seconds": 0.009752399997523753,
+                  "rss_before": 47128576,
+                  "rss_after": 47235072,
+                  "rss_delta": 106496
+                }
+              ]
+            },
+            "flow_compile": {
+              "calls": 1,
+              "seconds": 0.05763269999806653,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 49418240,
+                  "seconds": 0.05763269999806653,
+                  "rss_before": 47235072,
+                  "rss_after": 49356800,
+                  "rss_delta": 2121728
+                }
+              ]
+            },
+            "owl_inference": {
+              "calls": 1,
+              "seconds": 2.1746185000010883,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 220336128,
+                  "seconds": 2.1746185000010883,
+                  "rss_before": 53739520,
+                  "rss_after": 54968320,
+                  "rss_delta": 1228800
+                }
+              ]
+            },
+            "chain_generation_inclusive": {
+              "calls": 1,
+              "seconds": 2.5626024000011967,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 220336128,
+                  "seconds": 2.5626024000011967,
+                  "rss_before": 51109888,
+                  "rss_after": 57274368,
+                  "rss_delta": 6164480
+                }
+              ]
+            },
+            "normalization": {
+              "calls": 1,
+              "seconds": 0.00019109999993816018,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 60784640,
+                  "seconds": 0.00019109999993816018,
+                  "rss_before": 59953152,
+                  "rss_after": 59953152,
+                  "rss_delta": 0
+                }
+              ]
+            },
+            "network_optimization": {
+              "calls": 1,
+              "seconds": 0.005027900002460228,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 64040960,
+                  "seconds": 0.005027900002460228,
+                  "rss_before": 63205376,
+                  "rss_after": 63696896,
+                  "rss_delta": 491520
+                }
+              ]
+            },
+            "independent_verification": {
+              "calls": 1,
+              "seconds": 0.19001179999759188,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 67588096,
+                  "seconds": 0.19001179999759188,
+                  "rss_before": 63713280,
+                  "rss_after": 66752512,
+                  "rss_delta": 3039232
+                }
+              ]
+            },
+            "memory": {
+              "sample_interval_ms": 20,
+              "samples": 85,
+              "sampled_python_peak_rss_bytes": 67588096,
+              "sampled_python_plus_children_peak_rss_bytes": 220336128,
+              "scope": "sum of sampled working sets; shared pages may be double counted; not a true simultaneous OS peak",
+              "tracked_subprocess_count": 3,
+              "discovered_descendants": [
+                {
+                  "pid": 4160,
+                  "parent": 33616,
+                  "name": "cmd.exe",
+                  "sampled_peak_rss_bytes": 1810432
+                },
+                {
+                  "pid": 24192,
+                  "parent": 33616,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 3530752
+                },
+                {
+                  "pid": 32792,
+                  "parent": 24192,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 37470208
+                },
+                {
+                  "pid": 9936,
+                  "parent": 32792,
+                  "name": "java.exe",
+                  "sampled_peak_rss_bytes": 113233920
+                },
+                {
+                  "pid": 33120,
+                  "parent": 9936,
+                  "name": "conhost.exe",
+                  "sampled_peak_rss_bytes": 11255808
+                }
+              ]
+            },
+            "owl_result_sizes": [
+              {
+                "facts": 19,
+                "subjects": 66,
+                "types": 151
+              }
+            ],
+            "flow_counts": [
+              {
+                "task_id": "T1",
+                "statistics": {
+                  "nodes": 60,
+                  "prefixes_checked": 20,
+                  "transitions_applied": 14,
+                  "rejected_prefixes": 0,
+                  "rejected_occurrences": 20,
+                  "rejected_transitions": 26,
+                  "unknown_branches": 0,
+                  "unknown_goal_checks": 0,
+                  "candidate_count": 1,
+                  "elapsed_ms": 4.787
+                },
+                "status": "exhausted",
+                "reason": "frontier_exhausted"
+              }
+            ],
+            "chain_counts": {
+              "generated": 4,
+              "unique": 4,
+              "duplicates": 0,
+              "batches": 1,
+              "per_task": [
+                {
+                  "task": "T1",
+                  "generation": {
+                    "mode": "sequential_product_v2",
+                    "nodes": 7,
+                    "pruned": {},
+                    "templates": [
+                      {
+                        "rule": "flow-4e119a81c7b7e8e7c5e5b94a66ec360a61e4aa2eebfec8273245697fb8bf7136",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      }
+                    ],
+                    "scope": "按环节生成全部已知可行轨迹；不表示这些轨迹能同时执行，不计算论文转化率",
+                    "feasible_trajectories": 4,
+                    "status": "complete",
+                    "coverage": "complete",
+                    "termination_reason": "generation_exhausted"
+                  },
+                  "chains": 4
+                }
+              ]
+            },
+            "network_counts": {
+              "algorithm": "branch_and_bound",
+              "candidate_combinations": 4,
+              "counts_scope": "visited_complete_candidates",
+              "evaluated": 4,
+              "feasible": 4,
+              "nodes": 4,
+              "pruned_constraints": 0,
+              "pruned_bound": 0,
+              "rejections": [],
+              "optimality": "proven",
+              "score_bound_enabled": false,
+              "pruned_table10": 0,
+              "unknown_combinations_seen": 0,
+              "audit_scope": "visited_complete_combinations; definite-failure prefixes pruned",
+              "search_complete": true,
+              "termination_reason": "search_exhausted",
+              "table10_pruning": []
+            }
+          },
+          "correctness": {
+            "integration_status": "selected",
+            "global_optimality": "bounded_global_optimum",
+            "flow_search_complete": true,
+            "chain_generation_complete": true,
+            "network_search_complete": true,
+            "independent_verification": "passed",
+            "oracle": {
+              "raw_network_combinations": 4,
+              "feasible_network_combinations": 4,
+              "best_score": 0.8285714285714286,
+              "selected_candidate_ids": [
+                "candidate-4794d89ea006776178759d9603c02712f206f868a154556c52cf66a47c875a51"
+              ]
+            },
+            "termination_reasons": [],
+            "termination_reason": "search_exhausted",
+            "feasible_solution": true,
+            "domain_validity": "pending"
+          },
+          "benchmark_version": "tfdo-benchmark-1.0",
+          "case": {
+            "id": "P1-flows-1",
+            "group": "P1",
+            "value": 1
+          },
+          "input_hash": "49061e6c33b3a56a3945dcdf86e672c391defcd23d695a5b7962d869e0cf1e1d",
+          "semantic_hash": "ab20ae7430b42863ed2677f288797dc994f9ba9fd36ed7c5ded801ea5a23579d",
+          "processes": [
+            {
+              "pid": 4160,
+              "command": "ver"
+            },
+            {
+              "pid": 7512,
+              "command": "ver"
+            },
+            {
+              "pid": 24192,
+              "command": "['C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\.venv\\\\Scripts\\\\python.exe', '-B', '-m', 'adapters.owl_infer', 'C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\tmp\\\\tmp6q998sma']"
+            }
+          ],
+          "output_report_bytes": 1088284,
+          "timing_scope": "run_joint only; inclusive stages overlap; excludes imports, oracle and output serialization",
+          "startup": "fresh Python worker and fresh HermiT JVM per inference; OS filesystem cache uncontrolled"
+        },
+        {
+          "repetition": 2,
+          "status": "completed",
+          "exit_code": 0,
+          "worker_wall_seconds": 4.2676853999982995,
+          "pipeline_seconds": 3.3194739999999,
+          "stage_metrics": {
+            "flow_search": {
+              "calls": 2,
+              "seconds": 0.016630699999950593,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 47476736,
+                  "seconds": 0.008838800000376068,
+                  "rss_before": 46641152,
+                  "rss_after": 46723072,
+                  "rss_delta": 81920
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 63549440,
+                  "seconds": 0.007791899999574525,
+                  "rss_before": 63483904,
+                  "rss_after": 63483904,
+                  "rss_delta": 0
+                }
+              ]
+            },
+            "flow_replay": {
+              "calls": 1,
+              "seconds": 0.007060099997033831,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 46960640,
+                  "seconds": 0.007060099997033831,
+                  "rss_before": 46796800,
+                  "rss_after": 46895104,
+                  "rss_delta": 98304
+                }
+              ]
+            },
+            "flow_compile": {
+              "calls": 1,
+              "seconds": 0.05550949999815202,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 49127424,
+                  "seconds": 0.05550949999815202,
+                  "rss_before": 46895104,
+                  "rss_after": 49123328,
+                  "rss_delta": 2228224
+                }
+              ]
+            },
+            "owl_inference": {
+              "calls": 1,
+              "seconds": 2.153287700002693,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 219344896,
+                  "seconds": 2.153287700002693,
+                  "rss_before": 53731328,
+                  "rss_after": 54960128,
+                  "rss_delta": 1228800
+                }
+              ]
+            },
+            "chain_generation_inclusive": {
+              "calls": 1,
+              "seconds": 2.491026299998339,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 219344896,
+                  "seconds": 2.491026299998339,
+                  "rss_before": 50905088,
+                  "rss_after": 58187776,
+                  "rss_delta": 7282688
+                }
+              ]
+            },
+            "normalization": {
+              "calls": 1,
+              "seconds": 0.00021320000087143853,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 61521920,
+                  "seconds": 0.00021320000087143853,
+                  "rss_before": 60690432,
+                  "rss_after": 60690432,
+                  "rss_delta": 0
+                }
+              ]
+            },
+            "network_optimization": {
+              "calls": 1,
+              "seconds": 0.005573899998125853,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 64745472,
+                  "seconds": 0.005573899998125853,
+                  "rss_before": 63909888,
+                  "rss_after": 63266816,
+                  "rss_delta": -643072
+                }
+              ]
+            },
+            "independent_verification": {
+              "calls": 1,
+              "seconds": 0.18974039999739034,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 66756608,
+                  "seconds": 0.18974039999739034,
+                  "rss_before": 63283200,
+                  "rss_after": 66691072,
+                  "rss_delta": 3407872
+                }
+              ]
+            },
+            "memory": {
+              "sample_interval_ms": 20,
+              "samples": 83,
+              "sampled_python_peak_rss_bytes": 66756608,
+              "sampled_python_plus_children_peak_rss_bytes": 219344896,
+              "scope": "sum of sampled working sets; shared pages may be double counted; not a true simultaneous OS peak",
+              "tracked_subprocess_count": 3,
+              "discovered_descendants": [
+                {
+                  "pid": 32428,
+                  "parent": 31812,
+                  "name": "cmd.exe",
+                  "sampled_peak_rss_bytes": 1695744
+                },
+                {
+                  "pid": 23660,
+                  "parent": 31812,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 3534848
+                },
+                {
+                  "pid": 31800,
+                  "parent": 23660,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 37171200
+                },
+                {
+                  "pid": 20132,
+                  "parent": 31800,
+                  "name": "java.exe",
+                  "sampled_peak_rss_bytes": 112418816
+                },
+                {
+                  "pid": 22416,
+                  "parent": 20132,
+                  "name": "conhost.exe",
+                  "sampled_peak_rss_bytes": 11264000
+                }
+              ]
+            },
+            "owl_result_sizes": [
+              {
+                "facts": 19,
+                "subjects": 66,
+                "types": 151
+              }
+            ],
+            "flow_counts": [
+              {
+                "task_id": "T1",
+                "statistics": {
+                  "nodes": 60,
+                  "prefixes_checked": 20,
+                  "transitions_applied": 14,
+                  "rejected_prefixes": 0,
+                  "rejected_occurrences": 20,
+                  "rejected_transitions": 26,
+                  "unknown_branches": 0,
+                  "unknown_goal_checks": 0,
+                  "candidate_count": 1,
+                  "elapsed_ms": 8.5
+                },
+                "status": "exhausted",
+                "reason": "frontier_exhausted"
+              }
+            ],
+            "chain_counts": {
+              "generated": 4,
+              "unique": 4,
+              "duplicates": 0,
+              "batches": 1,
+              "per_task": [
+                {
+                  "task": "T1",
+                  "generation": {
+                    "mode": "sequential_product_v2",
+                    "nodes": 7,
+                    "pruned": {},
+                    "templates": [
+                      {
+                        "rule": "flow-4e119a81c7b7e8e7c5e5b94a66ec360a61e4aa2eebfec8273245697fb8bf7136",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      }
+                    ],
+                    "scope": "按环节生成全部已知可行轨迹；不表示这些轨迹能同时执行，不计算论文转化率",
+                    "feasible_trajectories": 4,
+                    "status": "complete",
+                    "coverage": "complete",
+                    "termination_reason": "generation_exhausted"
+                  },
+                  "chains": 4
+                }
+              ]
+            },
+            "network_counts": {
+              "algorithm": "branch_and_bound",
+              "candidate_combinations": 4,
+              "counts_scope": "visited_complete_candidates",
+              "evaluated": 4,
+              "feasible": 4,
+              "nodes": 4,
+              "pruned_constraints": 0,
+              "pruned_bound": 0,
+              "rejections": [],
+              "optimality": "proven",
+              "score_bound_enabled": false,
+              "pruned_table10": 0,
+              "unknown_combinations_seen": 0,
+              "audit_scope": "visited_complete_combinations; definite-failure prefixes pruned",
+              "search_complete": true,
+              "termination_reason": "search_exhausted",
+              "table10_pruning": []
+            }
+          },
+          "correctness": {
+            "integration_status": "selected",
+            "global_optimality": "bounded_global_optimum",
+            "flow_search_complete": true,
+            "chain_generation_complete": true,
+            "network_search_complete": true,
+            "independent_verification": "passed",
+            "oracle": {
+              "raw_network_combinations": 4,
+              "feasible_network_combinations": 4,
+              "best_score": 0.8285714285714286,
+              "selected_candidate_ids": [
+                "candidate-4794d89ea006776178759d9603c02712f206f868a154556c52cf66a47c875a51"
+              ]
+            },
+            "termination_reasons": [],
+            "termination_reason": "search_exhausted",
+            "feasible_solution": true,
+            "domain_validity": "pending"
+          },
+          "benchmark_version": "tfdo-benchmark-1.0",
+          "case": {
+            "id": "P1-flows-1",
+            "group": "P1",
+            "value": 1
+          },
+          "input_hash": "49061e6c33b3a56a3945dcdf86e672c391defcd23d695a5b7962d869e0cf1e1d",
+          "semantic_hash": "ab20ae7430b42863ed2677f288797dc994f9ba9fd36ed7c5ded801ea5a23579d",
+          "processes": [
+            {
+              "pid": 32428,
+              "command": "ver"
+            },
+            {
+              "pid": 33164,
+              "command": "ver"
+            },
+            {
+              "pid": 23660,
+              "command": "['C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\.venv\\\\Scripts\\\\python.exe', '-B', '-m', 'adapters.owl_infer', 'C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\tmp\\\\tmpqac9gvhf']"
+            }
+          ],
+          "output_report_bytes": 1088282,
+          "timing_scope": "run_joint only; inclusive stages overlap; excludes imports, oracle and output serialization",
+          "startup": "fresh Python worker and fresh HermiT JVM per inference; OS filesystem cache uncontrolled"
+        },
+        {
+          "repetition": 3,
+          "status": "completed",
+          "exit_code": 0,
+          "worker_wall_seconds": 4.112955200002034,
+          "pipeline_seconds": 3.0898816000008082,
+          "stage_metrics": {
+            "flow_search": {
+              "calls": 2,
+              "seconds": 0.015972600001987303,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 47239168,
+                  "seconds": 0.01086560000112513,
+                  "rss_before": 47149056,
+                  "rss_after": 47173632,
+                  "rss_delta": 24576
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 63533056,
+                  "seconds": 0.005107000000862172,
+                  "rss_before": 63533056,
+                  "rss_after": 63533056,
+                  "rss_delta": 0
+                }
+              ]
+            },
+            "flow_replay": {
+              "calls": 1,
+              "seconds": 0.007468600000720471,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 47271936,
+                  "seconds": 0.007468600000720471,
+                  "rss_before": 47173632,
+                  "rss_after": 47271936,
+                  "rss_delta": 98304
+                }
+              ]
+            },
+            "flow_compile": {
+              "calls": 1,
+              "seconds": 0.07508129999769153,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 49242112,
+                  "seconds": 0.07508129999769153,
+                  "rss_before": 47280128,
+                  "rss_after": 49176576,
+                  "rss_delta": 1896448
+                }
+              ]
+            },
+            "owl_inference": {
+              "calls": 1,
+              "seconds": 1.8514121000007435,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 220561408,
+                  "seconds": 1.8514121000007435,
+                  "rss_before": 53473280,
+                  "rss_after": 54992896,
+                  "rss_delta": 1519616
+                }
+              ]
+            },
+            "chain_generation_inclusive": {
+              "calls": 1,
+              "seconds": 2.2157501999972737,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 220561408,
+                  "seconds": 2.2157501999972737,
+                  "rss_before": 50704384,
+                  "rss_after": 58281984,
+                  "rss_delta": 7577600
+                }
+              ]
+            },
+            "normalization": {
+              "calls": 1,
+              "seconds": 0.00022700000045006163,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 61333504,
+                  "seconds": 0.00022700000045006163,
+                  "rss_before": 60510208,
+                  "rss_after": 60510208,
+                  "rss_delta": 0
+                }
+              ]
+            },
+            "network_optimization": {
+              "calls": 1,
+              "seconds": 0.006006600000546314,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 63860736,
+                  "seconds": 0.006006600000546314,
+                  "rss_before": 63860736,
+                  "rss_after": 63442944,
+                  "rss_delta": -417792
+                }
+              ]
+            },
+            "independent_verification": {
+              "calls": 1,
+              "seconds": 0.1938905999995768,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 67698688,
+                  "seconds": 0.1938905999995768,
+                  "rss_before": 63418368,
+                  "rss_after": 66871296,
+                  "rss_delta": 3452928
+                }
+              ]
+            },
+            "memory": {
+              "sample_interval_ms": 20,
+              "samples": 80,
+              "sampled_python_peak_rss_bytes": 67698688,
+              "sampled_python_plus_children_peak_rss_bytes": 220561408,
+              "scope": "sum of sampled working sets; shared pages may be double counted; not a true simultaneous OS peak",
+              "tracked_subprocess_count": 3,
+              "discovered_descendants": [
+                {
+                  "pid": 34320,
+                  "parent": 3148,
+                  "name": "cmd.exe",
+                  "sampled_peak_rss_bytes": 1785856
+                },
+                {
+                  "pid": 34720,
+                  "parent": 3148,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 3534848
+                },
+                {
+                  "pid": 27960,
+                  "parent": 34720,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 37318656
+                },
+                {
+                  "pid": 31756,
+                  "parent": 27960,
+                  "name": "java.exe",
+                  "sampled_peak_rss_bytes": 113418240
+                },
+                {
+                  "pid": 24308,
+                  "parent": 31756,
+                  "name": "conhost.exe",
+                  "sampled_peak_rss_bytes": 11268096
+                }
+              ]
+            },
+            "owl_result_sizes": [
+              {
+                "facts": 19,
+                "subjects": 66,
+                "types": 151
+              }
+            ],
+            "flow_counts": [
+              {
+                "task_id": "T1",
+                "statistics": {
+                  "nodes": 60,
+                  "prefixes_checked": 20,
+                  "transitions_applied": 14,
+                  "rejected_prefixes": 0,
+                  "rejected_occurrences": 20,
+                  "rejected_transitions": 26,
+                  "unknown_branches": 0,
+                  "unknown_goal_checks": 0,
+                  "candidate_count": 1,
+                  "elapsed_ms": 9.877
+                },
+                "status": "exhausted",
+                "reason": "frontier_exhausted"
+              }
+            ],
+            "chain_counts": {
+              "generated": 4,
+              "unique": 4,
+              "duplicates": 0,
+              "batches": 1,
+              "per_task": [
+                {
+                  "task": "T1",
+                  "generation": {
+                    "mode": "sequential_product_v2",
+                    "nodes": 7,
+                    "pruned": {},
+                    "templates": [
+                      {
+                        "rule": "flow-4e119a81c7b7e8e7c5e5b94a66ec360a61e4aa2eebfec8273245697fb8bf7136",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      }
+                    ],
+                    "scope": "按环节生成全部已知可行轨迹；不表示这些轨迹能同时执行，不计算论文转化率",
+                    "feasible_trajectories": 4,
+                    "status": "complete",
+                    "coverage": "complete",
+                    "termination_reason": "generation_exhausted"
+                  },
+                  "chains": 4
+                }
+              ]
+            },
+            "network_counts": {
+              "algorithm": "branch_and_bound",
+              "candidate_combinations": 4,
+              "counts_scope": "visited_complete_candidates",
+              "evaluated": 4,
+              "feasible": 4,
+              "nodes": 4,
+              "pruned_constraints": 0,
+              "pruned_bound": 0,
+              "rejections": [],
+              "optimality": "proven",
+              "score_bound_enabled": false,
+              "pruned_table10": 0,
+              "unknown_combinations_seen": 0,
+              "audit_scope": "visited_complete_combinations; definite-failure prefixes pruned",
+              "search_complete": true,
+              "termination_reason": "search_exhausted",
+              "table10_pruning": []
+            }
+          },
+          "correctness": {
+            "integration_status": "selected",
+            "global_optimality": "bounded_global_optimum",
+            "flow_search_complete": true,
+            "chain_generation_complete": true,
+            "network_search_complete": true,
+            "independent_verification": "passed",
+            "oracle": {
+              "raw_network_combinations": 4,
+              "feasible_network_combinations": 4,
+              "best_score": 0.8285714285714286,
+              "selected_candidate_ids": [
+                "candidate-4794d89ea006776178759d9603c02712f206f868a154556c52cf66a47c875a51"
+              ]
+            },
+            "termination_reasons": [],
+            "termination_reason": "search_exhausted",
+            "feasible_solution": true,
+            "domain_validity": "pending"
+          },
+          "benchmark_version": "tfdo-benchmark-1.0",
+          "case": {
+            "id": "P1-flows-1",
+            "group": "P1",
+            "value": 1
+          },
+          "input_hash": "49061e6c33b3a56a3945dcdf86e672c391defcd23d695a5b7962d869e0cf1e1d",
+          "semantic_hash": "ab20ae7430b42863ed2677f288797dc994f9ba9fd36ed7c5ded801ea5a23579d",
+          "processes": [
+            {
+              "pid": 21932,
+              "command": "ver"
+            },
+            {
+              "pid": 34320,
+              "command": "ver"
+            },
+            {
+              "pid": 34720,
+              "command": "['C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\.venv\\\\Scripts\\\\python.exe', '-B', '-m', 'adapters.owl_infer', 'C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\tmp\\\\tmp1_i7ks2f']"
+            }
+          ],
+          "output_report_bytes": 1088284,
+          "timing_scope": "run_joint only; inclusive stages overlap; excludes imports, oracle and output serialization",
+          "startup": "fresh Python worker and fresh HermiT JVM per inference; OS filesystem cache uncontrolled"
+        },
+        {
+          "repetition": 4,
+          "status": "completed",
+          "exit_code": 0,
+          "worker_wall_seconds": 4.22059359999912,
+          "pipeline_seconds": 3.1646221999981208,
+          "stage_metrics": {
+            "flow_search": {
+              "calls": 2,
+              "seconds": 0.017209299996466143,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 48029696,
+                  "seconds": 0.008599199998570839,
+                  "rss_before": 47206400,
+                  "rss_after": 47222784,
+                  "rss_delta": 16384
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 64364544,
+                  "seconds": 0.008610099997895304,
+                  "rss_before": 63537152,
+                  "rss_after": 63537152,
+                  "rss_delta": 0
+                }
+              ]
+            },
+            "flow_replay": {
+              "calls": 1,
+              "seconds": 0.015166699999099365,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 48177152,
+                  "seconds": 0.015166699999099365,
+                  "rss_before": 47251456,
+                  "rss_after": 47349760,
+                  "rss_delta": 98304
+                }
+              ]
+            },
+            "flow_compile": {
+              "calls": 1,
+              "seconds": 0.07271939999918686,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 50012160,
+                  "seconds": 0.07271939999918686,
+                  "rss_before": 47349760,
+                  "rss_after": 49184768,
+                  "rss_delta": 1835008
+                }
+              ]
+            },
+            "owl_inference": {
+              "calls": 1,
+              "seconds": 1.9765092999987246,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 220905472,
+                  "seconds": 1.9765092999987246,
+                  "rss_before": 54145024,
+                  "rss_after": 55287808,
+                  "rss_delta": 1142784
+                }
+              ]
+            },
+            "chain_generation_inclusive": {
+              "calls": 1,
+              "seconds": 2.3054604999997537,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 220905472,
+                  "seconds": 2.3054604999997537,
+                  "rss_before": 51048448,
+                  "rss_after": 58466304,
+                  "rss_delta": 7417856
+                }
+              ]
+            },
+            "normalization": {
+              "calls": 1,
+              "seconds": 0.00019070000053034164,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 61677568,
+                  "seconds": 0.00019070000053034164,
+                  "rss_before": 60854272,
+                  "rss_after": 60858368,
+                  "rss_delta": 4096
+                }
+              ]
+            },
+            "network_optimization": {
+              "calls": 1,
+              "seconds": 0.004327099999500206,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 64851968,
+                  "seconds": 0.004327099999500206,
+                  "rss_before": 64024576,
+                  "rss_after": 63291392,
+                  "rss_delta": -733184
+                }
+              ]
+            },
+            "independent_verification": {
+              "calls": 1,
+              "seconds": 0.1859266999999818,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 67780608,
+                  "seconds": 0.1859266999999818,
+                  "rss_before": 64135168,
+                  "rss_after": 66953216,
+                  "rss_delta": 2818048
+                }
+              ]
+            },
+            "memory": {
+              "sample_interval_ms": 20,
+              "samples": 81,
+              "sampled_python_peak_rss_bytes": 67780608,
+              "sampled_python_plus_children_peak_rss_bytes": 220905472,
+              "scope": "sum of sampled working sets; shared pages may be double counted; not a true simultaneous OS peak",
+              "tracked_subprocess_count": 3,
+              "discovered_descendants": [
+                {
+                  "pid": 33396,
+                  "parent": 14848,
+                  "name": "cmd.exe",
+                  "sampled_peak_rss_bytes": 1695744
+                },
+                {
+                  "pid": 34224,
+                  "parent": 14848,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 3534848
+                },
+                {
+                  "pid": 26820,
+                  "parent": 34224,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 37449728
+                },
+                {
+                  "pid": 6344,
+                  "parent": 26820,
+                  "name": "java.exe",
+                  "sampled_peak_rss_bytes": 113360896
+                },
+                {
+                  "pid": 25196,
+                  "parent": 6344,
+                  "name": "conhost.exe",
+                  "sampled_peak_rss_bytes": 11239424
+                }
+              ]
+            },
+            "owl_result_sizes": [
+              {
+                "facts": 19,
+                "subjects": 66,
+                "types": 151
+              }
+            ],
+            "flow_counts": [
+              {
+                "task_id": "T1",
+                "statistics": {
+                  "nodes": 60,
+                  "prefixes_checked": 20,
+                  "transitions_applied": 14,
+                  "rejected_prefixes": 0,
+                  "rejected_occurrences": 20,
+                  "rejected_transitions": 26,
+                  "unknown_branches": 0,
+                  "unknown_goal_checks": 0,
+                  "candidate_count": 1,
+                  "elapsed_ms": 8.112
+                },
+                "status": "exhausted",
+                "reason": "frontier_exhausted"
+              }
+            ],
+            "chain_counts": {
+              "generated": 4,
+              "unique": 4,
+              "duplicates": 0,
+              "batches": 1,
+              "per_task": [
+                {
+                  "task": "T1",
+                  "generation": {
+                    "mode": "sequential_product_v2",
+                    "nodes": 7,
+                    "pruned": {},
+                    "templates": [
+                      {
+                        "rule": "flow-4e119a81c7b7e8e7c5e5b94a66ec360a61e4aa2eebfec8273245697fb8bf7136",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      }
+                    ],
+                    "scope": "按环节生成全部已知可行轨迹；不表示这些轨迹能同时执行，不计算论文转化率",
+                    "feasible_trajectories": 4,
+                    "status": "complete",
+                    "coverage": "complete",
+                    "termination_reason": "generation_exhausted"
+                  },
+                  "chains": 4
+                }
+              ]
+            },
+            "network_counts": {
+              "algorithm": "branch_and_bound",
+              "candidate_combinations": 4,
+              "counts_scope": "visited_complete_candidates",
+              "evaluated": 4,
+              "feasible": 4,
+              "nodes": 4,
+              "pruned_constraints": 0,
+              "pruned_bound": 0,
+              "rejections": [],
+              "optimality": "proven",
+              "score_bound_enabled": false,
+              "pruned_table10": 0,
+              "unknown_combinations_seen": 0,
+              "audit_scope": "visited_complete_combinations; definite-failure prefixes pruned",
+              "search_complete": true,
+              "termination_reason": "search_exhausted",
+              "table10_pruning": []
+            }
+          },
+          "correctness": {
+            "integration_status": "selected",
+            "global_optimality": "bounded_global_optimum",
+            "flow_search_complete": true,
+            "chain_generation_complete": true,
+            "network_search_complete": true,
+            "independent_verification": "passed",
+            "oracle": {
+              "raw_network_combinations": 4,
+              "feasible_network_combinations": 4,
+              "best_score": 0.8285714285714286,
+              "selected_candidate_ids": [
+                "candidate-4794d89ea006776178759d9603c02712f206f868a154556c52cf66a47c875a51"
+              ]
+            },
+            "termination_reasons": [],
+            "termination_reason": "search_exhausted",
+            "feasible_solution": true,
+            "domain_validity": "pending"
+          },
+          "benchmark_version": "tfdo-benchmark-1.0",
+          "case": {
+            "id": "P1-flows-1",
+            "group": "P1",
+            "value": 1
+          },
+          "input_hash": "49061e6c33b3a56a3945dcdf86e672c391defcd23d695a5b7962d869e0cf1e1d",
+          "semantic_hash": "ab20ae7430b42863ed2677f288797dc994f9ba9fd36ed7c5ded801ea5a23579d",
+          "processes": [
+            {
+              "pid": 33396,
+              "command": "ver"
+            },
+            {
+              "pid": 18420,
+              "command": "ver"
+            },
+            {
+              "pid": 34224,
+              "command": "['C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\.venv\\\\Scripts\\\\python.exe', '-B', '-m', 'adapters.owl_infer', 'C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\tmp\\\\tmpqloat_vg']"
+            }
+          ],
+          "output_report_bytes": 1088284,
+          "timing_scope": "run_joint only; inclusive stages overlap; excludes imports, oracle and output serialization",
+          "startup": "fresh Python worker and fresh HermiT JVM per inference; OS filesystem cache uncontrolled"
+        },
+        {
+          "repetition": 5,
+          "status": "completed",
+          "exit_code": 0,
+          "worker_wall_seconds": 4.336947199997667,
+          "pipeline_seconds": 3.214151000000129,
+          "stage_metrics": {
+            "flow_search": {
+              "calls": 2,
+              "seconds": 0.012035899999318644,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 47271936,
+                  "seconds": 0.0060904999991180375,
+                  "rss_before": 47251456,
+                  "rss_after": 47271936,
+                  "rss_delta": 20480
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 64540672,
+                  "seconds": 0.005945400000200607,
+                  "rss_before": 63721472,
+                  "rss_after": 63721472,
+                  "rss_delta": 0
+                }
+              ]
+            },
+            "flow_replay": {
+              "calls": 1,
+              "seconds": 0.011187299998709932,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 48160768,
+                  "seconds": 0.011187299998709932,
+                  "rss_before": 47337472,
+                  "rss_after": 47333376,
+                  "rss_delta": -4096
+                }
+              ]
+            },
+            "flow_compile": {
+              "calls": 1,
+              "seconds": 0.07897740000043996,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 50286592,
+                  "seconds": 0.07897740000043996,
+                  "rss_before": 47337472,
+                  "rss_after": 49459200,
+                  "rss_delta": 2121728
+                }
+              ]
+            },
+            "owl_inference": {
+              "calls": 1,
+              "seconds": 2.0819282999982534,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 219787264,
+                  "seconds": 2.0819282999982534,
+                  "rss_before": 54247424,
+                  "rss_after": 55132160,
+                  "rss_delta": 884736
+                }
+              ]
+            },
+            "chain_generation_inclusive": {
+              "calls": 1,
+              "seconds": 2.3821861000033095,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 219787264,
+                  "seconds": 2.3821861000033095,
+                  "rss_before": 50991104,
+                  "rss_after": 58433536,
+                  "rss_delta": 7442432
+                }
+              ]
+            },
+            "normalization": {
+              "calls": 1,
+              "seconds": 0.00020569999833242036,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 61739008,
+                  "seconds": 0.00020569999833242036,
+                  "rss_before": 60923904,
+                  "rss_after": 60923904,
+                  "rss_delta": 0
+                }
+              ]
+            },
+            "network_optimization": {
+              "calls": 1,
+              "seconds": 0.0058951999999408145,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 64643072,
+                  "seconds": 0.0058951999999408145,
+                  "rss_before": 64184320,
+                  "rss_after": 63471616,
+                  "rss_delta": -712704
+                }
+              ]
+            },
+            "independent_verification": {
+              "calls": 1,
+              "seconds": 0.1765785000025062,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 68157440,
+                  "seconds": 0.1765785000025062,
+                  "rss_before": 64323584,
+                  "rss_after": 67338240,
+                  "rss_delta": 3014656
+                }
+              ]
+            },
+            "memory": {
+              "sample_interval_ms": 20,
+              "samples": 83,
+              "sampled_python_peak_rss_bytes": 68157440,
+              "sampled_python_plus_children_peak_rss_bytes": 219787264,
+              "scope": "sum of sampled working sets; shared pages may be double counted; not a true simultaneous OS peak",
+              "tracked_subprocess_count": 3,
+              "discovered_descendants": [
+                {
+                  "pid": 33520,
+                  "parent": 18156,
+                  "name": "cmd.exe",
+                  "sampled_peak_rss_bytes": null
+                },
+                {
+                  "pid": 34304,
+                  "parent": 18156,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 3534848
+                },
+                {
+                  "pid": 9340,
+                  "parent": 34304,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 37408768
+                },
+                {
+                  "pid": 27368,
+                  "parent": 9340,
+                  "name": "java.exe",
+                  "sampled_peak_rss_bytes": 112566272
+                },
+                {
+                  "pid": 33532,
+                  "parent": 27368,
+                  "name": "conhost.exe",
+                  "sampled_peak_rss_bytes": 11268096
+                }
+              ]
+            },
+            "owl_result_sizes": [
+              {
+                "facts": 19,
+                "subjects": 66,
+                "types": 151
+              }
+            ],
+            "flow_counts": [
+              {
+                "task_id": "T1",
+                "statistics": {
+                  "nodes": 60,
+                  "prefixes_checked": 20,
+                  "transitions_applied": 14,
+                  "rejected_prefixes": 0,
+                  "rejected_occurrences": 20,
+                  "rejected_transitions": 26,
+                  "unknown_branches": 0,
+                  "unknown_goal_checks": 0,
+                  "candidate_count": 1,
+                  "elapsed_ms": 5.82
+                },
+                "status": "exhausted",
+                "reason": "frontier_exhausted"
+              }
+            ],
+            "chain_counts": {
+              "generated": 4,
+              "unique": 4,
+              "duplicates": 0,
+              "batches": 1,
+              "per_task": [
+                {
+                  "task": "T1",
+                  "generation": {
+                    "mode": "sequential_product_v2",
+                    "nodes": 7,
+                    "pruned": {},
+                    "templates": [
+                      {
+                        "rule": "flow-4e119a81c7b7e8e7c5e5b94a66ec360a61e4aa2eebfec8273245697fb8bf7136",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      }
+                    ],
+                    "scope": "按环节生成全部已知可行轨迹；不表示这些轨迹能同时执行，不计算论文转化率",
+                    "feasible_trajectories": 4,
+                    "status": "complete",
+                    "coverage": "complete",
+                    "termination_reason": "generation_exhausted"
+                  },
+                  "chains": 4
+                }
+              ]
+            },
+            "network_counts": {
+              "algorithm": "branch_and_bound",
+              "candidate_combinations": 4,
+              "counts_scope": "visited_complete_candidates",
+              "evaluated": 4,
+              "feasible": 4,
+              "nodes": 4,
+              "pruned_constraints": 0,
+              "pruned_bound": 0,
+              "rejections": [],
+              "optimality": "proven",
+              "score_bound_enabled": false,
+              "pruned_table10": 0,
+              "unknown_combinations_seen": 0,
+              "audit_scope": "visited_complete_combinations; definite-failure prefixes pruned",
+              "search_complete": true,
+              "termination_reason": "search_exhausted",
+              "table10_pruning": []
+            }
+          },
+          "correctness": {
+            "integration_status": "selected",
+            "global_optimality": "bounded_global_optimum",
+            "flow_search_complete": true,
+            "chain_generation_complete": true,
+            "network_search_complete": true,
+            "independent_verification": "passed",
+            "oracle": {
+              "raw_network_combinations": 4,
+              "feasible_network_combinations": 4,
+              "best_score": 0.8285714285714286,
+              "selected_candidate_ids": [
+                "candidate-4794d89ea006776178759d9603c02712f206f868a154556c52cf66a47c875a51"
+              ]
+            },
+            "termination_reasons": [],
+            "termination_reason": "search_exhausted",
+            "feasible_solution": true,
+            "domain_validity": "pending"
+          },
+          "benchmark_version": "tfdo-benchmark-1.0",
+          "case": {
+            "id": "P1-flows-1",
+            "group": "P1",
+            "value": 1
+          },
+          "input_hash": "49061e6c33b3a56a3945dcdf86e672c391defcd23d695a5b7962d869e0cf1e1d",
+          "semantic_hash": "ab20ae7430b42863ed2677f288797dc994f9ba9fd36ed7c5ded801ea5a23579d",
+          "processes": [
+            {
+              "pid": 33520,
+              "command": "ver"
+            },
+            {
+              "pid": 3056,
+              "command": "ver"
+            },
+            {
+              "pid": 34304,
+              "command": "['C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\.venv\\\\Scripts\\\\python.exe', '-B', '-m', 'adapters.owl_infer', 'C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\tmp\\\\tmp_xtkzd4u']"
+            }
+          ],
+          "output_report_bytes": 1088283,
+          "timing_scope": "run_joint only; inclusive stages overlap; excludes imports, oracle and output serialization",
+          "startup": "fresh Python worker and fresh HermiT JVM per inference; OS filesystem cache uncontrolled"
+        }
+      ],
+      "summary": {
+        "completed": 5,
+        "semantic_repeatable": true,
+        "median_runtime": 3.214151000000129,
+        "min_runtime": 3.0898816000008082,
+        "max_runtime": 3.3533434999990277,
+        "sampled_peak_memory": 220905472
+      }
+    },
+    {
+      "case": {
+        "id": "P1-flows-2",
+        "group": "P1",
+        "value": 2
+      },
+      "repetitions": [
+        {
+          "repetition": 1,
+          "status": "completed",
+          "exit_code": 0,
+          "worker_wall_seconds": 4.659150700001192,
+          "pipeline_seconds": 3.5328979000005347,
+          "stage_metrics": {
+            "flow_search": {
+              "calls": 2,
+              "seconds": 0.02436909999960335,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 46731264,
+                  "seconds": 0.009365400001115631,
+                  "rss_before": 46649344,
+                  "rss_after": 46731264,
+                  "rss_delta": 81920
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 66736128,
+                  "seconds": 0.015003699998487718,
+                  "rss_before": 66670592,
+                  "rss_after": 66674688,
+                  "rss_delta": 4096
+                }
+              ]
+            },
+            "flow_replay": {
+              "calls": 2,
+              "seconds": 0.026215700003376696,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 46751744,
+                  "seconds": 0.01612320000276668,
+                  "rss_before": 46690304,
+                  "rss_after": 46759936,
+                  "rss_delta": 69632
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 49094656,
+                  "seconds": 0.010092500000610016,
+                  "rss_before": 48979968,
+                  "rss_after": 49094656,
+                  "rss_delta": 114688
+                }
+              ]
+            },
+            "flow_compile": {
+              "calls": 2,
+              "seconds": 0.1568327999993926,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 49807360,
+                  "seconds": 0.08576019999964046,
+                  "rss_before": 46751744,
+                  "rss_after": 48979968,
+                  "rss_delta": 2228224
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 51212288,
+                  "seconds": 0.07107259999975213,
+                  "rss_before": 49094656,
+                  "rss_after": 51212288,
+                  "rss_delta": 2117632
+                }
+              ]
+            },
+            "owl_inference": {
+              "calls": 1,
+              "seconds": 2.0647930999984965,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 222781440,
+                  "seconds": 2.0647930999984965,
+                  "rss_before": 56336384,
+                  "rss_after": 57303040,
+                  "rss_delta": 966656
+                }
+              ]
+            },
+            "chain_generation_inclusive": {
+              "calls": 1,
+              "seconds": 2.401999000001524,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 222781440,
+                  "seconds": 2.401999000001524,
+                  "rss_before": 53006336,
+                  "rss_after": 61251584,
+                  "rss_delta": 8245248
+                }
+              ]
+            },
+            "normalization": {
+              "calls": 1,
+              "seconds": 0.0002299999978276901,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 63053824,
+                  "seconds": 0.0002299999978276901,
+                  "rss_before": 62992384,
+                  "rss_after": 62996480,
+                  "rss_delta": 4096
+                }
+              ]
+            },
+            "network_optimization": {
+              "calls": 1,
+              "seconds": 0.00500100000135717,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 66404352,
+                  "seconds": 0.00500100000135717,
+                  "rss_before": 66097152,
+                  "rss_after": 66404352,
+                  "rss_delta": 307200
+                }
+              ]
+            },
+            "independent_verification": {
+              "calls": 1,
+              "seconds": 0.25160049999976764,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 70344704,
+                  "seconds": 0.25160049999976764,
+                  "rss_before": 66408448,
+                  "rss_after": 69525504,
+                  "rss_delta": 3117056
+                }
+              ]
+            },
+            "memory": {
+              "sample_interval_ms": 20,
+              "samples": 91,
+              "sampled_python_peak_rss_bytes": 70344704,
+              "sampled_python_plus_children_peak_rss_bytes": 222781440,
+              "scope": "sum of sampled working sets; shared pages may be double counted; not a true simultaneous OS peak",
+              "tracked_subprocess_count": 3,
+              "discovered_descendants": [
+                {
+                  "pid": 31836,
+                  "parent": 32312,
+                  "name": "cmd.exe",
+                  "sampled_peak_rss_bytes": 3723264
+                },
+                {
+                  "pid": 32316,
+                  "parent": 32312,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 3530752
+                },
+                {
+                  "pid": 15852,
+                  "parent": 32316,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 37638144
+                },
+                {
+                  "pid": 13452,
+                  "parent": 15852,
+                  "name": "java.exe",
+                  "sampled_peak_rss_bytes": 113238016
+                },
+                {
+                  "pid": 24972,
+                  "parent": 13452,
+                  "name": "conhost.exe",
+                  "sampled_peak_rss_bytes": 11259904
+                }
+              ]
+            },
+            "owl_result_sizes": [
+              {
+                "facts": 24,
+                "subjects": 70,
+                "types": 159
+              }
+            ],
+            "flow_counts": [
+              {
+                "task_id": "T1",
+                "statistics": {
+                  "nodes": 105,
+                  "prefixes_checked": 29,
+                  "transitions_applied": 23,
+                  "rejected_prefixes": 0,
+                  "rejected_occurrences": 36,
+                  "rejected_transitions": 46,
+                  "unknown_branches": 0,
+                  "unknown_goal_checks": 0,
+                  "candidate_count": 2,
+                  "elapsed_ms": 9.074
+                },
+                "status": "exhausted",
+                "reason": "frontier_exhausted"
+              }
+            ],
+            "chain_counts": {
+              "generated": 8,
+              "unique": 8,
+              "duplicates": 0,
+              "batches": 1,
+              "per_task": [
+                {
+                  "task": "T1",
+                  "generation": {
+                    "mode": "sequential_product_v2",
+                    "nodes": 14,
+                    "pruned": {},
+                    "templates": [
+                      {
+                        "rule": "flow-4e119a81c7b7e8e7c5e5b94a66ec360a61e4aa2eebfec8273245697fb8bf7136",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-03898556f91c98eb42d48da4ef7e6aab8845d2cde44c3ebe961cd4c58c7cbe9a",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      }
+                    ],
+                    "scope": "按环节生成全部已知可行轨迹；不表示这些轨迹能同时执行，不计算论文转化率",
+                    "feasible_trajectories": 8,
+                    "status": "complete",
+                    "coverage": "complete",
+                    "termination_reason": "generation_exhausted"
+                  },
+                  "chains": 8
+                }
+              ]
+            },
+            "network_counts": {
+              "algorithm": "branch_and_bound",
+              "candidate_combinations": 8,
+              "counts_scope": "visited_complete_candidates",
+              "evaluated": 8,
+              "feasible": 8,
+              "nodes": 8,
+              "pruned_constraints": 0,
+              "pruned_bound": 0,
+              "rejections": [],
+              "optimality": "proven",
+              "score_bound_enabled": false,
+              "pruned_table10": 0,
+              "unknown_combinations_seen": 0,
+              "audit_scope": "visited_complete_combinations; definite-failure prefixes pruned",
+              "search_complete": true,
+              "termination_reason": "search_exhausted",
+              "table10_pruning": []
+            }
+          },
+          "correctness": {
+            "integration_status": "selected",
+            "global_optimality": "bounded_global_optimum",
+            "flow_search_complete": true,
+            "chain_generation_complete": true,
+            "network_search_complete": true,
+            "independent_verification": "passed",
+            "oracle": {
+              "raw_network_combinations": 8,
+              "feasible_network_combinations": 8,
+              "best_score": 0.8285714285714286,
+              "selected_candidate_ids": [
+                "candidate-235be96f6325e50b9655565a6c0231780b31a1032d2f001502d708971b0584b3"
+              ]
+            },
+            "termination_reasons": [],
+            "termination_reason": "search_exhausted",
+            "feasible_solution": true,
+            "domain_validity": "pending"
+          },
+          "benchmark_version": "tfdo-benchmark-1.0",
+          "case": {
+            "id": "P1-flows-2",
+            "group": "P1",
+            "value": 2
+          },
+          "input_hash": "15a98a3772793b6439bbee74e4eab110e5fceaf77bc230eac3fb580b666badcc",
+          "semantic_hash": "e4cb9a0aa46a8e30a8717cdb514b1d665dd2df5b56e4d1a2d68de14d830b91d4",
+          "processes": [
+            {
+              "pid": 31836,
+              "command": "ver"
+            },
+            {
+              "pid": 21952,
+              "command": "ver"
+            },
+            {
+              "pid": 32316,
+              "command": "['C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\.venv\\\\Scripts\\\\python.exe', '-B', '-m', 'adapters.owl_infer', 'C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\tmp\\\\tmpqf2jnste']"
+            }
+          ],
+          "output_report_bytes": 1561522,
+          "timing_scope": "run_joint only; inclusive stages overlap; excludes imports, oracle and output serialization",
+          "startup": "fresh Python worker and fresh HermiT JVM per inference; OS filesystem cache uncontrolled"
+        },
+        {
+          "repetition": 2,
+          "status": "completed",
+          "exit_code": 0,
+          "worker_wall_seconds": 4.620720800001436,
+          "pipeline_seconds": 3.4798399999999674,
+          "stage_metrics": {
+            "flow_search": {
+              "calls": 2,
+              "seconds": 0.028534200002468424,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 47783936,
+                  "seconds": 0.015685099999245722,
+                  "rss_before": 46964736,
+                  "rss_after": 47099904,
+                  "rss_delta": 135168
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 67010560,
+                  "seconds": 0.012849100003222702,
+                  "rss_before": 67006464,
+                  "rss_after": 67006464,
+                  "rss_delta": 0
+                }
+              ]
+            },
+            "flow_replay": {
+              "calls": 2,
+              "seconds": 0.023315899998124223,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 47964160,
+                  "seconds": 0.011085199999797624,
+                  "rss_before": 47104000,
+                  "rss_after": 47964160,
+                  "rss_delta": 860160
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 49295360,
+                  "seconds": 0.0122306999983266,
+                  "rss_before": 49217536,
+                  "rss_after": 49295360,
+                  "rss_delta": 77824
+                }
+              ]
+            },
+            "flow_compile": {
+              "calls": 2,
+              "seconds": 0.16910379999535508,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 50036736,
+                  "seconds": 0.07874619999711285,
+                  "rss_before": 47144960,
+                  "rss_after": 49217536,
+                  "rss_delta": 2072576
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 52023296,
+                  "seconds": 0.09035759999824222,
+                  "rss_before": 49295360,
+                  "rss_after": 51204096,
+                  "rss_delta": 1908736
+                }
+              ]
+            },
+            "owl_inference": {
+              "calls": 1,
+              "seconds": 2.0846848000001046,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 224522240,
+                  "seconds": 2.0846848000001046,
+                  "rss_before": 56147968,
+                  "rss_after": 57507840,
+                  "rss_delta": 1359872
+                }
+              ]
+            },
+            "chain_generation_inclusive": {
+              "calls": 1,
+              "seconds": 2.4506744999998773,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 224522240,
+                  "seconds": 2.4506744999998773,
+                  "rss_before": 53153792,
+                  "rss_after": 60317696,
+                  "rss_delta": 7163904
+                }
+              ]
+            },
+            "normalization": {
+              "calls": 1,
+              "seconds": 0.0002583999994385522,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 63832064,
+                  "seconds": 0.0002583999994385522,
+                  "rss_before": 63016960,
+                  "rss_after": 63021056,
+                  "rss_delta": 4096
+                }
+              ]
+            },
+            "network_optimization": {
+              "calls": 1,
+              "seconds": 0.005724000002373941,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 67031040,
+                  "seconds": 0.005724000002373941,
+                  "rss_before": 66211840,
+                  "rss_after": 66871296,
+                  "rss_delta": 659456
+                }
+              ]
+            },
+            "independent_verification": {
+              "calls": 1,
+              "seconds": 0.22337639999750536,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 71016448,
+                  "seconds": 0.22337639999750536,
+                  "rss_before": 66818048,
+                  "rss_after": 70197248,
+                  "rss_delta": 3379200
+                }
+              ]
+            },
+            "memory": {
+              "sample_interval_ms": 20,
+              "samples": 88,
+              "sampled_python_peak_rss_bytes": 71016448,
+              "sampled_python_plus_children_peak_rss_bytes": 224522240,
+              "scope": "sum of sampled working sets; shared pages may be double counted; not a true simultaneous OS peak",
+              "tracked_subprocess_count": 3,
+              "discovered_descendants": [
+                {
+                  "pid": 31908,
+                  "parent": 3148,
+                  "name": "cmd.exe",
+                  "sampled_peak_rss_bytes": 1691648
+                },
+                {
+                  "pid": 15596,
+                  "parent": 3148,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 3534848
+                },
+                {
+                  "pid": 10360,
+                  "parent": 15596,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 37457920
+                },
+                {
+                  "pid": 34732,
+                  "parent": 10360,
+                  "name": "java.exe",
+                  "sampled_peak_rss_bytes": 114786304
+                },
+                {
+                  "pid": 8620,
+                  "parent": 34732,
+                  "name": "conhost.exe",
+                  "sampled_peak_rss_bytes": 11264000
+                }
+              ]
+            },
+            "owl_result_sizes": [
+              {
+                "facts": 24,
+                "subjects": 70,
+                "types": 159
+              }
+            ],
+            "flow_counts": [
+              {
+                "task_id": "T1",
+                "statistics": {
+                  "nodes": 105,
+                  "prefixes_checked": 29,
+                  "transitions_applied": 23,
+                  "rejected_prefixes": 0,
+                  "rejected_occurrences": 36,
+                  "rejected_transitions": 46,
+                  "unknown_branches": 0,
+                  "unknown_goal_checks": 0,
+                  "candidate_count": 2,
+                  "elapsed_ms": 15.281
+                },
+                "status": "exhausted",
+                "reason": "frontier_exhausted"
+              }
+            ],
+            "chain_counts": {
+              "generated": 8,
+              "unique": 8,
+              "duplicates": 0,
+              "batches": 1,
+              "per_task": [
+                {
+                  "task": "T1",
+                  "generation": {
+                    "mode": "sequential_product_v2",
+                    "nodes": 14,
+                    "pruned": {},
+                    "templates": [
+                      {
+                        "rule": "flow-4e119a81c7b7e8e7c5e5b94a66ec360a61e4aa2eebfec8273245697fb8bf7136",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-03898556f91c98eb42d48da4ef7e6aab8845d2cde44c3ebe961cd4c58c7cbe9a",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      }
+                    ],
+                    "scope": "按环节生成全部已知可行轨迹；不表示这些轨迹能同时执行，不计算论文转化率",
+                    "feasible_trajectories": 8,
+                    "status": "complete",
+                    "coverage": "complete",
+                    "termination_reason": "generation_exhausted"
+                  },
+                  "chains": 8
+                }
+              ]
+            },
+            "network_counts": {
+              "algorithm": "branch_and_bound",
+              "candidate_combinations": 8,
+              "counts_scope": "visited_complete_candidates",
+              "evaluated": 8,
+              "feasible": 8,
+              "nodes": 8,
+              "pruned_constraints": 0,
+              "pruned_bound": 0,
+              "rejections": [],
+              "optimality": "proven",
+              "score_bound_enabled": false,
+              "pruned_table10": 0,
+              "unknown_combinations_seen": 0,
+              "audit_scope": "visited_complete_combinations; definite-failure prefixes pruned",
+              "search_complete": true,
+              "termination_reason": "search_exhausted",
+              "table10_pruning": []
+            }
+          },
+          "correctness": {
+            "integration_status": "selected",
+            "global_optimality": "bounded_global_optimum",
+            "flow_search_complete": true,
+            "chain_generation_complete": true,
+            "network_search_complete": true,
+            "independent_verification": "passed",
+            "oracle": {
+              "raw_network_combinations": 8,
+              "feasible_network_combinations": 8,
+              "best_score": 0.8285714285714286,
+              "selected_candidate_ids": [
+                "candidate-235be96f6325e50b9655565a6c0231780b31a1032d2f001502d708971b0584b3"
+              ]
+            },
+            "termination_reasons": [],
+            "termination_reason": "search_exhausted",
+            "feasible_solution": true,
+            "domain_validity": "pending"
+          },
+          "benchmark_version": "tfdo-benchmark-1.0",
+          "case": {
+            "id": "P1-flows-2",
+            "group": "P1",
+            "value": 2
+          },
+          "input_hash": "15a98a3772793b6439bbee74e4eab110e5fceaf77bc230eac3fb580b666badcc",
+          "semantic_hash": "e4cb9a0aa46a8e30a8717cdb514b1d665dd2df5b56e4d1a2d68de14d830b91d4",
+          "processes": [
+            {
+              "pid": 31908,
+              "command": "ver"
+            },
+            {
+              "pid": 6612,
+              "command": "ver"
+            },
+            {
+              "pid": 15596,
+              "command": "['C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\.venv\\\\Scripts\\\\python.exe', '-B', '-m', 'adapters.owl_infer', 'C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\tmp\\\\tmpcb6yd1ae']"
+            }
+          ],
+          "output_report_bytes": 1561523,
+          "timing_scope": "run_joint only; inclusive stages overlap; excludes imports, oracle and output serialization",
+          "startup": "fresh Python worker and fresh HermiT JVM per inference; OS filesystem cache uncontrolled"
+        },
+        {
+          "repetition": 3,
+          "status": "completed",
+          "exit_code": 0,
+          "worker_wall_seconds": 4.441893399998662,
+          "pipeline_seconds": 3.2749370000019553,
+          "stage_metrics": {
+            "flow_search": {
+              "calls": 2,
+              "seconds": 0.019674799998028902,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 47132672,
+                  "seconds": 0.009926299997459864,
+                  "rss_before": 47095808,
+                  "rss_after": 47132672,
+                  "rss_delta": 36864
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 66981888,
+                  "seconds": 0.009748500000569038,
+                  "rss_before": 66916352,
+                  "rss_after": 66916352,
+                  "rss_delta": 0
+                }
+              ]
+            },
+            "flow_replay": {
+              "calls": 2,
+              "seconds": 0.017150499999843305,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 47300608,
+                  "seconds": 0.009369100000185426,
+                  "rss_before": 47165440,
+                  "rss_after": 47235072,
+                  "rss_delta": 69632
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 50212864,
+                  "seconds": 0.007781399999657879,
+                  "rss_before": 49360896,
+                  "rss_after": 50212864,
+                  "rss_delta": 851968
+                }
+              ]
+            },
+            "flow_compile": {
+              "calls": 2,
+              "seconds": 0.13061080000261427,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 49426432,
+                  "seconds": 0.06256700000085402,
+                  "rss_before": 47235072,
+                  "rss_after": 49360896,
+                  "rss_delta": 2125824
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 52314112,
+                  "seconds": 0.06804380000176025,
+                  "rss_before": 49393664,
+                  "rss_after": 51494912,
+                  "rss_delta": 2101248
+                }
+              ]
+            },
+            "owl_inference": {
+              "calls": 1,
+              "seconds": 2.000819099997898,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 224899072,
+                  "seconds": 2.000819099997898,
+                  "rss_before": 55984128,
+                  "rss_after": 57139200,
+                  "rss_delta": 1155072
+                }
+              ]
+            },
+            "chain_generation_inclusive": {
+              "calls": 1,
+              "seconds": 2.3120240999996895,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 224899072,
+                  "seconds": 2.3120240999996895,
+                  "rss_before": 53264384,
+                  "rss_after": 60588032,
+                  "rss_delta": 7323648
+                }
+              ]
+            },
+            "normalization": {
+              "calls": 1,
+              "seconds": 0.00026499999876250513,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 63709184,
+                  "seconds": 0.00026499999876250513,
+                  "rss_before": 62894080,
+                  "rss_after": 62898176,
+                  "rss_delta": 4096
+                }
+              ]
+            },
+            "network_optimization": {
+              "calls": 1,
+              "seconds": 0.004850599998462712,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 67178496,
+                  "seconds": 0.004850599998462712,
+                  "rss_before": 66359296,
+                  "rss_after": 66789376,
+                  "rss_delta": 430080
+                }
+              ]
+            },
+            "independent_verification": {
+              "calls": 1,
+              "seconds": 0.1952917000016896,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 70795264,
+                  "seconds": 0.1952917000016896,
+                  "rss_before": 66805760,
+                  "rss_after": 69976064,
+                  "rss_delta": 3170304
+                }
+              ]
+            },
+            "memory": {
+              "sample_interval_ms": 20,
+              "samples": 88,
+              "sampled_python_peak_rss_bytes": 70795264,
+              "sampled_python_plus_children_peak_rss_bytes": 224899072,
+              "scope": "sum of sampled working sets; shared pages may be double counted; not a true simultaneous OS peak",
+              "tracked_subprocess_count": 3,
+              "discovered_descendants": [
+                {
+                  "pid": 33944,
+                  "parent": 7516,
+                  "name": "cmd.exe",
+                  "sampled_peak_rss_bytes": 3555328
+                },
+                {
+                  "pid": 28808,
+                  "parent": 7516,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 3534848
+                },
+                {
+                  "pid": 31792,
+                  "parent": 28808,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 37912576
+                },
+                {
+                  "pid": 24500,
+                  "parent": 31792,
+                  "name": "java.exe",
+                  "sampled_peak_rss_bytes": 115113984
+                },
+                {
+                  "pid": 30836,
+                  "parent": 24500,
+                  "name": "conhost.exe",
+                  "sampled_peak_rss_bytes": 11259904
+                }
+              ]
+            },
+            "owl_result_sizes": [
+              {
+                "facts": 24,
+                "subjects": 70,
+                "types": 159
+              }
+            ],
+            "flow_counts": [
+              {
+                "task_id": "T1",
+                "statistics": {
+                  "nodes": 105,
+                  "prefixes_checked": 29,
+                  "transitions_applied": 23,
+                  "rejected_prefixes": 0,
+                  "rejected_occurrences": 36,
+                  "rejected_transitions": 46,
+                  "unknown_branches": 0,
+                  "unknown_goal_checks": 0,
+                  "candidate_count": 2,
+                  "elapsed_ms": 9.603
+                },
+                "status": "exhausted",
+                "reason": "frontier_exhausted"
+              }
+            ],
+            "chain_counts": {
+              "generated": 8,
+              "unique": 8,
+              "duplicates": 0,
+              "batches": 1,
+              "per_task": [
+                {
+                  "task": "T1",
+                  "generation": {
+                    "mode": "sequential_product_v2",
+                    "nodes": 14,
+                    "pruned": {},
+                    "templates": [
+                      {
+                        "rule": "flow-4e119a81c7b7e8e7c5e5b94a66ec360a61e4aa2eebfec8273245697fb8bf7136",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-03898556f91c98eb42d48da4ef7e6aab8845d2cde44c3ebe961cd4c58c7cbe9a",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      }
+                    ],
+                    "scope": "按环节生成全部已知可行轨迹；不表示这些轨迹能同时执行，不计算论文转化率",
+                    "feasible_trajectories": 8,
+                    "status": "complete",
+                    "coverage": "complete",
+                    "termination_reason": "generation_exhausted"
+                  },
+                  "chains": 8
+                }
+              ]
+            },
+            "network_counts": {
+              "algorithm": "branch_and_bound",
+              "candidate_combinations": 8,
+              "counts_scope": "visited_complete_candidates",
+              "evaluated": 8,
+              "feasible": 8,
+              "nodes": 8,
+              "pruned_constraints": 0,
+              "pruned_bound": 0,
+              "rejections": [],
+              "optimality": "proven",
+              "score_bound_enabled": false,
+              "pruned_table10": 0,
+              "unknown_combinations_seen": 0,
+              "audit_scope": "visited_complete_combinations; definite-failure prefixes pruned",
+              "search_complete": true,
+              "termination_reason": "search_exhausted",
+              "table10_pruning": []
+            }
+          },
+          "correctness": {
+            "integration_status": "selected",
+            "global_optimality": "bounded_global_optimum",
+            "flow_search_complete": true,
+            "chain_generation_complete": true,
+            "network_search_complete": true,
+            "independent_verification": "passed",
+            "oracle": {
+              "raw_network_combinations": 8,
+              "feasible_network_combinations": 8,
+              "best_score": 0.8285714285714286,
+              "selected_candidate_ids": [
+                "candidate-235be96f6325e50b9655565a6c0231780b31a1032d2f001502d708971b0584b3"
+              ]
+            },
+            "termination_reasons": [],
+            "termination_reason": "search_exhausted",
+            "feasible_solution": true,
+            "domain_validity": "pending"
+          },
+          "benchmark_version": "tfdo-benchmark-1.0",
+          "case": {
+            "id": "P1-flows-2",
+            "group": "P1",
+            "value": 2
+          },
+          "input_hash": "15a98a3772793b6439bbee74e4eab110e5fceaf77bc230eac3fb580b666badcc",
+          "semantic_hash": "e4cb9a0aa46a8e30a8717cdb514b1d665dd2df5b56e4d1a2d68de14d830b91d4",
+          "processes": [
+            {
+              "pid": 33340,
+              "command": "ver"
+            },
+            {
+              "pid": 33944,
+              "command": "ver"
+            },
+            {
+              "pid": 28808,
+              "command": "['C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\.venv\\\\Scripts\\\\python.exe', '-B', '-m', 'adapters.owl_infer', 'C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\tmp\\\\tmp61ucq0qn']"
+            }
+          ],
+          "output_report_bytes": 1561522,
+          "timing_scope": "run_joint only; inclusive stages overlap; excludes imports, oracle and output serialization",
+          "startup": "fresh Python worker and fresh HermiT JVM per inference; OS filesystem cache uncontrolled"
+        },
+        {
+          "repetition": 4,
+          "status": "completed",
+          "exit_code": 0,
+          "worker_wall_seconds": 4.650095299999521,
+          "pipeline_seconds": 3.6308296999995946,
+          "stage_metrics": {
+            "flow_search": {
+              "calls": 2,
+              "seconds": 0.02170990000013262,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 47370240,
+                  "seconds": 0.01076430000102846,
+                  "rss_before": 47337472,
+                  "rss_after": 47370240,
+                  "rss_delta": 32768
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 67825664,
+                  "seconds": 0.01094559999910416,
+                  "rss_before": 67006464,
+                  "rss_after": 67018752,
+                  "rss_delta": 12288
+                }
+              ]
+            },
+            "flow_replay": {
+              "calls": 2,
+              "seconds": 0.033275900001171976,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 48189440,
+                  "seconds": 0.013928799999121111,
+                  "rss_before": 48189440,
+                  "rss_after": 47443968,
+                  "rss_delta": -745472
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 49569792,
+                  "seconds": 0.019347100002050865,
+                  "rss_before": 49451008,
+                  "rss_after": 49569792,
+                  "rss_delta": 118784
+                }
+              ]
+            },
+            "flow_compile": {
+              "calls": 2,
+              "seconds": 0.17718259999674046,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 50270208,
+                  "seconds": 0.09053339999809396,
+                  "rss_before": 47443968,
+                  "rss_after": 49451008,
+                  "rss_delta": 2007040
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 52310016,
+                  "seconds": 0.08664919999864651,
+                  "rss_before": 49569792,
+                  "rss_after": 51494912,
+                  "rss_delta": 1925120
+                }
+              ]
+            },
+            "owl_inference": {
+              "calls": 1,
+              "seconds": 2.1055218000001332,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 229359616,
+                  "seconds": 2.1055218000001332,
+                  "rss_before": 55738368,
+                  "rss_after": 57192448,
+                  "rss_delta": 1454080
+                }
+              ]
+            },
+            "chain_generation_inclusive": {
+              "calls": 1,
+              "seconds": 2.5223221000014746,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 229359616,
+                  "seconds": 2.5223221000014746,
+                  "rss_before": 53338112,
+                  "rss_after": 61403136,
+                  "rss_delta": 8065024
+                }
+              ]
+            },
+            "normalization": {
+              "calls": 1,
+              "seconds": 0.0002445999998599291,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 63700992,
+                  "seconds": 0.0002445999998599291,
+                  "rss_before": 62885888,
+                  "rss_after": 62889984,
+                  "rss_delta": 4096
+                }
+              ]
+            },
+            "network_optimization": {
+              "calls": 1,
+              "seconds": 0.006959499998629326,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 67313664,
+                  "seconds": 0.006959499998629326,
+                  "rss_before": 66494464,
+                  "rss_after": 66887680,
+                  "rss_delta": 393216
+                }
+              ]
+            },
+            "independent_verification": {
+              "calls": 1,
+              "seconds": 0.22464799999943352,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 71348224,
+                  "seconds": 0.22464799999943352,
+                  "rss_before": 66899968,
+                  "rss_after": 70529024,
+                  "rss_delta": 3629056
+                }
+              ]
+            },
+            "memory": {
+              "sample_interval_ms": 20,
+              "samples": 91,
+              "sampled_python_peak_rss_bytes": 71348224,
+              "sampled_python_plus_children_peak_rss_bytes": 229359616,
+              "scope": "sum of sampled working sets; shared pages may be double counted; not a true simultaneous OS peak",
+              "tracked_subprocess_count": 3,
+              "discovered_descendants": [
+                {
+                  "pid": 33832,
+                  "parent": 29128,
+                  "name": "cmd.exe",
+                  "sampled_peak_rss_bytes": 3043328
+                },
+                {
+                  "pid": 27064,
+                  "parent": 29128,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 3530752
+                },
+                {
+                  "pid": 4776,
+                  "parent": 27064,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 37404672
+                },
+                {
+                  "pid": 28464,
+                  "parent": 4776,
+                  "name": "java.exe",
+                  "sampled_peak_rss_bytes": 119930880
+                },
+                {
+                  "pid": 34332,
+                  "parent": 28464,
+                  "name": "conhost.exe",
+                  "sampled_peak_rss_bytes": 11259904
+                }
+              ]
+            },
+            "owl_result_sizes": [
+              {
+                "facts": 24,
+                "subjects": 70,
+                "types": 159
+              }
+            ],
+            "flow_counts": [
+              {
+                "task_id": "T1",
+                "statistics": {
+                  "nodes": 105,
+                  "prefixes_checked": 29,
+                  "transitions_applied": 23,
+                  "rejected_prefixes": 0,
+                  "rejected_occurrences": 36,
+                  "rejected_transitions": 46,
+                  "unknown_branches": 0,
+                  "unknown_goal_checks": 0,
+                  "candidate_count": 2,
+                  "elapsed_ms": 10.403
+                },
+                "status": "exhausted",
+                "reason": "frontier_exhausted"
+              }
+            ],
+            "chain_counts": {
+              "generated": 8,
+              "unique": 8,
+              "duplicates": 0,
+              "batches": 1,
+              "per_task": [
+                {
+                  "task": "T1",
+                  "generation": {
+                    "mode": "sequential_product_v2",
+                    "nodes": 14,
+                    "pruned": {},
+                    "templates": [
+                      {
+                        "rule": "flow-4e119a81c7b7e8e7c5e5b94a66ec360a61e4aa2eebfec8273245697fb8bf7136",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-03898556f91c98eb42d48da4ef7e6aab8845d2cde44c3ebe961cd4c58c7cbe9a",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      }
+                    ],
+                    "scope": "按环节生成全部已知可行轨迹；不表示这些轨迹能同时执行，不计算论文转化率",
+                    "feasible_trajectories": 8,
+                    "status": "complete",
+                    "coverage": "complete",
+                    "termination_reason": "generation_exhausted"
+                  },
+                  "chains": 8
+                }
+              ]
+            },
+            "network_counts": {
+              "algorithm": "branch_and_bound",
+              "candidate_combinations": 8,
+              "counts_scope": "visited_complete_candidates",
+              "evaluated": 8,
+              "feasible": 8,
+              "nodes": 8,
+              "pruned_constraints": 0,
+              "pruned_bound": 0,
+              "rejections": [],
+              "optimality": "proven",
+              "score_bound_enabled": false,
+              "pruned_table10": 0,
+              "unknown_combinations_seen": 0,
+              "audit_scope": "visited_complete_combinations; definite-failure prefixes pruned",
+              "search_complete": true,
+              "termination_reason": "search_exhausted",
+              "table10_pruning": []
+            }
+          },
+          "correctness": {
+            "integration_status": "selected",
+            "global_optimality": "bounded_global_optimum",
+            "flow_search_complete": true,
+            "chain_generation_complete": true,
+            "network_search_complete": true,
+            "independent_verification": "passed",
+            "oracle": {
+              "raw_network_combinations": 8,
+              "feasible_network_combinations": 8,
+              "best_score": 0.8285714285714286,
+              "selected_candidate_ids": [
+                "candidate-235be96f6325e50b9655565a6c0231780b31a1032d2f001502d708971b0584b3"
+              ]
+            },
+            "termination_reasons": [],
+            "termination_reason": "search_exhausted",
+            "feasible_solution": true,
+            "domain_validity": "pending"
+          },
+          "benchmark_version": "tfdo-benchmark-1.0",
+          "case": {
+            "id": "P1-flows-2",
+            "group": "P1",
+            "value": 2
+          },
+          "input_hash": "15a98a3772793b6439bbee74e4eab110e5fceaf77bc230eac3fb580b666badcc",
+          "semantic_hash": "e4cb9a0aa46a8e30a8717cdb514b1d665dd2df5b56e4d1a2d68de14d830b91d4",
+          "processes": [
+            {
+              "pid": 33832,
+              "command": "ver"
+            },
+            {
+              "pid": 29572,
+              "command": "ver"
+            },
+            {
+              "pid": 27064,
+              "command": "['C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\.venv\\\\Scripts\\\\python.exe', '-B', '-m', 'adapters.owl_infer', 'C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\tmp\\\\tmpv0mhzjxb']"
+            }
+          ],
+          "output_report_bytes": 1561523,
+          "timing_scope": "run_joint only; inclusive stages overlap; excludes imports, oracle and output serialization",
+          "startup": "fresh Python worker and fresh HermiT JVM per inference; OS filesystem cache uncontrolled"
+        },
+        {
+          "repetition": 5,
+          "status": "completed",
+          "exit_code": 0,
+          "worker_wall_seconds": 5.177155699999275,
+          "pipeline_seconds": 3.9511463999988337,
+          "stage_metrics": {
+            "flow_search": {
+              "calls": 2,
+              "seconds": 0.030334899998706533,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 48218112,
+                  "seconds": 0.01307019999876502,
+                  "rss_before": 48177152,
+                  "rss_after": 47403008,
+                  "rss_delta": -774144
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 67166208,
+                  "seconds": 0.017264699999941513,
+                  "rss_before": 66347008,
+                  "rss_after": 66367488,
+                  "rss_delta": 20480
+                }
+              ]
+            },
+            "flow_replay": {
+              "calls": 2,
+              "seconds": 0.02767680000033579,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 48369664,
+                  "seconds": 0.010798700001032557,
+                  "rss_before": 47403008,
+                  "rss_after": 48369664,
+                  "rss_delta": 966656
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 49537024,
+                  "seconds": 0.01687809999930323,
+                  "rss_before": 49418240,
+                  "rss_after": 49537024,
+                  "rss_delta": 118784
+                }
+              ]
+            },
+            "flow_compile": {
+              "calls": 2,
+              "seconds": 0.2049341000019922,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 50233344,
+                  "seconds": 0.08016530000168132,
+                  "rss_before": 47550464,
+                  "rss_after": 49418240,
+                  "rss_delta": 1867776
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 51310592,
+                  "seconds": 0.12476880000031088,
+                  "rss_before": 49537024,
+                  "rss_after": 51310592,
+                  "rss_delta": 1773568
+                }
+              ]
+            },
+            "owl_inference": {
+              "calls": 1,
+              "seconds": 2.287081799997395,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 225660928,
+                  "seconds": 2.287081799997395,
+                  "rss_before": 56205312,
+                  "rss_after": 57450496,
+                  "rss_delta": 1245184
+                }
+              ]
+            },
+            "chain_generation_inclusive": {
+              "calls": 1,
+              "seconds": 2.7368229999992764,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 225660928,
+                  "seconds": 2.7368229999992764,
+                  "rss_before": 53219328,
+                  "rss_after": 60719104,
+                  "rss_delta": 7499776
+                }
+              ]
+            },
+            "normalization": {
+              "calls": 1,
+              "seconds": 0.0004048999981023371,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 63877120,
+                  "seconds": 0.0004048999981023371,
+                  "rss_before": 63062016,
+                  "rss_after": 63066112,
+                  "rss_delta": 4096
+                }
+              ]
+            },
+            "network_optimization": {
+              "calls": 1,
+              "seconds": 0.00690980000217678,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 67317760,
+                  "seconds": 0.00690980000217678,
+                  "rss_before": 66498560,
+                  "rss_after": 66154496,
+                  "rss_delta": -344064
+                }
+              ]
+            },
+            "independent_verification": {
+              "calls": 1,
+              "seconds": 0.2551366000006965,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 70307840,
+                  "seconds": 0.2551366000006965,
+                  "rss_before": 66166784,
+                  "rss_after": 69488640,
+                  "rss_delta": 3321856
+                }
+              ]
+            },
+            "memory": {
+              "sample_interval_ms": 20,
+              "samples": 94,
+              "sampled_python_peak_rss_bytes": 70307840,
+              "sampled_python_plus_children_peak_rss_bytes": 225660928,
+              "scope": "sum of sampled working sets; shared pages may be double counted; not a true simultaneous OS peak",
+              "tracked_subprocess_count": 3,
+              "discovered_descendants": [
+                {
+                  "pid": 30176,
+                  "parent": 7404,
+                  "name": "cmd.exe",
+                  "sampled_peak_rss_bytes": null
+                },
+                {
+                  "pid": 32164,
+                  "parent": 7404,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 3530752
+                },
+                {
+                  "pid": 28784,
+                  "parent": 32164,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 37773312
+                },
+                {
+                  "pid": 33168,
+                  "parent": 28784,
+                  "name": "java.exe",
+                  "sampled_peak_rss_bytes": 115830784
+                },
+                {
+                  "pid": 6740,
+                  "parent": 33168,
+                  "name": "conhost.exe",
+                  "sampled_peak_rss_bytes": 11268096
+                }
+              ]
+            },
+            "owl_result_sizes": [
+              {
+                "facts": 24,
+                "subjects": 70,
+                "types": 159
+              }
+            ],
+            "flow_counts": [
+              {
+                "task_id": "T1",
+                "statistics": {
+                  "nodes": 105,
+                  "prefixes_checked": 29,
+                  "transitions_applied": 23,
+                  "rejected_prefixes": 0,
+                  "rejected_occurrences": 36,
+                  "rejected_transitions": 46,
+                  "unknown_branches": 0,
+                  "unknown_goal_checks": 0,
+                  "candidate_count": 2,
+                  "elapsed_ms": 12.518
+                },
+                "status": "exhausted",
+                "reason": "frontier_exhausted"
+              }
+            ],
+            "chain_counts": {
+              "generated": 8,
+              "unique": 8,
+              "duplicates": 0,
+              "batches": 1,
+              "per_task": [
+                {
+                  "task": "T1",
+                  "generation": {
+                    "mode": "sequential_product_v2",
+                    "nodes": 14,
+                    "pruned": {},
+                    "templates": [
+                      {
+                        "rule": "flow-4e119a81c7b7e8e7c5e5b94a66ec360a61e4aa2eebfec8273245697fb8bf7136",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-03898556f91c98eb42d48da4ef7e6aab8845d2cde44c3ebe961cd4c58c7cbe9a",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      }
+                    ],
+                    "scope": "按环节生成全部已知可行轨迹；不表示这些轨迹能同时执行，不计算论文转化率",
+                    "feasible_trajectories": 8,
+                    "status": "complete",
+                    "coverage": "complete",
+                    "termination_reason": "generation_exhausted"
+                  },
+                  "chains": 8
+                }
+              ]
+            },
+            "network_counts": {
+              "algorithm": "branch_and_bound",
+              "candidate_combinations": 8,
+              "counts_scope": "visited_complete_candidates",
+              "evaluated": 8,
+              "feasible": 8,
+              "nodes": 8,
+              "pruned_constraints": 0,
+              "pruned_bound": 0,
+              "rejections": [],
+              "optimality": "proven",
+              "score_bound_enabled": false,
+              "pruned_table10": 0,
+              "unknown_combinations_seen": 0,
+              "audit_scope": "visited_complete_combinations; definite-failure prefixes pruned",
+              "search_complete": true,
+              "termination_reason": "search_exhausted",
+              "table10_pruning": []
+            }
+          },
+          "correctness": {
+            "integration_status": "selected",
+            "global_optimality": "bounded_global_optimum",
+            "flow_search_complete": true,
+            "chain_generation_complete": true,
+            "network_search_complete": true,
+            "independent_verification": "passed",
+            "oracle": {
+              "raw_network_combinations": 8,
+              "feasible_network_combinations": 8,
+              "best_score": 0.8285714285714286,
+              "selected_candidate_ids": [
+                "candidate-235be96f6325e50b9655565a6c0231780b31a1032d2f001502d708971b0584b3"
+              ]
+            },
+            "termination_reasons": [],
+            "termination_reason": "search_exhausted",
+            "feasible_solution": true,
+            "domain_validity": "pending"
+          },
+          "benchmark_version": "tfdo-benchmark-1.0",
+          "case": {
+            "id": "P1-flows-2",
+            "group": "P1",
+            "value": 2
+          },
+          "input_hash": "15a98a3772793b6439bbee74e4eab110e5fceaf77bc230eac3fb580b666badcc",
+          "semantic_hash": "e4cb9a0aa46a8e30a8717cdb514b1d665dd2df5b56e4d1a2d68de14d830b91d4",
+          "processes": [
+            {
+              "pid": 30176,
+              "command": "ver"
+            },
+            {
+              "pid": 34068,
+              "command": "ver"
+            },
+            {
+              "pid": 32164,
+              "command": "['C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\.venv\\\\Scripts\\\\python.exe', '-B', '-m', 'adapters.owl_infer', 'C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\tmp\\\\tmpoy9gg0xk']"
+            }
+          ],
+          "output_report_bytes": 1561523,
+          "timing_scope": "run_joint only; inclusive stages overlap; excludes imports, oracle and output serialization",
+          "startup": "fresh Python worker and fresh HermiT JVM per inference; OS filesystem cache uncontrolled"
+        }
+      ],
+      "summary": {
+        "completed": 5,
+        "semantic_repeatable": true,
+        "median_runtime": 3.5328979000005347,
+        "min_runtime": 3.2749370000019553,
+        "max_runtime": 3.9511463999988337,
+        "sampled_peak_memory": 229359616
+      }
+    },
+    {
+      "case": {
+        "id": "P1-flows-4",
+        "group": "P1",
+        "value": 4
+      },
+      "repetitions": [
+        {
+          "repetition": 1,
+          "status": "completed",
+          "exit_code": 0,
+          "worker_wall_seconds": 5.07010640000226,
+          "pipeline_seconds": 3.8896601000014925,
+          "stage_metrics": {
+            "flow_search": {
+              "calls": 2,
+              "seconds": 0.0529798999959894,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 48222208,
+                  "seconds": 0.02540189999854192,
+                  "rss_before": 47403008,
+                  "rss_after": 47599616,
+                  "rss_delta": 196608
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 72364032,
+                  "seconds": 0.027577999997447478,
+                  "rss_before": 72265728,
+                  "rss_after": 72282112,
+                  "rss_delta": 16384
+                }
+              ]
+            },
+            "flow_replay": {
+              "calls": 4,
+              "seconds": 0.06238630000370904,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 47665152,
+                  "seconds": 0.01353930000186665,
+                  "rss_before": 47599616,
+                  "rss_after": 47628288,
+                  "rss_delta": 28672
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 49889280,
+                  "seconds": 0.014362400001118658,
+                  "rss_before": 49840128,
+                  "rss_after": 49889280,
+                  "rss_delta": 49152
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 51851264,
+                  "seconds": 0.018328199999814387,
+                  "rss_before": 51773440,
+                  "rss_after": 51847168,
+                  "rss_delta": 73728
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 53669888,
+                  "seconds": 0.016156400000909343,
+                  "rss_before": 53604352,
+                  "rss_after": 53665792,
+                  "rss_delta": 61440
+                }
+              ]
+            },
+            "flow_compile": {
+              "calls": 4,
+              "seconds": 0.3380342999989807,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 50659328,
+                  "seconds": 0.08562660000097821,
+                  "rss_before": 47632384,
+                  "rss_after": 49840128,
+                  "rss_delta": 2207744
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 52592640,
+                  "seconds": 0.08291129999997793,
+                  "rss_before": 49889280,
+                  "rss_after": 51773440,
+                  "rss_delta": 1884160
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 54423552,
+                  "seconds": 0.09084689999872353,
+                  "rss_before": 51847168,
+                  "rss_after": 53604352,
+                  "rss_delta": 1757184
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 55803904,
+                  "seconds": 0.07864949999930104,
+                  "rss_before": 53665792,
+                  "rss_after": 55738368,
+                  "rss_delta": 2072576
+                }
+              ]
+            },
+            "owl_inference": {
+              "calls": 1,
+              "seconds": 2.009981900002458,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 235520000,
+                  "seconds": 2.009981900002458,
+                  "rss_before": 60411904,
+                  "rss_after": 61583360,
+                  "rss_delta": 1171456
+                }
+              ]
+            },
+            "chain_generation_inclusive": {
+              "calls": 1,
+              "seconds": 2.395065499997145,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 235520000,
+                  "seconds": 2.395065499997145,
+                  "rss_before": 57491456,
+                  "rss_after": 64425984,
+                  "rss_delta": 6934528
+                }
+              ]
+            },
+            "normalization": {
+              "calls": 1,
+              "seconds": 0.00032699999792384915,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 68624384,
+                  "seconds": 0.00032699999792384915,
+                  "rss_before": 67776512,
+                  "rss_after": 67780608,
+                  "rss_delta": 4096
+                }
+              ]
+            },
+            "network_optimization": {
+              "calls": 1,
+              "seconds": 0.00596159999986412,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 72560640,
+                  "seconds": 0.00596159999986412,
+                  "rss_before": 71708672,
+                  "rss_after": 71970816,
+                  "rss_delta": 262144
+                }
+              ]
+            },
+            "independent_verification": {
+              "calls": 1,
+              "seconds": 0.2965853999994579,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 75563008,
+                  "seconds": 0.2965853999994579,
+                  "rss_before": 71991296,
+                  "rss_after": 74711040,
+                  "rss_delta": 2719744
+                }
+              ]
+            },
+            "memory": {
+              "sample_interval_ms": 20,
+              "samples": 105,
+              "sampled_python_peak_rss_bytes": 75530240,
+              "sampled_python_plus_children_peak_rss_bytes": 235520000,
+              "scope": "sum of sampled working sets; shared pages may be double counted; not a true simultaneous OS peak",
+              "tracked_subprocess_count": 3,
+              "discovered_descendants": [
+                {
+                  "pid": 34532,
+                  "parent": 31792,
+                  "name": "cmd.exe",
+                  "sampled_peak_rss_bytes": 1695744
+                },
+                {
+                  "pid": 16436,
+                  "parent": 31792,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 3907584
+                },
+                {
+                  "pid": 22460,
+                  "parent": 16436,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 37904384
+                },
+                {
+                  "pid": 14856,
+                  "parent": 22460,
+                  "name": "java.exe",
+                  "sampled_peak_rss_bytes": 121516032
+                },
+                {
+                  "pid": 6832,
+                  "parent": 14856,
+                  "name": "conhost.exe",
+                  "sampled_peak_rss_bytes": 11264000
+                }
+              ]
+            },
+            "owl_result_sizes": [
+              {
+                "facts": 34,
+                "subjects": 78,
+                "types": 175
+              }
+            ],
+            "flow_counts": [
+              {
+                "task_id": "T1",
+                "statistics": {
+                  "nodes": 231,
+                  "prefixes_checked": 47,
+                  "transitions_applied": 41,
+                  "rejected_prefixes": 0,
+                  "rejected_occurrences": 68,
+                  "rejected_transitions": 122,
+                  "unknown_branches": 0,
+                  "unknown_goal_checks": 0,
+                  "candidate_count": 4,
+                  "elapsed_ms": 24.217
+                },
+                "status": "exhausted",
+                "reason": "frontier_exhausted"
+              }
+            ],
+            "chain_counts": {
+              "generated": 16,
+              "unique": 16,
+              "duplicates": 0,
+              "batches": 1,
+              "per_task": [
+                {
+                  "task": "T1",
+                  "generation": {
+                    "mode": "sequential_product_v2",
+                    "nodes": 28,
+                    "pruned": {},
+                    "templates": [
+                      {
+                        "rule": "flow-4e119a81c7b7e8e7c5e5b94a66ec360a61e4aa2eebfec8273245697fb8bf7136",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-03898556f91c98eb42d48da4ef7e6aab8845d2cde44c3ebe961cd4c58c7cbe9a",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-8cd70a1d5362803c2e4645f8ca447ae8ddc0e7786f112e3144b1423a60a5075f",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-bb7764d6897d248425ff364946f120106b39b192baa1bc261bc7fde87297b52d",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      }
+                    ],
+                    "scope": "按环节生成全部已知可行轨迹；不表示这些轨迹能同时执行，不计算论文转化率",
+                    "feasible_trajectories": 16,
+                    "status": "complete",
+                    "coverage": "complete",
+                    "termination_reason": "generation_exhausted"
+                  },
+                  "chains": 16
+                }
+              ]
+            },
+            "network_counts": {
+              "algorithm": "branch_and_bound",
+              "candidate_combinations": 16,
+              "counts_scope": "visited_complete_candidates",
+              "evaluated": 16,
+              "feasible": 16,
+              "nodes": 16,
+              "pruned_constraints": 0,
+              "pruned_bound": 0,
+              "rejections": [],
+              "optimality": "proven",
+              "score_bound_enabled": false,
+              "pruned_table10": 0,
+              "unknown_combinations_seen": 0,
+              "audit_scope": "visited_complete_combinations; definite-failure prefixes pruned",
+              "search_complete": true,
+              "termination_reason": "search_exhausted",
+              "table10_pruning": []
+            }
+          },
+          "correctness": {
+            "integration_status": "selected",
+            "global_optimality": "bounded_global_optimum",
+            "flow_search_complete": true,
+            "chain_generation_complete": true,
+            "network_search_complete": true,
+            "independent_verification": "passed",
+            "oracle": {
+              "raw_network_combinations": 16,
+              "feasible_network_combinations": 16,
+              "best_score": 0.8285714285714286,
+              "selected_candidate_ids": [
+                "candidate-06aff93b487f484731f1d1b2bb04a59ccc286cc017ea15774577a9668f204165"
+              ]
+            },
+            "termination_reasons": [],
+            "termination_reason": "search_exhausted",
+            "feasible_solution": true,
+            "domain_validity": "pending"
+          },
+          "benchmark_version": "tfdo-benchmark-1.0",
+          "case": {
+            "id": "P1-flows-4",
+            "group": "P1",
+            "value": 4
+          },
+          "input_hash": "7a50f84adb3c9e2a27f4d0aeeacc185ebf4746e0cf4b13af399f15d53f715f36",
+          "semantic_hash": "273d262f8a99031748fe323c24643bc3a912440d73b4cfe3f647d4709425c22a",
+          "processes": [
+            {
+              "pid": 34532,
+              "command": "ver"
+            },
+            {
+              "pid": 20500,
+              "command": "ver"
+            },
+            {
+              "pid": 16436,
+              "command": "['C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\.venv\\\\Scripts\\\\python.exe', '-B', '-m', 'adapters.owl_infer', 'C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\tmp\\\\tmp7ndkr4uc']"
+            }
+          ],
+          "output_report_bytes": 2522785,
+          "timing_scope": "run_joint only; inclusive stages overlap; excludes imports, oracle and output serialization",
+          "startup": "fresh Python worker and fresh HermiT JVM per inference; OS filesystem cache uncontrolled"
+        },
+        {
+          "repetition": 2,
+          "status": "completed",
+          "exit_code": 0,
+          "worker_wall_seconds": 4.814030900000944,
+          "pipeline_seconds": 3.7476628000003984,
+          "stage_metrics": {
+            "flow_search": {
+              "calls": 2,
+              "seconds": 0.04799199999979464,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 47800320,
+                  "seconds": 0.021826799998962088,
+                  "rss_before": 47722496,
+                  "rss_after": 47800320,
+                  "rss_delta": 77824
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 72978432,
+                  "seconds": 0.026165200000832556,
+                  "rss_before": 72159232,
+                  "rss_after": 72192000,
+                  "rss_delta": 32768
+                }
+              ]
+            },
+            "flow_replay": {
+              "calls": 4,
+              "seconds": 0.07055160000163596,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 48680960,
+                  "seconds": 0.01867610000044806,
+                  "rss_before": 47800320,
+                  "rss_after": 47861760,
+                  "rss_delta": 61440
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 49975296,
+                  "seconds": 0.019616199999290984,
+                  "rss_before": 49868800,
+                  "rss_after": 49971200,
+                  "rss_delta": 102400
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 51687424,
+                  "seconds": 0.016540000000532018,
+                  "rss_before": 51609600,
+                  "rss_after": 51683328,
+                  "rss_delta": 73728
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 53645312,
+                  "seconds": 0.0157193000013649,
+                  "rss_before": 53587968,
+                  "rss_after": 53645312,
+                  "rss_delta": 57344
+                }
+              ]
+            },
+            "flow_compile": {
+              "calls": 4,
+              "seconds": 0.2917182999990473,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 49934336,
+                  "seconds": 0.08380490000126883,
+                  "rss_before": 47861760,
+                  "rss_after": 49868800,
+                  "rss_delta": 2007040
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 51613696,
+                  "seconds": 0.07733530000041355,
+                  "rss_before": 49971200,
+                  "rss_after": 51609600,
+                  "rss_delta": 1638400
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 54243328,
+                  "seconds": 0.07175469999856432,
+                  "rss_before": 51683328,
+                  "rss_after": 53587968,
+                  "rss_delta": 1904640
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 54947840,
+                  "seconds": 0.058823399998800596,
+                  "rss_before": 53645312,
+                  "rss_after": 54882304,
+                  "rss_delta": 1236992
+                }
+              ]
+            },
+            "owl_inference": {
+              "calls": 1,
+              "seconds": 2.0614961000028416,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 235622400,
+                  "seconds": 2.0614961000028416,
+                  "rss_before": 60129280,
+                  "rss_after": 62300160,
+                  "rss_delta": 2170880
+                }
+              ]
+            },
+            "chain_generation_inclusive": {
+              "calls": 1,
+              "seconds": 2.419620299999224,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 235622400,
+                  "seconds": 2.419620299999224,
+                  "rss_before": 57278464,
+                  "rss_after": 64180224,
+                  "rss_delta": 6901760
+                }
+              ]
+            },
+            "normalization": {
+              "calls": 1,
+              "seconds": 0.0002717000024858862,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 68423680,
+                  "seconds": 0.0002717000024858862,
+                  "rss_before": 67608576,
+                  "rss_after": 67608576,
+                  "rss_delta": 0
+                }
+              ]
+            },
+            "network_optimization": {
+              "calls": 1,
+              "seconds": 0.005545899999560788,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 72384512,
+                  "seconds": 0.005545899999560788,
+                  "rss_before": 71565312,
+                  "rss_after": 71925760,
+                  "rss_delta": 360448
+                }
+              ]
+            },
+            "independent_verification": {
+              "calls": 1,
+              "seconds": 0.2885427000001073,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 75980800,
+                  "seconds": 0.2885427000001073,
+                  "rss_before": 71860224,
+                  "rss_after": 75161600,
+                  "rss_delta": 3301376
+                }
+              ]
+            },
+            "memory": {
+              "sample_interval_ms": 20,
+              "samples": 103,
+              "sampled_python_peak_rss_bytes": 75980800,
+              "sampled_python_plus_children_peak_rss_bytes": 235622400,
+              "scope": "sum of sampled working sets; shared pages may be double counted; not a true simultaneous OS peak",
+              "tracked_subprocess_count": 3,
+              "discovered_descendants": [
+                {
+                  "pid": 21816,
+                  "parent": 30976,
+                  "name": "cmd.exe",
+                  "sampled_peak_rss_bytes": null
+                },
+                {
+                  "pid": 22400,
+                  "parent": 30976,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 3530752
+                },
+                {
+                  "pid": 26636,
+                  "parent": 22400,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 37666816
+                },
+                {
+                  "pid": 31796,
+                  "parent": 26636,
+                  "name": "java.exe",
+                  "sampled_peak_rss_bytes": 121675776
+                },
+                {
+                  "pid": 34188,
+                  "parent": 31796,
+                  "name": "conhost.exe",
+                  "sampled_peak_rss_bytes": 11251712
+                }
+              ]
+            },
+            "owl_result_sizes": [
+              {
+                "facts": 34,
+                "subjects": 78,
+                "types": 175
+              }
+            ],
+            "flow_counts": [
+              {
+                "task_id": "T1",
+                "statistics": {
+                  "nodes": 231,
+                  "prefixes_checked": 47,
+                  "transitions_applied": 41,
+                  "rejected_prefixes": 0,
+                  "rejected_occurrences": 68,
+                  "rejected_transitions": 122,
+                  "unknown_branches": 0,
+                  "unknown_goal_checks": 0,
+                  "candidate_count": 4,
+                  "elapsed_ms": 21.405
+                },
+                "status": "exhausted",
+                "reason": "frontier_exhausted"
+              }
+            ],
+            "chain_counts": {
+              "generated": 16,
+              "unique": 16,
+              "duplicates": 0,
+              "batches": 1,
+              "per_task": [
+                {
+                  "task": "T1",
+                  "generation": {
+                    "mode": "sequential_product_v2",
+                    "nodes": 28,
+                    "pruned": {},
+                    "templates": [
+                      {
+                        "rule": "flow-4e119a81c7b7e8e7c5e5b94a66ec360a61e4aa2eebfec8273245697fb8bf7136",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-03898556f91c98eb42d48da4ef7e6aab8845d2cde44c3ebe961cd4c58c7cbe9a",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-8cd70a1d5362803c2e4645f8ca447ae8ddc0e7786f112e3144b1423a60a5075f",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-bb7764d6897d248425ff364946f120106b39b192baa1bc261bc7fde87297b52d",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      }
+                    ],
+                    "scope": "按环节生成全部已知可行轨迹；不表示这些轨迹能同时执行，不计算论文转化率",
+                    "feasible_trajectories": 16,
+                    "status": "complete",
+                    "coverage": "complete",
+                    "termination_reason": "generation_exhausted"
+                  },
+                  "chains": 16
+                }
+              ]
+            },
+            "network_counts": {
+              "algorithm": "branch_and_bound",
+              "candidate_combinations": 16,
+              "counts_scope": "visited_complete_candidates",
+              "evaluated": 16,
+              "feasible": 16,
+              "nodes": 16,
+              "pruned_constraints": 0,
+              "pruned_bound": 0,
+              "rejections": [],
+              "optimality": "proven",
+              "score_bound_enabled": false,
+              "pruned_table10": 0,
+              "unknown_combinations_seen": 0,
+              "audit_scope": "visited_complete_combinations; definite-failure prefixes pruned",
+              "search_complete": true,
+              "termination_reason": "search_exhausted",
+              "table10_pruning": []
+            }
+          },
+          "correctness": {
+            "integration_status": "selected",
+            "global_optimality": "bounded_global_optimum",
+            "flow_search_complete": true,
+            "chain_generation_complete": true,
+            "network_search_complete": true,
+            "independent_verification": "passed",
+            "oracle": {
+              "raw_network_combinations": 16,
+              "feasible_network_combinations": 16,
+              "best_score": 0.8285714285714286,
+              "selected_candidate_ids": [
+                "candidate-06aff93b487f484731f1d1b2bb04a59ccc286cc017ea15774577a9668f204165"
+              ]
+            },
+            "termination_reasons": [],
+            "termination_reason": "search_exhausted",
+            "feasible_solution": true,
+            "domain_validity": "pending"
+          },
+          "benchmark_version": "tfdo-benchmark-1.0",
+          "case": {
+            "id": "P1-flows-4",
+            "group": "P1",
+            "value": 4
+          },
+          "input_hash": "7a50f84adb3c9e2a27f4d0aeeacc185ebf4746e0cf4b13af399f15d53f715f36",
+          "semantic_hash": "273d262f8a99031748fe323c24643bc3a912440d73b4cfe3f647d4709425c22a",
+          "processes": [
+            {
+              "pid": 21816,
+              "command": "ver"
+            },
+            {
+              "pid": 26756,
+              "command": "ver"
+            },
+            {
+              "pid": 22400,
+              "command": "['C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\.venv\\\\Scripts\\\\python.exe', '-B', '-m', 'adapters.owl_infer', 'C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\tmp\\\\tmp5zcsvko_']"
+            }
+          ],
+          "output_report_bytes": 2522785,
+          "timing_scope": "run_joint only; inclusive stages overlap; excludes imports, oracle and output serialization",
+          "startup": "fresh Python worker and fresh HermiT JVM per inference; OS filesystem cache uncontrolled"
+        },
+        {
+          "repetition": 3,
+          "status": "completed",
+          "exit_code": 0,
+          "worker_wall_seconds": 4.901358700000856,
+          "pipeline_seconds": 3.733589800001937,
+          "stage_metrics": {
+            "flow_search": {
+              "calls": 2,
+              "seconds": 0.051843300003383774,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 47947776,
+                  "seconds": 0.025187800001731375,
+                  "rss_before": 47128576,
+                  "rss_after": 47304704,
+                  "rss_delta": 176128
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 72757248,
+                  "seconds": 0.0266555000016524,
+                  "rss_before": 71938048,
+                  "rss_after": 71958528,
+                  "rss_delta": 20480
+                }
+              ]
+            },
+            "flow_replay": {
+              "calls": 4,
+              "seconds": 0.047705600001791026,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 47341568,
+                  "seconds": 0.011801399999967543,
+                  "rss_before": 47304704,
+                  "rss_after": 47345664,
+                  "rss_delta": 40960
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 49664000,
+                  "seconds": 0.01228629999968689,
+                  "rss_before": 49577984,
+                  "rss_after": 49659904,
+                  "rss_delta": 81920
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 51523584,
+                  "seconds": 0.01179250000132015,
+                  "rss_before": 51458048,
+                  "rss_after": 51535872,
+                  "rss_delta": 77824
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 53424128,
+                  "seconds": 0.011825400000816444,
+                  "rss_before": 53374976,
+                  "rss_after": 53428224,
+                  "rss_delta": 53248
+                }
+              ]
+            },
+            "flow_compile": {
+              "calls": 4,
+              "seconds": 0.2835909999994328,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 50397184,
+                  "seconds": 0.06928740000148537,
+                  "rss_before": 47341568,
+                  "rss_after": 49577984,
+                  "rss_delta": 2236416
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 52113408,
+                  "seconds": 0.0748868999980914,
+                  "rss_before": 49659904,
+                  "rss_after": 51458048,
+                  "rss_delta": 1798144
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 54194176,
+                  "seconds": 0.07010000000082073,
+                  "rss_before": 51523584,
+                  "rss_after": 53374976,
+                  "rss_delta": 1851392
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 56111104,
+                  "seconds": 0.06931669999903534,
+                  "rss_before": 53428224,
+                  "rss_after": 55291904,
+                  "rss_delta": 1863680
+                }
+              ]
+            },
+            "owl_inference": {
+              "calls": 1,
+              "seconds": 2.1162347000026784,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 235167744,
+                  "seconds": 2.1162347000026784,
+                  "rss_before": 60162048,
+                  "rss_after": 61415424,
+                  "rss_delta": 1253376
+                }
+              ]
+            },
+            "chain_generation_inclusive": {
+              "calls": 1,
+              "seconds": 2.4485510000013164,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 235167744,
+                  "seconds": 2.4485510000013164,
+                  "rss_before": 57208832,
+                  "rss_after": 65085440,
+                  "rss_delta": 7876608
+                }
+              ]
+            },
+            "normalization": {
+              "calls": 1,
+              "seconds": 0.0004158000010647811,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 68513792,
+                  "seconds": 0.0004158000010647811,
+                  "rss_before": 67706880,
+                  "rss_after": 67710976,
+                  "rss_delta": 4096
+                }
+              ]
+            },
+            "network_optimization": {
+              "calls": 1,
+              "seconds": 0.005213000000367174,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 72159232,
+                  "seconds": 0.005213000000367174,
+                  "rss_before": 71340032,
+                  "rss_after": 71659520,
+                  "rss_delta": 319488
+                }
+              ]
+            },
+            "independent_verification": {
+              "calls": 1,
+              "seconds": 0.2463192000031995,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 75776000,
+                  "seconds": 0.2463192000031995,
+                  "rss_before": 71688192,
+                  "rss_after": 74956800,
+                  "rss_delta": 3268608
+                }
+              ]
+            },
+            "memory": {
+              "sample_interval_ms": 20,
+              "samples": 105,
+              "sampled_python_peak_rss_bytes": 75776000,
+              "sampled_python_plus_children_peak_rss_bytes": 235167744,
+              "scope": "sum of sampled working sets; shared pages may be double counted; not a true simultaneous OS peak",
+              "tracked_subprocess_count": 3,
+              "discovered_descendants": [
+                {
+                  "pid": 34320,
+                  "parent": 34212,
+                  "name": "cmd.exe",
+                  "sampled_peak_rss_bytes": 2449408
+                },
+                {
+                  "pid": 24164,
+                  "parent": 34212,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 3530752
+                },
+                {
+                  "pid": 9208,
+                  "parent": 24164,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 37830656
+                },
+                {
+                  "pid": 34232,
+                  "parent": 9208,
+                  "name": "java.exe",
+                  "sampled_peak_rss_bytes": 121376768
+                },
+                {
+                  "pid": 12080,
+                  "parent": 34232,
+                  "name": "conhost.exe",
+                  "sampled_peak_rss_bytes": 11259904
+                }
+              ]
+            },
+            "owl_result_sizes": [
+              {
+                "facts": 34,
+                "subjects": 78,
+                "types": 175
+              }
+            ],
+            "flow_counts": [
+              {
+                "task_id": "T1",
+                "statistics": {
+                  "nodes": 231,
+                  "prefixes_checked": 47,
+                  "transitions_applied": 41,
+                  "rejected_prefixes": 0,
+                  "rejected_occurrences": 68,
+                  "rejected_transitions": 122,
+                  "unknown_branches": 0,
+                  "unknown_goal_checks": 0,
+                  "candidate_count": 4,
+                  "elapsed_ms": 24.638
+                },
+                "status": "exhausted",
+                "reason": "frontier_exhausted"
+              }
+            ],
+            "chain_counts": {
+              "generated": 16,
+              "unique": 16,
+              "duplicates": 0,
+              "batches": 1,
+              "per_task": [
+                {
+                  "task": "T1",
+                  "generation": {
+                    "mode": "sequential_product_v2",
+                    "nodes": 28,
+                    "pruned": {},
+                    "templates": [
+                      {
+                        "rule": "flow-4e119a81c7b7e8e7c5e5b94a66ec360a61e4aa2eebfec8273245697fb8bf7136",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-03898556f91c98eb42d48da4ef7e6aab8845d2cde44c3ebe961cd4c58c7cbe9a",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-8cd70a1d5362803c2e4645f8ca447ae8ddc0e7786f112e3144b1423a60a5075f",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-bb7764d6897d248425ff364946f120106b39b192baa1bc261bc7fde87297b52d",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      }
+                    ],
+                    "scope": "按环节生成全部已知可行轨迹；不表示这些轨迹能同时执行，不计算论文转化率",
+                    "feasible_trajectories": 16,
+                    "status": "complete",
+                    "coverage": "complete",
+                    "termination_reason": "generation_exhausted"
+                  },
+                  "chains": 16
+                }
+              ]
+            },
+            "network_counts": {
+              "algorithm": "branch_and_bound",
+              "candidate_combinations": 16,
+              "counts_scope": "visited_complete_candidates",
+              "evaluated": 16,
+              "feasible": 16,
+              "nodes": 16,
+              "pruned_constraints": 0,
+              "pruned_bound": 0,
+              "rejections": [],
+              "optimality": "proven",
+              "score_bound_enabled": false,
+              "pruned_table10": 0,
+              "unknown_combinations_seen": 0,
+              "audit_scope": "visited_complete_combinations; definite-failure prefixes pruned",
+              "search_complete": true,
+              "termination_reason": "search_exhausted",
+              "table10_pruning": []
+            }
+          },
+          "correctness": {
+            "integration_status": "selected",
+            "global_optimality": "bounded_global_optimum",
+            "flow_search_complete": true,
+            "chain_generation_complete": true,
+            "network_search_complete": true,
+            "independent_verification": "passed",
+            "oracle": {
+              "raw_network_combinations": 16,
+              "feasible_network_combinations": 16,
+              "best_score": 0.8285714285714286,
+              "selected_candidate_ids": [
+                "candidate-06aff93b487f484731f1d1b2bb04a59ccc286cc017ea15774577a9668f204165"
+              ]
+            },
+            "termination_reasons": [],
+            "termination_reason": "search_exhausted",
+            "feasible_solution": true,
+            "domain_validity": "pending"
+          },
+          "benchmark_version": "tfdo-benchmark-1.0",
+          "case": {
+            "id": "P1-flows-4",
+            "group": "P1",
+            "value": 4
+          },
+          "input_hash": "7a50f84adb3c9e2a27f4d0aeeacc185ebf4746e0cf4b13af399f15d53f715f36",
+          "semantic_hash": "273d262f8a99031748fe323c24643bc3a912440d73b4cfe3f647d4709425c22a",
+          "processes": [
+            {
+              "pid": 34320,
+              "command": "ver"
+            },
+            {
+              "pid": 19232,
+              "command": "ver"
+            },
+            {
+              "pid": 24164,
+              "command": "['C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\.venv\\\\Scripts\\\\python.exe', '-B', '-m', 'adapters.owl_infer', 'C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\tmp\\\\tmpwo4wma1q']"
+            }
+          ],
+          "output_report_bytes": 2522785,
+          "timing_scope": "run_joint only; inclusive stages overlap; excludes imports, oracle and output serialization",
+          "startup": "fresh Python worker and fresh HermiT JVM per inference; OS filesystem cache uncontrolled"
+        },
+        {
+          "repetition": 4,
+          "status": "completed",
+          "exit_code": 0,
+          "worker_wall_seconds": 4.78979409999738,
+          "pipeline_seconds": 3.6454789000017627,
+          "stage_metrics": {
+            "flow_search": {
+              "calls": 2,
+              "seconds": 0.0548914999999397,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 47063040,
+                  "seconds": 0.030251500000304077,
+                  "rss_before": 46964736,
+                  "rss_after": 47058944,
+                  "rss_delta": 94208
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 73048064,
+                  "seconds": 0.02463999999963562,
+                  "rss_before": 72228864,
+                  "rss_after": 72282112,
+                  "rss_delta": 53248
+                }
+              ]
+            },
+            "flow_replay": {
+              "calls": 4,
+              "seconds": 0.05537509999703616,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 47124480,
+                  "seconds": 0.015553499997622566,
+                  "rss_before": 47058944,
+                  "rss_after": 47099904,
+                  "rss_delta": 40960
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 49352704,
+                  "seconds": 0.013187000000471016,
+                  "rss_before": 49262592,
+                  "rss_after": 49352704,
+                  "rss_delta": 90112
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 51474432,
+                  "seconds": 0.013190199999371544,
+                  "rss_before": 51400704,
+                  "rss_after": 51474432,
+                  "rss_delta": 73728
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 53645312,
+                  "seconds": 0.013444399999571033,
+                  "rss_before": 53592064,
+                  "rss_after": 53633024,
+                  "rss_delta": 40960
+                }
+              ]
+            },
+            "flow_compile": {
+              "calls": 4,
+              "seconds": 0.3144232999984524,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 50081792,
+                  "seconds": 0.08269889999792213,
+                  "rss_before": 47099904,
+                  "rss_after": 49262592,
+                  "rss_delta": 2162688
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 52219904,
+                  "seconds": 0.0807535000021744,
+                  "rss_before": 49352704,
+                  "rss_after": 51400704,
+                  "rss_delta": 2048000
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 53596160,
+                  "seconds": 0.07517079999888665,
+                  "rss_before": 51474432,
+                  "rss_after": 53592064,
+                  "rss_delta": 2117632
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 56328192,
+                  "seconds": 0.07580009999946924,
+                  "rss_before": 53633024,
+                  "rss_after": 55508992,
+                  "rss_delta": 1875968
+                }
+              ]
+            },
+            "owl_inference": {
+              "calls": 1,
+              "seconds": 1.9592737999992096,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 240709632,
+                  "seconds": 1.9592737999992096,
+                  "rss_before": 60035072,
+                  "rss_after": 61374464,
+                  "rss_delta": 1339392
+                }
+              ]
+            },
+            "chain_generation_inclusive": {
+              "calls": 1,
+              "seconds": 2.291417899999942,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 240709632,
+                  "seconds": 2.291417899999942,
+                  "rss_before": 57376768,
+                  "rss_after": 64507904,
+                  "rss_delta": 7131136
+                }
+              ]
+            },
+            "normalization": {
+              "calls": 1,
+              "seconds": 0.00028870000096503645,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 68595712,
+                  "seconds": 0.00028870000096503645,
+                  "rss_before": 67784704,
+                  "rss_after": 67788800,
+                  "rss_delta": 4096
+                }
+              ]
+            },
+            "network_optimization": {
+              "calls": 1,
+              "seconds": 0.005105099997308571,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 72523776,
+                  "seconds": 0.005105099997308571,
+                  "rss_before": 71802880,
+                  "rss_after": 72036352,
+                  "rss_delta": 233472
+                }
+              ]
+            },
+            "independent_verification": {
+              "calls": 1,
+              "seconds": 0.2529700999984925,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 76009472,
+                  "seconds": 0.2529700999984925,
+                  "rss_before": 72859648,
+                  "rss_after": 75190272,
+                  "rss_delta": 2330624
+                }
+              ]
+            },
+            "memory": {
+              "sample_interval_ms": 20,
+              "samples": 103,
+              "sampled_python_peak_rss_bytes": 76009472,
+              "sampled_python_plus_children_peak_rss_bytes": 240709632,
+              "scope": "sum of sampled working sets; shared pages may be double counted; not a true simultaneous OS peak",
+              "tracked_subprocess_count": 3,
+              "discovered_descendants": [
+                {
+                  "pid": 15252,
+                  "parent": 32820,
+                  "name": "cmd.exe",
+                  "sampled_peak_rss_bytes": 3739648
+                },
+                {
+                  "pid": 25660,
+                  "parent": 32820,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 3530752
+                },
+                {
+                  "pid": 28024,
+                  "parent": 25660,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 37908480
+                },
+                {
+                  "pid": 31324,
+                  "parent": 28024,
+                  "name": "java.exe",
+                  "sampled_peak_rss_bytes": 126603264
+                },
+                {
+                  "pid": 34000,
+                  "parent": 31324,
+                  "name": "conhost.exe",
+                  "sampled_peak_rss_bytes": 11259904
+                }
+              ]
+            },
+            "owl_result_sizes": [
+              {
+                "facts": 34,
+                "subjects": 78,
+                "types": 175
+              }
+            ],
+            "flow_counts": [
+              {
+                "task_id": "T1",
+                "statistics": {
+                  "nodes": 231,
+                  "prefixes_checked": 47,
+                  "transitions_applied": 41,
+                  "rejected_prefixes": 0,
+                  "rejected_occurrences": 68,
+                  "rejected_transitions": 122,
+                  "unknown_branches": 0,
+                  "unknown_goal_checks": 0,
+                  "candidate_count": 4,
+                  "elapsed_ms": 29.728
+                },
+                "status": "exhausted",
+                "reason": "frontier_exhausted"
+              }
+            ],
+            "chain_counts": {
+              "generated": 16,
+              "unique": 16,
+              "duplicates": 0,
+              "batches": 1,
+              "per_task": [
+                {
+                  "task": "T1",
+                  "generation": {
+                    "mode": "sequential_product_v2",
+                    "nodes": 28,
+                    "pruned": {},
+                    "templates": [
+                      {
+                        "rule": "flow-4e119a81c7b7e8e7c5e5b94a66ec360a61e4aa2eebfec8273245697fb8bf7136",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-03898556f91c98eb42d48da4ef7e6aab8845d2cde44c3ebe961cd4c58c7cbe9a",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-8cd70a1d5362803c2e4645f8ca447ae8ddc0e7786f112e3144b1423a60a5075f",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-bb7764d6897d248425ff364946f120106b39b192baa1bc261bc7fde87297b52d",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      }
+                    ],
+                    "scope": "按环节生成全部已知可行轨迹；不表示这些轨迹能同时执行，不计算论文转化率",
+                    "feasible_trajectories": 16,
+                    "status": "complete",
+                    "coverage": "complete",
+                    "termination_reason": "generation_exhausted"
+                  },
+                  "chains": 16
+                }
+              ]
+            },
+            "network_counts": {
+              "algorithm": "branch_and_bound",
+              "candidate_combinations": 16,
+              "counts_scope": "visited_complete_candidates",
+              "evaluated": 16,
+              "feasible": 16,
+              "nodes": 16,
+              "pruned_constraints": 0,
+              "pruned_bound": 0,
+              "rejections": [],
+              "optimality": "proven",
+              "score_bound_enabled": false,
+              "pruned_table10": 0,
+              "unknown_combinations_seen": 0,
+              "audit_scope": "visited_complete_combinations; definite-failure prefixes pruned",
+              "search_complete": true,
+              "termination_reason": "search_exhausted",
+              "table10_pruning": []
+            }
+          },
+          "correctness": {
+            "integration_status": "selected",
+            "global_optimality": "bounded_global_optimum",
+            "flow_search_complete": true,
+            "chain_generation_complete": true,
+            "network_search_complete": true,
+            "independent_verification": "passed",
+            "oracle": {
+              "raw_network_combinations": 16,
+              "feasible_network_combinations": 16,
+              "best_score": 0.8285714285714286,
+              "selected_candidate_ids": [
+                "candidate-06aff93b487f484731f1d1b2bb04a59ccc286cc017ea15774577a9668f204165"
+              ]
+            },
+            "termination_reasons": [],
+            "termination_reason": "search_exhausted",
+            "feasible_solution": true,
+            "domain_validity": "pending"
+          },
+          "benchmark_version": "tfdo-benchmark-1.0",
+          "case": {
+            "id": "P1-flows-4",
+            "group": "P1",
+            "value": 4
+          },
+          "input_hash": "7a50f84adb3c9e2a27f4d0aeeacc185ebf4746e0cf4b13af399f15d53f715f36",
+          "semantic_hash": "273d262f8a99031748fe323c24643bc3a912440d73b4cfe3f647d4709425c22a",
+          "processes": [
+            {
+              "pid": 15252,
+              "command": "ver"
+            },
+            {
+              "pid": 34484,
+              "command": "ver"
+            },
+            {
+              "pid": 25660,
+              "command": "['C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\.venv\\\\Scripts\\\\python.exe', '-B', '-m', 'adapters.owl_infer', 'C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\tmp\\\\tmpqzb92obz']"
+            }
+          ],
+          "output_report_bytes": 2522785,
+          "timing_scope": "run_joint only; inclusive stages overlap; excludes imports, oracle and output serialization",
+          "startup": "fresh Python worker and fresh HermiT JVM per inference; OS filesystem cache uncontrolled"
+        },
+        {
+          "repetition": 5,
+          "status": "completed",
+          "exit_code": 0,
+          "worker_wall_seconds": 4.785234599999967,
+          "pipeline_seconds": 3.718216000001121,
+          "stage_metrics": {
+            "flow_search": {
+              "calls": 2,
+              "seconds": 0.05072479999944335,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 47251456,
+                  "seconds": 0.027600499997788575,
+                  "rss_before": 47124480,
+                  "rss_after": 47247360,
+                  "rss_delta": 122880
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 72544256,
+                  "seconds": 0.023124300001654774,
+                  "rss_before": 71725056,
+                  "rss_after": 71749632,
+                  "rss_delta": 24576
+                }
+              ]
+            },
+            "flow_replay": {
+              "calls": 4,
+              "seconds": 0.059491399995749816,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 47280128,
+                  "seconds": 0.015352799997344846,
+                  "rss_before": 47247360,
+                  "rss_after": 47280128,
+                  "rss_delta": 32768
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 49438720,
+                  "seconds": 0.013977799997519469,
+                  "rss_before": 49381376,
+                  "rss_after": 49438720,
+                  "rss_delta": 57344
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 51585024,
+                  "seconds": 0.01681049999751849,
+                  "rss_before": 51507200,
+                  "rss_after": 51572736,
+                  "rss_delta": 65536
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 53497856,
+                  "seconds": 0.01335030000336701,
+                  "rss_before": 53465088,
+                  "rss_after": 53493760,
+                  "rss_delta": 28672
+                }
+              ]
+            },
+            "flow_compile": {
+              "calls": 4,
+              "seconds": 0.3480654000013601,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 50200576,
+                  "seconds": 0.0824255000006815,
+                  "rss_before": 47280128,
+                  "rss_after": 49381376,
+                  "rss_delta": 2101248
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 52326400,
+                  "seconds": 0.10768470000039088,
+                  "rss_before": 49438720,
+                  "rss_after": 51507200,
+                  "rss_delta": 2068480
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 54284288,
+                  "seconds": 0.08222999999998137,
+                  "rss_before": 51572736,
+                  "rss_after": 53465088,
+                  "rss_delta": 1892352
+                },
+                {
+                  "sampled_process_tree_peak_rss_bytes": 56074240,
+                  "seconds": 0.07572520000030636,
+                  "rss_before": 53493760,
+                  "rss_after": 55418880,
+                  "rss_delta": 1925120
+                }
+              ]
+            },
+            "owl_inference": {
+              "calls": 1,
+              "seconds": 1.9642641999998887,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 234823680,
+                  "seconds": 1.9642641999998887,
+                  "rss_before": 59879424,
+                  "rss_after": 61284352,
+                  "rss_delta": 1404928
+                }
+              ]
+            },
+            "chain_generation_inclusive": {
+              "calls": 1,
+              "seconds": 2.3043021999983466,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 234823680,
+                  "seconds": 2.3043021999983466,
+                  "rss_before": 57122816,
+                  "rss_after": 64991232,
+                  "rss_delta": 7868416
+                }
+              ]
+            },
+            "normalization": {
+              "calls": 1,
+              "seconds": 0.00026929999876301736,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 68677632,
+                  "seconds": 0.00026929999876301736,
+                  "rss_before": 67862528,
+                  "rss_after": 67862528,
+                  "rss_delta": 0
+                }
+              ]
+            },
+            "network_optimization": {
+              "calls": 1,
+              "seconds": 0.005133799997565802,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 71974912,
+                  "seconds": 0.005133799997565802,
+                  "rss_before": 71163904,
+                  "rss_after": 71532544,
+                  "rss_delta": 368640
+                }
+              ]
+            },
+            "independent_verification": {
+              "calls": 1,
+              "seconds": 0.2601183000006131,
+              "observations": [
+                {
+                  "sampled_process_tree_peak_rss_bytes": 75476992,
+                  "seconds": 0.2601183000006131,
+                  "rss_before": 71598080,
+                  "rss_after": 74657792,
+                  "rss_delta": 3059712
+                }
+              ]
+            },
+            "memory": {
+              "sample_interval_ms": 20,
+              "samples": 104,
+              "sampled_python_peak_rss_bytes": 75476992,
+              "sampled_python_plus_children_peak_rss_bytes": 234823680,
+              "scope": "sum of sampled working sets; shared pages may be double counted; not a true simultaneous OS peak",
+              "tracked_subprocess_count": 3,
+              "discovered_descendants": [
+                {
+                  "pid": 33824,
+                  "parent": 28796,
+                  "name": "cmd.exe",
+                  "sampled_peak_rss_bytes": 3756032
+                },
+                {
+                  "pid": 28128,
+                  "parent": 28796,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 3534848
+                },
+                {
+                  "pid": 16992,
+                  "parent": 28128,
+                  "name": "python.exe",
+                  "sampled_peak_rss_bytes": 37892096
+                },
+                {
+                  "pid": 15548,
+                  "parent": 16992,
+                  "name": "java.exe",
+                  "sampled_peak_rss_bytes": 120819712
+                },
+                {
+                  "pid": 29600,
+                  "parent": 15548,
+                  "name": "conhost.exe",
+                  "sampled_peak_rss_bytes": 11264000
+                }
+              ]
+            },
+            "owl_result_sizes": [
+              {
+                "facts": 34,
+                "subjects": 78,
+                "types": 175
+              }
+            ],
+            "flow_counts": [
+              {
+                "task_id": "T1",
+                "statistics": {
+                  "nodes": 231,
+                  "prefixes_checked": 47,
+                  "transitions_applied": 41,
+                  "rejected_prefixes": 0,
+                  "rejected_occurrences": 68,
+                  "rejected_transitions": 122,
+                  "unknown_branches": 0,
+                  "unknown_goal_checks": 0,
+                  "candidate_count": 4,
+                  "elapsed_ms": 26.909
+                },
+                "status": "exhausted",
+                "reason": "frontier_exhausted"
+              }
+            ],
+            "chain_counts": {
+              "generated": 16,
+              "unique": 16,
+              "duplicates": 0,
+              "batches": 1,
+              "per_task": [
+                {
+                  "task": "T1",
+                  "generation": {
+                    "mode": "sequential_product_v2",
+                    "nodes": 28,
+                    "pruned": {},
+                    "templates": [
+                      {
+                        "rule": "flow-4e119a81c7b7e8e7c5e5b94a66ec360a61e4aa2eebfec8273245697fb8bf7136",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-03898556f91c98eb42d48da4ef7e6aab8845d2cde44c3ebe961cd4c58c7cbe9a",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-8cd70a1d5362803c2e4645f8ca447ae8ddc0e7786f112e3144b1423a60a5075f",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      },
+                      {
+                        "rule": "flow-bb7764d6897d248425ff364946f120106b39b192baa1bc261bc7fde87297b52d",
+                        "capability": "template",
+                        "role": "insight",
+                        "status": "pass",
+                        "checks": [
+                          {
+                            "condition": {
+                              "field": "task.bridge_task_id",
+                              "op": "eq",
+                              "value": "T1"
+                            },
+                            "status": "pass",
+                            "reason": "条件成立"
+                          }
+                        ],
+                        "source_refs": [
+                          "synthetic-task-flow-design-bridge-v1"
+                        ],
+                        "blocking_issue_ids": [],
+                        "candidate_product_after_screening": 4
+                      }
+                    ],
+                    "scope": "按环节生成全部已知可行轨迹；不表示这些轨迹能同时执行，不计算论文转化率",
+                    "feasible_trajectories": 16,
+                    "status": "complete",
+                    "coverage": "complete",
+                    "termination_reason": "generation_exhausted"
+                  },
+                  "chains": 16
+                }
+              ]
+            },
+            "network_counts": {
+              "algorithm": "branch_and_bound",
+              "candidate_combinations": 16,
+              "counts_scope": "visited_complete_candidates",
+              "evaluated": 16,
+              "feasible": 16,
+              "nodes": 16,
+              "pruned_constraints": 0,
+              "pruned_bound": 0,
+              "rejections": [],
+              "optimality": "proven",
+              "score_bound_enabled": false,
+              "pruned_table10": 0,
+              "unknown_combinations_seen": 0,
+              "audit_scope": "visited_complete_combinations; definite-failure prefixes pruned",
+              "search_complete": true,
+              "termination_reason": "search_exhausted",
+              "table10_pruning": []
+            }
+          },
+          "correctness": {
+            "integration_status": "selected",
+            "global_optimality": "bounded_global_optimum",
+            "flow_search_complete": true,
+            "chain_generation_complete": true,
+            "network_search_complete": true,
+            "independent_verification": "passed",
+            "oracle": {
+              "raw_network_combinations": 16,
+              "feasible_network_combinations": 16,
+              "best_score": 0.8285714285714286,
+              "selected_candidate_ids": [
+                "candidate-06aff93b487f484731f1d1b2bb04a59ccc286cc017ea15774577a9668f204165"
+              ]
+            },
+            "termination_reasons": [],
+            "termination_reason": "search_exhausted",
+            "feasible_solution": true,
+            "domain_validity": "pending"
+          },
+          "benchmark_version": "tfdo-benchmark-1.0",
+          "case": {
+            "id": "P1-flows-4",
+            "group": "P1",
+            "value": 4
+          },
+          "input_hash": "7a50f84adb3c9e2a27f4d0aeeacc185ebf4746e0cf4b13af399f15d53f715f36",
+          "semantic_hash": "273d262f8a99031748fe323c24643bc3a912440d73b4cfe3f647d4709425c22a",
+          "processes": [
+            {
+              "pid": 33824,
+              "command": "ver"
+            },
+            {
+              "pid": 13544,
+              "command": "ver"
+            },
+            {
+              "pid": 28128,
+              "command": "['C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\.venv\\\\Scripts\\\\python.exe', '-B', '-m', 'adapters.owl_infer', 'C:\\\\Users\\\\Lenovo\\\\Desktop\\\\链\\\\tmp\\\\tmpu8enc1xa']"
+            }
+          ],
+          "output_report_bytes": 2522785,
+          "timing_scope": "run_joint only; inclusive stages overlap; excludes imports, oracle and output serialization",
+          "startup": "fresh Python worker and fresh HermiT JVM per inference; OS filesystem cache uncontrolled"
+        }
+      ],
+      "summary": {
+        "completed": 5,
+        "semantic_repeatable": true,
+        "median_runtime": 3.733589800001937,
+        "min_runtime": 3.6454789000017627,
+        "max_runtime": 3.8896601000014925,
+        "sampled_peak_memory": 240709632
+      }
+    }
+  ],
+  "domain_validity": "pending"
+}

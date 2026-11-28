@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "C:\Users\Lenovo\Desktop\链\workflow_tools\benchmark_joint.py", line 309, in <module>
+    if __name__=='__main__':main()
+                            ~~~~^^
+  File "C:\Users\Lenovo\Desktop\链\workflow_tools\benchmark_joint.py", line 262, in main
+    if args.worker:return worker(args.worker,args.output_dir)
+                          ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\链\workflow_tools\benchmark_joint.py", line 199, in worker
+    report=joint.run_joint(jobs,scene,mapping,**kwargs)
+  File "C:\Users\Lenovo\Desktop\链\task_flow\joint.py", line 71, in run_joint
+    problem = prepare_problem(job['catalog'],request)
+  File "C:\Users\Lenovo\Desktop\链\task_flow\contracts.py", line 188, in prepare_problem
+    require((request['catalog_id'], request['catalog_version'], request['catalog_sha256']) ==
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            (catalog['catalog_id'], catalog['version'], sha), 'catalog identity/version/digest mismatch')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Lenovo\Desktop\链\task_flow\contracts.py", line 27, in require
+    raise ContractError(message, code=code)
+task_flow.contracts.ContractError: catalog identity/version/digest mismatch
