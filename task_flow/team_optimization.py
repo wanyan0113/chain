@@ -9,8 +9,9 @@ from .joint_identity import sha, new_run_id
 from .team_verify import verify_teams
 from .team_evaluation import POLICY, source_binding, raw_metrics, freeze_and_score, scaffold
 from .joint_network import optimize, network
+from .team_quality_semantics import interpretation
 
-VERSION = 'task-flow-team-optimization-1.0'
+VERSION = 'task-flow-team-optimization-1.1'
 
 
 def execution_view(chain, raw, scored):
@@ -43,6 +44,7 @@ def run_team_optimization(source, registry, *, weights=None, max_network_nodes=N
                   source_network_search_complete=source['network_search_complete'],
                   supported_exports=['json', 'markdown'], blocked_reasons=[])
     raw, missing = raw_metrics(source, registry)
+    result['quality_interpretation'] = interpretation(source, registry)
     if missing:
         result['blocked_reasons'] = missing
         return result
@@ -92,11 +94,14 @@ def main(argv=None):
     (args.output_dir/'team_optimization.json').write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     (args.output_dir/'summary.md').write_text('\n'.join([
         '# Complementary-team optimization under explicit fixed intervals', '',
+        'Quality metric: 串行乘积质量指标 (not an actual task success probability).',
+        'Adding a factor in [0,1] cannot raise this index; later correction benefits are not modeled.',
         f"Status: {result['status']}; optimality: {result['optimality']}",
         'Scope: generated candidate set only; domain validity remains pending.',
         f"Selected: {result['selected_candidate_ids']}", f"Network: {result['network']}",
         f"Blocked: {result['blocked_reasons']}", '']) , encoding='utf-8')
     print(json.dumps(dict(status=result['status'], optimality=result['optimality'], network=result['network'],
+                          quality_interpretation=result['quality_interpretation'],
                           independent_verification=result['independent_verification']), ensure_ascii=False))
     return 0
 

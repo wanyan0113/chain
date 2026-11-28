@@ -12,6 +12,7 @@ from jsonschema import Draft202012Validator
 from .contracts import require
 from .joint_identity import sha, canonical
 from .team_contracts import VERSION
+from .team_quality_semantics import empty_quality_context, validate_quality_context
 
 POLICY = 'team-fixed-interval-explicit-quality-1.0'
 
@@ -38,8 +39,8 @@ def scaffold(report):
                 capability_assignments=deepcopy(stage['capability_assignments']), hub=stage['hub'],
                 member_metrics={m: dict(duration_s=None, cost=None, source_refs=[]) for m in sorted(stage['members'])},
                 fusion=dict(duration_s=None, cost=None, source_refs=[]),
-                quality=dict(value=None, origin='UNASSIGNED', source_refs=[]))
-    return dict(format_version='task-flow-team-evaluation-1.0', policy=POLICY, policy_version='1.0',
+                quality=dict(value=None, origin='UNASSIGNED', source_refs=[], **empty_quality_context(report)))
+    return dict(format_version='task-flow-team-evaluation-1.1', policy=POLICY, policy_version='1.0',
                 binding=source_binding(report), duration_policy='max_member_plus_explicit_fusion_v1',
                 reservation_policy='full_explicit_stage_interval_plus_member_cooldown_v1',
                 chain_quality_policy='product_of_explicit_stage_quality_v1',
@@ -56,11 +57,18 @@ def _number(v, low=0, high=None):
     return type(v) in (int, float) and math.isfinite(v) and v >= low and (high is None or v <= high)
 
 
-def validate_registry(report, registry):
-    schema = json.loads(Path(__file__).with_name('team_evaluation.schema.json').read_text(encoding='utf-8'))
+def validate_registry(report, registry, *, legacy_replay=False):
+    require(type(registry) is dict, 'expected team evaluation object')
+    legacy = registry.get('format_version') == 'task-flow-team-evaluation-1.0'
+    schema_name = 'team_evaluation.v1.schema.json' if legacy else 'team_evaluation.schema.json'
+    schema = json.loads(Path(__file__).with_name(schema_name).read_text(encoding='utf-8'))
     errors = list(Draft202012Validator(schema).iter_errors(registry))
     require(not errors, 'invalid explicit team metrics: ' + '; '.join(e.message for e in errors[:3]))
     expected = scaffold(report)
+    if legacy:
+        expected['format_version'] = 'task-flow-team-evaluation-1.0'
+        for r in expected['records']:
+            r['quality'] = dict(value=None, origin='UNASSIGNED', source_refs=[])
     fields = set(expected)
     require(type(registry) is dict and set(registry) == fields, 'invalid team evaluation fields')
     for key in ('format_version', 'policy', 'policy_version', 'binding', 'duration_policy', 'reservation_policy',
@@ -75,6 +83,8 @@ def validate_registry(report, registry):
     target = {r['plan_key']: r for r in expected['records']}
     require(set(actual) <= set(target), 'foreign stage metric record')
     missing = [dict(plan_key=k, reason='missing_record') for k in sorted(set(target) - set(actual))]
+    if legacy and not legacy_replay:
+        missing.append(dict(plan_key=None, reason='legacy_quality_semantics_require_explicit_v1_1_completion'))
     for key, record in actual.items():
         template = target[key]
         require(set(record) == set(template), 'invalid stage metric fields')
@@ -95,7 +105,9 @@ def validate_registry(report, registry):
         quality = record['quality']
         require(all(m['duration_s'] is None or not _number(m['duration_s']) or m['duration_s'] > 0
                     for m in record['member_metrics'].values()), 'actual member duration must be positive')
-        require(type(quality) is dict and set(quality) == {'value', 'origin', 'source_refs'}, 'invalid quality fields')
+        require(type(quality) is dict and set(quality) == set(template['quality']), 'invalid quality fields')
+        if not legacy:
+            pending |= validate_quality_context(report, record)
         if quality['value'] is None or quality['origin'] == 'UNASSIGNED' or not quality['source_refs']:
             pending = True
         else:
@@ -107,6 +119,13 @@ def validate_registry(report, registry):
         missing.append(dict(plan_key=None, reason='policy_assumptions_or_sources_unassigned'))
     else:
         require(type(registry['quality_assumption']) is str and _refs(registry['source_refs']), 'invalid policy provenance')
+    if not legacy:
+        for task in {r['task_id'] for r in actual.values()}:
+            rows = [r['quality'] for r in actual.values() if r['task_id'] == task and
+                    r['quality']['semantics'] != 'UNASSIGNED' and r['quality']['comparison_scale_id'].strip() and
+                    r['quality']['population'].strip()]
+            require(len({(q['semantics'], q['comparison_scale_id'], q['population']) for q in rows}) <= 1,
+                    'cannot compare mixed quality semantics, scales or populations within a task')
     return actual, missing
 
 

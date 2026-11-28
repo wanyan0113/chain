@@ -1,0 +1,118 @@
+{
+  "status": "passed",
+  "base_commit": "7475e40",
+  "date": "2026-11-28",
+  "registry_format": "task-flow-team-evaluation-1.1",
+  "report_format": "task-flow-team-optimization-1.1",
+  "quality_interpretation": {
+    "version": "team-quality-interpretation-1.0",
+    "metric_label": "串行乘积质量指标",
+    "metric_key": "accuracy",
+    "metric_key_is_legacy_scoring_slot": true,
+    "declared_stage_semantics": [
+      "quality_score"
+    ],
+    "probability_interpretation": "not_validated",
+    "actual_chain_success_probability_claimed": false,
+    "normalized_scores_are_probabilities": false,
+    "length_preference": "Appending a factor in [0,1] cannot increase the product; correction benefits are not modeled.",
+    "stage_counts_by_task": {
+      "T1": [
+        4
+      ],
+      "T2": [
+        4
+      ]
+    },
+    "cross_length_domain_validity": "pending",
+    "formula_changed": false
+  },
+  "persisted_report_verification": {
+    "status": "passed",
+    "scope": "metrics_scores_and_resource_feasibility_with_bounded_independent_reference",
+    "reference_complete": true,
+    "reference_combinations": 196,
+    "reference_feasible": 16,
+    "reference_best_score": 0.6,
+    "selected_matches_reference": true,
+    "optimality_verified": true,
+    "production_optimality": "candidate_set_optimum"
+  },
+  "prior_candidate_ids_raw_metrics_and_network_unchanged": true,
+  "best_score": 0.6,
+  "counterexample": {
+    "version": "team-quality-length-counterexample-1.0",
+    "data_origin": "synthetic_simulation",
+    "metric_label": "串行乘积质量指标",
+    "stage_semantics": "quality_score",
+    "declared_short_quality": [
+      0.9,
+      0.9,
+      0.9
+    ],
+    "declared_long_quality": [
+      0.9,
+      0.9,
+      0.9,
+      0.95
+    ],
+    "short_product": 0.7290000000000001,
+    "long_product": 0.6925500000000001,
+    "sample_count": 1000,
+    "before_correct": 900,
+    "after_correct": 980,
+    "before_endpoint_rate": 0.9,
+    "after_endpoint_rate": 0.98,
+    "generated_mechanism": "Initial last 100 samples fail; a declared diagnostic oracle repairs 80 of them and never damages correct outputs.",
+    "scores_used_to_generate_observations": false,
+    "probability_calibration_attempted": false,
+    "conclusion": "The extra correction stage lowers the product index while improving the synthetic endpoint. General quality scores are not endpoint success probabilities.",
+    "domain_validity": "pending",
+    "formula_changed": false
+  },
+  "distinct_tests_passed": 54,
+  "test_runs": [
+    {
+      "command": "python -B -m unittest tests.test_team_optimization -v",
+      "tests": 20,
+      "status": "passed"
+    },
+    {
+      "command": "python -B -m unittest tests.test_team_feasibility tests.test_joint_candidates tests.test_joint_network -v",
+      "tests": 34,
+      "status": "passed"
+    },
+    {
+      "command": "targeted quality context / probability declaration / legacy replay rerun",
+      "tests": 3,
+      "status": "passed",
+      "counts_as_additional_distinct_tests": false
+    }
+  ],
+  "source_hash_sensitivity_check": "passed",
+  "test_evidence_scope": "Observed unittest commands; raw console transcripts are not archived.",
+  "code_sha256": {
+    "task_flow/team_quality_semantics.py": "88bd6752e2e62e685611914f2c58702659d5067778bbd62c3a0695b268e19e34",
+    "task_flow/team_evaluation.py": "892edc01589152f44a5bb3022eee78c3b0f762d259976c1b7fded80c876daf79",
+    "task_flow/team_evaluation.schema.json": "b98421ed32c085426d689e7e03578850776dbaff6e976fda6cad6ae2d155dec5",
+    "task_flow/team_evaluation.v1.schema.json": "b344fe1bdca78c656ec5f86900309de8d0ba7257ce4d9ebaa4c263ec5b5ee4f6",
+    "task_flow/team_optimization.py": "538655fb7df0f8ba327956eaf4ab3c2ea43de7207a980edc8547a8540b010e32",
+    "task_flow/team_optimization_verify.py": "71c99b7fc3c7a1006eac3b88c8c3a83ad343a9e441f37d94b002afe195e6c460",
+    "workflow_tools/team_optimization_demo.py": "c254c041ee3407fbf46ae43e8f3bd73893ae2b315185828ef2b6bec139b9693d",
+    "workflow_tools/team_quality_counterexample.py": "72139001e56f8d67577529f1a4a9cdd6d59516472411e36237609e6b44ed5660",
+    "tests/test_team_optimization.py": "8768ed67a7c9c1a949a731486863e8e8fe74c2309b7d40a93afb1f1e34fe616d"
+  },
+  "file_sha256": {
+    "generated/task-flow/team-quality-semantics/delivery/budget-2-result.json": "fe58382d15acc18c053881f5ade34c978a759519f45d06241f388bdcbba56f6f",
+    "generated/task-flow/team-quality-semantics/delivery/budget-2-verification.json": "fa8aef17456262fa4f6ad7283a4638cd7cd98640d46e54fc4b6236962692d4e1",
+    "generated/task-flow/team-quality-semantics/delivery/metrics-to-fill-v1.1.json": "2b3e3d3f6e7e4ad84c0889003721f114d21ae8498ce3ca8dc2cd199b383c1ca4",
+    "generated/task-flow/team-quality-semantics/delivery/persisted-verification.json": "5a2d5efceab3ef36c5dc67931fbc2c9ccb1e4dcb363e637e89f103d3c7fff30b",
+    "generated/task-flow/team-quality-semantics/delivery/source-team-report.json": "809c9021b7b2b2166a80cbb053692a19036b3851f657eebb1bb4df162240c51c",
+    "generated/task-flow/team-quality-semantics/delivery/synthetic-metrics.json": "c8f7d291860a55c9229de08562e654d6e51b547e15fbfb4b829a7dba6597da6f",
+    "generated/task-flow/team-quality-semantics/delivery/team-optimization.json": "74c483bd05604c1003c55c4af234ee26bf8f85b39ed20f46ccc5d5cb8b22f277",
+    "generated/task-flow/team-quality-semantics/delivery/verification.json": "3fc24394a97454a0664a156da3a07c6316cad427d56d01a8e65064f1eb565160",
+    "generated/task-flow/team-quality-semantics/correction-counterexample/counterexample.json": "1d60ac056bf3b5b15a99ed6abb5f8c04d88685b8ef847533c18e19eb651adbe3",
+    "generated/task-flow/team-quality-semantics/correction-counterexample/synthetic-endpoints.csv": "8da97aec4de47df761396c9b9aaf4d3ea365a12876ac6f4185d743eca202fff1"
+  },
+  "archive_sha256": "36e31a3a0d5b64672ccb0e718ee8a5162d6972ac97a8f9b1ec3dd72bf1e4bdaa"
+}

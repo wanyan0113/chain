@@ -7,6 +7,7 @@ from .contracts import require
 from .joint_identity import sha
 from .team_verify import verify_teams
 from .team_evaluation import POLICY, plan_key, source_binding, validate_registry
+from .team_quality_semantics import interpretation
 
 
 def _feasible(ids, source):
@@ -43,7 +44,7 @@ def verify_team_optimization(report, *, max_reference_combinations=100000):
 
 def _verify(report, reference_limit):
     require(type(reference_limit) is int and reference_limit > 0, 'invalid independent reference budget')
-    require(report['format_version'] == 'task-flow-team-optimization-1.0' and report['policy'] == POLICY,
+    require(report['format_version'] in ('task-flow-team-optimization-1.0', 'task-flow-team-optimization-1.1') and report['policy'] == POLICY,
             'unsupported scored-team report')
     require(report['mode'] == 'complementary_team_v1' and report['global_optimality'] == 'not_proven' and
             report['domain_validity'] == 'pending' and report['execution_confirmed'] is False, 'unsupported proof/domain claims')
@@ -61,7 +62,12 @@ def _verify(report, reference_limit):
     if 'max_network_search_nodes' in actual_scene['policies']:
         scene['policies']['max_network_search_nodes'] = limit
     require(actual_scene == scene, 'search changed source resource constraints')
-    records, missing = validate_registry(source, registry)
+    legacy_report = report['format_version'] == 'task-flow-team-optimization-1.0'
+    require(not legacy_report or (registry['format_version'] == 'task-flow-team-evaluation-1.0' and
+                                 'quality_interpretation' not in report), 'cannot downgrade a new quality contract to legacy replay')
+    if not legacy_report:
+        require(report['quality_interpretation'] == interpretation(source, registry), 'quality meaning/probability/length statement changed')
+    records, missing = validate_registry(source, registry, legacy_replay=legacy_report)
     missing_timing = any(c['task'] not in source['input_snapshot']['config']['schedules'] for c in source['candidates'].values())
     task_ids = sorted(j['task_id'] for j in source['input_snapshot']['jobs'])
     empty_task = any(not any(c['task'] == task for c in source['candidates'].values()) for task in task_ids)

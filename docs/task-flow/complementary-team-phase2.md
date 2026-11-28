@@ -1,12 +1,14 @@
 # 能力互补第二阶段：显式指标与候选集联合优化
 
+后续补强见[质量语义与长度边界](team-quality-semantics.md)：当前新运行采用输入/报告1.1，需明确质量口径和适用条件。下文1.0为本阶段原始交付记录，历史归档未改写。
+
 日期：2026-11-28。前置基线：`b5adc42`（开始一环节多装备）。本轮保持原分支，原单装备评分与第一阶段可行性入口不变。
 
 本轮实现的是**固定显式时间区间下**的装备组评价、跨流程统一归一化和资源约束联合选网。不是自动调度，也不是已经验证的装备融合精度模型。表10并行目标负载、业务RDF、观测与任意协作拓扑仍不在此模式范围。
 
 ## 评价契约
 
-格式：`task-flow-team-evaluation-1.0`；政策：`team-fixed-interval-explicit-quality-1.0`；[机器Schema](../../task_flow/team_evaluation.schema.json)。
+格式：`task-flow-team-evaluation-1.0`；政策：`team-fixed-interval-explicit-quality-1.0`；[原1.0 Schema](../../task_flow/team_evaluation.v1.schema.json)。
 
 每个“任务＋完整流程＋环节＋成员＋能力分工＋汇聚者”的执行方案，都有自己的指标记录与稳定`plan_key`。记录绑定第一阶段输入、知识/执行上下文及完整候选集合；不同活动流程中的同成员方案不能误用另一流程记录。
 

@@ -169,6 +169,80 @@ class TeamOptimizationTests(unittest.TestCase):
         self.assertEqual(result['status'], 'selected')
         self.assertEqual(verify_team_optimization(result)['status'], 'passed')
 
+    def test_quality_context_missing_blocks_and_stale_context_rejects(self):
+        for field in ('definition', 'evaluation_method', 'population', 'comparison_scale_id'):
+            registry = deepcopy(self.registry)
+            registry['records'][0]['quality'][field] = ''
+            result = self.run_cached(registry)
+            self.assertEqual(result['status'], 'blocked', field)
+            self.assertEqual(self.verify_cached(result)['status'], 'passed')
+        registry = deepcopy(self.registry)
+        registry['records'][0]['quality']['execution_conditions']['context_hash'] = 'stale-context'
+        with self.assertRaisesRegex(ContractError, 'execution conditions'): self.run_cached(registry)
+        from task_flow.team_quality_semantics import quality_context_hash
+        from task_flow.joint_identity import sha
+        changed = deepcopy(self.source)
+        changed['input_snapshot']['jobs'][0]['request']['goal'] = {'different_task_goal': True}
+        changed['input_hash'] = sha(changed['input_snapshot'])
+        self.assertEqual(changed['context'], self.source['context'])
+        self.assertNotEqual(quality_context_hash(changed), quality_context_hash(self.source))
+
+    def test_quality_scales_populations_and_probability_semantics_cannot_mix(self):
+        for field in ('population', 'comparison_scale_id', 'semantics'):
+            registry = deepcopy(self.registry)
+            q = registry['records'][0]['quality']
+            q[field] = 'another-population' if field != 'semantics' else 'marginal_success_probability'
+            if field == 'semantics':
+                q['probability_basis'] = dict(success_event='stage success', conditioning_event=None,
+                    dependence_assumptions='Independence unverified', evidence_refs=['synthetic-assumption'])
+            with self.assertRaisesRegex(ContractError, 'mixed quality'): self.run_cached(registry)
+
+    def test_probability_declarations_do_not_upgrade_product_to_actual_probability(self):
+        for semantics in ('marginal_success_probability', 'conditional_success_probability'):
+            registry = deepcopy(self.registry)
+            for r in registry['records']:
+                r['quality']['semantics'] = semantics
+                r['quality']['probability_basis'] = dict(success_event='declared stage success',
+                    conditioning_event='all preceding declared stages succeeded' if semantics.startswith('conditional') else None,
+                    dependence_assumptions='Declared hypothetical assumptions; no domain independence validation.', evidence_refs=['synthetic-only'])
+            result = self.run_cached(registry)
+            self.assertEqual(result['status'], 'selected')
+            meaning = result['quality_interpretation']
+            self.assertEqual(meaning['metric_label'], '串行乘积质量指标')
+            self.assertFalse(meaning['actual_chain_success_probability_claimed'])
+            self.assertFalse(meaning['normalized_scores_are_probabilities'])
+            self.assertEqual(meaning['probability_interpretation'], 'not_validated')
+            self.assertEqual(self.verify_cached(result)['status'], 'passed')
+        registry['records'][0]['quality']['probability_basis']['conditioning_event'] = ''
+        self.assertEqual(self.run_cached(registry)['status'], 'blocked')
+
+    def test_semantics_display_and_probability_claim_tampering_rejected(self):
+        result = deepcopy(self.result)
+        result['quality_interpretation']['actual_chain_success_probability_claimed'] = True
+        self.assertEqual(self.verify_cached(result)['status'], 'failed')
+        result = deepcopy(self.result)
+        result['format_version'] = 'task-flow-team-optimization-1.0'
+        self.assertEqual(self.verify_cached(result)['status'], 'failed')
+
+    def test_legacy_archive_replays_but_new_runs_require_semantic_completion(self):
+        with zipfile.ZipFile(ROOT/'docs/task-flow/complementary-team-phase2-evidence/full-run.zip') as archive:
+            old = json.loads(archive.read('team_optimization.json').decode('utf-8'))
+        self.assertEqual(self.verify_cached(old)['status'], 'passed')
+        result = self.run_cached(old['registry'])
+        self.assertEqual(result['status'], 'blocked')
+        self.assertTrue(any(r['reason'] == 'legacy_quality_semantics_require_explicit_v1_1_completion' for r in result['blocked_reasons']))
+
+    def test_correction_counterexample_uses_separate_endpoint_observations(self):
+        from workflow_tools.team_quality_counterexample import experiment
+        summary, rows = experiment()
+        self.assertEqual(summary['declared_long_quality'][:-1], summary['declared_short_quality'])
+        self.assertLess(summary['long_product'], summary['short_product'])
+        self.assertEqual((summary['before_correct'], summary['after_correct']), (900, 980))
+        self.assertGreater(summary['after_endpoint_rate'], summary['before_endpoint_rate'])
+        self.assertFalse(summary['scores_used_to_generate_observations'])
+        self.assertFalse(summary['probability_calibration_attempted'])
+        self.assertTrue(all(r['before_output'] == r['after_output'] for r in rows if not r['synthetic_repair_event']))
+
 
 if __name__ == '__main__':
     unittest.main()

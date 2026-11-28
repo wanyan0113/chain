@@ -13,7 +13,7 @@ from task_flow.team_optimization_verify import verify_team_optimization
 
 def synthetic_registry(source):
     registry = scaffold(source)
-    registry.update(quality_assumption='Synthetic stage-level success probabilities; serial multiplication is a declared unvalidated model assumption.',
+    registry.update(quality_assumption='Designer-assigned general quality scores; the serial product is a comparison index, not a measured or validated success probability.',
                     source_refs=['synthetic-team-evaluation-experiment-v1'])
     for record in registry['records']:
         multi = len(record['members']) > 1
@@ -35,6 +35,11 @@ def synthetic_registry(source):
         else:
             quality = .99
         record['quality'].update(value=quality, origin='synthetic_assumption', source_refs=['synthetic-explicit-stage-quality-v1'])
+        record['quality'].update(semantics='quality_score',
+            definition='Designer-assigned normalized group output quality for this exact plan; not an empirical success frequency.',
+            evaluation_method='synthetic-quality-rubric-v1', population=record['task_id']+'-synthetic-population-v1',
+            comparison_scale_id='synthetic-normalized-quality-v1')
+        record['quality']['execution_conditions']['description'] = 'Synthetic observatory, exact source-bound members and assignments, fixed explicit time intervals; no real devices.'
     return registry
 
 
@@ -59,6 +64,7 @@ def run(output, source_path=None):
                           ('team-optimization', result), ('budget-2-result', budgeted), ('budget-2-verification', budget_check)]:
         (output/(name+'.json')).write_text(json.dumps(content, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     summary = dict(status='passed', source_candidates=len(source['candidates']), evaluation_policy=result['policy'],
+                   quality_interpretation=result['quality_interpretation'],
                    selected_candidate_ids=result['selected_candidate_ids'], network=result['network'],
                    optimality=result['optimality'], global_optimality=result['global_optimality'],
                    independent_verification=verification, budget_2_status=budgeted['status'],

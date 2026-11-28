@@ -1,42 +1,288 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "type": "object", "additionalProperties": false,
-  "required": ["format_version", "policy", "policy_version", "binding", "duration_policy", "reservation_policy", "chain_quality_policy", "quality_assumption", "cost_unit", "source_refs", "records"],
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format_version",
+    "policy",
+    "policy_version",
+    "binding",
+    "duration_policy",
+    "reservation_policy",
+    "chain_quality_policy",
+    "quality_assumption",
+    "cost_unit",
+    "source_refs",
+    "records"
+  ],
   "properties": {
-    "format_version": {"const": "task-flow-team-evaluation-1.0"},
-    "policy": {"const": "team-fixed-interval-explicit-quality-1.0"},
-    "policy_version": {"const": "1.0"},
-    "binding": {
-      "type": "object", "additionalProperties": false,
-      "required": ["source_input_hash", "source_context_hash", "candidate_set_hash"],
-      "properties": {"source_input_hash": {"type": "string"}, "source_context_hash": {"type": "string"}, "candidate_set_hash": {"type": "string"}}
+    "format_version": {
+      "const": "task-flow-team-evaluation-1.1"
     },
-    "duration_policy": {"const": "max_member_plus_explicit_fusion_v1"},
-    "reservation_policy": {"const": "full_explicit_stage_interval_plus_member_cooldown_v1"},
-    "chain_quality_policy": {"const": "product_of_explicit_stage_quality_v1"},
-    "quality_assumption": {"type": "string"}, "cost_unit": {"type": "string", "minLength": 1},
-    "source_refs": {"$ref": "#/$defs/refs"},
-    "records": {"type": "array", "items": {"$ref": "#/$defs/record"}}
+    "policy": {
+      "const": "team-fixed-interval-explicit-quality-1.0"
+    },
+    "policy_version": {
+      "const": "1.0"
+    },
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_input_hash",
+        "source_context_hash",
+        "candidate_set_hash"
+      ],
+      "properties": {
+        "source_input_hash": {
+          "type": "string"
+        },
+        "source_context_hash": {
+          "type": "string"
+        },
+        "candidate_set_hash": {
+          "type": "string"
+        }
+      }
+    },
+    "duration_policy": {
+      "const": "max_member_plus_explicit_fusion_v1"
+    },
+    "reservation_policy": {
+      "const": "full_explicit_stage_interval_plus_member_cooldown_v1"
+    },
+    "chain_quality_policy": {
+      "const": "product_of_explicit_stage_quality_v1"
+    },
+    "quality_assumption": {
+      "type": "string"
+    },
+    "cost_unit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_refs": {
+      "$ref": "#/$defs/refs"
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/record"
+      }
+    }
   },
   "$defs": {
-    "refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
-    "cost": {"type": ["object", "null"], "additionalProperties": false, "required": ["value", "unit"],
-      "properties": {"value": {"type": "number", "minimum": 0}, "unit": {"type": "string", "minLength": 1}}},
-    "metric": {"type": "object", "additionalProperties": false, "required": ["duration_s", "cost", "source_refs"],
-      "properties": {"duration_s": {"type": ["number", "null"], "minimum": 0}, "cost": {"$ref": "#/$defs/cost"}, "source_refs": {"$ref": "#/$defs/refs"}}},
-    "record": {
-      "type": "object", "additionalProperties": false,
-      "required": ["plan_key", "task_id", "flow_id", "step_instance_id", "members", "capability_assignments", "hub", "member_metrics", "fusion", "quality"],
+    "refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "cost": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "unit"
+      ],
       "properties": {
-        "plan_key": {"type": "string"}, "task_id": {"type": "string"}, "flow_id": {"type": "string"}, "step_instance_id": {"type": "string"},
-        "members": {"type": "array", "uniqueItems": true, "minItems": 1, "maxItems": 2, "items": {"type": "string"}},
-        "capability_assignments": {"type": "object", "additionalProperties": {"type": "string"}}, "hub": {"type": "string"},
-        "member_metrics": {"type": "object", "additionalProperties": {"$ref": "#/$defs/metric"}},
-        "fusion": {"$ref": "#/$defs/metric"},
-        "quality": {"type": "object", "additionalProperties": false, "required": ["value", "origin", "source_refs"],
-          "properties": {"value": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
-            "origin": {"enum": ["UNASSIGNED", "synthetic_assumption", "expert_assumption", "measured"]},
-            "source_refs": {"$ref": "#/$defs/refs"}}}
+        "value": {
+          "type": "number",
+          "minimum": 0
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "metric": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "duration_s",
+        "cost",
+        "source_refs"
+      ],
+      "properties": {
+        "duration_s": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "cost": {
+          "$ref": "#/$defs/cost"
+        },
+        "source_refs": {
+          "$ref": "#/$defs/refs"
+        }
+      }
+    },
+    "record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "plan_key",
+        "task_id",
+        "flow_id",
+        "step_instance_id",
+        "members",
+        "capability_assignments",
+        "hub",
+        "member_metrics",
+        "fusion",
+        "quality"
+      ],
+      "properties": {
+        "plan_key": {
+          "type": "string"
+        },
+        "task_id": {
+          "type": "string"
+        },
+        "flow_id": {
+          "type": "string"
+        },
+        "step_instance_id": {
+          "type": "string"
+        },
+        "members": {
+          "type": "array",
+          "uniqueItems": true,
+          "minItems": 1,
+          "maxItems": 2,
+          "items": {
+            "type": "string"
+          }
+        },
+        "capability_assignments": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "hub": {
+          "type": "string"
+        },
+        "member_metrics": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/metric"
+          }
+        },
+        "fusion": {
+          "$ref": "#/$defs/metric"
+        },
+        "quality": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "origin",
+            "source_refs",
+            "semantics",
+            "definition",
+            "evaluation_method",
+            "population",
+            "comparison_scale_id",
+            "execution_conditions",
+            "probability_basis"
+          ],
+          "properties": {
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "minimum": 0,
+              "maximum": 1
+            },
+            "origin": {
+              "enum": [
+                "UNASSIGNED",
+                "synthetic_assumption",
+                "expert_assumption",
+                "measured"
+              ]
+            },
+            "source_refs": {
+              "$ref": "#/$defs/refs"
+            },
+            "semantics": {
+              "enum": [
+                "UNASSIGNED",
+                "quality_score",
+                "marginal_success_probability",
+                "conditional_success_probability"
+              ]
+            },
+            "definition": {
+              "type": "string"
+            },
+            "evaluation_method": {
+              "type": "string"
+            },
+            "population": {
+              "type": "string"
+            },
+            "comparison_scale_id": {
+              "type": "string"
+            },
+            "execution_conditions": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "context_hash",
+                "description"
+              ],
+              "properties": {
+                "context_hash": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                }
+              }
+            },
+            "probability_basis": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "additionalProperties": false,
+              "required": [
+                "success_event",
+                "conditioning_event",
+                "dependence_assumptions",
+                "evidence_refs"
+              ],
+              "properties": {
+                "success_event": {
+                  "type": "string"
+                },
+                "conditioning_event": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "dependence_assumptions": {
+                  "type": "string"
+                },
+                "evidence_refs": {
+                  "$ref": "#/$defs/refs"
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
