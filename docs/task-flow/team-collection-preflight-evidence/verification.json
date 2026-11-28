@@ -1,0 +1,20 @@
+{
+  "version": "team-collection-preflight-verification-1.0",
+  "date": "2026-11-28",
+  "base_commit": "39bec77",
+  "tests_passed": 5,
+  "command": "python -B -m unittest tests.test_team_collection_preflight -v",
+  "public_cli_exit_code": 0,
+  "actual_hermit": true,
+  "data_origin": "synthetic_simulation",
+  "domain_validity": "pending",
+  "real_collection_performed": false,
+  "legacy_entry_changed": false,
+  "production_formula_changed": false,
+  "report_sha256": "16713507ff66556926d932f8bfb1429871f5d7dea75eba81c323886ea68b9e78",
+  "source_hash_policy": "SHA256 with CRLF converted to LF",
+  "code_hashes": {
+    "workflow_tools/team_collection_preflight.py": "be35bf105a179cf46570a09ddaca1398866b4ea7b9da01c23b18556a9afa0168",
+    "tests/test_team_collection_preflight.py": "ef8cd316caccc55315b37f08429d51233e2350be10381f46a702c8c5b0ceb27d"
+  }
+}

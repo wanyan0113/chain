@@ -1,0 +1,95 @@
+{
+  "version": "team-collection-preflight-1.0",
+  "status": "registration_software_checks_passed",
+  "study_id": "synthetic-team-observation-study",
+  "protocol_hash": "01a8fc0ed3f9bf5f7ff91725f0ea28b6d59ea65d07b938b042feea5e72590b6d",
+  "dataset_hash": "4563eb5c960d42c7ff2ccfa8ec4b42f5b42f9f8756a121374c36e304d370c997",
+  "source_hashes": {
+    "source-1": "662014bf5c76bae6ec43a3efb0c7506aef3eb889699b5693856ded5355866812"
+  },
+  "data_origin": "synthetic_simulation",
+  "issues": [],
+  "verification": {
+    "version": "team-observation-verification-1.0",
+    "status": "passed",
+    "issues": [],
+    "phase": "registration",
+    "source_verification": {
+      "source-1": {
+        "status": "passed",
+        "scope": "listed_plans_chains_and_networks_with_fresh_OWL_and_flow_replay",
+        "search_coverage_certified": false,
+        "optimality": "not_run"
+      }
+    },
+    "ontology": {
+      "status": "passed",
+      "scope": "source chain fresh OWL verification; runtime observations not yet present"
+    },
+    "verification_scope": "declared packet identities, source bindings, temporal relationships and ontology constraints",
+    "external_reference_content_verified": false,
+    "live_equipment_version_authenticated": false,
+    "registered_plan_preserved": false,
+    "confidence_intervals": null,
+    "independence_assumed": false,
+    "domain_validity": "pending",
+    "probability_calibrated": false,
+    "production_writeback": false,
+    "counts": {
+      "samples": 6,
+      "clusters": 6,
+      "executions": 12,
+      "registered_attempts": 48
+    },
+    "first_attempt_plan": [],
+    "analysis_blockers": [],
+    "conditional_event_data_ready": true,
+    "conditional_model_validated": false,
+    "counts_are_descriptive_only": true,
+    "aggregate_counts_unit": "observation_rows_not_independent_samples",
+    "issues_truncated": false,
+    "total_issue_count": 0
+  },
+  "human_review": [
+    {
+      "item": "independent_ground_truth_and_labeling",
+      "status": "unreviewed",
+      "evidence_reference": null
+    },
+    {
+      "item": "live_equipment_and_firmware_versions",
+      "status": "unreviewed",
+      "evidence_reference": null
+    },
+    {
+      "item": "sample_population_cluster_and_held_out_split",
+      "status": "unreviewed",
+      "evidence_reference": null
+    },
+    {
+      "item": "pairing_reset_and_execution_order",
+      "status": "unreviewed",
+      "evidence_reference": null
+    },
+    {
+      "item": "actual_input_output_trace_and_retry_capture",
+      "status": "unreviewed",
+      "evidence_reference": null
+    },
+    {
+      "item": "missing_failure_unknown_label_training",
+      "status": "unreviewed",
+      "evidence_reference": null
+    },
+    {
+      "item": "external_preservation_of_protocol_and_registration_evidence",
+      "status": "unreviewed",
+      "evidence_reference": null
+    }
+  ],
+  "real_collection_authorized": false,
+  "study_lock_created": false,
+  "external_facts_authenticated": false,
+  "domain_validity": "pending",
+  "production_writeback": false
+}
