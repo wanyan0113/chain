@@ -1,0 +1,25 @@
+{
+  "version": "tfdo-design-observation-bridge-1.0",
+  "collection_plan_id": "collection-2df221028105b96ffc40faabdb1efbf8d2c67c2d49745555e81485323905b057",
+  "binding_status": "passed",
+  "source_global_optimality": "bounded_global_optimum",
+  "selected_tasks": [
+    "T2"
+  ],
+  "stage_counts": {
+    "T2": 4
+  },
+  "protocol_readiness_blockers": [
+    "no_real_data_collected",
+    "incomplete_study_definition",
+    "missing_label_source_definition",
+    "ground_truth_method_not_reviewed",
+    "iid_subject_inference_not_supported_for_declared_sampling",
+    "tolerance_not_prespecified",
+    "unassigned_stage_identity:candidate-23207822df640e8c92054833159127803482360b4f6227b152c0d703a8d1e250",
+    "missing_calibration_population:candidate-23207822df640e8c92054833159127803482360b4f6227b152c0d703a8d1e250"
+  ],
+  "observations_statistically_validated": false,
+  "domain_validity": "pending",
+  "measurements_generated": false
+}

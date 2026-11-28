@@ -1,0 +1,33 @@
+{
+  "version": "tfdo-design-observation-bridge-1.0",
+  "collection_plan_id": "collection-d7322a8ce6e3df749f8a66b639ddb3e0b98b8d4fb3bb1f26d2666be05f9171f0",
+  "binding_status": "passed",
+  "source_global_optimality": "bounded_global_optimum",
+  "selected_tasks": [
+    "T1",
+    "T2",
+    "T3"
+  ],
+  "stage_counts": {
+    "T1": 3,
+    "T2": 4,
+    "T3": 4
+  },
+  "protocol_readiness_blockers": [
+    "no_real_data_collected",
+    "incomplete_study_definition",
+    "missing_label_source_definition",
+    "ground_truth_method_not_reviewed",
+    "iid_subject_inference_not_supported_for_declared_sampling",
+    "tolerance_not_prespecified",
+    "unassigned_stage_identity:candidate-eaaeb48ec2a96cb73b3012ae41a5c36f5562b53211c42e3b247b2940c04cd0c3",
+    "missing_calibration_population:candidate-eaaeb48ec2a96cb73b3012ae41a5c36f5562b53211c42e3b247b2940c04cd0c3",
+    "unassigned_stage_identity:candidate-23207822df640e8c92054833159127803482360b4f6227b152c0d703a8d1e250",
+    "missing_calibration_population:candidate-23207822df640e8c92054833159127803482360b4f6227b152c0d703a8d1e250",
+    "unassigned_stage_identity:candidate-bdd89d46c653f58b1fd345ffe0cbfd55cb5c01c23e8c09ebbc3f48b1046827b3",
+    "missing_calibration_population:candidate-bdd89d46c653f58b1fd345ffe0cbfd55cb5c01c23e8c09ebbc3f48b1046827b3"
+  ],
+  "observations_statistically_validated": false,
+  "domain_validity": "pending",
+  "measurements_generated": false
+}

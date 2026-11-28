@@ -1,0 +1,66 @@
+{
+  "version": "tfdo-observation-intake-1.0",
+  "study_id": "",
+  "data_origin": "uncollected",
+  "registration_mode": "prospective",
+  "target_definition": "",
+  "label_space": [
+    "0",
+    "1"
+  ],
+  "ground_truth_method_review": "pending",
+  "sampling_design": "unknown",
+  "evaluation_population": "",
+  "label_sources": {},
+  "strata": [
+    "all"
+  ],
+  "flows": [
+    {
+      "flow_id": "candidate-23207822df640e8c92054833159127803482360b4f6227b152c0d703a8d1e250",
+      "calibration_population": "",
+      "input_from_previous_output": false,
+      "stages": [
+        {
+          "stage_instance_id": "s1",
+          "activity_id": "observe",
+          "activity_version": "1.0",
+          "artifact_id": "R-Survey",
+          "artifact_version": "UNASSIGNED",
+          "calibration_input_condition": "natural_case"
+        },
+        {
+          "stage_instance_id": "s2",
+          "activity_id": "analyze_secondary",
+          "activity_version": "1.0",
+          "artifact_id": "R-Analysis-Backup",
+          "artifact_version": "UNASSIGNED",
+          "calibration_input_condition": "natural_case"
+        },
+        {
+          "stage_instance_id": "s3",
+          "activity_id": "decide",
+          "activity_version": "1.0",
+          "artifact_id": "R-Dispatch",
+          "artifact_version": "UNASSIGNED",
+          "calibration_input_condition": "natural_case"
+        },
+        {
+          "stage_instance_id": "s4",
+          "activity_id": "stabilize",
+          "activity_version": "1.0",
+          "artifact_id": "R-Seal-B",
+          "artifact_version": "UNASSIGNED",
+          "calibration_input_condition": "natural_case"
+        }
+      ]
+    }
+  ],
+  "acceptance": {
+    "absolute_error_tolerance": null,
+    "alpha": 0.05,
+    "minimum_stage_calibration": 200,
+    "minimum_complete_evaluation": 200,
+    "minimum_stratum_class": 50
+  }
+}

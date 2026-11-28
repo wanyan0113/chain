@@ -1,0 +1,36 @@
+{
+  "status": "passed",
+  "source": "actual HermiT on synthetic design fixture; no real measurements",
+  "domain_validity": "pending",
+  "cases": [
+    {
+      "case": "all_selected",
+      "passed": true,
+      "stage_counts": {
+        "T1": 3,
+        "T2": 4,
+        "T3": 4
+      },
+      "binding_status": "passed",
+      "intake_status": "blocked_no_observations"
+    },
+    {
+      "case": "task_T2",
+      "passed": true,
+      "stage_counts": {
+        "T2": 4
+      },
+      "binding_status": "passed",
+      "intake_status": "blocked_no_observations"
+    },
+    {
+      "case": "incumbent_preserves_not_proven",
+      "passed": true
+    },
+    {
+      "case": "tampered_passed_flag_rejected",
+      "passed": true
+    }
+  ],
+  "real_observations_generated": false
+}

@@ -1,0 +1,1 @@
+observation_id,sample_id,cluster_id,split,flow_id,stage_instance_id,activity_id,activity_version,artifact_id,artifact_version,stratum,gold_label,input_label,output_label,status,label_source_id,recorded_at

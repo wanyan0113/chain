@@ -1,0 +1,417 @@
+{
+  "version": "tfdo-design-observation-bridge-1.0",
+  "collection_plan_id": "collection-2df221028105b96ffc40faabdb1efbf8d2c67c2d49745555e81485323905b057",
+  "identity_scope": "source design selection only; actual measurement context belongs in separately frozen protocol",
+  "source_run_id": "run-2d1eeba3f11c4e1e9cfda063f349f9bc",
+  "source_global_optimality": "bounded_global_optimum",
+  "source_verification": {
+    "status": "passed",
+    "verifier_version": "tfdo-joint-verifier-1.0.1",
+    "scope": "independent_flow_arithmetic_connections_and_interval_resources",
+    "proof_audit": "logical_and_network_search_recertification",
+    "candidates_checked": 14,
+    "selected_chains": 3,
+    "domain_validity": "pending"
+  },
+  "source_knowledge_snapshot_hash": "367392e0c4d7f88d147dc3ee7b32081318b66f54fe87423f3b92aa5d13fe79c8",
+  "source_design_context_hash": "a9a1bb5cf9b84b95dfadbb2c84488a25eba81abb5884d343920ec3dfc9c50ae9",
+  "artifact_versions_are_external_declarations": true,
+  "declared_artifact_versions": {},
+  "selected_tasks": [
+    "T2"
+  ],
+  "source_network_tasks": [
+    "T1",
+    "T2",
+    "T3"
+  ],
+  "flows": [
+    {
+      "task_id": "T2",
+      "observation_flow_id": "candidate-23207822df640e8c92054833159127803482360b4f6227b152c0d703a8d1e250",
+      "candidate_id": "candidate-23207822df640e8c92054833159127803482360b4f6227b152c0d703a8d1e250",
+      "source_flow_id": "flow-b1ec8eca401ccd8c574b18535751c0b8022501b6233a6a0660abe068d2282620",
+      "source_candidate_identity": {
+        "identity_version": "tfdo-identity-1.0",
+        "task_id": "T2",
+        "task_context_hash": "d2ab277a22ba0a76d9867c7ed4321fad4b169e053614a83c3b0257c781f767d7",
+        "flow_id": "flow-b1ec8eca401ccd8c574b18535751c0b8022501b6233a6a0660abe068d2282620",
+        "activity_instance_sequence": [
+          {
+            "activity_id": "observe",
+            "activity_version": "1.0",
+            "parameters": {
+              "rift": "Rift-2"
+            }
+          },
+          {
+            "activity_id": "analyze_secondary",
+            "activity_version": "1.0",
+            "parameters": {
+              "rift": "Rift-2"
+            }
+          },
+          {
+            "activity_id": "decide",
+            "activity_version": "1.0",
+            "parameters": {
+              "rift": "Rift-2"
+            }
+          },
+          {
+            "activity_id": "stabilize",
+            "activity_version": "1.0",
+            "parameters": {
+              "rift": "Rift-2"
+            }
+          }
+        ],
+        "artifact_assignment": [
+          {
+            "step_index": 0,
+            "artifact_id": "R-Survey"
+          },
+          {
+            "step_index": 1,
+            "artifact_id": "R-Analysis-Backup"
+          },
+          {
+            "step_index": 2,
+            "artifact_id": "R-Dispatch"
+          },
+          {
+            "step_index": 3,
+            "artifact_id": "R-Seal-B"
+          }
+        ],
+        "design_context_hash": "a9a1bb5cf9b84b95dfadbb2c84488a25eba81abb5884d343920ec3dfc9c50ae9",
+        "knowledge_snapshot_hash": "367392e0c4d7f88d147dc3ee7b32081318b66f54fe87423f3b92aa5d13fe79c8",
+        "mapping_hash": "af465bf3b62529345e7898ee0f11220b9131338c1d85bd90f93385dbe39c6133"
+      },
+      "task_snapshot": {
+        "id": "T2",
+        "target": "Rift-2",
+        "start_s": 0,
+        "attributes": {
+          "target_type": "共振裂隙",
+          "target_count": {
+            "value": 1,
+            "unit": "1"
+          },
+          "impedance": {
+            "value": 2,
+            "unit": "1"
+          },
+          "target_speed": {
+            "value": 0,
+            "unit": "demo-speed"
+          },
+          "target_altitude": {
+            "value": 50,
+            "unit": "demo-height"
+          }
+        },
+        "source_refs": [
+          "docs/rift_multistep_demo.md：虚构实验设定v1"
+        ],
+        "blocking_issue_ids": []
+      },
+      "stages": [
+        {
+          "stage_index": 1,
+          "stage_instance_id": "s1",
+          "activity_id": "observe",
+          "activity_version": "1.0",
+          "artifact_id": "R-Survey",
+          "artifact_version": "UNASSIGNED",
+          "calibration_input_condition": "natural_case",
+          "activity_type": "observe",
+          "role": "insight",
+          "parameters": {
+            "rift": "Rift-2"
+          },
+          "required_capabilities": [
+            "urn:arcane-rift-demo:WideSurvey"
+          ],
+          "artifact_snapshot_hash": "6b2463af44c394d34ec8d744314cf3464cda109b01d6182913585957bc886723",
+          "planned_start_s": 0,
+          "planned_end_s": 2
+        },
+        {
+          "stage_index": 2,
+          "stage_instance_id": "s2",
+          "activity_id": "analyze_secondary",
+          "activity_version": "1.0",
+          "artifact_id": "R-Analysis-Backup",
+          "artifact_version": "UNASSIGNED",
+          "calibration_input_condition": "natural_case",
+          "activity_type": "decide",
+          "role": "coordination",
+          "parameters": {
+            "rift": "Rift-2"
+          },
+          "required_capabilities": [
+            "urn:arcane-rift-demo:BackupChannel",
+            "urn:arcane-rift-demo:ResonanceAnalysis"
+          ],
+          "artifact_snapshot_hash": "8d204ca0ea3f06ad5919717a18a4e8be89e1c81810afdee44d763b4d004a6d3f",
+          "planned_start_s": 2,
+          "planned_end_s": 5
+        },
+        {
+          "stage_index": 3,
+          "stage_instance_id": "s3",
+          "activity_id": "decide",
+          "activity_version": "1.0",
+          "artifact_id": "R-Dispatch",
+          "artifact_version": "UNASSIGNED",
+          "calibration_input_condition": "natural_case",
+          "activity_type": "decide",
+          "role": "coordination",
+          "parameters": {
+            "rift": "Rift-2"
+          },
+          "required_capabilities": [
+            "urn:arcane-rift-demo:Dispatch"
+          ],
+          "artifact_snapshot_hash": "bf1af701854be0144712ac036a3948aa28236997052b56e74b870e27c76fd131",
+          "planned_start_s": 5,
+          "planned_end_s": 6
+        },
+        {
+          "stage_index": 4,
+          "stage_instance_id": "s4",
+          "activity_id": "stabilize",
+          "activity_version": "1.0",
+          "artifact_id": "R-Seal-B",
+          "artifact_version": "UNASSIGNED",
+          "calibration_input_condition": "natural_case",
+          "activity_type": "act",
+          "role": "manifestation",
+          "parameters": {
+            "rift": "Rift-2"
+          },
+          "required_capabilities": [
+            "urn:arcane-rift-demo:Stabilize"
+          ],
+          "artifact_snapshot_hash": "6490341d3b0d5fb7701bd9d8af133ba2c101633ed6e734a02f2ac1c7eb0fcaff",
+          "planned_start_s": 6,
+          "planned_end_s": 10
+        }
+      ]
+    }
+  ],
+  "selected_artifact_snapshots": [
+    {
+      "id": "R-Analysis-Backup",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:BackupAnalysisUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:ResonanceAnalysis",
+          "urn:arcane-rift-demo:BackupChannel"
+        ],
+        "level_decide": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "max_processing_targets": {
+          "value": 4,
+          "unit": "1"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "decide": {
+          "duration_s": 3,
+          "accuracy": 0.99,
+          "cost": {
+            "value": 2,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "R-Dispatch",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:DispatchUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:Dispatch"
+        ],
+        "level_decide": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "max_processing_targets": {
+          "value": 4,
+          "unit": "1"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "decide": {
+          "duration_s": 1,
+          "accuracy": 0.99,
+          "cost": {
+            "value": 1,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "R-Seal-B",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:StabilizerUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:Stabilize"
+        ],
+        "level_act": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "min_range": {
+          "value": 0,
+          "unit": "demo-range"
+        },
+        "max_range": {
+          "value": 20,
+          "unit": "demo-range"
+        },
+        "resonance": {
+          "value": 10,
+          "unit": "1"
+        },
+        "max_target_speed": {
+          "value": 10,
+          "unit": "demo-speed"
+        },
+        "min_target_altitude": {
+          "value": 0,
+          "unit": "demo-height"
+        },
+        "max_target_altitude": {
+          "value": 100,
+          "unit": "demo-height"
+        },
+        "min_activation_altitude": {
+          "value": 0,
+          "unit": "demo-height"
+        },
+        "max_activation_altitude": {
+          "value": 100,
+          "unit": "demo-height"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "act": {
+          "duration_s": 4,
+          "accuracy": 0.95,
+          "cost": {
+            "value": 6,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 1,
+      "consumable": true,
+      "inventory": 1,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "R-Survey",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:SurveyUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:WideSurvey"
+        ],
+        "level_observe": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "detection_range": {
+          "value": 60,
+          "unit": "demo-range"
+        },
+        "max_tracks": {
+          "value": 4,
+          "unit": "1"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "observe": {
+          "duration_s": 2,
+          "accuracy": 0.99,
+          "cost": {
+            "value": 1,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "domain_validity": "pending",
+  "measurements_generated": false
+}

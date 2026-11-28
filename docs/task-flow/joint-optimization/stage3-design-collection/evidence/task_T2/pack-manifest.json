@@ -1,0 +1,29 @@
+{
+  "version": "tfdo-design-observation-bridge-1.0",
+  "immutable_files": [
+    {
+      "path": "source_joint_report.json",
+      "sha256": "eb6182419e4396148bf25b023a8334c05ed1c4f8f6c18f5b5cc5b66e7b238c6d"
+    },
+    {
+      "path": "protocol-template.json",
+      "sha256": "8500033788719987b753c6e272dfe73a0885ebb0b0d711b69478376e9ae21985"
+    },
+    {
+      "path": "binding.json",
+      "sha256": "d77f269e56d185bf9958bc0861430b69dde1401a0089ed5b3e9ad91a03cab5be"
+    },
+    {
+      "path": "stage-roster.csv",
+      "sha256": "bf02061599e70aa82b2528c1b35db7f27f78bd5d994567ce4b8724a6c7b4c8d0"
+    },
+    {
+      "path": "README.md",
+      "sha256": "55ab930193504ebba8b1753b10aab47e0c8f1c97dc36bd60cfae55a18c5aa661"
+    }
+  ],
+  "working_files": [
+    "protocol.json",
+    "observations.csv"
+  ]
+}

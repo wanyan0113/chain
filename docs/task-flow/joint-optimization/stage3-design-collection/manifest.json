@@ -1,0 +1,142 @@
+{
+  "version": "tfdo-collection-bridge-evidence-1.0",
+  "real_observations_generated": false,
+  "domain_validity": "pending",
+  "files": [
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/all_selected-binding-check.json",
+      "sha256": "72bae5de1723eb85d724ca004b29563aca85357cb738b28b1f240bec53335f37",
+      "sha256_lf_normalized": "3c6b11f31e248863652433b71df87af8c726cde1e6ef2140a88a16cb96a3dece"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/all_selected.zip",
+      "sha256": "f9974ed2909d12ab3062ce0ee03bad914f7462dd60d19a83f4a4e493dde5ad03",
+      "sha256_lf_normalized": "e05e3b711476dfdb317ac14027e1bfa25284d742d8866aa8453704e0f7a4e541"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/incumbent_T2.zip",
+      "sha256": "a6d217d872b9264efb32832b730c8fff798dda5c6ef84b4b671e38344bc834bc",
+      "sha256_lf_normalized": "94c16b7dc8c138cb9f3bcf1d67da36a77c8c246dc3f00e22720b1b5a31aa05cb"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/regression-tests.log",
+      "sha256": "64b223e770a9f120a9e1ee67b791a6fda7f3451b0dd897c67796a43e6755000b",
+      "sha256_lf_normalized": "64b223e770a9f120a9e1ee67b791a6fda7f3451b0dd897c67796a43e6755000b"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/task_T2-binding-check.json",
+      "sha256": "868da7c21b7b5a2f71d8aab4f2579c19ea5194f058c8c8872769a134b81fa93c",
+      "sha256_lf_normalized": "8a18504974500f0ebf03b403c112e71cbb5cae52ebbd9c4baaf99f949bc845c0"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/verification.json",
+      "sha256": "ce4efee634ac96d3b5a8595bcbd21756b7d891533887eb51f5df5d2e22fb34ac",
+      "sha256_lf_normalized": "8f45560160ed1b6596c991e416b7c5acca3da99ad5b19e43133a8a626cb1d8c1"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/all_selected-intake/observations_snapshot.csv",
+      "sha256": "eb5168f339b478054fc4e7650a0cc391ada5d0439d85a7d1d73fc8c40c6cc127",
+      "sha256_lf_normalized": "eb5168f339b478054fc4e7650a0cc391ada5d0439d85a7d1d73fc8c40c6cc127"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/all_selected-intake/observation_report.json",
+      "sha256": "75fb450d4fa96bbd72e873d51b2c3e03b2be05c752a30b0bb24ed5934c8d5c0e",
+      "sha256_lf_normalized": "468f5a165886adf11f7aaaf2c281e7c655ddfebb1dbe40c59d9a9fde33bd2c29"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/all_selected-intake/protocol_snapshot.json",
+      "sha256": "e5a039b870fd44b30dcaa7677c06afae02085486b001a89dfec4942d07881895",
+      "sha256_lf_normalized": "f57f50fe601427e731063d4e697e0bc6a74e8fac7e72b14eca88055b1dfd3c06"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/task_T2/binding.json",
+      "sha256": "d77f269e56d185bf9958bc0861430b69dde1401a0089ed5b3e9ad91a03cab5be",
+      "sha256_lf_normalized": "6bffd64277d59b41c3c9ad1fdb3b99fee37be9cbea9ccd100e785ba100bc2caf"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/task_T2/observations.csv",
+      "sha256": "eb5168f339b478054fc4e7650a0cc391ada5d0439d85a7d1d73fc8c40c6cc127",
+      "sha256_lf_normalized": "eb5168f339b478054fc4e7650a0cc391ada5d0439d85a7d1d73fc8c40c6cc127"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/task_T2/pack-manifest.json",
+      "sha256": "630dbc486eee8856eb15e38536178debb0c4bcd322d770487e611e13a114dbbd",
+      "sha256_lf_normalized": "337a34b91154ed2501733a641df414d546f28362d04da1265be8f61cac818781"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/task_T2/protocol-template.json",
+      "sha256": "8500033788719987b753c6e272dfe73a0885ebb0b0d711b69478376e9ae21985",
+      "sha256_lf_normalized": "8ccaedaf4c4c5a5219888c1940d585cd68cfa38c7bbecb55ef83090434795505"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/task_T2/protocol.json",
+      "sha256": "8500033788719987b753c6e272dfe73a0885ebb0b0d711b69478376e9ae21985",
+      "sha256_lf_normalized": "8ccaedaf4c4c5a5219888c1940d585cd68cfa38c7bbecb55ef83090434795505"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/task_T2/README.md",
+      "sha256": "55ab930193504ebba8b1753b10aab47e0c8f1c97dc36bd60cfae55a18c5aa661",
+      "sha256_lf_normalized": "0800f2c8a96c553bd4cec237db4b1cf7e0c90411f877893f2e34601ac6a07c87"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/task_T2/source_joint_report.json",
+      "sha256": "eb6182419e4396148bf25b023a8334c05ed1c4f8f6c18f5b5cc5b66e7b238c6d",
+      "sha256_lf_normalized": "7348ac2a51fb570c4c1c11ae7406668ba5f956ffb26519d04412d0d9c3048960"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/task_T2/stage-roster.csv",
+      "sha256": "bf02061599e70aa82b2528c1b35db7f27f78bd5d994567ce4b8724a6c7b4c8d0",
+      "sha256_lf_normalized": "bf02061599e70aa82b2528c1b35db7f27f78bd5d994567ce4b8724a6c7b4c8d0"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/task_T2-intake/observations_snapshot.csv",
+      "sha256": "eb5168f339b478054fc4e7650a0cc391ada5d0439d85a7d1d73fc8c40c6cc127",
+      "sha256_lf_normalized": "eb5168f339b478054fc4e7650a0cc391ada5d0439d85a7d1d73fc8c40c6cc127"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/task_T2-intake/observation_report.json",
+      "sha256": "1eb376498728d1bd433ad1f3314ca7975c1a34608b09bf5eaec0ec50ed6ddfc0",
+      "sha256_lf_normalized": "8956194c95d921c367ec1fb534ac39d612ee064d2478e591211c93ecc56c3f87"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/evidence/task_T2-intake/protocol_snapshot.json",
+      "sha256": "8500033788719987b753c6e272dfe73a0885ebb0b0d711b69478376e9ae21985",
+      "sha256_lf_normalized": "8ccaedaf4c4c5a5219888c1940d585cd68cfa38c7bbecb55ef83090434795505"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-design-collection/README.md",
+      "sha256": "83312e2cb08babc4b28f36ea40477ad87a0338a3eeef108d055daeaf1325a5d8",
+      "sha256_lf_normalized": "83312e2cb08babc4b28f36ea40477ad87a0338a3eeef108d055daeaf1325a5d8"
+    },
+    {
+      "path": "workflow_tools/design_observation_bridge.py",
+      "sha256": "3f49eadfaa5a44564cc2d8dd7ba52e1f82577f417e83301c1948a393817ec35b",
+      "sha256_lf_normalized": "3f49eadfaa5a44564cc2d8dd7ba52e1f82577f417e83301c1948a393817ec35b"
+    },
+    {
+      "path": "workflow_tools/verify_design_observation_bridge.py",
+      "sha256": "36c2f220252bf89b3ac311e1951da2fa55c391e0feacd1c2f5f8f2a9a34ec3ef",
+      "sha256_lf_normalized": "36c2f220252bf89b3ac311e1951da2fa55c391e0feacd1c2f5f8f2a9a34ec3ef"
+    },
+    {
+      "path": "tests/test_design_observation_bridge.py",
+      "sha256": "de6bb0d6775bad67f3a91d378caf6a8db36bd68dc12beefd1c2c3e8867cb8348",
+      "sha256_lf_normalized": "de6bb0d6775bad67f3a91d378caf6a8db36bd68dc12beefd1c2c3e8867cb8348"
+    },
+    {
+      "path": "workflow_tools/accuracy_observations.py",
+      "sha256": "93aac12b61fb30768116fc4766e39aa6cff5cd2f6678e859427f791c93982281",
+      "sha256_lf_normalized": "93aac12b61fb30768116fc4766e39aa6cff5cd2f6678e859427f791c93982281"
+    },
+    {
+      "path": "task_flow/joint_verify.py",
+      "sha256": "4065e14700dcc429636b209adc3ea565f9c23d60e92420370d9b14ec753e848d",
+      "sha256_lf_normalized": "4065e14700dcc429636b209adc3ea565f9c23d60e92420370d9b14ec753e848d"
+    },
+    {
+      "path": "data/accuracy-observations/templates/protocol.json",
+      "sha256": "7e57b410c243ffa2d73f37ad7e6ebd30a8573c95ad5cad5c5e2fc729aa4f4ad9",
+      "sha256_lf_normalized": "7e57b410c243ffa2d73f37ad7e6ebd30a8573c95ad5cad5c5e2fc729aa4f4ad9"
+    }
+  ]
+}
