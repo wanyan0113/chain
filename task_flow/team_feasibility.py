@@ -301,19 +301,32 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     for name in ('jobs', 'scene', 'mapping', 'config', 'output-dir'):
         parser.add_argument('--' + name, type=Path, required=True)
+    parser.add_argument('--input-profile', choices=['strict', 'minimal'], default='strict')
+    parser.add_argument('--data-origin', choices=['synthetic_simulation', 'expert_assumption', 'real_observational', 'mixed'])
+    parser.add_argument('--generator-version')
     args = parser.parse_args(argv)
     require(not args.output_dir.exists(), 'output directory already exists')
     manifest = read_json(args.jobs)
     require(manifest['format_version'] == 'task-flow-design-jobs-1.0', 'unsupported jobs manifest')
     jobs = [dict(task_id=j['task_id'], catalog=read_json(args.jobs.parent / j['catalog_file']),
                  request=read_json(args.jobs.parent / j['request_file'])) for j in manifest['jobs']]
-    result = run_teams(jobs, read_json(args.scene, allow_finite_floats=True),
-                       read_json(args.mapping, allow_finite_floats=True), read_json(args.config, allow_finite_floats=True))
+    scene, mapping = read_json(args.scene, allow_finite_floats=True), read_json(args.mapping, allow_finite_floats=True)
+    profile_report = None
+    if args.input_profile == 'minimal':
+        from .input_profile import normalize_design
+        jobs, scene, mapping, profile_report = normalize_design(jobs, scene, mapping,
+            data_origin=args.data_origin, generator_version=args.generator_version)
+    else:
+        require(args.data_origin is None and args.generator_version is None, 'metadata convenience options require minimal profile')
+    result = run_teams(jobs, scene, mapping, read_json(args.config, allow_finite_floats=True))
     from .team_verify import verify_teams
     result['independent_verification'] = verify_teams(result)
     require(result['independent_verification']['status'] == 'passed', 'independent team verification failed')
     args.output_dir.mkdir(parents=True)
     (args.output_dir / 'team_report.json').write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+    if profile_report is not None:
+        from .design_bridge import _write_input_profile
+        _write_input_profile(args.output_dir, profile_report)
     for i, analysis in enumerate(result['analyses'], 1):
         for name, content in knowledge_outputs(analysis['design_input'], analysis).items():
             (args.output_dir / (f'analysis-{i:03d}-' + name)).write_text(content, encoding='utf-8')

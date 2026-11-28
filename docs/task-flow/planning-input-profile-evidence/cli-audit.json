@@ -1,0 +1,142 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "case": "plan",
+      "command": [
+        "C:\\Users\\Lenovo\\Desktop\\链\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "task_flow",
+        "plan",
+        "--catalog",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\catalog.json",
+        "--request",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\request.json",
+        "--input-profile",
+        "minimal",
+        "--data-origin",
+        "synthetic_simulation",
+        "--verify",
+        "--output",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\plan.json"
+      ],
+      "exit": 0,
+      "expected_exit": 0
+    },
+    {
+      "case": "replay",
+      "command": [
+        "C:\\Users\\Lenovo\\Desktop\\链\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "task_flow",
+        "verify",
+        "--catalog",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\catalog.json",
+        "--request",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\request.json",
+        "--input-profile",
+        "minimal",
+        "--data-origin",
+        "synthetic_simulation",
+        "--report",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\plan.json",
+        "--output",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\replay.json"
+      ],
+      "exit": 0,
+      "expected_exit": 0
+    },
+    {
+      "case": "strict-reject",
+      "command": [
+        "C:\\Users\\Lenovo\\Desktop\\链\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "task_flow",
+        "check",
+        "--catalog",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\catalog.json",
+        "--request",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\request.json"
+      ],
+      "exit": 2,
+      "expected_exit": 2
+    },
+    {
+      "case": "singleton-network",
+      "command": [
+        "C:\\Users\\Lenovo\\Desktop\\链\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "task_flow.design_bridge",
+        "--jobs",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\singleton-input\\jobs.json",
+        "--scene",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\singleton-input\\scene.json",
+        "--mapping",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\singleton-input\\mapping.json",
+        "--mode",
+        "joint_candidate_optimization",
+        "--input-profile",
+        "minimal",
+        "--data-origin",
+        "synthetic_simulation",
+        "--output-dir",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\singleton-network"
+      ],
+      "exit": 0,
+      "expected_exit": 0
+    },
+    {
+      "case": "team-network",
+      "command": [
+        "C:\\Users\\Lenovo\\Desktop\\链\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "task_flow.team_feasibility",
+        "--jobs",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\team-input\\jobs.json",
+        "--scene",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\team-input\\scene.json",
+        "--mapping",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\team-input\\mapping.json",
+        "--config",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\team-input\\config.json",
+        "--input-profile",
+        "minimal",
+        "--data-origin",
+        "synthetic_simulation",
+        "--output-dir",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\team-network"
+      ],
+      "exit": 0,
+      "expected_exit": 0
+    },
+    {
+      "case": "team-scored",
+      "command": [
+        "C:\\Users\\Lenovo\\Desktop\\链\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "task_flow.team_optimization",
+        "--source-report",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\team-network\\team_report.json",
+        "--metrics",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\metrics.json",
+        "--input-profile",
+        "minimal",
+        "--data-origin",
+        "synthetic_simulation",
+        "--output-dir",
+        "generated\\task-flow\\planning-input-profile-cli-delivery\\team-scored"
+      ],
+      "exit": 0,
+      "expected_exit": 0
+    }
+  ],
+  "data_origin": "synthetic_simulation",
+  "domain_validity": "pending",
+  "input_routes_predefined": false
+}

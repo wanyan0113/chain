@@ -85,3 +85,4 @@ docs/task-flow/team-observation-intake-evidence/** -text whitespace=blank-at-eol
 knowledge/team-observation-validation.ttl -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 docs/task-flow/team-collection-preflight-evidence/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 docs/task-flow/observation-entry-evidence/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+docs/task-flow/planning-input-profile-evidence/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

@@ -237,6 +237,9 @@ def main(argv=None):
     parser.add_argument('--mode',choices=['first_resource_feasible','joint_candidate_optimization'],
                         default='first_resource_feasible')
     parser.add_argument('--max-flow-analyses',type=int,default=10000)
+    parser.add_argument('--input-profile',choices=['strict','minimal'],default='strict')
+    parser.add_argument('--data-origin',choices=['synthetic_simulation','expert_assumption','real_observational','mixed'])
+    parser.add_argument('--generator-version')
     args = parser.parse_args(argv)
     try:
         require(not args.output_dir.exists(), 'output directory already exists; choose a new directory')
@@ -253,11 +256,20 @@ def main(argv=None):
             protected.extend([catalog,request])
         scene = read_json(args.scene,allow_finite_floats=True)
         mapping = read_json(args.mapping,allow_finite_floats=True)
+        profile_report = None
+        if args.input_profile == 'minimal':
+            from .input_profile import normalize_design
+            jobs,scene,mapping,profile_report = normalize_design(jobs,scene,mapping,
+                data_origin=args.data_origin,generator_version=args.generator_version)
+        else:
+            require(args.data_origin is None and args.generator_version is None, 'metadata convenience options require minimal profile')
         if args.mode == 'joint_candidate_optimization':
             from .joint import run_joint, export_joint
             report = run_joint(jobs,scene,mapping,max_flows_per_task=args.max_flows_per_task,
                                max_flow_analyses=args.max_flow_analyses)
             export_joint(report,args.output_dir,protected=protected)
+            if profile_report is not None:
+                _write_input_profile(args.output_dir,profile_report)
             print(json.dumps(dict(integration_status=report['integration_status'],
                 global_optimality=report['global_optimality'],unique_chain_count=report['unique_chain_count'],
                 output_dir=str(args.output_dir)),ensure_ascii=False))
@@ -286,6 +298,8 @@ def main(argv=None):
             write_outputs(args.output_dir/f'attempt-{index+1:03}',outputs,
                           protected=protected+knowledge_sources(doc))
         write_outputs(args.output_dir,{'bridge_report.json':payload(report)},protected=protected)
+        if profile_report is not None:
+            _write_input_profile(args.output_dir,profile_report)
         print(json.dumps(dict(integration_status=report['integration_status'],selected_attempt=report['selected_attempt'],
                              attempts=len(report['attempts']),output_dir=str(args.output_dir)),ensure_ascii=False))
         return 0 if report['integration_status'] == 'selected' else 1
@@ -293,6 +307,11 @@ def main(argv=None):
         status='context_changed' if str(exc).startswith('context_changed:') else 'invalid_input'
         print(json.dumps({'integration_status':status,'reason':str(exc)},ensure_ascii=False))
         return 2
+
+
+def _write_input_profile(output,report):
+    with (output/'input_profile.json').open('x',encoding='utf-8',newline='\n') as handle:
+        handle.write(json.dumps(report,ensure_ascii=False,indent=2,allow_nan=False)+'\n')
 
 
 if __name__ == '__main__':

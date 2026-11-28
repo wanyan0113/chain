@@ -14,6 +14,9 @@ def main(argv=None):
     parser.add_argument('command', choices=['check', 'plan', 'verify'])
     parser.add_argument('--catalog', required=True)
     parser.add_argument('--request', required=True)
+    parser.add_argument('--input-profile', choices=['strict', 'minimal'], default='strict')
+    parser.add_argument('--data-origin', choices=['synthetic_simulation', 'expert_assumption', 'real_observational', 'mixed'])
+    parser.add_argument('--generator-version')
     parser.add_argument('--mode', choices=['first_feasible', 'enumerate_bounded'])
     parser.add_argument('--max-nodes', type=int)
     parser.add_argument('--timeout-ms', type=int)
@@ -30,6 +33,14 @@ def main(argv=None):
         if args.output is not None:
             require(not args.output.exists(), 'output already exists; choose a new report file')
         request = read_json(args.request)
+        catalog = read_json(args.catalog)
+        profile_report = None
+        if args.input_profile == 'minimal':
+            from .input_profile import normalize_problem
+            catalog, request, profile_report = normalize_problem(catalog, request,
+                data_origin=args.data_origin, generator_version=args.generator_version)
+        else:
+            require(args.data_origin is None and args.generator_version is None, 'metadata convenience options require minimal profile')
         require(args.command == 'plan' or not args.verify, '--verify requires plan command')
         require(args.command == 'verify' or (args.sequence is None and args.report is None), 'sequence/report inputs require verify command')
         require(args.command != 'verify' or args.sequence is not None or args.report is not None, 'verify needs --sequence or --report')
@@ -41,7 +52,7 @@ def main(argv=None):
         elif args.mode is not None:
             validate_shape(request, 'request')
             request['search']['mode'] = args.mode
-        problem = prepare_problem(read_json(args.catalog), request)
+        problem = prepare_problem(catalog, request)
         verification_options = {'max_candidates': args.verification_max_candidates if args.verification_max_candidates is not None else 1000,
                                 'max_trace_records': args.verification_max_trace_records if args.verification_max_trace_records is not None else MAX_TRACE_RECORDS}
         if args.command == 'verify':
@@ -50,6 +61,8 @@ def main(argv=None):
                 result = verify_sequence(problem.catalog, problem.request, read_json(args.sequence), max_trace_records=verification_options['max_trace_records'])
             else:
                 result = verify_search_report(problem.catalog, problem.request, read_json(args.report, allow_finite_floats=True), **verification_options)
+            if profile_report is not None:
+                result['input_profile'] = profile_report
             _emit(result, args.output)
             return 0 if result['verification_status'] == 'passed' else 1
         if args.command == 'plan':
@@ -65,6 +78,8 @@ def main(argv=None):
                     candidate['verification_status'] = statuses.get(candidate['candidate_id'], 'not_run')
                 if batch['verification_status'] != 'passed':
                     code = 1
+            if profile_report is not None:
+                result['input_profile'] = profile_report
             _emit(result, args.output)
             return code
         base = initial_state(problem)
@@ -80,6 +95,8 @@ def main(argv=None):
                   'initial_constraint_reason': reason, 'initial_state': state_records(problem, base),
                   'unmapped_capabilities': [c['uri'] for c in problem.catalog['capabilities']],
                   'planning_executed': False, 'independent_verification_executed': False}
+        if profile_report is not None:
+            result['input_profile'] = profile_report
         _emit(result, args.output)
         return 0 if initial_status == 'passed' else 1
     except (ContractError, OSError) as exc:

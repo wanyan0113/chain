@@ -75,9 +75,15 @@ def main(argv=None):
     parser.add_argument('--metrics', type=Path)
     parser.add_argument('--output-dir', type=Path, required=True)
     parser.add_argument('--max-network-nodes', type=int)
+    parser.add_argument('--input-profile', choices=['strict', 'minimal'], default='strict')
+    parser.add_argument('--data-origin', choices=['synthetic_simulation', 'expert_assumption', 'real_observational', 'mixed'])
+    parser.add_argument('--generator-version')
     args = parser.parse_args(argv)
     require(not args.output_dir.exists(), 'output directory already exists')
     source = read_json(args.source_report, allow_finite_floats=True)
+    require(args.metrics is not None or args.input_profile == 'strict', 'minimal metric profile requires metrics input')
+    if args.input_profile == 'strict':
+        require(args.data_origin is None and args.generator_version is None, 'metadata convenience options require minimal profile')
     if args.metrics is None:
         check = verify_teams(source)
         require(check['status'] == 'passed', 'source team report failed verification')
@@ -86,12 +92,21 @@ def main(argv=None):
         (args.output_dir/'metrics-to-fill.json').write_text(json.dumps(registry, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
         print('Generated empty metric/provenance scaffold; no scores or optimum produced.')
         return 0
-    result = run_team_optimization(source, read_json(args.metrics, allow_finite_floats=True), max_network_nodes=args.max_network_nodes)
+    registry = read_json(args.metrics, allow_finite_floats=True)
+    profile_report = None
+    if args.input_profile == 'minimal':
+        from .input_profile import normalize_metrics
+        registry, profile_report = normalize_metrics(source, registry,
+            data_origin=args.data_origin, generator_version=args.generator_version)
+    result = run_team_optimization(source, registry, max_network_nodes=args.max_network_nodes)
     from .team_optimization_verify import verify_team_optimization
     result['independent_verification'] = verify_team_optimization(result)
     require(result['independent_verification']['status'] == 'passed', 'independent scored-team verification failed')
     args.output_dir.mkdir(parents=True)
     (args.output_dir/'team_optimization.json').write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
+    if profile_report is not None:
+        from .design_bridge import _write_input_profile
+        _write_input_profile(args.output_dir, profile_report)
     (args.output_dir/'summary.md').write_text('\n'.join([
         '# Complementary-team optimization under explicit fixed intervals', '',
         'Quality metric: 串行乘积质量指标 (not an actual task success probability).',

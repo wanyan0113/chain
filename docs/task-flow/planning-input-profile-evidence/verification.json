@@ -1,0 +1,70 @@
+{
+  "version": "planning-input-profile-verification-1.0",
+  "date": "2026-11-28",
+  "base_commit": "36b1491",
+  "branch": "codex/task-flow-planning",
+  "status": "passed_software_and_synthetic_only",
+  "tests": {
+    "total": 152,
+    "new_profile": 18,
+    "existing": 134,
+    "command": "python -B -m unittest tests.test_planning_input_profile tests.test_task_flow_contracts tests.test_task_flow_planner tests.test_task_flow_validator tests.test_task_flow_design_bridge tests.test_team_feasibility tests.test_team_optimization -v"
+  },
+  "public_cli_cases": 6,
+  "actual_hermit_used": true,
+  "singleton": {
+    "chains": 18,
+    "stage_lengths": [
+      4,
+      5,
+      6
+    ],
+    "optimality": "bounded_global_optimum",
+    "rdf": {
+      "ERROR": 0,
+      "WARN": 0,
+      "INFO": 11
+    }
+  },
+  "teams": {
+    "chains": 28,
+    "networks": 16,
+    "independent_verification": "passed"
+  },
+  "scored_teams": {
+    "score": 0.6,
+    "optimality": "candidate_set_optimum",
+    "independent_verification": "passed"
+  },
+  "domain_validity": "pending",
+  "external_sources_authenticated": false,
+  "core_schemas_changed": false,
+  "production_formula_changed": false,
+  "formal_observation_contract_changed": false,
+  "strict_is_still_default": true,
+  "environment": {
+    "python": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.22631-SP0"
+  },
+  "hash_policy": "Source SHA256 normalizes CRLF to LF; evidence SHA256 uses original bytes",
+  "code_hashes": {
+    "task_flow/input_profile.py": "5c3a600cced0f2b10956b05f78b2d703f7c7afd4c2d9a510066126193e8a4963",
+    "task_flow/__main__.py": "6bfd05e32db294558c9e20d8b2971bed65bcec9b92f39b29839a150cd90b63d0",
+    "task_flow/design_bridge.py": "77d2e08307cfd47a2a0266b77746796437f4630e70c55334469a03dfca6532c6",
+    "task_flow/team_feasibility.py": "49188ba1ca3ebb38b9debc7b25d60a19482b72500c911a09506319a93d30bc6c",
+    "task_flow/team_optimization.py": "ff25ad2dcea7060e2a445d8e9d2007efc90dfdb4d48287b7b3ad021f397bb29f",
+    "tests/test_planning_input_profile.py": "76f51809ea4d6dbff8671148c74d8822ea23b8aaf57dccba102be52b135aa355"
+  },
+  "evidence_hashes": {
+    "cli-audit.json": "30fe665ae3825629590606bf210b181cdd561b3c2137d4bc60cf0d793ef4ad29",
+    "full-run.zip": "aa3a0fe5ada07efa7743c74fcc62517fa0c9f32bbbbd53ff82f1078eec0f02f2",
+    "regression-tests.log": "540895763b818d46440a0e702681551a0509eac1f1e6a27d882d101fe46e1531"
+  },
+  "limits": [
+    "Local input references are not external publications or measurement evidence.",
+    "Missing numeric values, units, activity semantics and unresolved IDs are not defaulted.",
+    "Provided conflicting hashes and bindings are rejected.",
+    "Canonical JSON digests are not original-file byte hashes or external authentication.",
+    "Independent core verification does not authenticate self-declared data origin."
+  ]
+}
