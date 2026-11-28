@@ -1,0 +1,177 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "case": "v1-import",
+      "command": [
+        "C:\\Users\\Lenovo\\Desktop\\\u94fe\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "workflow_tools.observation_entry",
+        "import",
+        "--input",
+        "generated\\task-flow\\observation-entry-cli-delivery\\v1-packet\\protocol.json",
+        "--observations",
+        "generated\\task-flow\\observation-entry-cli-delivery\\v1-packet\\observations.csv",
+        "--lock",
+        "generated\\task-flow\\observation-entry-cli-delivery\\v1-packet\\lock.json",
+        "--output-dir",
+        "generated\\task-flow\\observation-entry-cli-delivery\\v1-import"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "status": "passed",
+      "input_version": "tfdo-observation-intake-1.0"
+    },
+    {
+      "case": "v2-import",
+      "command": [
+        "C:\\Users\\Lenovo\\Desktop\\\u94fe\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "workflow_tools.observation_entry",
+        "import",
+        "--input",
+        "generated\\task-flow\\observation-entry-cli-delivery\\v2-packet\\study.json",
+        "--joint-report",
+        "generated\\task-flow\\observation-entry-cli-delivery\\v2-packet\\joint.json",
+        "--lock",
+        "generated\\task-flow\\observation-entry-cli-delivery\\v2-packet\\lock.json",
+        "--output-dir",
+        "generated\\task-flow\\observation-entry-cli-delivery\\v2-import"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "status": "passed",
+      "input_version": "tfdo-observation-study-2.0"
+    },
+    {
+      "case": "team-format",
+      "command": [
+        "C:\\Users\\Lenovo\\Desktop\\\u94fe\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "workflow_tools.observation_entry",
+        "check",
+        "--input",
+        "generated\\task-flow\\observation-entry-cli-delivery\\team-packet\\dataset.json",
+        "--protocol",
+        "generated\\task-flow\\observation-entry-cli-delivery\\team-packet\\protocol.json",
+        "--sources",
+        "generated\\task-flow\\observation-entry-cli-delivery\\team-packet\\sources.json",
+        "--output-dir",
+        "generated\\task-flow\\observation-entry-cli-delivery\\team-format"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "status": "passed",
+      "input_version": "team-observation-contract-1.0"
+    },
+    {
+      "case": "team-import",
+      "command": [
+        "C:\\Users\\Lenovo\\Desktop\\\u94fe\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "workflow_tools.observation_entry",
+        "import",
+        "--input",
+        "generated\\task-flow\\observation-entry-cli-delivery\\team-packet\\dataset.json",
+        "--protocol",
+        "generated\\task-flow\\observation-entry-cli-delivery\\team-packet\\protocol.json",
+        "--sources",
+        "generated\\task-flow\\observation-entry-cli-delivery\\team-packet\\sources.json",
+        "--lock",
+        "generated\\task-flow\\observation-entry-cli-delivery\\team-packet\\lock.json",
+        "--output-dir",
+        "generated\\task-flow\\observation-entry-cli-delivery\\team-import"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "status": "passed",
+      "input_version": "team-observation-contract-1.0"
+    },
+    {
+      "case": "team-verify",
+      "command": [
+        "C:\\Users\\Lenovo\\Desktop\\\u94fe\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "workflow_tools.observation_entry",
+        "verify",
+        "--input",
+        "generated\\task-flow\\observation-entry-cli-delivery\\team-import",
+        "--expected-receipt-hash",
+        "0e965bb3ac4a0458c3cb91aa253c6e699ac0f6489cc3bea19fe29b45e9e12e84",
+        "--output-dir",
+        "generated\\task-flow\\observation-entry-cli-delivery\\team-verify"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "status": "passed",
+      "input_version": "team-observation-contract-1.0"
+    },
+    {
+      "case": "team-preflight",
+      "command": [
+        "C:\\Users\\Lenovo\\Desktop\\\u94fe\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "workflow_tools.observation_entry",
+        "preflight",
+        "--input",
+        "generated\\task-flow\\observation-entry-cli-delivery\\registration-plan.json",
+        "--protocol",
+        "generated\\task-flow\\observation-entry-cli-delivery\\team-packet\\protocol.json",
+        "--sources",
+        "generated\\task-flow\\observation-entry-cli-delivery\\team-packet\\sources.json",
+        "--output-dir",
+        "generated\\task-flow\\observation-entry-cli-delivery\\team-preflight"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "status": "passed",
+      "input_version": "team-observation-contract-1.0"
+    },
+    {
+      "case": "missing-version",
+      "command": [
+        "C:\\Users\\Lenovo\\Desktop\\\u94fe\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "workflow_tools.observation_entry",
+        "check",
+        "--input",
+        "generated\\task-flow\\observation-entry-cli-delivery\\missing-version.json",
+        "--output-dir",
+        "generated\\task-flow\\observation-entry-cli-delivery\\missing-version"
+      ],
+      "exit_code": 2,
+      "expected_exit": 2,
+      "status": "blocked",
+      "input_version": null
+    },
+    {
+      "case": "unsupported-operation",
+      "command": [
+        "C:\\Users\\Lenovo\\Desktop\\\u94fe\\.venv\\Scripts\\python.exe",
+        "-B",
+        "-m",
+        "workflow_tools.observation_entry",
+        "preflight",
+        "--input",
+        "generated\\task-flow\\observation-entry-cli-delivery\\v1-packet\\protocol.json",
+        "--output-dir",
+        "generated\\task-flow\\observation-entry-cli-delivery\\unsupported-operation"
+      ],
+      "exit_code": 2,
+      "expected_exit": 2,
+      "status": "blocked",
+      "input_version": "tfdo-observation-intake-1.0"
+    }
+  ],
+  "data_origin": "synthetic_only",
+  "domain_validity": "pending",
+  "fresh_legacy_locks_are_synthetic_retrospective_fixtures": true,
+  "historical_locks_preserved": true
+}

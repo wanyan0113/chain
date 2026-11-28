@@ -1,0 +1,62 @@
+{
+  "version": "observation-entry-verification-1.0",
+  "date": "2026-11-28",
+  "base_commit": "c46f3d2",
+  "branch": "codex/task-flow-planning",
+  "status": "passed_software_only",
+  "tests": {
+    "total": 74,
+    "new_entry": 20,
+    "existing_regressions": 54,
+    "log": "regression-tests.log",
+    "command": "python -B -m unittest tests.test_observation_entry tests.test_design_observation_bridge tests.test_observations_v2 tests.test_observation_semantics_reference tests.test_team_observation_intake tests.test_team_collection_preflight -v"
+  },
+  "public_cli_cases": 8,
+  "cli_cases_passed": true,
+  "native_result_equivalence_versions": [
+    "tfdo-observation-intake-1.0",
+    "tfdo-observation-study-2.0",
+    "team-observation-contract-1.0"
+  ],
+  "real_hermit_used": true,
+  "legacy_handlers_changed": false,
+  "frozen_contract_changed": false,
+  "production_formula_changed": false,
+  "domain_validity": "pending",
+  "real_observations_collected": false,
+  "environment": {
+    "python": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.22631-SP0"
+  },
+  "hash_policy": "Code SHA256 uses CRLF normalized to LF; evidence SHA256 uses original bytes",
+  "code_hashes": {
+    "workflow_tools/observation_entry.py": "8e2a18d68c630a98e673ea5ebb9952a88b264baaa2bfd2980d5e0ef0909f16c5",
+    "tests/test_observation_entry.py": "a6727b912a1379c47eb2bcef7df26f4557ee9be798b16653529ee5b85a3c077f"
+  },
+  "unchanged_handler_hashes": {
+    "workflow_tools/accuracy_observations.py": "93aac12b61fb30768116fc4766e39aa6cff5cd2f6678e859427f791c93982281",
+    "workflow_tools/validate_accuracy_observations.py": "ab7771dd9ef9ba295176906ff173ba7495ca3c312358a89440a34d912bc75d5b",
+    "workflow_tools/observations_v2.py": "0d2df2df089503a8a9cd88add71226e3120341f9b8dc56a2658c2c3f7973c0bd",
+    "workflow_tools/team_observation_intake.py": "98ba7c4a2af341ee81bcbba76444cc29c0fbbba8ad5cf92d0706ead087d34945",
+    "workflow_tools/team_observation_verify.py": "213356eed7fc38d85f3b48624738c122b456d5123e863f95ed26bfc0a83135b0",
+    "workflow_tools/team_collection_preflight.py": "be35bf105a179cf46570a09ddaca1398866b4ea7b9da01c23b18556a9afa0168"
+  },
+  "evidence_hashes": {
+    "cli-audit.json": "2aab8f714f810b4aa5a7927980dc24638f4435e6ed9119cfd626f82b2fe462a1",
+    "full-run.zip": "b1103d474dc038344a3b78ac13b17418a56377870c270ecfb169480dd33902fa",
+    "regression-tests.log": "c4c19b5c0fc030dacae847c63336eba2e59baa1392967e3a678a03cde947c94e"
+  },
+  "historical_lock_probe": {
+    "observed_exit": 2,
+    "blocker": "source_changed_since_freeze",
+    "initial_expectation_was_incorrect": true,
+    "historical_lock_preserved": true,
+    "final_fixture_locks": "new synthetic retrospective locks, not real prospective evidence"
+  },
+  "limitations": [
+    "Format check is not semantic verification.",
+    "Independent raw replay is exposed only for team contract 1.0.",
+    "Preflight does not authorize real collection.",
+    "Synthetic labels and passing OWL do not validate a domain probability model."
+  ]
+}
