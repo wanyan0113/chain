@@ -1,0 +1,72 @@
+{
+  "version": "tfdo-collection-study-evidence-1.0",
+  "real_domain_data_available": false,
+  "domain_validity": "pending",
+  "files": [
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-collection-study/evidence/changed-protocol-summary.json",
+      "sha256": "8486090cf1792ffdc9a51cb206e9e6b70a6a99b5ef3898a54796012c5a22b8b6",
+      "sha256_lf_normalized": "a7cea510b674f5de1e24db29e300d7b541c00d0340253752f7d8988c20cd85ce"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-collection-study/evidence/empty-data-summary.json",
+      "sha256": "41a6ddf2e9e86ee005a9a8a72c64ceb79bf18cf5ef5206ad4064a1c5aee7a07d",
+      "sha256_lf_normalized": "54c33d2e6c1fde6a175ea37624175722dbb22e0a836f75b967a3957326c1ff26"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-collection-study/evidence/labelled-fixture-summary.json",
+      "sha256": "8832a4251aeb5fc5b5100b5e190a29dcf49a685a11a4e354f648a4ada8396d75",
+      "sha256_lf_normalized": "df00ad99636d1661ebc1b0047b4e715eca67d7ed4c4609aff170a9ad6baab31b"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-collection-study/evidence/regression-tests.log",
+      "sha256": "4bcc19e9f9f2f131148362160df305888847bf59ed762645b03f3d0d8131e678",
+      "sha256_lf_normalized": "4bcc19e9f9f2f131148362160df305888847bf59ed762645b03f3d0d8131e678"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-collection-study/evidence/verification.json",
+      "sha256": "1c9b6ecdd7e8ba5204e0b751ba60baa601d6a44790c09db68e6e4e0afe4c6d86",
+      "sha256_lf_normalized": "65aeb697a420ee6c0e9ec55a333ff135e7333f94b3828c061358a1b58029847c"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-collection-study/evidence/workflow-fixture.zip",
+      "sha256": "be065400121fe5acf314724dee8bd21eff2cf95d2371c5a94f184711e54e17af",
+      "sha256_lf_normalized": "7c81114d38ae2c4e1559ba269863ddaa1c5eb5cc19a8f6d430cf6369d896aa53"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-collection-study/README.md",
+      "sha256": "fd6c8adada0c69b56aa5dfcc3627bf388d176f8e42bfde921ee9cb199feeb05a",
+      "sha256_lf_normalized": "fd6c8adada0c69b56aa5dfcc3627bf388d176f8e42bfde921ee9cb199feeb05a"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-collection-study/data-requirements.md",
+      "sha256": "1777b43606c19f801cadd7edebb749ae7c2d4bf4934935f03a03ad0cc010cf76",
+      "sha256_lf_normalized": "1777b43606c19f801cadd7edebb749ae7c2d4bf4934935f03a03ad0cc010cf76"
+    },
+    {
+      "path": "workflow_tools/collection_study.py",
+      "sha256": "7515893b23677db8b6ecbff25987009440e0e0b7e2e4a937030264e3efd5e41a",
+      "sha256_lf_normalized": "7515893b23677db8b6ecbff25987009440e0e0b7e2e4a937030264e3efd5e41a"
+    },
+    {
+      "path": "workflow_tools/verify_collection_study.py",
+      "sha256": "3cbbf38430e3a25780493ccde4a2341445b0aa1d3d377ca8877564d63f9db037",
+      "sha256_lf_normalized": "3cbbf38430e3a25780493ccde4a2341445b0aa1d3d377ca8877564d63f9db037"
+    },
+    {
+      "path": "tests/test_collection_study.py",
+      "sha256": "e89015978ab9c9347c3662dbc299abfef38679f7bad2f3225f35241da799cc19",
+      "sha256_lf_normalized": "e89015978ab9c9347c3662dbc299abfef38679f7bad2f3225f35241da799cc19"
+    },
+    {
+      "path": "workflow_tools/accuracy_observations.py",
+      "sha256": "93aac12b61fb30768116fc4766e39aa6cff5cd2f6678e859427f791c93982281",
+      "sha256_lf_normalized": "93aac12b61fb30768116fc4766e39aa6cff5cd2f6678e859427f791c93982281"
+    },
+    {
+      "path": "workflow_tools/design_observation_bridge.py",
+      "sha256": "3f49eadfaa5a44564cc2d8dd7ba52e1f82577f417e83301c1948a393817ec35b",
+      "sha256_lf_normalized": "3f49eadfaa5a44564cc2d8dd7ba52e1f82577f417e83301c1948a393817ec35b"
+    }
+  ]
+}

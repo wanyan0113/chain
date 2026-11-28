@@ -1,5 +1,7 @@
 # 任务流程扩展当前状态
 
+新增[源设计绑定的研究冻结与观测分析闭环](joint-optimization/stage3-collection-study/README.md)及[真实数据输入/规则说明](joint-optimization/stage3-collection-study/data-requirements.md)。52项相关测试和3组CLI演练通过；演练标签为合成夹具，真实领域验证仍缺数据，原精度与网络评分不变。
+
 新增[所选链网到观测采集计划接通](joint-optimization/stage3-design-collection/README.md)：自动提取经独立核验的任务/活动/法器分配，保留三类型四环节实例，生成待填写协议和空观测表。45项相关回归及4组实际链路验收通过；真实版本与观测仍缺，领域状态pending，评分公式不变。
 
 用户确认尚无逐样本真实观测。新增[阶段三采集与验收接入口](joint-optimization/stage3-observation-intake/README.md)，提供空模板、协议冻结、独立样本/版本/缺失检查和实际标签统计；软件验收使用显式合成夹具。真实采集与领域复核未完成，模型状态仍pending。

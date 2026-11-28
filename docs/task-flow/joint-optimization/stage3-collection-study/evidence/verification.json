@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "fixtures_are_synthetic": true,
+  "real_data_available": false,
+  "domain_validity": "pending",
+  "cases": [
+    {
+      "case": "empty_data_blocked",
+      "passed": true
+    },
+    {
+      "case": "actual_label_format_linked_to_four_stage_candidate",
+      "passed": true
+    },
+    {
+      "case": "frozen_threshold_change_blocks_statistics",
+      "passed": true
+    }
+  ]
+}
