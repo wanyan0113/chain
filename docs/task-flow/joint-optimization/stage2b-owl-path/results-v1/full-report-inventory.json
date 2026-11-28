@@ -1,0 +1,37 @@
+[
+  {
+    "path": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\task-flow\\stage2b-owl-path-20261128\\base\\reference-joint.json",
+    "sha256": "ce65ed09999d96f8f34e4f86421ee6faac8b797fbc85fca38df59e2f67aac1bc",
+    "bytes": 992757
+  },
+  {
+    "path": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\task-flow\\stage2b-owl-path-20261128\\flows-1\\reference-joint.json",
+    "sha256": "0d4b30308bfd14976348452db46c519bd9766004640be3d483758c1553094a8e",
+    "bytes": 1088284
+  },
+  {
+    "path": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\task-flow\\stage2b-owl-path-20261128\\flows-4\\reference-joint.json",
+    "sha256": "591e5fa089e4fcde1d6d10fcb19a19251727c59b4fde918f81285d22029cd8d2",
+    "bytes": 2522785
+  },
+  {
+    "path": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\task-flow\\stage2b-owl-path-20261128\\artifacts-3\\reference-joint.json",
+    "sha256": "819e79f8e2222232551769a55d2a30b91f5ad25d4c3b229193de78a95d4d1c17",
+    "bytes": 5252771
+  },
+  {
+    "path": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\task-flow\\stage2b-owl-path-20261128\\classes-32\\reference-joint.json",
+    "sha256": "7d8f4f958a47ac0c64bce1d30fe08cb5b3d249cbfe15936c72c50e358d6f64fa",
+    "bytes": 1001018
+  },
+  {
+    "path": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\task-flow\\stage2b-owl-path-20261128\\classes-128\\reference-joint.json",
+    "sha256": "97cfca9e9b135704e25e526bedb6d3e2c1e126fd1f0ca5a0499e1f5c5ef4da8d",
+    "bytes": 1021981
+  },
+  {
+    "path": "C:\\Users\\Lenovo\\Desktop\\链\\generated\\task-flow\\stage2b-owl-path-20261128\\one-seal\\reference-joint.json",
+    "sha256": "76fb13adc0a91757fd9ccbfc50f129f68e961cd09cfeb3bbea7f6426c87aa707",
+    "bytes": 892982
+  }
+]

@@ -1,0 +1,45 @@
+{
+  "version": "tfdo-owl-path-1.0",
+  "repetitions": 5,
+  "matrix": [
+    [
+      "base",
+      "P4-tasks-1"
+    ],
+    [
+      "flows-1",
+      "P1-flows-1"
+    ],
+    [
+      "flows-4",
+      "P1-flows-4"
+    ],
+    [
+      "artifacts-3",
+      "P2-artifacts-3"
+    ],
+    [
+      "classes-32",
+      "P3-classes-32"
+    ],
+    [
+      "classes-128",
+      "P3-classes-128"
+    ],
+    [
+      "one-seal",
+      "P4-tasks-1"
+    ]
+  ],
+  "compiled_class_sha256": "b583b36df8f093255304ec1093be4657ba368ca18a85ac1b1849b33dfb38b4f9",
+  "source_hashes": {
+    "adapters\\owl_infer.py": "dd2618151670a0c28e612c172bff0a97bbdb4639ee95f2cd7cf5d66b350aa40f",
+    "workflow_tools\\benchmark_owl_path.py": "572c1d765294a7b0b5e4b485727fba847882cfd2ecd9cd8975f90619da4be42e",
+    "workflow_tools\\owl_profile_worker.py": "9276586721e8f2434549544744d483dbe18877a6d29e1c4b2583cc88f67d00dc",
+    "workflow_tools\\java\\OwlTimingProbe.java": "0c595eb6628f2231880cb51aa91f61e7eb4aa5093cead47de1bae18e9b8179ed"
+  },
+  "optimization_changes": false,
+  "pure_jvm_boot_seconds": null,
+  "startup_note": "launch-to-READY includes class bootstrap and pipe delivery; not pure JVM boot",
+  "lifecycle": "fresh world/ontology/reasoner each repetition, including same-process groups"
+}

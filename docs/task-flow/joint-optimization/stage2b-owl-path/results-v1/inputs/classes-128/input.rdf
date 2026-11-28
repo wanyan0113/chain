@@ -1,0 +1,2550 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rdf:RDF
+   xmlns:b="http://example.org/arcaneweb#"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#responseTimeS">
+    <b:semanticNote xml:lang="zh">响应时间是单项参数，不自动等于式（4）的完整施法阶段耗时。</b:semanticNote>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:unitSymbol>s</b:unitSymbol>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <rdfs:label xml:lang="zh">吟唱耗时（秒）</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ManifestationCapability">
+    <rdfs:label xml:lang="zh">具现能力</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <b:correspondsToPhase rdf:resource="http://example.org/arcaneweb#ActPhase"/>
+    <b:sourceSection>1.3 表 4</b:sourceSection>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ArcaneCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#requirementForMission">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#InvocationRequirement"/>
+    <rdfs:comment xml:lang="zh">表 1 将施法需求定义为完成可能担负任务的基本要求；该属性把需求挂到行动任务上。</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <rdfs:label xml:lang="zh">面向行动任务</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#detectionRangeNm">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:unitSymbol>nmi</b:unitSymbol>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#InsightArtifact"/>
+    <rdfs:label xml:lang="zh">灵视探知距离（里）</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#disturbanceRadiusM">
+    <rdfs:label xml:lang="zh">扰动半径（米）</rdfs:label>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <b:unitSymbol>m</b:unitSymbol>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#targetAltitudeFt">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Target"/>
+    <rdfs:label xml:lang="zh">目标高度（尺）</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:unitSymbol>ft</b:unitSymbol>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#relayDelayMs">
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#CoordinationArtifact"/>
+    <rdfs:label xml:lang="zh">魔力共鸣延迟（毫秒）</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:unitSymbol>ms</b:unitSymbol>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2505276e448148fb91e538359b417ba6b2">
+    <owl:someValuesFrom rdf:resource="http://example.org/arcaneweb#CoordinationArtifact"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#nodeArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#manaRechargeTimeS">
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:unitSymbol>s</b:unitSymbol>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="zh">魔力回充耗时（秒）</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#azimuthResolutionDeg">
+    <b:unitSymbol>deg</b:unitSymbol>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#InsightArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="zh">方位角感知误差（度）</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#speedKn">
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:label xml:lang="zh">飞行极速（迅捷度）</rdfs:label>
+    <b:unitSymbol>kn</b:unitSymbol>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Artifact"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#elevationCoverageDeg">
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#InsightArtifact"/>
+    <rdfs:label xml:lang="zh">俯仰感知区（度）</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <b:unitSymbol>deg</b:unitSymbol>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#nodeRole">
+    <rdfs:label xml:lang="zh">节点职能</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ChainNode"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#coordinationToManifestationCommunication">
+    <rdfs:comment xml:lang="zh">对应论文图 3 中协调法器与具现法器之间的传讯关系。</rdfs:comment>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <rdfs:subPropertyOf rdf:resource="http://example.org/arcaneweb#communicatesWith"/>
+    <rdfs:label xml:lang="zh">协调-具现传讯</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#CoordinationArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#InsightTargetTypeCapability">
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#InsightCapability"/>
+    <b:sourceSection>1.3 表 4；截图 20261023222326</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="zh">灵视探知目标类型能力</rdfs:label>
+    <b:semanticNote xml:lang="zh">表 4 分类维度：目标类型。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。</b:semanticNote>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#insightToCoordinationCommunication">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#InsightArtifact"/>
+    <rdfs:comment xml:lang="zh">对应论文图 3 中灵视探知法器与协调法器之间的传讯关系。</rdfs:comment>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#CoordinationArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="zh">灵视探知-协调传讯</rdfs:label>
+    <rdfs:subPropertyOf rdf:resource="http://example.org/arcaneweb#communicatesWith"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#AreaManifestationCapability">
+    <rdf:type rdf:resource="http://example.org/arcaneweb#ManifestationTargetQuantityCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="zh">范围具现能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#missionTargetSpeedKn">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <b:unitSymbol>kn</b:unitSymbol>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <b:sourceSection>1.4 表 5；截图 20261023222331</b:sourceSection>
+    <rdfs:label xml:lang="zh">目标速度（迅捷度）</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C10">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C9"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-scene:task:T1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <rdfs:label xml:lang="zh">任务：T1</rdfs:label>
+    <b:hasTarget rdf:resource="urn:arcane-scene:target:Rift-1"/>
+    <b:hasSequentialStep rdf:resource="urn:arcane-scene:step:%5B%22T1%22%2C%22flow-a225fab946ccf556ef7eed80e938ba9b214eb3aba4b68bcd6e67aa768a59e5dc%22%2C%22s1%22%5D"/>
+    <b:hasSequentialStep rdf:resource="urn:arcane-scene:step:%5B%22T1%22%2C%22flow-a225fab946ccf556ef7eed80e938ba9b214eb3aba4b68bcd6e67aa768a59e5dc%22%2C%22s2%22%5D"/>
+    <b:hasSequentialStep rdf:resource="urn:arcane-scene:step:%5B%22T1%22%2C%22flow-a225fab946ccf556ef7eed80e938ba9b214eb3aba4b68bcd6e67aa768a59e5dc%22%2C%22s3%22%5D"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#Formula07">
+    <rdfs:label xml:lang="zh">式（7）时间归一化</rdfs:label>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#FormulaDescription"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <b:formulaText>T_prime = 1 - (T - min(T)) / (max(T) - min(T))</b:formulaText>
+    <b:sourceSection>评估指标；式（7）</b:sourceSection>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#InsightRangeCapability">
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#InsightCapability"/>
+    <b:semanticNote xml:lang="zh">表 4 分类维度：感知距离。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。</b:semanticNote>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <b:sourceSection>1.3 表 4；截图 20261023222326</b:sourceSection>
+    <rdfs:label xml:lang="zh">感知距离能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#judgmentToDecisionCommunication">
+    <rdfs:subPropertyOf rdf:resource="http://example.org/arcaneweb#communicatesWith"/>
+    <rdfs:label xml:lang="zh">占卜-决断传讯</rdfs:label>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#DecisionArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#JudgmentArtifact"/>
+    <rdfs:comment xml:lang="zh">对应论文图 3 中占卜法器与决断法器之间的传讯关系。</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#missionCode">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <b:sourceSection>1.4 表 5；截图 20261023222331</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="zh">任务代号</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#artifactStatus">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:label xml:lang="zh">法器状态</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#detectionPrecision">
+    <b:semanticNote xml:lang="zh">项目扩展的 0—1 汇总指标；表 3 的距离/角度误差不能未经定义就直接转换为此指标。标注本身不约束数值范围。</b:semanticNote>
+    <b:unitSymbol>1</b:unitSymbol>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#InsightArtifact"/>
+    <rdfs:label xml:lang="zh">灵视探知精度（0-1）</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment xml:lang="zh">论文表 3 的灵视探知精度由距离/方位/俯仰感知误差表示；本属性是便于比较的汇总值（扩展）。</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#hasSubMission">
+    <rdfs:comment xml:lang="zh">扩展：行动任务分解关系。</rdfs:comment>
+    <rdfs:label xml:lang="zh">包含子任务</rdfs:label>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#Formula10">
+    <rdfs:label xml:lang="zh">式（10）加权评分</rdfs:label>
+    <b:semanticNote xml:lang="zh">来源要求每个权重属于 [0,1] 且权重和为 1；三个归一化值须使用同一比较集合。截图未规定 max=min 时的处理，本体不自行设定得分。</b:semanticNote>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#FormulaDescription"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <b:formulaText>P = w_1 * T_prime + w_2 * A_prime + w_3 * C_prime</b:formulaText>
+    <b:sourceSection>评估指标；式（10）</b:sourceSection>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#minActivationAltitudeFt">
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:label xml:lang="zh">最小激发基准</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:unitSymbol>ft</b:unitSymbol>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#OrchestrationCapability">
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#CoordinationCapability"/>
+    <rdfs:label xml:lang="zh">统筹能力</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <b:sourceSection>1.3 表 4</b:sourceSection>
+    <b:sourceSection>1.3 表 4；截图 20261023222320</b:sourceSection>
+    <b:semanticNote xml:lang="zh">表 4 分类维度：统筹能力。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。</b:semanticNote>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#insightIntervalS">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:label xml:lang="zh">灵视探知时间间隔（秒）</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#InsightArtifact"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:unitSymbol>s</b:unitSymbol>
+    <b:semanticNote xml:lang="zh">采样或灵视探知间隔不自动等于式（4）的阶段总耗时。</b:semanticNote>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2505276e448148fb91e538359b417ba6b17">
+    <owl:someValuesFrom rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#nodeArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C19">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C18"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b39">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#hasTarget"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:someValuesFrom rdf:resource="urn:arcane-rift-demo:Target3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#relationStartTime">
+    <rdfs:label xml:lang="zh">法阵生效时间</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ChainRelation"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2505276e448148fb91e538359b417ba6b14">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:someValuesFrom rdf:resource="http://example.org/arcaneweb#InsightArtifact"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#nodeArtifact"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#altitudeFt">
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:label xml:lang="zh">浮空势位（尺）</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:comment xml:lang="zh">沿用原版法器海拔的参照面和英尺单位；“浮空势位”为背景化显示名称，不改为相对地面的离地高度，也不限定法器必须处于悬浮状态。</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:unitSymbol>ft</b:unitSymbol>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#communicationBandwidthMbps">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <b:unitSymbol>Mbps</b:unitSymbol>
+    <rdfs:label xml:lang="zh">传音频段（Mbps）</rdfs:label>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#CoordinationArtifact"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2505276e448148fb91e538359b417ba6b8">
+    <owl:someValuesFrom rdf:resource="http://example.org/arcaneweb#JudgmentCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C56">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C55"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:ReviewUnit">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#InsightArtifact"/>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b3"/>
+    <rdfs:label xml:lang="zh">精细复核法器类</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#stepActivity">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="zh">环节活动</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#SequentialStepMission"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C122">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C121"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#latitudeDeg">
+    <b:unitSymbol>deg</b:unitSymbol>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <rdfs:label xml:lang="zh">星象坐标（纬）</rdfs:label>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b9">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#hasCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:Stabilize"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#manifestationTargetType">
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:label xml:lang="zh">具现目标类型</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b3">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#hasCapability"/>
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:FineScan"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2505276e448148fb91e538359b417ba6b7">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:someValuesFrom rdf:resource="http://example.org/arcaneweb#JudgmentCapability"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#hasCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#minRangeNm">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:unitSymbol>nmi</b:unitSymbol>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:label xml:lang="zh">最小魔力触及距离（里）</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:Mission1">
+    <rdfs:label xml:lang="zh">普通裂隙任务类</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b19"/>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b21"/>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b20"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:equivalentClass rdf:nodeID="nc6482bde853f4599896bd01336546794b15"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#JudgmentMission">
+    <rdfs:label xml:lang="zh">占卜任务（O2 研判）</rdfs:label>
+    <rdfs:altLabel xml:lang="zh">研判任务</rdfs:altLabel>
+    <b:sourceSection>1.4</b:sourceSection>
+    <b:correspondsToPhase rdf:resource="http://example.org/arcaneweb#OrientPhase"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#CoordinationMission"/>
+    <rdfs:subClassOf rdf:nodeID="n2505276e448148fb91e538359b417ba6b8"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#EvaluationCapability">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <b:sourceSection>1.3 表 4</b:sourceSection>
+    <b:sourceSection>1.3 表 4；截图 20261023222326</b:sourceSection>
+    <b:semanticNote xml:lang="zh">表 4 分类维度：解析能力。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。</b:semanticNote>
+    <b:semanticNote xml:lang="zh">解析能力按表 4 保留在协调能力下。与 JudgmentCapability 相关，但截图未给出等价或包含公理，故不自动合并。</b:semanticNote>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#CoordinationCapability"/>
+    <rdfs:label xml:lang="zh">解析能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#TaskCapabilityRuleDescription">
+    <b:semanticNote xml:lang="zh">用户于2026-10-27更正2.1.1示例的笔误：目标距离近时，需要近程具现能力；不采用原文的远程表述。近程的数值阈值仍须显式配置。可执行规则由独立design模块加载，本条注释本身不执行推理。</b:semanticNote>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#DesignRuleDescription"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <b:sourceSection>2.1.1；式（1）</b:sourceSection>
+    <rdfs:label xml:lang="zh">任务—能力映射规则说明</rdfs:label>
+    <rdfs:comment xml:lang="zh">描述任务属性条件与所需能力之间的条件关系；条件阈值未在截图中完整给出。</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#InvocationRequirement">
+    <b:sourceSection>1.1 表 1</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <b:semanticNote xml:lang="zh">需求关系的存在不代表已通过满足性判定；截图未定义结构化阈值字段，本轮不自行编造阈值。</b:semanticNote>
+    <rdfs:label xml:lang="zh">施法需求</rdfs:label>
+    <rdfs:comment xml:lang="zh">在一定的时期，为完成可能担负的行动任务，对魔法力量建设的基本要求。暂时只建立需求与行动任务、法术、法器的关系。</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#flightSpeedKn">
+    <b:unitSymbol>kn</b:unitSymbol>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="zh">飞行极速（迅捷度）</rdfs:label>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C102">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C101"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#maxTargetSpeedKn">
+    <b:unitSymbol>kn</b:unitSymbol>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <rdfs:label xml:lang="zh">目标飞行极速</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#communicationPowerW">
+    <rdfs:label xml:lang="zh">传讯功率（瓦）</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#CoordinationArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:unitSymbol>W</b:unitSymbol>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2505276e448148fb91e538359b417ba6b5">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#hasCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:someValuesFrom rdf:resource="http://example.org/arcaneweb#DecisionCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#missionMetrics">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="zh">任务指标</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <b:sourceSection>1.4 表 5；截图 20261023222331</b:sourceSection>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#chainRelation">
+    <rdfs:label xml:lang="zh">参与的法阵组合</rdfs:label>
+    <rdfs:comment xml:lang="zh">法术链指向法阵组合关系实例的反向链接，与 relatedChain 互逆。</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#SpellChain"/>
+    <owl:inverseOf rdf:resource="http://example.org/arcaneweb#relatedChain"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ChainRelation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#maxRangeNm">
+    <b:unitSymbol>nmi</b:unitSymbol>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:label xml:lang="zh">最大魔力触及距离（里）</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b44">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:FineScan"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-scene:target:Rift-1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#Target"/>
+    <rdfs:label xml:lang="zh">目标：Rift-1</rdfs:label>
+    <b:targetType rdf:datatype="http://www.w3.org/2001/XMLSchema#string">普通裂隙</b:targetType>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ManifestationTargetTypeCapability">
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ManifestationCapability"/>
+    <b:semanticNote xml:lang="zh">表 4 分类维度：目标类型。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。</b:semanticNote>
+    <b:sourceSection>1.3 表 4；截图 20261023222320</b:sourceSection>
+    <rdfs:label xml:lang="zh">具现目标类型能力</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:PrimaryAnalysisUnit">
+    <rdfs:subClassOf rdf:resource="urn:arcane-rift-demo:AnalysisUnit"/>
+    <rdfs:subClassOf rdf:nodeID="n9739ddbaf4c14c6a9167200bb976b4b4b1"/>
+    <rdfs:label xml:lang="zh">主解析法器类</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C115">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C114"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2505276e448148fb91e538359b417ba6b11">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#hasChainNode"/>
+    <owl:someValuesFrom rdf:resource="http://example.org/arcaneweb#InsightChainNode"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C14">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C13"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C83">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C82"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#finishStartPrecedes">
+    <rdfs:label xml:lang="zh">前置施法完毕</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+    <b:sourceSection>1.4 时序表达（项目扩展属性）</b:sourceSection>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <b:semanticNote xml:lang="zh">用于具体任务实例的完成—开始依赖。OODA 阶段循环不等于 nextNode 或依赖图必须成环；截图中引用的图 5 图形本轮未提供。</b:semanticNote>
+    <rdfs:comment xml:lang="zh">对应论文图 5：前一环节完成后，后一环节开始。该属性只表达直接时序，不自动计算持续时间。</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <owl:inverseOf rdf:resource="http://example.org/arcaneweb#startsAfterCompletionOf"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:Dispatch">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#CoordinationCapability"/>
+    <rdfs:label xml:lang="zh">稳定术协调</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C71">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C70"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b12">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#targetType"/>
+    <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">普通裂隙</owl:hasValue>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#orchestrates">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#CoordinationArtifact"/>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <rdfs:label xml:lang="zh">统筹法器</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#hasSituation">
+    <rdfs:comment xml:lang="zh">图 1 中行动任务与元素场域态势共同决定所需法术的任务侧入口。</rdfs:comment>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ElementalFieldSituation"/>
+    <rdfs:label xml:lang="zh">任务所处环境</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#BeastManifestationCapability">
+    <rdf:type rdf:resource="http://example.org/arcaneweb#ManifestationTargetTypeCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="zh">对大型灵兽具现能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#hasChainNode">
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ChainNode"/>
+    <rdfs:comment xml:lang="zh">法术链成员关系的唯一入口；节点顺序由 nodeOrder 和 nextNode 表达。</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="zh">包含有序法阵节点</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#SpellChain"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#toChain">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ChainRelation"/>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#SpellChain"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="zh">目标法术链</rdfs:label>
+    <rdfs:subPropertyOf rdf:resource="http://example.org/arcaneweb#relatedChain"/>
+    <rdfs:comment xml:lang="zh">用于串联法阵和分支法阵，表示有向关系的终点。</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C45">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C44"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C111">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C110"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#stepIndex">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#SequentialStepMission"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="zh">模板内环节次序</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#LowAltitudeManifestationCapability">
+    <rdf:type rdf:resource="http://example.org/arcaneweb#ManifestationAltitudeCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="zh">低空具现能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#CapabilityArtifactRuleDescription">
+    <b:sourceSection>2.1.1；式（2）</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#DesignRuleDescription"/>
+    <rdfs:label xml:lang="zh">能力—法器映射规则说明</rdfs:label>
+    <rdfs:comment xml:lang="zh">描述能力需求与法器属性条件的映射；本目录不进行法器筛选。</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C84">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C83"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2505276e448148fb91e538359b417ba6b6">
+    <owl:someValuesFrom rdf:resource="http://example.org/arcaneweb#DecisionCapability"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#azimuthCoverageDeg">
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <b:unitSymbol>deg</b:unitSymbol>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#InsightArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="zh">方位感知区（度）</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-scene:artifact:R-Analysis-Backup">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="urn:arcane-rift-demo:BackupAnalysisUnit"/>
+    <rdfs:label xml:lang="zh">法器：R-Analysis-Backup</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#CommunicationCapability">
+    <b:sourceSection>1.3 表 4</b:sourceSection>
+    <b:sourceSection>1.3 表 4；截图 20261023222320</b:sourceSection>
+    <b:semanticNote xml:lang="zh">表 4 分类维度：传讯能力。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。</b:semanticNote>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#CoordinationCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="zh">传讯能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#InformationRelayCapability">
+    <rdfs:label xml:lang="zh">魔法信息中继能力</rdfs:label>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#CommunicationCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#artifactName">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="zh">法器名称</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C70">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C69"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#evaluationTimeS">
+    <rdfs:label xml:lang="zh">解析耗时（秒）</rdfs:label>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#CoordinationArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:unitSymbol>s</b:unitSymbol>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ManifestationArtifact">
+    <rdfs:comment xml:lang="zh">功能角色类：表示可执行魔法抵消和魔力消解任务的功能单元，在协调节点的协调安排和灵视探知节点的信息传输下，对交互目标进行扰动或具现。既包括具现平台，也包括魔晶载体，不限定为承载平台。原版表 3 的具现属性以本类为定义域；CrystalVessel 作为子类继承相关属性的适用范围。</rdfs:comment>
+    <rdfs:comment xml:lang="zh">表示可执行魔法抵消和魔力消解任务的功能单元，在协调节点的协调安排和灵视探知节点的信息传输下，对交互目标进行扰动或具现。</rdfs:comment>
+    <b:sourceSection>1.2 表 2、表 3</b:sourceSection>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <rdfs:subClassOf rdf:nodeID="n2505276e448148fb91e538359b417ba6b18"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <b:correspondsToPhase rdf:resource="http://example.org/arcaneweb#ActPhase"/>
+    <rdfs:label xml:lang="zh">具现法器</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#DecidePhase">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#OODAPhase"/>
+    <rdfs:label xml:lang="zh">D 决断（Decide）</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#manifestationPotency">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <rdfs:label xml:lang="zh">共鸣效值</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C99">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C98"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#previousNode">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ChainNode"/>
+    <rdfs:label xml:lang="zh">上一节点</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ChainNode"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C13">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C12"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ArcaneMission">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment xml:lang="zh">奥术网为实现行动目标需要完成的各种任务的统称，包括探知、研判、决断、施法等。</rdfs:comment>
+    <b:sourceSection>1.1 表 1；1.4 表 5</b:sourceSection>
+    <rdfs:label xml:lang="zh">行动任务</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#missionTargetAltitudeFt">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:sourceSection>1.4 表 5；截图 20261023222331</b:sourceSection>
+    <rdfs:label xml:lang="zh">目标高度（尺）</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <b:unitSymbol>ft</b:unitSymbol>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b2">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:WideSurvey"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#chainTarget">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#SpellChain"/>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#Target"/>
+    <rdfs:label xml:lang="zh">锁定目标</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C116">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C115"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C85">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C84"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#SequentialStepMission">
+    <rdfs:comment xml:lang="zh">在探知、协调、具现主线上按配置建立顺序环节，同一角色可重复出现；每个环节分配一个执行实例，不强制评估，不声明联合效果公式。</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <rdfs:label xml:lang="zh">顺序任务环节</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:StabilizeStep">
+    <rdfs:label xml:lang="zh">裂隙稳定环节类</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b10"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#SequentialStepMission"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b23">
+    <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">共振裂隙</owl:hasValue>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#targetType"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ShortRangeManifestationCapability">
+    <rdf:type rdf:resource="http://example.org/arcaneweb#ManifestationRangeCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="zh">近程具现能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b19">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:WideSurvey"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b14">
+    <rdf:first rdf:nodeID="nc6482bde853f4599896bd01336546794b12"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b28">
+    <rdf:rest rdf:nodeID="nc6482bde853f4599896bd01336546794b29"/>
+    <rdf:first rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#missionTargetLatitudeDeg">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <b:unitSymbol>deg</b:unitSymbol>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:sourceSection>1.4 表 5；截图 20261023222331</b:sourceSection>
+    <rdfs:label xml:lang="zh">目标星象坐标（纬）</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#HighAltitudeManifestationCapability">
+    <rdfs:label xml:lang="zh">高空具现能力</rdfs:label>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#ManifestationAltitudeCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#hasCapability">
+    <rdfs:label xml:lang="zh">具备法术</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:comment xml:lang="zh">定义域故意设为 Artifact：承载平台和挂载物都可以具备法术。若只想让功能单元具备法术，应另建 FunctionalArtifact 子类，而不是依赖注释。</rdfs:comment>
+    <b:sourceSection>1.1；2.1.1</b:sourceSection>
+    <b:semanticNote xml:lang="zh">表示法器具有某项能力，不自动推导其数值性能满足某个任务。</b:semanticNote>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <owl:inverseOf rdf:resource="http://example.org/arcaneweb#realizedBy"/>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ArcaneCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#capabilitySupportsMission">
+    <rdfs:label xml:lang="zh">支撑行动任务</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <owl:inverseOf rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#missionTargetType">
+    <b:sourceSection>1.4 表 5；截图 20261023222331</b:sourceSection>
+    <b:semanticNote xml:lang="zh">来源类别编码与显示名称分开；背景化显示名不自动改变来源类别编码。</b:semanticNote>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="zh">目标类型</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C69">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C68"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:DispatchUnit">
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#CoordinationArtifact"/>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b7"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="zh">稳定术协调法器类</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#targetDistanceNm">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <rdfs:label xml:lang="zh">目标距离（里）</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:unitSymbol>nmi</b:unitSymbol>
+    <rdfs:comment xml:lang="zh">扩展：表 5 之外补充的目标距离字段。</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C40">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C39"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#Formula06">
+    <b:sourceSection>评估指标；式（6）</b:sourceSection>
+    <b:semanticNote xml:lang="zh">按一致币种和使用成本口径求和；多条链共享资源时，截图没有给出网络级成本去重规则。</b:semanticNote>
+    <rdfs:label xml:lang="zh">式（6）总成本</rdfs:label>
+    <b:formulaText>C = C_o + C_d + C_a</b:formulaText>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#FormulaDescription"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#missionShortName">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="zh">任务简称</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <b:sourceSection>1.4 表 5；截图 20261023222331</b:sourceSection>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#correspondsToPhase">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+    <rdfs:comment xml:lang="zh">类或术语的阶段标注；不是实例执行顺序，也不自动传播到实例。</rdfs:comment>
+    <rdfs:label xml:lang="zh">对应 OODA 阶段</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#maxTargetAltitudeFt">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:unitSymbol>ft</b:unitSymbol>
+    <rdfs:label xml:lang="zh">目标高位弦长</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#AstralManifestationCapability">
+    <rdfs:label xml:lang="zh">星界具现能力</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#ManifestationAltitudeCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C110">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C109"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#formulaText">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+    <rdfs:comment xml:lang="zh">来源中的数学表达式的文本记录；不是 SWRL、SPARQL 或可执行代码。</rdfs:comment>
+    <rdfs:label xml:lang="zh">公式文本</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-scene:step:%5B%22T1%22%2C%22flow-a225fab946ccf556ef7eed80e938ba9b214eb3aba4b68bcd6e67aa768a59e5dc%22%2C%22s2%22%5D">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#SequentialStepMission"/>
+    <rdfs:label xml:lang="zh">任务环节：["T1","flow-a225fab946ccf556ef7eed80e938ba9b214eb3aba4b68bcd6e67aa768a59e5dc","s2"]</rdfs:label>
+    <b:stepTarget rdf:resource="urn:arcane-scene:target:Rift-1"/>
+    <b:stepActivity rdf:datatype="http://www.w3.org/2001/XMLSchema#string">decide</b:stepActivity>
+    <b:stepIndex rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</b:stepIndex>
+    <b:requiresCapability rdf:resource="urn:arcane-rift-demo:Dispatch"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#maxCommDistanceNm">
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:unitSymbol>nmi</b:unitSymbol>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="zh">最大传讯距离（里）</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <rdfs:comment xml:lang="zh">论文 2.1.2 法器协同规则所需的扩展属性。</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ChainRelation">
+    <rdfs:subClassOf rdf:nodeID="n2505276e448148fb91e538359b417ba6b1"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment xml:lang="zh">2.1.3 扩展：以具体关系实例表达并列、串联、分支等法阵组合。并列法阵用 relatedChain 列出参与者，有向法阵用 fromChain/toChain 表示方向；不再使用法术链到法术链的直接属性。</rdfs:comment>
+    <rdfs:label xml:lang="zh">法阵组合关系</rdfs:label>
+    <b:sourceSection>2.1.3（项目结构化扩展）</b:sourceSection>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#flightAltitudeFt">
+    <b:unitSymbol>ft</b:unitSymbol>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:label xml:lang="zh">飞行高度（尺）</rdfs:label>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C93">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C92"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#CoordinationChainNode">
+    <rdfs:label xml:lang="zh">协调链节点</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ChainNode"/>
+    <rdfs:subClassOf rdf:nodeID="n2505276e448148fb91e538359b417ba6b2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#startsAfterCompletionOf">
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="zh">在上一环节结束后启动</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ElementalFieldSituation">
+    <b:sourceSection>1.1 表 1</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment xml:lang="zh">元素场域中魔力分布及元素环境的当前状态和发展变化趋势。</rdfs:comment>
+    <b:semanticNote xml:lang="zh">目前只表达态势与任务、能力和目标的关联，未提供元素种类、魔力场或环境数值模型。</b:semanticNote>
+    <rdfs:label xml:lang="zh">元素场域态势</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#multiCastCount">
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:label xml:lang="zh">多重施法连发数</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b5">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#hasCapability"/>
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:ResonanceAnalysis"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C39">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C38"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#FormulaDescription">
+    <b:semanticNote xml:lang="zh">本批截图只提供式（1）至式（10），未定义 SE、α/β 或状态更新方程；这些不列入本批资料的实现范围。</b:semanticNote>
+    <rdfs:label xml:lang="zh">公式说明</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#unitSymbol">
+    <rdfs:label xml:lang="zh">单位符号</rdfs:label>
+    <rdfs:comment xml:lang="zh">描述数据属性的单位；不执行单位换算。1 表示无量纲。</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#DecisionCapability">
+    <b:correspondsToPhase rdf:resource="http://example.org/arcaneweb#DecidePhase"/>
+    <b:sourceSection>1.3 OODA 细分</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="zh">决断能力</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#CoordinationCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C4">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C3"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#InsightCapability">
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ArcaneCapability"/>
+    <rdfs:label xml:lang="zh">灵视探知能力</rdfs:label>
+    <b:sourceSection>1.3 表 4</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <b:correspondsToPhase rdf:resource="http://example.org/arcaneweb#ObservePhase"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#CoordinationArtifact">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment xml:lang="zh">表示各类协调机构，是奥术网的核心，对魔法活动执行决断。</rdfs:comment>
+    <rdfs:comment xml:lang="zh">各类协调机构，是奥术网的核心，对一切魔法活动执行决断；包括联合统筹中枢、浮空艇群组协调中枢等。</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n2505276e448148fb91e538359b417ba6b3"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <rdfs:label xml:lang="zh">协调法器</rdfs:label>
+    <b:semanticNote xml:lang="zh">协调层覆盖研判和决断两个阶段；父类本身不绑定单一阶段。</b:semanticNote>
+    <b:sourceSection>1.2 表 2、表 3</b:sourceSection>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ParallelRelation">
+    <rdfs:label xml:lang="zh">并列法阵</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ChainRelation"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C64">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C63"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C89">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C88"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C118">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C117"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b30">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:WideSurvey"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b36">
+    <rdf:first rdf:resource="http://example.org/arcaneweb#Target"/>
+    <rdf:rest rdf:nodeID="nc6482bde853f4599896bd01336546794b37"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b24">
+    <rdf:rest rdf:nodeID="nc6482bde853f4599896bd01336546794b25"/>
+    <rdf:first rdf:resource="http://example.org/arcaneweb#Target"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#CoordinationPlatform">
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#CoordinationArtifact"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ArtifactPlatform"/>
+    <rdfs:label xml:lang="zh">协调平台</rdfs:label>
+    <rdfs:comment xml:lang="zh">扩展子类：浮空艇群组协调中枢等承载协调节点的平台。论文表 2 把这类协调机构也归入协调法器。</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2505276e448148fb91e538359b417ba6b3">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#hasCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:someValuesFrom rdf:resource="http://example.org/arcaneweb#CoordinationCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#relatedChain">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:comment xml:lang="zh">法阵组合关系实例的参与法术链集合。并列法阵用它列出全部参与者。</rdfs:comment>
+    <rdfs:label xml:lang="zh">关联法术链</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ChainRelation"/>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#SpellChain"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:Target1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:equivalentClass rdf:nodeID="nc6482bde853f4599896bd01336546794b11"/>
+    <rdfs:label xml:lang="zh">普通裂隙目标类</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#SerialRelation">
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ChainRelation"/>
+    <rdfs:label xml:lang="zh">串联法阵</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#JudgmentArtifact">
+    <rdfs:label xml:lang="zh">占卜法器</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:altLabel xml:lang="zh">研判法器</rdfs:altLabel>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#CoordinationArtifact"/>
+    <rdfs:subClassOf rdf:nodeID="n2505276e448148fb91e538359b417ba6b7"/>
+    <b:correspondsToPhase rdf:resource="http://example.org/arcaneweb#OrientPhase"/>
+    <b:sourceSection>1.2 OODA 细分</b:sourceSection>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C35">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C34"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#InsightPlatform">
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ArtifactPlatform"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#InsightArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment xml:lang="zh">扩展子类：感知魔像、探知魔像、星界探知镜等承载灵视探知挂载的平台。论文表 2 把这类单元平台也归入灵视探知法器。</rdfs:comment>
+    <rdfs:label xml:lang="zh">灵视探知平台</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#distanceResolutionM">
+    <b:unitSymbol>m</b:unitSymbol>
+    <rdfs:label xml:lang="zh">距离感知误差（米）</rdfs:label>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#InsightArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C43">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C42"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C74">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C73"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C106">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C105"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#realizedBy">
+    <rdfs:label xml:lang="zh">由法器释放</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#Artifact"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ArcaneWeb">
+    <b:sourceSection>2.1 步骤 3（项目结构化扩展）</b:sourceSection>
+    <rdfs:label xml:lang="zh">奥术网</rdfs:label>
+    <rdfs:comment xml:lang="zh">1.6/2.x 扩展：多条法术链通过共享节点和法阵组合关系形成的分布式施法网络。</rdfs:comment>
+    <rdfs:subClassOf rdf:nodeID="n2505276e448148fb91e538359b417ba6b13"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C6">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C5"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#requirementConstrainsArtifact">
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#InvocationRequirement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="zh">需求约束法器</rdfs:label>
+    <rdfs:comment xml:lang="zh">图 1 中施法需求参与决定所需法器；协同关系仍由第二章规则处理。</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#AirInsightCapability">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#InsightTargetTypeCapability"/>
+    <rdfs:label xml:lang="zh">空中灵视探知能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#sourceSection">
+    <rdfs:label xml:lang="zh">参考章节</rdfs:label>
+    <rdfs:comment xml:lang="zh">用户提供的截图中的章节或表号；属于来源定位，不表示逐字转录。</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#InsightChainNode">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ChainNode"/>
+    <rdfs:subClassOf rdf:nodeID="n2505276e448148fb91e538359b417ba6b14"/>
+    <rdfs:label xml:lang="zh">灵视探知链节点</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#Formula04">
+    <rdf:type rdf:resource="http://example.org/arcaneweb#FormulaDescription"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="zh">式（4）总时间</rdfs:label>
+    <b:sourceSection>评估指标；式（4）</b:sourceSection>
+    <b:semanticNote xml:lang="zh">三个阶段耗时相加；来源暂不考虑传讯类法器。只在阶段不重叠且计量口径一致时按该式解释。</b:semanticNote>
+    <b:formulaText>T = T_o + T_d + T_a</b:formulaText>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#hasChain">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneWeb"/>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#SpellChain"/>
+    <rdfs:label xml:lang="zh">奥术网包含法术链</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#maxActivationAltitudeFt">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:unitSymbol>ft</b:unitSymbol>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:label xml:lang="zh">最大激发基准</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#climbSpeedKn">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <b:unitSymbol>kn</b:unitSymbol>
+    <rdfs:label xml:lang="zh">升空速度（迅捷度）</rdfs:label>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C67">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C66"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#chainId">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#SpellChain"/>
+    <rdfs:label xml:lang="zh">法术链编号</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#RapidResponseCoordinationCapability">
+    <rdfs:label xml:lang="zh">快速响应能力</rdfs:label>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#OrchestrationCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#constrainedBy">
+    <owl:inverseOf rdf:resource="http://example.org/arcaneweb#situationConstrainsCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:comment xml:lang="zh">图 1 的态势→法术关系；法术能力受当前元素场域态势约束。</rdfs:comment>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ElementalFieldSituation"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneCapability"/>
+    <rdfs:label xml:lang="zh">受元素态势约束</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#nextNode">
+    <rdfs:comment xml:lang="zh">单后继关系。OWL 不能保证后继属于同一条法术链、无环或与 nodeOrder 一致，这些需由 SHACL 或程序校验。</rdfs:comment>
+    <rdfs:label xml:lang="zh">下一节点</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ChainNode"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#IrreflexiveProperty"/>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ChainNode"/>
+    <owl:inverseOf rdf:resource="http://example.org/arcaneweb#previousNode"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#missionTargetLongitudeDeg">
+    <rdfs:label xml:lang="zh">目标星象坐标（经）</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <b:sourceSection>1.4 表 5；截图 20261023222331</b:sourceSection>
+    <b:unitSymbol>deg</b:unitSymbol>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C20">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C19"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#SpellChain">
+    <rdfs:subClassOf rdf:nodeID="n2505276e448148fb91e538359b417ba6b9"/>
+    <rdfs:subClassOf rdf:nodeID="n2505276e448148fb91e538359b417ba6b10"/>
+    <rdfs:subClassOf rdf:nodeID="n2505276e448148fb91e538359b417ba6b12"/>
+    <rdfs:subClassOf rdf:nodeID="n2505276e448148fb91e538359b417ba6b11"/>
+    <rdfs:comment xml:lang="zh">1.6/2.x 扩展：由交互目标、灵视探知、协调、具现节点构成的闭合施法链路。第 6 节的 someValuesFrom 公理只要求存在相应角色节点和目标，不校验节点顺序、连通性、闭环和资源冲突。</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <b:sourceSection>2.1 步骤 2（项目结构化扩展）</b:sourceSection>
+    <rdfs:label xml:lang="zh">法术链</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:ResonanceAnalysisStep">
+    <rdfs:label xml:lang="zh">共振解析环节类</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b6"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#SequentialStepMission"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#attunementProbability">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <b:semanticNote xml:lang="zh">灵性锁定概率与式（5）的阶段精度不是已声明的同一指标。</b:semanticNote>
+    <b:unitSymbol>1</b:unitSymbol>
+    <rdfs:label xml:lang="zh">灵性锁定率（0-1）</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#DecisionMission">
+    <b:sourceSection>1.4</b:sourceSection>
+    <b:correspondsToPhase rdf:resource="http://example.org/arcaneweb#DecidePhase"/>
+    <rdfs:subClassOf rdf:nodeID="n2505276e448148fb91e538359b417ba6b6"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#CoordinationMission"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="zh">决断任务（D 决断）</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b13">
+    <rdf:first rdf:resource="http://example.org/arcaneweb#Target"/>
+    <rdf:rest rdf:nodeID="nc6482bde853f4599896bd01336546794b14"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#supportsMission">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneWeb"/>
+    <rdfs:label xml:lang="zh">支撑行动任务</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#missionTargetImpedanceThreshold">
+    <rdfs:comment xml:lang="zh">任务侧的目标阻抗指标，沿用原版 missionTargetImpedanceThreshold 的数值尺度和计算口径；“目标阻抗阈值”为背景化显示名称，不额外引入特定元素抗性或新的计算公式。</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="zh">目标阻抗阈值</rdfs:label>
+    <b:sourceSection>1.4 表 5；截图 20261023222331</b:sourceSection>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C95">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C94"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#AirManifestationCapability">
+    <rdf:type rdf:resource="http://example.org/arcaneweb#ManifestationTargetTypeCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="zh">对空具现能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#targetSpeedKn">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Target"/>
+    <b:unitSymbol>kn</b:unitSymbol>
+    <rdfs:label xml:lang="zh">目标速度（迅捷度）</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#evaluationAreaKm2">
+    <rdfs:label xml:lang="zh">解析区域（平方千米）</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#CoordinationArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <b:unitSymbol>km2</b:unitSymbol>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#cost">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:semanticNote xml:lang="zh">使用成本。表 3 在具现法器行列出附魔造价，本项目将成本提升到法器父类以统一描述。币种和计价基准须由实例数据明确，不能默认是采购价。</b:semanticNote>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:label xml:lang="zh">附魔造价（使用成本）</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:WideSurveyStep">
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b2"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#SequentialStepMission"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="zh">广域探知环节类</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C126">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C125"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C16">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C15"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C98">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C97"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#Formula08">
+    <rdfs:label xml:lang="zh">式（8）精度归一化</rdfs:label>
+    <b:sourceSection>评估指标；式（8）</b:sourceSection>
+    <b:formulaText>A_prime = (A - min(A)) / (max(A) - min(A))</b:formulaText>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#FormulaDescription"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ManifestationRangeCapability">
+    <b:sourceSection>1.3 表 4；截图 20261023222320</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <b:semanticNote xml:lang="zh">表 4 分类维度：具现距离。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。</b:semanticNote>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ManifestationCapability"/>
+    <rdfs:label xml:lang="zh">具现距离能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:Target2">
+    <owl:equivalentClass rdf:nodeID="nc6482bde853f4599896bd01336546794b22"/>
+    <rdfs:label xml:lang="zh">共振裂隙目标类</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:Target3">
+    <owl:equivalentClass rdf:nodeID="nc6482bde853f4599896bd01336546794b34"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="zh">迷雾裂隙目标类</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C32">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C31"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n9739ddbaf4c14c6a9167200bb976b4b4b1">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#hasCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:PrimaryChannel"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b7">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#hasCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:Dispatch"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#communicatesWith">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <rdfs:label xml:lang="zh">魔法共鸣</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b21">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:Stabilize"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C44">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C43"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C30">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C29"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b41">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:nodeID="nc6482bde853f4599896bd01336546794b39"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C77">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C76"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#detects">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#InsightArtifact"/>
+    <rdfs:label xml:lang="zh">感知目标</rdfs:label>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#Target"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C23">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C22"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#artifactCategory">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:label xml:lang="zh">法器分类</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#hasSequentialStep">
+    <rdfs:label xml:lang="zh">包含顺序任务环节</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#SequentialStepMission"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#JudgmentCapability">
+    <b:correspondsToPhase rdf:resource="http://example.org/arcaneweb#OrientPhase"/>
+    <b:sourceSection>1.3 OODA 细分</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#CoordinationCapability"/>
+    <rdfs:label xml:lang="zh">占卜能力</rdfs:label>
+    <rdfs:altLabel xml:lang="zh">研判能力</rdfs:altLabel>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:FineScanStep">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="zh">精细复核环节类</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#SequentialStepMission"/>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b4"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b40">
+    <rdf:rest rdf:nodeID="nc6482bde853f4599896bd01336546794b41"/>
+    <rdf:first rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#artifactId">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:label xml:lang="zh">法器标识</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b35">
+    <owl:hasValue rdf:datatype="http://www.w3.org/2001/XMLSchema#string">迷雾裂隙</owl:hasValue>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#targetType"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:FineScan">
+    <rdfs:label xml:lang="zh">精细复核</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#InsightCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#missionLocation">
+    <b:sourceSection>1.4 表 5；截图 20261023222331</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="zh">任务地点</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b34">
+    <owl:intersectionOf rdf:nodeID="nc6482bde853f4599896bd01336546794b36"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:StabilizerUnit">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="zh">裂隙稳定法器类</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b9"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#hasTarget">
+    <rdfs:label xml:lang="zh">任务目标</rdfs:label>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#Target"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:Mission2">
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b31"/>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b30"/>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b33"/>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b32"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:equivalentClass rdf:nodeID="nc6482bde853f4599896bd01336546794b26"/>
+    <rdfs:label xml:lang="zh">共振裂隙任务类</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b45">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:Dispatch"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#hasRelation">
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ChainRelation"/>
+    <rdfs:label xml:lang="zh">包含法阵组合</rdfs:label>
+    <owl:inverseOf rdf:resource="http://example.org/arcaneweb#relationInWeb"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneWeb"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:AnalysisUnit">
+    <rdfs:label xml:lang="zh">共振解析法器类</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b5"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#CoordinationArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C34">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C33"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b8">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:Dispatch"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C55">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C54"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#targetImpedanceThreshold">
+    <rdfs:comment xml:lang="zh">目标侧的阻抗指标，沿用原版 targetImpedanceThreshold 的数值尺度和计算口径；“目标阻抗阈值”为背景化显示名称，不额外引入特定元素抗性或新的计算公式。</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="zh">目标阻抗阈值</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Target"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-scene:step:%5B%22T1%22%2C%22flow-a225fab946ccf556ef7eed80e938ba9b214eb3aba4b68bcd6e67aa768a59e5dc%22%2C%22s1%22%5D">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#SequentialStepMission"/>
+    <rdfs:label xml:lang="zh">任务环节：["T1","flow-a225fab946ccf556ef7eed80e938ba9b214eb3aba4b68bcd6e67aa768a59e5dc","s1"]</rdfs:label>
+    <b:stepTarget rdf:resource="urn:arcane-scene:target:Rift-1"/>
+    <b:stepActivity rdf:datatype="http://www.w3.org/2001/XMLSchema#string">observe</b:stepActivity>
+    <b:stepIndex rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</b:stepIndex>
+    <b:requiresCapability rdf:resource="urn:arcane-rift-demo:WideSurvey"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#BranchRelation">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ChainRelation"/>
+    <rdfs:label xml:lang="zh">分支法阵</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#minTargetAltitudeFt">
+    <b:unitSymbol>ft</b:unitSymbol>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:label xml:lang="zh">目标低位弦长</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-scene:artifact:R-Analysis">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="urn:arcane-rift-demo:PrimaryAnalysisUnit"/>
+    <rdfs:label xml:lang="zh">法器：R-Analysis</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb">
+    <rdfs:label xml:lang="zh">奥术网络设计本体</rdfs:label>
+    <owl:versionInfo>0.8.1</owl:versionInfo>
+    <rdfs:comment xml:lang="zh">0.8：撤下自设示例，删除未在本批文章表格中单独定义的十个通用能力字段；保留文章概念、分类、属性、结构与公式说明。未新增实例、游戏机制或执行规则。</rdfs:comment>
+    <rdfs:comment xml:lang="zh">西幻魔法背景，中文显示名称采用奥术网、法术链、法器等术语。</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#longitudeDeg">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:label xml:lang="zh">星象坐标（经）</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <b:unitSymbol>deg</b:unitSymbol>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b27">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#hasTarget"/>
+    <owl:someValuesFrom rdf:resource="urn:arcane-rift-demo:Target2"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ChainNode">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="zh">法术链节点</rdfs:label>
+    <b:sourceSection>项目扩展：链内参与节点</b:sourceSection>
+    <b:semanticNote xml:lang="zh">同一法器参与不同链时，应分别建立节点，再通过 nodeArtifact 指向同一法器；避免共享节点导致顺序混淆。</b:semanticNote>
+    <rdfs:comment xml:lang="zh">1.6 扩展：用于表达节点顺序、职能和法器关联；本文件中它是法术链结构的唯一权威表示。</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#relationEndTime">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ChainRelation"/>
+    <rdfs:label xml:lang="zh">法阵解除时间</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C66">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C65"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ActPhase">
+    <rdf:type rdf:resource="http://example.org/arcaneweb#OODAPhase"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="zh">A 施法（Act）</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:Mission3">
+    <owl:equivalentClass rdf:nodeID="nc6482bde853f4599896bd01336546794b38"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b45"/>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b42"/>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b46"/>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b44"/>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b43"/>
+    <rdfs:label xml:lang="zh">迷雾裂隙任务类</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#InsightArtifact">
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <rdfs:subClassOf rdf:nodeID="n2505276e448148fb91e538359b417ba6b15"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="zh">灵视探知法器</rdfs:label>
+    <b:sourceSection>1.2 表 2、表 3</b:sourceSection>
+    <rdfs:comment xml:lang="zh">灵视探知类单元平台，承担发现、搜集共鸣空间信息参数并回传的任务；包括感知魔像、探知魔像、探知法阵、星界探知镜等。感知挂载和灵视探知平台都归入此类。</rdfs:comment>
+    <rdfs:comment xml:lang="zh">表示灵视探知监视类单元平台，承担发现、搜集共鸣空间信息参数并回传的任务。</rdfs:comment>
+    <b:correspondsToPhase rdf:resource="http://example.org/arcaneweb#ObservePhase"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#MultiArtifactOrchestrationCapability">
+    <rdf:type rdf:resource="http://example.org/arcaneweb#OrchestrationCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="zh">多法器协同统筹能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C24">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C23"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ArtifactCooperationRuleDescription">
+    <rdfs:comment xml:lang="zh">描述协同条件的合取；成对条件成立不自动证明整条链有序、连通或不存在资源冲突。</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#DesignRuleDescription"/>
+    <rdfs:label xml:lang="zh">法器协同规则说明</rdfs:label>
+    <b:sourceSection>2.1.2；式（3）</b:sourceSection>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#elevationResolutionDeg">
+    <b:unitSymbol>deg</b:unitSymbol>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="zh">俯仰角感知误差（度）</rdfs:label>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#InsightArtifact"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C37">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C36"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#maxInsightMarks">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#InsightArtifact"/>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:label xml:lang="zh">最大神识标记数</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:Ontology">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
+    <rdfs:label xml:lang="zh">迷雾裂隙稳定实验</rdfs:label>
+    <owl:versionInfo>1.0</owl:versionInfo>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b18">
+    <rdf:first rdf:nodeID="nc6482bde853f4599896bd01336546794b16"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#hosts">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArtifactPlatform"/>
+    <rdfs:comment xml:lang="zh">扩展关系：承载平台提供常驻或集成节点（如灵视探知魔像上的联合统筹中枢）；不等同于可分离的物理挂载物。</rdfs:comment>
+    <rdfs:label xml:lang="zh">承载节点</rdfs:label>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#Artifact"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C107">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C106"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ManifestationMission">
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <rdfs:subClassOf rdf:nodeID="n2505276e448148fb91e538359b417ba6b19"/>
+    <rdfs:label xml:lang="zh">具现任务（A 施法）</rdfs:label>
+    <b:sourceSection>1.4</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <b:correspondsToPhase rdf:resource="http://example.org/arcaneweb#ActPhase"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C127">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C126"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#InterferenceResistantTransmissionCapability">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#CommunicationCapability"/>
+    <rdfs:label xml:lang="zh">抗共鸣扰动传讯能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C87">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C86"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C96">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C95"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C5">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C4"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#targetType">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="zh">目标类型</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Target"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C11">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C10"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#maxEvaluationTargets">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdfs:label xml:lang="zh">单次解析目标数</rdfs:label>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#CoordinationArtifact"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b4">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:FineScan"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ShortRangeInsightCapability">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#InsightRangeCapability"/>
+    <rdfs:label xml:lang="zh">近程感知能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b16">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:someValuesFrom rdf:resource="urn:arcane-rift-demo:Target1"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#hasTarget"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C90">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C89"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b42">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:WideSurvey"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#InsightMission">
+    <b:correspondsToPhase rdf:resource="http://example.org/arcaneweb#ObservePhase"/>
+    <b:sourceSection>1.4</b:sourceSection>
+    <rdfs:label xml:lang="zh">灵视探知任务（O1 探知）</rdfs:label>
+    <rdfs:subClassOf rdf:nodeID="n2505276e448148fb91e538359b417ba6b16"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#targetLatitudeDeg">
+    <rdfs:label xml:lang="zh">目标星象坐标（纬）</rdfs:label>
+    <b:unitSymbol>deg</b:unitSymbol>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Target"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#disturbanceRate">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <b:unitSymbol>1</b:unitSymbol>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <rdfs:label xml:lang="zh">扰动率（0-1）</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C21">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C20"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C75">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C74"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#Formula03">
+    <b:sourceSection>2.1.2；式（3）</b:sourceSection>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#FormulaDescription"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="zh">式（3）协同条件表达</rdfs:label>
+    <b:formulaText>(w_ij^1 AND w_ij^2 AND ... AND w_ij^n) -&gt; l_k</b:formulaText>
+    <b:semanticNote xml:lang="zh">截图写法省略了整条链的参与者量化和全局条件；不能把任意一对资源满足条件等同于链构造完成。</b:semanticNote>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:DispatchStep">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b8"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#SequentialStepMission"/>
+    <rdfs:label xml:lang="zh">稳定术协调环节类</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-scene:artifact:R-Dispatch">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="urn:arcane-rift-demo:DispatchUnit"/>
+    <rdfs:label xml:lang="zh">法器：R-Dispatch</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#MediumRangeManifestationCapability">
+    <rdf:type rdf:resource="http://example.org/arcaneweb#ManifestationRangeCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="zh">中程具现能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#relationInWeb">
+    <rdfs:label xml:lang="zh">所属奥术网</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ChainRelation"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ArcaneWeb"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C72">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C71"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b6">
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:ResonanceAnalysis"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#containsTarget">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ElementalFieldSituation"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="zh">态势包含目标</rdfs:label>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#Target"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2505276e448148fb91e538359b417ba6b9">
+    <owl:someValuesFrom rdf:resource="http://example.org/arcaneweb#Target"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#chainTarget"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#missionType">
+    <b:sourceSection>1.4 表 5；截图 20261023222331</b:sourceSection>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="zh">任务类型</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ManifestationPlatform">
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ArtifactPlatform"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="zh">具现平台</rdfs:label>
+    <rdfs:comment xml:lang="zh">扩展子类：御风灵舟、守护法阵、浮空艇等可释放或投掷魔晶载体的平台。平台归入具现法器是论文的建模方式；魔晶载体是消耗性挂载。</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#Artifact">
+    <b:sourceSection>1.1 表 1；1.2 表 2、表 3</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment xml:lang="zh">为遂行一定的行动任务、具有一定魔法功能的法器系统，是奥术网的最小组成功能要素。</rdfs:comment>
+    <rdfs:label xml:lang="zh">法器</rdfs:label>
+    <b:semanticNote xml:lang="zh">灵视探知、协调、具现是功能角色，可由同一实体兼任，不设为两两互斥；平台/挂载物是另一分类维度。</b:semanticNote>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b31">
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:ResonanceAnalysis"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#CoordinationCapability">
+    <rdfs:label xml:lang="zh">协调能力</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ArcaneCapability"/>
+    <b:sourceSection>1.3 表 4</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-scene:artifact:R-Review">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="urn:arcane-rift-demo:ReviewUnit"/>
+    <rdfs:label xml:lang="zh">法器：R-Review</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#UnderwaterInsightCapability">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#InsightTargetTypeCapability"/>
+    <rdfs:label xml:lang="zh">水下灵视探知能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C7">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C6"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C38">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C37"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-scene:step:%5B%22T1%22%2C%22flow-a225fab946ccf556ef7eed80e938ba9b214eb3aba4b68bcd6e67aa768a59e5dc%22%2C%22s3%22%5D">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#SequentialStepMission"/>
+    <rdfs:label xml:lang="zh">任务环节：["T1","flow-a225fab946ccf556ef7eed80e938ba9b214eb3aba4b68bcd6e67aa768a59e5dc","s3"]</rdfs:label>
+    <b:stepTarget rdf:resource="urn:arcane-scene:target:Rift-1"/>
+    <b:stepActivity rdf:datatype="http://www.w3.org/2001/XMLSchema#string">act</b:stepActivity>
+    <b:stepIndex rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</b:stepIndex>
+    <b:requiresCapability rdf:resource="urn:arcane-rift-demo:Stabilize"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C124">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C123"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C41">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C40"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b11">
+    <owl:intersectionOf rdf:nodeID="nc6482bde853f4599896bd01336546794b13"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#fromChain">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ChainRelation"/>
+    <rdfs:label xml:lang="zh">起始法术链</rdfs:label>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#SpellChain"/>
+    <rdfs:comment xml:lang="zh">用于串联法阵和分支法阵，表示有向关系的起点。</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:subPropertyOf rdf:resource="http://example.org/arcaneweb#relatedChain"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2505276e448148fb91e538359b417ba6b12">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#hasChainNode"/>
+    <owl:someValuesFrom rdf:resource="http://example.org/arcaneweb#ManifestationChainNode"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C2">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C1"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C36">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C35"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#AstralInsightCapability">
+    <rdf:type rdf:resource="http://example.org/arcaneweb#InsightTargetTypeCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="zh">星界灵视探知能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b20">
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:Dispatch"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C112">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C111"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#UnderwaterManifestationCapability">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#ManifestationAltitudeCapability"/>
+    <rdfs:label xml:lang="zh">水下具现能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2505276e448148fb91e538359b417ba6b16">
+    <owl:someValuesFrom rdf:resource="http://example.org/arcaneweb#InsightCapability"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#Formula02">
+    <rdf:type rdf:resource="http://example.org/arcaneweb#FormulaDescription"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <b:sourceSection>2.1.1；式（2）</b:sourceSection>
+    <b:formulaText>(c_i^1 AND c_i^2 AND ... AND c_i^n) -&gt; w_i</b:formulaText>
+    <rdfs:label xml:lang="zh">式（2）条件—资源表达</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#situationConstrainsCapability">
+    <rdfs:comment xml:lang="zh">图 1 的反向读法；与 constrainedBy 互逆。</rdfs:comment>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ArcaneCapability"/>
+    <rdfs:label xml:lang="zh">态势约束法术</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ElementalFieldSituation"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#LongRangeInsightCapability">
+    <rdf:type rdf:resource="http://example.org/arcaneweb#InsightRangeCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="zh">远程感知能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b26">
+    <owl:intersectionOf rdf:nodeID="nc6482bde853f4599896bd01336546794b28"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#Formula05">
+    <rdfs:label xml:lang="zh">式（5）总精度</rdfs:label>
+    <b:formulaText>A = A_o * A_d * A_a</b:formulaText>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#FormulaDescription"/>
+    <b:sourceSection>评估指标；式（5）</b:sourceSection>
+    <b:semanticNote xml:lang="zh">来源采用阶段精度乘积。阶段指标的标度、获取方式和合成适用性须另行定义，不能自动解释为经过验证的联合概率。</b:semanticNote>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b43">
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:ResonanceAnalysis"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C59">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C58"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ManifestationTargetQuantityCapability">
+    <b:sourceSection>1.3 表 4；截图 20261023222320</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <b:semanticNote xml:lang="zh">表 4 分类维度：目标数量。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。</b:semanticNote>
+    <rdfs:label xml:lang="zh">具现目标数量能力</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ManifestationCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ManifestationAltitudeCapability">
+    <b:semanticNote xml:lang="zh">表 4 分类维度：具现高度。当前以能力类别及具名分类词项表达，不由类别名称推导数值阈值。</b:semanticNote>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ManifestationCapability"/>
+    <rdfs:label xml:lang="zh">具现高度能力</rdfs:label>
+    <b:sourceSection>1.3 表 4；截图 20261023222320</b:sourceSection>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#targetLongitudeDeg">
+    <b:unitSymbol>deg</b:unitSymbol>
+    <rdfs:label xml:lang="zh">目标星象坐标（经）</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Target"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#GroundInsightCapability">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#InsightTargetTypeCapability"/>
+    <rdfs:label xml:lang="zh">地面灵视探知能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2505276e448148fb91e538359b417ba6b4">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:someValuesFrom rdf:resource="http://example.org/arcaneweb#CoordinationCapability"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C119">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C118"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C25">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C24"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ManifestationChainNode">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:nodeID="n2505276e448148fb91e538359b417ba6b17"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ChainNode"/>
+    <rdfs:label xml:lang="zh">具现链节点</rdfs:label>
+    <rdfs:comment xml:lang="zh">节点法器取具现法器，既可以是释放平台，也可以是魔晶载体。</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#CrystalVessel">
+    <rdfs:label xml:lang="zh">魔晶载体</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ManifestationArtifact"/>
+    <b:sourceSection>项目扩展：可消耗挂载物</b:sourceSection>
+    <rdfs:comment xml:lang="zh">扩展类：魔晶载体、辉光载体等一次性或可消耗的具现挂载。魔晶载体可以通过 mountedOn 关联承载平台，但本类不强制所有实例都已挂载。</rdfs:comment>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C12">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C11"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C18">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C17"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C62">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C61"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#satisfiesRequirement">
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#InvocationRequirement"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:comment xml:lang="zh">扩展：只表达设计结果与施法需求的关联，不是自动判定满足。</rdfs:comment>
+    <rdfs:label xml:lang="zh">满足施法需求</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneWeb"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#Target">
+    <rdfs:comment xml:lang="zh">1.6/2.x 扩展：行动任务需要感知、跟踪、具现或解析的对方对象。</rdfs:comment>
+    <rdfs:label xml:lang="zh">交互目标</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C82">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C81"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C0"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#missionName">
+    <b:sourceSection>1.4 表 5；截图 20261023222331</b:sourceSection>
+    <rdfs:label xml:lang="zh">任务名称</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-scene:artifact:R-Seal-B">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="urn:arcane-rift-demo:StabilizerUnit"/>
+    <rdfs:label xml:lang="zh">法器：R-Seal-B</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#Formula01">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#FormulaDescription"/>
+    <b:sourceSection>2.1.1；式（1）</b:sourceSection>
+    <b:semanticNote xml:lang="zh">按截图合取含义记录。截图中的交集符号用于条件同时成立；并非完整的一阶逻辑或可执行 OWL 规则语法。</b:semanticNote>
+    <b:formulaText>(t_i^1 AND t_i^2 AND ... AND t_i^n) -&gt; c_i</b:formulaText>
+    <rdfs:label xml:lang="zh">式（1）条件—能力表达</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:PrimaryChannel">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#CoordinationCapability"/>
+    <rdfs:label xml:lang="zh">主解析通道</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C63">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C62"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C86">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C85"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C114">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C113"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C27">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C26"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#OrientPhase">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#OODAPhase"/>
+    <rdfs:label xml:lang="zh">O2 研判（Orient）</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#OODAPhase">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:comment xml:lang="zh">用于文献阶段对照的词表。阶段循环与一次任务执行的依赖图分开表达。</rdfs:comment>
+    <b:sourceSection>第一部分 OODA 扩展说明</b:sourceSection>
+    <rdfs:label xml:lang="zh">OODA 阶段</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#nodeArtifact">
+    <rdfs:label xml:lang="zh">节点法器</rdfs:label>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ChainNode"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b29">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:nodeID="nc6482bde853f4599896bd01336546794b27"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#missionTime">
+    <b:semanticNote xml:lang="zh">任务时间使用 xsd:dateTime；它是时间点，不是持续时间。</b:semanticNote>
+    <b:sourceSection>1.4 表 5；截图 20261023222331</b:sourceSection>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <rdfs:label xml:lang="zh">任务时间</rdfs:label>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:SurveyUnit">
+    <rdfs:label xml:lang="zh">广域探知法器类</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:nodeID="nc6482bde853f4599896bd01336546794b1"/>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#InsightArtifact"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#DecisionArtifact">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="zh">决断法器</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#CoordinationArtifact"/>
+    <rdfs:subClassOf rdf:nodeID="n2505276e448148fb91e538359b417ba6b5"/>
+    <b:sourceSection>1.2 OODA 细分</b:sourceSection>
+    <b:correspondsToPhase rdf:resource="http://example.org/arcaneweb#DecidePhase"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b25">
+    <rdf:first rdf:nodeID="nc6482bde853f4599896bd01336546794b23"/>
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#stepTarget">
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#Target"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#SequentialStepMission"/>
+    <rdfs:label xml:lang="zh">顺序环节目标</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:comment xml:lang="zh">独立于整体任务hasTarget，避免把整体任务的全部角色能力要求施加到每一个环节。</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C9">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C8"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2505276e448148fb91e538359b417ba6b19">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:someValuesFrom rdf:resource="http://example.org/arcaneweb#ManifestationCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2505276e448148fb91e538359b417ba6b1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onClass rdf:resource="http://example.org/arcaneweb#SpellChain"/>
+    <owl:minQualifiedCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minQualifiedCardinality>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#relatedChain"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C58">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C57"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b10">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:Stabilize"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C100">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C99"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C29">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C28"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#requirementConstrainsCapability">
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ArcaneCapability"/>
+    <rdfs:label xml:lang="zh">需求约束法术</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:comment xml:lang="zh">图 1 中施法需求参与决定所需法术。</rdfs:comment>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#InvocationRequirement"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#nodeOrder">
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ChainNode"/>
+    <b:semanticNote xml:lang="zh">序号为整数不代表唯一、从 1 开始或连续；这些是实例数据校验要求。</b:semanticNote>
+    <rdfs:comment xml:lang="zh">只记录单个法阵节点的序号；同一法术链内序号唯一、连续等约束不适合用 OWL 表达，需由 SHACL 或程序检查。</rdfs:comment>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+    <rdfs:label xml:lang="zh">法阵节点顺序</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:BackupAnalysisUnit">
+    <rdfs:subClassOf rdf:nodeID="n9739ddbaf4c14c6a9167200bb976b4b4b2"/>
+    <rdfs:subClassOf rdf:resource="urn:arcane-rift-demo:AnalysisUnit"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="zh">备用解析法器类</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C0">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#insightTargetType">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#InsightArtifact"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdfs:label xml:lang="zh">灵视探知目标类型</rdfs:label>
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C22">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C21"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C88">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C87"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C97">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C96"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C109">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C108"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2505276e448148fb91e538359b417ba6b15">
+    <owl:someValuesFrom rdf:resource="http://example.org/arcaneweb#InsightCapability"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#hasCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C57">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C56"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C68">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C67"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#DesignRuleDescription">
+    <rdfs:label xml:lang="zh">设计规则说明</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:WideSurvey">
+    <rdf:type rdf:resource="http://example.org/arcaneweb#InsightCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="zh">广域探知</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C8">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C7"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C101">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C100"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-scene:artifact:R-Seal-A">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="urn:arcane-rift-demo:StabilizerUnit"/>
+    <rdfs:label xml:lang="zh">法器：R-Seal-A</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C92">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C91"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ObservePhase">
+    <rdf:type rdf:resource="http://example.org/arcaneweb#OODAPhase"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="zh">O1 探知（Observe）</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C73">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C72"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#semanticNote">
+    <rdfs:label xml:lang="zh">建模口径说明</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AnnotationProperty"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ArcaneCapability">
+    <rdfs:label xml:lang="zh">法术能力</rdfs:label>
+    <rdfs:comment xml:lang="zh">法器执行行动任务的本领，是法器体系的固有属性，与型号、法术参数等有关。</rdfs:comment>
+    <b:sourceSection>1.1 表 1；1.3 表 4</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C51">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C50"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#artifactShortName">
+    <b:sourceSection>1.2 表 3；截图 20261023222313</b:sourceSection>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
+    <rdfs:label xml:lang="zh">法器简称</rdfs:label>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Artifact"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b32">
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:Dispatch"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#RapidEvaluationCapability">
+    <rdfs:label xml:lang="zh">快速解析能力</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#EvaluationCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n9739ddbaf4c14c6a9167200bb976b4b4b2">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#hasCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:BackupChannel"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#GroundManifestationCapability">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#ManifestationTargetTypeCapability"/>
+    <rdfs:label xml:lang="zh">对地具现能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#Formula09">
+    <b:formulaText>C_prime = 1 - (C - min(C)) / (max(C) - min(C))</b:formulaText>
+    <b:sourceSection>评估指标；式（9）</b:sourceSection>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#FormulaDescription"/>
+    <rdfs:label xml:lang="zh">式（9）成本归一化</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C28">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C27"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C15">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C14"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#SinglePointManifestationCapability">
+    <rdf:type rdf:resource="http://example.org/arcaneweb#ManifestationTargetQuantityCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="zh">单体具现能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ArtifactPlatform">
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:label xml:lang="zh">承载平台</rdfs:label>
+    <b:sourceSection>项目扩展：承载平台</b:sourceSection>
+    <rdfs:comment xml:lang="zh">扩展类：承载感知装置、协调节点或魔晶载体的云翼灵兽、浮空艇、符文载具、施法台等平台。</rdfs:comment>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#DeepCreatureManifestationCapability">
+    <rdfs:label xml:lang="zh">对深水灵兽具现能力</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#ManifestationTargetTypeCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C103">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C102"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C120">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C119"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#MultiTargetEvaluationCapability">
+    <rdfs:label xml:lang="zh">多目标解析能力</rdfs:label>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#EvaluationCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C91">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C90"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C79">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C78"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C113">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C112"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2505276e448148fb91e538359b417ba6b13">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#hasChain"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:someValuesFrom rdf:resource="http://example.org/arcaneweb#SpellChain"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b46">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:Stabilize"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C26">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C25"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#mountedOn">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#Artifact"/>
+    <rdfs:label xml:lang="zh">附魔于 / 挂载于</rdfs:label>
+    <rdfs:comment xml:lang="zh">扩展关系：表示可分离的物理挂载关系，例如探知挂件、魔晶载体支架。标签中的“附魔于”仅为该物理挂载关系的背景化称呼，不另行表示赋予魔法效果的过程。</rdfs:comment>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ArtifactPlatform"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b22">
+    <owl:intersectionOf rdf:nodeID="nc6482bde853f4599896bd01336546794b24"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:ResonanceAnalysis">
+    <rdfs:label xml:lang="zh">共振解析</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#CoordinationCapability"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-scene:artifact:R-Seal-D">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="urn:arcane-rift-demo:StabilizerUnit"/>
+    <rdfs:label xml:lang="zh">法器：R-Seal-D</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:BackupChannel">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#CoordinationCapability"/>
+    <rdfs:label xml:lang="zh">备用解析通道</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C17">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C16"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C104">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C103"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b15">
+    <owl:intersectionOf rdf:nodeID="nc6482bde853f4599896bd01336546794b17"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C80">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C79"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#CoordinationMission">
+    <rdfs:subClassOf rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <rdfs:subClassOf rdf:nodeID="n2505276e448148fb91e538359b417ba6b4"/>
+    <rdfs:label xml:lang="zh">协调任务</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <b:sourceSection>1.4</b:sourceSection>
+    <b:semanticNote xml:lang="zh">0.7 将具体任务的后继关系从类的存在性限制中移出。类型表示任务职责，不强制每个任务都有后续具现任务。</b:semanticNote>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#MediumRangeInsightCapability">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#InsightRangeCapability"/>
+    <rdfs:label xml:lang="zh">中程感知能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#ChainCooperationRuleDescription">
+    <rdfs:label xml:lang="zh">法术链协同规则说明</rdfs:label>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#DesignRuleDescription"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:comment xml:lang="zh">来源描述并行、串行、分支和资源共享。本体中的关系实例只记录组合，不自动验证容量、占用时间或消耗性资源约束。</rdfs:comment>
+    <b:sourceSection>2.1.3</b:sourceSection>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C46">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C45"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-rift-demo:Stabilize">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="http://example.org/arcaneweb#ManifestationCapability"/>
+    <rdfs:label xml:lang="zh">裂隙稳定</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b1">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#hasCapability"/>
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:WideSurvey"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#hasPayload">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:label xml:lang="zh">挂载魔晶 / 搭载物</rdfs:label>
+    <owl:inverseOf rdf:resource="http://example.org/arcaneweb#mountedOn"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArtifactPlatform"/>
+    <rdfs:comment xml:lang="zh">扩展关系：mountedOn 的逆关系，仅用于可分离的物理挂载物；常驻协调节点使用 hosts。</rdfs:comment>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#Artifact"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-scene:artifact:R-Seal-C">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="urn:arcane-rift-demo:StabilizerUnit"/>
+    <rdfs:label xml:lang="zh">法器：R-Seal-C</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C76">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C75"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#requiresCapability">
+    <rdfs:label xml:lang="zh">需要法术</rdfs:label>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
+    <rdfs:domain rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <b:semanticNote xml:lang="zh">表示任务所需能力；声明该关系与由规则计算该关系是两个步骤。</b:semanticNote>
+    <rdfs:range rdf:resource="http://example.org/arcaneweb#ArcaneCapability"/>
+    <b:sourceSection>1.1；2.1.1</b:sourceSection>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C48">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C47"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C81">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C80"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C117">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C116"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C50">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C49"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C49">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C48"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C65">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C64"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C125">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C124"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C61">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C60"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C78">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C77"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2505276e448148fb91e538359b417ba6b10">
+    <owl:someValuesFrom rdf:resource="http://example.org/arcaneweb#CoordinationChainNode"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#hasChainNode"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b17">
+    <rdf:first rdf:resource="http://example.org/arcaneweb#ArcaneMission"/>
+    <rdf:rest rdf:nodeID="nc6482bde853f4599896bd01336546794b18"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C33">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C32"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b33">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#requiresCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+    <owl:hasValue rdf:resource="urn:arcane-rift-demo:Stabilize"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C108">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C107"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C3">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C2"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="n2505276e448148fb91e538359b417ba6b18">
+    <owl:onProperty rdf:resource="http://example.org/arcaneweb#hasCapability"/>
+    <owl:someValuesFrom rdf:resource="http://example.org/arcaneweb#ManifestationCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Restriction"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C54">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C53"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C121">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C120"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b37">
+    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+    <rdf:first rdf:nodeID="nc6482bde853f4599896bd01336546794b35"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C105">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C104"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:arcane-scene:artifact:R-Survey">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdf:type rdf:resource="urn:arcane-rift-demo:SurveyUnit"/>
+    <rdfs:label xml:lang="zh">法器：R-Survey</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C42">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C41"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C123">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C122"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C60">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C59"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:sample">
+    <rdf:type rdf:resource="urn:tfdo-benchmark:C127"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C94">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C93"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C47">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C46"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C53">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C52"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="http://example.org/arcaneweb#LongRangeManifestationCapability">
+    <rdf:type rdf:resource="http://example.org/arcaneweb#ManifestationRangeCapability"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+    <rdfs:label xml:lang="zh">远程具现能力</rdfs:label>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C52">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C51"/>
+  </rdf:Description>
+  <rdf:Description rdf:about="urn:tfdo-benchmark:C31">
+    <rdfs:subClassOf rdf:resource="urn:tfdo-benchmark:C30"/>
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+  </rdf:Description>
+  <rdf:Description rdf:nodeID="nc6482bde853f4599896bd01336546794b38">
+    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Class"/>
+    <owl:intersectionOf rdf:nodeID="nc6482bde853f4599896bd01336546794b40"/>
+  </rdf:Description>
+</rdf:RDF>

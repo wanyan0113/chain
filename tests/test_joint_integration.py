@@ -114,6 +114,19 @@ class JointIntegrationTests(unittest.TestCase):
         self.assertEqual(r['integration_status'],'undetermined');self.assertEqual(r['global_optimality'],'not_proven')
         self.assertEqual(r['selected_candidate_ids'],[])
 
+    def test_budget8_optimal_incumbent_never_upgrades_production_proof(self):
+        scene=deepcopy(self.scene);scene['policies']['max_network_search_nodes']=8
+        report=run_joint(self.jobs,scene,self.mapping)
+        self.assertTrue(report['selected_candidate_ids'])
+        self.assertEqual(report['verification']['status'],'passed')
+        self.assertFalse(report['network_search']['search_complete'])
+        oracle=audit_joint(report)
+        self.assertAlmostEqual(report['design_report']['network']['score'],oracle['best_score'])
+        self.assertEqual(report['global_optimality'],'not_proven')
+        self.assertEqual(report['network_optimality'],'not_proven')
+        self.assertEqual(verify_joint(report)['status'],'passed')
+        self.assertEqual(report['global_optimality'],'not_proven')
+
     def test_PF05_unsupported_mapping_allows_only_known_subset_claim(self):
         mapping=deepcopy(self.mapping)
         mapping['entries']=[e for e in mapping['entries'] if e['activity_id']!='analyze_secondary']

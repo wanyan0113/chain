@@ -1,0 +1,578 @@
+{
+  "status": "passed",
+  "engine": "HermiT",
+  "owlready2_version": "0.51",
+  "ontology_consistent": true,
+  "types": {
+    "http://example.org/arcaneweb#ActPhase": [
+      "http://example.org/arcaneweb#OODAPhase"
+    ],
+    "http://example.org/arcaneweb#AirInsightCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#InsightCapability",
+      "http://example.org/arcaneweb#InsightTargetTypeCapability"
+    ],
+    "http://example.org/arcaneweb#AirManifestationCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#ManifestationCapability",
+      "http://example.org/arcaneweb#ManifestationTargetTypeCapability"
+    ],
+    "http://example.org/arcaneweb#AreaManifestationCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#ManifestationCapability",
+      "http://example.org/arcaneweb#ManifestationTargetQuantityCapability"
+    ],
+    "http://example.org/arcaneweb#ArtifactCooperationRuleDescription": [
+      "http://example.org/arcaneweb#DesignRuleDescription"
+    ],
+    "http://example.org/arcaneweb#AstralInsightCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#InsightCapability",
+      "http://example.org/arcaneweb#InsightTargetTypeCapability"
+    ],
+    "http://example.org/arcaneweb#AstralManifestationCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#ManifestationAltitudeCapability",
+      "http://example.org/arcaneweb#ManifestationCapability"
+    ],
+    "http://example.org/arcaneweb#BeastManifestationCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#ManifestationCapability",
+      "http://example.org/arcaneweb#ManifestationTargetTypeCapability"
+    ],
+    "http://example.org/arcaneweb#CapabilityArtifactRuleDescription": [
+      "http://example.org/arcaneweb#DesignRuleDescription"
+    ],
+    "http://example.org/arcaneweb#ChainCooperationRuleDescription": [
+      "http://example.org/arcaneweb#DesignRuleDescription"
+    ],
+    "http://example.org/arcaneweb#DecidePhase": [
+      "http://example.org/arcaneweb#OODAPhase"
+    ],
+    "http://example.org/arcaneweb#DeepCreatureManifestationCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#ManifestationCapability",
+      "http://example.org/arcaneweb#ManifestationTargetTypeCapability"
+    ],
+    "http://example.org/arcaneweb#Formula01": [
+      "http://example.org/arcaneweb#FormulaDescription"
+    ],
+    "http://example.org/arcaneweb#Formula02": [
+      "http://example.org/arcaneweb#FormulaDescription"
+    ],
+    "http://example.org/arcaneweb#Formula03": [
+      "http://example.org/arcaneweb#FormulaDescription"
+    ],
+    "http://example.org/arcaneweb#Formula04": [
+      "http://example.org/arcaneweb#FormulaDescription"
+    ],
+    "http://example.org/arcaneweb#Formula05": [
+      "http://example.org/arcaneweb#FormulaDescription"
+    ],
+    "http://example.org/arcaneweb#Formula06": [
+      "http://example.org/arcaneweb#FormulaDescription"
+    ],
+    "http://example.org/arcaneweb#Formula07": [
+      "http://example.org/arcaneweb#FormulaDescription"
+    ],
+    "http://example.org/arcaneweb#Formula08": [
+      "http://example.org/arcaneweb#FormulaDescription"
+    ],
+    "http://example.org/arcaneweb#Formula09": [
+      "http://example.org/arcaneweb#FormulaDescription"
+    ],
+    "http://example.org/arcaneweb#Formula10": [
+      "http://example.org/arcaneweb#FormulaDescription"
+    ],
+    "http://example.org/arcaneweb#GroundInsightCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#InsightCapability",
+      "http://example.org/arcaneweb#InsightTargetTypeCapability"
+    ],
+    "http://example.org/arcaneweb#GroundManifestationCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#ManifestationCapability",
+      "http://example.org/arcaneweb#ManifestationTargetTypeCapability"
+    ],
+    "http://example.org/arcaneweb#HighAltitudeManifestationCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#ManifestationAltitudeCapability",
+      "http://example.org/arcaneweb#ManifestationCapability"
+    ],
+    "http://example.org/arcaneweb#InformationRelayCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#CommunicationCapability",
+      "http://example.org/arcaneweb#CoordinationCapability"
+    ],
+    "http://example.org/arcaneweb#InterferenceResistantTransmissionCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#CommunicationCapability",
+      "http://example.org/arcaneweb#CoordinationCapability"
+    ],
+    "http://example.org/arcaneweb#LongRangeInsightCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#InsightCapability",
+      "http://example.org/arcaneweb#InsightRangeCapability"
+    ],
+    "http://example.org/arcaneweb#LongRangeManifestationCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#ManifestationCapability",
+      "http://example.org/arcaneweb#ManifestationRangeCapability"
+    ],
+    "http://example.org/arcaneweb#LowAltitudeManifestationCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#ManifestationAltitudeCapability",
+      "http://example.org/arcaneweb#ManifestationCapability"
+    ],
+    "http://example.org/arcaneweb#MediumRangeInsightCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#InsightCapability",
+      "http://example.org/arcaneweb#InsightRangeCapability"
+    ],
+    "http://example.org/arcaneweb#MediumRangeManifestationCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#ManifestationCapability",
+      "http://example.org/arcaneweb#ManifestationRangeCapability"
+    ],
+    "http://example.org/arcaneweb#MultiArtifactOrchestrationCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#CoordinationCapability",
+      "http://example.org/arcaneweb#OrchestrationCapability"
+    ],
+    "http://example.org/arcaneweb#MultiTargetEvaluationCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#CoordinationCapability",
+      "http://example.org/arcaneweb#EvaluationCapability"
+    ],
+    "http://example.org/arcaneweb#ObservePhase": [
+      "http://example.org/arcaneweb#OODAPhase"
+    ],
+    "http://example.org/arcaneweb#OrientPhase": [
+      "http://example.org/arcaneweb#OODAPhase"
+    ],
+    "http://example.org/arcaneweb#RapidEvaluationCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#CoordinationCapability",
+      "http://example.org/arcaneweb#EvaluationCapability"
+    ],
+    "http://example.org/arcaneweb#RapidResponseCoordinationCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#CoordinationCapability",
+      "http://example.org/arcaneweb#OrchestrationCapability"
+    ],
+    "http://example.org/arcaneweb#ShortRangeInsightCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#InsightCapability",
+      "http://example.org/arcaneweb#InsightRangeCapability"
+    ],
+    "http://example.org/arcaneweb#ShortRangeManifestationCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#ManifestationCapability",
+      "http://example.org/arcaneweb#ManifestationRangeCapability"
+    ],
+    "http://example.org/arcaneweb#SinglePointManifestationCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#ManifestationCapability",
+      "http://example.org/arcaneweb#ManifestationTargetQuantityCapability"
+    ],
+    "http://example.org/arcaneweb#TaskCapabilityRuleDescription": [
+      "http://example.org/arcaneweb#DesignRuleDescription"
+    ],
+    "http://example.org/arcaneweb#UnderwaterInsightCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#InsightCapability",
+      "http://example.org/arcaneweb#InsightTargetTypeCapability"
+    ],
+    "http://example.org/arcaneweb#UnderwaterManifestationCapability": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#ManifestationAltitudeCapability",
+      "http://example.org/arcaneweb#ManifestationCapability"
+    ],
+    "urn:arcane-rift-demo:BackupChannel": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#CoordinationCapability"
+    ],
+    "urn:arcane-rift-demo:Dispatch": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#CoordinationCapability"
+    ],
+    "urn:arcane-rift-demo:FineScan": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#InsightCapability"
+    ],
+    "urn:arcane-rift-demo:PrimaryChannel": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#CoordinationCapability"
+    ],
+    "urn:arcane-rift-demo:ResonanceAnalysis": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#CoordinationCapability"
+    ],
+    "urn:arcane-rift-demo:Stabilize": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#ManifestationCapability"
+    ],
+    "urn:arcane-rift-demo:WideSurvey": [
+      "http://example.org/arcaneweb#ArcaneCapability",
+      "http://example.org/arcaneweb#InsightCapability"
+    ],
+    "urn:arcane-scene:artifact:R-Analysis": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#CoordinationArtifact",
+      "urn:arcane-rift-demo:AnalysisUnit",
+      "urn:arcane-rift-demo:PrimaryAnalysisUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Analysis-Backup": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#CoordinationArtifact",
+      "urn:arcane-rift-demo:AnalysisUnit",
+      "urn:arcane-rift-demo:BackupAnalysisUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Analysis-Backup-copy-1": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#CoordinationArtifact",
+      "urn:arcane-rift-demo:AnalysisUnit",
+      "urn:arcane-rift-demo:BackupAnalysisUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Analysis-Backup-copy-2": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#CoordinationArtifact",
+      "urn:arcane-rift-demo:AnalysisUnit",
+      "urn:arcane-rift-demo:BackupAnalysisUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Analysis-copy-1": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#CoordinationArtifact",
+      "urn:arcane-rift-demo:AnalysisUnit",
+      "urn:arcane-rift-demo:PrimaryAnalysisUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Analysis-copy-2": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#CoordinationArtifact",
+      "urn:arcane-rift-demo:AnalysisUnit",
+      "urn:arcane-rift-demo:PrimaryAnalysisUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Dispatch": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#CoordinationArtifact",
+      "urn:arcane-rift-demo:DispatchUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Dispatch-copy-1": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#CoordinationArtifact",
+      "urn:arcane-rift-demo:DispatchUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Dispatch-copy-2": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#CoordinationArtifact",
+      "urn:arcane-rift-demo:DispatchUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Review": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#InsightArtifact",
+      "urn:arcane-rift-demo:ReviewUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Review-copy-1": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#InsightArtifact",
+      "urn:arcane-rift-demo:ReviewUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Review-copy-2": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#InsightArtifact",
+      "urn:arcane-rift-demo:ReviewUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Seal-A": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#ManifestationArtifact",
+      "urn:arcane-rift-demo:StabilizerUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Seal-A-copy-1": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#ManifestationArtifact",
+      "urn:arcane-rift-demo:StabilizerUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Seal-A-copy-2": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#ManifestationArtifact",
+      "urn:arcane-rift-demo:StabilizerUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Seal-B": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#ManifestationArtifact",
+      "urn:arcane-rift-demo:StabilizerUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Seal-B-copy-1": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#ManifestationArtifact",
+      "urn:arcane-rift-demo:StabilizerUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Seal-B-copy-2": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#ManifestationArtifact",
+      "urn:arcane-rift-demo:StabilizerUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Seal-C": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#ManifestationArtifact",
+      "urn:arcane-rift-demo:StabilizerUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Seal-C-copy-1": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#ManifestationArtifact",
+      "urn:arcane-rift-demo:StabilizerUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Seal-C-copy-2": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#ManifestationArtifact",
+      "urn:arcane-rift-demo:StabilizerUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Seal-D": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#ManifestationArtifact",
+      "urn:arcane-rift-demo:StabilizerUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Seal-D-copy-1": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#ManifestationArtifact",
+      "urn:arcane-rift-demo:StabilizerUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Seal-D-copy-2": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#ManifestationArtifact",
+      "urn:arcane-rift-demo:StabilizerUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Survey": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#InsightArtifact",
+      "urn:arcane-rift-demo:SurveyUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Survey-copy-1": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#InsightArtifact",
+      "urn:arcane-rift-demo:SurveyUnit"
+    ],
+    "urn:arcane-scene:artifact:R-Survey-copy-2": [
+      "http://example.org/arcaneweb#Artifact",
+      "http://example.org/arcaneweb#InsightArtifact",
+      "urn:arcane-rift-demo:SurveyUnit"
+    ],
+    "urn:arcane-scene:step:%5B%22T1%22%2C%22flow-a225fab946ccf556ef7eed80e938ba9b214eb3aba4b68bcd6e67aa768a59e5dc%22%2C%22s1%22%5D": [
+      "http://example.org/arcaneweb#ArcaneMission",
+      "http://example.org/arcaneweb#SequentialStepMission"
+    ],
+    "urn:arcane-scene:step:%5B%22T1%22%2C%22flow-a225fab946ccf556ef7eed80e938ba9b214eb3aba4b68bcd6e67aa768a59e5dc%22%2C%22s2%22%5D": [
+      "http://example.org/arcaneweb#ArcaneMission",
+      "http://example.org/arcaneweb#SequentialStepMission"
+    ],
+    "urn:arcane-scene:step:%5B%22T1%22%2C%22flow-a225fab946ccf556ef7eed80e938ba9b214eb3aba4b68bcd6e67aa768a59e5dc%22%2C%22s3%22%5D": [
+      "http://example.org/arcaneweb#ArcaneMission",
+      "http://example.org/arcaneweb#SequentialStepMission"
+    ],
+    "urn:arcane-scene:target:Rift-1": [
+      "http://example.org/arcaneweb#Target",
+      "urn:arcane-rift-demo:Target1"
+    ],
+    "urn:arcane-scene:task:T1": [
+      "http://example.org/arcaneweb#ArcaneMission",
+      "urn:arcane-rift-demo:Mission1"
+    ]
+  },
+  "facts": [
+    [
+      "urn:arcane-scene:artifact:R-Analysis",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:PrimaryChannel"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Analysis",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:ResonanceAnalysis"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Analysis-Backup",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:BackupChannel"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Analysis-Backup",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:ResonanceAnalysis"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Analysis-Backup-copy-1",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:BackupChannel"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Analysis-Backup-copy-1",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:ResonanceAnalysis"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Analysis-Backup-copy-2",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:BackupChannel"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Analysis-Backup-copy-2",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:ResonanceAnalysis"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Analysis-copy-1",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:PrimaryChannel"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Analysis-copy-1",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:ResonanceAnalysis"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Analysis-copy-2",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:PrimaryChannel"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Analysis-copy-2",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:ResonanceAnalysis"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Dispatch",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:Dispatch"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Dispatch-copy-1",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:Dispatch"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Dispatch-copy-2",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:Dispatch"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Review",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:FineScan"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Review-copy-1",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:FineScan"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Review-copy-2",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:FineScan"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Seal-A",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:Stabilize"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Seal-A-copy-1",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:Stabilize"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Seal-A-copy-2",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:Stabilize"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Seal-B",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:Stabilize"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Seal-B-copy-1",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:Stabilize"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Seal-B-copy-2",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:Stabilize"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Seal-C",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:Stabilize"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Seal-C-copy-1",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:Stabilize"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Seal-C-copy-2",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:Stabilize"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Seal-D",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:Stabilize"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Seal-D-copy-1",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:Stabilize"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Seal-D-copy-2",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:Stabilize"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Survey",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:WideSurvey"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Survey-copy-1",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:WideSurvey"
+    ],
+    [
+      "urn:arcane-scene:artifact:R-Survey-copy-2",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:arcane-rift-demo:WideSurvey"
+    ],
+    [
+      "urn:arcane-scene:step:%5B%22T1%22%2C%22flow-a225fab946ccf556ef7eed80e938ba9b214eb3aba4b68bcd6e67aa768a59e5dc%22%2C%22s1%22%5D",
+      "http://example.org/arcaneweb#requiresCapability",
+      "urn:arcane-rift-demo:WideSurvey"
+    ],
+    [
+      "urn:arcane-scene:step:%5B%22T1%22%2C%22flow-a225fab946ccf556ef7eed80e938ba9b214eb3aba4b68bcd6e67aa768a59e5dc%22%2C%22s2%22%5D",
+      "http://example.org/arcaneweb#requiresCapability",
+      "urn:arcane-rift-demo:Dispatch"
+    ],
+    [
+      "urn:arcane-scene:step:%5B%22T1%22%2C%22flow-a225fab946ccf556ef7eed80e938ba9b214eb3aba4b68bcd6e67aa768a59e5dc%22%2C%22s3%22%5D",
+      "http://example.org/arcaneweb#requiresCapability",
+      "urn:arcane-rift-demo:Stabilize"
+    ],
+    [
+      "urn:arcane-scene:task:T1",
+      "http://example.org/arcaneweb#requiresCapability",
+      "urn:arcane-rift-demo:Dispatch"
+    ],
+    [
+      "urn:arcane-scene:task:T1",
+      "http://example.org/arcaneweb#requiresCapability",
+      "urn:arcane-rift-demo:Stabilize"
+    ],
+    [
+      "urn:arcane-scene:task:T1",
+      "http://example.org/arcaneweb#requiresCapability",
+      "urn:arcane-rift-demo:WideSurvey"
+    ]
+  ]
+}

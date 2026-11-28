@@ -1,5 +1,7 @@
 # 任务流程扩展当前状态
 
+阶段二基线按用户评审关闭；后续[阶段二-B推理路径细分](joint-optimization/stage2b-owl-path/README.md)单独记录生产路径与Java API诊断，区分Python/JVM进程复用，保留预算8当前最优解仍未证最优的永久回归。精度领域验证仍是独立待办。
+
 阶段二增量：[受控性能基线](joint-optimization/stage2-performance/README.md)，覆盖流程数、法器数、本体层级、任务数/冲突及预算变化。逐次数据保留完整性、核验与证明状态，不改变生产算法或精度模型；领域精度验证仍待开展。
 
 最新增量：[跨流程联合优化实现](joint-optimization/implementation-v1.md)及[阶段一实现审计](joint-optimization/stage1-audit/README.md)。发布版本已复现；审计发现的同单位数量相等误拒绝已修复，精度模型领域验证仍待开展。

@@ -1,0 +1,4 @@
+http://example.org/arcaneweb#requiresCapability
+http://example.org/arcaneweb#hasCapability
+http://example.org/arcaneweb#communicatesWith
+http://example.org/arcaneweb#orchestrates

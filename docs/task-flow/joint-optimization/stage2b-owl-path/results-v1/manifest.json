@@ -1,0 +1,285 @@
+{
+  "version": "tfdo-owl-path-evidence-1.0",
+  "files": [
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\environment.json",
+      "sha256": "1bf7c4ab2d1f848490c168de273245eb84214c9776aedcf8cc9302152709b12b",
+      "sha256_lf_normalized": "f458de272a2d8cac31e98e6f1784c7ef5db20609eecc1b3585346bdf16fa43e3"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\full-report-inventory.json",
+      "sha256": "979acc42bf130d0d99758968ae1dbcae4b60bd2e7f2348aed8bca50d60ae9861",
+      "sha256_lf_normalized": "f8dae67742acc35f0362f9895e65b8d0ccfe2c70bc23e0be20b3b1386f931628"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\measurements.json",
+      "sha256": "1402d7d6ca4e4ca15588678452341c2712e705c8f3becff2132e691ef94cd44f",
+      "sha256_lf_normalized": "22a8bb9f4e52f728e532cf2d65fa910ebd3f463fa91825bca00997f01581b98a"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\protocol.json",
+      "sha256": "d8cbdc7253a4a55bc6d4d4112f2e47bd73f52d43e3b7435b7d87003848c7feaa",
+      "sha256_lf_normalized": "78d5c584e1c940cdefbdf2c7ab03a6aaab463631bc4ca04155c1e9f1c77ed446"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\README.md",
+      "sha256": "4c29d752841f00e5ffa32d8b09c1fc312f1198a9e3dd5a673242ab1b60cea6ce",
+      "sha256_lf_normalized": "53449b45b4847322e43a4111bbf224b92b52dc4b7647f356178dd99f3a9e6ad2"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\tests.log",
+      "sha256": "ce3dc19e6eb90190efdbcbf57986bdefaec82b99c29b655ba48012b0782ccb19",
+      "sha256_lf_normalized": "ce3dc19e6eb90190efdbcbf57986bdefaec82b99c29b655ba48012b0782ccb19"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\artifacts-3\\config.json",
+      "sha256": "f2c2ebbcbab4fef80b4ad9ef2a02337a1d72a8a003be32b0b8cbcb4bdd14f566",
+      "sha256_lf_normalized": "389a54af04b2b49eb9b4d93b23005236364b05082aea5802df36e60041cfb138"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\artifacts-3\\expected-owl.json",
+      "sha256": "182eb9f588649504ccfa6d982ffb40d0bd643df22be9711234c39be537e2d645",
+      "sha256_lf_normalized": "1b5d8decd6707ab5b6be9146c8668454e8eb10c54bee019f65f76000e53abfe8"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\artifacts-3\\input.rdf",
+      "sha256": "4262cd53be9290af994df2be23ef0b0c322a70df6d75b13f2ca1272ca7fcbfb2",
+      "sha256_lf_normalized": "4262cd53be9290af994df2be23ef0b0c322a70df6d75b13f2ca1272ca7fcbfb2"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\artifacts-3\\predicates.txt",
+      "sha256": "a45a363e366de294aa97fa4154c154a0f57c4073e0add5859d1c47ad12d4628f",
+      "sha256_lf_normalized": "fb7ab37d6a6fa90bc668ee672f26f3f51d6da759d486a2315c7a584697cb4c58"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\artifacts-3\\query.json",
+      "sha256": "4fd2c9eaff9be341075ad15ba117b42c852d2bcedc8d0af387712e81fb0e4b2b",
+      "sha256_lf_normalized": "72f4da476b502282cc8831b1b2f4fd84df7542ef63f5dc31b402c5200cee86eb"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\artifacts-3\\subjects.txt",
+      "sha256": "850796480b987a4e588b5fa148e6a134f01c264023c26eeb952f6b7b1103538e",
+      "sha256_lf_normalized": "52ff207dadc391696611d873fe4389b11989667438fad72d2628f1d42faf2dc8"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\base\\config.json",
+      "sha256": "7ac4ff6be6fafae2fb8429eb149eced7279d5b4ee68c662c65e5e7de6ad54d10",
+      "sha256_lf_normalized": "cf005dd6d2f7569fceb0d6e989896bfb73bd00784e3b01c9eaf051891d65b3f9"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\base\\expected-owl.json",
+      "sha256": "47ccb1ff3c6b2db3cfae6b8190caa8d1d7621a081e748578e1d426b53c135773",
+      "sha256_lf_normalized": "1b7cb6f021483a3f925040bfb1084a32c6cfb9ade9206d1d121c3a68291f479f"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\base\\input.rdf",
+      "sha256": "042a0457f7e03e6982b71b4d3c4c4c23aa4257f9b481a7d0ae6956cb88f55187",
+      "sha256_lf_normalized": "042a0457f7e03e6982b71b4d3c4c4c23aa4257f9b481a7d0ae6956cb88f55187"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\base\\predicates.txt",
+      "sha256": "a45a363e366de294aa97fa4154c154a0f57c4073e0add5859d1c47ad12d4628f",
+      "sha256_lf_normalized": "fb7ab37d6a6fa90bc668ee672f26f3f51d6da759d486a2315c7a584697cb4c58"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\base\\query.json",
+      "sha256": "92fd0d34d589df48486c3516c01bc57168930ea46f22fa9136f36ddb4d00cd04",
+      "sha256_lf_normalized": "92ec751e8b8eee7d7224680f710cf19cf2d983975236c0285cb922c8e6a8b379"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\base\\subjects.txt",
+      "sha256": "a694747e38046aa74bb8ea7e3495070bb8331a638670b8aa833752cb9e429e9d",
+      "sha256_lf_normalized": "7dfd5e3843bd84e5402c5e142f52b9b5b62f05fa89c05ac6bf87e1c722ebf481"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\classes-128\\config.json",
+      "sha256": "8bf64ba5e7dfa3a23a176aa8b87576f034015dcb871a5ef5c3fb30dae61bfa56",
+      "sha256_lf_normalized": "ce9d759d719043eb6f41064f4597e9dd741275aa7a92ac8a978a6b7101912845"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\classes-128\\expected-owl.json",
+      "sha256": "463f3a50c6b26f598632bed16dc46b2fc4193640ab0927ea3c0889f75c8de7fb",
+      "sha256_lf_normalized": "c2d398fe2fda77229d65cc12b48ef770dff3faebd98f08bcc0e6ee597c69a554"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\classes-128\\input.rdf",
+      "sha256": "345f5544880630d47ae3c6c57bf4ec5c2ed43dbe4dce1a5811d85da0d76eaa34",
+      "sha256_lf_normalized": "345f5544880630d47ae3c6c57bf4ec5c2ed43dbe4dce1a5811d85da0d76eaa34"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\classes-128\\predicates.txt",
+      "sha256": "a45a363e366de294aa97fa4154c154a0f57c4073e0add5859d1c47ad12d4628f",
+      "sha256_lf_normalized": "fb7ab37d6a6fa90bc668ee672f26f3f51d6da759d486a2315c7a584697cb4c58"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\classes-128\\query.json",
+      "sha256": "3f3ed449444015615fb38289080b48d576016ac72ca90586964065c8fc86bcc8",
+      "sha256_lf_normalized": "fadadd3ab166b22e84183a6a356f4ab5124f15ac82a9a2007ee03dfbe56eba62"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\classes-128\\subjects.txt",
+      "sha256": "1248c7093d5cc8f1e299d397367a4e3a86dd2bd8da37f1cff2e62dc2e0b82abf",
+      "sha256_lf_normalized": "123486c5e5cfdfefdd83aef1d59a726680c09b663af5847715102ceccbb21d86"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\classes-32\\config.json",
+      "sha256": "a1d2f09afb5f15b005df4bab15f83b8eb31516b6a4ac643792fff43ba1d44923",
+      "sha256_lf_normalized": "4ea14b82e0e969eaf267a2a8d89b0f24729932db2b3a66529b8f58a1160e1514"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\classes-32\\expected-owl.json",
+      "sha256": "df455a0dc6ceb5a3b0fdb0e78c5c63ac6eaaf58eba65ee620494fb87fab0f408",
+      "sha256_lf_normalized": "5754d1e4adbf1d1bea8c0a62a1782e68af3d9dcc06678113698d3587b40921f3"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\classes-32\\input.rdf",
+      "sha256": "9dd6bf7b368d50f2f980d11f009ea148f488b0e871a4e7e005aa057b4fd3e46f",
+      "sha256_lf_normalized": "9dd6bf7b368d50f2f980d11f009ea148f488b0e871a4e7e005aa057b4fd3e46f"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\classes-32\\predicates.txt",
+      "sha256": "a45a363e366de294aa97fa4154c154a0f57c4073e0add5859d1c47ad12d4628f",
+      "sha256_lf_normalized": "fb7ab37d6a6fa90bc668ee672f26f3f51d6da759d486a2315c7a584697cb4c58"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\classes-32\\query.json",
+      "sha256": "3f3ed449444015615fb38289080b48d576016ac72ca90586964065c8fc86bcc8",
+      "sha256_lf_normalized": "fadadd3ab166b22e84183a6a356f4ab5124f15ac82a9a2007ee03dfbe56eba62"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\classes-32\\subjects.txt",
+      "sha256": "1248c7093d5cc8f1e299d397367a4e3a86dd2bd8da37f1cff2e62dc2e0b82abf",
+      "sha256_lf_normalized": "123486c5e5cfdfefdd83aef1d59a726680c09b663af5847715102ceccbb21d86"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\flows-1\\config.json",
+      "sha256": "9460188b4d3d2142473d39add70b96cdba3100cdfc99e286a21b88856ce7f615",
+      "sha256_lf_normalized": "5b649cdc35aeab4b21ba635344d7c9477bb19ac22f33d7c45483142c9c60a6d7"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\flows-1\\expected-owl.json",
+      "sha256": "6575d162d4ee81c9f9b13a3d363d29af0e151aae5779b5317d0acb303eb9d7b1",
+      "sha256_lf_normalized": "b520da3d412c58809c2309207d0f968f7feb3561f77d1cf7d099f0f07b8e1b6e"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\flows-1\\input.rdf",
+      "sha256": "99c78f9d111767e89cb64eade9b5c64fa63ff400b365f78305f88158bc0f41a5",
+      "sha256_lf_normalized": "99c78f9d111767e89cb64eade9b5c64fa63ff400b365f78305f88158bc0f41a5"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\flows-1\\predicates.txt",
+      "sha256": "a45a363e366de294aa97fa4154c154a0f57c4073e0add5859d1c47ad12d4628f",
+      "sha256_lf_normalized": "fb7ab37d6a6fa90bc668ee672f26f3f51d6da759d486a2315c7a584697cb4c58"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\flows-1\\query.json",
+      "sha256": "ad33a1b18ab383897455bfaabdddda415f43dd34c85b9377a002e84786eb0982",
+      "sha256_lf_normalized": "b7b79afb47f4a72b31b674dd200b5a712dd8ff41be45f2b3bd488e337e18762c"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\flows-1\\subjects.txt",
+      "sha256": "7cd6938da25ca9764f4e4702c66be1b0007fab9df6e15f0371144e79571a0c79",
+      "sha256_lf_normalized": "920bf921bd4d037fef19fb77f6c5f96d725e1e88abf173c15047147d49d5f782"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\flows-4\\config.json",
+      "sha256": "cc7947827154b7dc19d75293bfdb9bcd4b092f54c4452e8bc77a5843aea658fe",
+      "sha256_lf_normalized": "c38a7debccb9aee77639d9a980173c24fc4c612ba5242fb432fc30d4c7b0e2da"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\flows-4\\expected-owl.json",
+      "sha256": "1671027fd94cfc3efe6ea1d0caa7d6cfd788231d151f59e835a5b9f02367383c",
+      "sha256_lf_normalized": "ff11396d45ed4dc196f612697cc8171208082e7da38ad080aab1b19b7ba6ba2f"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\flows-4\\input.rdf",
+      "sha256": "e793dd4d0917fa31d3541a7d2d22ca60479ea9233f4f87cb0b81729fac7a6014",
+      "sha256_lf_normalized": "e793dd4d0917fa31d3541a7d2d22ca60479ea9233f4f87cb0b81729fac7a6014"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\flows-4\\predicates.txt",
+      "sha256": "a45a363e366de294aa97fa4154c154a0f57c4073e0add5859d1c47ad12d4628f",
+      "sha256_lf_normalized": "fb7ab37d6a6fa90bc668ee672f26f3f51d6da759d486a2315c7a584697cb4c58"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\flows-4\\query.json",
+      "sha256": "bc6009ad6b12afb8d3f2f6656bf2b40202aae85b12ef996cd392f7307c20ec37",
+      "sha256_lf_normalized": "f14990d78cddccb4f8a9962bacaaa14ef826d878f590e057478a749523cc0f12"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\flows-4\\subjects.txt",
+      "sha256": "86fd22d025944b9c0ec29a53affc13dd31f877c0da06916b81c07842ceb7ded8",
+      "sha256_lf_normalized": "f040c140d288687f205bd2958b1590527872adda35131ac300d420ea837420b7"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\one-seal\\config.json",
+      "sha256": "1de7ce930d432a2f611f9ddcf7c5e6d70d08d6457eb35139cb3f0b0121a25d28",
+      "sha256_lf_normalized": "fe963664d841432079d4838d9e980f292e3c0a71adfeae93864feace1a525031"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\one-seal\\expected-owl.json",
+      "sha256": "47ccb1ff3c6b2db3cfae6b8190caa8d1d7621a081e748578e1d426b53c135773",
+      "sha256_lf_normalized": "1b7cb6f021483a3f925040bfb1084a32c6cfb9ade9206d1d121c3a68291f479f"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\one-seal\\input.rdf",
+      "sha256": "1178ecab43673974235f23505f53cfbbf6493b27cc029c9dcb7c20f3b9c3c7d7",
+      "sha256_lf_normalized": "1178ecab43673974235f23505f53cfbbf6493b27cc029c9dcb7c20f3b9c3c7d7"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\one-seal\\predicates.txt",
+      "sha256": "a45a363e366de294aa97fa4154c154a0f57c4073e0add5859d1c47ad12d4628f",
+      "sha256_lf_normalized": "fb7ab37d6a6fa90bc668ee672f26f3f51d6da759d486a2315c7a584697cb4c58"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\one-seal\\query.json",
+      "sha256": "92fd0d34d589df48486c3516c01bc57168930ea46f22fa9136f36ddb4d00cd04",
+      "sha256_lf_normalized": "92ec751e8b8eee7d7224680f710cf19cf2d983975236c0285cb922c8e6a8b379"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\results-v1\\inputs\\one-seal\\subjects.txt",
+      "sha256": "a694747e38046aa74bb8ea7e3495070bb8331a638670b8aa833752cb9e429e9d",
+      "sha256_lf_normalized": "7dfd5e3843bd84e5402c5e142f52b9b5b62f05fa89c05ac6bf87e1c722ebf481"
+    },
+    {
+      "path": "adapters\\owl_infer.py",
+      "sha256": "dd2618151670a0c28e612c172bff0a97bbdb4639ee95f2cd7cf5d66b350aa40f",
+      "sha256_lf_normalized": "dd2618151670a0c28e612c172bff0a97bbdb4639ee95f2cd7cf5d66b350aa40f"
+    },
+    {
+      "path": "workflow_tools\\owl_profile_worker.py",
+      "sha256": "9276586721e8f2434549544744d483dbe18877a6d29e1c4b2583cc88f67d00dc",
+      "sha256_lf_normalized": "9276586721e8f2434549544744d483dbe18877a6d29e1c4b2583cc88f67d00dc"
+    },
+    {
+      "path": "workflow_tools\\benchmark_owl_path.py",
+      "sha256": "572c1d765294a7b0b5e4b485727fba847882cfd2ecd9cd8975f90619da4be42e",
+      "sha256_lf_normalized": "572c1d765294a7b0b5e4b485727fba847882cfd2ecd9cd8975f90619da4be42e"
+    },
+    {
+      "path": "workflow_tools\\report_owl_path.py",
+      "sha256": "7c2f529db1dfc80f58e05b5e08ac6555e67fe81e02c0adfb0ad4b092e8b6fa73",
+      "sha256_lf_normalized": "7c2f529db1dfc80f58e05b5e08ac6555e67fe81e02c0adfb0ad4b092e8b6fa73"
+    },
+    {
+      "path": "workflow_tools\\java\\OwlTimingProbe.java",
+      "sha256": "0c595eb6628f2231880cb51aa91f61e7eb4aa5093cead47de1bae18e9b8179ed",
+      "sha256_lf_normalized": "0c595eb6628f2231880cb51aa91f61e7eb4aa5093cead47de1bae18e9b8179ed"
+    },
+    {
+      "path": "tests\\test_owl_profile.py",
+      "sha256": "46289b4858dc86cc78f274f370d5914a1e6cb29c15e7035d1f21c3b351c199f6",
+      "sha256_lf_normalized": "46289b4858dc86cc78f274f370d5914a1e6cb29c15e7035d1f21c3b351c199f6"
+    },
+    {
+      "path": "tests\\test_joint_integration.py",
+      "sha256": "25f80e698b5565fc34a7d622f6a0a5c0817d8365d6b835e200d52b769f537c04",
+      "sha256_lf_normalized": "25f80e698b5565fc34a7d622f6a0a5c0817d8365d6b835e200d52b769f537c04"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage2b-owl-path\\README.md",
+      "sha256": "af6cffaabf3e768a1e3a16dbd05060adfaf64d28d49015d9bcdb1f8c509c345f",
+      "sha256_lf_normalized": "af6cffaabf3e768a1e3a16dbd05060adfaf64d28d49015d9bcdb1f8c509c345f"
+    }
+  ]
+}
