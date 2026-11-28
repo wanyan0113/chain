@@ -1,0 +1,72 @@
+{
+  "status": "passed",
+  "date": "2026-11-28",
+  "base_commit": "b5adc42",
+  "candidates": 28,
+  "best_score": 0.6,
+  "network_cost": 25,
+  "network_makespan_s": 40,
+  "optimality": "candidate_set_optimum",
+  "global_optimality": "not_proven",
+  "persisted_report_verification": {
+    "status": "passed",
+    "scope": "metrics_scores_and_resource_feasibility_with_bounded_independent_reference",
+    "reference_complete": true,
+    "reference_combinations": 196,
+    "reference_feasible": 16,
+    "reference_best_score": 0.6,
+    "selected_matches_reference": true,
+    "optimality_verified": true,
+    "production_optimality": "candidate_set_optimum"
+  },
+  "budget_6": {
+    "status": "feasible",
+    "optimality": "not_proven",
+    "score": 0.6,
+    "verification": {
+      "status": "passed",
+      "scope": "metrics_scores_and_resource_feasibility_with_bounded_independent_reference",
+      "reference_complete": true,
+      "reference_combinations": 196,
+      "reference_feasible": 16,
+      "reference_best_score": 0.6,
+      "selected_matches_reference": true,
+      "optimality_verified": false,
+      "production_optimality": "not_proven"
+    }
+  },
+  "domain_validity": "pending",
+  "quality_origin": "synthetic_assumption",
+  "source_file_sha256": {
+    "task_flow/team_evaluation.py": "1ac2fb7427d3ed9c1c1d0ec8d0a82e149ead860616b9ea0ae24b3c252805ecff",
+    "task_flow/team_evaluation.schema.json": "c6eb3c0320c7db2a8b2c6acd941a47bfd72890b6b2f3e4ba957fe5fb9787838f",
+    "task_flow/team_optimization.py": "b2191585a9910e8b7c9fac5d0af62cdfd5e68f60701d98e07c6858091ba8d3b5",
+    "task_flow/team_optimization_verify.py": "8c03c85472a35189bbc809a5dba77177577990b4de52e00573d43869d649b016",
+    "workflow_tools/team_optimization_demo.py": "038fe6aea445ef92e40c3496f3c183a2ce3e087d968c19a58c5da657a2661636",
+    "tests/test_team_optimization.py": "218673cbf88ede596285cec8b91c15d01e03db1d3af7cdfd1d5ae46c17c7805c"
+  },
+  "run_file_sha256": {
+    "budget-6-result.json": "2ed27e8f57121aeb3b2ef2a64124d6e821b7e280db40d3bbe90a36a54782e276",
+    "budget-6-verification.json": "9ceccef2c27bc6b69b0d82e8716eaf513f700b476777fc2e8d352a2a1572e40e",
+    "metrics-to-fill.json": "fc8bfc1e8c7adb8ec425df5cf1fa35802968b422f474dc733a6bfb8cd1b41084",
+    "persisted-report-verification.json": "5a2d5efceab3ef36c5dc67931fbc2c9ccb1e4dcb363e637e89f103d3c7fff30b",
+    "summary.md": "b1c5310305c37feb5e9efd23720501f7e8d77cc6917c7979a92ff5d013ac9da4",
+    "synthetic-metrics.json": "327e2012bce9efd60cf0d946704135ec0a763e64aa4678bd201f69d544c7b835",
+    "team_optimization.json": "b1ba63bb9d6520f38e9f1d5a471aa169a235a893fff70a65424bbf0db867dcd8"
+  },
+  "archive_sha256": "e608188542473babc2043198a1ac28ab5df389762a7a940827447315372a5e04",
+  "test_runs": [
+    {
+      "command": "python -B -m unittest tests.test_team_feasibility tests.test_team_optimization tests.test_joint_candidates tests.test_joint_network tests.test_sequences -v",
+      "tests": 61,
+      "status": "passed"
+    },
+    {
+      "command": "python -B -m unittest tests.test_team_optimization.TeamOptimizationTests.test_source_without_optional_network_node_budget -v",
+      "tests": 1,
+      "status": "passed"
+    }
+  ],
+  "test_evidence_scope": "Two observed local unittest commands, 61 tests plus 1 newly added optional-budget real integration test; console transcripts are not archived.",
+  "distinct_tests_passed": 62
+}
