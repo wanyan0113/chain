@@ -1,0 +1,51 @@
+{
+  "version": "team-observation-intake-verification-1.0",
+  "date": "2026-11-28",
+  "base_commit": "bcd43f3236902b1331e82164b6b5585915786201",
+  "branch": "codex/task-flow-planning",
+  "status": "passed_software_and_synthetic_only",
+  "environment": {
+    "python": "3.14.0 (tags/v3.14.0:ebf955d, Oct  7 2025, 10:15:03) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.22631-SP0"
+  },
+  "tests": {
+    "distinct_passed": 73,
+    "new_contract_statistics": 40,
+    "legacy_regression": 33,
+    "commands": [
+      "python -B -m unittest tests.test_team_observation_intake tests.test_team_observation_contract tests.test_team_statistics -v",
+      "python -B -m unittest tests.test_design_observation_bridge tests.test_observations_v2 tests.test_observation_semantics_reference -v"
+    ],
+    "console_transcripts_saved": false
+  },
+  "adversarial_cases": 12,
+  "actual_hermit_used": true,
+  "standalone_raw_replay_passed": true,
+  "unscored_feasible_source_accepted": true,
+  "domain_validity": "pending",
+  "real_equipment_collection_performed": false,
+  "production_formula_changed": false,
+  "confidence_intervals": null,
+  "external_signature_verified": false,
+  "live_equipment_version_authenticated": false,
+  "code_hash_policy": "SHA256 of bytes with CRLF converted to LF",
+  "code_hashes": {
+    "workflow_tools/team_observation_demo.py": "24b6f1405415dfac752ba000959fd466056a8a48c8952447e165c8dcb6c75357",
+    "workflow_tools/team_observation_intake.py": "98ba7c4a2af341ee81bcbba76444cc29c0fbbba8ad5cf92d0706ead087d34945",
+    "workflow_tools/team_observation_io.py": "ecc0ed816b832ad3d4234ad5d35d25cc08b77220823dfe7581564d400f1d56bd",
+    "workflow_tools/team_observation_owl.py": "e2fcc6b79a52a8ba3f0266b8688e2bca99ce186a095725352cf04568ed11e897",
+    "workflow_tools/team_observation_sources.py": "3a57dc02c212c66a23b06d71921a90e4ff6c9fbc392906db02cc5a3b846ff842",
+    "workflow_tools/team_observation_verify.py": "213356eed7fc38d85f3b48624738c122b456d5123e863f95ed26bfc0a83135b0",
+    "workflow_tools/team_study_lock.py": "60b3debcb837ab16c8a1396fa572e28ad0e83a0bee37da1bdd2e7a92beba4407",
+    "workflow_tools/audit_team_intake.py": "9f4718a228aa22fa7f3523bbecc8d3def8327d743bbd2b4eb8fdfdf9e026779c",
+    "tests/test_team_observation_intake.py": "8ddf8d03ba68227f681ec4bb99ce1c53a2ffc38cbfb46b1413d5636855fc4afe",
+    "knowledge/team-observation-validation.ttl": "5e65d43a38a52eef1bc54eb01cfb59739b614815c652c6f540d5d2b3ce422fa7"
+  },
+  "archive_sha256": "9c0e72de6937be7da00c2bab4097ccbfaba94faf7ff9cd78232d9c83cedd0f36",
+  "limits": [
+    "Synthetic labels are not measured equipment data.",
+    "OWL consistency does not prove record completeness, label truth or domain validity.",
+    "Local study lock is not external proof of prospective registration.",
+    "Unit linkage probes isolate rules with verified-source substitutes; batch cases and OWL integration use actual reasoning."
+  ]
+}

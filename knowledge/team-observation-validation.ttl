@@ -1,0 +1,34 @@
+@prefix o: <urn:team-observation-validation:> .
+@prefix b: <http://example.org/arcaneweb#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+o:Ontology a owl:Ontology ; owl:versionInfo "1.0" .
+o:Observation a owl:Class .
+o:MemberContribution a owl:Class ; rdfs:subClassOf o:Observation .
+o:GroupOutput a owl:Class ; rdfs:subClassOf o:Observation .
+o:TaskEndpoint a owl:Class ; rdfs:subClassOf o:Observation .
+[] a owl:AllDisjointClasses ; owl:members (o:MemberContribution o:GroupOutput o:TaskEndpoint) .
+# These disjointness axioms are scoped to this observation audit graph only.
+[] a owl:AllDisjointClasses ; owl:members (b:InsightArtifact b:CoordinationArtifact b:ManifestationArtifact) .
+[] a owl:AllDisjointClasses ; owl:members (b:InsightCapability b:CoordinationCapability b:ManifestationCapability) .
+o:observesArtifact a owl:ObjectProperty ; rdfs:domain o:MemberContribution ; rdfs:range b:Artifact .
+o:validatesCapability a owl:ObjectProperty ; rdfs:domain o:MemberContribution ; rdfs:range b:ArcaneCapability .
+o:hasContribution a owl:ObjectProperty ; rdfs:domain o:GroupOutput ; rdfs:range o:MemberContribution .
+o:LinkedContribution a owl:Class ; owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+  o:MemberContribution
+  [ a owl:Restriction ; owl:onProperty o:observesArtifact ; owl:someValuesFrom b:Artifact ]
+  [ a owl:Restriction ; owl:onProperty o:validatesCapability ; owl:someValuesFrom b:ArcaneCapability ]
+) ] .
+o:ContributedGroupOutput a owl:Class ; owl:equivalentClass [ a owl:Class ; owl:intersectionOf (
+  o:GroupOutput [ a owl:Restriction ; owl:onProperty o:hasContribution ; owl:someValuesFrom o:LinkedContribution ]
+) ] .
+o:InsightContribution a owl:Class ; rdfs:subClassOf o:MemberContribution,
+  [ a owl:Restriction ; owl:onProperty o:observesArtifact ; owl:allValuesFrom b:InsightArtifact ],
+  [ a owl:Restriction ; owl:onProperty o:validatesCapability ; owl:allValuesFrom b:InsightCapability ] .
+o:CoordinationContribution a owl:Class ; rdfs:subClassOf o:MemberContribution,
+  [ a owl:Restriction ; owl:onProperty o:observesArtifact ; owl:allValuesFrom b:CoordinationArtifact ],
+  [ a owl:Restriction ; owl:onProperty o:validatesCapability ; owl:allValuesFrom b:CoordinationCapability ] .
+o:ManifestationContribution a owl:Class ; rdfs:subClassOf o:MemberContribution,
+  [ a owl:Restriction ; owl:onProperty o:observesArtifact ; owl:allValuesFrom b:ManifestationArtifact ],
+  [ a owl:Restriction ; owl:onProperty o:validatesCapability ; owl:allValuesFrom b:ManifestationCapability ] .

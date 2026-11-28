@@ -1,0 +1,179 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "case": "valid_csv",
+      "passed": true,
+      "expected_codes": [],
+      "actual_codes": [],
+      "ontology_status": "passed",
+      "first_plan_slots": 48
+    },
+    {
+      "case": "missing_member",
+      "passed": true,
+      "expected_codes": [
+        "MISSING_MEMBER_OBSERVATION"
+      ],
+      "actual_codes": [
+        "GROUP_MEMBER_REFERENCE_FK",
+        "GROUP_MEMBER_REFERENCE_SET",
+        "MISSING_MEMBER_OBSERVATION"
+      ],
+      "ontology_status": "passed",
+      "first_plan_slots": 48
+    },
+    {
+      "case": "swapped_T2_stages",
+      "passed": true,
+      "expected_codes": [
+        "MEMBER_NOT_ASSIGNED"
+      ],
+      "actual_codes": [
+        "CROSS_EXECUTION_MEMBER_REFERENCE",
+        "GROUP_INPUT_UNION_MISMATCH",
+        "GROUP_MEMBER_REFERENCE_SET",
+        "INPUT_NOT_AVAILABLE_AT_ATTEMPT_START",
+        "INPUT_NOT_EARLIER_STAGE",
+        "MEMBER_NOT_ASSIGNED",
+        "MISSING_MEMBER_OBSERVATION",
+        "OBSERVATION_BEFORE_ATTEMPT_END"
+      ],
+      "ontology_status": "passed",
+      "first_plan_slots": 48
+    },
+    {
+      "case": "retry_claimed_as_first",
+      "passed": true,
+      "expected_codes": [
+        "DUPLICATE_KEY",
+        "FROZEN_PLAN_CHANGED"
+      ],
+      "actual_codes": [
+        "DUPLICATE_KEY",
+        "FROZEN_PLAN_CHANGED",
+        "FROZEN_PLAN_FIELD_CHANGED",
+        "RETRY_NUMBER_GAP",
+        "RETRY_REGISTERED_BEFORE_PREVIOUS_END",
+        "RETRY_TIME_OVERLAP"
+      ],
+      "ontology_status": "passed",
+      "first_plan_slots": 48
+    },
+    {
+      "case": "cross_sample_input",
+      "passed": true,
+      "expected_codes": [
+        "CROSS_SAMPLE_GROUP_REFERENCE"
+      ],
+      "actual_codes": [
+        "CROSS_SAMPLE_GROUP_REFERENCE",
+        "GROUP_INPUT_UNION_MISMATCH",
+        "INPUT_NOT_AVAILABLE_AT_ATTEMPT_START"
+      ],
+      "ontology_status": "passed",
+      "first_plan_slots": 48
+    },
+    {
+      "case": "firmware_changed",
+      "passed": true,
+      "expected_codes": [
+        "ARTIFACT_VERSION_MISMATCH"
+      ],
+      "actual_codes": [
+        "ARTIFACT_VERSION_MISMATCH"
+      ],
+      "ontology_status": "passed",
+      "first_plan_slots": 48
+    },
+    {
+      "case": "cluster_leaks_into_evaluation",
+      "passed": true,
+      "expected_codes": [
+        "CLUSTER_SPLIT_LEAKAGE"
+      ],
+      "actual_codes": [
+        "CLUSTER_SPLIT_LEAKAGE",
+        "FROZEN_PLAN_CHANGED",
+        "FROZEN_PLAN_FIELD_CHANGED"
+      ],
+      "ontology_status": "passed",
+      "first_plan_slots": 48
+    },
+    {
+      "case": "pair_id_changed",
+      "passed": true,
+      "expected_codes": [
+        "PAIR_ID_CHANGED"
+      ],
+      "actual_codes": [
+        "FROZEN_PLAN_CHANGED",
+        "PAIR_ID_CHANGED"
+      ],
+      "ontology_status": "passed",
+      "first_plan_slots": 48
+    },
+    {
+      "case": "unknown_claimed_as_error",
+      "passed": true,
+      "expected_codes": [
+        "SCHEMA"
+      ],
+      "actual_codes": [
+        "SCHEMA"
+      ],
+      "ontology_status": "not_run",
+      "first_plan_slots": 0
+    },
+    {
+      "case": "missing_actual_first_attempt",
+      "passed": true,
+      "expected_codes": [
+        "MISSING_ACTUAL_FIRST_ATTEMPT_RECORD",
+        "MISSING_FROZEN_PLAN_SLOT"
+      ],
+      "actual_codes": [
+        "FROZEN_PLAN_CHANGED",
+        "MISSING_ACTUAL_FIRST_ATTEMPT_RECORD",
+        "MISSING_FROZEN_PLAN_SLOT",
+        "OBSERVATION_ATTEMPT_FK"
+      ],
+      "ontology_status": "passed",
+      "first_plan_slots": 48
+    },
+    {
+      "case": "global_observation_id_collision",
+      "passed": true,
+      "expected_codes": [
+        "GLOBAL_OBSERVATION_ID_DUPLICATE"
+      ],
+      "actual_codes": [
+        "GLOBAL_OBSERVATION_ID_DUPLICATE",
+        "OWL_OBSERVATION_CONSISTENCY"
+      ],
+      "ontology_status": "failed",
+      "first_plan_slots": 48
+    },
+    {
+      "case": "ontology_role_conflict",
+      "passed": true,
+      "expected_codes": [
+        "MEMBER_NOT_ASSIGNED",
+        "OWL_OBSERVATION_CONSISTENCY"
+      ],
+      "actual_codes": [
+        "MEMBER_NOT_ASSIGNED",
+        "MISSING_MEMBER_OBSERVATION",
+        "OWL_CAPABILITY_SUPPORT_UNKNOWN",
+        "OWL_OBSERVATION_CONSISTENCY"
+      ],
+      "ontology_status": "failed",
+      "first_plan_slots": 48
+    }
+  ],
+  "data_origin": "synthetic_simulation",
+  "domain_validity": "pending",
+  "production_writeback": false,
+  "ontology_engine": "HermiT",
+  "real_hardware_observations": false
+}

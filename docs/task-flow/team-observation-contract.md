@@ -1,5 +1,7 @@
 # 装备组观测数据契约1.0
 
+后续实现见[六表导入与独立核验](team-observation-intake.md)。下文及封存JSON中的“尚未实现”是契约冻结当时的历史状态，保持原摘要；当前软件已提供独立新入口和研究锁，真实研究/数据状态不因此升级。
+
 本轮冻结的是**软件数据契约**`team-observation-contract-1.0`：字段、身份、关联、缺失/重试、分母、配对、研究冻结条件及后续验收规则。冻结文件见[契约正文](team-observation-contract-v1/contract.json)、[数据Schema](team-observation-contract-v1/schema.json)、[研究协议Schema](team-observation-contract-v1/protocol.schema.json)及[内容封存清单](team-observation-contract-v1/freeze-manifest.json)。修改规范需新版本；不回写已发布清单。
 
 **具体研究实例仍未冻结。** 方法、事件定义、真实装备版本、环境与执行顺序、样本划分和验收阈值尚未补齐，因此研究模板继续为draft/uncollected。此轮未实现导入器、数据独立核验器或研究锁定程序。Schema结构通过不等于来源关联、研究就绪或领域有效性通过。
