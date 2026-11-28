@@ -1,0 +1,21 @@
+{
+  "contract_version": "team-observation-contract-1.0",
+  "status": "software_data_contract_frozen",
+  "actual_study_frozen": false,
+  "importer_implemented": false,
+  "files": {
+    "contract.json": "c1a1bfd03e43dee89a0f8b106df482272efd6993dbcceaf1474bab1387056bd9",
+    "dataset-metadata.template.json": "16456595738265b07d49c7e6c18f97fb476729468a08e2a3c54093ca5ef89366",
+    "empty-dataset.json": "d7005cef82cf309c4b06c78ecc96d6037baa26c80213b6512448c74897be5fc5",
+    "executions.csv": "3fea62610e71db98688c302f29aedbf6c697570857641fd72cd0dcb060a87400",
+    "group_outputs.csv": "91fbb2386f84f88ea25cfb80615c8fc5f543e973ca681cbb52ebde288d3980e7",
+    "member_observations.csv": "ff639428e54c5eaa0f0f1b8d35d644241baa7d25af61c5495655fe0d86faee4f",
+    "protocol.schema.json": "a3ba59c111960e4b970cd3959c68641601e60059059de4dc0596ffd0ff262b78",
+    "samples.csv": "c1960e426033240354949c00621a720785a290477c66255ab5b9abb66d9636b2",
+    "schema.json": "c610d9967eeaede38cd5864733897d8f824ea0f9643644ae31a24a5584478c2c",
+    "stage_attempts.csv": "6593415505eff6cec03bf961bb3ff862af616b61bb88b85194ed4fff0e47257b",
+    "study-protocol.template.json": "1a342245382183561913f36770807d0304f4052668ad8c671668e0f9f640c13f",
+    "task_endpoints.csv": "6095c82acdb69d970571a46feed98655075ce07bd6b50dc73a382077d2fc5b98"
+  },
+  "content_hash": "b524ffa2f76316cc51ed7aa43d148663d27c1d15839909413cb2f8c162cc4a26"
+}

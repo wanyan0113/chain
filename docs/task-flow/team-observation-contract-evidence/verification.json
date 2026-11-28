@@ -1,0 +1,28 @@
+{
+  "status": "software_contract_structure_acceptance_passed",
+  "date": "2026-11-28",
+  "base_commit": "cfa03a1",
+  "contract_version": "team-observation-contract-1.0",
+  "content_hash": "b524ffa2f76316cc51ed7aa43d148663d27c1d15839909413cb2f8c162cc4a26",
+  "actual_study_frozen": false,
+  "importer_implemented": false,
+  "independent_data_verifier_implemented": false,
+  "domain_validity": "pending",
+  "formula_changed": false,
+  "csv_tables": 6,
+  "csv_data_rows": 0,
+  "json_data_rows": 0,
+  "new_contract_tests": 12,
+  "reference_regression_tests": 12,
+  "distinct_tests_passed": 24,
+  "test_command": "python -B -m unittest tests.test_team_observation_contract tests.test_team_statistics -v",
+  "test_evidence_scope": "Observed local unittest output; console transcript not archived. Synthetic example checks row shape only, not source linkage or study validity.",
+  "fresh_owl_run": false,
+  "source_binding_reference": "docs/task-flow/team-statistical-review-evidence/protocol-draft.json",
+  "cross_platform_reproduction": "not_run; byte layout fixed and Git attributes protect this package",
+  "code_lf_sha256": {
+    "workflow_tools/prepare_team_observation_contract.py": "353f45b855cf1f7ed2ecd789ac3d889d41297f49edd81d53d21cb96484af43ed",
+    "tests/test_team_observation_contract.py": "041b12e73f11c7de3e44c699722dad0b930203162f56e37180d8c5b591304332"
+  },
+  "archive_sha256": "9f05ee9979f3b333b7096b5948fac04e2530d54c87daabcdac3c4387e105f43d"
+}

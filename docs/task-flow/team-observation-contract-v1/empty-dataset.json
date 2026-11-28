@@ -1,0 +1,12 @@
+{
+  "contract_version": "team-observation-contract-1.0",
+  "study_id": "UNASSIGNED",
+  "protocol_revision_hash": null,
+  "data_origin": "uncollected",
+  "samples": [],
+  "executions": [],
+  "stage_attempts": [],
+  "member_observations": [],
+  "group_outputs": [],
+  "task_endpoints": []
+}

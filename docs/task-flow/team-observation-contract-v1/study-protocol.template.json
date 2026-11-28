@@ -1,0 +1,479 @@
+{
+  "contract_version": "team-observation-contract-1.0",
+  "study_protocol_status": "draft",
+  "study_id": "UNASSIGNED",
+  "data_origin": "uncollected",
+  "source_binding": {
+    "source_input_hash": "cc757a76db62e2747b2fb1aa512a4b3c1c0c2f432f0d4ed51608f3cb39c16d74",
+    "execution_context_hash": "542056f90254034915233c4deb76b9f274ab4809d915cdc6be367778baa202a7",
+    "selected_candidate_ids": [
+      "team-chain-35a5c98ba1c9561bd5ceb153b298321f97875d7faf35d6d1fb40d9d332b63887",
+      "team-chain-3a7a229cf8df69e33e0956f4532c2438b7a09028dc9805a102ee6942c4dfe3b8"
+    ],
+    "evaluation_context_hash": "075f63f013ad96bb967d86cec0bec7260d65df4a6d0b6ef29dc71ac6e4695691"
+  },
+  "source_reports": [
+    {
+      "source_report_id": "UNASSIGNED",
+      "report_sha256": null
+    }
+  ],
+  "arms": [
+    {
+      "arm_id": "UNASSIGNED",
+      "source_report_id": "UNASSIGNED",
+      "task_id": "T1",
+      "candidate_id": "team-chain-35a5c98ba1c9561bd5ceb153b298321f97875d7faf35d6d1fb40d9d332b63887",
+      "flow_id": "flow-a3e7469299e393176843a0a27e59ffa63861f1be980e4c5635c15fa1ec9cb4a3",
+      "stages": [
+        {
+          "stage_instance_id": "s1",
+          "activity_id": "observe",
+          "activity_version": "1.0",
+          "activity_type": "observe",
+          "evaluation_plan_key": "team-stage-d73b58c1621e97f9d3d4e0024cb29a3beff1399b90dcdea237f494a2105b7db2",
+          "hub": "R-Survey",
+          "capability_assignments": {
+            "urn:arcane-rift-demo:WideSurvey": "R-Survey"
+          },
+          "members": [
+            {
+              "artifact_id": "R-Survey",
+              "artifact_version": "UNASSIGNED",
+              "capabilities": [
+                "urn:arcane-rift-demo:WideSurvey"
+              ],
+              "measurements": [
+                {
+                  "capability_id": "urn:arcane-rift-demo:WideSurvey",
+                  "measurement_object": "",
+                  "direction": "UNASSIGNED",
+                  "scale_meaning": "",
+                  "evaluation_method": "",
+                  "reference_method": "",
+                  "population": "",
+                  "success_event": ""
+                }
+              ]
+            }
+          ],
+          "measurement_object": "",
+          "direction": "UNASSIGNED",
+          "scale_meaning": "",
+          "evaluation_method": "",
+          "reference_method": "",
+          "population": "",
+          "group_success_event": "",
+          "member_to_group_mapping": {
+            "status": "not_assumed",
+            "policy": null
+          },
+          "full_prefix_stage_instance_ids": []
+        },
+        {
+          "stage_instance_id": "s2",
+          "activity_id": "analyze_primary",
+          "activity_version": "1.0",
+          "activity_type": "decide",
+          "evaluation_plan_key": "team-stage-414c74a3256bd1f38d5595c11aea97e9eeff6ebb02f144142514b04138b47d6c",
+          "hub": "O-Phase-Tuner",
+          "capability_assignments": {
+            "urn:observatory-semantic-demo:PhaseTune": "O-Phase-Tuner",
+            "urn:observatory-semantic-demo:SafetyAudit": "O-Safety-Auditor"
+          },
+          "members": [
+            {
+              "artifact_id": "O-Phase-Tuner",
+              "artifact_version": "UNASSIGNED",
+              "capabilities": [
+                "urn:observatory-semantic-demo:PhaseTune"
+              ],
+              "measurements": [
+                {
+                  "capability_id": "urn:observatory-semantic-demo:PhaseTune",
+                  "measurement_object": "",
+                  "direction": "UNASSIGNED",
+                  "scale_meaning": "",
+                  "evaluation_method": "",
+                  "reference_method": "",
+                  "population": "",
+                  "success_event": ""
+                }
+              ]
+            },
+            {
+              "artifact_id": "O-Safety-Auditor",
+              "artifact_version": "UNASSIGNED",
+              "capabilities": [
+                "urn:observatory-semantic-demo:SafetyAudit"
+              ],
+              "measurements": [
+                {
+                  "capability_id": "urn:observatory-semantic-demo:SafetyAudit",
+                  "measurement_object": "",
+                  "direction": "UNASSIGNED",
+                  "scale_meaning": "",
+                  "evaluation_method": "",
+                  "reference_method": "",
+                  "population": "",
+                  "success_event": ""
+                }
+              ]
+            }
+          ],
+          "measurement_object": "",
+          "direction": "UNASSIGNED",
+          "scale_meaning": "",
+          "evaluation_method": "",
+          "reference_method": "",
+          "population": "",
+          "group_success_event": "",
+          "member_to_group_mapping": {
+            "status": "not_assumed",
+            "policy": null
+          },
+          "full_prefix_stage_instance_ids": [
+            "s1"
+          ]
+        },
+        {
+          "stage_instance_id": "s3",
+          "activity_id": "decide",
+          "activity_version": "1.0",
+          "activity_type": "decide",
+          "evaluation_plan_key": "team-stage-4ab5d95a478b762d319605d8f1319eb0285856b88d24079e0252aa472d29e45a",
+          "hub": "R-Dispatch",
+          "capability_assignments": {
+            "urn:arcane-rift-demo:Dispatch": "R-Dispatch"
+          },
+          "members": [
+            {
+              "artifact_id": "R-Dispatch",
+              "artifact_version": "UNASSIGNED",
+              "capabilities": [
+                "urn:arcane-rift-demo:Dispatch"
+              ],
+              "measurements": [
+                {
+                  "capability_id": "urn:arcane-rift-demo:Dispatch",
+                  "measurement_object": "",
+                  "direction": "UNASSIGNED",
+                  "scale_meaning": "",
+                  "evaluation_method": "",
+                  "reference_method": "",
+                  "population": "",
+                  "success_event": ""
+                }
+              ]
+            }
+          ],
+          "measurement_object": "",
+          "direction": "UNASSIGNED",
+          "scale_meaning": "",
+          "evaluation_method": "",
+          "reference_method": "",
+          "population": "",
+          "group_success_event": "",
+          "member_to_group_mapping": {
+            "status": "not_assumed",
+            "policy": null
+          },
+          "full_prefix_stage_instance_ids": [
+            "s1",
+            "s2"
+          ]
+        },
+        {
+          "stage_instance_id": "s4",
+          "activity_id": "stabilize",
+          "activity_version": "1.0",
+          "activity_type": "act",
+          "evaluation_plan_key": "team-stage-a39034edb9ae206f131aab4c5dea9e80acf762b7b97b4511ed97cbbe8ab56de8",
+          "hub": "R-Seal-A",
+          "capability_assignments": {
+            "urn:arcane-rift-demo:Stabilize": "R-Seal-A"
+          },
+          "members": [
+            {
+              "artifact_id": "R-Seal-A",
+              "artifact_version": "UNASSIGNED",
+              "capabilities": [
+                "urn:arcane-rift-demo:Stabilize"
+              ],
+              "measurements": [
+                {
+                  "capability_id": "urn:arcane-rift-demo:Stabilize",
+                  "measurement_object": "",
+                  "direction": "UNASSIGNED",
+                  "scale_meaning": "",
+                  "evaluation_method": "",
+                  "reference_method": "",
+                  "population": "",
+                  "success_event": ""
+                }
+              ]
+            }
+          ],
+          "measurement_object": "",
+          "direction": "UNASSIGNED",
+          "scale_meaning": "",
+          "evaluation_method": "",
+          "reference_method": "",
+          "population": "",
+          "group_success_event": "",
+          "member_to_group_mapping": {
+            "status": "not_assumed",
+            "policy": null
+          },
+          "full_prefix_stage_instance_ids": [
+            "s1",
+            "s2",
+            "s3"
+          ]
+        }
+      ],
+      "endpoint_definition": "",
+      "endpoint_method": "",
+      "endpoint_reference_method": "",
+      "endpoint_equals_all_stage_success": "UNASSIGNED"
+    },
+    {
+      "arm_id": "UNASSIGNED",
+      "source_report_id": "UNASSIGNED",
+      "task_id": "T2",
+      "candidate_id": "team-chain-3a7a229cf8df69e33e0956f4532c2438b7a09028dc9805a102ee6942c4dfe3b8",
+      "flow_id": "flow-6dc3ba36f07f6ef306930e29952ccab62d0212146b3989b2ed8ad59a3dcf2bf7",
+      "stages": [
+        {
+          "stage_instance_id": "s1",
+          "activity_id": "observe",
+          "activity_version": "1.0",
+          "activity_type": "observe",
+          "evaluation_plan_key": "team-stage-a47235c64fe82963d6bdc645a19c905261c44f2cf5d71591c8d330f60a75b4f1",
+          "hub": "R-Survey",
+          "capability_assignments": {
+            "urn:arcane-rift-demo:WideSurvey": "R-Survey"
+          },
+          "members": [
+            {
+              "artifact_id": "R-Survey",
+              "artifact_version": "UNASSIGNED",
+              "capabilities": [
+                "urn:arcane-rift-demo:WideSurvey"
+              ],
+              "measurements": [
+                {
+                  "capability_id": "urn:arcane-rift-demo:WideSurvey",
+                  "measurement_object": "",
+                  "direction": "UNASSIGNED",
+                  "scale_meaning": "",
+                  "evaluation_method": "",
+                  "reference_method": "",
+                  "population": "",
+                  "success_event": ""
+                }
+              ]
+            }
+          ],
+          "measurement_object": "",
+          "direction": "UNASSIGNED",
+          "scale_meaning": "",
+          "evaluation_method": "",
+          "reference_method": "",
+          "population": "",
+          "group_success_event": "",
+          "member_to_group_mapping": {
+            "status": "not_assumed",
+            "policy": null
+          },
+          "full_prefix_stage_instance_ids": []
+        },
+        {
+          "stage_instance_id": "s2",
+          "activity_id": "analyze_secondary",
+          "activity_version": "1.0",
+          "activity_type": "decide",
+          "evaluation_plan_key": "team-stage-d8e13a0fe9484d6ef816f4016a219d6d136ab60328ef3353a08384ddcfb449a7",
+          "hub": "O-Combined",
+          "capability_assignments": {
+            "urn:observatory-semantic-demo:PhaseTune": "O-Combined",
+            "urn:observatory-semantic-demo:SafetyAudit": "O-Combined"
+          },
+          "members": [
+            {
+              "artifact_id": "O-Combined",
+              "artifact_version": "UNASSIGNED",
+              "capabilities": [
+                "urn:observatory-semantic-demo:PhaseTune",
+                "urn:observatory-semantic-demo:SafetyAudit"
+              ],
+              "measurements": [
+                {
+                  "capability_id": "urn:observatory-semantic-demo:PhaseTune",
+                  "measurement_object": "",
+                  "direction": "UNASSIGNED",
+                  "scale_meaning": "",
+                  "evaluation_method": "",
+                  "reference_method": "",
+                  "population": "",
+                  "success_event": ""
+                },
+                {
+                  "capability_id": "urn:observatory-semantic-demo:SafetyAudit",
+                  "measurement_object": "",
+                  "direction": "UNASSIGNED",
+                  "scale_meaning": "",
+                  "evaluation_method": "",
+                  "reference_method": "",
+                  "population": "",
+                  "success_event": ""
+                }
+              ]
+            }
+          ],
+          "measurement_object": "",
+          "direction": "UNASSIGNED",
+          "scale_meaning": "",
+          "evaluation_method": "",
+          "reference_method": "",
+          "population": "",
+          "group_success_event": "",
+          "member_to_group_mapping": {
+            "status": "not_assumed",
+            "policy": null
+          },
+          "full_prefix_stage_instance_ids": [
+            "s1"
+          ]
+        },
+        {
+          "stage_instance_id": "s3",
+          "activity_id": "decide",
+          "activity_version": "1.0",
+          "activity_type": "decide",
+          "evaluation_plan_key": "team-stage-92b71bc6fbea09806e47736f2672a0e27e50d2345a523bdfbc5331f817ebdacd",
+          "hub": "R-Dispatch",
+          "capability_assignments": {
+            "urn:arcane-rift-demo:Dispatch": "R-Dispatch"
+          },
+          "members": [
+            {
+              "artifact_id": "R-Dispatch",
+              "artifact_version": "UNASSIGNED",
+              "capabilities": [
+                "urn:arcane-rift-demo:Dispatch"
+              ],
+              "measurements": [
+                {
+                  "capability_id": "urn:arcane-rift-demo:Dispatch",
+                  "measurement_object": "",
+                  "direction": "UNASSIGNED",
+                  "scale_meaning": "",
+                  "evaluation_method": "",
+                  "reference_method": "",
+                  "population": "",
+                  "success_event": ""
+                }
+              ]
+            }
+          ],
+          "measurement_object": "",
+          "direction": "UNASSIGNED",
+          "scale_meaning": "",
+          "evaluation_method": "",
+          "reference_method": "",
+          "population": "",
+          "group_success_event": "",
+          "member_to_group_mapping": {
+            "status": "not_assumed",
+            "policy": null
+          },
+          "full_prefix_stage_instance_ids": [
+            "s1",
+            "s2"
+          ]
+        },
+        {
+          "stage_instance_id": "s4",
+          "activity_id": "stabilize",
+          "activity_version": "1.0",
+          "activity_type": "act",
+          "evaluation_plan_key": "team-stage-5ae46d3eddfbc02baf3523fa117928ef9a8e0afa4ab2c7b0d09448e1e8f47113",
+          "hub": "R-Seal-A",
+          "capability_assignments": {
+            "urn:arcane-rift-demo:Stabilize": "R-Seal-A"
+          },
+          "members": [
+            {
+              "artifact_id": "R-Seal-A",
+              "artifact_version": "UNASSIGNED",
+              "capabilities": [
+                "urn:arcane-rift-demo:Stabilize"
+              ],
+              "measurements": [
+                {
+                  "capability_id": "urn:arcane-rift-demo:Stabilize",
+                  "measurement_object": "",
+                  "direction": "UNASSIGNED",
+                  "scale_meaning": "",
+                  "evaluation_method": "",
+                  "reference_method": "",
+                  "population": "",
+                  "success_event": ""
+                }
+              ]
+            }
+          ],
+          "measurement_object": "",
+          "direction": "UNASSIGNED",
+          "scale_meaning": "",
+          "evaluation_method": "",
+          "reference_method": "",
+          "population": "",
+          "group_success_event": "",
+          "member_to_group_mapping": {
+            "status": "not_assumed",
+            "policy": null
+          },
+          "full_prefix_stage_instance_ids": [
+            "s1",
+            "s2",
+            "s3"
+          ]
+        }
+      ],
+      "endpoint_definition": "",
+      "endpoint_method": "",
+      "endpoint_reference_method": "",
+      "endpoint_equals_all_stage_success": "UNASSIGNED"
+    }
+  ],
+  "measurement_method": "categorical_equality_v1",
+  "analysis_attempt_rule": "first_registered_attempt_only",
+  "maximum_attempts": null,
+  "planned_execution_repeats": null,
+  "endpoint_window": "",
+  "retry_task_effect": "",
+  "sampling_design": "UNASSIGNED",
+  "split_policy": "cluster_disjoint_calibration_evaluation",
+  "pairing_controls": {
+    "enrollment_required": true,
+    "baseline_sample_link_required": true,
+    "assignment_method": "UNASSIGNED",
+    "execution_order_policy": "UNASSIGNED",
+    "carryover_control": "UNASSIGNED",
+    "population_comparability": "pending",
+    "calibration_evaluation_split": "UNASSIGNED"
+  },
+  "acceptance": {
+    "alpha": null,
+    "minimum_calibration": null,
+    "minimum_evaluation": null,
+    "minimum_prefix_support": null,
+    "acceptable_absolute_error": null,
+    "subgroup_plan": "",
+    "systematic_bias_rule": ""
+  },
+  "domain_validity": "pending",
+  "actual_study_frozen": false
+}

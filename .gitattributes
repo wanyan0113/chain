@@ -78,3 +78,6 @@ knowledge/flow-design-bridge.* -text whitespace=blank-at-eol,blank-at-eof,space-
 design/examples/rift_multistep_demo.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 task_flow/examples/design_bridge/*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 task_flow/examples/joint_optimization/*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+# Frozen team observation contracts preserve JSON LF and CSV CRLF byte hashes.
+docs/task-flow/team-observation-contract-v1/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+docs/task-flow/team-observation-contract-evidence/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

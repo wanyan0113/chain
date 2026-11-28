@@ -1,0 +1,1 @@
+execution_id,sample_id,arm_id,task_id,source_report_id,candidate_id,environment_reference,environment_stratum,assigned_order,execution_repeat_id,actual_order,order_deviation_reason,execution_input_reference,reset_reference,expected_stage_instance_ids,registered_at,started_at,ended_at

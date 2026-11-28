@@ -1,0 +1,131 @@
+{
+  "contract_version": "team-observation-contract-1.0",
+  "study_id": "synthetic-shape-only",
+  "protocol_revision_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+  "data_origin": "synthetic_simulation",
+  "samples": [
+    {
+      "sample_id": "s1",
+      "pair_id": "pair1",
+      "task_id": "task1",
+      "population": "synthetic",
+      "cluster_id": "cluster1",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": null,
+      "baseline_input_reference": "synthetic://baseline",
+      "registered_at": "2026-11-28T00:00:00+00:00"
+    }
+  ],
+  "executions": [
+    {
+      "execution_id": "e1",
+      "sample_id": "s1",
+      "arm_id": "arm1",
+      "task_id": "task1",
+      "source_report_id": "synthetic-source",
+      "candidate_id": "synthetic-candidate",
+      "environment_reference": "synthetic://environment",
+      "environment_stratum": "controlled",
+      "assigned_order": 1,
+      "execution_repeat_id": 1,
+      "actual_order": 1,
+      "order_deviation_reason": null,
+      "execution_input_reference": "synthetic://baseline",
+      "reset_reference": null,
+      "expected_stage_instance_ids": [
+        "stage1"
+      ],
+      "registered_at": "2026-11-28T00:00:00+00:00",
+      "started_at": "2026-11-28T00:00:00+00:00",
+      "ended_at": "2026-11-28T00:00:00+00:00"
+    }
+  ],
+  "stage_attempts": [
+    {
+      "execution_id": "e1",
+      "candidate_id": "synthetic-candidate",
+      "stage_instance_id": "stage1",
+      "attempt_id": 1,
+      "registered_at": "2026-11-28T00:00:00+00:00",
+      "started_at": "2026-11-28T00:00:00+00:00",
+      "ended_at": "2026-11-28T00:00:00+00:00",
+      "execution_status": "completed",
+      "reason": null,
+      "reason_detail": null
+    }
+  ],
+  "member_observations": [
+    {
+      "observation_id": "m1",
+      "sample_id": "s1",
+      "execution_id": "e1",
+      "actual_label": "class-ok",
+      "reference_label": "class-ok",
+      "output_reference": "synthetic://actual/member",
+      "independent_reference": "synthetic://truth/member",
+      "evaluation_method": "categorical_equality_v1",
+      "observation_status": "recorded",
+      "reference_status": "known",
+      "missing_reason": null,
+      "missing_reason_detail": null,
+      "recorded_at": "2026-11-28T00:00:00+00:00",
+      "candidate_id": "synthetic-candidate",
+      "stage_instance_id": "stage1",
+      "attempt_id": 1,
+      "artifact_id": "memberA",
+      "artifact_version": "synthetic-fw1",
+      "capability_id": "synthetic-capability",
+      "input_reference": "synthetic://baseline",
+      "input_group_observation_ids": []
+    }
+  ],
+  "group_outputs": [
+    {
+      "observation_id": "g1",
+      "sample_id": "s1",
+      "execution_id": "e1",
+      "actual_label": "class-ok",
+      "reference_label": "class-ok",
+      "output_reference": "synthetic://actual/group",
+      "independent_reference": "synthetic://truth/group",
+      "evaluation_method": "categorical_equality_v1",
+      "observation_status": "recorded",
+      "reference_status": "known",
+      "missing_reason": null,
+      "missing_reason_detail": null,
+      "recorded_at": "2026-11-28T00:00:00+00:00",
+      "candidate_id": "synthetic-candidate",
+      "stage_instance_id": "stage1",
+      "attempt_id": 1,
+      "hub": "memberA",
+      "member_observation_ids": [
+        "m1"
+      ],
+      "input_group_observation_ids": []
+    }
+  ],
+  "task_endpoints": [
+    {
+      "observation_id": "z1",
+      "sample_id": "s1",
+      "execution_id": "e1",
+      "actual_label": "class-ok",
+      "reference_label": "class-ok",
+      "output_reference": "synthetic://actual/endpoint",
+      "independent_reference": "synthetic://truth/endpoint",
+      "evaluation_method": "categorical_equality_v1",
+      "observation_status": "recorded",
+      "reference_status": "known",
+      "missing_reason": null,
+      "missing_reason_detail": null,
+      "recorded_at": "2026-11-28T00:00:00+00:00",
+      "candidate_id": "synthetic-candidate",
+      "endpoint_event_id": "task-stable",
+      "contributing_group_observation_ids": [
+        "g1"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,196 @@
+{
+  "contract_version": "team-observation-contract-1.0",
+  "status": "software_data_contract_frozen",
+  "study_protocol_status": "not_frozen",
+  "importer_implemented": false,
+  "independent_data_verifier_implemented": false,
+  "scope": "Categorical labels and categorical_equality_v1 only; raw continuous measurements may be external references.",
+  "observation_layers": [
+    "member_observations",
+    "group_outputs",
+    "task_endpoints"
+  ],
+  "registration_layers": [
+    "samples",
+    "executions",
+    "stage_attempts"
+  ],
+  "primary_keys": {
+    "samples": [
+      "sample_id"
+    ],
+    "executions": [
+      "execution_id"
+    ],
+    "stage_attempts": [
+      "execution_id",
+      "stage_instance_id",
+      "attempt_id"
+    ],
+    "member_observations": [
+      "observation_id"
+    ],
+    "group_outputs": [
+      "observation_id"
+    ],
+    "task_endpoints": [
+      "observation_id"
+    ]
+  },
+  "unique_keys": {
+    "samples": [
+      [
+        "pair_id"
+      ]
+    ],
+    "executions": [
+      [
+        "sample_id",
+        "arm_id",
+        "execution_repeat_id"
+      ],
+      [
+        "sample_id",
+        "assigned_order"
+      ]
+    ],
+    "member_observations": [
+      [
+        "execution_id",
+        "stage_instance_id",
+        "attempt_id",
+        "artifact_id",
+        "capability_id"
+      ]
+    ],
+    "group_outputs": [
+      [
+        "execution_id",
+        "stage_instance_id",
+        "attempt_id"
+      ]
+    ],
+    "task_endpoints": [
+      [
+        "execution_id",
+        "endpoint_event_id"
+      ]
+    ]
+  },
+  "nullable_unique_key_policy": "Null pair_id is ignored for uniqueness; non-null pair_id identifies one enrolled baseline sample.",
+  "identifiers": "Keys are scoped to the study; observation_id is additionally unique across all three observation layers. Stage IDs are scoped by execution_id, never activity type.",
+  "hashing": {
+    "software_files": "SHA256 of exact file bytes; freeze-manifest content_hash is SHA256 of the sorted compact JSON filename-to-file-hash mapping.",
+    "protocol_and_source_reports": "SHA256 of task_flow.joint_identity.canonical JSON: NFC text, sorted object keys, finite numeric canonicalization, semantic array order preserved; not the raw JSON file byte hash.",
+    "plan_projections": "Hash the frozen projected records sorted by their declared primary keys, preserving order within stage-sequence arrays; do not include mutable runtime fields.",
+    "multi_source": "source_binding preserves the template baseline. Every arm source_report_id separately resolves to its source_reports content hash and verified candidate; the baseline does not certify another report."
+  },
+  "required_cross_table_checks": [
+    "Execution references an eligible enrolled sample; task, population, split and arm/source/candidate assignment match the protocol.",
+    "Cluster/sample identity is disjoint across calibration and evaluation; no split inferred from observed outcomes.",
+    "Execution repeats have distinct execution IDs and prespecified repeat numbers. Repeats remain within the same sample/cluster, never new independent subjects.",
+    "Expected stages and member/capability assignments come from an independently verified source chain; no arbitrary row-supplied roster.",
+    "Every execution has one first-attempt registration for each expected stage, even if never reached; every registered attempt has declared member-capability and group observation slots.",
+    "Attempts start at 1 and are contiguous, within the frozen maximum, registered before starting and never overlap within a stage; unknown/failed attempt does not disappear.",
+    "Every observation references the same sample, execution, candidate and registered stage/attempt; members, capabilities, hub and actual versions match the protocol.",
+    "Group member links refer to actual member observation rows of the same attempt; each required contribution has a row, which may explicitly report missing data.",
+    "Input group links refer to declared earlier stages in the same execution, with matching output references and actual attempt lineage; label equality alone is insufficient.",
+    "Independent reference must differ from the produced output reference; group/endpoint truth is not computed from member correctness, score, product or final stage label.",
+    "Missing data or absent rows cause explicit coverage blockers; descriptive group/endpoint outcomes remain separate rather than fabricated from unavailable member data.",
+    "Timestamps, duration/order, paired environment strata, baseline references and source facts require semantic checks beyond JSON Schema."
+  ],
+  "retry_policy": {
+    "analysis_attempt_rule": "first_registered_attempt_only",
+    "retries": "Keep all attempts and reasons; no best-success selection or replacement of missing first attempts.",
+    "final_endpoint": "Define independently after the protocol endpoint window; may include retry effects and need not equal conjunction of first attempts.",
+    "lineage": "If a later stage consumed a retry output, retain that exact link; block conditional-model validation if it differs from the prespecified selected-attempt chain."
+  },
+  "missing_policy": "missing_reason is the primary reason, with missing_reason_detail for concurrent causes; observation/reference status flags preserve each unavailable component independently.",
+  "denominators": {
+    "member": "Report enrolled, reached, attempted, recorded, reference-known, evaluable, correct and missing per stage/member/capability/version; do not pool contributions as independent samples.",
+    "group": "Independent group labels on prespecified attempts; member correctness is not group ground truth.",
+    "endpoint": "Report enrolled eligible executions, endpoint-evaluable, success and missing separately; missing is neither success nor failure.",
+    "conditional": "First factor is unconditional. Later factors condition on success of ALL prespecified preceding group events on the SAME evaluation cohort. Report numerator, denominator and unavailable prefix labels.",
+    "zero_support": "A zero conditioning denominator gives null, never 0 or 1. Joint-event counts may still be reported independently.",
+    "pairing": "Keep enrolled-pair denominator, complete-pair denominator, missing pair IDs and direction-of-change counts separately; incomplete coverage blocks confirmatory interpretation."
+  },
+  "probability_interpretation": {
+    "quality_scores": "General quality products remain indices, not probabilities.",
+    "marginal": "Joint-product interpretation needs appropriate independence evidence, not just equal scale identifiers.",
+    "conditional": "Full-prefix conditional chain rule does not need independence; verify event definitions and support.",
+    "endpoint": "Separately justify whether task success equals all stage events succeeding; correction can break equivalence.",
+    "prediction": "Same-cohort conditional-count cancellation is an identity, not held-out prediction validation."
+  },
+  "pairing": {
+    "unit": "One enrolled baseline sample, within the same task and declared population, executed in both arms with distinct execution IDs.",
+    "comparison": "Arm source/candidate may differ in length or membership; task event and baseline difficulty must be comparable and independently reviewed.",
+    "controls": "Prespecify randomization/counterbalancing or justified order, environment strata, reset/washout/carryover handling and all deviations. Pairing alone does not establish causality.",
+    "independent_arms": "Do not manufacture pairs from unrelated samples/tasks. Analyze as a separately prespecified design."
+  },
+  "freeze_requirements": [
+    "Fill task, member, group and endpoint measurement objects, direction, scale meaning, categorical success events, methods, independent references and population.",
+    "Bind verified source reports and exact arm candidates, stages, assignments, hubs and actual equipment/firmware versions; UNASSIGNED is not ready.",
+    "Prespecify eligibility, strata, disjoint cluster-level calibration/evaluation split, attempt maximum, endpoint window and pairing/order/environment/carryover controls.",
+    "Prespecify minimum calibration/evaluation/prefix coverage, confidence level, prediction-error tolerance, subgroup and systematic-bias rules.",
+    "Freeze protocol, baseline enrollment and execution-assignment projections before evaluation outputs; record a lock with content hashes, timestamp and review evidence.",
+    "Freeze attempt policy and planned first-attempt slots; runtime retries are registered append-only before execution. Runtime status/timing updates must not rewrite frozen assignment projections.",
+    "A study lock is an immutable new artifact. Protocol/arm/member changes require a new revision and lock, never editing an old lock.",
+    "Synthetic examples validate software shape only. Real-world truth, construct validity, independence and causal claims require separate evidence."
+  ],
+  "lock_plan_projections": {
+    "samples": [
+      "sample_id",
+      "pair_id",
+      "task_id",
+      "population",
+      "cluster_id",
+      "split",
+      "stratum",
+      "eligible",
+      "exclusion_reason",
+      "baseline_input_reference",
+      "registered_at"
+    ],
+    "executions": [
+      "execution_id",
+      "sample_id",
+      "arm_id",
+      "task_id",
+      "source_report_id",
+      "candidate_id",
+      "environment_stratum",
+      "assigned_order",
+      "execution_repeat_id",
+      "execution_input_reference",
+      "expected_stage_instance_ids",
+      "registered_at"
+    ],
+    "first_stage_attempts": [
+      "execution_id",
+      "candidate_id",
+      "stage_instance_id",
+      "attempt_id",
+      "registered_at"
+    ],
+    "runtime_fields": "Actual status/timing/order/environment/reset observations are append-audited separately, never used to rewrite the above projections."
+  },
+  "csv_encoding": {
+    "encoding": "UTF-8",
+    "delimiter": ",",
+    "quoting": "RFC4180",
+    "null": "empty cell",
+    "arrays": "JSON arrays in a quoted CSV cell",
+    "boolean": "true or false",
+    "attempt_id": "positive base-10 integer",
+    "timestamp": "RFC3339 with explicit UTC offset",
+    "empty_string": "Not allowed as a recorded label or identifier; use null plus missing reason."
+  },
+  "csv_packet_metadata": "All six CSV tables require the accompanying dataset metadata containing contract_version, study_id, protocol_revision_hash, data_origin and the complete table_files mapping; headers alone do not identify a dataset.",
+  "future_acceptance": {
+    "importer": "Not implemented in this contract-freeze step.",
+    "checks": "Schema validation is structural only, not referential integrity, study readiness or domain validation. Timestamp patterns enforce lexical shape; actual calendar, UTC-offset and chronology checks require the later semantic verifier.",
+    "production_writeback": "Forbidden: imported observations/statistics never automatically update production quality, weights, formula or policy."
+  },
+  "domain_validity": "pending",
+  "formula_changed": false
+}

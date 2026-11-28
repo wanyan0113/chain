@@ -1,0 +1,810 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "study_protocol_status",
+    "study_id",
+    "data_origin",
+    "source_binding",
+    "source_reports",
+    "arms",
+    "measurement_method",
+    "analysis_attempt_rule",
+    "maximum_attempts",
+    "planned_execution_repeats",
+    "endpoint_window",
+    "retry_task_effect",
+    "sampling_design",
+    "split_policy",
+    "pairing_controls",
+    "acceptance",
+    "domain_validity",
+    "actual_study_frozen"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "team-observation-contract-1.0"
+    },
+    "study_protocol_status": {
+      "enum": [
+        "draft",
+        "frozen"
+      ]
+    },
+    "study_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "data_origin": {
+      "enum": [
+        "uncollected",
+        "synthetic_simulation",
+        "real_observational"
+      ]
+    },
+    "source_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_input_hash",
+        "execution_context_hash",
+        "selected_candidate_ids",
+        "evaluation_context_hash"
+      ],
+      "properties": {
+        "source_input_hash": {
+          "type": "string",
+          "minLength": 1
+        },
+        "execution_context_hash": {
+          "type": "string",
+          "minLength": 1
+        },
+        "selected_candidate_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "evaluation_context_hash": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "source_reports": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_report_id",
+          "report_sha256"
+        ],
+        "properties": {
+          "source_report_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "report_sha256": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "arms": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "arm_id",
+          "source_report_id",
+          "task_id",
+          "candidate_id",
+          "flow_id",
+          "endpoint_definition",
+          "endpoint_method",
+          "endpoint_reference_method",
+          "endpoint_equals_all_stage_success",
+          "stages"
+        ],
+        "properties": {
+          "arm_id": {
+            "type": "string"
+          },
+          "source_report_id": {
+            "type": "string"
+          },
+          "task_id": {
+            "type": "string"
+          },
+          "candidate_id": {
+            "type": "string"
+          },
+          "flow_id": {
+            "type": "string"
+          },
+          "endpoint_definition": {
+            "type": "string"
+          },
+          "endpoint_method": {
+            "type": "string"
+          },
+          "endpoint_reference_method": {
+            "type": "string"
+          },
+          "endpoint_equals_all_stage_success": {
+            "type": "string"
+          },
+          "stages": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "stage_instance_id",
+                "activity_id",
+                "activity_version",
+                "activity_type",
+                "evaluation_plan_key",
+                "hub",
+                "capability_assignments",
+                "members",
+                "measurement_object",
+                "direction",
+                "scale_meaning",
+                "evaluation_method",
+                "reference_method",
+                "population",
+                "group_success_event",
+                "member_to_group_mapping",
+                "full_prefix_stage_instance_ids"
+              ],
+              "properties": {
+                "stage_instance_id": {
+                  "type": "string"
+                },
+                "activity_id": {
+                  "type": "string"
+                },
+                "activity_version": {
+                  "type": "string"
+                },
+                "activity_type": {
+                  "type": "string"
+                },
+                "evaluation_plan_key": {
+                  "type": "string"
+                },
+                "hub": {
+                  "type": "string"
+                },
+                "capability_assignments": {
+                  "type": "object",
+                  "minProperties": 1,
+                  "additionalProperties": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "members": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 2,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "artifact_id",
+                      "artifact_version",
+                      "capabilities",
+                      "measurements"
+                    ],
+                    "properties": {
+                      "artifact_id": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "artifact_version": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "capabilities": {
+                        "type": "array",
+                        "minItems": 1,
+                        "uniqueItems": true,
+                        "items": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "measurements": {
+                        "type": "array",
+                        "minItems": 1,
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "required": [
+                            "capability_id",
+                            "measurement_object",
+                            "direction",
+                            "scale_meaning",
+                            "evaluation_method",
+                            "reference_method",
+                            "population",
+                            "success_event"
+                          ],
+                          "properties": {
+                            "capability_id": {
+                              "type": "string"
+                            },
+                            "measurement_object": {
+                              "type": "string"
+                            },
+                            "direction": {
+                              "type": "string"
+                            },
+                            "scale_meaning": {
+                              "type": "string"
+                            },
+                            "evaluation_method": {
+                              "type": "string"
+                            },
+                            "reference_method": {
+                              "type": "string"
+                            },
+                            "population": {
+                              "type": "string"
+                            },
+                            "success_event": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "measurement_object": {
+                  "type": "string"
+                },
+                "direction": {
+                  "type": "string"
+                },
+                "scale_meaning": {
+                  "type": "string"
+                },
+                "evaluation_method": {
+                  "type": "string"
+                },
+                "reference_method": {
+                  "type": "string"
+                },
+                "population": {
+                  "type": "string"
+                },
+                "group_success_event": {
+                  "type": "string"
+                },
+                "member_to_group_mapping": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "status",
+                    "policy"
+                  ],
+                  "properties": {
+                    "status": {
+                      "const": "not_assumed"
+                    },
+                    "policy": {
+                      "type": "null"
+                    }
+                  }
+                },
+                "full_prefix_stage_instance_ids": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "measurement_method": {
+      "const": "categorical_equality_v1"
+    },
+    "analysis_attempt_rule": {
+      "const": "first_registered_attempt_only"
+    },
+    "maximum_attempts": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1,
+      "maximum": 10
+    },
+    "planned_execution_repeats": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "endpoint_window": {
+      "type": "string"
+    },
+    "retry_task_effect": {
+      "type": "string"
+    },
+    "sampling_design": {
+      "enum": [
+        "UNASSIGNED",
+        "single_arm",
+        "paired_same_sample",
+        "independent_arms"
+      ]
+    },
+    "split_policy": {
+      "const": "cluster_disjoint_calibration_evaluation"
+    },
+    "pairing_controls": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "enrollment_required",
+        "baseline_sample_link_required",
+        "assignment_method",
+        "execution_order_policy",
+        "carryover_control",
+        "population_comparability",
+        "calibration_evaluation_split"
+      ],
+      "properties": {
+        "enrollment_required": {
+          "const": true
+        },
+        "baseline_sample_link_required": {
+          "const": true
+        },
+        "assignment_method": {
+          "type": "string"
+        },
+        "execution_order_policy": {
+          "type": "string"
+        },
+        "carryover_control": {
+          "type": "string"
+        },
+        "population_comparability": {
+          "type": "string"
+        },
+        "calibration_evaluation_split": {
+          "type": "string"
+        }
+      }
+    },
+    "acceptance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "alpha",
+        "minimum_calibration",
+        "minimum_evaluation",
+        "minimum_prefix_support",
+        "acceptable_absolute_error",
+        "subgroup_plan",
+        "systematic_bias_rule"
+      ],
+      "properties": {
+        "alpha": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0,
+          "exclusiveMaximum": 0.5
+        },
+        "minimum_calibration": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "minimum_evaluation": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "minimum_prefix_support": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "acceptable_absolute_error": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "exclusiveMinimum": 0,
+          "exclusiveMaximum": 1
+        },
+        "subgroup_plan": {
+          "type": "string"
+        },
+        "systematic_bias_rule": {
+          "type": "string"
+        }
+      }
+    },
+    "domain_validity": {
+      "const": "pending"
+    },
+    "actual_study_frozen": {
+      "type": "boolean"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "study_protocol_status": {
+            "const": "frozen"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "study_id": {
+            "type": "string",
+            "minLength": 1,
+            "not": {
+              "const": "UNASSIGNED"
+            }
+          },
+          "data_origin": {
+            "enum": [
+              "synthetic_simulation",
+              "real_observational"
+            ]
+          },
+          "maximum_attempts": {
+            "type": "integer"
+          },
+          "planned_execution_repeats": {
+            "type": "integer"
+          },
+          "endpoint_window": {
+            "type": "string",
+            "minLength": 1,
+            "not": {
+              "const": "UNASSIGNED"
+            }
+          },
+          "retry_task_effect": {
+            "type": "string",
+            "minLength": 1,
+            "not": {
+              "const": "UNASSIGNED"
+            }
+          },
+          "sampling_design": {
+            "enum": [
+              "single_arm",
+              "paired_same_sample",
+              "independent_arms"
+            ]
+          },
+          "actual_study_frozen": {
+            "const": true
+          },
+          "arms": {
+            "items": {
+              "properties": {
+                "arm_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "not": {
+                    "const": "UNASSIGNED"
+                  }
+                },
+                "source_report_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "not": {
+                    "const": "UNASSIGNED"
+                  }
+                },
+                "task_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "not": {
+                    "const": "UNASSIGNED"
+                  }
+                },
+                "candidate_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "not": {
+                    "const": "UNASSIGNED"
+                  }
+                },
+                "flow_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "not": {
+                    "const": "UNASSIGNED"
+                  }
+                },
+                "endpoint_definition": {
+                  "type": "string",
+                  "minLength": 1,
+                  "not": {
+                    "const": "UNASSIGNED"
+                  }
+                },
+                "endpoint_method": {
+                  "const": "categorical_equality_v1"
+                },
+                "endpoint_reference_method": {
+                  "type": "string",
+                  "minLength": 1,
+                  "not": {
+                    "const": "UNASSIGNED"
+                  }
+                },
+                "stages": {
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "measurement_object": {
+                        "type": "string",
+                        "minLength": 1,
+                        "not": {
+                          "const": "UNASSIGNED"
+                        }
+                      },
+                      "direction": {
+                        "type": "string",
+                        "minLength": 1,
+                        "not": {
+                          "const": "UNASSIGNED"
+                        }
+                      },
+                      "scale_meaning": {
+                        "type": "string",
+                        "minLength": 1,
+                        "not": {
+                          "const": "UNASSIGNED"
+                        }
+                      },
+                      "evaluation_method": {
+                        "const": "categorical_equality_v1"
+                      },
+                      "reference_method": {
+                        "type": "string",
+                        "minLength": 1,
+                        "not": {
+                          "const": "UNASSIGNED"
+                        }
+                      },
+                      "population": {
+                        "type": "string",
+                        "minLength": 1,
+                        "not": {
+                          "const": "UNASSIGNED"
+                        }
+                      },
+                      "group_success_event": {
+                        "type": "string",
+                        "minLength": 1,
+                        "not": {
+                          "const": "UNASSIGNED"
+                        }
+                      },
+                      "members": {
+                        "items": {
+                          "properties": {
+                            "artifact_version": {
+                              "type": "string",
+                              "minLength": 1,
+                              "not": {
+                                "const": "UNASSIGNED"
+                              }
+                            },
+                            "measurements": {
+                              "items": {
+                                "properties": {
+                                  "capability_id": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "not": {
+                                      "const": "UNASSIGNED"
+                                    }
+                                  },
+                                  "measurement_object": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "not": {
+                                      "const": "UNASSIGNED"
+                                    }
+                                  },
+                                  "direction": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "not": {
+                                      "const": "UNASSIGNED"
+                                    }
+                                  },
+                                  "scale_meaning": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "not": {
+                                      "const": "UNASSIGNED"
+                                    }
+                                  },
+                                  "evaluation_method": {
+                                    "const": "categorical_equality_v1"
+                                  },
+                                  "reference_method": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "not": {
+                                      "const": "UNASSIGNED"
+                                    }
+                                  },
+                                  "population": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "not": {
+                                      "const": "UNASSIGNED"
+                                    }
+                                  },
+                                  "success_event": {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "not": {
+                                      "const": "UNASSIGNED"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "endpoint_equals_all_stage_success": {
+                  "enum": [
+                    "declared_equivalent",
+                    "declared_not_equivalent"
+                  ]
+                }
+              }
+            }
+          },
+          "source_reports": {
+            "items": {
+              "properties": {
+                "source_report_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "not": {
+                    "const": "UNASSIGNED"
+                  }
+                },
+                "report_sha256": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "acceptance": {
+            "properties": {
+              "minimum_calibration": {
+                "type": "integer"
+              },
+              "minimum_evaluation": {
+                "type": "integer"
+              },
+              "minimum_prefix_support": {
+                "type": "integer"
+              },
+              "alpha": {
+                "type": "number"
+              },
+              "acceptable_absolute_error": {
+                "type": "number"
+              },
+              "subgroup_plan": {
+                "type": "string",
+                "minLength": 1,
+                "not": {
+                  "const": "UNASSIGNED"
+                }
+              },
+              "systematic_bias_rule": {
+                "type": "string",
+                "minLength": 1,
+                "not": {
+                  "const": "UNASSIGNED"
+                }
+              }
+            }
+          },
+          "pairing_controls": {
+            "properties": {
+              "assignment_method": {
+                "type": "string",
+                "minLength": 1,
+                "not": {
+                  "const": "UNASSIGNED"
+                }
+              },
+              "execution_order_policy": {
+                "type": "string",
+                "minLength": 1,
+                "not": {
+                  "const": "UNASSIGNED"
+                }
+              },
+              "carryover_control": {
+                "type": "string",
+                "minLength": 1,
+                "not": {
+                  "const": "UNASSIGNED"
+                }
+              },
+              "population_comparability": {
+                "type": "string",
+                "minLength": 1,
+                "not": {
+                  "const": "UNASSIGNED"
+                }
+              },
+              "calibration_evaluation_split": {
+                "type": "string",
+                "minLength": 1,
+                "not": {
+                  "const": "UNASSIGNED"
+                }
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "actual_study_frozen": {
+            "const": false
+          }
+        }
+      }
+    }
+  ]
+}
