@@ -1,0 +1,52 @@
+{
+  "version": "tfdo-observation-intake-1.0",
+  "study_id": "synthetic-intake-fixture",
+  "data_origin": "synthetic_fixture",
+  "registration_mode": "retrospective_analysis",
+  "target_definition": "Fixture binary label; no real-domain evidence",
+  "label_space": [
+    "0",
+    "1"
+  ],
+  "ground_truth_method_review": "verified",
+  "sampling_design": "iid_subject",
+  "evaluation_population": "fixture-balanced",
+  "label_sources": {
+    "fixture-key": "Deterministic synthetic truth, not external annotation"
+  },
+  "strata": [
+    "all"
+  ],
+  "flows": [
+    {
+      "flow_id": "flow-A",
+      "calibration_population": "fixture-balanced",
+      "input_from_previous_output": true,
+      "stages": [
+        {
+          "stage_instance_id": "S1",
+          "activity_id": "classify",
+          "activity_version": "1.0",
+          "artifact_id": "fixture-operator-1",
+          "artifact_version": "1.0",
+          "calibration_input_condition": "correct_reference_label"
+        },
+        {
+          "stage_instance_id": "S2",
+          "activity_id": "classify",
+          "activity_version": "1.0",
+          "artifact_id": "fixture-operator-2",
+          "artifact_version": "1.0",
+          "calibration_input_condition": "correct_reference_label"
+        }
+      ]
+    }
+  ],
+  "acceptance": {
+    "absolute_error_tolerance": 0.1,
+    "alpha": 0.05,
+    "minimum_stage_calibration": 2,
+    "minimum_complete_evaluation": 4,
+    "minimum_stratum_class": 1
+  }
+}

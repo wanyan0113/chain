@@ -1,0 +1,17 @@
+observation_id,sample_id,cluster_id,split,flow_id,stage_instance_id,activity_id,activity_version,artifact_id,artifact_version,stratum,gold_label,input_label,output_label,status,label_source_id,recorded_at
+calibration-0-0,calibration-0,calibration-0,calibration,flow-A,S1,classify,1.0,fixture-operator-1,1.0,all,0,0,1,observed,fixture-key,2025-01-01T00:00:00Z
+calibration-0-1,calibration-0,calibration-0,calibration,flow-A,S2,classify,1.0,fixture-operator-2,1.0,all,0,0,1,observed,fixture-key,2025-01-01T00:00:00Z
+calibration-1-0,calibration-1,calibration-1,calibration,flow-A,S1,classify,1.0,fixture-operator-1,1.0,all,1,1,1,observed,fixture-key,2025-01-01T00:00:00Z
+calibration-1-1,calibration-1,calibration-1,calibration,flow-A,S2,classify,1.0,fixture-operator-2,1.0,all,1,1,0,observed,fixture-key,2025-01-01T00:00:00Z
+calibration-2-0,calibration-2,calibration-2,calibration,flow-A,S1,classify,1.0,fixture-operator-1,1.0,all,0,0,1,observed,fixture-key,2025-01-01T00:00:00Z
+calibration-2-1,calibration-2,calibration-2,calibration,flow-A,S2,classify,1.0,fixture-operator-2,1.0,all,0,0,0,observed,fixture-key,2025-01-01T00:00:00Z
+calibration-3-0,calibration-3,calibration-3,calibration,flow-A,S1,classify,1.0,fixture-operator-1,1.0,all,1,1,1,observed,fixture-key,2025-01-01T00:00:00Z
+calibration-3-1,calibration-3,calibration-3,calibration,flow-A,S2,classify,1.0,fixture-operator-2,1.0,all,1,1,1,observed,fixture-key,2025-01-01T00:00:00Z
+evaluation-0-0,evaluation-0,evaluation-0,evaluation,flow-A,S1,classify,1.0,fixture-operator-1,1.0,all,0,0,1,observed,fixture-key,2025-01-01T00:00:00Z
+evaluation-0-1,evaluation-0,evaluation-0,evaluation,flow-A,S2,classify,1.0,fixture-operator-2,1.0,all,0,1,1,observed,fixture-key,2025-01-01T00:00:00Z
+evaluation-1-0,evaluation-1,evaluation-1,evaluation,flow-A,S1,classify,1.0,fixture-operator-1,1.0,all,1,1,1,observed,fixture-key,2025-01-01T00:00:00Z
+evaluation-1-1,evaluation-1,evaluation-1,evaluation,flow-A,S2,classify,1.0,fixture-operator-2,1.0,all,1,1,0,observed,fixture-key,2025-01-01T00:00:00Z
+evaluation-2-0,evaluation-2,evaluation-2,evaluation,flow-A,S1,classify,1.0,fixture-operator-1,1.0,all,0,0,1,observed,fixture-key,2025-01-01T00:00:00Z
+evaluation-2-1,evaluation-2,evaluation-2,evaluation,flow-A,S2,classify,1.0,fixture-operator-2,1.0,all,0,1,1,observed,fixture-key,2025-01-01T00:00:00Z
+evaluation-3-0,evaluation-3,evaluation-3,evaluation,flow-A,S1,classify,1.0,fixture-operator-1,1.0,all,1,1,1,observed,fixture-key,2025-01-01T00:00:00Z
+evaluation-3-1,evaluation-3,evaluation-3,evaluation,flow-A,S2,classify,1.0,fixture-operator-2,1.0,all,1,1,,not_executed,fixture-key,2025-01-01T00:00:00Z

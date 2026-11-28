@@ -1,0 +1,163 @@
+{
+  "version": "tfdo-observation-intake-1.0",
+  "study_id": "synthetic-intake-fixture",
+  "protocol_hash": "c57d95612da9e08b83977ff9fcfd34dbe4674271756446d65b2b236540821f56",
+  "observations_sha256": "c61c36634dd7d5cfa7cf38f69711aa765b7f9d8a3586d25805bfab85adc686b5",
+  "data_origin": "synthetic_fixture",
+  "data_origin_is_self_declared": true,
+  "registration_mode": "retrospective_analysis",
+  "data_readiness": "ready_for_statistical_assessment",
+  "blockers": [],
+  "issues": [],
+  "issue_count": 0,
+  "issues_truncated": false,
+  "counts": {
+    "rows": 16,
+    "status:observed": 16
+  },
+  "flows": [
+    {
+      "flow_id": "flow-A",
+      "calibration": [
+        {
+          "stage_instance_id": "S1",
+          "n": 4,
+          "correct": 2,
+          "rate": 0.5,
+          "ci95": [
+            0.15003898915214958,
+            0.8499610108478504
+          ],
+          "stratum_class_coverage": [
+            {
+              "stratum": "all",
+              "label": "0",
+              "n": 2
+            },
+            {
+              "stratum": "all",
+              "label": "1",
+              "n": 2
+            }
+          ]
+        },
+        {
+          "stage_instance_id": "S2",
+          "n": 4,
+          "correct": 2,
+          "rate": 0.5,
+          "ci95": [
+            0.15003898915214958,
+            0.8499610108478504
+          ],
+          "stratum_class_coverage": [
+            {
+              "stratum": "all",
+              "label": "0",
+              "n": 2
+            },
+            {
+              "stratum": "all",
+              "label": "1",
+              "n": 2
+            }
+          ]
+        }
+      ],
+      "evaluation_subjects": 4,
+      "complete_evaluation": 4,
+      "endpoint_correct": 1,
+      "endpoint_rate": 0.25,
+      "endpoint_ci95": [
+        0.0455872608097006,
+        0.699358157417598
+      ],
+      "input_output_diagnostics": [
+        {
+          "stage_instance_id": "S1",
+          "direct_input_conditionals": [
+            {
+              "input_correct": true,
+              "n": 4,
+              "output_correct": 2,
+              "rate": 0.5,
+              "ci95": [
+                0.15003898915214958,
+                0.8499610108478504
+              ],
+              "reason": null
+            },
+            {
+              "input_correct": false,
+              "n": 0,
+              "output_correct": 0,
+              "rate": null,
+              "ci95": null,
+              "reason": "input_quality_unobserved_or_no_eligible_samples"
+            }
+          ],
+          "previous_output_recoveries": null,
+          "causal_correction_claim": false
+        },
+        {
+          "stage_instance_id": "S2",
+          "direct_input_conditionals": [
+            {
+              "input_correct": true,
+              "n": 2,
+              "output_correct": 1,
+              "rate": 0.5,
+              "ci95": [
+                0.09453120573423074,
+                0.9054687942657693
+              ],
+              "reason": null
+            },
+            {
+              "input_correct": false,
+              "n": 2,
+              "output_correct": 0,
+              "rate": 0.0,
+              "ci95": [
+                0,
+                0.6576197724933468
+              ],
+              "reason": null
+            }
+          ],
+          "previous_output_recoveries": 0,
+          "causal_correction_claim": false
+        }
+      ],
+      "raw_population_coverage": {
+        "evaluation": [
+          {
+            "stratum": "all",
+            "label": "0",
+            "n": 2
+          },
+          {
+            "stratum": "all",
+            "label": "1",
+            "n": 2
+          }
+        ]
+      },
+      "statistical_assessment": {
+        "prediction": 0.25,
+        "observed": 0.25,
+        "signed_error": 0.0,
+        "discrepancy_ci": [
+          -0.7471795949069386,
+          0.7471795949069386
+        ],
+        "decision": "inconclusive",
+        "interval_scope": "nominal per-flow Wilson/Bonferroni envelope; not family-wide",
+        "conditional_independence_proven": false
+      }
+    }
+  ],
+  "domain_validity": "pending",
+  "domain_approval_automatic": false,
+  "missing_values_imputed": false
+}

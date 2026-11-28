@@ -1,0 +1,136 @@
+{
+  "version": "tfdo-observation-intake-1.0",
+  "study_id": "synthetic-intake-fixture",
+  "protocol_hash": "95b1985a998073ef94135600d15cf04e1c4c42bb6947c86a3327eab42bf6bdfe",
+  "observations_sha256": "c61c36634dd7d5cfa7cf38f69711aa765b7f9d8a3586d25805bfab85adc686b5",
+  "data_origin": "synthetic_fixture",
+  "data_origin_is_self_declared": true,
+  "registration_mode": "retrospective_analysis",
+  "data_readiness": "blocked",
+  "blockers": [
+    "protocol_lock_mismatch"
+  ],
+  "issues": [],
+  "issue_count": 0,
+  "issues_truncated": false,
+  "counts": {
+    "rows": 16,
+    "status:observed": 16
+  },
+  "flows": [
+    {
+      "flow_id": "flow-A",
+      "calibration": [
+        {
+          "stage_instance_id": "S1",
+          "n": 4,
+          "correct": 2,
+          "rate": 0.5,
+          "ci95": null,
+          "stratum_class_coverage": [
+            {
+              "stratum": "all",
+              "label": "0",
+              "n": 2
+            },
+            {
+              "stratum": "all",
+              "label": "1",
+              "n": 2
+            }
+          ]
+        },
+        {
+          "stage_instance_id": "S2",
+          "n": 4,
+          "correct": 2,
+          "rate": 0.5,
+          "ci95": null,
+          "stratum_class_coverage": [
+            {
+              "stratum": "all",
+              "label": "0",
+              "n": 2
+            },
+            {
+              "stratum": "all",
+              "label": "1",
+              "n": 2
+            }
+          ]
+        }
+      ],
+      "evaluation_subjects": 4,
+      "complete_evaluation": 4,
+      "endpoint_correct": 1,
+      "endpoint_rate": 0.25,
+      "endpoint_ci95": null,
+      "input_output_diagnostics": [
+        {
+          "stage_instance_id": "S1",
+          "direct_input_conditionals": [
+            {
+              "input_correct": true,
+              "n": 4,
+              "output_correct": 2,
+              "rate": 0.5,
+              "ci95": null,
+              "reason": null
+            },
+            {
+              "input_correct": false,
+              "n": 0,
+              "output_correct": 0,
+              "rate": null,
+              "ci95": null,
+              "reason": "input_quality_unobserved_or_no_eligible_samples"
+            }
+          ],
+          "previous_output_recoveries": null,
+          "causal_correction_claim": false
+        },
+        {
+          "stage_instance_id": "S2",
+          "direct_input_conditionals": [
+            {
+              "input_correct": true,
+              "n": 2,
+              "output_correct": 1,
+              "rate": 0.5,
+              "ci95": null,
+              "reason": null
+            },
+            {
+              "input_correct": false,
+              "n": 2,
+              "output_correct": 0,
+              "rate": 0.0,
+              "ci95": null,
+              "reason": null
+            }
+          ],
+          "previous_output_recoveries": 0,
+          "causal_correction_claim": false
+        }
+      ],
+      "raw_population_coverage": {
+        "evaluation": [
+          {
+            "stratum": "all",
+            "label": "0",
+            "n": 2
+          },
+          {
+            "stratum": "all",
+            "label": "1",
+            "n": 2
+          }
+        ]
+      },
+      "statistical_assessment": null
+    }
+  ],
+  "domain_validity": "pending",
+  "domain_approval_automatic": false,
+  "missing_values_imputed": false
+}

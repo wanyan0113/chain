@@ -1,0 +1,103 @@
+{
+  "version": "tfdo-observation-intake-1.0",
+  "study_id": "synthetic-intake-fixture",
+  "protocol_hash": "c57d95612da9e08b83977ff9fcfd34dbe4674271756446d65b2b236540821f56",
+  "observations_sha256": "eb5168f339b478054fc4e7650a0cc391ada5d0439d85a7d1d73fc8c40c6cc127",
+  "data_origin": "synthetic_fixture",
+  "data_origin_is_self_declared": true,
+  "registration_mode": "retrospective_analysis",
+  "data_readiness": "blocked",
+  "blockers": [
+    "insufficient_complete_evaluation:flow-A",
+    "insufficient_stage_calibration:flow-A",
+    "insufficient_stratum_class_coverage:flow-A",
+    "no_observations"
+  ],
+  "issues": [],
+  "issue_count": 0,
+  "issues_truncated": false,
+  "counts": {},
+  "flows": [
+    {
+      "flow_id": "flow-A",
+      "calibration": [
+        {
+          "stage_instance_id": "S1",
+          "n": 0,
+          "correct": 0,
+          "rate": null,
+          "ci95": null,
+          "stratum_class_coverage": []
+        },
+        {
+          "stage_instance_id": "S2",
+          "n": 0,
+          "correct": 0,
+          "rate": null,
+          "ci95": null,
+          "stratum_class_coverage": []
+        }
+      ],
+      "evaluation_subjects": 0,
+      "complete_evaluation": 0,
+      "endpoint_correct": 0,
+      "endpoint_rate": null,
+      "endpoint_ci95": null,
+      "input_output_diagnostics": [
+        {
+          "stage_instance_id": "S1",
+          "direct_input_conditionals": [
+            {
+              "input_correct": true,
+              "n": 0,
+              "output_correct": 0,
+              "rate": null,
+              "ci95": null,
+              "reason": "input_quality_unobserved_or_no_eligible_samples"
+            },
+            {
+              "input_correct": false,
+              "n": 0,
+              "output_correct": 0,
+              "rate": null,
+              "ci95": null,
+              "reason": "input_quality_unobserved_or_no_eligible_samples"
+            }
+          ],
+          "previous_output_recoveries": null,
+          "causal_correction_claim": false
+        },
+        {
+          "stage_instance_id": "S2",
+          "direct_input_conditionals": [
+            {
+              "input_correct": true,
+              "n": 0,
+              "output_correct": 0,
+              "rate": null,
+              "ci95": null,
+              "reason": "input_quality_unobserved_or_no_eligible_samples"
+            },
+            {
+              "input_correct": false,
+              "n": 0,
+              "output_correct": 0,
+              "rate": null,
+              "ci95": null,
+              "reason": "input_quality_unobserved_or_no_eligible_samples"
+            }
+          ],
+          "previous_output_recoveries": 0,
+          "causal_correction_claim": false
+        }
+      ],
+      "raw_population_coverage": {
+        "evaluation": []
+      },
+      "statistical_assessment": null
+    }
+  ],
+  "domain_validity": "pending",
+  "domain_approval_automatic": false,
+  "missing_values_imputed": false
+}

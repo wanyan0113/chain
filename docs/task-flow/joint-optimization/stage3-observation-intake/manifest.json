@@ -1,0 +1,397 @@
+{
+  "version": "tfdo-observation-intake-evidence-1.0",
+  "real_domain_data_available": false,
+  "domain_validity": "pending",
+  "files": [
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\fixture-lock.json",
+      "sha256": "3f407d2f090b36870b0befa8f40cf91faaaa988fb0a4ef51f7dd47a4801a3f3c",
+      "sha256_lf_normalized": "353479997dec67ba1ad69bcc9d1228d3c7d7b34ff71ae3d63ddaa4c813994485"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\fixture-protocol.json",
+      "sha256": "f5a94a072eacca7c8199e62bc25c51937258c826df8ddd251dc7866776ade797",
+      "sha256_lf_normalized": "405bb4ddf619f11832c613ffd8e55b345f9ad04a584cc77c693f52e7fa97cb23"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\regression-tests.log",
+      "sha256": "f31f1c25812ec319e92f7520c988b10142bd71ecddb802e9aee6ee28bc344174",
+      "sha256_lf_normalized": "f31f1c25812ec319e92f7520c988b10142bd71ecddb802e9aee6ee28bc344174"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\verification.json",
+      "sha256": "476ed735907142dc7db6d7396a331b179b435f360c568d036ed4c1f4dc24dd7e",
+      "sha256_lf_normalized": "9d5235faba60108dda70675d8436c9486d3e88de353c12747b91ac734654c31a"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\cluster_leakage\\observations.csv",
+      "sha256": "66f0b8c126a27b058fca807deb3edd2a0c6d501202f31bab6f353f2a51cd007b",
+      "sha256_lf_normalized": "66f0b8c126a27b058fca807deb3edd2a0c6d501202f31bab6f353f2a51cd007b"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\cluster_leakage\\protocol.json",
+      "sha256": "f5a94a072eacca7c8199e62bc25c51937258c826df8ddd251dc7866776ade797",
+      "sha256_lf_normalized": "405bb4ddf619f11832c613ffd8e55b345f9ad04a584cc77c693f52e7fa97cb23"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\complete_small_fixture\\observations.csv",
+      "sha256": "c61c36634dd7d5cfa7cf38f69711aa765b7f9d8a3586d25805bfab85adc686b5",
+      "sha256_lf_normalized": "c61c36634dd7d5cfa7cf38f69711aa765b7f9d8a3586d25805bfab85adc686b5"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\complete_small_fixture\\protocol.json",
+      "sha256": "f5a94a072eacca7c8199e62bc25c51937258c826df8ddd251dc7866776ade797",
+      "sha256_lf_normalized": "405bb4ddf619f11832c613ffd8e55b345f9ad04a584cc77c693f52e7fa97cb23"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\empty_observations\\observations.csv",
+      "sha256": "eb5168f339b478054fc4e7650a0cc391ada5d0439d85a7d1d73fc8c40c6cc127",
+      "sha256_lf_normalized": "eb5168f339b478054fc4e7650a0cc391ada5d0439d85a7d1d73fc8c40c6cc127"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\empty_observations\\protocol.json",
+      "sha256": "f5a94a072eacca7c8199e62bc25c51937258c826df8ddd251dc7866776ade797",
+      "sha256_lf_normalized": "405bb4ddf619f11832c613ffd8e55b345f9ad04a584cc77c693f52e7fa97cb23"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\empty_template\\observations.csv",
+      "sha256": "eb5168f339b478054fc4e7650a0cc391ada5d0439d85a7d1d73fc8c40c6cc127",
+      "sha256_lf_normalized": "eb5168f339b478054fc4e7650a0cc391ada5d0439d85a7d1d73fc8c40c6cc127"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\empty_template\\protocol.json",
+      "sha256": "27ce4120ff1b603a7d6a20c5895f6f94defd3fa456fcbea6321bfa134aac9e99",
+      "sha256_lf_normalized": "df3b211e7ed18859ef63829dcef3d7922867dd342edef02e21cfe34691da60c7"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\missing_gold\\observations.csv",
+      "sha256": "b1da5117b55d1f5d3bcb52a682d8347b05f0e81ed3c6683eb674f715aa0299ad",
+      "sha256_lf_normalized": "b1da5117b55d1f5d3bcb52a682d8347b05f0e81ed3c6683eb674f715aa0299ad"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\missing_gold\\protocol.json",
+      "sha256": "f5a94a072eacca7c8199e62bc25c51937258c826df8ddd251dc7866776ade797",
+      "sha256_lf_normalized": "405bb4ddf619f11832c613ffd8e55b345f9ad04a584cc77c693f52e7fa97cb23"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\missing_stage\\observations.csv",
+      "sha256": "f25212d1e1764b72cd4a07d069171133a617a57181ea91a89676d44589e7fd10",
+      "sha256_lf_normalized": "f25212d1e1764b72cd4a07d069171133a617a57181ea91a89676d44589e7fd10"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\missing_stage\\protocol.json",
+      "sha256": "f5a94a072eacca7c8199e62bc25c51937258c826df8ddd251dc7866776ade797",
+      "sha256_lf_normalized": "405bb4ddf619f11832c613ffd8e55b345f9ad04a584cc77c693f52e7fa97cb23"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\not_executed\\observations.csv",
+      "sha256": "79501035d08b6d37e20430d3c5bdc80901d93899f934434e06382e454f9dfb44",
+      "sha256_lf_normalized": "79501035d08b6d37e20430d3c5bdc80901d93899f934434e06382e454f9dfb44"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\not_executed\\protocol.json",
+      "sha256": "f5a94a072eacca7c8199e62bc25c51937258c826df8ddd251dc7866776ade797",
+      "sha256_lf_normalized": "405bb4ddf619f11832c613ffd8e55b345f9ad04a584cc77c693f52e7fa97cb23"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\no_calibration\\observations.csv",
+      "sha256": "cfe871939071a785a2a7d9375d565ad2bd79178083c6427603147ddedf9b1e02",
+      "sha256_lf_normalized": "cfe871939071a785a2a7d9375d565ad2bd79178083c6427603147ddedf9b1e02"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\no_calibration\\protocol.json",
+      "sha256": "f5a94a072eacca7c8199e62bc25c51937258c826df8ddd251dc7866776ade797",
+      "sha256_lf_normalized": "405bb4ddf619f11832c613ffd8e55b345f9ad04a584cc77c693f52e7fa97cb23"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\protocol_changed\\observations.csv",
+      "sha256": "c61c36634dd7d5cfa7cf38f69711aa765b7f9d8a3586d25805bfab85adc686b5",
+      "sha256_lf_normalized": "c61c36634dd7d5cfa7cf38f69711aa765b7f9d8a3586d25805bfab85adc686b5"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\protocol_changed\\protocol.json",
+      "sha256": "1d8d83b5bcd9043da7dce7ebd6d1e4c40cc2678820452e768eb6b044665080db",
+      "sha256_lf_normalized": "68e5a531967547c270cac3e0bb75e056c9e990c10b45e9d07972634a64e505c0"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\unfrozen\\observations.csv",
+      "sha256": "c61c36634dd7d5cfa7cf38f69711aa765b7f9d8a3586d25805bfab85adc686b5",
+      "sha256_lf_normalized": "c61c36634dd7d5cfa7cf38f69711aa765b7f9d8a3586d25805bfab85adc686b5"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\unfrozen\\protocol.json",
+      "sha256": "f5a94a072eacca7c8199e62bc25c51937258c826df8ddd251dc7866776ade797",
+      "sha256_lf_normalized": "405bb4ddf619f11832c613ffd8e55b345f9ad04a584cc77c693f52e7fa97cb23"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\version_mismatch\\observations.csv",
+      "sha256": "8e2adb5e49dd124b4038dc1b0e953aa13cd12783567a97233ef7b8914f26e485",
+      "sha256_lf_normalized": "8e2adb5e49dd124b4038dc1b0e953aa13cd12783567a97233ef7b8914f26e485"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\version_mismatch\\protocol.json",
+      "sha256": "f5a94a072eacca7c8199e62bc25c51937258c826df8ddd251dc7866776ade797",
+      "sha256_lf_normalized": "405bb4ddf619f11832c613ffd8e55b345f9ad04a584cc77c693f52e7fa97cb23"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\version_mismatch\\report\\lock_snapshot.json",
+      "sha256": "3f407d2f090b36870b0befa8f40cf91faaaa988fb0a4ef51f7dd47a4801a3f3c",
+      "sha256_lf_normalized": "353479997dec67ba1ad69bcc9d1228d3c7d7b34ff71ae3d63ddaa4c813994485"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\version_mismatch\\report\\observations_snapshot.csv",
+      "sha256": "8e2adb5e49dd124b4038dc1b0e953aa13cd12783567a97233ef7b8914f26e485",
+      "sha256_lf_normalized": "8e2adb5e49dd124b4038dc1b0e953aa13cd12783567a97233ef7b8914f26e485"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\version_mismatch\\report\\observation_report.json",
+      "sha256": "fe3d7c879be3b10386b296d7fef9da5b5f27bd3ce9a3dfb3b07f61009f26a79f",
+      "sha256_lf_normalized": "1e10f1269f827b147467cc84cce664a8dbb118b1c899db23ffb1001ab140f38c"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\version_mismatch\\report\\protocol_snapshot.json",
+      "sha256": "f5a94a072eacca7c8199e62bc25c51937258c826df8ddd251dc7866776ade797",
+      "sha256_lf_normalized": "405bb4ddf619f11832c613ffd8e55b345f9ad04a584cc77c693f52e7fa97cb23"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\unfrozen\\report\\observations_snapshot.csv",
+      "sha256": "c61c36634dd7d5cfa7cf38f69711aa765b7f9d8a3586d25805bfab85adc686b5",
+      "sha256_lf_normalized": "c61c36634dd7d5cfa7cf38f69711aa765b7f9d8a3586d25805bfab85adc686b5"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\unfrozen\\report\\observation_report.json",
+      "sha256": "533c0bb5a3dd42a318ae99f4317b3b74dd6850c331bb3481e839ef2225090eb4",
+      "sha256_lf_normalized": "9dacbca2b035c738b74da94afd1e559fb264dcb8f675eddc0864ad235cb773d1"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\unfrozen\\report\\protocol_snapshot.json",
+      "sha256": "f5a94a072eacca7c8199e62bc25c51937258c826df8ddd251dc7866776ade797",
+      "sha256_lf_normalized": "405bb4ddf619f11832c613ffd8e55b345f9ad04a584cc77c693f52e7fa97cb23"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\protocol_changed\\report\\lock_snapshot.json",
+      "sha256": "3f407d2f090b36870b0befa8f40cf91faaaa988fb0a4ef51f7dd47a4801a3f3c",
+      "sha256_lf_normalized": "353479997dec67ba1ad69bcc9d1228d3c7d7b34ff71ae3d63ddaa4c813994485"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\protocol_changed\\report\\observations_snapshot.csv",
+      "sha256": "c61c36634dd7d5cfa7cf38f69711aa765b7f9d8a3586d25805bfab85adc686b5",
+      "sha256_lf_normalized": "c61c36634dd7d5cfa7cf38f69711aa765b7f9d8a3586d25805bfab85adc686b5"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\protocol_changed\\report\\observation_report.json",
+      "sha256": "6b79c3eff67345a6f2a6a73f5c09a82def5a2c497b27914074beb69538b10354",
+      "sha256_lf_normalized": "4dd0dc08712deffe01c55c1823da280ad7626eb6152f2c6ff739e0bc6785408a"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\protocol_changed\\report\\protocol_snapshot.json",
+      "sha256": "1d8d83b5bcd9043da7dce7ebd6d1e4c40cc2678820452e768eb6b044665080db",
+      "sha256_lf_normalized": "68e5a531967547c270cac3e0bb75e056c9e990c10b45e9d07972634a64e505c0"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\no_calibration\\report\\lock_snapshot.json",
+      "sha256": "3f407d2f090b36870b0befa8f40cf91faaaa988fb0a4ef51f7dd47a4801a3f3c",
+      "sha256_lf_normalized": "353479997dec67ba1ad69bcc9d1228d3c7d7b34ff71ae3d63ddaa4c813994485"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\no_calibration\\report\\observations_snapshot.csv",
+      "sha256": "cfe871939071a785a2a7d9375d565ad2bd79178083c6427603147ddedf9b1e02",
+      "sha256_lf_normalized": "cfe871939071a785a2a7d9375d565ad2bd79178083c6427603147ddedf9b1e02"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\no_calibration\\report\\observation_report.json",
+      "sha256": "3e824a2dcfcd204454377b879187767e225efde6ce982314d4f366ddedff22a9",
+      "sha256_lf_normalized": "da0fdc1f605895743d5573a2e99c7c754da319eb8007432cc3cd7a818a0bf3d0"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\no_calibration\\report\\protocol_snapshot.json",
+      "sha256": "f5a94a072eacca7c8199e62bc25c51937258c826df8ddd251dc7866776ade797",
+      "sha256_lf_normalized": "405bb4ddf619f11832c613ffd8e55b345f9ad04a584cc77c693f52e7fa97cb23"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\not_executed\\report\\lock_snapshot.json",
+      "sha256": "3f407d2f090b36870b0befa8f40cf91faaaa988fb0a4ef51f7dd47a4801a3f3c",
+      "sha256_lf_normalized": "353479997dec67ba1ad69bcc9d1228d3c7d7b34ff71ae3d63ddaa4c813994485"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\not_executed\\report\\observations_snapshot.csv",
+      "sha256": "79501035d08b6d37e20430d3c5bdc80901d93899f934434e06382e454f9dfb44",
+      "sha256_lf_normalized": "79501035d08b6d37e20430d3c5bdc80901d93899f934434e06382e454f9dfb44"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\not_executed\\report\\observation_report.json",
+      "sha256": "4669039e0bb117dea72fb0c11c9afe62581422eb197bfd777a6b732e20cecebf",
+      "sha256_lf_normalized": "44467872169bc8644c8dd6b01dcb100dabb461a1d9d72316e533e81431a1707c"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\not_executed\\report\\protocol_snapshot.json",
+      "sha256": "f5a94a072eacca7c8199e62bc25c51937258c826df8ddd251dc7866776ade797",
+      "sha256_lf_normalized": "405bb4ddf619f11832c613ffd8e55b345f9ad04a584cc77c693f52e7fa97cb23"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\missing_stage\\report\\lock_snapshot.json",
+      "sha256": "3f407d2f090b36870b0befa8f40cf91faaaa988fb0a4ef51f7dd47a4801a3f3c",
+      "sha256_lf_normalized": "353479997dec67ba1ad69bcc9d1228d3c7d7b34ff71ae3d63ddaa4c813994485"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\missing_stage\\report\\observations_snapshot.csv",
+      "sha256": "f25212d1e1764b72cd4a07d069171133a617a57181ea91a89676d44589e7fd10",
+      "sha256_lf_normalized": "f25212d1e1764b72cd4a07d069171133a617a57181ea91a89676d44589e7fd10"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\missing_stage\\report\\observation_report.json",
+      "sha256": "27daa59099d0e04859c4b20778da22926ba0fc6cec8ab560cf2aa650445a060f",
+      "sha256_lf_normalized": "25f9a1671f7388706d002e1859e61561046bf0ff8eced7256e2c1cd13cbeea5b"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\missing_stage\\report\\protocol_snapshot.json",
+      "sha256": "f5a94a072eacca7c8199e62bc25c51937258c826df8ddd251dc7866776ade797",
+      "sha256_lf_normalized": "405bb4ddf619f11832c613ffd8e55b345f9ad04a584cc77c693f52e7fa97cb23"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\missing_gold\\report\\lock_snapshot.json",
+      "sha256": "3f407d2f090b36870b0befa8f40cf91faaaa988fb0a4ef51f7dd47a4801a3f3c",
+      "sha256_lf_normalized": "353479997dec67ba1ad69bcc9d1228d3c7d7b34ff71ae3d63ddaa4c813994485"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\missing_gold\\report\\observations_snapshot.csv",
+      "sha256": "b1da5117b55d1f5d3bcb52a682d8347b05f0e81ed3c6683eb674f715aa0299ad",
+      "sha256_lf_normalized": "b1da5117b55d1f5d3bcb52a682d8347b05f0e81ed3c6683eb674f715aa0299ad"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\missing_gold\\report\\observation_report.json",
+      "sha256": "a16df373c152b91d1e4d6b7f05b3528f81f4d29f7da556823909e5f0532fdea6",
+      "sha256_lf_normalized": "79b5ac2d915042473c391f875fa3ece177560f155c7b2eb1a4bc23e9c0e80479"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\missing_gold\\report\\protocol_snapshot.json",
+      "sha256": "f5a94a072eacca7c8199e62bc25c51937258c826df8ddd251dc7866776ade797",
+      "sha256_lf_normalized": "405bb4ddf619f11832c613ffd8e55b345f9ad04a584cc77c693f52e7fa97cb23"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\empty_template\\report\\observations_snapshot.csv",
+      "sha256": "eb5168f339b478054fc4e7650a0cc391ada5d0439d85a7d1d73fc8c40c6cc127",
+      "sha256_lf_normalized": "eb5168f339b478054fc4e7650a0cc391ada5d0439d85a7d1d73fc8c40c6cc127"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\empty_template\\report\\observation_report.json",
+      "sha256": "b9d0d1161758cf6b3d6765c35042ce0bf36b7beeeb09198a6f977e37741eabaa",
+      "sha256_lf_normalized": "50d88be9eb5f0e8fac639f92292b32f7dcee0199f2b96141134fb3e94a86e81f"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\empty_template\\report\\protocol_snapshot.json",
+      "sha256": "27ce4120ff1b603a7d6a20c5895f6f94defd3fa456fcbea6321bfa134aac9e99",
+      "sha256_lf_normalized": "df3b211e7ed18859ef63829dcef3d7922867dd342edef02e21cfe34691da60c7"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\empty_observations\\report\\lock_snapshot.json",
+      "sha256": "3f407d2f090b36870b0befa8f40cf91faaaa988fb0a4ef51f7dd47a4801a3f3c",
+      "sha256_lf_normalized": "353479997dec67ba1ad69bcc9d1228d3c7d7b34ff71ae3d63ddaa4c813994485"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\empty_observations\\report\\observations_snapshot.csv",
+      "sha256": "eb5168f339b478054fc4e7650a0cc391ada5d0439d85a7d1d73fc8c40c6cc127",
+      "sha256_lf_normalized": "eb5168f339b478054fc4e7650a0cc391ada5d0439d85a7d1d73fc8c40c6cc127"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\empty_observations\\report\\observation_report.json",
+      "sha256": "617f7553985800043dec2a083c23bba4a760502504c3e4f9a08a9adf6941869b",
+      "sha256_lf_normalized": "0f28543e64c205e22f0acb223dec8f43114b26c3905a406c55397c59a3b62d9f"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\empty_observations\\report\\protocol_snapshot.json",
+      "sha256": "f5a94a072eacca7c8199e62bc25c51937258c826df8ddd251dc7866776ade797",
+      "sha256_lf_normalized": "405bb4ddf619f11832c613ffd8e55b345f9ad04a584cc77c693f52e7fa97cb23"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\complete_small_fixture\\report\\lock_snapshot.json",
+      "sha256": "3f407d2f090b36870b0befa8f40cf91faaaa988fb0a4ef51f7dd47a4801a3f3c",
+      "sha256_lf_normalized": "353479997dec67ba1ad69bcc9d1228d3c7d7b34ff71ae3d63ddaa4c813994485"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\complete_small_fixture\\report\\observations_snapshot.csv",
+      "sha256": "c61c36634dd7d5cfa7cf38f69711aa765b7f9d8a3586d25805bfab85adc686b5",
+      "sha256_lf_normalized": "c61c36634dd7d5cfa7cf38f69711aa765b7f9d8a3586d25805bfab85adc686b5"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\complete_small_fixture\\report\\observation_report.json",
+      "sha256": "55e4d0685a3d8eede973a6fdd3b3cbcb1d16fec773c835a12aa7f42f411cec34",
+      "sha256_lf_normalized": "989fcce8b2102d89d848ad5108c757bd4df93d7241887e087b38abc31100abff"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\complete_small_fixture\\report\\protocol_snapshot.json",
+      "sha256": "f5a94a072eacca7c8199e62bc25c51937258c826df8ddd251dc7866776ade797",
+      "sha256_lf_normalized": "405bb4ddf619f11832c613ffd8e55b345f9ad04a584cc77c693f52e7fa97cb23"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\cluster_leakage\\report\\lock_snapshot.json",
+      "sha256": "3f407d2f090b36870b0befa8f40cf91faaaa988fb0a4ef51f7dd47a4801a3f3c",
+      "sha256_lf_normalized": "353479997dec67ba1ad69bcc9d1228d3c7d7b34ff71ae3d63ddaa4c813994485"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\cluster_leakage\\report\\observations_snapshot.csv",
+      "sha256": "66f0b8c126a27b058fca807deb3edd2a0c6d501202f31bab6f353f2a51cd007b",
+      "sha256_lf_normalized": "66f0b8c126a27b058fca807deb3edd2a0c6d501202f31bab6f353f2a51cd007b"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\cluster_leakage\\report\\observation_report.json",
+      "sha256": "8bb277b39015942cb913b7d4ca69831caef53685eff3de00e04f29bbf8ba9f76",
+      "sha256_lf_normalized": "502f88de3be71b8eb24f5dfc791ffde3fd41da7a2df4e124c4499cf66c92c8b9"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\evidence\\cluster_leakage\\report\\protocol_snapshot.json",
+      "sha256": "f5a94a072eacca7c8199e62bc25c51937258c826df8ddd251dc7866776ade797",
+      "sha256_lf_normalized": "405bb4ddf619f11832c613ffd8e55b345f9ad04a584cc77c693f52e7fa97cb23"
+    },
+    {
+      "path": "docs\\task-flow\\joint-optimization\\stage3-observation-intake\\README.md",
+      "sha256": "c71c2fa0e4bd050d2a754ab3abefa5ed7ae72bc4ab4a60bdf1f73481ccdb46d1",
+      "sha256_lf_normalized": "c71c2fa0e4bd050d2a754ab3abefa5ed7ae72bc4ab4a60bdf1f73481ccdb46d1"
+    },
+    {
+      "path": "data\\accuracy-observations\\templates\\observations.csv",
+      "sha256": "eb5168f339b478054fc4e7650a0cc391ada5d0439d85a7d1d73fc8c40c6cc127",
+      "sha256_lf_normalized": "eb5168f339b478054fc4e7650a0cc391ada5d0439d85a7d1d73fc8c40c6cc127"
+    },
+    {
+      "path": "data\\accuracy-observations\\templates\\protocol.json",
+      "sha256": "7e57b410c243ffa2d73f37ad7e6ebd30a8573c95ad5cad5c5e2fc729aa4f4ad9",
+      "sha256_lf_normalized": "7e57b410c243ffa2d73f37ad7e6ebd30a8573c95ad5cad5c5e2fc729aa4f4ad9"
+    },
+    {
+      "path": "data\\accuracy-observations\\templates\\review-record.json",
+      "sha256": "96fe4944873f7ee41540baeb6bc4c13fa87eaaf432c14eaecfc63adaa7fcddb7",
+      "sha256_lf_normalized": "96fe4944873f7ee41540baeb6bc4c13fa87eaaf432c14eaecfc63adaa7fcddb7"
+    },
+    {
+      "path": "workflow_tools\\accuracy_observations.py",
+      "sha256": "93aac12b61fb30768116fc4766e39aa6cff5cd2f6678e859427f791c93982281",
+      "sha256_lf_normalized": "93aac12b61fb30768116fc4766e39aa6cff5cd2f6678e859427f791c93982281"
+    },
+    {
+      "path": "workflow_tools\\validate_accuracy_observations.py",
+      "sha256": "ab7771dd9ef9ba295176906ff173ba7495ca3c312358a89440a34d912bc75d5b",
+      "sha256_lf_normalized": "ab7771dd9ef9ba295176906ff173ba7495ca3c312358a89440a34d912bc75d5b"
+    },
+    {
+      "path": "workflow_tools\\verify_accuracy_observations.py",
+      "sha256": "eb5045b17d225d70b05d820c0c442a9421c880a739b79bf564d546285f0a3d9d",
+      "sha256_lf_normalized": "eb5045b17d225d70b05d820c0c442a9421c880a739b79bf564d546285f0a3d9d"
+    },
+    {
+      "path": "tests\\test_accuracy_observations.py",
+      "sha256": "c396ccffc033c4b1f233466e4cb8e4d748c2da234c1b8c69666e0e8edd46df57",
+      "sha256_lf_normalized": "c396ccffc033c4b1f233466e4cb8e4d748c2da234c1b8c69666e0e8edd46df57"
+    },
+    {
+      "path": "workflow_tools\\accuracy_validation.py",
+      "sha256": "7ccbe5d0d8a3bdd89cddbdef3c2c89ebd087c552f102cd3d76377e451c1ba143",
+      "sha256_lf_normalized": "7ccbe5d0d8a3bdd89cddbdef3c2c89ebd087c552f102cd3d76377e451c1ba143"
+    },
+    {
+      "path": "task_flow\\joint_candidates.py",
+      "sha256": "94db6534a12ebf731b04ad5c9323422f7ab349a340bbd1472e875d33607d3784",
+      "sha256_lf_normalized": "94db6534a12ebf731b04ad5c9323422f7ab349a340bbd1472e875d33607d3784"
+    }
+  ]
+}

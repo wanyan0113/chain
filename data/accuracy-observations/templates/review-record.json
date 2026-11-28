@@ -1,0 +1,24 @@
+{
+  "study_id": "",
+  "protocol_hash": "",
+  "observations_sha256": "",
+  "reviewer": "",
+  "reviewed_at": null,
+  "checks": {
+    "data_provenance_verified": null,
+    "ground_truth_independent_and_audited": null,
+    "common_binary_target_valid_for_all_stages": null,
+    "population_and_sampling_declarations_verified": null,
+    "calibration_evaluation_clusters_separated": null,
+    "activity_and_artifact_versions_verified": null,
+    "missingness_and_abstention_policy_reviewed": null,
+    "tolerance_and_sample_size_justified": null,
+    "statistical_uncertainty_reviewed": null,
+    "recovery_and_dependency_scope_reviewed": null
+  },
+  "evidence_references": [],
+  "allowed_scope": "",
+  "unresolved_issues": [],
+  "decision": "pending",
+  "note": "Human review worksheet only; not consumed as an automatic domain-validity override."
+}

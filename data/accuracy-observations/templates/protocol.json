@@ -1,0 +1,32 @@
+{
+  "version": "tfdo-observation-intake-1.0",
+  "study_id": "",
+  "data_origin": "uncollected",
+  "registration_mode": "prospective",
+  "target_definition": "",
+  "label_space": ["0", "1"],
+  "ground_truth_method_review": "pending",
+  "sampling_design": "unknown",
+  "evaluation_population": "",
+  "label_sources": {},
+  "strata": ["all"],
+  "flows": [
+    {
+      "flow_id": "flow-1",
+      "calibration_population": "",
+      "input_from_previous_output": false,
+      "stages": [
+        {"stage_instance_id": "S1_observe", "activity_id": "UNASSIGNED", "activity_version": "UNASSIGNED", "artifact_id": "UNASSIGNED", "artifact_version": "UNASSIGNED", "calibration_input_condition": "natural_case"},
+        {"stage_instance_id": "S2_decide", "activity_id": "UNASSIGNED", "activity_version": "UNASSIGNED", "artifact_id": "UNASSIGNED", "artifact_version": "UNASSIGNED", "calibration_input_condition": "natural_case"},
+        {"stage_instance_id": "S3_act", "activity_id": "UNASSIGNED", "activity_version": "UNASSIGNED", "artifact_id": "UNASSIGNED", "artifact_version": "UNASSIGNED", "calibration_input_condition": "natural_case"}
+      ]
+    }
+  ],
+  "acceptance": {
+    "absolute_error_tolerance": null,
+    "alpha": 0.05,
+    "minimum_stage_calibration": 200,
+    "minimum_complete_evaluation": 200,
+    "minimum_stratum_class": 50
+  }
+}

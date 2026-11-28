@@ -1,5 +1,7 @@
 # 任务流程扩展当前状态
 
+用户确认尚无逐样本真实观测。新增[阶段三采集与验收接入口](joint-optimization/stage3-observation-intake/README.md)，提供空模板、协议冻结、独立样本/版本/缺失检查和实际标签统计；软件验收使用显式合成夹具。真实采集与领域复核未完成，模型状态仍pending。
+
 阶段二-B按用户评审关闭。当前[阶段三受控分类精度检验](joint-optimization/stage3-accuracy/README.md)将固定边际率乘积与独立留出样本的实际终点正确率比较，覆盖相关、重复、纠错和人群差异；受控证据不升级真实领域有效性，生产精度政策保持原样。
 
 阶段二基线按用户评审关闭；后续[阶段二-B推理路径细分](joint-optimization/stage2b-owl-path/README.md)单独记录生产路径与Java API诊断，区分Python/JVM进程复用，保留预算8当前最优解仍未证最优的永久回归。精度领域验证仍是独立待办。

@@ -1,0 +1,13 @@
+{
+  "version": "tfdo-observation-intake-1.0",
+  "protocol_hash": "c57d95612da9e08b83977ff9fcfd34dbe4674271756446d65b2b236540821f56",
+  "source_hashes": {
+    "workflow_tools/accuracy_observations.py": "93aac12b61fb30768116fc4766e39aa6cff5cd2f6678e859427f791c93982281",
+    "workflow_tools/validate_accuracy_observations.py": "ab7771dd9ef9ba295176906ff173ba7495ca3c312358a89440a34d912bc75d5b",
+    "workflow_tools/accuracy_validation.py": "7ccbe5d0d8a3bdd89cddbdef3c2c89ebd087c552f102cd3d76377e451c1ba143",
+    "task_flow/joint_candidates.py": "94db6534a12ebf731b04ad5c9323422f7ab349a340bbd1472e875d33607d3784"
+  },
+  "frozen_at_utc": "2026-11-28T08:10:58.224581+00:00",
+  "registration_mode": "retrospective_analysis",
+  "scope": "integrity lock; does not certify provenance or independent human review"
+}

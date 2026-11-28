@@ -1,0 +1,129 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "case": "empty_template",
+      "passed": true,
+      "cli_exit": 2,
+      "data_readiness": "blocked",
+      "blockers": [
+        "ground_truth_method_not_reviewed",
+        "iid_subject_inference_not_supported_for_declared_sampling",
+        "incomplete_study_definition",
+        "insufficient_complete_evaluation:flow-1",
+        "insufficient_stage_calibration:flow-1",
+        "insufficient_stratum_class_coverage:flow-1",
+        "missing_calibration_population:flow-1",
+        "missing_label_source_definition",
+        "no_observations",
+        "no_real_data_collected",
+        "protocol_not_frozen",
+        "tolerance_not_prespecified",
+        "unassigned_stage_identity:flow-1"
+      ]
+    },
+    {
+      "case": "empty_observations",
+      "passed": true,
+      "cli_exit": 2,
+      "data_readiness": "blocked",
+      "blockers": [
+        "insufficient_complete_evaluation:flow-A",
+        "insufficient_stage_calibration:flow-A",
+        "insufficient_stratum_class_coverage:flow-A",
+        "no_observations"
+      ]
+    },
+    {
+      "case": "complete_small_fixture",
+      "passed": true,
+      "cli_exit": 0,
+      "data_readiness": "ready_for_statistical_assessment",
+      "blockers": []
+    },
+    {
+      "case": "missing_gold",
+      "passed": true,
+      "cli_exit": 2,
+      "data_readiness": "blocked",
+      "blockers": [
+        "incomplete_evaluation_flow:flow-A",
+        "insufficient_complete_evaluation:flow-A",
+        "observation_integrity_failed"
+      ]
+    },
+    {
+      "case": "not_executed",
+      "passed": true,
+      "cli_exit": 2,
+      "data_readiness": "blocked",
+      "blockers": [
+        "incomplete_evaluation_flow:flow-A",
+        "incomplete_observations",
+        "insufficient_complete_evaluation:flow-A"
+      ]
+    },
+    {
+      "case": "missing_stage",
+      "passed": true,
+      "cli_exit": 2,
+      "data_readiness": "blocked",
+      "blockers": [
+        "incomplete_evaluation_flow:flow-A",
+        "insufficient_complete_evaluation:flow-A"
+      ]
+    },
+    {
+      "case": "no_calibration",
+      "passed": true,
+      "cli_exit": 2,
+      "data_readiness": "blocked",
+      "blockers": [
+        "insufficient_stage_calibration:flow-A",
+        "insufficient_stratum_class_coverage:flow-A"
+      ]
+    },
+    {
+      "case": "version_mismatch",
+      "passed": true,
+      "cli_exit": 2,
+      "data_readiness": "blocked",
+      "blockers": [
+        "incomplete_evaluation_flow:flow-A",
+        "insufficient_complete_evaluation:flow-A",
+        "observation_integrity_failed"
+      ]
+    },
+    {
+      "case": "cluster_leakage",
+      "passed": true,
+      "cli_exit": 2,
+      "data_readiness": "blocked",
+      "blockers": [
+        "dependent_subject_clusters_require_other_ci_method",
+        "observation_integrity_failed"
+      ]
+    },
+    {
+      "case": "unfrozen",
+      "passed": true,
+      "cli_exit": 2,
+      "data_readiness": "blocked",
+      "blockers": [
+        "protocol_not_frozen"
+      ]
+    },
+    {
+      "case": "protocol_changed",
+      "passed": true,
+      "cli_exit": 2,
+      "data_readiness": "blocked",
+      "blockers": [
+        "protocol_lock_mismatch"
+      ]
+    }
+  ],
+  "fixtures_are_synthetic": true,
+  "domain_validity": "pending",
+  "real_domain_data_available": false
+}
