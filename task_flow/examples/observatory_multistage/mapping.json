@@ -1,0 +1,122 @@
+{
+  "format_version": "task-flow-design-1.0",
+  "mapping_id": "observatory-multistage-map",
+  "version": "1.0",
+  "communication_model": "directed",
+  "allow_nonadjacent_reuse": false,
+  "evaluation": {
+    "mode": "sequential_product_v2",
+    "source_refs": [
+      "TFDO-DESIGN-1.0 explicit raw metric policy"
+    ]
+  },
+  "entries": [
+    {
+      "catalog_id": "observatory-stabilization",
+      "activity_id": "observe",
+      "activity_version": "1.0",
+      "target_parameter": "rift",
+      "activity": "observe",
+      "role": "insight",
+      "min_level": 0.8,
+      "incoming_relation": "communication",
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ]
+    },
+    {
+      "catalog_id": "observatory-stabilization",
+      "activity_id": "analyze_primary",
+      "activity_version": "1.0",
+      "target_parameter": "rift",
+      "activity": "decide",
+      "role": "coordination",
+      "min_level": 0.8,
+      "incoming_relation": "communication",
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ]
+    },
+    {
+      "catalog_id": "observatory-stabilization",
+      "activity_id": "analyze_secondary",
+      "activity_version": "1.0",
+      "target_parameter": "rift",
+      "activity": "decide",
+      "role": "coordination",
+      "min_level": 0.8,
+      "incoming_relation": "communication",
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ]
+    },
+    {
+      "catalog_id": "observatory-stabilization",
+      "activity_id": "decide",
+      "activity_version": "1.0",
+      "target_parameter": "rift",
+      "activity": "decide",
+      "role": "coordination",
+      "min_level": 0.8,
+      "incoming_relation": "communication",
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ]
+    },
+    {
+      "catalog_id": "observatory-stabilization",
+      "activity_id": "stabilize",
+      "activity_version": "1.0",
+      "target_parameter": "rift",
+      "activity": "act",
+      "role": "manifestation",
+      "min_level": 0.8,
+      "incoming_relation": "control",
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ]
+    },
+    {
+      "catalog_id": "observatory-stabilization",
+      "activity_id": "phase_tune",
+      "activity_version": "1.0",
+      "target_parameter": "rift",
+      "activity": "decide",
+      "role": "coordination",
+      "min_level": 0.8,
+      "incoming_relation": "communication",
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ]
+    },
+    {
+      "catalog_id": "observatory-stabilization",
+      "activity_id": "safety_audit",
+      "activity_version": "1.0",
+      "target_parameter": "rift",
+      "activity": "decide",
+      "role": "coordination",
+      "min_level": 0.8,
+      "incoming_relation": "communication",
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ]
+    },
+    {
+      "catalog_id": "observatory-stabilization",
+      "activity_id": "premature_release",
+      "activity_version": "1.0",
+      "target_parameter": "rift",
+      "activity": "decide",
+      "role": "coordination",
+      "min_level": 0.8,
+      "incoming_relation": "communication",
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ]
+    }
+  ],
+  "source_refs": [
+    "observatory-multistage-synthetic-v1"
+  ]
+}

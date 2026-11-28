@@ -1,0 +1,144 @@
+{
+  "version": "observatory-taskflow-v2-evidence-1.0",
+  "source_branch": "codex/task-flow-planning",
+  "real_domain_data": false,
+  "domain_validity": "pending",
+  "files": [
+    {
+      "path": "docs/task-flow/joint-optimization/observatory-multistage-v2/evidence/design.ttl",
+      "sha256": "98d186ef67e457417302a3c5de6aaad25a8bf8e9656f9594956597292c614c73",
+      "sha256_lf_normalized": "98d186ef67e457417302a3c5de6aaad25a8bf8e9656f9594956597292c614c73"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/observatory-multistage-v2/evidence/design_summary.md",
+      "sha256": "1efe7ce167d3ee79678a8a4692a934c787f21b8589a12393e1aa317fe4cfda89",
+      "sha256_lf_normalized": "1efe7ce167d3ee79678a8a4692a934c787f21b8589a12393e1aa317fe4cfda89"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/observatory-multistage-v2/evidence/full-run.zip",
+      "sha256": "59a8c6354b46435e257bef012a5c28e92b4defa1dc303a1affa478ebf219b905",
+      "sha256_lf_normalized": "0872bbf63f435f542f4a01d4f2f139c06c843d3789e4360c77e4b9a1142868c7"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/observatory-multistage-v2/evidence/observations-v2-report.json",
+      "sha256": "b1cfa11283dd8240ccb24c2cfee01ed03b5c7d760f04994281642666ee89ce15",
+      "sha256_lf_normalized": "4d822f09bd4bda3b3ae0318f0c3e16788de3bffce334a12699479e6c692d9261"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/observatory-multistage-v2/evidence/regression-tests.log",
+      "sha256": "32c308d14acfb093a34f6ab227df526f7e71bdd062e44f395114ac18806b69fb",
+      "sha256_lf_normalized": "32c308d14acfb093a34f6ab227df526f7e71bdd062e44f395114ac18806b69fb"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/observatory-multistage-v2/evidence/study-v2-lock.json",
+      "sha256": "d231a1f9796d2cd454f2c7359d0fce70e848c259766d04ee0d992b7206534629",
+      "sha256_lf_normalized": "ef664370451a65f9c3f554cc1ad7ea34a157ab5e48bc99dc51624d6392ef1dbb"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/observatory-multistage-v2/evidence/study-v2.json",
+      "sha256": "841a331c236ff4562e467f252d27f47234aa1882eb523b2de6b248c6ec8c89d2",
+      "sha256_lf_normalized": "326227a8e338a3bc4ca8808568a930764ca830f4d3c449e0ae16c2ee549746ac"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/observatory-multistage-v2/evidence/verification.json",
+      "sha256": "2fbdc80c85f462d9f0b24bf3827b1246d0859206c20512197d63f639f6a8b178",
+      "sha256_lf_normalized": "02221781e46996112db3902288497d0f99ba2ac2b65b7402018f2ac7a4d9ea2f"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/observatory-multistage-v2/README.md",
+      "sha256": "8d22cd18506da4832ee9e5dc48ef40d36e599e6807dfa635a973935477f3e27a",
+      "sha256_lf_normalized": "eec7bb9b76bcb62a100b6c5e866b6acca7156f87ee45ae733fa74cf065626fe5"
+    },
+    {
+      "path": "task_flow/examples/observatory_multistage/catalog-1.json",
+      "sha256": "442b4fee6877c5722d6ef7b323ecae7e4cca7a60d643ac35666b2794d5b51492",
+      "sha256_lf_normalized": "757f0942194c49570ff07fc950c96c24148ec8d447583489d91b1371c9501f3e"
+    },
+    {
+      "path": "task_flow/examples/observatory_multistage/catalog-2.json",
+      "sha256": "0b43f2d3319f7db3247b901f370774b39132e703394e5b38cbb84b18b70b0784",
+      "sha256_lf_normalized": "b8864f0d63d48472fb593834662366b09d50a0ea6cb285a29e2e91ed97e7e2df"
+    },
+    {
+      "path": "task_flow/examples/observatory_multistage/catalog-3.json",
+      "sha256": "cf1bd218520c38ae3d3372da7a24cc6a9cbcd10230bd3b77edf9d116cf33887b",
+      "sha256_lf_normalized": "6b5a864f42450122cd7b052f640d4dfbeb436f5e04e4aa5a0607a04459f1fb50"
+    },
+    {
+      "path": "task_flow/examples/observatory_multistage/jobs.json",
+      "sha256": "da85314ee6750cdf6e89d6c2d54d24a5e2bdc3f6e3ff0ae41377e3780a05a5b6",
+      "sha256_lf_normalized": "8020052b77b68f23d91d7d8d29b85d1095f254df0fe4fafc60491f8c044a51b5"
+    },
+    {
+      "path": "task_flow/examples/observatory_multistage/mapping.json",
+      "sha256": "6c9dd70f2e2369809e6011a6a0ce26f63736b95e7b684191382289c725dc6e03",
+      "sha256_lf_normalized": "c1964ab16656f324e6a93976c672628e2ad5aac8df7a5c668183b1ca27d07c30"
+    },
+    {
+      "path": "task_flow/examples/observatory_multistage/README.md",
+      "sha256": "e00ab7a6be0b4bc51e1f13da9a4254b74052bfe68c6e044b7b4d0c14a3035fa0",
+      "sha256_lf_normalized": "e00ab7a6be0b4bc51e1f13da9a4254b74052bfe68c6e044b7b4d0c14a3035fa0"
+    },
+    {
+      "path": "task_flow/examples/observatory_multistage/request-1.json",
+      "sha256": "f6a30d0f9d2c97277592ff04973be67dd27c660d48ab591403e3935fffc1fb16",
+      "sha256_lf_normalized": "1a2976a53b69a536e7354b1dbd280ed952ae4607757764dba31d81b14e5695cd"
+    },
+    {
+      "path": "task_flow/examples/observatory_multistage/request-2.json",
+      "sha256": "19f051ff5a2d0ca6d9a8ff7de5c4de7c5db70247dd63cb57b4d4e82e5ed9c339",
+      "sha256_lf_normalized": "aaead2cad2e8504e8e71204ba4c57ed2cc37539602a15893ec0989a27fc9add6"
+    },
+    {
+      "path": "task_flow/examples/observatory_multistage/request-3.json",
+      "sha256": "53e322ab173f0c8ab844f5756d1032b6e1c30af2d6fd0af34b492cb378296c05",
+      "sha256_lf_normalized": "5bc6503c3a5d77c28dbeb973e64da8a0a3498d3ef31c36770d4f3debc7e1a5d7"
+    },
+    {
+      "path": "task_flow/examples/observatory_multistage/scene.json",
+      "sha256": "5ab8aa790ba0f07d0eeea35f79e5e248e66e28c5f27b029d6b41825e045035a3",
+      "sha256_lf_normalized": "2a8446c9169b275663c25de0415702fd83308241222b587f5b295a7b7dc854e2"
+    },
+    {
+      "path": "knowledge/observatory-multistage.ttl",
+      "sha256": "a3070d7306af6896a4bc9f88a5ff1b6ba26eca047e50e3eef8607629efd371e6",
+      "sha256_lf_normalized": "a3070d7306af6896a4bc9f88a5ff1b6ba26eca047e50e3eef8607629efd371e6"
+    },
+    {
+      "path": "workflow_tools/build_multistage_demo.py",
+      "sha256": "e4161f5972fd1551e5642b7416d72347c518a13401eb87adf449596c2a89ea95",
+      "sha256_lf_normalized": "e4161f5972fd1551e5642b7416d72347c518a13401eb87adf449596c2a89ea95"
+    },
+    {
+      "path": "workflow_tools/observations_v2.py",
+      "sha256": "0d2df2df089503a8a9cd88add71226e3120341f9b8dc56a2658c2c3f7973c0bd",
+      "sha256_lf_normalized": "0d2df2df089503a8a9cd88add71226e3120341f9b8dc56a2658c2c3f7973c0bd"
+    },
+    {
+      "path": "workflow_tools/observatory_demo.py",
+      "sha256": "c12a06b40672c46ec95b7485d5dfd0af7370365bbb2b1e12219be7ea3fd2c983",
+      "sha256_lf_normalized": "c12a06b40672c46ec95b7485d5dfd0af7370365bbb2b1e12219be7ea3fd2c983"
+    },
+    {
+      "path": "tests/test_observations_v2.py",
+      "sha256": "fe7e1be3dc179c8d431a758c138a98cd2b28e20a45911e66dbab251506f4419b",
+      "sha256_lf_normalized": "fe7e1be3dc179c8d431a758c138a98cd2b28e20a45911e66dbab251506f4419b"
+    },
+    {
+      "path": "task_flow/joint.py",
+      "sha256": "cc675082cbc5a952d30d66b60139268dc69e5b90b3c841a5e699690a10b25fa1",
+      "sha256_lf_normalized": "cc675082cbc5a952d30d66b60139268dc69e5b90b3c841a5e699690a10b25fa1"
+    },
+    {
+      "path": "task_flow/design_bridge.py",
+      "sha256": "81a45403c245af381fee34dbc51c2c896bf0616ff4f28d20b5497de56744346d",
+      "sha256_lf_normalized": "81a45403c245af381fee34dbc51c2c896bf0616ff4f28d20b5497de56744346d"
+    },
+    {
+      "path": "task_flow/joint_candidates.py",
+      "sha256": "94db6534a12ebf731b04ad5c9323422f7ab349a340bbd1472e875d33607d3784",
+      "sha256_lf_normalized": "94db6534a12ebf731b04ad5c9323422f7ab349a340bbd1472e875d33607d3784"
+    }
+  ],
+  "source_committed_at_evidence_capture": false
+}

@@ -1,0 +1,12 @@
+@prefix g: <urn:observatory-semantic-demo:> .
+@prefix b: <http://example.org/arcaneweb#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+g:Ontology a owl:Ontology ; owl:versionInfo "1.0" ; rdfs:label "星穹观测站多环节演练本体"@zh .
+g:PhaseTune a owl:NamedIndividual, b:CoordinationCapability ; rdfs:label "相位校准"@zh .
+g:SafetyAudit a owl:NamedIndividual, b:CoordinationCapability ; rdfs:label "处置安全复核"@zh .
+g:TunerUnit a owl:Class ; rdfs:label "相位校准法器类"@zh ; rdfs:subClassOf b:CoordinationArtifact,
+  [ a owl:Restriction ; owl:onProperty b:hasCapability ; owl:hasValue g:PhaseTune ] .
+g:AuditorUnit a owl:Class ; rdfs:label "安全复核法器类"@zh ; rdfs:subClassOf b:CoordinationArtifact,
+  [ a owl:Restriction ; owl:onProperty b:hasCapability ; owl:hasValue g:SafetyAudit ] .

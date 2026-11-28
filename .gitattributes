@@ -64,6 +64,11 @@ docs/task-flow/joint-optimization/stage3-accuracy/**/*.log -text whitespace=-bla
 docs/task-flow/joint-optimization/stage3-observation-intake/**/*.log -text whitespace=-blank-at-eol,cr-at-eol
 docs/task-flow/joint-optimization/stage3-design-collection/**/*.log -text whitespace=-blank-at-eol,cr-at-eol
 docs/task-flow/joint-optimization/stage3-collection-study/**/*.log -text whitespace=-blank-at-eol,cr-at-eol
+docs/task-flow/joint-optimization/stage3-observation-semantics/**/*.log -text whitespace=-blank-at-eol,cr-at-eol
+docs/task-flow/joint-optimization/observatory-multistage-v2/**/*.log -text whitespace=-blank-at-eol,cr-at-eol
+docs/task-flow/joint-optimization/observatory-multistage-v2/evidence/design.ttl -text whitespace=-blank-at-eof,cr-at-eol
+knowledge/observatory-multistage.ttl -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+task_flow/examples/observatory_multistage/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 data/accuracy-observations/templates/** -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 # Matplotlib preserves spaces in generated SVG path commands.
 docs/task-flow/joint-optimization/stage3-accuracy/**/*.svg -text whitespace=-blank-at-eol,cr-at-eol

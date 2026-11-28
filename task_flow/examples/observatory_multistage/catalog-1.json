@@ -1,0 +1,863 @@
+{
+  "format_version": "task-flow-1.0",
+  "catalog_id": "observatory-stabilization",
+  "version": "1.0",
+  "objects": {
+    "rift": [
+      "North-Rift"
+    ]
+  },
+  "facts": [
+    {
+      "id": "needs_analysis",
+      "arguments": [
+        "rift"
+      ],
+      "kind": "static",
+      "type": "boolean",
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "id": "observed",
+      "arguments": [
+        "rift"
+      ],
+      "kind": "mutable",
+      "type": "boolean",
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "id": "analyzed",
+      "arguments": [
+        "rift"
+      ],
+      "kind": "mutable",
+      "type": "boolean",
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "id": "decided",
+      "arguments": [
+        "rift"
+      ],
+      "kind": "mutable",
+      "type": "boolean",
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "id": "stable",
+      "arguments": [
+        "rift"
+      ],
+      "kind": "mutable",
+      "type": "boolean",
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "id": "needs_tune",
+      "arguments": [
+        "rift"
+      ],
+      "kind": "static",
+      "type": "boolean",
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ]
+    },
+    {
+      "id": "needs_audit",
+      "arguments": [
+        "rift"
+      ],
+      "kind": "static",
+      "type": "boolean",
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ]
+    },
+    {
+      "id": "tuned",
+      "arguments": [
+        "rift"
+      ],
+      "kind": "mutable",
+      "type": "boolean",
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ]
+    },
+    {
+      "id": "audited",
+      "arguments": [
+        "rift"
+      ],
+      "kind": "mutable",
+      "type": "boolean",
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ]
+    }
+  ],
+  "derived_rules": [],
+  "activities": [
+    {
+      "id": "observe",
+      "version": "1.0",
+      "type": "observe",
+      "parameters": {
+        "rift": "rift"
+      },
+      "applicable_when": {
+        "all": []
+      },
+      "preconditions": {
+        "all": [
+          {
+            "test": {
+              "fact": {
+                "predicate": "observed",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": false
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "fact": {
+            "predicate": "observed",
+            "args": [
+              {
+                "param": "rift"
+              }
+            ]
+          },
+          "set": {
+            "value": true
+          }
+        }
+      ],
+      "required_capabilities": [
+        "urn:arcane-rift-demo:WideSurvey"
+      ],
+      "max_occurrences": 1,
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "id": "analyze_primary",
+      "version": "1.0",
+      "type": "decide",
+      "parameters": {
+        "rift": "rift"
+      },
+      "applicable_when": {
+        "all": []
+      },
+      "preconditions": {
+        "all": [
+          {
+            "test": {
+              "fact": {
+                "predicate": "observed",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          {
+            "test": {
+              "fact": {
+                "predicate": "needs_analysis",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          {
+            "test": {
+              "fact": {
+                "predicate": "analyzed",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": false
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "fact": {
+            "predicate": "analyzed",
+            "args": [
+              {
+                "param": "rift"
+              }
+            ]
+          },
+          "set": {
+            "value": true
+          }
+        }
+      ],
+      "required_capabilities": [
+        "urn:arcane-rift-demo:ResonanceAnalysis",
+        "urn:arcane-rift-demo:PrimaryChannel"
+      ],
+      "max_occurrences": 1,
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "id": "analyze_secondary",
+      "version": "1.0",
+      "type": "decide",
+      "parameters": {
+        "rift": "rift"
+      },
+      "applicable_when": {
+        "all": []
+      },
+      "preconditions": {
+        "all": [
+          {
+            "test": {
+              "fact": {
+                "predicate": "observed",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          {
+            "test": {
+              "fact": {
+                "predicate": "needs_analysis",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          {
+            "test": {
+              "fact": {
+                "predicate": "analyzed",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": false
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "fact": {
+            "predicate": "analyzed",
+            "args": [
+              {
+                "param": "rift"
+              }
+            ]
+          },
+          "set": {
+            "value": true
+          }
+        }
+      ],
+      "required_capabilities": [
+        "urn:arcane-rift-demo:ResonanceAnalysis",
+        "urn:arcane-rift-demo:BackupChannel"
+      ],
+      "max_occurrences": 1,
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "id": "decide",
+      "version": "1.0",
+      "type": "decide",
+      "parameters": {
+        "rift": "rift"
+      },
+      "applicable_when": {
+        "all": []
+      },
+      "preconditions": {
+        "all": [
+          {
+            "test": {
+              "fact": {
+                "predicate": "observed",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          {
+            "test": {
+              "fact": {
+                "predicate": "decided",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": false
+            }
+          },
+          {
+            "any": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "needs_analysis",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": false
+                }
+              },
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "analyzed",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              }
+            ]
+          },
+          {
+            "any": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "needs_tune",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": false
+                }
+              },
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "tuned",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effects": [
+        {
+          "fact": {
+            "predicate": "decided",
+            "args": [
+              {
+                "param": "rift"
+              }
+            ]
+          },
+          "set": {
+            "value": true
+          }
+        }
+      ],
+      "required_capabilities": [
+        "urn:arcane-rift-demo:Dispatch"
+      ],
+      "max_occurrences": 1,
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "id": "stabilize",
+      "version": "1.0",
+      "type": "act",
+      "parameters": {
+        "rift": "rift"
+      },
+      "applicable_when": {
+        "all": []
+      },
+      "preconditions": {
+        "all": [
+          {
+            "test": {
+              "fact": {
+                "predicate": "decided",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          {
+            "test": {
+              "fact": {
+                "predicate": "stable",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": false
+            }
+          },
+          {
+            "any": [
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "needs_audit",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": false
+                }
+              },
+              {
+                "test": {
+                  "fact": {
+                    "predicate": "audited",
+                    "args": [
+                      {
+                        "param": "rift"
+                      }
+                    ]
+                  },
+                  "op": "eq",
+                  "value": true
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effects": [
+        {
+          "fact": {
+            "predicate": "stable",
+            "args": [
+              {
+                "param": "rift"
+              }
+            ]
+          },
+          "set": {
+            "value": true
+          }
+        }
+      ],
+      "required_capabilities": [
+        "urn:arcane-rift-demo:Stabilize"
+      ],
+      "max_occurrences": 1,
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "id": "phase_tune",
+      "version": "1.0",
+      "type": "decide",
+      "parameters": {
+        "rift": "rift"
+      },
+      "applicable_when": {
+        "all": []
+      },
+      "preconditions": {
+        "all": [
+          {
+            "test": {
+              "fact": {
+                "predicate": "needs_tune",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          {
+            "test": {
+              "fact": {
+                "predicate": "analyzed",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          {
+            "test": {
+              "fact": {
+                "predicate": "decided",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": false
+            }
+          },
+          {
+            "test": {
+              "fact": {
+                "predicate": "tuned",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": false
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "fact": {
+            "predicate": "tuned",
+            "args": [
+              {
+                "param": "rift"
+              }
+            ]
+          },
+          "set": {
+            "value": true
+          }
+        }
+      ],
+      "required_capabilities": [
+        "urn:observatory-semantic-demo:PhaseTune"
+      ],
+      "max_occurrences": 1,
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ]
+    },
+    {
+      "id": "safety_audit",
+      "version": "1.0",
+      "type": "decide",
+      "parameters": {
+        "rift": "rift"
+      },
+      "applicable_when": {
+        "all": []
+      },
+      "preconditions": {
+        "all": [
+          {
+            "test": {
+              "fact": {
+                "predicate": "needs_audit",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          {
+            "test": {
+              "fact": {
+                "predicate": "decided",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          {
+            "test": {
+              "fact": {
+                "predicate": "stable",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": false
+            }
+          },
+          {
+            "test": {
+              "fact": {
+                "predicate": "audited",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": false
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "fact": {
+            "predicate": "audited",
+            "args": [
+              {
+                "param": "rift"
+              }
+            ]
+          },
+          "set": {
+            "value": true
+          }
+        }
+      ],
+      "required_capabilities": [
+        "urn:observatory-semantic-demo:SafetyAudit"
+      ],
+      "max_occurrences": 1,
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ]
+    },
+    {
+      "id": "premature_release",
+      "version": "1.0",
+      "type": "decide",
+      "parameters": {
+        "rift": "rift"
+      },
+      "applicable_when": {
+        "all": []
+      },
+      "preconditions": {
+        "all": [
+          {
+            "test": {
+              "fact": {
+                "predicate": "stable",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": true
+            }
+          },
+          {
+            "test": {
+              "fact": {
+                "predicate": "stable",
+                "args": [
+                  {
+                    "param": "rift"
+                  }
+                ]
+              },
+              "op": "eq",
+              "value": false
+            }
+          }
+        ]
+      },
+      "effects": [
+        {
+          "fact": {
+            "predicate": "audited",
+            "args": [
+              {
+                "param": "rift"
+              }
+            ]
+          },
+          "set": {
+            "value": true
+          }
+        }
+      ],
+      "required_capabilities": [
+        "urn:observatory-semantic-demo:SafetyAudit"
+      ],
+      "max_occurrences": 1,
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ]
+    }
+  ],
+  "capabilities": [
+    {
+      "uri": "urn:arcane-rift-demo:BackupChannel",
+      "mapping_status": "unmapped",
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "uri": "urn:arcane-rift-demo:Dispatch",
+      "mapping_status": "unmapped",
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "uri": "urn:arcane-rift-demo:PrimaryChannel",
+      "mapping_status": "unmapped",
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "uri": "urn:arcane-rift-demo:ResonanceAnalysis",
+      "mapping_status": "unmapped",
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "uri": "urn:arcane-rift-demo:Stabilize",
+      "mapping_status": "unmapped",
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "uri": "urn:arcane-rift-demo:WideSurvey",
+      "mapping_status": "unmapped",
+      "source_refs": [
+        "synthetic-task-flow-design-bridge-v1"
+      ]
+    },
+    {
+      "uri": "urn:observatory-semantic-demo:PhaseTune",
+      "mapping_status": "unmapped",
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ]
+    },
+    {
+      "uri": "urn:observatory-semantic-demo:SafetyAudit",
+      "mapping_status": "unmapped",
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ]
+    }
+  ],
+  "source_refs": [
+    "observatory-multistage-synthetic-v1"
+  ]
+}

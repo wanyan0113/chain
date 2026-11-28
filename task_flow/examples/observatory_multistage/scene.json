@@ -1,0 +1,3348 @@
+{
+  "format_version": "1.0",
+  "scope": "虚构星穹观测站三裂隙稳定；流程由task_flow按事实/目标搜索，输入没有活动顺序。",
+  "policies": {
+    "equal_metric_score": 0.5,
+    "cost_unit": "demo-credit/use",
+    "max_chain_combinations": 10000,
+    "max_network_combinations": 100000,
+    "article_table10": true,
+    "network_search_method": "branch_and_bound",
+    "max_network_search_nodes": 100000
+  },
+  "weights": {
+    "time": 0.3,
+    "accuracy": 0.3,
+    "cost": 0.4
+  },
+  "tasks": [
+    {
+      "id": "T1",
+      "target": "North-Rift",
+      "start_s": 0,
+      "attributes": {
+        "target_type": "普通裂隙",
+        "target_count": {
+          "value": 1,
+          "unit": "1"
+        },
+        "impedance": {
+          "value": 2,
+          "unit": "1"
+        },
+        "target_speed": {
+          "value": 0,
+          "unit": "demo-speed"
+        },
+        "target_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "T2",
+      "target": "East-Rift",
+      "start_s": 0,
+      "attributes": {
+        "target_type": "共振裂隙",
+        "target_count": {
+          "value": 1,
+          "unit": "1"
+        },
+        "impedance": {
+          "value": 2,
+          "unit": "1"
+        },
+        "target_speed": {
+          "value": 0,
+          "unit": "demo-speed"
+        },
+        "target_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "T3",
+      "target": "Core-Rift",
+      "start_s": 0,
+      "attributes": {
+        "target_type": "共振裂隙",
+        "target_count": {
+          "value": 1,
+          "unit": "1"
+        },
+        "impedance": {
+          "value": 2,
+          "unit": "1"
+        },
+        "target_speed": {
+          "value": 0,
+          "unit": "demo-speed"
+        },
+        "target_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "R-Survey",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:SurveyUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:WideSurvey"
+        ],
+        "level_observe": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "detection_range": {
+          "value": 60,
+          "unit": "demo-range"
+        },
+        "max_tracks": {
+          "value": 4,
+          "unit": "1"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "observe": {
+          "duration_s": 2,
+          "accuracy": 0.99,
+          "cost": {
+            "value": 1,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "R-Review",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:ReviewUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:FineScan"
+        ],
+        "level_observe": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "detection_range": {
+          "value": 40,
+          "unit": "demo-range"
+        },
+        "max_tracks": {
+          "value": 4,
+          "unit": "1"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "observe": {
+          "duration_s": 3,
+          "accuracy": 0.98,
+          "cost": {
+            "value": 2,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "R-Analysis",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:PrimaryAnalysisUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:ResonanceAnalysis",
+          "urn:arcane-rift-demo:PrimaryChannel"
+        ],
+        "level_decide": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "max_processing_targets": {
+          "value": 4,
+          "unit": "1"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "decide": {
+          "duration_s": 8,
+          "accuracy": 0.8,
+          "cost": {
+            "value": 8,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "R-Dispatch",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:DispatchUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:Dispatch"
+        ],
+        "level_decide": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "max_processing_targets": {
+          "value": 4,
+          "unit": "1"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "decide": {
+          "duration_s": 1,
+          "accuracy": 0.99,
+          "cost": {
+            "value": 1,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "R-Seal-A",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:StabilizerUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:Stabilize"
+        ],
+        "level_act": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "min_range": {
+          "value": 0,
+          "unit": "demo-range"
+        },
+        "max_range": {
+          "value": 10,
+          "unit": "demo-range"
+        },
+        "resonance": {
+          "value": 10,
+          "unit": "1"
+        },
+        "max_target_speed": {
+          "value": 10,
+          "unit": "demo-speed"
+        },
+        "min_target_altitude": {
+          "value": 0,
+          "unit": "demo-height"
+        },
+        "max_target_altitude": {
+          "value": 100,
+          "unit": "demo-height"
+        },
+        "min_activation_altitude": {
+          "value": 0,
+          "unit": "demo-height"
+        },
+        "max_activation_altitude": {
+          "value": 100,
+          "unit": "demo-height"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "act": {
+          "duration_s": 2,
+          "accuracy": 0.9,
+          "cost": {
+            "value": 9,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 1,
+      "consumable": true,
+      "inventory": 1,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "R-Seal-B",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:StabilizerUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:Stabilize"
+        ],
+        "level_act": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "min_range": {
+          "value": 0,
+          "unit": "demo-range"
+        },
+        "max_range": {
+          "value": 20,
+          "unit": "demo-range"
+        },
+        "resonance": {
+          "value": 10,
+          "unit": "1"
+        },
+        "max_target_speed": {
+          "value": 10,
+          "unit": "demo-speed"
+        },
+        "min_target_altitude": {
+          "value": 0,
+          "unit": "demo-height"
+        },
+        "max_target_altitude": {
+          "value": 100,
+          "unit": "demo-height"
+        },
+        "min_activation_altitude": {
+          "value": 0,
+          "unit": "demo-height"
+        },
+        "max_activation_altitude": {
+          "value": 100,
+          "unit": "demo-height"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "act": {
+          "duration_s": 4,
+          "accuracy": 0.95,
+          "cost": {
+            "value": 6,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 1,
+      "consumable": true,
+      "inventory": 1,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "R-Seal-C",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:StabilizerUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:Stabilize"
+        ],
+        "level_act": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "min_range": {
+          "value": 0,
+          "unit": "demo-range"
+        },
+        "max_range": {
+          "value": 30,
+          "unit": "demo-range"
+        },
+        "resonance": {
+          "value": 10,
+          "unit": "1"
+        },
+        "max_target_speed": {
+          "value": 10,
+          "unit": "demo-speed"
+        },
+        "min_target_altitude": {
+          "value": 0,
+          "unit": "demo-height"
+        },
+        "max_target_altitude": {
+          "value": 100,
+          "unit": "demo-height"
+        },
+        "min_activation_altitude": {
+          "value": 0,
+          "unit": "demo-height"
+        },
+        "max_activation_altitude": {
+          "value": 100,
+          "unit": "demo-height"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "act": {
+          "duration_s": 6,
+          "accuracy": 0.99,
+          "cost": {
+            "value": 3,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 1,
+      "consumable": true,
+      "inventory": 1,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "R-Seal-D",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:StabilizerUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:Stabilize"
+        ],
+        "level_act": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "min_range": {
+          "value": 0,
+          "unit": "demo-range"
+        },
+        "max_range": {
+          "value": 40,
+          "unit": "demo-range"
+        },
+        "resonance": {
+          "value": 10,
+          "unit": "1"
+        },
+        "max_target_speed": {
+          "value": 10,
+          "unit": "demo-speed"
+        },
+        "min_target_altitude": {
+          "value": 0,
+          "unit": "demo-height"
+        },
+        "max_target_altitude": {
+          "value": 100,
+          "unit": "demo-height"
+        },
+        "min_activation_altitude": {
+          "value": 0,
+          "unit": "demo-height"
+        },
+        "max_activation_altitude": {
+          "value": 100,
+          "unit": "demo-height"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "act": {
+          "duration_s": 9,
+          "accuracy": 0.97,
+          "cost": {
+            "value": 5,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 1,
+      "consumable": true,
+      "inventory": 1,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "R-Analysis-Backup",
+      "available": true,
+      "ontology_types": [
+        "urn:arcane-rift-demo:BackupAnalysisUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:arcane-rift-demo:ResonanceAnalysis",
+          "urn:arcane-rift-demo:BackupChannel"
+        ],
+        "level_decide": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "max_processing_targets": {
+          "value": 4,
+          "unit": "1"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "decide": {
+          "duration_s": 3,
+          "accuracy": 0.99,
+          "cost": {
+            "value": 2,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "O-Phase-Tuner",
+      "available": true,
+      "ontology_types": [
+        "urn:observatory-semantic-demo:TunerUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:observatory-semantic-demo:PhaseTune"
+        ],
+        "level_decide": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "max_processing_targets": {
+          "value": 4,
+          "unit": "1"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "decide": {
+          "duration_s": 2,
+          "accuracy": 0.985,
+          "cost": {
+            "value": 2,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "O-Safety-Auditor",
+      "available": true,
+      "ontology_types": [
+        "urn:observatory-semantic-demo:AuditorUnit"
+      ],
+      "attributes": {
+        "target_types": [
+          "普通裂隙",
+          "共振裂隙",
+          "迷雾裂隙"
+        ],
+        "supported_functions": [
+          "urn:observatory-semantic-demo:SafetyAudit"
+        ],
+        "level_decide": {
+          "value": 0.9,
+          "unit": "1"
+        },
+        "max_processing_targets": {
+          "value": 4,
+          "unit": "1"
+        }
+      },
+      "metrics": null,
+      "activity_metrics": {
+        "decide": {
+          "duration_s": 2,
+          "accuracy": 0.985,
+          "cost": {
+            "value": 1,
+            "unit": "demo-credit/use"
+          }
+        }
+      },
+      "capacity": 3,
+      "consumable": false,
+      "inventory": 0,
+      "cooldown_s": 0,
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "task_rules": [],
+  "artifact_rules": [
+    {
+      "id": "PhaseTune",
+      "role": "coordination",
+      "capability": "urn:observatory-semantic-demo:PhaseTune",
+      "when": [
+        {
+          "field": "artifact.supported_functions",
+          "op": "contains",
+          "value": "urn:observatory-semantic-demo:PhaseTune"
+        },
+        {
+          "field": "artifact.ontology_capabilities",
+          "op": "contains",
+          "value": "urn:observatory-semantic-demo:PhaseTune"
+        }
+      ],
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "id": "SafetyAudit",
+      "role": "coordination",
+      "capability": "urn:observatory-semantic-demo:SafetyAudit",
+      "when": [
+        {
+          "field": "artifact.supported_functions",
+          "op": "contains",
+          "value": "urn:observatory-semantic-demo:SafetyAudit"
+        },
+        {
+          "field": "artifact.ontology_capabilities",
+          "op": "contains",
+          "value": "urn:observatory-semantic-demo:SafetyAudit"
+        }
+      ],
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "contexts": [
+    {
+      "task": "T1",
+      "artifact": "R-Survey",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T2",
+      "artifact": "R-Survey",
+      "attributes": {
+        "target_distance": {
+          "value": 15,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T3",
+      "artifact": "R-Survey",
+      "attributes": {
+        "target_distance": {
+          "value": 25,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T1",
+      "artifact": "R-Review",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T2",
+      "artifact": "R-Review",
+      "attributes": {
+        "target_distance": {
+          "value": 15,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T3",
+      "artifact": "R-Review",
+      "attributes": {
+        "target_distance": {
+          "value": 25,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T1",
+      "artifact": "R-Analysis",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T2",
+      "artifact": "R-Analysis",
+      "attributes": {
+        "target_distance": {
+          "value": 15,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T3",
+      "artifact": "R-Analysis",
+      "attributes": {
+        "target_distance": {
+          "value": 25,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T1",
+      "artifact": "R-Dispatch",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T2",
+      "artifact": "R-Dispatch",
+      "attributes": {
+        "target_distance": {
+          "value": 15,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T3",
+      "artifact": "R-Dispatch",
+      "attributes": {
+        "target_distance": {
+          "value": 25,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T1",
+      "artifact": "R-Seal-A",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T2",
+      "artifact": "R-Seal-A",
+      "attributes": {
+        "target_distance": {
+          "value": 15,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T3",
+      "artifact": "R-Seal-A",
+      "attributes": {
+        "target_distance": {
+          "value": 25,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T1",
+      "artifact": "R-Seal-B",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T2",
+      "artifact": "R-Seal-B",
+      "attributes": {
+        "target_distance": {
+          "value": 15,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T3",
+      "artifact": "R-Seal-B",
+      "attributes": {
+        "target_distance": {
+          "value": 25,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T1",
+      "artifact": "R-Seal-C",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T2",
+      "artifact": "R-Seal-C",
+      "attributes": {
+        "target_distance": {
+          "value": 15,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T3",
+      "artifact": "R-Seal-C",
+      "attributes": {
+        "target_distance": {
+          "value": 25,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T1",
+      "artifact": "R-Seal-D",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T2",
+      "artifact": "R-Seal-D",
+      "attributes": {
+        "target_distance": {
+          "value": 15,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T3",
+      "artifact": "R-Seal-D",
+      "attributes": {
+        "target_distance": {
+          "value": 25,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T1",
+      "artifact": "R-Analysis-Backup",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T2",
+      "artifact": "R-Analysis-Backup",
+      "attributes": {
+        "target_distance": {
+          "value": 15,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T3",
+      "artifact": "R-Analysis-Backup",
+      "attributes": {
+        "target_distance": {
+          "value": 25,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T1",
+      "artifact": "O-Phase-Tuner",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T2",
+      "artifact": "O-Phase-Tuner",
+      "attributes": {
+        "target_distance": {
+          "value": 15,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T3",
+      "artifact": "O-Phase-Tuner",
+      "attributes": {
+        "target_distance": {
+          "value": 25,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T1",
+      "artifact": "O-Safety-Auditor",
+      "attributes": {
+        "target_distance": {
+          "value": 5,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T2",
+      "artifact": "O-Safety-Auditor",
+      "attributes": {
+        "target_distance": {
+          "value": 15,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "task": "T3",
+      "artifact": "O-Safety-Auditor",
+      "attributes": {
+        "target_distance": {
+          "value": 25,
+          "unit": "demo-range"
+        },
+        "platform_altitude": {
+          "value": 50,
+          "unit": "demo-height"
+        }
+      },
+      "source_refs": [
+        "docs/rift_multistep_demo.md：虚构实验设定v1"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "links": [
+    {
+      "from": "R-Survey",
+      "to": "R-Review",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Survey",
+      "to": "R-Analysis",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Survey",
+      "to": "R-Dispatch",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Survey",
+      "to": "R-Seal-A",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Survey",
+      "to": "R-Seal-B",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Survey",
+      "to": "R-Seal-C",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Survey",
+      "to": "R-Seal-D",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Survey",
+      "to": "R-Analysis-Backup",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Survey",
+      "to": "O-Phase-Tuner",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Survey",
+      "to": "O-Safety-Auditor",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Review",
+      "to": "R-Survey",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Review",
+      "to": "R-Analysis",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Review",
+      "to": "R-Dispatch",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Review",
+      "to": "R-Seal-A",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Review",
+      "to": "R-Seal-B",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Review",
+      "to": "R-Seal-C",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Review",
+      "to": "R-Seal-D",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Review",
+      "to": "R-Analysis-Backup",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Review",
+      "to": "O-Phase-Tuner",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Review",
+      "to": "O-Safety-Auditor",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis",
+      "to": "R-Survey",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis",
+      "to": "R-Review",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis",
+      "to": "R-Dispatch",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis",
+      "to": "R-Seal-A",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis",
+      "to": "R-Seal-B",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis",
+      "to": "R-Seal-C",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis",
+      "to": "R-Seal-D",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis",
+      "to": "R-Analysis-Backup",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis",
+      "to": "O-Phase-Tuner",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis",
+      "to": "O-Safety-Auditor",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Dispatch",
+      "to": "R-Survey",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Dispatch",
+      "to": "R-Review",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Dispatch",
+      "to": "R-Analysis",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Dispatch",
+      "to": "R-Seal-A",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Dispatch",
+      "to": "R-Seal-B",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Dispatch",
+      "to": "R-Seal-C",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Dispatch",
+      "to": "R-Seal-D",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Dispatch",
+      "to": "R-Analysis-Backup",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Dispatch",
+      "to": "O-Phase-Tuner",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Dispatch",
+      "to": "O-Safety-Auditor",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-A",
+      "to": "R-Survey",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-A",
+      "to": "R-Review",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-A",
+      "to": "R-Analysis",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-A",
+      "to": "R-Dispatch",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-A",
+      "to": "R-Seal-B",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-A",
+      "to": "R-Seal-C",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-A",
+      "to": "R-Seal-D",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-A",
+      "to": "R-Analysis-Backup",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-A",
+      "to": "O-Phase-Tuner",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-A",
+      "to": "O-Safety-Auditor",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-B",
+      "to": "R-Survey",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-B",
+      "to": "R-Review",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-B",
+      "to": "R-Analysis",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-B",
+      "to": "R-Dispatch",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-B",
+      "to": "R-Seal-A",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-B",
+      "to": "R-Seal-C",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-B",
+      "to": "R-Seal-D",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-B",
+      "to": "R-Analysis-Backup",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-B",
+      "to": "O-Phase-Tuner",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-B",
+      "to": "O-Safety-Auditor",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-C",
+      "to": "R-Survey",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-C",
+      "to": "R-Review",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-C",
+      "to": "R-Analysis",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-C",
+      "to": "R-Dispatch",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-C",
+      "to": "R-Seal-A",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-C",
+      "to": "R-Seal-B",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-C",
+      "to": "R-Seal-D",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-C",
+      "to": "R-Analysis-Backup",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-C",
+      "to": "O-Phase-Tuner",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-C",
+      "to": "O-Safety-Auditor",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-D",
+      "to": "R-Survey",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-D",
+      "to": "R-Review",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-D",
+      "to": "R-Analysis",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-D",
+      "to": "R-Dispatch",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-D",
+      "to": "R-Seal-A",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-D",
+      "to": "R-Seal-B",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-D",
+      "to": "R-Seal-C",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-D",
+      "to": "R-Analysis-Backup",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-D",
+      "to": "O-Phase-Tuner",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Seal-D",
+      "to": "O-Safety-Auditor",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis-Backup",
+      "to": "R-Survey",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis-Backup",
+      "to": "R-Review",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis-Backup",
+      "to": "R-Analysis",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis-Backup",
+      "to": "R-Dispatch",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis-Backup",
+      "to": "R-Seal-A",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis-Backup",
+      "to": "R-Seal-B",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis-Backup",
+      "to": "R-Seal-C",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis-Backup",
+      "to": "R-Seal-D",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis-Backup",
+      "to": "O-Phase-Tuner",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "R-Analysis-Backup",
+      "to": "O-Safety-Auditor",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Phase-Tuner",
+      "to": "R-Survey",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Phase-Tuner",
+      "to": "R-Review",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Phase-Tuner",
+      "to": "R-Analysis",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Phase-Tuner",
+      "to": "R-Dispatch",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Phase-Tuner",
+      "to": "R-Seal-A",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Phase-Tuner",
+      "to": "R-Seal-B",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Phase-Tuner",
+      "to": "R-Seal-C",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Phase-Tuner",
+      "to": "R-Seal-D",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Phase-Tuner",
+      "to": "R-Analysis-Backup",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Phase-Tuner",
+      "to": "O-Safety-Auditor",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Safety-Auditor",
+      "to": "R-Survey",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Safety-Auditor",
+      "to": "R-Review",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Safety-Auditor",
+      "to": "R-Analysis",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Safety-Auditor",
+      "to": "R-Dispatch",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Safety-Auditor",
+      "to": "R-Seal-A",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Safety-Auditor",
+      "to": "R-Seal-B",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Safety-Auditor",
+      "to": "R-Seal-C",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Safety-Auditor",
+      "to": "R-Seal-D",
+      "communicates": true,
+      "controls": true,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Safety-Auditor",
+      "to": "R-Analysis-Backup",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    },
+    {
+      "from": "O-Safety-Auditor",
+      "to": "O-Phase-Tuner",
+      "communicates": true,
+      "controls": false,
+      "distance": {
+        "value": 1,
+        "unit": "demo-range"
+      },
+      "max_distance": {
+        "value": 50,
+        "unit": "demo-range"
+      },
+      "source_refs": [
+        "observatory-multistage-synthetic-v1"
+      ],
+      "blocking_issue_ids": []
+    }
+  ],
+  "dependencies": [],
+  "resource_groups": [],
+  "knowledge": {
+    "ontology_files": [
+      "rift-multistep.ttl",
+      "flow-design-bridge.ttl",
+      "observatory-multistage.ttl"
+    ],
+    "rules_file": "flow-design-bridge.rules.json",
+    "source_refs": [
+      "observatory-multistage-synthetic-v1"
+    ]
+  }
+}

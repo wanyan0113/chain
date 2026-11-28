@@ -1,5 +1,9 @@
 # 任务流程扩展当前状态
 
+新增[星穹观测站task_flow多环节及v2语义演练](joint-optimization/observatory-multistage-v2/README.md)：输入无预写路线，实际搜索4/5/6步并经HermiT生成18条候选链；独立穷举192个网络组合确认最优网。v2登记、分母、引用、独立终点与重试检查已实现，60项相关测试通过。观测为合成模拟，真实领域状态pending；本轮未提交推送。
+
+最新[观测接口统计语义审查](joint-optimization/stage3-observation-semantics/README.md)：43项相关测试、11组探针确认既有保护，并复现入组登记、评估分母、输入来源、独立终点和缺失/重试语义5项扩展缺口。v1仍限共同二元标签及其已记录案例；正式队列/通用任务终点需按版本化草案补齐，真实领域状态pending。
+
 新增[源设计绑定的研究冻结与观测分析闭环](joint-optimization/stage3-collection-study/README.md)及[真实数据输入/规则说明](joint-optimization/stage3-collection-study/data-requirements.md)。52项相关测试和3组CLI演练通过；演练标签为合成夹具，真实领域验证仍缺数据，原精度与网络评分不变。
 
 新增[所选链网到观测采集计划接通](joint-optimization/stage3-design-collection/README.md)：自动提取经独立核验的任务/活动/法器分配，保留三类型四环节实例，生成待填写协议和空观测表。45项相关回归及4组实际链路验收通过；真实版本与观测仍缺，领域状态pending，评分公式不变。

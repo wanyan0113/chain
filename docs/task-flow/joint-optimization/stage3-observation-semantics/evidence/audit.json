@@ -1,0 +1,168 @@
+{
+  "version": "tfdo-observation-semantics-audit-1.0",
+  "status": "conditional_pass_with_open_findings",
+  "real_domain_data_available": false,
+  "domain_validity": "pending",
+  "human_independent_domain_review": false,
+  "reference_independent_of_production_intake_and_estimators": true,
+  "cases": [
+    {
+      "case": "repeated_decide_is_instance_specific",
+      "passed": true,
+      "scope": "calibration counters agree"
+    },
+    {
+      "case": "unequal_calibration_denominators_preserved",
+      "passed": true
+    },
+    {
+      "case": "missing_blocks_inference",
+      "passed": true,
+      "reference_stage_denominators": [
+        4,
+        3,
+        4,
+        4
+      ],
+      "v1_stage_evaluation_rates_available": false
+    },
+    {
+      "case": "not_executed_blocks_inference",
+      "passed": true,
+      "reference_stage_denominators": [
+        4,
+        3,
+        4,
+        4
+      ],
+      "v1_stage_evaluation_rates_available": false
+    },
+    {
+      "case": "enrollment_gap_reproduced",
+      "passed": true,
+      "finding": "OBS-SEM-001",
+      "v1_observed_subjects": 3,
+      "reference_registered_subjects": 4
+    },
+    {
+      "case": "label_continuity_is_not_provenance",
+      "passed": true,
+      "finding": "OBS-SEM-003"
+    },
+    {
+      "case": "different_final_event_requires_new_contract",
+      "passed": true,
+      "finding": "OBS-SEM-004",
+      "v1_last_label_accuracy": 0.75,
+      "separate_final_event_rate": 0.25
+    },
+    {
+      "case": "output_recovery_not_a_causal_claim",
+      "passed": true
+    },
+    {
+      "case": "three_four_stage_flows_not_pooled",
+      "passed": true
+    },
+    {
+      "case": "new_fields_need_versioned_contract",
+      "passed": true,
+      "finding": "OBS-SEM-005"
+    },
+    {
+      "case": "repeat_execution_attempt_not_silently_counted",
+      "passed": true
+    }
+  ],
+  "open_findings": [
+    "OBS-SEM-001",
+    "OBS-SEM-002",
+    "OBS-SEM-003",
+    "OBS-SEM-004",
+    "OBS-SEM-005"
+  ],
+  "scoring_formula_changed": false,
+  "historical_contract_changed": false,
+  "group_catalog": [
+    {
+      "flow_id": "F4",
+      "stage_count": 4,
+      "activity_sequence": [
+        "observe",
+        "decide",
+        "decide",
+        "act"
+      ],
+      "stage_instances": [
+        {
+          "stage_instance_id": "s1",
+          "activity_id": "observe",
+          "activity_version": "1.0",
+          "artifact_id": "fixture-1",
+          "artifact_version": "fixture-v1",
+          "calibration_input_condition": "correct_reference_label"
+        },
+        {
+          "stage_instance_id": "s2",
+          "activity_id": "decide",
+          "activity_version": "1.0",
+          "artifact_id": "fixture-2",
+          "artifact_version": "fixture-v1",
+          "calibration_input_condition": "correct_reference_label"
+        },
+        {
+          "stage_instance_id": "s3",
+          "activity_id": "decide",
+          "activity_version": "1.0",
+          "artifact_id": "fixture-3",
+          "artifact_version": "fixture-v1",
+          "calibration_input_condition": "correct_reference_label"
+        },
+        {
+          "stage_instance_id": "s4",
+          "activity_id": "act",
+          "activity_version": "1.0",
+          "artifact_id": "fixture-4",
+          "artifact_version": "fixture-v1",
+          "calibration_input_condition": "correct_reference_label"
+        }
+      ]
+    },
+    {
+      "flow_id": "F3",
+      "stage_count": 3,
+      "activity_sequence": [
+        "observe",
+        "decide",
+        "act"
+      ],
+      "stage_instances": [
+        {
+          "stage_instance_id": "s1",
+          "activity_id": "observe",
+          "activity_version": "1.0",
+          "artifact_id": "fixture-1",
+          "artifact_version": "fixture-v1",
+          "calibration_input_condition": "correct_reference_label"
+        },
+        {
+          "stage_instance_id": "s2",
+          "activity_id": "decide",
+          "activity_version": "1.0",
+          "artifact_id": "fixture-2",
+          "artifact_version": "fixture-v1",
+          "calibration_input_condition": "correct_reference_label"
+        },
+        {
+          "stage_instance_id": "s4",
+          "activity_id": "act",
+          "activity_version": "1.0",
+          "artifact_id": "fixture-4",
+          "artifact_version": "fixture-v1",
+          "calibration_input_condition": "correct_reference_label"
+        }
+      ]
+    }
+  ],
+  "correction_grouping_rule": "predeclare correction mechanism; observed recovery is descriptive, not a causal allocation rule"
+}

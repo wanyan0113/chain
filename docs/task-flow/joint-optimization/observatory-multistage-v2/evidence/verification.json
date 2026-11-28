@@ -1,0 +1,279 @@
+{
+  "status": "passed",
+  "input_predefined_routes": false,
+  "flow_search_complete": true,
+  "flows_generated": 6,
+  "unique_chains": 18,
+  "global_optimality": "bounded_global_optimum",
+  "network_search": {
+    "algorithm": "branch_and_bound",
+    "candidate_combinations": 192,
+    "counts_scope": "visited_complete_candidates",
+    "evaluated": 144,
+    "feasible": 64,
+    "nodes": 200,
+    "pruned_constraints": 92,
+    "pruned_bound": 0,
+    "rejections": [
+      {
+        "code": "CAPACITY",
+        "resource": "R-Seal-B",
+        "count": 3
+      },
+      {
+        "code": "CAPACITY",
+        "resource": "R-Seal-C",
+        "count": 33
+      },
+      {
+        "code": "CAPACITY",
+        "resource": "R-Seal-D",
+        "count": 40
+      },
+      {
+        "code": "INVENTORY",
+        "resource": "R-Seal-B",
+        "count": 4
+      },
+      {
+        "code": "INVENTORY",
+        "resource": "R-Seal-C",
+        "count": 44
+      },
+      {
+        "code": "INVENTORY",
+        "resource": "R-Seal-D",
+        "count": 44
+      },
+      {
+        "code": "TABLE10_FAIL",
+        "resource": "parallel-groups",
+        "count": 80
+      }
+    ],
+    "optimality": "proven",
+    "score_bound_enabled": false,
+    "pruned_table10": 0,
+    "unknown_combinations_seen": 0,
+    "audit_scope": "visited_complete_combinations; definite-failure prefixes pruned",
+    "search_complete": true,
+    "termination_reason": "search_exhausted",
+    "table10_pruning": []
+  },
+  "independent_network_oracle": {
+    "raw_network_combinations": 192,
+    "feasible_network_combinations": 64,
+    "best_score": 0.8493957213534583,
+    "selected_candidate_ids": [
+      "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc"
+    ]
+  },
+  "selected": [
+    {
+      "task_id": "T1",
+      "candidate_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "activities": [
+        "observe",
+        "analyze_secondary",
+        "decide",
+        "stabilize"
+      ],
+      "activity_types": [
+        "observe",
+        "decide",
+        "decide",
+        "act"
+      ],
+      "artifacts": [
+        "R-Survey",
+        "R-Analysis-Backup",
+        "R-Dispatch",
+        "R-Seal-D"
+      ],
+      "raw_metrics": {
+        "time": 15,
+        "accuracy": 0.9411900299999999,
+        "cost": 9,
+        "cost_unit": "demo-credit/use"
+      },
+      "score": 0.7354959630911188
+    },
+    {
+      "task_id": "T2",
+      "candidate_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "activities": [
+        "observe",
+        "analyze_secondary",
+        "decide",
+        "safety_audit",
+        "stabilize"
+      ],
+      "activity_types": [
+        "observe",
+        "decide",
+        "decide",
+        "decide",
+        "act"
+      ],
+      "artifacts": [
+        "R-Survey",
+        "R-Analysis-Backup",
+        "R-Dispatch",
+        "O-Safety-Auditor",
+        "R-Seal-B"
+      ],
+      "raw_metrics": {
+        "time": 12,
+        "accuracy": 0.9079572892499999,
+        "cost": 11,
+        "cost_unit": "demo-credit/use"
+      },
+      "score": 0.8126912009692564
+    },
+    {
+      "task_id": "T3",
+      "candidate_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "activities": [
+        "observe",
+        "analyze_secondary",
+        "phase_tune",
+        "decide",
+        "safety_audit",
+        "stabilize"
+      ],
+      "activity_types": [
+        "observe",
+        "decide",
+        "decide",
+        "decide",
+        "decide",
+        "act"
+      ],
+      "artifacts": [
+        "R-Survey",
+        "R-Analysis-Backup",
+        "O-Phase-Tuner",
+        "R-Dispatch",
+        "O-Safety-Auditor",
+        "R-Seal-C"
+      ],
+      "raw_metrics": {
+        "time": 16,
+        "accuracy": 0.9319942638022499,
+        "cost": 10,
+        "cost_unit": "demo-credit/use"
+      },
+      "score": 1.0
+    }
+  ],
+  "rdf_validation": {
+    "ERROR": 0,
+    "WARN": 0,
+    "INFO": 11
+  },
+  "owl_engine": "HermiT",
+  "tuner_capability_in_input": false,
+  "tuner_capability_in_result": true,
+  "entailed_tuner_capabilities": [
+    [
+      "urn:arcane-scene:artifact:O-Phase-Tuner",
+      "http://example.org/arcaneweb#hasCapability",
+      "urn:observatory-semantic-demo:PhaseTune"
+    ],
+    [
+      "urn:arcane-scene:step:%5B%22T1%22%2C%22flow-474a9cd6d9ff8afc926388820b396bb719579a55ded118e033ea0989abd660ff%22%2C%22s3%22%5D",
+      "http://example.org/arcaneweb#requiresCapability",
+      "urn:observatory-semantic-demo:PhaseTune"
+    ],
+    [
+      "urn:arcane-scene:step:%5B%22T1%22%2C%22flow-e4b5cb3830a4ac89dd1b546170e6706888f86689fee0720374817ac89433368a%22%2C%22s3%22%5D",
+      "http://example.org/arcaneweb#requiresCapability",
+      "urn:observatory-semantic-demo:PhaseTune"
+    ],
+    [
+      "urn:arcane-scene:step:%5B%22T2%22%2C%22flow-474a9cd6d9ff8afc926388820b396bb719579a55ded118e033ea0989abd660ff%22%2C%22s3%22%5D",
+      "http://example.org/arcaneweb#requiresCapability",
+      "urn:observatory-semantic-demo:PhaseTune"
+    ],
+    [
+      "urn:arcane-scene:step:%5B%22T2%22%2C%22flow-e4b5cb3830a4ac89dd1b546170e6706888f86689fee0720374817ac89433368a%22%2C%22s3%22%5D",
+      "http://example.org/arcaneweb#requiresCapability",
+      "urn:observatory-semantic-demo:PhaseTune"
+    ],
+    [
+      "urn:arcane-scene:step:%5B%22T3%22%2C%22flow-474a9cd6d9ff8afc926388820b396bb719579a55ded118e033ea0989abd660ff%22%2C%22s3%22%5D",
+      "http://example.org/arcaneweb#requiresCapability",
+      "urn:observatory-semantic-demo:PhaseTune"
+    ],
+    [
+      "urn:arcane-scene:step:%5B%22T3%22%2C%22flow-e4b5cb3830a4ac89dd1b546170e6706888f86689fee0720374817ac89433368a%22%2C%22s3%22%5D",
+      "http://example.org/arcaneweb#requiresCapability",
+      "urn:observatory-semantic-demo:PhaseTune"
+    ]
+  ],
+  "v2_semantics_cases": [
+    {
+      "case": "entire_sample_absent",
+      "passed": true,
+      "blockers": [
+        "independent_endpoint_coverage_incomplete:candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+        "stage_coverage_incomplete:candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f:s1:evaluation",
+        "stage_coverage_incomplete:candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f:s2:evaluation",
+        "stage_coverage_incomplete:candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f:s3:evaluation",
+        "stage_coverage_incomplete:candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f:s4:evaluation",
+        "stage_coverage_incomplete:candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f:s5:evaluation"
+      ],
+      "issues": []
+    },
+    {
+      "case": "middle_stage_missing",
+      "passed": true,
+      "blockers": [
+        "stage_coverage_incomplete:candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f:s2:evaluation",
+        "v2_observation_integrity_failed"
+      ],
+      "issues": [
+        "input_producer_missing"
+      ]
+    },
+    {
+      "case": "wrong_same_label_source",
+      "passed": true,
+      "blockers": [
+        "v2_observation_integrity_failed"
+      ],
+      "issues": [
+        "input_producer_wrong_subject_or_stage"
+      ]
+    },
+    {
+      "case": "independent_endpoint_missing",
+      "passed": true,
+      "blockers": [
+        "independent_endpoint_coverage_incomplete:candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f"
+      ],
+      "issues": []
+    },
+    {
+      "case": "cohort_changed",
+      "passed": true,
+      "blockers": [
+        "enrolled_cohort_changed_since_freeze",
+        "v2_observation_integrity_failed"
+      ],
+      "issues": [
+        "endpoint_not_in_eligible_cohort",
+        "observation_not_in_registered_cohort"
+      ]
+    }
+  ],
+  "registered_samples": 72,
+  "stage_observations": 361,
+  "independent_endpoint_records": 36,
+  "domain_validity": "pending",
+  "observations_are_synthetic": true,
+  "missing_tuner_status": "no_feasible_design",
+  "internal_sequence_representation": "search results are compiled by existing adapter; no input order template"
+}

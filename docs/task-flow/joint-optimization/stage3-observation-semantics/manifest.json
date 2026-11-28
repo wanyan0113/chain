@@ -1,0 +1,58 @@
+{
+  "version": "tfdo-observation-semantics-evidence-1.0",
+  "statistical_review": "conditional_pass_with_open_findings",
+  "domain_validity": "pending",
+  "historical_contract_changed": false,
+  "files": [
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-observation-semantics/evidence/audit.json",
+      "sha256": "710f9fecabd53328a3c3d135131b0aad74d056157f18445111d856984bb74716",
+      "sha256_lf_normalized": "e5727def7b44ed697132bd79fafa0cf7c3d1f3704ddbdd41a3ee7d54d354827d"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-observation-semantics/evidence/probes.zip",
+      "sha256": "7a273c2bfe8811268af00bc49dcb43dbafabf313e026907e978e7bd9506251da",
+      "sha256_lf_normalized": "7a273c2bfe8811268af00bc49dcb43dbafabf313e026907e978e7bd9506251da"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-observation-semantics/evidence/regression-tests.log",
+      "sha256": "944f3114c486d7bf027ae235a42930b3b8b890c0a16f3b0aaba7565a1dcce653",
+      "sha256_lf_normalized": "944f3114c486d7bf027ae235a42930b3b8b890c0a16f3b0aaba7565a1dcce653"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-observation-semantics/README.md",
+      "sha256": "b5690e3433c586d84c27807c5dad7ea5a3d4924abf164642a0808716a88135c8",
+      "sha256_lf_normalized": "b5690e3433c586d84c27807c5dad7ea5a3d4924abf164642a0808716a88135c8"
+    },
+    {
+      "path": "docs/task-flow/joint-optimization/stage3-observation-semantics/v2-contract-draft.md",
+      "sha256": "8c08b48160ff7892cb5ae9eaa4fe981de89be1c7669e5821b036721d7e2343c0",
+      "sha256_lf_normalized": "8c08b48160ff7892cb5ae9eaa4fe981de89be1c7669e5821b036721d7e2343c0"
+    },
+    {
+      "path": "workflow_tools/observation_semantics_reference.py",
+      "sha256": "1c3203bea56de0a58a5c903a901e4ed514b001425b7f21909c2696598954555d",
+      "sha256_lf_normalized": "1c3203bea56de0a58a5c903a901e4ed514b001425b7f21909c2696598954555d"
+    },
+    {
+      "path": "workflow_tools/audit_observation_semantics.py",
+      "sha256": "59a25ec681e19d46879dcbf88c6dbbe7330a9b5edf7dcb4c66b979a843851385",
+      "sha256_lf_normalized": "59a25ec681e19d46879dcbf88c6dbbe7330a9b5edf7dcb4c66b979a843851385"
+    },
+    {
+      "path": "tests/test_observation_semantics_reference.py",
+      "sha256": "1abf4422466778aabd5df50c44b25782c62b3c409d724e2854becd430a203d38",
+      "sha256_lf_normalized": "1abf4422466778aabd5df50c44b25782c62b3c409d724e2854becd430a203d38"
+    },
+    {
+      "path": "workflow_tools/accuracy_observations.py",
+      "sha256": "93aac12b61fb30768116fc4766e39aa6cff5cd2f6678e859427f791c93982281",
+      "sha256_lf_normalized": "93aac12b61fb30768116fc4766e39aa6cff5cd2f6678e859427f791c93982281"
+    },
+    {
+      "path": "workflow_tools/accuracy_validation.py",
+      "sha256": "7ccbe5d0d8a3bdd89cddbdef3c2c89ebd087c552f102cd3d76377e451c1ba143",
+      "sha256_lf_normalized": "7ccbe5d0d8a3bdd89cddbdef3c2c89ebd087c552f102cd3d76377e451c1ba143"
+    }
+  ]
+}

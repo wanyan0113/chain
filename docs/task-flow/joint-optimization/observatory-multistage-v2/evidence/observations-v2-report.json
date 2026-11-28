@@ -1,0 +1,723 @@
+{
+  "version": "tfdo-observation-study-2.0",
+  "status": "analyzed",
+  "blockers": [],
+  "integrity_issues": [],
+  "registered_enrollments": 72,
+  "observations": 361,
+  "independent_endpoints": 36,
+  "protocol_hash": "6f184f1134a0e655cb59cabde6372b161e9558f39841850975f8922991d04679",
+  "enrollment_hash": "3f057448d6eaa4496a5a9c39b1e43659d2aee57cae585db32a445e47a0d4b5f5",
+  "flows": [
+    {
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "task_id": "T1",
+      "candidate_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "stage_statistics": [
+        {
+          "stage_instance_id": "s1",
+          "activity_type": "observe",
+          "artifact_version": "simulated-device-1.0",
+          "split": "calibration",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 8,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.6666666666666666
+        },
+        {
+          "stage_instance_id": "s2",
+          "activity_type": "decide",
+          "artifact_version": "simulated-device-1.0",
+          "split": "calibration",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 9,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.75
+        },
+        {
+          "stage_instance_id": "s3",
+          "activity_type": "decide",
+          "artifact_version": "simulated-device-1.0",
+          "split": "calibration",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 9,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.75
+        },
+        {
+          "stage_instance_id": "s4",
+          "activity_type": "act",
+          "artifact_version": "simulated-device-1.0",
+          "split": "calibration",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 10,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.8333333333333334
+        },
+        {
+          "stage_instance_id": "s1",
+          "activity_type": "observe",
+          "artifact_version": "simulated-device-1.0",
+          "split": "evaluation",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 8,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.6666666666666666
+        },
+        {
+          "stage_instance_id": "s2",
+          "activity_type": "decide",
+          "artifact_version": "simulated-device-1.0",
+          "split": "evaluation",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 9,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.75
+        },
+        {
+          "stage_instance_id": "s3",
+          "activity_type": "decide",
+          "artifact_version": "simulated-device-1.0",
+          "split": "evaluation",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 9,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.75
+        },
+        {
+          "stage_instance_id": "s4",
+          "activity_type": "act",
+          "artifact_version": "simulated-device-1.0",
+          "split": "evaluation",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 10,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.8333333333333334
+        }
+      ],
+      "enrollment_accounting": {
+        "calibration": {
+          "n_registered": 12,
+          "excluded": []
+        },
+        "evaluation": {
+          "n_registered": 12,
+          "excluded": []
+        }
+      },
+      "group": {
+        "stage_count": 4,
+        "activity_type_sequence": [
+          "observe",
+          "decide",
+          "decide",
+          "act"
+        ],
+        "artifact_versions": [
+          "simulated-device-1.0",
+          "simulated-device-1.0",
+          "simulated-device-1.0",
+          "simulated-device-1.0"
+        ],
+        "correction_design": "present"
+      },
+      "endpoint": {
+        "n_registered_eligible": 12,
+        "n_evaluable": 12,
+        "n_success": 9,
+        "missing_enrollments": [],
+        "wholly_unrecorded_enrollments": [],
+        "rate": 0.75,
+        "definition": "independent endpoint table, not product or last stage label"
+      },
+      "statistical_assessment": {
+        "predicted": 0.3125,
+        "observed": 0.75,
+        "difference": 0.4375,
+        "discrepancy_ci": [
+          -0.3673295387683857,
+          0.9120274366632719
+        ],
+        "decision": "inconclusive"
+      }
+    },
+    {
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "task_id": "T2",
+      "candidate_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "stage_statistics": [
+        {
+          "stage_instance_id": "s1",
+          "activity_type": "observe",
+          "artifact_version": "simulated-device-1.0",
+          "split": "calibration",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 8,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.6666666666666666
+        },
+        {
+          "stage_instance_id": "s2",
+          "activity_type": "decide",
+          "artifact_version": "simulated-device-1.0",
+          "split": "calibration",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 9,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.75
+        },
+        {
+          "stage_instance_id": "s3",
+          "activity_type": "decide",
+          "artifact_version": "simulated-device-1.0",
+          "split": "calibration",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 9,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.75
+        },
+        {
+          "stage_instance_id": "s4",
+          "activity_type": "decide",
+          "artifact_version": "simulated-device-1.0",
+          "split": "calibration",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 10,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.8333333333333334
+        },
+        {
+          "stage_instance_id": "s5",
+          "activity_type": "act",
+          "artifact_version": "simulated-device-1.0",
+          "split": "calibration",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 10,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.8333333333333334
+        },
+        {
+          "stage_instance_id": "s1",
+          "activity_type": "observe",
+          "artifact_version": "simulated-device-1.0",
+          "split": "evaluation",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 8,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.6666666666666666
+        },
+        {
+          "stage_instance_id": "s2",
+          "activity_type": "decide",
+          "artifact_version": "simulated-device-1.0",
+          "split": "evaluation",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 9,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.75
+        },
+        {
+          "stage_instance_id": "s3",
+          "activity_type": "decide",
+          "artifact_version": "simulated-device-1.0",
+          "split": "evaluation",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 9,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.75
+        },
+        {
+          "stage_instance_id": "s4",
+          "activity_type": "decide",
+          "artifact_version": "simulated-device-1.0",
+          "split": "evaluation",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 10,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.8333333333333334
+        },
+        {
+          "stage_instance_id": "s5",
+          "activity_type": "act",
+          "artifact_version": "simulated-device-1.0",
+          "split": "evaluation",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 10,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.8333333333333334
+        }
+      ],
+      "enrollment_accounting": {
+        "calibration": {
+          "n_registered": 12,
+          "excluded": []
+        },
+        "evaluation": {
+          "n_registered": 12,
+          "excluded": []
+        }
+      },
+      "group": {
+        "stage_count": 5,
+        "activity_type_sequence": [
+          "observe",
+          "decide",
+          "decide",
+          "decide",
+          "act"
+        ],
+        "artifact_versions": [
+          "simulated-device-1.0",
+          "simulated-device-1.0",
+          "simulated-device-1.0",
+          "simulated-device-1.0",
+          "simulated-device-1.0"
+        ],
+        "correction_design": "present"
+      },
+      "endpoint": {
+        "n_registered_eligible": 12,
+        "n_evaluable": 12,
+        "n_success": 9,
+        "missing_enrollments": [],
+        "wholly_unrecorded_enrollments": [],
+        "rate": 0.75,
+        "definition": "independent endpoint table, not product or last stage label"
+      },
+      "statistical_assessment": {
+        "predicted": 0.2604166666666667,
+        "observed": 0.75,
+        "difference": 0.4895833333333333,
+        "discrepancy_ci": [
+          -0.3565221532187666,
+          0.9268245378708617
+        ],
+        "decision": "inconclusive"
+      }
+    },
+    {
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "task_id": "T3",
+      "candidate_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "stage_statistics": [
+        {
+          "stage_instance_id": "s1",
+          "activity_type": "observe",
+          "artifact_version": "simulated-device-1.0",
+          "split": "calibration",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 8,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.6666666666666666
+        },
+        {
+          "stage_instance_id": "s2",
+          "activity_type": "decide",
+          "artifact_version": "simulated-device-1.0",
+          "split": "calibration",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 9,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.75
+        },
+        {
+          "stage_instance_id": "s3",
+          "activity_type": "decide",
+          "artifact_version": "simulated-device-1.0",
+          "split": "calibration",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 9,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.75
+        },
+        {
+          "stage_instance_id": "s4",
+          "activity_type": "decide",
+          "artifact_version": "simulated-device-1.0",
+          "split": "calibration",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 10,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.8333333333333334
+        },
+        {
+          "stage_instance_id": "s5",
+          "activity_type": "decide",
+          "artifact_version": "simulated-device-1.0",
+          "split": "calibration",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 10,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.8333333333333334
+        },
+        {
+          "stage_instance_id": "s6",
+          "activity_type": "act",
+          "artifact_version": "simulated-device-1.0",
+          "split": "calibration",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 10,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.8333333333333334
+        },
+        {
+          "stage_instance_id": "s1",
+          "activity_type": "observe",
+          "artifact_version": "simulated-device-1.0",
+          "split": "evaluation",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 8,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.6666666666666666
+        },
+        {
+          "stage_instance_id": "s2",
+          "activity_type": "decide",
+          "artifact_version": "simulated-device-1.0",
+          "split": "evaluation",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 9,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.75
+        },
+        {
+          "stage_instance_id": "s3",
+          "activity_type": "decide",
+          "artifact_version": "simulated-device-1.0",
+          "split": "evaluation",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 13,
+            "n_attempted_executions": 13,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 9,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.75
+        },
+        {
+          "stage_instance_id": "s4",
+          "activity_type": "decide",
+          "artifact_version": "simulated-device-1.0",
+          "split": "evaluation",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 10,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.8333333333333334
+        },
+        {
+          "stage_instance_id": "s5",
+          "activity_type": "decide",
+          "artifact_version": "simulated-device-1.0",
+          "split": "evaluation",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 10,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.8333333333333334
+        },
+        {
+          "stage_instance_id": "s6",
+          "activity_type": "act",
+          "artifact_version": "simulated-device-1.0",
+          "split": "evaluation",
+          "counts": {
+            "n_expected": 12,
+            "n_recorded": 12,
+            "n_attempt_records": 12,
+            "n_attempted_executions": 12,
+            "n_executed": 12,
+            "n_evaluable": 12,
+            "n_correct": 10,
+            "n_unrecorded": 0
+          },
+          "missing_reasons": {},
+          "rate": 0.8333333333333334
+        }
+      ],
+      "enrollment_accounting": {
+        "calibration": {
+          "n_registered": 12,
+          "excluded": []
+        },
+        "evaluation": {
+          "n_registered": 12,
+          "excluded": []
+        }
+      },
+      "group": {
+        "stage_count": 6,
+        "activity_type_sequence": [
+          "observe",
+          "decide",
+          "decide",
+          "decide",
+          "decide",
+          "act"
+        ],
+        "artifact_versions": [
+          "simulated-device-1.0",
+          "simulated-device-1.0",
+          "simulated-device-1.0",
+          "simulated-device-1.0",
+          "simulated-device-1.0",
+          "simulated-device-1.0"
+        ],
+        "correction_design": "present"
+      },
+      "endpoint": {
+        "n_registered_eligible": 12,
+        "n_evaluable": 12,
+        "n_success": 9,
+        "missing_enrollments": [],
+        "wholly_unrecorded_enrollments": [],
+        "rate": 0.75,
+        "definition": "independent endpoint table, not product or last stage label"
+      },
+      "statistical_assessment": {
+        "predicted": 0.21701388888888892,
+        "observed": 0.75,
+        "difference": 0.532986111111111,
+        "discrepancy_ci": [
+          -0.3448914633616999,
+          0.9338392298609293
+        ],
+        "decision": "inconclusive"
+      }
+    }
+  ],
+  "observation_table_hash": "c773ea5468fb355507f363eab2410a5f7dd063a8b7d27f12bdd9425a50e1ae71",
+  "endpoint_table_hash": "26724dea53c8a0e4008a0b37e730f26580dbe7d53eb1fba86387497d482e1a1f",
+  "source_global_optimality": "bounded_global_optimum",
+  "raw_metric_policy": "sequential_product_v2",
+  "formula_changed": false,
+  "domain_validity": "pending",
+  "data_origin": "synthetic_simulation",
+  "causal_correction_proven": false
+}

@@ -1,0 +1,1627 @@
+{
+  "version": "tfdo-observation-study-2.0",
+  "protocol_hash": "6f184f1134a0e655cb59cabde6372b161e9558f39841850975f8922991d04679",
+  "enrollment_hash": "3f057448d6eaa4496a5a9c39b1e43659d2aee57cae585db32a445e47a0d4b5f5",
+  "protocol_snapshot": {
+    "study_id": "observatory-enrolled-cohort-simulation",
+    "data_origin": "synthetic_simulation",
+    "sampling_design": "iid_subject",
+    "registration_mode": "retrospective_analysis",
+    "stage_definition": "Each stage predicts binary resonance class against a synthetic independent class reference",
+    "endpoint_definition": "Separate simulated telemetry: actual stable state compared with required stable=1",
+    "evaluation_methods": {
+      "binary-equality@1": "Compare actual label to an independently supplied reference label"
+    },
+    "attempt_rule": "first_attempt",
+    "maximum_attempts": 3,
+    "missing_reasons": [
+      "not_reached",
+      "planned_not_executed",
+      "execution_failure",
+      "output_lost",
+      "truth_missing",
+      "cannot_evaluate"
+    ],
+    "acceptance": {
+      "alpha": 0.05,
+      "tolerance": 0.05,
+      "minimum_calibration": 4,
+      "minimum_endpoint": 4,
+      "minimum_stratum_class": 1
+    },
+    "strata": [
+      "all"
+    ],
+    "flows": [
+      {
+        "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+        "task_id": "T1",
+        "source_flow_id": "flow-a6c29a8b40c9561130acd5d77fe0ec160f82c8859f53c66b548998bc425fd12f",
+        "stages": [
+          {
+            "stage_instance_id": "s1",
+            "activity_id": "observe",
+            "activity_version": "1.0",
+            "activity_type": "observe",
+            "artifact_id": "R-Survey",
+            "artifact_version": "simulated-device-1.0",
+            "stage_target_id": "binary-stage-target",
+            "evaluation_method": "binary-equality@1",
+            "input_from_stage": null,
+            "calibration_input_condition": "correct_reference_label"
+          },
+          {
+            "stage_instance_id": "s2",
+            "activity_id": "analyze_secondary",
+            "activity_version": "1.0",
+            "activity_type": "decide",
+            "artifact_id": "R-Analysis-Backup",
+            "artifact_version": "simulated-device-1.0",
+            "stage_target_id": "binary-stage-target",
+            "evaluation_method": "binary-equality@1",
+            "input_from_stage": "s1",
+            "calibration_input_condition": "correct_reference_label"
+          },
+          {
+            "stage_instance_id": "s3",
+            "activity_id": "decide",
+            "activity_version": "1.0",
+            "activity_type": "decide",
+            "artifact_id": "R-Dispatch",
+            "artifact_version": "simulated-device-1.0",
+            "stage_target_id": "binary-stage-target",
+            "evaluation_method": "binary-equality@1",
+            "input_from_stage": "s2",
+            "calibration_input_condition": "correct_reference_label"
+          },
+          {
+            "stage_instance_id": "s4",
+            "activity_id": "stabilize",
+            "activity_version": "1.0",
+            "activity_type": "act",
+            "artifact_id": "R-Seal-D",
+            "artifact_version": "simulated-device-1.0",
+            "stage_target_id": "binary-stage-target",
+            "evaluation_method": "binary-equality@1",
+            "input_from_stage": "s3",
+            "calibration_input_condition": "correct_reference_label"
+          }
+        ],
+        "endpoint_target_id": "independent-task-endpoint",
+        "endpoint_method": "binary-equality@1",
+        "correction_design": "present"
+      },
+      {
+        "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+        "task_id": "T2",
+        "source_flow_id": "flow-5a52c61ad1d346217611a22e2d1b244d199951024fdc41a7055346319055e5ba",
+        "stages": [
+          {
+            "stage_instance_id": "s1",
+            "activity_id": "observe",
+            "activity_version": "1.0",
+            "activity_type": "observe",
+            "artifact_id": "R-Survey",
+            "artifact_version": "simulated-device-1.0",
+            "stage_target_id": "binary-stage-target",
+            "evaluation_method": "binary-equality@1",
+            "input_from_stage": null,
+            "calibration_input_condition": "correct_reference_label"
+          },
+          {
+            "stage_instance_id": "s2",
+            "activity_id": "analyze_secondary",
+            "activity_version": "1.0",
+            "activity_type": "decide",
+            "artifact_id": "R-Analysis-Backup",
+            "artifact_version": "simulated-device-1.0",
+            "stage_target_id": "binary-stage-target",
+            "evaluation_method": "binary-equality@1",
+            "input_from_stage": "s1",
+            "calibration_input_condition": "correct_reference_label"
+          },
+          {
+            "stage_instance_id": "s3",
+            "activity_id": "decide",
+            "activity_version": "1.0",
+            "activity_type": "decide",
+            "artifact_id": "R-Dispatch",
+            "artifact_version": "simulated-device-1.0",
+            "stage_target_id": "binary-stage-target",
+            "evaluation_method": "binary-equality@1",
+            "input_from_stage": "s2",
+            "calibration_input_condition": "correct_reference_label"
+          },
+          {
+            "stage_instance_id": "s4",
+            "activity_id": "safety_audit",
+            "activity_version": "1.0",
+            "activity_type": "decide",
+            "artifact_id": "O-Safety-Auditor",
+            "artifact_version": "simulated-device-1.0",
+            "stage_target_id": "binary-stage-target",
+            "evaluation_method": "binary-equality@1",
+            "input_from_stage": "s3",
+            "calibration_input_condition": "correct_reference_label"
+          },
+          {
+            "stage_instance_id": "s5",
+            "activity_id": "stabilize",
+            "activity_version": "1.0",
+            "activity_type": "act",
+            "artifact_id": "R-Seal-B",
+            "artifact_version": "simulated-device-1.0",
+            "stage_target_id": "binary-stage-target",
+            "evaluation_method": "binary-equality@1",
+            "input_from_stage": "s4",
+            "calibration_input_condition": "correct_reference_label"
+          }
+        ],
+        "endpoint_target_id": "independent-task-endpoint",
+        "endpoint_method": "binary-equality@1",
+        "correction_design": "present"
+      },
+      {
+        "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+        "task_id": "T3",
+        "source_flow_id": "flow-4ae089d94df8e60766e98898c898302dff242a6f7bd229c0522c45dcd4a80c2c",
+        "stages": [
+          {
+            "stage_instance_id": "s1",
+            "activity_id": "observe",
+            "activity_version": "1.0",
+            "activity_type": "observe",
+            "artifact_id": "R-Survey",
+            "artifact_version": "simulated-device-1.0",
+            "stage_target_id": "binary-stage-target",
+            "evaluation_method": "binary-equality@1",
+            "input_from_stage": null,
+            "calibration_input_condition": "correct_reference_label"
+          },
+          {
+            "stage_instance_id": "s2",
+            "activity_id": "analyze_secondary",
+            "activity_version": "1.0",
+            "activity_type": "decide",
+            "artifact_id": "R-Analysis-Backup",
+            "artifact_version": "simulated-device-1.0",
+            "stage_target_id": "binary-stage-target",
+            "evaluation_method": "binary-equality@1",
+            "input_from_stage": "s1",
+            "calibration_input_condition": "correct_reference_label"
+          },
+          {
+            "stage_instance_id": "s3",
+            "activity_id": "phase_tune",
+            "activity_version": "1.0",
+            "activity_type": "decide",
+            "artifact_id": "O-Phase-Tuner",
+            "artifact_version": "simulated-device-1.0",
+            "stage_target_id": "binary-stage-target",
+            "evaluation_method": "binary-equality@1",
+            "input_from_stage": "s2",
+            "calibration_input_condition": "correct_reference_label"
+          },
+          {
+            "stage_instance_id": "s4",
+            "activity_id": "decide",
+            "activity_version": "1.0",
+            "activity_type": "decide",
+            "artifact_id": "R-Dispatch",
+            "artifact_version": "simulated-device-1.0",
+            "stage_target_id": "binary-stage-target",
+            "evaluation_method": "binary-equality@1",
+            "input_from_stage": "s3",
+            "calibration_input_condition": "correct_reference_label"
+          },
+          {
+            "stage_instance_id": "s5",
+            "activity_id": "safety_audit",
+            "activity_version": "1.0",
+            "activity_type": "decide",
+            "artifact_id": "O-Safety-Auditor",
+            "artifact_version": "simulated-device-1.0",
+            "stage_target_id": "binary-stage-target",
+            "evaluation_method": "binary-equality@1",
+            "input_from_stage": "s4",
+            "calibration_input_condition": "correct_reference_label"
+          },
+          {
+            "stage_instance_id": "s6",
+            "activity_id": "stabilize",
+            "activity_version": "1.0",
+            "activity_type": "act",
+            "artifact_id": "R-Seal-C",
+            "artifact_version": "simulated-device-1.0",
+            "stage_target_id": "binary-stage-target",
+            "evaluation_method": "binary-equality@1",
+            "input_from_stage": "s5",
+            "calibration_input_condition": "correct_reference_label"
+          }
+        ],
+        "endpoint_target_id": "independent-task-endpoint",
+        "endpoint_method": "binary-equality@1",
+        "correction_design": "present"
+      }
+    ]
+  },
+  "enrollment_snapshot": [
+    {
+      "enrollment_id": "T1:calibration:0",
+      "sample_id": "T1:calibration:0",
+      "cluster_id": "T1:calibration:0",
+      "execution_id": "execution:T1:calibration:0",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:calibration:1",
+      "sample_id": "T1:calibration:1",
+      "cluster_id": "T1:calibration:1",
+      "execution_id": "execution:T1:calibration:1",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:calibration:2",
+      "sample_id": "T1:calibration:2",
+      "cluster_id": "T1:calibration:2",
+      "execution_id": "execution:T1:calibration:2",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:calibration:3",
+      "sample_id": "T1:calibration:3",
+      "cluster_id": "T1:calibration:3",
+      "execution_id": "execution:T1:calibration:3",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:calibration:4",
+      "sample_id": "T1:calibration:4",
+      "cluster_id": "T1:calibration:4",
+      "execution_id": "execution:T1:calibration:4",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:calibration:5",
+      "sample_id": "T1:calibration:5",
+      "cluster_id": "T1:calibration:5",
+      "execution_id": "execution:T1:calibration:5",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:calibration:6",
+      "sample_id": "T1:calibration:6",
+      "cluster_id": "T1:calibration:6",
+      "execution_id": "execution:T1:calibration:6",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:calibration:7",
+      "sample_id": "T1:calibration:7",
+      "cluster_id": "T1:calibration:7",
+      "execution_id": "execution:T1:calibration:7",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:calibration:8",
+      "sample_id": "T1:calibration:8",
+      "cluster_id": "T1:calibration:8",
+      "execution_id": "execution:T1:calibration:8",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:calibration:9",
+      "sample_id": "T1:calibration:9",
+      "cluster_id": "T1:calibration:9",
+      "execution_id": "execution:T1:calibration:9",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:calibration:10",
+      "sample_id": "T1:calibration:10",
+      "cluster_id": "T1:calibration:10",
+      "execution_id": "execution:T1:calibration:10",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:calibration:11",
+      "sample_id": "T1:calibration:11",
+      "cluster_id": "T1:calibration:11",
+      "execution_id": "execution:T1:calibration:11",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:evaluation:0",
+      "sample_id": "T1:evaluation:0",
+      "cluster_id": "T1:evaluation:0",
+      "execution_id": "execution:T1:evaluation:0",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:evaluation:1",
+      "sample_id": "T1:evaluation:1",
+      "cluster_id": "T1:evaluation:1",
+      "execution_id": "execution:T1:evaluation:1",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:evaluation:2",
+      "sample_id": "T1:evaluation:2",
+      "cluster_id": "T1:evaluation:2",
+      "execution_id": "execution:T1:evaluation:2",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:evaluation:3",
+      "sample_id": "T1:evaluation:3",
+      "cluster_id": "T1:evaluation:3",
+      "execution_id": "execution:T1:evaluation:3",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:evaluation:4",
+      "sample_id": "T1:evaluation:4",
+      "cluster_id": "T1:evaluation:4",
+      "execution_id": "execution:T1:evaluation:4",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:evaluation:5",
+      "sample_id": "T1:evaluation:5",
+      "cluster_id": "T1:evaluation:5",
+      "execution_id": "execution:T1:evaluation:5",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:evaluation:6",
+      "sample_id": "T1:evaluation:6",
+      "cluster_id": "T1:evaluation:6",
+      "execution_id": "execution:T1:evaluation:6",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:evaluation:7",
+      "sample_id": "T1:evaluation:7",
+      "cluster_id": "T1:evaluation:7",
+      "execution_id": "execution:T1:evaluation:7",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:evaluation:8",
+      "sample_id": "T1:evaluation:8",
+      "cluster_id": "T1:evaluation:8",
+      "execution_id": "execution:T1:evaluation:8",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:evaluation:9",
+      "sample_id": "T1:evaluation:9",
+      "cluster_id": "T1:evaluation:9",
+      "execution_id": "execution:T1:evaluation:9",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:evaluation:10",
+      "sample_id": "T1:evaluation:10",
+      "cluster_id": "T1:evaluation:10",
+      "execution_id": "execution:T1:evaluation:10",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T1:evaluation:11",
+      "sample_id": "T1:evaluation:11",
+      "cluster_id": "T1:evaluation:11",
+      "execution_id": "execution:T1:evaluation:11",
+      "flow_id": "candidate-5ad47c47aa9fbd65c02295e60722915fed0b50a6de2f5774b2b7e41f94b95f05",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:calibration:0",
+      "sample_id": "T2:calibration:0",
+      "cluster_id": "T2:calibration:0",
+      "execution_id": "execution:T2:calibration:0",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:calibration:1",
+      "sample_id": "T2:calibration:1",
+      "cluster_id": "T2:calibration:1",
+      "execution_id": "execution:T2:calibration:1",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:calibration:2",
+      "sample_id": "T2:calibration:2",
+      "cluster_id": "T2:calibration:2",
+      "execution_id": "execution:T2:calibration:2",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:calibration:3",
+      "sample_id": "T2:calibration:3",
+      "cluster_id": "T2:calibration:3",
+      "execution_id": "execution:T2:calibration:3",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:calibration:4",
+      "sample_id": "T2:calibration:4",
+      "cluster_id": "T2:calibration:4",
+      "execution_id": "execution:T2:calibration:4",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:calibration:5",
+      "sample_id": "T2:calibration:5",
+      "cluster_id": "T2:calibration:5",
+      "execution_id": "execution:T2:calibration:5",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:calibration:6",
+      "sample_id": "T2:calibration:6",
+      "cluster_id": "T2:calibration:6",
+      "execution_id": "execution:T2:calibration:6",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:calibration:7",
+      "sample_id": "T2:calibration:7",
+      "cluster_id": "T2:calibration:7",
+      "execution_id": "execution:T2:calibration:7",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:calibration:8",
+      "sample_id": "T2:calibration:8",
+      "cluster_id": "T2:calibration:8",
+      "execution_id": "execution:T2:calibration:8",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:calibration:9",
+      "sample_id": "T2:calibration:9",
+      "cluster_id": "T2:calibration:9",
+      "execution_id": "execution:T2:calibration:9",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:calibration:10",
+      "sample_id": "T2:calibration:10",
+      "cluster_id": "T2:calibration:10",
+      "execution_id": "execution:T2:calibration:10",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:calibration:11",
+      "sample_id": "T2:calibration:11",
+      "cluster_id": "T2:calibration:11",
+      "execution_id": "execution:T2:calibration:11",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:evaluation:0",
+      "sample_id": "T2:evaluation:0",
+      "cluster_id": "T2:evaluation:0",
+      "execution_id": "execution:T2:evaluation:0",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:evaluation:1",
+      "sample_id": "T2:evaluation:1",
+      "cluster_id": "T2:evaluation:1",
+      "execution_id": "execution:T2:evaluation:1",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:evaluation:2",
+      "sample_id": "T2:evaluation:2",
+      "cluster_id": "T2:evaluation:2",
+      "execution_id": "execution:T2:evaluation:2",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:evaluation:3",
+      "sample_id": "T2:evaluation:3",
+      "cluster_id": "T2:evaluation:3",
+      "execution_id": "execution:T2:evaluation:3",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:evaluation:4",
+      "sample_id": "T2:evaluation:4",
+      "cluster_id": "T2:evaluation:4",
+      "execution_id": "execution:T2:evaluation:4",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:evaluation:5",
+      "sample_id": "T2:evaluation:5",
+      "cluster_id": "T2:evaluation:5",
+      "execution_id": "execution:T2:evaluation:5",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:evaluation:6",
+      "sample_id": "T2:evaluation:6",
+      "cluster_id": "T2:evaluation:6",
+      "execution_id": "execution:T2:evaluation:6",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:evaluation:7",
+      "sample_id": "T2:evaluation:7",
+      "cluster_id": "T2:evaluation:7",
+      "execution_id": "execution:T2:evaluation:7",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:evaluation:8",
+      "sample_id": "T2:evaluation:8",
+      "cluster_id": "T2:evaluation:8",
+      "execution_id": "execution:T2:evaluation:8",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:evaluation:9",
+      "sample_id": "T2:evaluation:9",
+      "cluster_id": "T2:evaluation:9",
+      "execution_id": "execution:T2:evaluation:9",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:evaluation:10",
+      "sample_id": "T2:evaluation:10",
+      "cluster_id": "T2:evaluation:10",
+      "execution_id": "execution:T2:evaluation:10",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T2:evaluation:11",
+      "sample_id": "T2:evaluation:11",
+      "cluster_id": "T2:evaluation:11",
+      "execution_id": "execution:T2:evaluation:11",
+      "flow_id": "candidate-7462c2193c0e2156cbadb2dcdc884f1629d47c2341e49d6713c81f0ee9793d9f",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:calibration:0",
+      "sample_id": "T3:calibration:0",
+      "cluster_id": "T3:calibration:0",
+      "execution_id": "execution:T3:calibration:0",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:calibration:1",
+      "sample_id": "T3:calibration:1",
+      "cluster_id": "T3:calibration:1",
+      "execution_id": "execution:T3:calibration:1",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:calibration:2",
+      "sample_id": "T3:calibration:2",
+      "cluster_id": "T3:calibration:2",
+      "execution_id": "execution:T3:calibration:2",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:calibration:3",
+      "sample_id": "T3:calibration:3",
+      "cluster_id": "T3:calibration:3",
+      "execution_id": "execution:T3:calibration:3",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:calibration:4",
+      "sample_id": "T3:calibration:4",
+      "cluster_id": "T3:calibration:4",
+      "execution_id": "execution:T3:calibration:4",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:calibration:5",
+      "sample_id": "T3:calibration:5",
+      "cluster_id": "T3:calibration:5",
+      "execution_id": "execution:T3:calibration:5",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:calibration:6",
+      "sample_id": "T3:calibration:6",
+      "cluster_id": "T3:calibration:6",
+      "execution_id": "execution:T3:calibration:6",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:calibration:7",
+      "sample_id": "T3:calibration:7",
+      "cluster_id": "T3:calibration:7",
+      "execution_id": "execution:T3:calibration:7",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:calibration:8",
+      "sample_id": "T3:calibration:8",
+      "cluster_id": "T3:calibration:8",
+      "execution_id": "execution:T3:calibration:8",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:calibration:9",
+      "sample_id": "T3:calibration:9",
+      "cluster_id": "T3:calibration:9",
+      "execution_id": "execution:T3:calibration:9",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:calibration:10",
+      "sample_id": "T3:calibration:10",
+      "cluster_id": "T3:calibration:10",
+      "execution_id": "execution:T3:calibration:10",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:calibration:11",
+      "sample_id": "T3:calibration:11",
+      "cluster_id": "T3:calibration:11",
+      "execution_id": "execution:T3:calibration:11",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "calibration",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:evaluation:0",
+      "sample_id": "T3:evaluation:0",
+      "cluster_id": "T3:evaluation:0",
+      "execution_id": "execution:T3:evaluation:0",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:evaluation:1",
+      "sample_id": "T3:evaluation:1",
+      "cluster_id": "T3:evaluation:1",
+      "execution_id": "execution:T3:evaluation:1",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:evaluation:2",
+      "sample_id": "T3:evaluation:2",
+      "cluster_id": "T3:evaluation:2",
+      "execution_id": "execution:T3:evaluation:2",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:evaluation:3",
+      "sample_id": "T3:evaluation:3",
+      "cluster_id": "T3:evaluation:3",
+      "execution_id": "execution:T3:evaluation:3",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:evaluation:4",
+      "sample_id": "T3:evaluation:4",
+      "cluster_id": "T3:evaluation:4",
+      "execution_id": "execution:T3:evaluation:4",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:evaluation:5",
+      "sample_id": "T3:evaluation:5",
+      "cluster_id": "T3:evaluation:5",
+      "execution_id": "execution:T3:evaluation:5",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:evaluation:6",
+      "sample_id": "T3:evaluation:6",
+      "cluster_id": "T3:evaluation:6",
+      "execution_id": "execution:T3:evaluation:6",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:evaluation:7",
+      "sample_id": "T3:evaluation:7",
+      "cluster_id": "T3:evaluation:7",
+      "execution_id": "execution:T3:evaluation:7",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:evaluation:8",
+      "sample_id": "T3:evaluation:8",
+      "cluster_id": "T3:evaluation:8",
+      "execution_id": "execution:T3:evaluation:8",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:evaluation:9",
+      "sample_id": "T3:evaluation:9",
+      "cluster_id": "T3:evaluation:9",
+      "execution_id": "execution:T3:evaluation:9",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:evaluation:10",
+      "sample_id": "T3:evaluation:10",
+      "cluster_id": "T3:evaluation:10",
+      "execution_id": "execution:T3:evaluation:10",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    },
+    {
+      "enrollment_id": "T3:evaluation:11",
+      "sample_id": "T3:evaluation:11",
+      "cluster_id": "T3:evaluation:11",
+      "execution_id": "execution:T3:evaluation:11",
+      "flow_id": "candidate-42de28dff5c3738d6df3984a67d299aa00057ee199ee7e7bfc4e82d86c6b80dc",
+      "split": "evaluation",
+      "stratum": "all",
+      "eligible": true,
+      "exclusion_reason": "",
+      "expected_stages": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "registered_at": "2025-01-01T00:00:00+00:00"
+    }
+  ],
+  "source_report_hash": "2bf39ae6534fd7d20b346066fbbfaec13335d77502868bbe7c34b9ed6418d2e4",
+  "source_hashes": {
+    "workflow_tools/observations_v2.py": "0d2df2df089503a8a9cd88add71226e3120341f9b8dc56a2658c2c3f7973c0bd",
+    "workflow_tools/accuracy_validation.py": "7ccbe5d0d8a3bdd89cddbdef3c2c89ebd087c552f102cd3d76377e451c1ba143",
+    "task_flow/joint_candidates.py": "94db6534a12ebf731b04ad5c9323422f7ab349a340bbd1472e875d33607d3784",
+    "task_flow/joint_verify.py": "4065e14700dcc429636b209adc3ea565f9c23d60e92420370d9b14ec753e848d"
+  },
+  "frozen_at_utc": "2026-11-28T09:30:04.115350+00:00",
+  "domain_validity": "pending"
+}

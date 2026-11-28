@@ -1,0 +1,20 @@
+{
+  "format_version": "task-flow-design-jobs-1.0",
+  "jobs": [
+    {
+      "task_id": "T1",
+      "catalog_file": "catalog-1.json",
+      "request_file": "request-1.json"
+    },
+    {
+      "task_id": "T2",
+      "catalog_file": "catalog-2.json",
+      "request_file": "request-2.json"
+    },
+    {
+      "task_id": "T3",
+      "catalog_file": "catalog-3.json",
+      "request_file": "request-3.json"
+    }
+  ]
+}
