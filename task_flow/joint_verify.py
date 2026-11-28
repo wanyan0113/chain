@@ -23,6 +23,11 @@ def _value(left,right,op):
     if isinstance(left,dict) or isinstance(right,dict):
         if not isinstance(left,dict) or not isinstance(right,dict) or left.get('unit')!=right.get('unit'):
             return False
+        # Quantities retain the engine's numeric equality: 1 and 1.0 in the
+        # same unit denote the same value. Scalar Boolean/string equality below
+        # remains type-sensitive; no epsilon or unit conversion is introduced.
+        if op=='eq':
+            return left==right
         left,right=left['value'],right['value']
     if op=='eq':
         return type(left) is type(right) and left==right
@@ -306,7 +311,8 @@ def _verify(report):
     require(best is not None and [c['id'] for c in best[1]]==selected and
             proof['optimality']==search['optimality'] and proof['search_complete']==search['search_complete'],
             'network optimality recertification failed')
-    return dict(status='passed',scope='independent_flow_arithmetic_connections_and_interval_resources',
+    return dict(status='passed',verifier_version='tfdo-joint-verifier-1.0.1',
+                scope='independent_flow_arithmetic_connections_and_interval_resources',
                 proof_audit='logical_and_network_search_recertification',
                 candidates_checked=len(candidates),selected_chains=len(selected),domain_validity='pending')
 

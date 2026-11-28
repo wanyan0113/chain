@@ -1,0 +1,64 @@
+{
+  "verification": "passed",
+  "baseline": "TFDO-DESIGN-1.0",
+  "output": "generated\\audit-replay",
+  "domain_validity": "pending",
+  "independent_oracle": {
+    "raw_network_combinations": 96,
+    "feasible_network_combinations": 32,
+    "best_score": 0.7998864162816491,
+    "selected_candidate_ids": [
+      "candidate-eaaeb48ec2a96cb73b3012ae41a5c36f5562b53211c42e3b247b2940c04cd0c3",
+      "candidate-23207822df640e8c92054833159127803482360b4f6227b152c0d703a8d1e250",
+      "candidate-bdd89d46c653f58b1fd345ffe0cbfd55cb5c01c23e8c09ebbc3f48b1046827b3"
+    ]
+  },
+  "cases": [
+    {
+      "case": "complete_joint",
+      "actual": "bounded_global_optimum",
+      "passed": true
+    },
+    {
+      "case": "quick_vs_joint_common_basis",
+      "quick_score": 0.29440765925199025,
+      "joint_score": 0.7998864162816491,
+      "evaluation_context_hash": "f370ec766706b565b7ce1838bfef23c95b1c999aca53ff6247508a20da6cc71c",
+      "passed": true
+    },
+    {
+      "case": "partial_flows",
+      "actual": "candidate_set_optimum",
+      "status": "selected",
+      "passed": true
+    },
+    {
+      "case": "partial_chains",
+      "actual": "candidate_set_optimum",
+      "status": "selected",
+      "passed": true
+    },
+    {
+      "case": "incumbent",
+      "actual": "not_proven",
+      "status": "feasible",
+      "passed": true
+    },
+    {
+      "case": "no_stock",
+      "actual": "bounded_global_infeasible",
+      "status": "no_feasible_design",
+      "passed": true
+    },
+    {
+      "case": "missing_metrics",
+      "actual": "not_proven",
+      "status": "blocked",
+      "passed": true
+    },
+    {
+      "case": "repeat_identity_independent_evidence",
+      "passed": true
+    }
+  ]
+}

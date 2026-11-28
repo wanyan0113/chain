@@ -1,5 +1,7 @@
 # 任务流程扩展当前状态
 
+最新增量：[跨流程联合优化实现](joint-optimization/implementation-v1.md)及[阶段一实现审计](joint-optimization/stage1-audit/README.md)。发布版本已复现；审计发现的同单位数量相等误拒绝已修复，精度模型领域验证仍待开展。
+
 更新日期：2026-11-28。开发分支：codex/task-flow-planning。研究依据为[扩展链任务书](../../扩展链任务书.txt)。
 
 新增[跨流程联合优化](joint-optimization/implementation-v1.md)：按冻结设计TFDO-DESIGN-1.0完成软件实现，提供稳定候选/运行/证据身份、按任务跨流程候选冻结与统一归一化、原资源约束下的联合优化、部分覆盖及超限结论、独立复算和RDF输出。三任务合成案例与独立参考的96个完整组合、32个可行网络一致，8组实际验收通过。精度采用显式sequential_product_v2政策，业务有效性仍pending。冻结设计文档及摘要未改写；当前状态以实现说明及验收记录为准。

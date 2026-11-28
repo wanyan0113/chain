@@ -1,0 +1,217 @@
+{
+  "format_version": "tfdo-implementation-audit-1.0",
+  "reviewed_revision": "c17c515",
+  "status": "passed_with_corrected_finding",
+  "branch_created": false,
+  "snapshot": "C:\\Users\\Lenovo\\Desktop\\链\\tmp\\joint-audit-bda70db7",
+  "source_file_count": 28,
+  "source_checks": [
+    {
+      "path": "design/engine.py",
+      "raw_equal": true,
+      "normalized_equal": true
+    },
+    {
+      "path": "design/rdf.py",
+      "raw_equal": false,
+      "normalized_equal": true
+    },
+    {
+      "path": "design/search.py",
+      "raw_equal": false,
+      "normalized_equal": true
+    },
+    {
+      "path": "design/sequence_schema.json",
+      "raw_equal": true,
+      "normalized_equal": true
+    },
+    {
+      "path": "design/sequences.py",
+      "raw_equal": true,
+      "normalized_equal": true
+    },
+    {
+      "path": "task_flow/design_bridge.py",
+      "raw_equal": false,
+      "normalized_equal": true
+    },
+    {
+      "path": "task_flow/examples/joint_optimization/catalog-1.json",
+      "raw_equal": true,
+      "normalized_equal": true
+    },
+    {
+      "path": "task_flow/examples/joint_optimization/catalog-2.json",
+      "raw_equal": true,
+      "normalized_equal": true
+    },
+    {
+      "path": "task_flow/examples/joint_optimization/catalog-3.json",
+      "raw_equal": true,
+      "normalized_equal": true
+    },
+    {
+      "path": "task_flow/examples/joint_optimization/jobs.json",
+      "raw_equal": true,
+      "normalized_equal": true
+    },
+    {
+      "path": "task_flow/examples/joint_optimization/mapping.json",
+      "raw_equal": true,
+      "normalized_equal": true
+    },
+    {
+      "path": "task_flow/examples/joint_optimization/request-1.json",
+      "raw_equal": true,
+      "normalized_equal": true
+    },
+    {
+      "path": "task_flow/examples/joint_optimization/request-2.json",
+      "raw_equal": true,
+      "normalized_equal": true
+    },
+    {
+      "path": "task_flow/examples/joint_optimization/request-3.json",
+      "raw_equal": true,
+      "normalized_equal": true
+    },
+    {
+      "path": "task_flow/examples/joint_optimization/scene.json",
+      "raw_equal": true,
+      "normalized_equal": true
+    },
+    {
+      "path": "task_flow/joint.py",
+      "raw_equal": false,
+      "normalized_equal": true
+    },
+    {
+      "path": "task_flow/joint_candidates.py",
+      "raw_equal": false,
+      "normalized_equal": true
+    },
+    {
+      "path": "task_flow/joint_identity.py",
+      "raw_equal": false,
+      "normalized_equal": true
+    },
+    {
+      "path": "task_flow/joint_network.py",
+      "raw_equal": false,
+      "normalized_equal": true
+    },
+    {
+      "path": "task_flow/joint_verify.py",
+      "raw_equal": false,
+      "normalized_equal": true
+    },
+    {
+      "path": "tests/joint_reference.py",
+      "raw_equal": false,
+      "normalized_equal": true
+    },
+    {
+      "path": "tests/test_joint_candidates.py",
+      "raw_equal": false,
+      "normalized_equal": true
+    },
+    {
+      "path": "tests/test_joint_identity.py",
+      "raw_equal": false,
+      "normalized_equal": true
+    },
+    {
+      "path": "tests/test_joint_integration.py",
+      "raw_equal": false,
+      "normalized_equal": true
+    },
+    {
+      "path": "tests/test_joint_network.py",
+      "raw_equal": false,
+      "normalized_equal": true
+    },
+    {
+      "path": "workflow_tools/prepare_joint_optimization_demo.py",
+      "raw_equal": false,
+      "normalized_equal": true
+    },
+    {
+      "path": "workflow_tools/verify_joint_optimization.py",
+      "raw_equal": false,
+      "normalized_equal": true
+    },
+    {
+      "path": ".gitattributes",
+      "raw_equal": true,
+      "normalized_equal": true
+    }
+  ],
+  "frozen_design_checks": [
+    {
+      "path": "design-v1.md",
+      "passed": true
+    },
+    {
+      "path": "development-v1.md",
+      "passed": true
+    },
+    {
+      "path": "acceptance-v1.md",
+      "passed": true
+    }
+  ],
+  "tracked_files_present": 1038,
+  "snapshot_imports": [
+    "C:\\Users\\Lenovo\\Desktop\\链\\tmp\\joint-audit-bda70db7\\design\\__init__.py",
+    "C:\\Users\\Lenovo\\Desktop\\链\\tmp\\joint-audit-bda70db7\\task_flow\\__init__.py",
+    "C:\\Users\\Lenovo\\Desktop\\链\\tmp\\joint-audit-bda70db7\\tests"
+  ],
+  "independent_replay": {
+    "cases": 8,
+    "passed": true,
+    "oracle": {
+      "raw_network_combinations": 96,
+      "feasible_network_combinations": 32,
+      "best_score": 0.7998864162816491,
+      "selected_candidate_ids": [
+        "candidate-eaaeb48ec2a96cb73b3012ae41a5c36f5562b53211c42e3b247b2940c04cd0c3",
+        "candidate-23207822df640e8c92054833159127803482360b4f6227b152c0d703a8d1e250",
+        "candidate-bdd89d46c653f58b1fd345ffe0cbfd55cb5c01c23e8c09ebbc3f48b1046827b3"
+      ]
+    }
+  },
+  "semantic_comparison": {
+    "reference": "generated\\task-flow\\joint-verified-20261128-135641-93efd098\\full\\joint_report.json",
+    "equivalent": true
+  },
+  "findings": [
+    {
+      "id": "JV-AUDIT-001",
+      "severity": "valid_input_false_rejection",
+      "description": "Same-unit numeric quantities 1 and 1.0: producer accepts, original verifier rejects.",
+      "published_probe": {
+        "imports": [
+          "C:\\Users\\Lenovo\\Desktop\\链\\tmp\\joint-audit-bda70db7\\design\\__init__.py",
+          "C:\\Users\\Lenovo\\Desktop\\链\\tmp\\joint-audit-bda70db7\\task_flow\\__init__.py",
+          "C:\\Users\\Lenovo\\Desktop\\链\\tmp\\joint-audit-bda70db7\\tests"
+        ],
+        "producer": "pass",
+        "verifier": false
+      },
+      "corrected_probe": {
+        "imports": [
+          "C:\\Users\\Lenovo\\Desktop\\链\\design\\__init__.py",
+          "C:\\Users\\Lenovo\\Desktop\\链\\task_flow\\__init__.py",
+          "C:\\Users\\Lenovo\\Desktop\\链\\tests"
+        ],
+        "producer": "pass",
+        "verifier": true
+      },
+      "status": "corrected_in_contract_probe",
+      "scope": "Verifier equality contract only; no accuracy formula, scoring or optimization target change"
+    }
+  ],
+  "domain_validity": "pending",
+  "next_phase": "controlled_scale_and_performance_experiments"
+}

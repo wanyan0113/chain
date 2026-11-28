@@ -1,0 +1,23 @@
+{
+  "format_version": "tfdo-stage1-fix-1.0",
+  "reviewed_revision": "c17c515e6cacbe0eecc9a3281bb2e46c57bb8f35",
+  "finding": "JV-AUDIT-001",
+  "verifier_version": "tfdo-joint-verifier-1.0.1",
+  "files": [
+    {
+      "path": "task_flow/joint_verify.py",
+      "sha256": "4065e14700dcc429636b209adc3ea565f9c23d60e92420370d9b14ec753e848d",
+      "sha256_lf_normalized": "4065e14700dcc429636b209adc3ea565f9c23d60e92420370d9b14ec753e848d"
+    },
+    {
+      "path": "workflow_tools/audit_joint_implementation.py",
+      "sha256": "f66bf9efaa6ade3a2eb908a567fb8bf690b1e15ebcd252ccd8e43d49174aae31",
+      "sha256_lf_normalized": "f66bf9efaa6ade3a2eb908a567fb8bf690b1e15ebcd252ccd8e43d49174aae31"
+    },
+    {
+      "path": "tests/test_joint_audit.py",
+      "sha256": "ffb2649d71cbdb7e6b0d27047c6dc158285c34220d34fc671bfaffed61a47e5a",
+      "sha256_lf_normalized": "ffb2649d71cbdb7e6b0d27047c6dc158285c34220d34fc671bfaffed61a47e5a"
+    }
+  ]
+}
